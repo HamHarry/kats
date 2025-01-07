@@ -1,0 +1,29 @@
+.Navbar {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  height: 80px;
+  background-color: #2656a2;
+}
+.Logo img {
+  width: 150px;
+  height: 70px;
+  margin-left: 10px;
+  cursor: pointer;
+}
+.List-menu {
+  ul {
+    display: flex;
+    gap: 25px;
+    margin-right: 10px;
+    list-style: none;
+  }
+  li {
+    font-family: "Noto Sans Thai", serif;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    color: #ffffff;
+  }
+}
