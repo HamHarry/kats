@@ -1,6 +1,5 @@
 .container-homepage {
   width: 100%;
-  max-height: 780px;
   margin-top: 80px;
 }
 
@@ -33,7 +32,7 @@
 
 .center {
   display: flex;
-  height: 530px;
+  height: 551px;
   .center-left {
     display: flex;
     flex-direction: column;
@@ -66,6 +65,10 @@
         background-color: #2656a2;
         cursor: pointer;
       }
+      .btn-product:hover {
+        text-shadow: 0 0 10px rgba(255, 255, 255, 0.8),
+          0 0 20px rgba(255, 255, 255, 0.6), 0 0 30px rgba(255, 255, 255, 0.4);
+      }
       .btn-map {
         color: white;
         font-size: 28px;
@@ -78,6 +81,10 @@
         border-radius: 20px;
         background-color: #2656a2;
         cursor: pointer;
+      }
+      .btn-map:hover {
+        text-shadow: 0 0 10px rgba(255, 255, 255, 0.8),
+          0 0 20px rgba(255, 255, 255, 0.6), 0 0 30px rgba(255, 255, 255, 0.4);
       }
       .btn-order {
         color: white;
@@ -94,12 +101,16 @@
         background-color: #2656a2;
         cursor: pointer;
       }
+      .btn-order:hover {
+        text-shadow: 0 0 10px rgba(255, 255, 255, 0.8),
+          0 0 20px rgba(255, 255, 255, 0.6), 0 0 30px rgba(255, 255, 255, 0.4);
+      }
     }
   }
   .center-right {
     display: flex;
     flex-direction: column;
-    margin-left: 50px;
+    margin-left: 80px;
     .image-top {
       display: flex;
       justify-content: center;
