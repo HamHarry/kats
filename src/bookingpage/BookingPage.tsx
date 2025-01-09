@@ -1,4 +1,4 @@
-import "./OrderPage.css";
+import "./BookingPage.css";
 const OrderPage = () => {
   return (
     <div className="container-orderpage">

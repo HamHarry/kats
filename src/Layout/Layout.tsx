@@ -2,7 +2,7 @@ import { Suspense } from "react";
 import Navbar from "./navbar/Navbar";
 import Footer from "./footer/Footer";
 import HomePage from "../homepage/HomePage";
-import OrderPage from "../orderpage/OrderPage";
+import OrderPage from "../bookingpage/BookingPage";
 
 const Layout = () => {
   return (
