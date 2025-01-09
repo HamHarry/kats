@@ -10,8 +10,17 @@ const Navbar = () => {
       </div>
       <div className="list-menu">
         <ul>
-          <li>Product</li>
-          <li>Booking</li>
+          <li>
+            <Link to="Product" smooth={true} duration={200}>
+              Product
+            </Link>
+          </li>
+          <li>
+            <Link to="Order" smooth={true} duration={200}>
+              Booking
+            </Link>
+          </li>
+          <li>map</li>
           <li>Login</li>
           <li>Register</li>
         </ul>
