@@ -1,9 +1,10 @@
-.Container-HomePage {
+.container-homepage {
   width: 100%;
   max-height: 780px;
+  margin-top: 80px;
 }
 
-.Header {
+.header {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -30,20 +31,21 @@
   }
 }
 
-.Center {
+.center {
   display: flex;
   height: 530px;
-  .Center-left {
+  .center-left {
     display: flex;
     flex-direction: column;
     margin-left: 50px;
+    margin-top: 50px;
     h3 {
       font-family: "Noto Sans Thai", serif;
       text-align: center;
       font-size: 25px;
       color: #396cad;
     }
-    .Btn {
+    .btn {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 10px;
@@ -51,7 +53,7 @@
       align-items: center;
       margin: 10px;
       margin-left: 50px;
-      .Btn-product {
+      .btn-product {
         color: white;
         font-size: 28px;
         font-weight: bold;
@@ -64,7 +66,7 @@
         background-color: #2656a2;
         cursor: pointer;
       }
-      .Btn-map {
+      .btn-map {
         color: white;
         font-size: 28px;
         font-weight: bold;
@@ -77,7 +79,7 @@
         background-color: #2656a2;
         cursor: pointer;
       }
-      .Btn-order {
+      .btn-order {
         color: white;
         font-size: 28px;
         font-weight: bold;
@@ -91,6 +93,76 @@
         border-radius: 20px;
         background-color: #2656a2;
         cursor: pointer;
+      }
+    }
+  }
+  .center-right {
+    display: flex;
+    flex-direction: column;
+    margin-left: 50px;
+    .image-top {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-left: 400px;
+    }
+    .image-botton {
+      display: flex;
+      gap: 30px;
+      .image-compare {
+        display: flex;
+        flex-direction: column;
+        .compare-before {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          margin-top: -170px;
+          img {
+            width: 350px;
+            height: 200px;
+            border-radius: 20px;
+            border: 5px solid #2656a2;
+          }
+          h3 {
+            font-family: "Noto Sans Thai", serif;
+            text-align: center;
+            font-size: 25px;
+            color: #396cad;
+          }
+        }
+        .compare-after {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          img {
+            width: 350px;
+            height: 200px;
+            border-radius: 20px;
+            border: 5px solid #2656a2;
+          }
+          h3 {
+            font-family: "Noto Sans Thai", serif;
+            text-align: center;
+            font-size: 25px;
+            color: #396cad;
+          }
+        }
+      }
+      .image-example {
+        display: flex;
+        gap: 10px;
+        .demo1 {
+          width: 450px;
+          height: 300px;
+          border-radius: 20px;
+          border: 5px solid #2656a2;
+        }
+        .demo2 {
+          width: 325px;
+          height: 300px;
+          border-radius: 20px;
+          border: 5px solid #2656a2;
+        }
       }
     }
   }

@@ -1,4 +1,6 @@
-.Navbar {
+.navbar {
+  position: fixed;
+  top: 0;
   display: flex;
   width: 100%;
   justify-content: space-between;
@@ -6,13 +8,13 @@
   height: 80px;
   background-color: #2656a2;
 }
-.Logo img {
+.logo img {
   width: 150px;
   height: 70px;
   margin-left: 10px;
   cursor: pointer;
 }
-.List-menu {
+.list-menu {
   ul {
     display: flex;
     gap: 25px;
