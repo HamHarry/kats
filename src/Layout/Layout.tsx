@@ -5,7 +5,7 @@ import Footer from "./footer/Footer";
 
 const Layout = () => {
   return (
-    <div className="cotainer-all">
+    <div className="cotainer-all" id="Home">
       <Navbar />
       <Suspense>
         <>

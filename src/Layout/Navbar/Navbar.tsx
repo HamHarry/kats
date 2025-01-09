@@ -1,9 +1,12 @@
+import { Link } from "react-scroll";
 import "./Navbar.css";
 const Navbar = () => {
   return (
     <div className="navbar">
       <div className="logo">
-        <img src="/public/assets/logokats.jpg" alt="logo" />
+        <Link to="Home" smooth={true} duration={200}>
+          <img src="/public/assets/logokats.jpg" alt="logo" />
+        </Link>
       </div>
       <div className="list-menu">
         <ul>

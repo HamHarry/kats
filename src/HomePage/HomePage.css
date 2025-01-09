@@ -1,6 +1,7 @@
 .container-homepage {
+  position: relative;
   width: 100%;
-  margin-top: 80px;
+  top: 80px;
 }
 
 .header {
@@ -64,10 +65,12 @@
         border-radius: 20px;
         background-color: #2656a2;
         cursor: pointer;
+        transition: all 0.5s;
       }
       .btn-product:hover {
         text-shadow: 0 0 10px rgba(255, 255, 255, 0.8),
           0 0 20px rgba(255, 255, 255, 0.6), 0 0 30px rgba(255, 255, 255, 0.4);
+        transition: all 0.5s;
       }
       .btn-map {
         color: white;
@@ -81,10 +84,12 @@
         border-radius: 20px;
         background-color: #2656a2;
         cursor: pointer;
+        transition: all 0.5s;
       }
       .btn-map:hover {
         text-shadow: 0 0 10px rgba(255, 255, 255, 0.8),
           0 0 20px rgba(255, 255, 255, 0.6), 0 0 30px rgba(255, 255, 255, 0.4);
+        transition: all 0.5s;
       }
       .btn-order {
         color: white;
@@ -100,10 +105,12 @@
         border-radius: 20px;
         background-color: #2656a2;
         cursor: pointer;
+        transition: all 0.5s;
       }
       .btn-order:hover {
         text-shadow: 0 0 10px rgba(255, 255, 255, 0.8),
           0 0 20px rgba(255, 255, 255, 0.6), 0 0 30px rgba(255, 255, 255, 0.4);
+        transition: all 0.5s;
       }
     }
   }
