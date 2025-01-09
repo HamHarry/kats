@@ -33,7 +33,7 @@ const HomePage = () => {
             <button className="btn-product">แนะนำสินค้า</button>
             <button className="btn-map">แผนที่</button>
             <button className="btn-order">
-              <Link to="Order" smooth={true} duration={200}>
+              <Link to="Booking" smooth={true} duration={200}>
                 ตรวจสอบคิว
               </Link>
             </button>

@@ -1,11 +1,11 @@
-import "./BookingPage.css";
-const BookingPage = () => {
+import "./ProductPage.css";
+const ProductPage = () => {
   return (
-    <div className="container-orderpage">
-      <div className="header-orderpage">
+    <div className="container-productpage">
+      <div className="header-productpage">
         <img src="/public/assets/katoon.png" alt="katoon" />
         <h1>
-          ตรวจสอบคิว <br />
+          สินค้า <br />
           ศูนย์พ่นกันสนิม KATS Coating สาขาลาดกระบัง
         </h1>
       </div>
@@ -13,4 +13,4 @@ const BookingPage = () => {
   );
 };
 
-export default BookingPage;
+export default ProductPage;

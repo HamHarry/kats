@@ -2,7 +2,8 @@ import { Suspense } from "react";
 import Navbar from "./navbar/Navbar";
 import Footer from "./footer/Footer";
 import HomePage from "../homepage/HomePage";
-import OrderPage from "../bookingpage/BookingPage";
+import BookingPage from "../bookingpage/BookingPage";
+import ProductPage from "../productpage/ProductPage";
 
 const Layout = () => {
   return (
@@ -11,8 +12,11 @@ const Layout = () => {
       <Suspense>
         <>
           <HomePage />
-          <div className="orderpage" id="Order">
-            <OrderPage />
+          <div className="bookingpage" id="Booking">
+            <BookingPage />
+          </div>
+          <div className="productpage" id="Product">
+            <ProductPage />
           </div>
         </>
       </Suspense>

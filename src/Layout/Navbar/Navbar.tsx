@@ -16,7 +16,7 @@ const Navbar = () => {
             </Link>
           </li>
           <li>
-            <Link to="Order" smooth={true} duration={200}>
+            <Link to="Booking" smooth={true} duration={200}>
               Booking
             </Link>
           </li>
