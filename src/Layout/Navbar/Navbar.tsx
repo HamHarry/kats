@@ -20,7 +20,11 @@ const Navbar = () => {
               Booking
             </Link>
           </li>
-          <li>map</li>
+          <li>
+            <Link to="Map" smooth={true} duration={200}>
+              map
+            </Link>
+          </li>
           <li>Login</li>
           <li>Register</li>
         </ul>

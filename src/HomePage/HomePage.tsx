@@ -7,19 +7,15 @@ const HomePage = () => {
         <img src="/public/assets/katoon.png" alt="katoon" />
         <h1>
           ยินดีต้อนรับ <br />
-          ศูนย์พ่นกันสนิม KATS Coating สาขาลาดกระบัง
+          ศูนย์พ่นกันสนิม KATS Coatings สาขาลาดกระบัง
         </h1>
       </div>
       <div className="center">
         <div className="center-left">
           <h3>
-            หากคุณกำลังมองหาการดูแลช่วงล่างรถยนต์..
+            ศูนย์พ่นกันสนิมใต้ท้องรถที่ได้มาตรฐาน
             <br />
-            มีคำถามในใจ...พ่นกันสนิมมีกี่แบบ...
-            <br />
-            ทำไมแพง...ทำไมถูก...ต่างกันยังไง...
-            <br />
-            อันไหนดี...เหมือนกันไหม...
+            KATS COATINGS
             <br />
             นำเข้าจากอเมริกามีแบรนด์เดียวในไทยได้รับมาตรฐาน
             <br />
@@ -30,8 +26,16 @@ const HomePage = () => {
             หยุดทุกวันพุธ
           </h3>
           <div className="btn">
-            <button className="btn-product">แนะนำสินค้า</button>
-            <button className="btn-map">แผนที่</button>
+            <button className="btn-product">
+              <Link to="Product" smooth={true} duration={200}>
+                แนะนำสินค้า
+              </Link>
+            </button>
+            <button className="btn-map">
+              <Link to="Map" smooth={true} duration={200}>
+                แผนที่
+              </Link>
+            </button>
             <button className="btn-order">
               <Link to="Booking" smooth={true} duration={200}>
                 ตรวจสอบคิว

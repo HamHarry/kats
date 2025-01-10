@@ -4,6 +4,7 @@ import Footer from "./footer/Footer";
 import HomePage from "../homepage/HomePage";
 import BookingPage from "../bookingpage/BookingPage";
 import ProductPage from "../productpage/ProductPage";
+import MapPage from "../mappage/MapPage";
 
 const Layout = () => {
   return (
@@ -17,6 +18,9 @@ const Layout = () => {
           </div>
           <div className="productpage" id="Product">
             <ProductPage />
+          </div>
+          <div className="mappage" id="Map">
+            <MapPage />
           </div>
         </>
       </Suspense>
