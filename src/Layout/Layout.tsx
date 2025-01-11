@@ -1,10 +1,7 @@
 import { Suspense } from "react";
 import Navbar from "./navbar/Navbar";
 import Footer from "./footer/Footer";
-import HomePage from "../homepage/HomePage";
-import BookingPage from "../bookingpage/BookingPage";
-import ProductPage from "../productpage/ProductPage";
-import MapPage from "../mappage/MapPage";
+import { Outlet } from "react-router-dom";
 
 const Layout = () => {
   return (
@@ -12,16 +9,7 @@ const Layout = () => {
       <Navbar />
       <Suspense>
         <>
-          <HomePage />
-          <div className="bookingpage" id="Booking">
-            <BookingPage />
-          </div>
-          <div className="productpage" id="Product">
-            <ProductPage />
-          </div>
-          <div className="mappage" id="Map">
-            <MapPage />
-          </div>
+          <Outlet />
         </>
       </Suspense>
       <Footer />

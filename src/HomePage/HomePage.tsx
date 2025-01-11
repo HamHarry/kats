@@ -1,5 +1,8 @@
 import { Link } from "react-scroll";
 import "./HomePage.css";
+import BookingPage from "../bookingpage/BookingPage";
+import ProductPage from "../productpage/ProductPage";
+import MapPage from "../mappage/MapPage";
 const HomePage = () => {
   return (
     <div className="container-homepage">
@@ -43,7 +46,6 @@ const HomePage = () => {
             </button>
           </div>
         </div>
-
         <div className="center-right">
           <div className="image-top">
             <img src="/public/assets/kats_page.png" alt="page" />
@@ -73,6 +75,15 @@ const HomePage = () => {
             </div>
           </div>
         </div>
+      </div>
+      <div className="bookingpage" id="Booking">
+        <BookingPage />
+      </div>
+      <div className="productpage" id="Product">
+        <ProductPage />
+      </div>
+      <div className="mappage" id="Map">
+        <MapPage />
       </div>
     </div>
   );

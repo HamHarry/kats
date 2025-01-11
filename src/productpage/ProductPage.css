@@ -31,3 +31,85 @@
     color: white;
   }
 }
+
+.container-prodoct {
+  display: flex;
+  flex-direction: column;
+  .container-list-product {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    h1 {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 90px;
+      width: 250px;
+      border-radius: 20px;
+      background-color: #2656a2;
+
+      color: white;
+      text-align: center;
+      font-family: "Noto Sans Thai", serif;
+      font-size: 28px;
+      font-weight: bold;
+    }
+  }
+}
+
+.line {
+  max-width: 1200px;
+  .line-horizontal {
+    position: relative;
+    height: 20px;
+    width: 1200px;
+    margin-top: 10px;
+    background-color: #2656a2;
+    border-radius: 20px;
+  }
+  .verticals {
+    display: flex;
+    height: 50px;
+    .line-vertical1 {
+      position: relative;
+      top: -60px;
+      left: 0px;
+      height: 70px;
+      width: 20px;
+      margin-top: 40px;
+      background-color: #2656a2;
+      border-radius: 20px;
+    }
+    .line-vertical2 {
+      position: relative;
+      top: -60px;
+      left: 350px;
+      height: 70px;
+      width: 20px;
+      margin-top: 40px;
+      background-color: #2656a2;
+      border-radius: 20px;
+    }
+    .line-vertical3 {
+      position: relative;
+      top: -60px;
+      left: 760px;
+      height: 70px;
+      width: 20px;
+      margin-top: 40px;
+      background-color: #2656a2;
+      border-radius: 20px;
+    }
+    .line-vertical4 {
+      position: relative;
+      top: -60px;
+      left: 1120px;
+      height: 70px;
+      width: 20px;
+      margin-top: 40px;
+      background-color: #2656a2;
+      border-radius: 20px;
+    }
+  }
+}

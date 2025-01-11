@@ -11,22 +11,26 @@ const Navbar = () => {
       <div className="list-menu">
         <ul>
           <li>
-            <Link to="Product" smooth={true} duration={200}>
-              Product
+            <Link to="Home" smooth={true} duration={200}>
+              หน้าแรก
             </Link>
           </li>
           <li>
             <Link to="Booking" smooth={true} duration={200}>
-              Booking
+              ตรวจสอบคิว
+            </Link>
+          </li>
+          <li>
+            <Link to="Product" smooth={true} duration={200}>
+              สินค้า
             </Link>
           </li>
           <li>
             <Link to="Map" smooth={true} duration={200}>
-              map
+              แผนที่
             </Link>
           </li>
-          <li>Login</li>
-          <li>Register</li>
+          <li>ติดต่อสอบถาม</li>
         </ul>
       </div>
     </div>
