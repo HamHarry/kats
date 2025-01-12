@@ -30,7 +30,6 @@ const Navbar = () => {
               แผนที่
             </Link>
           </li>
-          <li>ติดต่อสอบถาม</li>
         </ul>
       </div>
     </div>
