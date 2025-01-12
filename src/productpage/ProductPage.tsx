@@ -22,7 +22,15 @@ const ProductPage = () => {
         <div className="container-DialogPrice">
           {dataDialog && (
             <div className="wrap-container-DialogPrice">
-              <div></div>
+              <div className="container-DialogPrice-Navbar">
+                <h3>ตัวอย่างพ่นกันสนิม{dataDialog.carType}</h3>
+                <i
+                  className="fa-solid fa-circle-xmark"
+                  onClick={() => {
+                    setOpenDialogPrice(!openDialogPrice);
+                  }}
+                ></i>
+              </div>
             </div>
           )}
         </div>

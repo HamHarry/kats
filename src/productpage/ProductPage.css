@@ -129,7 +129,6 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
-      align-items: center;
       height: 240px;
       max-width: 350px;
       background-color: #2656a2;
@@ -203,60 +202,6 @@
     }
   }
 }
-.list-product-box4 {
-  display: flex;
-  flex-direction: column;
-  .product-content-box4 {
-    display: flex;
-    flex-direction: column;
-    margin-left: 50px;
-    height: 240px;
-    background-color: #2656a2;
-    border-radius: 20px;
-  }
-  .fa-van-shuttle {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 60px;
-    color: white;
-    margin-top: 15px;
-  }
-  h4 {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 32px;
-    font-family: "Noto Sans Thai", serif;
-    color: white;
-    margin-top: 5px;
-  }
-  p {
-    font-size: 18px;
-    font-family: "Noto Sans Thai", serif;
-    margin: 0 10px;
-    color: white;
-  }
-  button {
-    margin-left: 120px;
-    margin-top: 20px;
-    height: 50px;
-    background-color: #2656a2;
-    border-radius: 20px;
-    border: none;
-    width: 200px;
-    font-family: "Noto Sans Thai", serif;
-    color: white;
-    font-size: 20px;
-    font-weight: bold;
-    cursor: pointer;
-  }
-  button:hover {
-    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8),
-      0 0 20px rgba(255, 255, 255, 0.6), 0 0 30px rgba(255, 255, 255, 0.4);
-    transition: all 0.5s;
-  }
-}
 
 .container-DialogPrice {
   background-color: rgba(0, 0, 0, 0.4);
@@ -264,5 +209,38 @@
   top: 0px;
   width: 100%;
   height: 100%;
-  z-index: 500;
+  z-index: 200;
+}
+
+.wrap-container-DialogPrice {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 800px;
+  height: 800px;
+  background-color: #2656a2;
+  border-radius: 10px;
+  .container-DialogPrice-Navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px;
+    h3 {
+      font-size: 32px;
+      color: white;
+      font-family: "Noto Sans Thai", serif;
+      margin-left: 10px;
+    }
+    .fa-circle-xmark {
+      font-size: 32px;
+      color: white;
+      cursor: pointer;
+      transition: all 0.5s;
+    }
+    .fa-circle-xmark:hover {
+      color: red;
+      transition: all 0.5s;
+    }
+  }
 }
