@@ -1,5 +1,35 @@
+import { useState } from "react";
 import "./ProductPage.css";
+import { mockUpPrice } from "../data/MockUpPrice";
+
+export interface ListPrice {
+  id: number;
+  carType: string;
+  icon: string;
+  content1: string;
+  content2: string;
+  price: number;
+}
+
 const ProductPage = () => {
+  const [openDialogPrice, setOpenDialogPrice] = useState<boolean>(false);
+  const [dataPrice] = useState<ListPrice[]>(mockUpPrice);
+  const [dataDialog, setDataDialog] = useState<ListPrice>();
+
+  const rederDialogPrice = () => {
+    return (
+      <dialog open={openDialogPrice}>
+        <div className="container-DialogPrice">
+          {dataDialog && (
+            <div className="wrap-container-DialogPrice">
+              <div></div>
+            </div>
+          )}
+        </div>
+      </dialog>
+    );
+  };
+
   return (
     <div className="container-productpage">
       <div className="header-productpage">
@@ -25,49 +55,31 @@ const ProductPage = () => {
             </div>
           </div>
           <div className="container-list-product-box">
-            <div className="list-product-box1">
-              <div className="product-content-box1">
-                <i className="fa-solid fa-car-side"></i>
-                <h4>รถเก๋ง</h4>
-                <p>น้ำยาดำเงาทั้งคัน</p>
-                <p>น้ำยาดำเงาและใสเงา (แยกน้ำยาแบบโรงงาน)</p>
-                <h4>ราคา 4,900 บาท</h4>
-              </div>
-              <button>ตัวอย่าง</button>
-            </div>
-            <div className="list-product-box2">
-              <div className="product-content-box2">
-                <i className="fa-solid fa-truck-pickup"></i>
-                <h4>รถกระบะ</h4>
-                <p>น้ำยาดำเงาทั้งคัน</p>
-                <p>น้ำยาดำเงาและใสเงา (แยกน้ำยาแบบโรงงาน)</p>
-                <h4>ราคา 4,900 บาท</h4>
-              </div>
-              <button>ตัวอย่าง</button>
-            </div>
-            <div className="list-product-box3">
-              <div className="product-content-box3">
-                <i className="fa-solid fa-truck-field"></i>
-                <h4>รถ SUV</h4>
-                <p>น้ำยาดำเงาทั้งคัน</p>
-                <p>น้ำยาดำเงาและใสเงา (แยกน้ำยาแบบโรงงาน)</p>
-                <h4>ราคา 4,900 บาท</h4>
-              </div>
-              <button>ตัวอย่าง</button>
-            </div>
-            <div className="list-product-box4">
-              <div className="product-content-box4">
-                <i className="fa-solid fa-van-shuttle"></i>
-                <h4>รถตู้</h4>
-                <p>น้ำยาดำเงาทั้งคัน</p>
-                <p>น้ำยาดำเงาและใสเงา (แยกน้ำยาแบบโรงงาน)</p>
-                <h4>ราคา 6,000 บาท</h4>
-              </div>
-              <button>ตัวอย่าง</button>
-            </div>
+            {dataPrice.map((item, index) => {
+              return (
+                <div key={index} className="list-product-box">
+                  <div className="product-content-box">
+                    <i className={item.icon}></i>
+                    <h4>{item.carType}</h4>
+                    <p>{item.content1}</p>
+                    <p>{item.content2}</p>
+                    <h4>ราคา {item.price} บาท</h4>
+                  </div>
+                  <button
+                    onClick={() => {
+                      setOpenDialogPrice(!openDialogPrice);
+                      setDataDialog(item);
+                    }}
+                  >
+                    ตัวอย่าง
+                  </button>
+                </div>
+              );
+            })}
           </div>
         </div>
       </div>
+      {rederDialogPrice()}
     </div>
   );
 };

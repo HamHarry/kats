@@ -59,11 +59,12 @@
 }
 
 .line {
-  max-width: 1200px;
+  max-width: 1450px;
   .line-horizontal {
     position: relative;
     height: 20px;
-    width: 1200px;
+    width: 1450px;
+    left: 0;
     margin-top: 10px;
     background-color: #2656a2;
     border-radius: 20px;
@@ -84,7 +85,7 @@
     .line-vertical2 {
       position: relative;
       top: -60px;
-      left: 350px;
+      left: 455px;
       height: 70px;
       width: 20px;
       margin-top: 40px;
@@ -94,7 +95,7 @@
     .line-vertical3 {
       position: relative;
       top: -60px;
-      left: 760px;
+      left: 910px;
       height: 70px;
       width: 20px;
       margin-top: 40px;
@@ -104,7 +105,7 @@
     .line-vertical4 {
       position: relative;
       top: -60px;
-      left: 1120px;
+      left: 1370px;
       height: 70px;
       width: 20px;
       margin-top: 40px;
@@ -118,14 +119,19 @@
   display: flex;
   width: 100%;
   margin-top: 20px;
-  .list-product-box1 {
+  .list-product-box {
     display: flex;
     flex-direction: column;
-    .product-content-box1 {
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    .product-content-box {
       display: flex;
       flex-direction: column;
-      margin-left: 200px;
+      justify-content: center;
+      align-items: center;
       height: 240px;
+      max-width: 350px;
       background-color: #2656a2;
       border-radius: 20px;
     }
@@ -137,52 +143,6 @@
       color: white;
       margin-top: 15px;
     }
-    h4 {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-size: 32px;
-      font-family: "Noto Sans Thai", serif;
-      color: white;
-      margin-top: 5px;
-    }
-    p {
-      font-size: 18px;
-      font-family: "Noto Sans Thai", serif;
-      margin: 0 10px;
-      color: white;
-    }
-    button {
-      margin-left: 260px;
-      margin-top: 20px;
-      height: 50px;
-      background-color: #2656a2;
-      border-radius: 20px;
-      border: none;
-      width: 200px;
-      font-family: "Noto Sans Thai", serif;
-      color: white;
-      font-size: 20px;
-      font-weight: bold;
-      cursor: pointer;
-    }
-    button:hover {
-      text-shadow: 0 0 10px rgba(255, 255, 255, 0.8),
-        0 0 20px rgba(255, 255, 255, 0.6), 0 0 30px rgba(255, 255, 255, 0.4);
-      transition: all 0.5s;
-    }
-  }
-  .list-product-box2 {
-    display: flex;
-    flex-direction: column;
-    .product-content-box2 {
-      display: flex;
-      flex-direction: column;
-      margin-left: 50px;
-      height: 240px;
-      background-color: #2656a2;
-      border-radius: 20px;
-    }
     .fa-truck-pickup {
       display: flex;
       justify-content: center;
@@ -191,52 +151,6 @@
       color: white;
       margin-top: 15px;
     }
-    h4 {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-size: 32px;
-      font-family: "Noto Sans Thai", serif;
-      color: white;
-      margin-top: 5px;
-    }
-    p {
-      font-size: 18px;
-      font-family: "Noto Sans Thai", serif;
-      margin: 0 10px;
-      color: white;
-    }
-    button {
-      margin-left: 110px;
-      margin-top: 20px;
-      height: 50px;
-      background-color: #2656a2;
-      border-radius: 20px;
-      border: none;
-      width: 200px;
-      font-family: "Noto Sans Thai", serif;
-      color: white;
-      font-size: 20px;
-      font-weight: bold;
-      cursor: pointer;
-    }
-    button:hover {
-      text-shadow: 0 0 10px rgba(255, 255, 255, 0.8),
-        0 0 20px rgba(255, 255, 255, 0.6), 0 0 30px rgba(255, 255, 255, 0.4);
-      transition: all 0.5s;
-    }
-  }
-  .list-product-box3 {
-    display: flex;
-    flex-direction: column;
-    .product-content-box3 {
-      display: flex;
-      flex-direction: column;
-      margin-left: 100px;
-      height: 240px;
-      background-color: #2656a2;
-      border-radius: 20px;
-    }
     .fa-truck-field {
       display: flex;
       justify-content: center;
@@ -244,52 +158,6 @@
       font-size: 60px;
       color: white;
       margin-top: 15px;
-    }
-    h4 {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-size: 32px;
-      font-family: "Noto Sans Thai", serif;
-      color: white;
-      margin-top: 5px;
-    }
-    p {
-      font-size: 18px;
-      font-family: "Noto Sans Thai", serif;
-      margin: 0 10px;
-      color: white;
-    }
-    button {
-      margin-left: 160px;
-      margin-top: 20px;
-      height: 50px;
-      background-color: #2656a2;
-      border-radius: 20px;
-      border: none;
-      width: 200px;
-      font-family: "Noto Sans Thai", serif;
-      color: white;
-      font-size: 20px;
-      font-weight: bold;
-      cursor: pointer;
-    }
-    button:hover {
-      text-shadow: 0 0 10px rgba(255, 255, 255, 0.8),
-        0 0 20px rgba(255, 255, 255, 0.6), 0 0 30px rgba(255, 255, 255, 0.4);
-      transition: all 0.5s;
-    }
-  }
-  .list-product-box4 {
-    display: flex;
-    flex-direction: column;
-    .product-content-box4 {
-      display: flex;
-      flex-direction: column;
-      margin-left: 50px;
-      height: 240px;
-      background-color: #2656a2;
-      border-radius: 20px;
     }
     .fa-van-shuttle {
       display: flex;
@@ -315,7 +183,7 @@
       color: white;
     }
     button {
-      margin-left: 110px;
+      margin-left: 10px;
       margin-top: 20px;
       height: 50px;
       background-color: #2656a2;
@@ -334,4 +202,67 @@
       transition: all 0.5s;
     }
   }
+}
+.list-product-box4 {
+  display: flex;
+  flex-direction: column;
+  .product-content-box4 {
+    display: flex;
+    flex-direction: column;
+    margin-left: 50px;
+    height: 240px;
+    background-color: #2656a2;
+    border-radius: 20px;
+  }
+  .fa-van-shuttle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 60px;
+    color: white;
+    margin-top: 15px;
+  }
+  h4 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 32px;
+    font-family: "Noto Sans Thai", serif;
+    color: white;
+    margin-top: 5px;
+  }
+  p {
+    font-size: 18px;
+    font-family: "Noto Sans Thai", serif;
+    margin: 0 10px;
+    color: white;
+  }
+  button {
+    margin-left: 120px;
+    margin-top: 20px;
+    height: 50px;
+    background-color: #2656a2;
+    border-radius: 20px;
+    border: none;
+    width: 200px;
+    font-family: "Noto Sans Thai", serif;
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  button:hover {
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8),
+      0 0 20px rgba(255, 255, 255, 0.6), 0 0 30px rgba(255, 255, 255, 0.4);
+    transition: all 0.5s;
+  }
+}
+
+.container-DialogPrice {
+  background-color: rgba(0, 0, 0, 0.4);
+  position: fixed;
+  top: 0px;
+  width: 100%;
+  height: 100%;
+  z-index: 500;
 }
