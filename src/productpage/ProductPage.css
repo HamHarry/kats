@@ -243,4 +243,104 @@
       transition: all 0.5s;
     }
   }
+
+  .carImages {
+    display: flex;
+    justify-content: center;
+    height: 700px;
+    img {
+      height: 300px;
+      width: 400px;
+      border-radius: 15px;
+      margin-top: 20px;
+    }
+    .sliderName {
+      display: flex;
+      flex-direction: column;
+      height: 700px;
+      width: 750px;
+      display: flex;
+      align-items: center;
+      h3 {
+        font-size: 32px;
+        color: white;
+        font-family: "Noto Sans Thai", serif;
+      }
+      .carName {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 750px;
+        margin-top: 20px;
+        .fa-circle-left {
+          font-size: 32px;
+          color: white;
+          cursor: pointer;
+        }
+        .fa-circle-left:hover {
+          color: black;
+        }
+        .fa-circle-right {
+          font-size: 32px;
+          color: white;
+          cursor: pointer;
+        }
+        .fa-circle-right:hover {
+          color: black;
+        }
+      }
+    }
+    .sliderName-hidden {
+      display: none;
+      height: 700px;
+      width: 750px;
+      opacity: 0;
+      transition: all 0.5s ease;
+      height: 0;
+      width: 0;
+    }
+
+    .image {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 280px;
+      width: 400px;
+      margin-top: 10px;
+      .sliderImage {
+        height: 300px;
+        width: 400px;
+        border-radius: 15px;
+        transition: all 0.5s ease;
+        opacity: 1;
+      }
+      .sliderImage-hidden {
+        display: block;
+        height: 250px;
+        width: 400px;
+        opacity: 0;
+        transition: all 0.5s ease;
+        height: 0;
+        width: 0;
+      }
+      .fa-circle-left {
+        font-size: 32px;
+        color: white;
+        cursor: pointer;
+        margin-right: 20px;
+      }
+      .fa-circle-left:hover {
+        color: black;
+      }
+      .fa-circle-right {
+        font-size: 32px;
+        color: white;
+        cursor: pointer;
+        margin-left: 20px;
+      }
+      .fa-circle-right:hover {
+        color: black;
+      }
+    }
+  }
 }

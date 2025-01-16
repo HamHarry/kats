@@ -1,7 +1,16 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState } from "react";
 import "./ProductPage.css";
 import { mockUpPrice } from "../data/MockUpPrice";
 
+export interface ListCarImage {
+  image: string;
+}
+export interface ListCar {
+  name: string;
+  imageCar?: string;
+  images?: ListCarImage[];
+}
 export interface ListPrice {
   id: number;
   carType: string;
@@ -9,14 +18,47 @@ export interface ListPrice {
   content1: string;
   content2: string;
   price: number;
+  carImages: ListCar[];
 }
 
 const ProductPage = () => {
   const [openDialogPrice, setOpenDialogPrice] = useState<boolean>(false);
   const [dataPrice] = useState<ListPrice[]>(mockUpPrice);
   const [dataDialog, setDataDialog] = useState<ListPrice>();
+  const [slideName, setSlideName] = useState<number>(0);
+  const [slideImage, setSlideImage] = useState<number>(0);
 
   const rederDialogPrice = () => {
+    const leftSlideImage = () => {
+      const number =
+        slideImage === 0
+          ? (dataDialog?.carImages.length as any) - 1
+          : slideImage - 1;
+      setSlideImage(number);
+    };
+    const rightSlideImage = () => {
+      const number =
+        slideImage === (dataDialog?.carImages.length as any) - 1
+          ? 0
+          : slideImage + 1;
+      setSlideImage(number);
+    };
+
+    const leftSlideName = () => {
+      const number =
+        slideName === 0
+          ? (dataDialog?.carImages.length as any) - 1
+          : slideName - 1;
+      setSlideName(number);
+    };
+    const rightSlideName = () => {
+      const number =
+        slideName === (dataDialog?.carImages.length as any) - 1
+          ? 0
+          : slideName + 1;
+      setSlideName(number);
+    };
+
     return (
       <dialog open={openDialogPrice}>
         <div className="container-DialogPrice">
@@ -30,6 +72,67 @@ const ProductPage = () => {
                     setOpenDialogPrice(!openDialogPrice);
                   }}
                 ></i>
+              </div>
+              <div className="container-DialogPrice-Content">
+                <div className="carImages">
+                  {dataDialog.carImages.map((item, index) => {
+                    return (
+                      <div
+                        className={
+                          slideName === index
+                            ? "sliderName"
+                            : "sliderName-hidden"
+                        }
+                        key={index}
+                      >
+                        <div className="carName">
+                          <i
+                            className="fa-solid fa-circle-left"
+                            onClick={() => {
+                              leftSlideName();
+                            }}
+                          ></i>
+                          <h3>{item.name}</h3>
+                          <i
+                            className="fa-solid fa-circle-right"
+                            onClick={() => {
+                              rightSlideName();
+                            }}
+                          ></i>
+                        </div>
+                        <img src={item.imageCar} alt="" />
+                        <div className="image">
+                          <i
+                            className="fa-solid fa-circle-left"
+                            onClick={() => {
+                              leftSlideImage();
+                            }}
+                          ></i>
+                          {item.images?.map((image, index) => {
+                            return (
+                              <img
+                                key={index}
+                                src={image.image}
+                                alt="carImage"
+                                className={
+                                  slideImage === index
+                                    ? "sliderImage"
+                                    : "sliderImage-hidden"
+                                }
+                              />
+                            );
+                          })}
+                          <i
+                            className="fa-solid fa-circle-right"
+                            onClick={() => {
+                              rightSlideImage();
+                            }}
+                          ></i>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
               </div>
             </div>
           )}
