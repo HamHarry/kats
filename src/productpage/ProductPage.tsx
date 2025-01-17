@@ -29,18 +29,17 @@ const ProductPage = () => {
   const [slideImage, setSlideImage] = useState<number>(0);
 
   const rederDialogPrice = () => {
+    const renderImage = dataDialog?.carImages.map((item) => {
+      return item.images?.length;
+    });
     const leftSlideImage = () => {
       const number =
-        slideImage === 0
-          ? (dataDialog?.carImages.length as any) - 1
-          : slideImage - 1;
+        slideImage === 0 ? (renderImage as any) - 1 : slideImage - 1;
       setSlideImage(number);
     };
     const rightSlideImage = () => {
       const number =
-        slideImage === (dataDialog?.carImages.length as any) - 1
-          ? 0
-          : slideImage + 1;
+        slideImage === (renderImage as any) - 1 ? 0 : slideImage + 1;
       setSlideImage(number);
     };
 
