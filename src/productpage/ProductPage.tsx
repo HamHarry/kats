@@ -29,15 +29,12 @@ const ProductPage = () => {
   const [slideImage, setSlideImage] = useState<number>(0);
 
   const rederDialogPrice = () => {
-    const renderImage = dataDialog?.carImages.map((item) => {
-      return item.images?.length;
-    });
-    const leftSlideImage = () => {
+    const leftSlideImage = (renderImage: any) => {
       const number =
         slideImage === 0 ? (renderImage as any) - 1 : slideImage - 1;
       setSlideImage(number);
     };
-    const rightSlideImage = () => {
+    const rightSlideImage = (renderImage: any) => {
       const number =
         slideImage === (renderImage as any) - 1 ? 0 : slideImage + 1;
       setSlideImage(number);
@@ -75,6 +72,7 @@ const ProductPage = () => {
               <div className="container-DialogPrice-Content">
                 <div className="carImages">
                   {dataDialog.carImages.map((item, index) => {
+                    const renderImage = item.images?.length;
                     return (
                       <div
                         className={
@@ -104,7 +102,7 @@ const ProductPage = () => {
                           <i
                             className="fa-solid fa-circle-left"
                             onClick={() => {
-                              leftSlideImage();
+                              leftSlideImage(renderImage);
                             }}
                           ></i>
                           {item.images?.map((image, index) => {
@@ -124,7 +122,7 @@ const ProductPage = () => {
                           <i
                             className="fa-solid fa-circle-right"
                             onClick={() => {
-                              rightSlideImage();
+                              rightSlideImage(renderImage);
                             }}
                           ></i>
                         </div>
