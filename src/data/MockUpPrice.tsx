@@ -10,28 +10,154 @@ export const mockUpPrice: ListPrice[] = [
     price: 4900,
     carImages: [
       {
-        name: "Toyota Corolla Cross",
-        imageCar: "/public/assets/cross/cross.jpg",
+        name: "Porsche Cayenne Turbo",
+        imageCar: "/public/assets/seden/cayenne/porsche.jpg",
         images: [
           {
-            image: "/public/assets/cross/02.jpg",
+            image: "/public/assets/seden/cayenne/1.jpg",
           },
           {
-            image: "/public/assets/cross/03.jpg",
+            image: "/public/assets/seden/cayenne/2.jpg",
           },
           {
-            image: "/public/assets/cross/04.jpg",
+            image: "/public/assets/seden/cayenne/3.jpg",
           },
           {
-            image: "/public/assets/cross/05.jpg",
+            image: "/public/assets/seden/cayenne/4.jpg",
           },
           {
-            image: "/public/assets/cross/06.jpg",
+            image: "/public/assets/seden/cayenne/5.jpg",
+          },
+          {
+            image: "/public/assets/seden/cayenne/6.jpg",
           },
         ],
       },
       {
-        name: "Honda",
+        name: "Toyota Corolla Cross (SUV)",
+        imageCar: "/public/assets/seden/cross/cross.jpg",
+        images: [
+          {
+            image: "/public/assets/seden/cross/02.jpg",
+          },
+          {
+            image: "/public/assets/seden/cross/03.jpg",
+          },
+          {
+            image: "/public/assets/seden/cross/04.jpg",
+          },
+          {
+            image: "/public/assets/seden/cross/05.jpg",
+          },
+          {
+            image: "/public/assets/seden/cross/06.jpg",
+          },
+        ],
+      },
+      {
+        name: "Honda HR-V (SUV)",
+        imageCar: "/public/assets/seden/hrv/hrv.jpg",
+        images: [
+          {
+            image: "/public/assets/seden/hrv/1.jpg",
+          },
+          {
+            image: "/public/assets/seden/hrv/2.jpg",
+          },
+          {
+            image: "/public/assets/seden/hrv/3.jpg",
+          },
+          {
+            image: "/public/assets/seden/hrv/4.jpg",
+          },
+          {
+            image: "/public/assets/seden/hrv/5.jpg",
+          },
+        ],
+      },
+      {
+        name: "Honda City Hatchback",
+        imageCar: "/public/assets/seden/cityhatchback/cityhatchback.jpg",
+        images: [
+          {
+            image: "/public/assets/seden/cityhatchback/2.jpg",
+          },
+          {
+            image: "/public/assets/seden/cityhatchback/3.jpg",
+          },
+          {
+            image: "/public/assets/seden/cityhatchback/4.jpg",
+          },
+          {
+            image: "/public/assets/seden/cityhatchback/5.jpg",
+          },
+          {
+            image: "/public/assets/seden/cityhatchback/6.jpg",
+          },
+        ],
+      },
+      {
+        name: "NETA X (SUV)",
+        imageCar: "/public/assets/seden/netax/netax.jpg",
+        images: [
+          {
+            image: "/public/assets/seden/netax/1.jpg",
+          },
+          {
+            image: "/public/assets/seden/netax/2.jpg",
+          },
+          {
+            image: "/public/assets/seden/netax/3.jpg",
+          },
+          {
+            image: "/public/assets/seden/netax/4.jpg",
+          },
+          {
+            image: "/public/assets/seden/netax/6.jpg",
+          },
+        ],
+      },
+      {
+        name: "Honda Civic",
+        imageCar: "/public/assets/seden/civic/civic.jpg",
+        images: [
+          {
+            image: "/public/assets/seden/civic/1.jpg",
+          },
+          {
+            image: "/public/assets/seden/civic/2.jpg",
+          },
+          {
+            image: "/public/assets/seden/civic/3.jpg",
+          },
+          {
+            image: "/public/assets/seden/civic/4.jpg",
+          },
+          {
+            image: "/public/assets/seden/civic/6.jpg",
+          },
+        ],
+      },
+      {
+        name: "Toyota Camry",
+        imageCar: "/public/assets/seden/camry/camry.jpg",
+        images: [
+          {
+            image: "/public/assets/seden/camry/1.jpg",
+          },
+          {
+            image: "/public/assets/seden/camry/2.jpg",
+          },
+          {
+            image: "/public/assets/seden/camry/3.jpg",
+          },
+          {
+            image: "/public/assets/seden/camry/4.jpg",
+          },
+          {
+            image: "/public/assets/seden/camry/5.jpg",
+          },
+        ],
       },
     ],
   },
@@ -44,7 +170,88 @@ export const mockUpPrice: ListPrice[] = [
     price: 4900,
     carImages: [
       {
-        name: "Toyota",
+        name: "Toyota Revo",
+        imageCar: "/public/assets/pickup/revo/revo.jpg",
+        images: [
+          {
+            image: "/public/assets/pickup/revo/1.jpg",
+          },
+          {
+            image: "/public/assets/pickup/revo/2.jpg",
+          },
+          {
+            image: "/public/assets/pickup/revo/3.jpg",
+          },
+          {
+            image: "/public/assets/pickup/revo/4.jpg",
+          },
+          {
+            image: "/public/assets/pickup/revo/5.jpg",
+          },
+        ],
+      },
+      {
+        name: "Isuzu D-Max",
+        imageCar: "/public/assets/pickup/dmax/isuzu.jpg",
+        images: [
+          {
+            image: "/public/assets/pickup/dmax/1.jpg",
+          },
+          {
+            image: "/public/assets/pickup/dmax/2.jpg",
+          },
+          {
+            image: "/public/assets/pickup/dmax/3.jpg",
+          },
+          {
+            image: "/public/assets/pickup/dmax/4.jpg",
+          },
+          {
+            image: "/public/assets/pickup/dmax/5.jpg",
+          },
+        ],
+      },
+      {
+        name: "Ford Ranger",
+        imageCar: "/public/assets/pickup/ranger/ranger.jpg",
+        images: [
+          {
+            image: "/public/assets/pickup/ranger/1.jpg",
+          },
+          {
+            image: "/public/assets/pickup/ranger/2.jpg",
+          },
+          {
+            image: "/public/assets/pickup/ranger/3.jpg",
+          },
+          {
+            image: "/public/assets/pickup/ranger/4.jpg",
+          },
+          {
+            image: "/public/assets/pickup/ranger/5.jpg",
+          },
+        ],
+      },
+      {
+        name: "Ford Ranger Stormtrak",
+        imageCar: "/public/assets/pickup/stormtrak/stormtrak.jpg",
+        images: [
+          {
+            image: "/public/assets/pickup/stormtrak/1.jpg",
+          },
+          {
+            image: "/public/assets/pickup/stormtrak/2.jpg",
+          },
+          {
+            image: "/public/assets/pickup/stormtrak/3.jpg",
+          },
+          {
+            image: "/public/assets/pickup/stormtrak/4.jpg",
+          },
+          {
+            image: "/public/assets/pickup/stormtrak/5.jpg",
+          },
+        ],
       },
     ],
   },

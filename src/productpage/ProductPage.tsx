@@ -8,8 +8,8 @@ export interface ListCarImage {
 }
 export interface ListCar {
   name: string;
-  imageCar?: string;
-  images?: ListCarImage[];
+  imageCar?: string; // รอใส่ข้อมูลครบก่อน
+  images?: ListCarImage[]; // รอใส่ข้อมูลครบก่อน
 }
 export interface ListPrice {
   id: number;
@@ -27,6 +27,11 @@ const ProductPage = () => {
   const [dataDialog, setDataDialog] = useState<ListPrice>();
   const [slideName, setSlideName] = useState<number>(0);
   const [slideImage, setSlideImage] = useState<number>(0);
+
+  const reset = () => {
+    setSlideName(0);
+    setSlideImage(0);
+  };
 
   const rederDialogPrice = () => {
     const leftSlideImage = (renderImage: any) => {
@@ -46,6 +51,7 @@ const ProductPage = () => {
           ? (dataDialog?.carImages.length as any) - 1
           : slideName - 1;
       setSlideName(number);
+      setSlideImage(0);
     };
     const rightSlideName = () => {
       const number =
@@ -53,6 +59,7 @@ const ProductPage = () => {
           ? 0
           : slideName + 1;
       setSlideName(number);
+      setSlideImage(0);
     };
 
     return (
@@ -66,6 +73,7 @@ const ProductPage = () => {
                   className="fa-solid fa-circle-xmark"
                   onClick={() => {
                     setOpenDialogPrice(!openDialogPrice);
+                    reset();
                   }}
                 ></i>
               </div>
@@ -73,6 +81,7 @@ const ProductPage = () => {
                 <div className="carImages">
                   {dataDialog.carImages.map((item, index) => {
                     const renderImage = item.images?.length;
+
                     return (
                       <div
                         className={
@@ -99,12 +108,6 @@ const ProductPage = () => {
                         </div>
                         <img src={item.imageCar} alt="" />
                         <div className="image">
-                          <i
-                            className="fa-solid fa-circle-left"
-                            onClick={() => {
-                              leftSlideImage(renderImage);
-                            }}
-                          ></i>
                           {item.images?.map((image, index) => {
                             return (
                               <img
@@ -119,12 +122,20 @@ const ProductPage = () => {
                               />
                             );
                           })}
-                          <i
-                            className="fa-solid fa-circle-right"
-                            onClick={() => {
-                              rightSlideImage(renderImage);
-                            }}
-                          ></i>
+                          <div className="btn-left-right">
+                            <i
+                              className="fa-solid fa-circle-left"
+                              onClick={() => {
+                                leftSlideImage(renderImage);
+                              }}
+                            ></i>
+                            <i
+                              className="fa-solid fa-circle-right"
+                              onClick={() => {
+                                rightSlideImage(renderImage);
+                              }}
+                            ></i>
+                          </div>
                         </div>
                       </div>
                     );
@@ -144,16 +155,13 @@ const ProductPage = () => {
         <img src="/public/assets/katoon.png" alt="katoon" />
         <h1>
           สินค้า <br />
-          ศูนย์พ่นกันสนิม KATS Coating สาขาลาดกระบัง
+          รับประกัน 5 ปี (ทุกสินค้า)
         </h1>
       </div>
       <div className="container-prodoct">
         <div className="container-list-product">
-          <h1>
-            สินค้า <br />
-            รับประกัน 5 ปี
-          </h1>
           <div className="line">
+            <div className="vertical-herder"></div>
             <div className="line-horizontal"></div>
             <div className="verticals">
               <div className="line-vertical1"></div>
