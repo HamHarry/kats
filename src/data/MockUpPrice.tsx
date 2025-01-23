@@ -34,6 +34,48 @@ export const mockUpPrice: ListPrice[] = [
         ],
       },
       {
+        name: "GMW Tank 300 HEV (SUV)",
+        imageCar: "/public/assets/seden/hev/hev.jpg",
+        images: [
+          {
+            image: "/public/assets/seden/hev/1.jpg",
+          },
+          {
+            image: "/public/assets/seden/hev/2.jpg",
+          },
+          {
+            image: "/public/assets/seden/hev/3.jpg",
+          },
+          {
+            image: "/public/assets/seden/hev/4.jpg",
+          },
+          {
+            image: "/public/assets/seden/hev/5.jpg",
+          },
+        ],
+      },
+      {
+        name: "NETA X (SUV)",
+        imageCar: "/public/assets/seden/netax/netax.jpg",
+        images: [
+          {
+            image: "/public/assets/seden/netax/1.jpg",
+          },
+          {
+            image: "/public/assets/seden/netax/2.jpg",
+          },
+          {
+            image: "/public/assets/seden/netax/3.jpg",
+          },
+          {
+            image: "/public/assets/seden/netax/4.jpg",
+          },
+          {
+            image: "/public/assets/seden/netax/6.jpg",
+          },
+        ],
+      },
+      {
         name: "Toyota Corolla Cross (SUV)",
         imageCar: "/public/assets/seden/cross/cross.jpg",
         images: [
@@ -93,27 +135,6 @@ export const mockUpPrice: ListPrice[] = [
           },
           {
             image: "/public/assets/seden/cityhatchback/6.jpg",
-          },
-        ],
-      },
-      {
-        name: "NETA X (SUV)",
-        imageCar: "/public/assets/seden/netax/netax.jpg",
-        images: [
-          {
-            image: "/public/assets/seden/netax/1.jpg",
-          },
-          {
-            image: "/public/assets/seden/netax/2.jpg",
-          },
-          {
-            image: "/public/assets/seden/netax/3.jpg",
-          },
-          {
-            image: "/public/assets/seden/netax/4.jpg",
-          },
-          {
-            image: "/public/assets/seden/netax/6.jpg",
           },
         ],
       },
@@ -264,7 +285,67 @@ export const mockUpPrice: ListPrice[] = [
     price: 4900,
     carImages: [
       {
-        name: "Toyota",
+        name: "Toyota Fortuner",
+        imageCar: "/public/assets/ppv/fortuner/fortuner.jpg",
+        images: [
+          {
+            image: "/public/assets/ppv/fortuner/1.jpg",
+          },
+          {
+            image: "/public/assets/ppv/fortuner/2.jpg",
+          },
+          {
+            image: "/public/assets/ppv/fortuner/3.jpg",
+          },
+          {
+            image: "/public/assets/ppv/fortuner/4.jpg",
+          },
+          {
+            image: "/public/assets/ppv/fortuner/5.jpg",
+          },
+        ],
+      },
+      {
+        name: "Mitsubishi Xpander (MPV)",
+        imageCar: "/public/assets/ppv/xpander/xpander.jpg",
+        images: [
+          {
+            image: "/public/assets/ppv/xpander/1.jpg",
+          },
+          {
+            image: "/public/assets/ppv/xpander/2.jpg",
+          },
+          {
+            image: "/public/assets/ppv/xpander/3.jpg",
+          },
+          {
+            image: "/public/assets/ppv/xpander/4.jpg",
+          },
+          {
+            image: "/public/assets/ppv/xpander/5.jpg",
+          },
+        ],
+      },
+      {
+        name: "Hyundai Stargazer (MPV)",
+        imageCar: "/public/assets/ppv/stargazer/stargazer.jpg",
+        images: [
+          {
+            image: "/public/assets/ppv/stargazer/1.jpg",
+          },
+          {
+            image: "/public/assets/ppv/stargazer/2.jpg",
+          },
+          {
+            image: "/public/assets/ppv/stargazer/3.jpg",
+          },
+          {
+            image: "/public/assets/ppv/stargazer/4.jpg",
+          },
+          {
+            image: "/public/assets/ppv/stargazer/5.jpg",
+          },
+        ],
       },
     ],
   },
