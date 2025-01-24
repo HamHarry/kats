@@ -3,7 +3,7 @@ import { ListPrice } from "../productpage/ProductPage";
 export const mockUpPrice: ListPrice[] = [
   {
     id: 1,
-    carType: "รถเก๋ง,SUV",
+    carType: "รถเก๋ง,SUV,Crossover",
     icon: "fa-solid fa-car-side",
     content1: "- น้ำยาดำเงาทั้งคัน",
     content2: "- น้ำยาดำเงาและใสเงา (แยกน้ำยาแบบโรงงาน)",
@@ -118,7 +118,7 @@ export const mockUpPrice: ListPrice[] = [
         ],
       },
       {
-        name: "Honda City Hatchback",
+        name: "Honda City (Hatchback)",
         imageCar: "/public/assets/seden/cityhatchback/cityhatchback.jpg",
         images: [
           {
@@ -177,6 +177,27 @@ export const mockUpPrice: ListPrice[] = [
           },
           {
             image: "/public/assets/seden/camry/5.jpg",
+          },
+        ],
+      },
+      {
+        name: "Aion y plus",
+        imageCar: "/public/assets/seden/aion/aion.jpg",
+        images: [
+          {
+            image: "/public/assets/seden/aion/1.jpg",
+          },
+          {
+            image: "/public/assets/seden/aion/2.jpg",
+          },
+          {
+            image: "/public/assets/seden/aion/3.jpg",
+          },
+          {
+            image: "/public/assets/seden/aion/4.jpg",
+          },
+          {
+            image: "/public/assets/seden/aion/5.jpg",
           },
         ],
       },
@@ -344,6 +365,27 @@ export const mockUpPrice: ListPrice[] = [
           },
           {
             image: "/public/assets/ppv/stargazer/5.jpg",
+          },
+        ],
+      },
+      {
+        name: "Ford everest",
+        imageCar: "/public/assets/ppv/everest/everest.jpg",
+        images: [
+          {
+            image: "/public/assets/ppv/everest/1.jpg",
+          },
+          {
+            image: "/public/assets/ppv/everest/2.jpg",
+          },
+          {
+            image: "/public/assets/ppv/everest/3.jpg",
+          },
+          {
+            image: "/public/assets/ppv/everest/4.jpg",
+          },
+          {
+            image: "/public/assets/ppv/everest/5.jpg",
           },
         ],
       },
