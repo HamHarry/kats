@@ -31,3 +31,15 @@
     color: white;
   }
 }
+
+.calendar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  .wrap-calendar {
+    width: 1250px;
+    border: 5px solid #2656a2;
+    border-radius: 10px;
+  }
+}
