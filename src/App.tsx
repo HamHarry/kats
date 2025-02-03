@@ -5,7 +5,12 @@ import { Suspense } from "react";
 import "./App.css";
 import LoginPage from "./loginpage/LoginPage";
 import LayoutAdmin from "./layout/LayoutAdmin";
-import UserAdminPage from "./useradminpage/UserAdminPage";
+import UserAdminPage from "./addminpage/useradminpage/UserAdminPage";
+import BookingAdminPage from "./addminpage/bookingadminpage/BookingAdminPage";
+import CalendarAdminPage from "./addminpage/calendaradminpage/CalendarAdminPage";
+import GuaranteeAdminPage from "./addminpage/guaranteeadminpage/GuaranteeAdminPage";
+import FinanceAdminPage from "./addminpage/financeadminpage/FinanceAdminPage";
+import BinAdminPage from "./addminpage/binadminpage/BinAdminPage";
 
 function App() {
   return (
@@ -17,6 +22,11 @@ function App() {
         </Route>
         <Route path="main" element={<LayoutAdmin />}>
           <Route path="" element={<UserAdminPage />} />
+          <Route path="booking" element={<BookingAdminPage />} />
+          <Route path="calendar" element={<CalendarAdminPage />} />
+          <Route path="guarantee" element={<GuaranteeAdminPage />} />
+          <Route path="finance" element={<FinanceAdminPage />} />
+          <Route path="bin" element={<BinAdminPage />} />
         </Route>
       </Routes>
     </Suspense>

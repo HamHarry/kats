@@ -18,27 +18,51 @@ const NavbarAdmin = () => {
       <hr />
       <div className="menu">
         <ul>
-          <li>
+          <li
+            onClick={() => {
+              navigate("/main");
+            }}
+          >
             <i className="fa-solid fa-image-portrait"></i>
             <p>ข้อมูลทั้งหมดของ Users</p>
           </li>
-          <li>
+          <li
+            onClick={() => {
+              navigate("/main/booking");
+            }}
+          >
             <i className="fa-solid fa-book-bookmark"></i>
             <p>จองคิว</p>
           </li>
-          <li>
+          <li
+            onClick={() => {
+              navigate("/main/calendar");
+            }}
+          >
             <i className="fa-solid fa-calendar-days"></i>
             <p>ปฏิทินการจอง</p>
           </li>
-          <li>
+          <li
+            onClick={() => {
+              navigate("/main/guarantee");
+            }}
+          >
             <i className="fa-solid fa-square-check"></i>
             <p>ข้อมูลรับประกัน</p>
           </li>
-          <li>
+          <li
+            onClick={() => {
+              navigate("/main/finance");
+            }}
+          >
             <i className="fa-solid fa-wallet"></i>
             <p>การเงิน</p>
           </li>
-          <li>
+          <li
+            onClick={() => {
+              navigate("/main/bin");
+            }}
+          >
             <i className="fa-solid fa-trash-can"></i>
             <p>คืนค่าข้อมูล</p>
           </li>

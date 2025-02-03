@@ -109,7 +109,7 @@ const LoginPage = () => {
             />
             <div className="btn">
               <button type="submit" className="btn-login">
-                Log In
+                เข้าสู่ระบบ
               </button>
             </div>
           </form>
