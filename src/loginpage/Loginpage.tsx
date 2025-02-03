@@ -5,7 +5,7 @@ import { Controller, useForm } from "react-hook-form";
 import { useState } from "react";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup/src/yup.js";
-import "./Loginpage.css";
+import "./LoginPage.css";
 
 const schema = yup.object({
   username: yup.string().required("Username or Email is required"),
@@ -46,7 +46,7 @@ const LoginPage = () => {
       showLoading();
 
       console.log(item);
-      navigate("/");
+      navigate("/main");
 
       // const { data: loginedData } = await dispatch(login(item)).unwrap();
       // const decodedToken = jwtDecode(loginedData.accessToken);

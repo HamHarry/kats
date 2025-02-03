@@ -3,7 +3,9 @@ import Layout from "./layout/Layout";
 import HomePage from "./homepage/HomePage";
 import { Suspense } from "react";
 import "./App.css";
-import LoginPage from "./loginpage/Loginpage";
+import LoginPage from "./loginpage/LoginPage";
+import LayoutAdmin from "./layout/LayoutAdmin";
+import UserAdminPage from "./useradminpage/UserAdminPage";
 
 function App() {
   return (
@@ -12,6 +14,9 @@ function App() {
         <Route path="/" element={<Layout />}>
           <Route path="" element={<HomePage />} />
           <Route path="login" element={<LoginPage />} />
+        </Route>
+        <Route path="main" element={<LayoutAdmin />}>
+          <Route path="" element={<UserAdminPage />} />
         </Route>
       </Routes>
     </Suspense>
