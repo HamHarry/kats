@@ -400,7 +400,34 @@ export const mockUpPrice: ListPrice[] = [
     price: 6000,
     carImages: [
       {
-        name: "Toyota",
+        name: "Toyota Commuter",
+        imageCar: "/public/assets/van/commuter/commuter.jpg",
+        images: [
+          {
+            image: "/public/assets/van/commuter/1.jpg",
+          },
+          {
+            image: "/public/assets/van/commuter/2.jpg",
+          },
+          {
+            image: "/public/assets/van/commuter/3.jpg",
+          },
+          {
+            image: "/public/assets/van/commuter/4.jpg",
+          },
+          {
+            image: "/public/assets/van/commuter/5.jpg",
+          },
+          {
+            image: "/public/assets/van/commuter/6.jpg",
+          },
+          {
+            image: "/public/assets/van/commuter/7.jpg",
+          },
+          {
+            image: "/public/assets/van/commuter/8.jpg",
+          },
+        ],
       },
     ],
   },

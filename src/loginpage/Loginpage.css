@@ -1,0 +1,83 @@
+.container-login {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  height: 600px;
+  width: 600px;
+  background-color: #2656a2;
+  border-radius: 20px;
+  .wrap-login {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 400px;
+    width: 590px;
+    background-color: white;
+    margin-top: 100px;
+    margin-left: 5px;
+    border-radius: 10px;
+    img {
+      position: fixed;
+      top: 10px;
+      left: -60px;
+      width: 120px;
+      margin-right: -55px;
+      z-index: 1;
+    }
+    h1 {
+      font-size: 64px;
+      color: white;
+      margin-bottom: 20px;
+      text-align: center;
+      font-family: "Noto Sans Thai", serif;
+      width: 300px;
+      margin-top: -99px;
+      margin-bottom: 50px;
+    }
+    h2 {
+      display: flex;
+      font-size: 32px;
+      color: #2656a2;
+      font-family: "Noto Sans Thai", serif;
+      width: 500px;
+      margin-top: 20px;
+    }
+    input {
+      width: 450px;
+      padding: 13px;
+      border-radius: 5px;
+      border: 1px solid #2656a2;
+    }
+    p {
+      color: red;
+      font-family: "Noto Sans Thai", serif;
+    }
+    .btn {
+      position: fixed;
+      bottom: 20px;
+      left: 34%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 200px;
+      .btn-login {
+        font-family: "Noto Sans Thai", serif;
+        font-size: 32px;
+        font-weight: bold;
+        color: #2656a2;
+        height: 60px;
+        width: 200px;
+        border-radius: 20px;
+        border: none;
+        cursor: pointer;
+        transition: all 0.5s;
+      }
+      .btn-login:hover {
+        text-shadow: 0 0 10px rgba(38, 86, 162, 0.8),
+          0 0 20px rgba(38, 86, 162, 0.6), 0 0 30px rgba(38, 86, 162, 0.4);
+        transition: all 0.5s;
+      }
+    }
+  }
+}
