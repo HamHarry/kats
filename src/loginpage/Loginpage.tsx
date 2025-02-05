@@ -37,8 +37,8 @@ const LoginPage = () => {
   const showLoading = () => setIsLoading(true);
   const hideLoading = () => setIsLoading(false);
 
-  //เมื่อกดปุ่ม login จะพาเข้าไปสู้หน้า home ===================================================================
-  const submit = async (value: LoginForm) => {
+  //เมื่อกดปุ่ม login จะพาเข้าไปสู้หน้า Admin ===================================================================
+  const submit = (value: LoginForm) => {
     try {
       const item = {
         ...value,
