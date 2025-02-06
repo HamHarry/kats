@@ -3,7 +3,6 @@ import Layout from "./layout/Layout";
 import HomePage from "./homepage/HomePage";
 import { Suspense } from "react";
 import "./App.css";
-import LoginPage from "./loginpage/LoginPage";
 import LayoutAdmin from "./layout/LayoutAdmin";
 import UserAdminPage from "./addminpage/useradminpage/UserAdminPage";
 import BookingAdminPage from "./addminpage/bookingadminpage/BookingAdminPage";
@@ -11,6 +10,7 @@ import CalendarAdminPage from "./addminpage/calendaradminpage/CalendarAdminPage"
 import GuaranteeAdminPage from "./addminpage/guaranteeadminpage/GuaranteeAdminPage";
 import FinanceAdminPage from "./addminpage/financeadminpage/FinanceAdminPage";
 import BinAdminPage from "./addminpage/binadminpage/BinAdminPage";
+import LoginPage from "./loginpage/Loginpage";
 
 function App() {
   return (
