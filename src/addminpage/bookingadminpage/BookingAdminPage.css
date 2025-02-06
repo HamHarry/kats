@@ -146,6 +146,7 @@
       font-family: "Noto Sans Thai", serif;
       color: #2656a2;
       text-align: center;
+      cursor: pointer;
       .fa-arrow-up-from-bracket {
         margin-right: 10px;
         color: #2656a2;
