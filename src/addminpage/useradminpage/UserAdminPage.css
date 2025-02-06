@@ -75,6 +75,16 @@
     border-radius: 10px;
     background-color: #2656a2;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    .text-p {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      .fa-pen-to-square {
+        font-size: 30px;
+        cursor: pointer;
+        color: #ffffff;
+      }
+    }
     p {
       font-family: "Noto Sans Thai", serif;
       color: white;

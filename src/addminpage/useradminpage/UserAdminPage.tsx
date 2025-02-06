@@ -37,7 +37,10 @@ const UserAdminPage = () => {
           return (
             <div key={index} className="grid-user">
               <div className="user-content">
-                <p>Username: {item.username}</p>
+                <div className="text-p">
+                  <p>Username: {item.username}</p>
+                  <i className="fa-solid fa-pen-to-square"></i>
+                </div>
                 <p>Name: {item.name}</p>
                 <p>Phone: {item.phone}</p>
               </div>
