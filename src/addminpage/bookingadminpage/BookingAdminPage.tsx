@@ -1,5 +1,7 @@
 import { Controller, useForm } from "react-hook-form";
 import "./BookingAdminPage.css";
+import { useState } from "react";
+import { chooesPrice } from "../../data/MockUpChooesPrice";
 
 export interface BookingForm {
   date: string;
@@ -23,6 +25,8 @@ const defaultValues: BookingForm = {
 };
 
 const BookingAdminPage = () => {
+  const [priceData] = useState(chooesPrice);
+
   const { handleSubmit, control } = useForm<BookingForm>({
     defaultValues,
   });
@@ -124,7 +128,18 @@ const BookingAdminPage = () => {
               return (
                 <div className="inputProduct">
                   <h2>สินค้า</h2>
-                  <input {...field} type="number" />
+                  <select {...field}>
+                    <option value="" disabled selected hidden>
+                      Product Choose...
+                    </option>
+                    {priceData.map((item, index) => {
+                      return (
+                        <option key={index} value={item.product}>
+                          {item.product}
+                        </option>
+                      );
+                    })}
+                  </select>
                 </div>
               );
             }}
