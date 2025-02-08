@@ -5,6 +5,8 @@ import { chooesPrice } from "../../data/MockUpChooesPrice";
 import { time } from "../../data/MockUpTime";
 
 export interface BookingForm {
+  number: string;
+  volume: string;
   date: string;
   time: string;
   name: string;
@@ -15,6 +17,8 @@ export interface BookingForm {
   image: string;
 }
 const defaultValues: BookingForm = {
+  number: "",
+  volume: "",
   date: "",
   time: "",
   name: "",
@@ -28,6 +32,8 @@ const defaultValues: BookingForm = {
 const BookingAdminPage = () => {
   const [priceData] = useState(chooesPrice);
   const [timeData] = useState(time);
+  const [openDialogConfirm, setOpenDialogConfirm] = useState<boolean>(false);
+  const [data, setData] = useState<BookingForm>(defaultValues);
 
   const { handleSubmit, control } = useForm<BookingForm>({
     defaultValues,
@@ -38,10 +44,43 @@ const BookingAdminPage = () => {
       const item = {
         ...value,
       };
-      console.log(item);
+      setData(item); // เก็บข็อมูลเพื่อยินยันการส่ง
     } catch (error) {
       console.log(error);
     }
+  };
+
+  const rederDialogConfirm = () => {
+    return (
+      <dialog open={openDialogConfirm}>
+        <div className="container-DialogConfirm">
+          <div className="wrap-container-DialogConfirm">
+            <div className="container-DialogConfirm-Navbar">
+              <i
+                className="fa-solid fa-circle-xmark"
+                onClick={() => {
+                  setOpenDialogConfirm(!openDialogConfirm);
+                }}
+              ></i>
+            </div>
+            <h1>ยืนยันการจอง</h1>
+            <div className="btn-DialogConfirm-Navbar">
+              <button
+                type="submit"
+                className="btn-submit-dialogConfirm"
+                onClick={() => {
+                  setOpenDialogConfirm(!openDialogConfirm);
+                  console.log(data); //ส่งข้อมูล
+                }}
+              >
+                ยืนยัน
+              </button>
+              <button className="btn-edit-dialogConfirm">แก้ไข</button>
+            </div>
+          </div>
+        </div>
+      </dialog>
+    );
   };
 
   return (
@@ -51,6 +90,30 @@ const BookingAdminPage = () => {
       </div>
       <form onSubmit={handleSubmit(submit)}>
         <div className="wrap-container-bookingAdmin">
+          <Controller
+            name="number"
+            control={control}
+            render={({ field }) => {
+              return (
+                <div className="inputNumber">
+                  <h2>เลขที่</h2>
+                  <input {...field} type="text" />
+                </div>
+              );
+            }}
+          />
+          <Controller
+            name="volume"
+            control={control}
+            render={({ field }) => {
+              return (
+                <div className="inputVolume">
+                  <h2>เล่มที่</h2>
+                  <input {...field} type="text" />
+                </div>
+              );
+            }}
+          />
           <Controller
             name="date"
             control={control}
@@ -181,11 +244,18 @@ const BookingAdminPage = () => {
           />
         </div>
         <div className="btn-bookingAdmin">
-          <button type="submit" className="btn-submit-bookingAdmin">
+          <button
+            type="submit"
+            className="btn-submit-bookingAdmin"
+            onClick={() => {
+              setOpenDialogConfirm(!openDialogConfirm);
+            }}
+          >
             ยืนยัน
           </button>
           <button className="btn-edit-bookingAdmin">แก้ไข</button>
         </div>
+        {rederDialogConfirm()}
       </form>
     </div>
   );
