@@ -172,34 +172,14 @@
     gap: 112px;
     margin-left: 20px;
     margin-top: 20px;
-    input#file-input {
-      display: none;
-    }
-    label {
+    input {
       padding: 5px;
-      width: 490px;
+      width: 250px;
       height: 30px;
+      margin-left: -20px;
       border-radius: 20px;
       border: 2px solid #2656a2;
       font-family: "Noto Sans Thai", serif;
-      color: #2656a2;
-      text-align: center;
-      cursor: pointer;
-      .fa-arrow-up-from-bracket {
-        margin-right: 10px;
-        color: #2656a2;
-      }
-    }
-    h4 {
-      width: 250px;
-      font-size: 18px;
-      color: #2656a2;
-      margin-left: -70px;
-    }
-    p {
-      font-size: 18px;
-      color: #2656a2;
-      margin-left: -130px;
     }
   }
 }

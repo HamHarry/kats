@@ -14,7 +14,8 @@ export interface BookingForm {
   carModel: string;
   register: string;
   product: string;
-  image: string;
+  tel: string;
+  image?: string;
 }
 const defaultValues: BookingForm = {
   number: "",
@@ -26,7 +27,7 @@ const defaultValues: BookingForm = {
   carModel: "",
   register: "",
   product: "",
-  image: "",
+  tel: "",
 };
 
 const BookingAdminPage = () => {
@@ -221,23 +222,13 @@ const BookingAdminPage = () => {
             }}
           />
           <Controller
-            name="image"
+            name="tel"
             control={control}
             render={({ field }) => {
               return (
                 <div className="inputImage">
-                  <h2>รูป</h2>
-                  <input {...field} type="file" id="file-input" />
-                  <label htmlFor="file-input">
-                    <i className="fa-solid fa-arrow-up-from-bracket"></i>
-                    อัพโหลดหลักฐานการชำระเงิน
-                  </label>
-                  <h4>หมายเหตุ :</h4>
-                  <p>
-                    มัดจำ 1,000 บาทเพื่อเป็นการล็อคคิวของลูกค้า หลังจากจองแล้ว
-                    ระบบจะตรวจสอบภายใน 30 นาที เพื่อเป็นการยืนยันจอง
-                    หากระบบผิดพลาดติดต่อ Admin เพจ Facebook
-                  </p>
+                  <h2>เบอร์</h2>
+                  <input {...field} type="tel" />
                 </div>
               );
             }}

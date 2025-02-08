@@ -1,0 +1,43 @@
+import { Guarantees } from "../addminpage/guaranteeadminpage/GuaranteeAdminPage";
+
+export const guarantee: Guarantees[] = [
+  {
+    number: "0001",
+    volume: "001",
+    date: "2025-02-08",
+    time: "10:00 น.",
+    name: "Saowapak Noibua",
+    carType: "Toyota",
+    carModel: "Revo",
+    register: "ณอ 8882",
+    product: "KATS Coating 4,900 Baht",
+    tel: "081-842-0795",
+    image: "",
+  },
+  {
+    number: "0002",
+    volume: "001",
+    date: "2025-02-08",
+    time: "10:00 น.",
+    name: "Ingkarat Ruchai",
+    carType: "Honda",
+    carModel: "City",
+    register: "5กย 8882",
+    product: "KATS Coating 4,900 Baht",
+    tel: "098-270-7558",
+    image: "",
+  },
+  {
+    number: "0003",
+    volume: "001",
+    date: "2025-02-08",
+    time: "10:00 น.",
+    name: "Mana Noibua",
+    carType: "Toyota",
+    carModel: "Fortuner",
+    register: "คห 8882",
+    product: "KATS Coating 4,900 Baht",
+    tel: "081-110-8882",
+    image: "",
+  },
+];
