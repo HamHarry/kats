@@ -2,6 +2,7 @@ import { Controller, useForm } from "react-hook-form";
 import "./BookingAdminPage.css";
 import { useState } from "react";
 import { chooesPrice } from "../../data/MockUpChooesPrice";
+import { time } from "../../data/MockUpTime";
 
 export interface BookingForm {
   date: string;
@@ -26,6 +27,7 @@ const defaultValues: BookingForm = {
 
 const BookingAdminPage = () => {
   const [priceData] = useState(chooesPrice);
+  const [timeData] = useState(time);
 
   const { handleSubmit, control } = useForm<BookingForm>({
     defaultValues,
@@ -68,7 +70,18 @@ const BookingAdminPage = () => {
               return (
                 <div className="inputTime">
                   <h2>เวลา</h2>
-                  <input {...field} type="time" />
+                  <select {...field}>
+                    <option value={""} disabled selected hidden>
+                      Time Choose...
+                    </option>
+                    {timeData.map((item, index) => {
+                      return (
+                        <option key={index} value={item.time}>
+                          {item.time}
+                        </option>
+                      );
+                    })}
+                  </select>
                 </div>
               );
             }}
@@ -129,7 +142,7 @@ const BookingAdminPage = () => {
                 <div className="inputProduct">
                   <h2>สินค้า</h2>
                   <select {...field}>
-                    <option value="" disabled selected hidden>
+                    <option value={""} disabled selected hidden>
                       Product Choose...
                     </option>
                     {priceData.map((item, index) => {

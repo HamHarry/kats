@@ -2,12 +2,12 @@ import { Users } from "../addminpage/useradminpage/UserAdminPage";
 
 export const userTest: Users[] = [
   {
-    username: "test",
+    username: "Admin",
     name: "Saowapak",
-    phone: "089-123-4567",
+    phone: "089-270-7558",
   },
   {
-    username: "test2",
+    username: "Admin2",
     name: "Ingkarat",
     phone: "089-123-8882",
   },
