@@ -20,6 +20,7 @@ const GuaranteeAdminPage = () => {
   const [guaranteeData, setfirstGuaranteeData] =
     useState<Guarantees[]>(guarantee);
   const [guaranteeDataRef] = useState(guaranteeData);
+  const [openDialogEdit, setOpenDialogEdit] = useState<boolean>(false);
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value.toLowerCase();
@@ -33,6 +34,10 @@ const GuaranteeAdminPage = () => {
       );
     });
     setfirstGuaranteeData(newValue);
+  };
+
+  const renderEditGuarantee = () => {
+    return <dialog open={openDialogEdit}>asdasdas</dialog>;
   };
 
   return (
@@ -58,7 +63,12 @@ const GuaranteeAdminPage = () => {
               <div className="guaranteeAdmin-content">
                 <div className="text-p">
                   <p>วันที่: {item.date}</p>
-                  <i className="fa-solid fa-pen-to-square"></i>
+                  <i
+                    className="fa-solid fa-pen-to-square"
+                    onClick={() => {
+                      setOpenDialogEdit(!openDialogEdit);
+                    }}
+                  ></i>
                 </div>
                 <p>ชื่อ: {item.name}</p>
                 <p>เบอร์: {item.tel}</p>
@@ -74,6 +84,7 @@ const GuaranteeAdminPage = () => {
           );
         })}
       </div>
+      {renderEditGuarantee()}
     </div>
   );
 };

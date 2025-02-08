@@ -61,7 +61,7 @@
 .wrap-container-guaranteeAdmin {
   display: flex;
   flex-direction: column;
-  height: 74%;
+  height: 68%;
   margin-left: 110px;
   overflow-y: hidden;
   .grid-user {
