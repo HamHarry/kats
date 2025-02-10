@@ -34,7 +34,7 @@ const BookingAdminPage = () => {
   const [priceData] = useState(chooesPrice);
   const [timeData] = useState(time);
   const [openDialogConfirm, setOpenDialogConfirm] = useState<boolean>(false);
-  const [data, setData] = useState<BookingForm>(defaultValues);
+  const [data, setData] = useState<BookingForm>();
 
   const { handleSubmit, control } = useForm<BookingForm>({
     defaultValues,

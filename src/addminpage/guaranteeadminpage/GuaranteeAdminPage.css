@@ -137,11 +137,11 @@
   .wrap-container-DialogEdit {
     position: fixed;
     top: 50%;
-    left: 58%;
+    left: 57.85%;
     transform: translate(-50%, -50%);
-    width: 650px;
-    height: 500px;
-    background-color: #ffffff;
+    width: 1200px;
+    height: 800px;
+    background-color: #2656a2;
     border-radius: 20px;
     .container-DialogEdit-Navbar {
       display: flex;
@@ -150,12 +150,191 @@
       .fa-circle-xmark {
         font-size: 30px;
         cursor: pointer;
-        color: #1a3b7f;
+        color: #ffffff;
         transition: all 0.5s;
       }
       .fa-circle-xmark:hover {
         color: red;
         transition: all 0.5s;
+      }
+    }
+  }
+  .card-user {
+    display: flex;
+    height: 650px;
+    .card-imageCar {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 20px;
+      img {
+        width: 300px;
+        height: 150px;
+        border-radius: 20px;
+        border: 5px solid #ffffff;
+      }
+    }
+    .card-profile {
+      display: flex;
+      flex-direction: column;
+
+      .wrap-card-profile {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        margin-right: 20px;
+        .text-column-number {
+          display: flex;
+          align-items: center;
+          gap: 121px;
+          .text-number {
+            display: flex;
+            align-items: center;
+            gap: 56px;
+            h4 {
+              font-family: "Noto Sans Thai", serif;
+              font-size: 30px;
+              color: white;
+            }
+            p {
+              font-family: "Noto Sans Thai", serif;
+              font-size: 26px;
+              color: white;
+            }
+          }
+          .text-branch {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            h4 {
+              font-family: "Noto Sans Thai", serif;
+              font-size: 30px;
+              color: white;
+            }
+            p {
+              font-family: "Noto Sans Thai", serif;
+              font-size: 26px;
+              color: white;
+            }
+          }
+        }
+        .text-column-volume {
+          display: flex;
+          align-items: center;
+          gap: 135px;
+          .text-volume {
+            display: flex;
+            align-items: center;
+            gap: 55px;
+            h4 {
+              font-family: "Noto Sans Thai", serif;
+              font-size: 30px;
+              color: white;
+            }
+            p {
+              font-family: "Noto Sans Thai", serif;
+              font-size: 26px;
+              color: white;
+            }
+          }
+          .text-guadrantee {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            h4 {
+              font-family: "Noto Sans Thai", serif;
+              font-size: 32px;
+              color: white;
+            }
+            p {
+              font-family: "Noto Sans Thai", serif;
+              font-size: 18px;
+              color: white;
+            }
+          }
+        }
+      }
+      .text-date {
+        display: flex;
+        align-items: center;
+        gap: 64px;
+        h4 {
+          font-family: "Noto Sans Thai", serif;
+          font-size: 32px;
+          color: white;
+        }
+        p {
+          font-family: "Noto Sans Thai", serif;
+          font-size: 20px;
+          color: white;
+        }
+      }
+      .text-name {
+        display: flex;
+        align-items: center;
+        gap: 83px;
+        h4 {
+          font-family: "Noto Sans Thai", serif;
+          font-size: 32px;
+          color: white;
+        }
+        p {
+          font-family: "Noto Sans Thai", serif;
+          font-size: 20px;
+          color: white;
+        }
+      }
+      .text-tel {
+        display: flex;
+        align-items: center;
+        gap: 55px;
+        h4 {
+          font-family: "Noto Sans Thai", serif;
+          font-size: 32px;
+          color: white;
+        }
+        p {
+          font-family: "Noto Sans Thai", serif;
+          font-size: 20px;
+          color: white;
+        }
+      }
+      .text-guadrantee {
+        display: flex;
+        align-items: center;
+        gap: 23px;
+        h4 {
+          font-family: "Noto Sans Thai", serif;
+          font-size: 32px;
+          color: white;
+        }
+        p {
+          font-family: "Noto Sans Thai", serif;
+          font-size: 20px;
+          color: white;
+        }
+      }
+      .text-register {
+        display: flex;
+        align-items: center;
+        gap: 18px;
+        h4 {
+          font-family: "Noto Sans Thai", serif;
+          font-size: 32px;
+          color: white;
+        }
+        p {
+          font-family: "Noto Sans Thai", serif;
+          font-size: 20px;
+          color: white;
+        }
+      }
+      hr {
+        padding: 2px;
+        background-color: #ffffff;
+        border-radius: 20px;
+        margin-top: 20px;
+        margin-bottom: 20px;
       }
     }
   }
