@@ -44,6 +44,9 @@ const GuaranteeAdminPage = () => {
         <div className="container-DialogEdit">
           <div className="wrap-container-DialogEdit">
             <div className="container-DialogEdit-Navbar">
+              <button>
+                <h3>บันทึก</h3>
+              </button>
               <i
                 className="fa-solid fa-circle-xmark"
                 onClick={() => {
@@ -101,7 +104,32 @@ const GuaranteeAdminPage = () => {
                   </div>
                 </div>
                 <hr />
-                <div className="guarante-date"></div>
+                <div className="guarante-date">
+                  <table>
+                    <tr>
+                      <th>ครั้งที่</th>
+                      <th>วันที่เข้ารับบริการ</th>
+                      <th>คาน</th>
+                      <th>ซุ้มล้อ</th>
+                      <th>ปีกนก</th>
+                      <th>แชสซี่ส์</th>
+                      <th>ใต้ท้อง</th>
+                    </tr>
+                    {[...Array(10)].map((_, index) => (
+                      <tr key={index}>
+                        <td>{index + 1}</td>
+                        <input className="input-date" type="text" />
+                        {[...Array(5)].map((_, index) => {
+                          return (
+                            <td key={index}>
+                              <input className="checkbox" type="checkbox" />
+                            </td>
+                          );
+                        })}
+                      </tr>
+                    ))}
+                  </table>
+                </div>
               </div>
             </div>
           </div>
@@ -135,12 +163,13 @@ const GuaranteeAdminPage = () => {
                   <p>วันที่: {item.date}</p>
                   <div className="icon">
                     <i
-                      className="fa-solid fa-pen-to-square"
+                      className="fa-regular fa-plus"
                       onClick={() => {
                         setOpenDialogGuarantee(!openDialogGuarantee);
                         setDialogData(item);
                       }}
                     ></i>
+                    <i className="fa-solid fa-pen-to-square"></i>
                     <i className="fa-solid fa-trash-can"></i>
                   </div>
                 </div>
