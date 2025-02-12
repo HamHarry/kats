@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "./GuaranteeAdminPage.css";
 import { guarantee } from "../../data/MockUpGuarantee";
+import { Controller, useForm } from "react-hook-form";
 
 export interface Guarantees {
   number: string;
@@ -13,16 +14,46 @@ export interface Guarantees {
   register: string;
   product: string;
   tel: string;
-  image?: string;
+  image: string;
 }
+const defaultValues: Guarantees = {
+  number: "",
+  volume: "",
+  date: "",
+  time: "",
+  name: "",
+  carType: "",
+  carModel: "",
+  register: "",
+  product: "",
+  tel: "",
+  image: "/public/assets/logokats.jpg",
+};
 
 const GuaranteeAdminPage = () => {
-  const [guaranteeData, setfirstGuaranteeData] =
-    useState<Guarantees[]>(guarantee);
+  const [guaranteeData, setGuaranteeData] = useState<Guarantees[]>(guarantee);
   const [guaranteeDataRef] = useState(guaranteeData);
   const [openDialogGuarantee, setOpenDialogGuarantee] =
     useState<boolean>(false);
+  const [openDialogProfile, setOpenDialogProfile] = useState<boolean>(false);
   const [dialogData, setDialogData] = useState<Guarantees>();
+  const [updateData, setUpdateData] = useState<Guarantees>();
+
+  const { handleSubmit, control } = useForm<Guarantees>({
+    defaultValues,
+  });
+
+  const submitProfile = (value: Guarantees) => {
+    try {
+      const item = {
+        ...value,
+      };
+      setUpdateData(item); // เก็บข็อมูลเพื่อยินยันการส่ง
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  console.log(updateData);
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value.toLowerCase();
@@ -35,7 +66,7 @@ const GuaranteeAdminPage = () => {
         valueName || valueTel || valueNumber || valueVolumer || valueVolumer
       );
     });
-    setfirstGuaranteeData(newValue);
+    setGuaranteeData(newValue);
   };
 
   const renderEditGuarantee = () => {
@@ -92,7 +123,7 @@ const GuaranteeAdminPage = () => {
                     <h4>เบอร์</h4>
                     <p>{dialogData?.tel}</p>
                   </div>
-                  <div className="text-guadrantee">
+                  <div className="text-car">
                     <h4>รถยนต์</h4>
                     <p>
                       {dialogData?.carType} {dialogData?.carModel}
@@ -118,7 +149,7 @@ const GuaranteeAdminPage = () => {
                     {[...Array(10)].map((_, index) => (
                       <tr key={index}>
                         <td>{index + 1}</td>
-                        <input className="input-date" type="text" />
+                        <input className="input-date" type="date" />
                         {[...Array(5)].map((_, index) => {
                           return (
                             <td key={index}>
@@ -132,6 +163,187 @@ const GuaranteeAdminPage = () => {
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+      </dialog>
+    );
+  };
+  const rederEditProfile = () => {
+    return (
+      <dialog open={openDialogProfile}>
+        <div className="container-Edit-Profile">
+          <div className="wrap-container-Edit-Profile">
+            <form onSubmit={handleSubmit(submitProfile)}>
+              <div className="container-Edit-Profile-Navbar">
+                <button type="submit">
+                  <h3>บันทึก</h3>
+                </button>
+                <i
+                  className="fa-solid fa-circle-xmark"
+                  onClick={() => {
+                    setOpenDialogProfile(!openDialogProfile);
+                  }}
+                ></i>
+              </div>
+              <div className="content-Profile">
+                <div className="card-imageCar">
+                  <img src="/public/assets/logokats.jpg" alt="" />
+                </div>
+                <div className="card-profile">
+                  <div className="wrap-card-profile">
+                    <div className="text-column-number">
+                      <div className="text-number">
+                        <h4>เลขที่</h4>
+                        <Controller
+                          name="number"
+                          control={control}
+                          render={({ field }) => {
+                            return (
+                              <input
+                                {...field}
+                                type="text"
+                                value={dialogData?.number}
+                              />
+                            );
+                          }}
+                        />
+                      </div>
+                      <div className="text-branch">
+                        <h4>สาขา</h4>
+                        <p>ลาดกระบัง</p>
+                      </div>
+                    </div>
+                    <div className="text-column-volume">
+                      <div className="text-volume">
+                        <h4>เล่มที่</h4>
+                        <Controller
+                          name="volume"
+                          control={control}
+                          render={({ field }) => {
+                            return (
+                              <input
+                                {...field}
+                                type="text"
+                                value={dialogData?.volume}
+                              />
+                            );
+                          }}
+                        />
+                      </div>
+                      <div className="text-guadrantee">
+                        <h4>สินค้ารับประกัน</h4>
+                        <Controller
+                          name="product"
+                          control={control}
+                          render={({ field }) => {
+                            return (
+                              <input
+                                {...field}
+                                type="text"
+                                value={dialogData?.product}
+                              />
+                            );
+                          }}
+                        />
+                      </div>
+                    </div>
+                    <div className="text-date">
+                      <h4>วันที่</h4>
+                      <Controller
+                        name="date"
+                        control={control}
+                        render={({ field }) => {
+                          return (
+                            <input
+                              {...field}
+                              type="date"
+                              value={dialogData?.date}
+                            />
+                          );
+                        }}
+                      />
+                    </div>
+                    <div className="text-name">
+                      <h4>ชื่อ</h4>
+                      <Controller
+                        name="name"
+                        control={control}
+                        render={({ field }) => {
+                          return (
+                            <input
+                              {...field}
+                              type="text"
+                              value={dialogData?.name}
+                            />
+                          );
+                        }}
+                      />
+                    </div>
+                    <div className="text-tel">
+                      <h4>เบอร์</h4>
+                      <Controller
+                        name="tel"
+                        control={control}
+                        render={({ field }) => {
+                          return (
+                            <input
+                              {...field}
+                              type="text"
+                              value={dialogData?.tel}
+                            />
+                          );
+                        }}
+                      />
+                    </div>
+                    <div className="text-car">
+                      <h4>รถยนต์</h4>
+                      <Controller
+                        name="carType"
+                        control={control}
+                        render={({ field }) => {
+                          return (
+                            <input
+                              {...field}
+                              type="text"
+                              value={dialogData?.carType}
+                            />
+                          );
+                        }}
+                      />
+                      <Controller
+                        name="carModel"
+                        control={control}
+                        render={({ field }) => {
+                          return (
+                            <input
+                              {...field}
+                              type="text"
+                              value={dialogData?.carModel}
+                            />
+                          );
+                        }}
+                      />
+                    </div>
+                    <div className="text-register">
+                      <h4>ทะเบียน</h4>
+                      <Controller
+                        name="register"
+                        control={control}
+                        render={({ field }) => {
+                          return (
+                            <input
+                              {...field}
+                              type="text"
+                              value={dialogData?.register}
+                            />
+                          );
+                        }}
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </form>
           </div>
         </div>
       </dialog>
@@ -169,7 +381,13 @@ const GuaranteeAdminPage = () => {
                         setDialogData(item);
                       }}
                     ></i>
-                    <i className="fa-solid fa-pen-to-square"></i>
+                    <i
+                      className="fa-solid fa-pen-to-square"
+                      onClick={() => {
+                        setOpenDialogProfile(!openDialogProfile);
+                        setDialogData(item);
+                      }}
+                    ></i>
                     <i className="fa-solid fa-trash-can"></i>
                   </div>
                 </div>
@@ -188,6 +406,7 @@ const GuaranteeAdminPage = () => {
         })}
       </div>
       {renderEditGuarantee()}
+      {rederEditProfile()}
     </div>
   );
 };

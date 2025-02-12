@@ -15,7 +15,7 @@ export interface BookingForm {
   register: string;
   product: string;
   tel: string;
-  image?: string;
+  image: string;
 }
 const defaultValues: BookingForm = {
   number: "",
@@ -28,6 +28,7 @@ const defaultValues: BookingForm = {
   register: "",
   product: "",
   tel: "",
+  image: "/public/assets/logokats.jpg",
 };
 
 const BookingAdminPage = () => {
