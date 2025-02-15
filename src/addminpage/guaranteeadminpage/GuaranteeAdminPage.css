@@ -344,93 +344,6 @@
           color: white;
         }
       }
-      hr {
-        padding: 2px;
-        background-color: #ffffff;
-        border-radius: 20px;
-        margin-top: 10px;
-        margin-bottom: 10px;
-      }
-      .guarante-date {
-        display: flex;
-        table {
-          width: 100%;
-          th {
-            font-family: "Noto Sans Thai", serif;
-            font-size: 26px;
-            color: white;
-            background-color: #2656a2;
-            border-radius: 10px;
-            text-align: center;
-          }
-          td {
-            font-family: "Noto Sans Thai", serif;
-            font-size: 22px;
-            color: white;
-            border-radius: 10px;
-            text-align: center;
-          }
-          .input-date {
-            display: flex;
-            justify-content: center;
-            padding: 4px;
-            border-radius: 10px;
-            width: 200px;
-            margin-right: -100px;
-            margin-left: 18px;
-            font-family: "Noto Sans Thai", serif;
-            border: none;
-            text-align: center;
-          }
-          .checkbox {
-            appearance: none;
-            width: 25px;
-            aspect-ratio: 1;
-            border-radius: 8px;
-            border: 2px solid white;
-            position: relative;
-            transition: all 0.2s ease-in-out;
-          }
-          .checkbox::before {
-            font-family: "Quicksand", sans-serif;
-            position: absolute;
-            bottom: -4px;
-            left: 1px;
-            content: "✔";
-            font-size: 30px;
-            color: rgb(255, 153, 0);
-            transform: scale(0);
-            transition: all 0.2s ease-in-out;
-          }
-          .checkbox:checked::before {
-            animation: zoom 0.5s ease-in-out;
-            transform: scale(1);
-          }
-          @keyframes zoom {
-            0% {
-              transform: scale(0);
-            }
-            20% {
-              transform: scale(1.5);
-            }
-            40% {
-              transform: scale(0.5);
-            }
-            50% {
-              transform: scale(1);
-            }
-            70% {
-              transform: scale(1.2);
-            }
-            90% {
-              transform: scale(0.8);
-            }
-            100% {
-              transform: scale(1);
-            }
-          }
-        }
-      }
     }
   }
 }
@@ -486,29 +399,15 @@
     }
     .content-Profile {
       display: flex;
-      flex-direction: column;
+      justify-content: center;
       height: 650px;
-      .card-imageCar {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin-bottom: 20px;
-        img {
-          width: 500px;
-          height: 300px;
-          border-radius: 20px;
-          border: 5px solid #ffffff;
-        }
-      }
       .card-profile {
         display: flex;
         flex-direction: column;
-        margin-left: 150px;
         .wrap-card-profile {
           display: flex;
           flex-direction: column;
           width: 100%;
-          margin-right: 20px;
           .text-column-number {
             display: flex;
             align-items: center;
@@ -519,7 +418,7 @@
               gap: 57px;
               h4 {
                 font-family: "Noto Sans Thai", serif;
-                font-size: 32px;
+                font-size: 28px;
                 color: white;
               }
               input {
@@ -536,12 +435,12 @@
               gap: 10px;
               h4 {
                 font-family: "Noto Sans Thai", serif;
-                font-size: 32px;
+                font-size: 28px;
                 color: white;
               }
               p {
                 font-family: "Noto Sans Thai", serif;
-                font-size: 26px;
+                font-size: 24px;
                 color: white;
               }
             }
@@ -556,7 +455,7 @@
               gap: 55px;
               h4 {
                 font-family: "Noto Sans Thai", serif;
-                font-size: 32px;
+                font-size: 28px;
                 color: white;
               }
               input {
@@ -573,7 +472,7 @@
               gap: 10px;
               h4 {
                 font-family: "Noto Sans Thai", serif;
-                font-size: 32px;
+                font-size: 28px;
                 color: white;
               }
               input {
@@ -582,44 +481,89 @@
                 border-radius: 10px;
                 border: none;
                 padding: 4px;
-                width: 300px;
+                width: 372px;
               }
             }
           }
         }
-        .text-date {
+        .text-column-date {
           display: flex;
           align-items: center;
-          gap: 68px;
-          h4 {
-            font-family: "Noto Sans Thai", serif;
-            font-size: 32px;
-            color: white;
+          gap: 285px;
+          .text-date {
+            display: flex;
+            align-items: center;
+            gap: 68px;
+            h4 {
+              font-family: "Noto Sans Thai", serif;
+              font-size: 28px;
+              color: white;
+            }
+            input {
+              font-family: "Noto Sans Thai", serif;
+              font-size: 18px;
+              border-radius: 10px;
+              border: none;
+              padding: 4px;
+              width: 215px;
+            }
           }
-          input {
-            font-family: "Noto Sans Thai", serif;
-            font-size: 18px;
-            border-radius: 10px;
-            border: none;
-            padding: 4px;
-            width: 215px;
+          .text-car {
+            display: flex;
+            align-items: center;
+            gap: 26px;
+            h4 {
+              font-family: "Noto Sans Thai", serif;
+              font-size: 28px;
+              color: white;
+            }
+            input {
+              font-family: "Noto Sans Thai", serif;
+              font-size: 18px;
+              border-radius: 10px;
+              border: none;
+              padding: 4px;
+              margin-right: -20px;
+            }
           }
         }
-        .text-name {
+        .text-column-name {
           display: flex;
           align-items: center;
-          gap: 87px;
-          h4 {
-            font-family: "Noto Sans Thai", serif;
-            font-size: 32px;
-            color: white;
+          gap: 285px;
+          .text-name {
+            display: flex;
+            align-items: center;
+            gap: 85px;
+            h4 {
+              font-family: "Noto Sans Thai", serif;
+              font-size: 28px;
+              color: white;
+            }
+            input {
+              font-family: "Noto Sans Thai", serif;
+              font-size: 18px;
+              border-radius: 10px;
+              border: none;
+              padding: 4px;
+            }
           }
-          input {
-            font-family: "Noto Sans Thai", serif;
-            font-size: 18px;
-            border-radius: 10px;
-            border: none;
-            padding: 4px;
+          .text-register {
+            display: flex;
+            align-items: center;
+            gap: 21px;
+            h4 {
+              font-family: "Noto Sans Thai", serif;
+              font-size: 28px;
+              color: white;
+            }
+            input {
+              font-family: "Noto Sans Thai", serif;
+              font-size: 18px;
+              border-radius: 10px;
+              border: none;
+              padding: 4px;
+            }
           }
         }
         .text-tel {
@@ -628,7 +572,7 @@
           gap: 59px;
           h4 {
             font-family: "Noto Sans Thai", serif;
-            font-size: 32px;
+            font-size: 28px;
             color: white;
           }
           input {
@@ -639,39 +583,91 @@
             padding: 4px;
           }
         }
-        .text-car {
-          display: flex;
-          align-items: center;
-          gap: 26px;
-          h4 {
-            font-family: "Noto Sans Thai", serif;
-            font-size: 32px;
-            color: white;
-          }
-          input {
-            font-family: "Noto Sans Thai", serif;
-            font-size: 18px;
-            border-radius: 10px;
-            border: none;
-            padding: 4px;
-            margin-right: -20px;
-          }
+        hr {
+          padding: 2px;
+          background-color: #ffffff;
+          border-radius: 20px;
+          margin-top: 10px;
+          margin-bottom: 10px;
         }
-        .text-register {
+        .guarante-date {
           display: flex;
-          align-items: center;
-          gap: 21px;
-          h4 {
-            font-family: "Noto Sans Thai", serif;
-            font-size: 32px;
-            color: white;
-          }
-          input {
-            font-family: "Noto Sans Thai", serif;
-            font-size: 18px;
-            border-radius: 10px;
-            border: none;
-            padding: 4px;
+          table {
+            width: 100%;
+            th {
+              font-family: "Noto Sans Thai", serif;
+              font-size: 26px;
+              color: white;
+              background-color: #2656a2;
+              border-radius: 10px;
+              text-align: center;
+            }
+            td {
+              font-family: "Noto Sans Thai", serif;
+              font-size: 22px;
+              color: white;
+              border-radius: 10px;
+              text-align: center;
+            }
+            .input-date {
+              display: flex;
+              justify-content: center;
+              padding: 4px;
+              border-radius: 10px;
+              width: 320px;
+              margin-right: -180px;
+              margin-left: 18px;
+              font-family: "Noto Sans Thai", serif;
+              border: none;
+              text-align: center;
+            }
+            .checkbox {
+              appearance: none;
+              width: 25px;
+              aspect-ratio: 1;
+              border-radius: 8px;
+              border: 2px solid white;
+              position: relative;
+              transition: all 0.2s ease-in-out;
+            }
+            .checkbox::before {
+              font-family: "Quicksand", sans-serif;
+              position: absolute;
+              bottom: -4px;
+              left: 1px;
+              content: "✔";
+              font-size: 30px;
+              color: rgb(255, 153, 0);
+              transform: scale(0);
+              transition: all 0.2s ease-in-out;
+            }
+            .checkbox:checked::before {
+              animation: zoom 0.5s ease-in-out;
+              transform: scale(1);
+            }
+            @keyframes zoom {
+              0% {
+                transform: scale(0);
+              }
+              20% {
+                transform: scale(1.5);
+              }
+              40% {
+                transform: scale(0.5);
+              }
+              50% {
+                transform: scale(1);
+              }
+              70% {
+                transform: scale(1.2);
+              }
+              90% {
+                transform: scale(0.8);
+              }
+              100% {
+                transform: scale(1);
+              }
+            }
           }
         }
       }
