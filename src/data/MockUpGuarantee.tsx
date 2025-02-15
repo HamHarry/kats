@@ -16,7 +16,7 @@ export const guarantee: Guarantees[] = [
   },
   {
     number: "0002",
-    volume: "001",
+    volume: "002",
     date: "2025-02-08",
     time: "10:00 น.",
     name: "Ingkarat Ruchai",

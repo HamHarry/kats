@@ -36,6 +36,8 @@ const GuaranteeAdminPage = () => {
   const [openDialogProfile, setOpenDialogProfile] = useState<boolean>(false);
   const [dialogData, setDialogData] = useState<Guarantees>();
   const [updateData, setUpdateData] = useState<Guarantees>();
+  const [selectedVolumer, setSelectedVolumer] = useState("all");
+  const [searchValue, setSearchValue] = useState("");
 
   const { handleSubmit, control } = useForm<Guarantees>({
     defaultValues,
@@ -63,6 +65,54 @@ const GuaranteeAdminPage = () => {
       return valueName || valueTel || valueNumber || valueVolumer;
     });
     setGuaranteeData(newValue);
+    setSearchValue(value);
+  };
+
+  const selectMenu = () => {
+    return (
+      <div className="btn-menu">
+        <select>
+          <option
+            value={"All"}
+            className={selectedVolumer === "all" ? "is-btn-all" : "btn-all"}
+            onClick={() => {
+              const newlist = guaranteeDataRef.filter((item) => {
+                const search = item.name.toLowerCase().includes(searchValue);
+                return search;
+              });
+              setGuaranteeData(newlist);
+              setSelectedVolumer("all");
+            }}
+          >
+            All
+          </option>
+          <option
+            value={"001"}
+            className={selectedVolumer === "001" ? "is-btn-001" : "btn-001"}
+            onClick={() => {
+              const newlist = guaranteeDataRef.filter((item) => {
+                const searchNumber = item.number
+                  .toLowerCase()
+                  .includes(searchValue);
+                const searchTel = item.tel.toLowerCase().includes(searchValue);
+                const searchName = item.name
+                  .toLowerCase()
+                  .includes(searchValue);
+                return (
+                  item.volume === "001" &&
+                  (searchNumber || searchTel || searchName)
+                );
+              });
+              setGuaranteeData(newlist);
+              setSelectedVolumer("001");
+              console.log("001");
+            }}
+          >
+            001
+          </option>
+        </select>
+      </div>
+    );
   };
 
   const rederEditProfile = () => {
@@ -281,6 +331,7 @@ const GuaranteeAdminPage = () => {
         <h1>Guarantee</h1>
       </div>
       <div className="search-guaranteeAdmin">
+        {selectMenu()}
         <input
           type="text"
           placeholder="Search...(Name,Phone,Number,Volumer)"
