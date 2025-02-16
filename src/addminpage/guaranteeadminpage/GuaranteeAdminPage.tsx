@@ -57,13 +57,14 @@ const GuaranteeAdminPage = () => {
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value.toLowerCase();
+
     const newValue = guaranteeDataRef.filter((item) => {
       const statusVolume =
         item.volume === selectedVolumer || selectedVolumer === "All";
-      const valueName = item.name.toLowerCase().includes(value);
-      const valueTel = item.tel.toLowerCase().includes(value);
-      const valueNumber = item.number.toLowerCase().includes(value);
-      const valueVolumer = item.volume.toLowerCase().includes(value);
+      const valueName = item.name.toLowerCase().includes(searchValue);
+      const valueTel = item.tel.toLowerCase().includes(searchValue);
+      const valueNumber = item.number.toLowerCase().includes(searchValue);
+      const valueVolumer = item.volume.toLowerCase().includes(searchValue);
       return (
         statusVolume && (valueName || valueTel || valueNumber || valueVolumer)
       );
@@ -375,7 +376,6 @@ const GuaranteeAdminPage = () => {
           placeholder="Search...(Name,Phone,Number,Volumer)"
           onChange={handleSearch}
         />
-        <button>Search</button>
       </div>
       <div className="wrap-container-guaranteeAdmin">
         {guaranteeData.map((item, index) => {

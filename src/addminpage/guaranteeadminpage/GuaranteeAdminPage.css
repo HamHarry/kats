@@ -26,7 +26,9 @@
 
 .search-guaranteeAdmin {
   display: flex;
-  justify-content: end;
+  justify-content: space-between;
+  align-items: center;
+  margin-left: 110px;
   margin-right: 50px;
   margin-top: 20px;
   margin-bottom: 20px;
@@ -35,26 +37,18 @@
     height: 27px;
     padding: 5px;
     border-radius: 10px;
-    margin-right: 10px;
+    margin-right: 50px;
     font-size: 12px;
     font-family: "Noto Sans Thai", serif;
     border: 3px solid #2656a2;
   }
-  button {
-    padding: 5px 10px;
-    border-radius: 10px;
-    background-color: #2656a2;
-    color: white;
-    font-size: 18px;
+  select {
+    width: 80px;
+    height: 45px;
+    margin-left: -2px;
+    border-radius: 20px;
+    border: 2px solid #2656a2;
     font-family: "Noto Sans Thai", serif;
-    border: none;
-    cursor: pointer;
-  }
-  button:hover {
-    background-color: #1a3b7f;
-    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8),
-      0 0 20px rgba(255, 255, 255, 0.6), 0 0 30px rgba(255, 255, 255, 0.4);
-    transition: all 0.5s;
   }
 }
 

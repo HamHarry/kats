@@ -30,7 +30,6 @@ const UserAdminPage = () => {
       </div>
       <div className="search-user">
         <input type="text" placeholder="Search..." onChange={handleSearch} />
-        <button>Search</button>
       </div>
       <div className="wrap-container-userAdmin">
         {userData.map((item, index) => {
