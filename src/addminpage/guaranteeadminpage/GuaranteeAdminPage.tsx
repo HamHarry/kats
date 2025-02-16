@@ -36,7 +36,7 @@ const GuaranteeAdminPage = () => {
   const [openDialogProfile, setOpenDialogProfile] = useState<boolean>(false);
   const [dialogData, setDialogData] = useState<Guarantees>();
   const [updateData, setUpdateData] = useState<Guarantees>();
-  const [selectedVolumer, setSelectedVolumer] = useState("all");
+  const [selectedVolumer, setSelectedVolumer] = useState<string>("All");
   const [searchValue, setSearchValue] = useState("");
 
   const { handleSubmit, control } = useForm<Guarantees>({
@@ -58,57 +58,95 @@ const GuaranteeAdminPage = () => {
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value.toLowerCase();
     const newValue = guaranteeDataRef.filter((item) => {
+      const statusVolume =
+        item.volume === selectedVolumer || selectedVolumer === "All";
       const valueName = item.name.toLowerCase().includes(value);
       const valueTel = item.tel.toLowerCase().includes(value);
       const valueNumber = item.number.toLowerCase().includes(value);
       const valueVolumer = item.volume.toLowerCase().includes(value);
-      return valueName || valueTel || valueNumber || valueVolumer;
+      return (
+        statusVolume && (valueName || valueTel || valueNumber || valueVolumer)
+      );
     });
     setGuaranteeData(newValue);
     setSearchValue(value);
   };
 
+  const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const selectedValue = event.target.value;
+
+    if (selectedValue === "All") {
+      const newlist = guaranteeDataRef.filter((item) => {
+        const searchNumber = item.number.toLowerCase().includes(searchValue);
+        const searchTel = item.tel.toLowerCase().includes(searchValue);
+        const searchName = item.name.toLowerCase().includes(searchValue);
+        return searchNumber || searchTel || searchName;
+      });
+      setGuaranteeData(newlist);
+      setSelectedVolumer("All");
+    } else if (selectedValue === "001") {
+      const newlist = guaranteeDataRef.filter((item) => {
+        const searchNumber = item.number.toLowerCase().includes(searchValue);
+        const searchTel = item.tel.toLowerCase().includes(searchValue);
+        const searchName = item.name.toLowerCase().includes(searchValue);
+        return (
+          item.volume === "001" && (searchNumber || searchTel || searchName)
+        );
+      });
+      setGuaranteeData(newlist);
+      setSelectedVolumer("001");
+    } else if (selectedValue === "002") {
+      const newlist = guaranteeDataRef.filter((item) => {
+        const searchNumber = item.number.toLowerCase().includes(searchValue);
+        const searchTel = item.tel.toLowerCase().includes(searchValue);
+        const searchName = item.name.toLowerCase().includes(searchValue);
+        return (
+          item.volume === "002" && (searchNumber || searchTel || searchName)
+        );
+      });
+      setGuaranteeData(newlist);
+      setSelectedVolumer("002");
+    } else if (selectedValue === "003") {
+      const newlist = guaranteeDataRef.filter((item) => {
+        const searchNumber = item.number.toLowerCase().includes(searchValue);
+        const searchTel = item.tel.toLowerCase().includes(searchValue);
+        const searchName = item.name.toLowerCase().includes(searchValue);
+        return (
+          item.volume === "003" && (searchNumber || searchTel || searchName)
+        );
+      });
+      setGuaranteeData(newlist);
+      setSelectedVolumer("003");
+    }
+  };
+
   const selectMenu = () => {
     return (
       <div className="btn-menu">
-        <select>
+        <select onChange={handleSelectChange}>
           <option
             value={"All"}
             className={selectedVolumer === "all" ? "is-btn-all" : "btn-all"}
-            onClick={() => {
-              const newlist = guaranteeDataRef.filter((item) => {
-                const search = item.name.toLowerCase().includes(searchValue);
-                return search;
-              });
-              setGuaranteeData(newlist);
-              setSelectedVolumer("all");
-            }}
           >
             All
           </option>
           <option
             value={"001"}
             className={selectedVolumer === "001" ? "is-btn-001" : "btn-001"}
-            onClick={() => {
-              const newlist = guaranteeDataRef.filter((item) => {
-                const searchNumber = item.number
-                  .toLowerCase()
-                  .includes(searchValue);
-                const searchTel = item.tel.toLowerCase().includes(searchValue);
-                const searchName = item.name
-                  .toLowerCase()
-                  .includes(searchValue);
-                return (
-                  item.volume === "001" &&
-                  (searchNumber || searchTel || searchName)
-                );
-              });
-              setGuaranteeData(newlist);
-              setSelectedVolumer("001");
-              console.log("001");
-            }}
           >
             001
+          </option>
+          <option
+            value={"002"}
+            className={selectedVolumer === "002" ? "is-btn-002" : "btn-002"}
+          >
+            002
+          </option>
+          <option
+            value={"003"}
+            className={selectedVolumer === "003" ? "is-btn-003" : "btn-003"}
+          >
+            003
           </option>
         </select>
       </div>
