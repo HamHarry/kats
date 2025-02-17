@@ -3,6 +3,7 @@ import "./BookingAdminPage.css";
 import { useState } from "react";
 import { chooesPrice } from "../../data/MockUpChooesPrice";
 import { time } from "../../data/MockUpTime";
+import { mockUpProduct } from "../../data/MockUpProduct";
 
 export interface BookingForm {
   number: string;
@@ -13,6 +14,7 @@ export interface BookingForm {
   carType: string;
   carModel: string;
   register: string;
+  typeProduct: string;
   product: string;
   tel: string;
   image: string;
@@ -26,6 +28,7 @@ const defaultValues: BookingForm = {
   carType: "",
   carModel: "",
   register: "",
+  typeProduct: "",
   product: "",
   tel: "",
   image: "/public/assets/logokats.jpg",
@@ -33,6 +36,7 @@ const defaultValues: BookingForm = {
 
 const BookingAdminPage = () => {
   const [priceData] = useState(chooesPrice);
+  const [productData] = useState(mockUpProduct);
   const [timeData] = useState(time);
   const [openDialogConfirm, setOpenDialogConfirm] = useState<boolean>(false);
   const [data, setData] = useState<BookingForm>();
@@ -163,30 +167,32 @@ const BookingAdminPage = () => {
               );
             }}
           />
-          <Controller
-            name="carType"
-            control={control}
-            render={({ field }) => {
-              return (
-                <div className="inputCarType">
-                  <h2>ประเภทรถ</h2>
-                  <input {...field} type="text" />
-                </div>
-              );
-            }}
-          />
-          <Controller
-            name="carModel"
-            control={control}
-            render={({ field }) => {
-              return (
-                <div className="inputCarModel">
-                  <h2>รุ่นรถ</h2>
-                  <input {...field} type="text" />
-                </div>
-              );
-            }}
-          />
+          <div className="input-car">
+            <Controller
+              name="carType"
+              control={control}
+              render={({ field }) => {
+                return (
+                  <div className="inputCarType">
+                    <h2>ประเภทรถ</h2>
+                    <input {...field} type="text" />
+                  </div>
+                );
+              }}
+            />
+            <Controller
+              name="carModel"
+              control={control}
+              render={({ field }) => {
+                return (
+                  <div className="inputCarModel">
+                    <h2>รุ่นรถ</h2>
+                    <input {...field} type="text" />
+                  </div>
+                );
+              }}
+            />
+          </div>
           <Controller
             name="register"
             control={control}
@@ -199,29 +205,54 @@ const BookingAdminPage = () => {
               );
             }}
           />
-          <Controller
-            name="product"
-            control={control}
-            render={({ field }) => {
-              return (
-                <div className="inputProduct">
-                  <h2>สินค้า</h2>
-                  <select {...field}>
-                    <option value={""} disabled selected hidden>
-                      Product Choose...
-                    </option>
-                    {priceData.map((item, index) => {
-                      return (
-                        <option key={index} value={item.product}>
-                          {item.product}
-                        </option>
-                      );
-                    })}
-                  </select>
-                </div>
-              );
-            }}
-          />
+          <div className="input-product">
+            <Controller
+              name="typeProduct"
+              control={control}
+              render={({ field }) => {
+                return (
+                  <div className="inputTypeProduct">
+                    <h2>สินค้า</h2>
+                    <select {...field}>
+                      <option value={""} disabled selected hidden>
+                        Product Choose...
+                      </option>
+                      {productData.map((item, index) => {
+                        return (
+                          <option key={index} value={item.typeProduct}>
+                            {item.typeProduct}
+                          </option>
+                        );
+                      })}
+                    </select>
+                  </div>
+                );
+              }}
+            />
+            <Controller
+              name="product"
+              control={control}
+              render={({ field }) => {
+                return (
+                  <div className="inputProduct">
+                    <h2>สินค้า</h2>
+                    <select {...field}>
+                      <option value={""} disabled selected hidden>
+                        Product Choose...
+                      </option>
+                      {priceData.map((item, index) => {
+                        return (
+                          <option key={index} value={item.price}>
+                            {item.price}
+                          </option>
+                        );
+                      })}
+                    </select>
+                  </div>
+                );
+              }}
+            />
+          </div>
           <Controller
             name="tel"
             control={control}

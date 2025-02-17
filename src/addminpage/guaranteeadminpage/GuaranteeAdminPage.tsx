@@ -12,7 +12,8 @@ export interface Guarantees {
   carType: string;
   carModel: string;
   register: string;
-  product: string;
+  typeProduct: string;
+  price: string;
   tel: string;
   image: string;
 }
@@ -25,7 +26,8 @@ const defaultValues: Guarantees = {
   carType: "",
   carModel: "",
   register: "",
-  product: "",
+  typeProduct: "",
+  price: "",
   tel: "",
   image: "/public/assets/logokats.jpg",
 };
@@ -213,21 +215,38 @@ const GuaranteeAdminPage = () => {
                           }}
                         />
                       </div>
-                      <div className="text-guadrantee">
-                        <h4>สินค้ารับประกัน</h4>
-                        <Controller
-                          name="product"
-                          control={control}
-                          render={({ field }) => {
-                            return (
-                              <input
-                                {...field}
-                                type="text"
-                                value={dialogData?.product}
-                              />
-                            );
-                          }}
-                        />
+                      <div className="guadrantee">
+                        <div className="text-guadrantee-typeProduct">
+                          <h4>ประกันสินค้า</h4>
+                          <Controller
+                            name="typeProduct"
+                            control={control}
+                            render={({ field }) => {
+                              return (
+                                <input
+                                  {...field}
+                                  type="text"
+                                  value={dialogData?.typeProduct}
+                                />
+                              );
+                            }}
+                          />
+                        </div>
+                        <div className="text-guadrantee">
+                          <Controller
+                            name="price"
+                            control={control}
+                            render={({ field }) => {
+                              return (
+                                <input
+                                  {...field}
+                                  type="text"
+                                  value={dialogData?.price}
+                                />
+                              );
+                            }}
+                          />
+                        </div>
                       </div>
                     </div>
                     <div className="text-column-date">
@@ -402,7 +421,9 @@ const GuaranteeAdminPage = () => {
                 <p>เบอร์: {item.tel}</p>
                 <p>เลขที่: {item.number}</p>
                 <p>เล่มที่: {item.volume}</p>
-                <p>สินค้า: {item.product}</p>
+                <p>
+                  สินค้า:{item.typeProduct} {item.price}
+                </p>
                 <p>
                   รถ: {item.carType} {item.carModel}
                 </p>

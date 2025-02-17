@@ -108,36 +108,41 @@
       font-family: "Noto Sans Thai", serif;
     }
   }
-  .inputCarType {
+  .input-car {
     display: flex;
-    align-items: center;
-    gap: 40px;
-    margin-left: 20px;
-    margin-top: 20px;
-    input {
-      padding: 5px;
-      width: 250px;
-      height: 30px;
-      border-radius: 20px;
-      border: 2px solid #2656a2;
-      font-family: "Noto Sans Thai", serif;
+    gap: 20px;
+    .inputCarType {
+      display: flex;
+      align-items: center;
+      gap: 40px;
+      margin-left: 20px;
+      margin-top: 20px;
+      input {
+        padding: 5px;
+        width: 250px;
+        height: 30px;
+        border-radius: 20px;
+        border: 2px solid #2656a2;
+        font-family: "Noto Sans Thai", serif;
+      }
+    }
+    .inputCarModel {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      margin-left: 20px;
+      margin-top: 20px;
+      input {
+        padding: 5px;
+        width: 250px;
+        height: 30px;
+        border-radius: 20px;
+        border: 2px solid #2656a2;
+        font-family: "Noto Sans Thai", serif;
+      }
     }
   }
-  .inputCarModel {
-    display: flex;
-    align-items: center;
-    gap: 88px;
-    margin-left: 20px;
-    margin-top: 20px;
-    input {
-      padding: 5px;
-      width: 250px;
-      height: 30px;
-      border-radius: 20px;
-      border: 2px solid #2656a2;
-      font-family: "Noto Sans Thai", serif;
-    }
-  }
+
   .inputRegister {
     display: flex;
     align-items: center;
@@ -153,20 +158,39 @@
       font-family: "Noto Sans Thai", serif;
     }
   }
-  .inputProduct {
+  .input-product {
     display: flex;
-    align-items: center;
-    gap: 85px;
-    margin-left: 20px;
-    margin-top: 20px;
-    select {
-      width: 265px;
-      height: 45px;
-      border-radius: 20px;
-      border: 2px solid #2656a2;
-      font-family: "Noto Sans Thai", serif;
+    gap: 20px;
+    .inputTypeProduct {
+      display: flex;
+      align-items: center;
+      gap: 85px;
+      margin-left: 20px;
+      margin-top: 20px;
+      select {
+        width: 265px;
+        height: 45px;
+        border-radius: 20px;
+        border: 2px solid #2656a2;
+        font-family: "Noto Sans Thai", serif;
+      }
+    }
+    .inputProduct {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      margin-left: 20px;
+      margin-top: 20px;
+      select {
+        width: 265px;
+        height: 45px;
+        border-radius: 20px;
+        border: 2px solid #2656a2;
+        font-family: "Noto Sans Thai", serif;
+      }
     }
   }
+
   .inputImage {
     display: flex;
     gap: 112px;
