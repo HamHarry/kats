@@ -59,17 +59,15 @@ const GuaranteeAdminPage = () => {
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value.toLowerCase();
+    console.log(value);
 
     const newValue = guaranteeDataRef.filter((item) => {
       const statusVolume =
         item.volume === selectedVolumer || selectedVolumer === "All";
-      const valueName = item.name.toLowerCase().includes(searchValue);
-      const valueTel = item.tel.toLowerCase().includes(searchValue);
-      const valueNumber = item.number.toLowerCase().includes(searchValue);
-      const valueVolumer = item.volume.toLowerCase().includes(searchValue);
-      return (
-        statusVolume && (valueName || valueTel || valueNumber || valueVolumer)
-      );
+      const valueName = item.name.toLowerCase().includes(value);
+      const valueTel = item.tel.toLowerCase().includes(value);
+      const valueNumber = item.number.toLowerCase().includes(value);
+      return statusVolume && (valueName || valueTel || valueNumber);
     });
     setGuaranteeData(newValue);
     setSearchValue(value);
@@ -127,30 +125,10 @@ const GuaranteeAdminPage = () => {
     return (
       <div className="btn-menu">
         <select onChange={handleSelectChange}>
-          <option
-            value={"All"}
-            className={selectedVolumer === "all" ? "is-btn-all" : "btn-all"}
-          >
-            All
-          </option>
-          <option
-            value={"001"}
-            className={selectedVolumer === "001" ? "is-btn-001" : "btn-001"}
-          >
-            001
-          </option>
-          <option
-            value={"002"}
-            className={selectedVolumer === "002" ? "is-btn-002" : "btn-002"}
-          >
-            002
-          </option>
-          <option
-            value={"003"}
-            className={selectedVolumer === "003" ? "is-btn-003" : "btn-003"}
-          >
-            003
-          </option>
+          <option value={"All"}>All</option>
+          <option value={"001"}>001</option>
+          <option value={"002"}>002</option>
+          <option value={"003"}>003</option>
         </select>
       </div>
     );
@@ -389,7 +367,7 @@ const GuaranteeAdminPage = () => {
         <h1>Guarantee</h1>
       </div>
       <div className="search-guaranteeAdmin">
-        {selectMenu()}
+        <div>{selectMenu()}</div>
         <input
           type="text"
           placeholder="Search...(Name,Phone,Number,Volumer)"
