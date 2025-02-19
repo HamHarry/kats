@@ -167,13 +167,6 @@
       gap: 85px;
       margin-left: 20px;
       margin-top: 20px;
-      select {
-        width: 265px;
-        height: 45px;
-        border-radius: 20px;
-        border: 2px solid #2656a2;
-        font-family: "Noto Sans Thai", serif;
-      }
     }
     .inputProduct {
       display: flex;
@@ -181,14 +174,19 @@
       gap: 20px;
       margin-left: 20px;
       margin-top: 20px;
-      select {
-        width: 265px;
-        height: 45px;
-        border-radius: 20px;
-        border: 2px solid #2656a2;
-        font-family: "Noto Sans Thai", serif;
-      }
     }
+  }
+
+  .select-product {
+    width: 265px;
+    height: 45px;
+    border-radius: 20px;
+    font-family: "Noto Sans Thai", serif;
+  }
+
+  .ant-select-single .ant-select-selector {
+    border-radius: 20px !important;
+    border: 2px solid #2656a2;
   }
 
   .inputImage {

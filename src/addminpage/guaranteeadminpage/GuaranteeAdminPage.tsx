@@ -2,34 +2,29 @@ import { useState } from "react";
 import "./GuaranteeAdminPage.css";
 import { guarantee } from "../../data/MockUpGuarantee";
 import { Controller, useForm } from "react-hook-form";
+import { Guarantees } from "../../model/guarantee.type";
 
-export interface Guarantees {
-  number: string;
-  volume: string;
-  date: string;
-  time: string;
-  name: string;
-  carType: string;
-  carModel: string;
-  register: string;
-  typeProduct: string;
-  price: string;
-  tel: string;
-  image: string;
-}
 const defaultValues: Guarantees = {
   number: "",
   volume: "",
-  date: "",
-  time: "",
+  bookDate: "",
+  bookTime: "",
   name: "",
   carType: "",
   carModel: "",
   register: "",
-  typeProduct: "",
   price: "",
   tel: "",
   image: "/public/assets/logokats.jpg",
+  product: {
+    name: "",
+    catagory: {
+      name: "",
+      code: "",
+    },
+    productDetails: [],
+    detail: "",
+  },
 };
 
 const GuaranteeAdminPage = () => {
@@ -235,14 +230,14 @@ const GuaranteeAdminPage = () => {
                         <div className="text-guadrantee-typeProduct">
                           <h4>ประกันสินค้า</h4>
                           <Controller
-                            name="typeProduct"
+                            name="product._id"
                             control={control}
                             render={({ field }) => {
                               return (
                                 <input
                                   {...field}
                                   type="text"
-                                  value={dialogData?.typeProduct}
+                                  value={dialogData?.product.name}
                                 />
                               );
                             }}
@@ -269,14 +264,14 @@ const GuaranteeAdminPage = () => {
                       <div className="text-date">
                         <h4>วันที่</h4>
                         <Controller
-                          name="date"
+                          name="bookDate"
                           control={control}
                           render={({ field }) => {
                             return (
                               <input
                                 {...field}
                                 type="date"
-                                value={dialogData?.date}
+                                value={dialogData?.bookDate}
                               />
                             );
                           }}
@@ -366,28 +361,34 @@ const GuaranteeAdminPage = () => {
                   <hr />
                   <div className="guarante-date">
                     <table>
-                      <tr>
-                        <th>ครั้งที่</th>
-                        <th>วันที่เข้ารับบริการ</th>
-                        <th>คาน</th>
-                        <th>ซุ้มล้อ</th>
-                        <th>ปีกนก</th>
-                        <th>แชสซี่ส์</th>
-                        <th>ใต้ท้อง</th>
-                      </tr>
-                      {[...Array(10)].map((_, index) => (
-                        <tr key={index}>
-                          <td>{index + 1}</td>
-                          <input className="input-date" type="date" />
-                          {[...Array(5)].map((_, index) => {
-                            return (
-                              <td key={index}>
-                                <input className="checkbox" type="checkbox" />
-                              </td>
-                            );
-                          })}
+                      <thead>
+                        <tr>
+                          <th>ครั้งที่</th>
+                          <th>วันที่เข้ารับบริการ</th>
+                          <th>คาน</th>
+                          <th>ซุ้มล้อ</th>
+                          <th>ปีกนก</th>
+                          <th>แชสซี่ส์</th>
+                          <th>ใต้ท้อง</th>
                         </tr>
-                      ))}
+                      </thead>
+
+                      <tbody>
+                        {[...Array(10)].map((_, index) => (
+                          <tr key={index}>
+                            <td>{index + 1}</td>
+                            <input className="input-date" type="date" />
+
+                            {[...Array(5)].map((_, index) => {
+                              return (
+                                <td key={index}>
+                                  <input className="checkbox" type="checkbox" />
+                                </td>
+                              );
+                            })}
+                          </tr>
+                        ))}
+                      </tbody>
                     </table>
                   </div>
                 </div>
@@ -421,7 +422,7 @@ const GuaranteeAdminPage = () => {
               </div>
               <div className="guaranteeAdmin-content">
                 <div className="text-p">
-                  <p>วันที่: {item.date}</p>
+                  <p>วันที่: {item.bookDate}</p>
                   <div className="icon">
                     <i
                       className="fa-solid fa-pen-to-square"
@@ -444,7 +445,7 @@ const GuaranteeAdminPage = () => {
                 <p>เลขที่: {item.number}</p>
                 <p>เล่มที่: {item.volume}</p>
                 <p>
-                  สินค้า: {item.typeProduct} {item.price}
+                  สินค้า: {item.product.name} {item.price}
                 </p>
                 <p>
                   รถ: {item.carType} {item.carModel}

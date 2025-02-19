@@ -1,47 +1,52 @@
 import { Controller, useForm } from "react-hook-form";
 import "./BookingAdminPage.css";
 import { useState } from "react";
-import { chooesPrice } from "../../data/MockUpChooesPrice";
-import { time } from "../../data/MockUpTime";
-import { mockUpProduct } from "../../data/MockUpProduct";
+import { mockUpProducts } from "../../data/MockUpProduct";
+import { Select } from "antd";
+import { PRICE_TYPE } from "../../model/product.type";
+import { Guarantees } from "../../model/guarantee.type";
 
-export interface BookingForm {
-  number: string;
-  volume: string;
-  date: string;
-  time: string;
-  name: string;
-  carType: string;
-  carModel: string;
-  register: string;
-  typeProduct: string;
-  product: string;
-  tel: string;
-  image: string;
-}
+export interface BookingForm extends Guarantees {}
+
 const defaultValues: BookingForm = {
   number: "",
   volume: "",
-  date: "",
-  time: "",
+  bookDate: "",
+  bookTime: "",
   name: "",
   carType: "",
   carModel: "",
   register: "",
-  typeProduct: "",
-  product: "",
+  product: {
+    name: "",
+    catagory: {
+      name: "",
+      code: "",
+    },
+    productDetails: [],
+    detail: "",
+  },
   tel: "",
   image: "/public/assets/logokats.jpg",
+  price: "",
 };
 
+const bookingTimeList = [
+  { time: "08:00" },
+  { time: "10:00" },
+  { time: "13:00" },
+  { time: "15:00" },
+  { time: "17:00" },
+];
+
 const BookingAdminPage = () => {
-  const [priceData] = useState(chooesPrice);
-  const [productData] = useState(mockUpProduct);
-  const [timeData] = useState(time);
+  const [priceData, setPriceData] = useState([]);
+  const [productData] = useState(mockUpProducts);
+  const [timeData] = useState(bookingTimeList);
   const [openDialogConfirm, setOpenDialogConfirm] = useState<boolean>(false);
   const [data, setData] = useState<BookingForm>();
 
-  const { handleSubmit, control } = useForm<BookingForm>({
+  const { handleSubmit, control, setValue } = useForm<BookingForm>({
     defaultValues,
   });
 
@@ -121,7 +126,7 @@ const BookingAdminPage = () => {
             }}
           />
           <Controller
-            name="date"
+            name="bookDate"
             control={control}
             render={({ field }) => {
               return (
@@ -133,7 +138,7 @@ const BookingAdminPage = () => {
             }}
           />
           <Controller
-            name="time"
+            name="bookTime"
             control={control}
             render={({ field }) => {
               return (
@@ -207,47 +212,67 @@ const BookingAdminPage = () => {
           />
           <div className="input-product">
             <Controller
-              name="typeProduct"
+              name="product._id"
               control={control}
               render={({ field }) => {
                 return (
                   <div className="inputTypeProduct">
                     <h2>สินค้า</h2>
-                    <select {...field}>
-                      <option value={""} disabled selected hidden>
-                        Product Choose...
-                      </option>
-                      {productData.map((item, index) => {
-                        return (
-                          <option key={index} value={item.typeProduct}>
-                            {item.typeProduct}
-                          </option>
+
+                    <Select
+                      {...field}
+                      placeholder="เลือกสินค้า"
+                      className="select-product"
+                      value={field.value || undefined}
+                      onSelect={(value) => {
+                        console.log("select", value);
+                        field.onChange(value);
+
+                        const findedProduct = productData.find(
+                          (item) => String(item._id) === String(value)
                         );
-                      })}
-                    </select>
+
+                        if (findedProduct) {
+                          setValue("product", {
+                            ...findedProduct,
+                            productDetails: [],
+                          });
+                          setPriceData(findedProduct?.productDetails as any);
+                        }
+                      }}
+                    >
+                      {productData.map((item) => (
+                        <Select.Option key={item._id} value={item._id}>
+                          {item.name}
+                        </Select.Option>
+                      ))}
+                    </Select>
                   </div>
                 );
               }}
             />
+
             <Controller
-              name="product"
+              name="price"
               control={control}
               render={({ field }) => {
                 return (
                   <div className="inputProduct">
                     <h2>ราคา</h2>
-                    <select {...field}>
-                      <option value={""} disabled selected hidden>
-                        Product Choose...
-                      </option>
-                      {priceData.map((item, index) => {
-                        return (
-                          <option key={index} value={item.price}>
-                            {item.price}
-                          </option>
-                        );
-                      })}
-                    </select>
+
+                    <Select
+                      {...field}
+                      className="select-product"
+                      placeholder="เลือกราคา"
+                      value={field.value || undefined}
+                      disabled={priceData.length === 0}
+                      options={priceData.map((item: any) => ({
+                        label: `${
+                          item.type === PRICE_TYPE.LUXURY ? "luxury" : ""
+                        } ${item.price} Baht`,
+                        value: item.price,
+                      }))}
+                    />
                   </div>
                 );
               }}
