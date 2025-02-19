@@ -235,7 +235,7 @@ const BookingAdminPage = () => {
               render={({ field }) => {
                 return (
                   <div className="inputProduct">
-                    <h2>สินค้า</h2>
+                    <h2>ราคา</h2>
                     <select {...field}>
                       <option value={""} disabled selected hidden>
                         Product Choose...

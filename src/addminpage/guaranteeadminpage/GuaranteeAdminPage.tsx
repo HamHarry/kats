@@ -36,6 +36,7 @@ const GuaranteeAdminPage = () => {
   const [guaranteeData, setGuaranteeData] = useState<Guarantees[]>(guarantee);
   const [guaranteeDataRef] = useState(guaranteeData);
   const [openDialogProfile, setOpenDialogProfile] = useState<boolean>(false);
+  const [openDialogConfirm, setOpenDialogConfirm] = useState<boolean>(false);
   const [dialogData, setDialogData] = useState<Guarantees>();
   const [updateData, setUpdateData] = useState<Guarantees>();
   const [selectedVolumer, setSelectedVolumer] = useState<string>("All");
@@ -130,7 +131,44 @@ const GuaranteeAdminPage = () => {
           <option value={"002"}>002</option>
           <option value={"003"}>003</option>
         </select>
+        {/* <select onChange={handleSelectChange}>
+          <option value={"All"}>All</option>
+          <option value={"KATS Coating"}>KATS</option>
+          <option value={"GUN"}>GUN</option>
+        </select> */}
       </div>
+    );
+  };
+
+  const rederDialogConfirm = () => {
+    return (
+      <dialog open={openDialogConfirm}>
+        <div className="container-DialogConfirm">
+          <div className="wrap-container-DialogConfirm">
+            <div className="container-DialogConfirm-Navbar">
+              <i
+                className="fa-solid fa-circle-xmark"
+                onClick={() => {
+                  setOpenDialogConfirm(!openDialogConfirm);
+                }}
+              ></i>
+            </div>
+            <h1>ยืนยันการลบ</h1>
+            <div className="btn-DialogConfirm-Navbar">
+              <button
+                type="submit"
+                className="btn-submit-dialogConfirm"
+                onClick={() => {
+                  setOpenDialogConfirm(!openDialogConfirm);
+                }}
+              >
+                ยืนยัน
+              </button>
+              <button className="btn-edit-dialogConfirm">แก้ไข</button>
+            </div>
+          </div>
+        </div>
+      </dialog>
     );
   };
 
@@ -392,7 +430,13 @@ const GuaranteeAdminPage = () => {
                         setDialogData(item);
                       }}
                     ></i>
-                    <i className="fa-solid fa-trash-can"></i>
+                    <i
+                      className="fa-solid fa-trash-can"
+                      onClick={() => {
+                        setOpenDialogConfirm(!openDialogConfirm);
+                        setDialogData(item);
+                      }}
+                    ></i>
                   </div>
                 </div>
                 <p>ชื่อ: {item.name}</p>
@@ -400,7 +444,7 @@ const GuaranteeAdminPage = () => {
                 <p>เลขที่: {item.number}</p>
                 <p>เล่มที่: {item.volume}</p>
                 <p>
-                  สินค้า:{item.typeProduct} {item.price}
+                  สินค้า: {item.typeProduct} {item.price}
                 </p>
                 <p>
                   รถ: {item.carType} {item.carModel}
@@ -412,6 +456,7 @@ const GuaranteeAdminPage = () => {
         })}
       </div>
       {rederEditProfile()}
+      {rederDialogConfirm()}
     </div>
   );
 };
