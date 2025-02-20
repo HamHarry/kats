@@ -11,6 +11,7 @@ import GuaranteeAdminPage from "./addminpage/guaranteeadminpage/GuaranteeAdminPa
 import FinanceAdminPage from "./addminpage/financeadminpage/FinanceAdminPage";
 import BinAdminPage from "./addminpage/binadminpage/BinAdminPage";
 import LoginPage from "./loginpage/Loginpage";
+import ProductAdminPage from "./addminpage/productadminpage/ProductAdminPage";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
           <Route path="booking" element={<BookingAdminPage />} />
           <Route path="calendar" element={<CalendarAdminPage />} />
           <Route path="guarantee" element={<GuaranteeAdminPage />} />
+          <Route path="product" element={<ProductAdminPage />} />
           <Route path="finance" element={<FinanceAdminPage />} />
           <Route path="bin" element={<BinAdminPage />} />
         </Route>

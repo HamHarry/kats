@@ -52,6 +52,14 @@ const NavbarAdmin = () => {
           </li>
           <li
             onClick={() => {
+              navigate("/main/product");
+            }}
+          >
+            <i className="fa-solid fa-pen-to-square"></i>
+            <p>สินค้า</p>
+          </li>
+          <li
+            onClick={() => {
               navigate("/main/finance");
             }}
           >

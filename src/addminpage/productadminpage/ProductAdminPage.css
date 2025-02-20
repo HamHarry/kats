@@ -1,0 +1,25 @@
+.container-productAdmin {
+  position: fixed;
+  left: 300px;
+  width: 84.5%;
+  height: 100%;
+}
+
+.header-productAdmin {
+  display: flex;
+  justify-content: center;
+  h1 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80px;
+    width: 1200px;
+    border-radius: 20px;
+    background-color: #2656a2;
+    margin-top: 20px;
+
+    font-size: 42px;
+    color: white;
+    font-family: "Noto Sans Thai", serif;
+  }
+}

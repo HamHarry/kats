@@ -167,26 +167,27 @@ const GuaranteeAdminPage = () => {
     );
   };
 
-  const rederEditProfile = () => {
-    return (
-      <dialog open={openDialogProfile}>
-        <div className="container-Edit-Profile">
-          <div className="wrap-container-Edit-Profile">
-            <form onSubmit={handleSubmit(submitProfile)}>
-              <div className="container-Edit-Profile-Navbar">
-                <button type="submit">
-                  <h3>บันทึก</h3>
-                </button>
-                <i
-                  className="fa-solid fa-circle-xmark"
-                  onClick={() => {
-                    setOpenDialogProfile(!openDialogProfile);
-                  }}
-                ></i>
-              </div>
-              <div className="content-Profile">
-                <div className="card-profile">
-                  <div className="wrap-card-profile">
+  const rederEditProfile = () => (
+    <dialog open={openDialogProfile}>
+      <div className="container-Edit-Profile">
+        <div className="wrap-container-Edit-Profile">
+          <form onSubmit={handleSubmit(submitProfile)}>
+            <div className="container-Edit-Profile-Navbar">
+              <button type="submit">
+                <h3>บันทึก</h3>
+              </button>
+              <i
+                className="fa-solid fa-circle-xmark"
+                onClick={() => {
+                  setOpenDialogProfile(!openDialogProfile);
+                }}
+              ></i>
+            </div>
+            <div className="content-Profile">
+              <div className="card-profile">
+                <div className="wrap-card-profile">
+                  <img src={dialogData?.image} alt="profile" />
+                  <div className="text-all">
                     <div className="text-column-number">
                       <div className="text-number">
                         <h4>เลขที่</h4>
@@ -358,47 +359,47 @@ const GuaranteeAdminPage = () => {
                       />
                     </div>
                   </div>
-                  <hr />
-                  <div className="guarante-date">
-                    <table>
-                      <thead>
-                        <tr>
-                          <th>ครั้งที่</th>
-                          <th>วันที่เข้ารับบริการ</th>
-                          <th>คาน</th>
-                          <th>ซุ้มล้อ</th>
-                          <th>ปีกนก</th>
-                          <th>แชสซี่ส์</th>
-                          <th>ใต้ท้อง</th>
+                </div>
+                <hr />
+                <div className="guarante-date">
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>ครั้งที่</th>
+                        <th>วันที่เข้ารับบริการ</th>
+                        <th>คาน</th>
+                        <th>ซุ้มล้อ</th>
+                        <th>ปีกนก</th>
+                        <th>แชสซี่ส์</th>
+                        <th>ใต้ท้อง</th>
+                      </tr>
+                    </thead>
+
+                    <tbody>
+                      {[...Array(10)].map((_, index) => (
+                        <tr key={index}>
+                          <td>{index + 1}</td>
+                          <input className="input-date" type="date" />
+
+                          {[...Array(5)].map((_, index) => {
+                            return (
+                              <td key={index}>
+                                <input className="checkbox" type="checkbox" />
+                              </td>
+                            );
+                          })}
                         </tr>
-                      </thead>
-
-                      <tbody>
-                        {[...Array(10)].map((_, index) => (
-                          <tr key={index}>
-                            <td>{index + 1}</td>
-                            <input className="input-date" type="date" />
-
-                            {[...Array(5)].map((_, index) => {
-                              return (
-                                <td key={index}>
-                                  <input className="checkbox" type="checkbox" />
-                                </td>
-                              );
-                            })}
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  </div>
+                      ))}
+                    </tbody>
+                  </table>
                 </div>
               </div>
-            </form>
-          </div>
+            </div>
+          </form>
         </div>
-      </dialog>
-    );
-  };
+      </div>
+    </dialog>
+  );
 
   return (
     <div className="container-guaranteeAdmin">

@@ -144,18 +144,16 @@ const BookingAdminPage = () => {
               return (
                 <div className="inputTime">
                   <h2>เวลา</h2>
-                  <select {...field}>
-                    <option value={""} disabled selected hidden>
-                      Time Choose...
-                    </option>
-                    {timeData.map((item, index) => {
-                      return (
-                        <option key={index} value={item.time}>
-                          {item.time}
-                        </option>
-                      );
-                    })}
-                  </select>
+                  <Select
+                    {...field}
+                    className="select-product"
+                    placeholder="เลือกเวลา"
+                    value={field.value || undefined}
+                    options={timeData.map((item) => ({
+                      label: `${item.time} น.`,
+                      value: item.time,
+                    }))}
+                  />
                 </div>
               );
             }}
@@ -218,14 +216,12 @@ const BookingAdminPage = () => {
                 return (
                   <div className="inputTypeProduct">
                     <h2>สินค้า</h2>
-
                     <Select
                       {...field}
                       placeholder="เลือกสินค้า"
                       className="select-product"
                       value={field.value || undefined}
                       onSelect={(value) => {
-                        console.log("select", value);
                         field.onChange(value);
 
                         const findedProduct = productData.find(
@@ -251,7 +247,6 @@ const BookingAdminPage = () => {
                 );
               }}
             />
-
             <Controller
               name="price"
               control={control}
@@ -259,7 +254,6 @@ const BookingAdminPage = () => {
                 return (
                   <div className="inputProduct">
                     <h2>ราคา</h2>
-
                     <Select
                       {...field}
                       className="select-product"

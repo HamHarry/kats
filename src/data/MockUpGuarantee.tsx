@@ -29,7 +29,7 @@ export const guarantee: Guarantees[] = [
     },
     price: "Luxury 6,900 Baht",
     tel: "081-842-0795",
-    image: "",
+    image: "/public/assets/logokats.jpg",
   },
   {
     number: "0002",
@@ -58,7 +58,7 @@ export const guarantee: Guarantees[] = [
     },
     price: "4,900 Baht",
     tel: "098-270-7558",
-    image: "",
+    image: "/public/assets/logokats.jpg",
   },
   {
     number: "0003",
@@ -118,7 +118,7 @@ export const guarantee: Guarantees[] = [
     },
     price: "3,900 Baht",
     tel: "081-110-1548",
-    image: "",
+    image: "/public/assets/logokats.jpg",
   },
   {
     number: "0005",
@@ -148,6 +148,6 @@ export const guarantee: Guarantees[] = [
     },
     price: "3,500 Baht",
     tel: "081-110-8865",
-    image: "",
+    image: "/public/assets/logokats.jpg",
   },
 ];
