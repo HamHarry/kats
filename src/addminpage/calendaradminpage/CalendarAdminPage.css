@@ -2,15 +2,15 @@
   display: flex;
   align-items: center;
   flex-direction: column;
-  padding: 20px 20px 0px 20px;
-  padding-left: 300px;
+  padding: 20px;
+  padding-left: 320px;
 }
 
 .header-calendarAdmin {
   display: flex;
   justify-content: center;
   height: 80px;
-  width: 1200px;
+  min-width: 1200px;
   border-radius: 20px;
   background-color: #2656a2;
   margin-bottom: 20px;
@@ -43,25 +43,9 @@
   }
 }
 
-.btn-calendarAdmin {
-  display: flex;
-  justify-content: center;
-  margin-top: 20px;
-  gap: 20px;
-  button {
-    padding: 10px 20px;
-    border-radius: 20px;
-    background-color: #2656a2;
-    color: white;
-    font-size: 20px;
-    font-family: "Noto Sans Thai", serif;
-    border: none;
-    cursor: pointer;
-  }
-  button:hover {
-    background-color: #1a3b7f;
-    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8),
-      0 0 20px rgba(255, 255, 255, 0.6), 0 0 30px rgba(255, 255, 255, 0.4);
-    transition: all 0.5s;
+@media (max-width: 1550px) {
+  .header-calendarAdmin {
+    min-width: 0px;
+    width: 100%;
   }
 }

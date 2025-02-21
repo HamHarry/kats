@@ -64,13 +64,6 @@ const CalendarAdminPage = () => {
       <div className="wrap-calendarAdmin">
         <Calendar cellRender={cellRender} />
       </div>
-
-      <div className="btn-calendarAdmin">
-        <button type="submit" className="btn-submit-calendarAdmin">
-          ยืนยัน
-        </button>
-        <button className="btn-edit-calendarAdmin">แก้ไข</button>
-      </div>
     </div>
   );
 };
