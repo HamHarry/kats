@@ -1,39 +1,45 @@
 .container-calendarAdmin {
-  position: fixed;
-  left: 300px;
-  width: 84.5%;
-  height: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  padding: 20px 20px 0px 20px;
+  padding-left: 300px;
 }
 
 .header-calendarAdmin {
   display: flex;
   justify-content: center;
+  height: 80px;
+  width: 1200px;
+  border-radius: 20px;
+  background-color: #2656a2;
+  margin-bottom: 20px;
   h1 {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 80px;
-    width: 1200px;
-    border-radius: 20px;
-    background-color: #2656a2;
-    margin-top: 20px;
-
     font-size: 42px;
     color: white;
-    font-family: "Noto Sans Thai", serif;
   }
 }
 
-.calendar-Admin {
-  margin-top: 20px;
-  margin-left: 150px;
-  display: flex;
-  justify-content: center;
+.wrap-calendarAdmin {
   border: 5px solid #2656a2;
   border-radius: 20px;
-  width: 1300px;
-  .wrap-calendar {
-    padding: 25px;
+  padding: 20px;
+  max-width: 1400px;
+  .ant-picker-cell-inner {
+    height: 95px !important;
+    .ant-picker-calendar-date-content {
+      height: 60px !important;
+      overflow-y: hidden;
+    }
+    .booking {
+      overflow: hidden;
+    }
+    .ant-picker-calendar-date-content:hover {
+      overflow-y: auto;
+    }
   }
 }
 

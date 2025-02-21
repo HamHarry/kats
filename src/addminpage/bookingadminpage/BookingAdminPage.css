@@ -1,36 +1,36 @@
 .container-bookingAdmin {
-  position: fixed;
-  left: 300px;
-  width: 84.5%;
-  height: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  padding: 20px 20px 0px 20px;
+  padding-left: 300px;
 }
 
 .header-bookingAdmin {
   display: flex;
   justify-content: center;
+  height: 80px;
+  width: 1200px;
+  border-radius: 20px;
+  background-color: #2656a2;
+  margin-bottom: 20px;
   h1 {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 80px;
-    width: 1200px;
-    border-radius: 20px;
-    background-color: #2656a2;
-    margin-top: 20px;
-
     font-size: 42px;
     color: white;
-    font-family: "Noto Sans Thai", serif;
   }
 }
+
 .wrap-container-bookingAdmin {
   display: flex;
   flex-direction: column;
   border: 5px solid #2656a2;
-  margin: 20px 210px;
   border-radius: 20px;
+  padding: 0px 20px 0px 20px;
   height: 700px;
-  font-family: "Noto Sans Thai", serif;
+  width: 900px;
   .inputNumber {
     display: flex;
     align-items: center;
@@ -44,7 +44,6 @@
       height: 30px;
       border-radius: 20px;
       border: 2px solid #2656a2;
-      font-family: "Noto Sans Thai", serif;
     }
   }
   .inputVolume {
@@ -60,7 +59,6 @@
       height: 30px;
       border-radius: 20px;
       border: 2px solid #2656a2;
-      font-family: "Noto Sans Thai", serif;
     }
   }
   .inputDate {
@@ -75,7 +73,6 @@
       height: 30px;
       border-radius: 20px;
       border: 2px solid #2656a2;
-      font-family: "Noto Sans Thai", serif;
     }
   }
   .inputTime {
@@ -90,7 +87,6 @@
       margin-left: -2px;
       border-radius: 20px;
       border: 2px solid #2656a2;
-      font-family: "Noto Sans Thai", serif;
     }
   }
   .inputName {
@@ -105,7 +101,6 @@
       height: 30px;
       border-radius: 20px;
       border: 2px solid #2656a2;
-      font-family: "Noto Sans Thai", serif;
     }
   }
   .input-car {
@@ -123,7 +118,6 @@
         height: 30px;
         border-radius: 20px;
         border: 2px solid #2656a2;
-        font-family: "Noto Sans Thai", serif;
       }
     }
     .inputCarModel {
@@ -138,7 +132,6 @@
         height: 30px;
         border-radius: 20px;
         border: 2px solid #2656a2;
-        font-family: "Noto Sans Thai", serif;
       }
     }
   }
@@ -155,7 +148,6 @@
       height: 30px;
       border-radius: 20px;
       border: 2px solid #2656a2;
-      font-family: "Noto Sans Thai", serif;
     }
   }
   .input-product {
@@ -181,7 +173,6 @@
     width: 265px;
     height: 45px;
     border-radius: 20px;
-    font-family: "Noto Sans Thai", serif;
   }
 
   .ant-select-single .ant-select-selector {
@@ -201,7 +192,6 @@
       margin-left: -20px;
       border-radius: 20px;
       border: 2px solid #2656a2;
-      font-family: "Noto Sans Thai", serif;
     }
   }
 }
@@ -217,7 +207,6 @@
     background-color: #2656a2;
     color: white;
     font-size: 20px;
-    font-family: "Noto Sans Thai", serif;
     border: none;
     cursor: pointer;
   }
@@ -269,7 +258,6 @@
     margin-top: 50px;
     font-size: 50px;
     color: #2656a2;
-    font-family: "Noto Sans Thai", serif;
   }
   .btn-DialogConfirm-Navbar {
     display: flex;
@@ -282,7 +270,6 @@
       background-color: #2656a2;
       color: white;
       font-size: 20px;
-      font-family: "Noto Sans Thai", serif;
       border: none;
       cursor: pointer;
     }

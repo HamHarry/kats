@@ -1,13 +1,11 @@
+import { Typography } from "antd";
 import "./MapPage.css";
 const MapPage = () => {
   return (
     <div className="container-mappage">
       <div className="header-mappage">
         <img src="/public/assets/katoon.png" alt="katoon" />
-        <h1>
-          แผนที่ <br />
-          ศูนย์พ่นกันสนิม KATS Coating สาขาลาดกระบัง
-        </h1>
+        <Typography className="text-header">แผนที่</Typography>
       </div>
       <div className="container-map">
         <img src="/public/assets/map1.png" alt="map" />

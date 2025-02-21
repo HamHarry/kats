@@ -4,7 +4,7 @@ import { useState } from "react";
 import { mockUpProducts } from "../../data/MockUpProduct";
 import { Select } from "antd";
 import { PRICE_TYPE } from "../../model/product.type";
-import { Guarantees } from "../../model/guarantee.type";
+import { BookingStatus, Guarantees } from "../../model/guarantee.type";
 
 export interface BookingForm extends Guarantees {}
 
@@ -29,6 +29,7 @@ const defaultValues: BookingForm = {
   tel: "",
   image: "/public/assets/logokats.jpg",
   price: "",
+  status: BookingStatus.PENDING,
 };
 
 const bookingTimeList = [

@@ -1,4 +1,4 @@
-import { Guarantees } from "../model/guarantee.type";
+import { BookingStatus, Guarantees } from "../model/guarantee.type";
 import { PRICE_TYPE } from "../model/product.type";
 
 export const guarantee: Guarantees[] = [
@@ -11,6 +11,7 @@ export const guarantee: Guarantees[] = [
     carType: "Toyota",
     carModel: "Revo",
     register: "ณอ 8882",
+    status: BookingStatus.PENDING,
     product: {
       _id: 1,
       name: "KATS Coating",
@@ -35,11 +36,12 @@ export const guarantee: Guarantees[] = [
     number: "0002",
     volume: "002",
     bookDate: "2025-02-08",
-    bookTime: "10:00",
+    bookTime: "11:00",
     name: "Ingkarat Ruchai",
     carType: "Honda",
     carModel: "City",
     register: "5กย 8882",
+    status: BookingStatus.PAID,
     product: {
       _id: 1,
       name: "KATS Coating",
@@ -64,11 +66,12 @@ export const guarantee: Guarantees[] = [
     number: "0003",
     volume: "003",
     bookDate: "2025-02-08",
-    bookTime: "10:00",
+    bookTime: "12:00",
     name: "Mana Noibua",
     carType: "Toyota",
     carModel: "Fortuner",
     register: "คห 8882",
+    status: BookingStatus.COMPLETED,
     product: {
       _id: 2,
       name: "Gun Protection",
@@ -99,6 +102,7 @@ export const guarantee: Guarantees[] = [
     carType: "Toyota",
     carModel: "Vego",
     register: "ฆห 8982",
+    status: BookingStatus.COMPLETED,
     product: {
       _id: 2,
       name: "Gun Protection",
@@ -129,6 +133,7 @@ export const guarantee: Guarantees[] = [
     carType: "Honda",
     carModel: "Jazz",
     register: "3กห 7952",
+    status: BookingStatus.COMPLETED,
     product: {
       _id: 2,
       name: "Gun Protection",
