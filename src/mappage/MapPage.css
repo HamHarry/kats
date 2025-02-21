@@ -1,8 +1,7 @@
 .container-mappage {
   position: relative;
   display: flex;
-  top: 80px;
-  height: 100vh;
+  top: -50px;
   align-items: center;
   flex-direction: column;
   padding: 24px;
