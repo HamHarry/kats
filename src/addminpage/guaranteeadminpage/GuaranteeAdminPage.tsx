@@ -2,7 +2,7 @@ import { useState } from "react";
 import "./GuaranteeAdminPage.css";
 import { guarantee } from "../../data/MockUpGuarantee";
 import { Controller, useForm } from "react-hook-form";
-import { Guarantees } from "../../model/guarantee.type";
+import { BookingStatus, Guarantees } from "../../model/guarantee.type";
 
 const defaultValues: Guarantees = {
   number: "",
@@ -25,6 +25,7 @@ const defaultValues: Guarantees = {
     productDetails: [],
     detail: "",
   },
+  status: BookingStatus.PENDING,
 };
 
 const GuaranteeAdminPage = () => {

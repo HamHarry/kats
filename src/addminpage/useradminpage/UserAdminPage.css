@@ -10,7 +10,7 @@
   display: flex;
   justify-content: center;
   height: 80px;
-  width: 1200px;
+  min-width: 1200px;
   border-radius: 20px;
   background-color: #2656a2;
   margin-bottom: 20px;

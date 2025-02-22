@@ -61,6 +61,25 @@ const CalendarAdminPage = () => {
         <h1>Calendar</h1>
       </div>
 
+      <div className="guid">
+        <div className="guid-yellow">
+          <div className="box-yellow"></div>
+          <p>กำลังรอการชำระ</p>
+        </div>
+        <div className="guid-blue">
+          <div className="box-blue"></div>
+          <p>จ่ายสำเร็จ</p>
+        </div>
+        <div className="guid-green">
+          <div className="box-green"></div>
+          <p>ใช้บริการสำเร็จ</p>
+        </div>
+        <div className="guid-red">
+          <div className="box-red"></div>
+          <p>ยกเลิก</p>
+        </div>
+      </div>
+
       <div className="wrap-calendarAdmin">
         <Calendar cellRender={cellRender} />
       </div>

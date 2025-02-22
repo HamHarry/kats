@@ -71,7 +71,7 @@ export const guarantee: Guarantees[] = [
     carType: "Toyota",
     carModel: "Fortuner",
     register: "คห 8882",
-    status: BookingStatus.COMPLETED,
+    status: BookingStatus.CANCELED,
     product: {
       _id: 2,
       name: "Gun Protection",

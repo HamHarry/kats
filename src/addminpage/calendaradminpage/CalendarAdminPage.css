@@ -23,6 +23,56 @@
   }
 }
 
+.guid {
+  display: flex;
+  margin-bottom: 20px;
+  gap: 20px;
+  .guid-yellow {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    .box-yellow {
+      width: 20px;
+      height: 20px;
+      background-color: #faad14;
+      border-radius: 50%;
+    }
+  }
+  .guid-blue {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    .box-blue {
+      width: 20px;
+      height: 20px;
+      background-color: #1677ff;
+      border-radius: 50%;
+    }
+  }
+  .guid-green {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    .box-green {
+      width: 20px;
+      height: 20px;
+      background-color: #52c41a;
+      border-radius: 50%;
+    }
+  }
+  .guid-red {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    .box-red {
+      width: 20px;
+      height: 20px;
+      background-color: #ff4d4f;
+      border-radius: 50%;
+    }
+  }
+}
+
 .wrap-calendarAdmin {
   border: 5px solid #2656a2;
   border-radius: 20px;

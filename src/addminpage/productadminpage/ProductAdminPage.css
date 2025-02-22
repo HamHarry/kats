@@ -3,14 +3,14 @@
   align-items: center;
   flex-direction: column;
   padding: 20px 20px 0px 20px;
-  padding-left: 300px;
+  padding-left: 320px;
 }
 
 .header-productAdmin {
   display: flex;
   justify-content: center;
   height: 80px;
-  width: 1200px;
+  min-width: 1200px;
   border-radius: 20px;
   background-color: #2656a2;
   margin-bottom: 20px;
@@ -20,5 +20,52 @@
     align-items: center;
     font-size: 42px;
     color: white;
+  }
+}
+
+.create-product {
+  display: flex;
+  flex-direction: column;
+  h1 {
+    color: #2656a2;
+  }
+  .input-product-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    .input-product {
+      p {
+        font-size: 20px;
+        color: #2656a2;
+      }
+      input {
+        min-width: 250px;
+        height: 40px;
+        border-radius: 5px;
+        border: 2px solid #2656a2;
+        padding: 5px;
+      }
+    }
+    .btn-create-product {
+      display: flex;
+      justify-content: center;
+      align-self: center;
+      padding-left: 20px;
+      padding-top: 30px;
+      button {
+        min-width: 100px;
+        height: 40px;
+        border-radius: 5px;
+        background-color: #2656a2;
+        color: white;
+        font-size: 16px;
+        border: none;
+        cursor: pointer;
+      }
+      button:hover {
+        background-color: #1a4f8a;
+      }
+    }
   }
 }
