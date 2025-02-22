@@ -1,10 +1,11 @@
 .container-mappage {
   position: relative;
   display: flex;
-  top: -50px;
   align-items: center;
   flex-direction: column;
   padding: 24px;
+  padding-top: 104px;
+  height: 83vh;
 }
 
 .header-mappage {
@@ -20,10 +21,10 @@
   padding-left: 50px;
   width: 300px;
   img {
-    width: 120px;
+    width: 110px;
     z-index: 1;
     position: absolute;
-    left: -60px;
+    left: -55px;
   }
   .text-header {
     font-size: 32px;
@@ -37,8 +38,9 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  padding: 20px;
   img {
-    width: 800px;
+    min-width: 950px;
     height: 500px;
     border: 5px solid #2656a2;
     border-radius: 10px;
@@ -60,5 +62,58 @@
     text-shadow: 0 0 10px rgba(255, 255, 255, 0.8),
       0 0 20px rgba(255, 255, 255, 0.6), 0 0 30px rgba(255, 255, 255, 0.4);
     transition: all 0.5s;
+  }
+}
+
+@media (max-width: 1181px) {
+  .container-map {
+    img {
+      min-width: 600px;
+      height: 400px;
+    }
+  }
+}
+
+@media (max-width: 872px) {
+  .header-mappage {
+    .text-header {
+      font-size: 24px;
+    }
+  }
+  .container-map {
+    img {
+      height: 300px;
+    }
+  }
+}
+
+@media (max-width: 715px) {
+  .container-map {
+    img {
+      min-width: 300px;
+    }
+  }
+}
+
+@media (max-width: 683px) {
+  .header-mappage {
+    padding: 12px 35px 12px 35px;
+    .text-header {
+      font-size: 20px;
+    }
+    img {
+      width: 90px;
+      left: -45px;
+    }
+  }
+  .container-map {
+    img {
+      height: 200px;
+    }
+    button {
+      width: 150px;
+      height: 50px;
+      font-size: 16px;
+    }
   }
 }

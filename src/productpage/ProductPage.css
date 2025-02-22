@@ -1,33 +1,31 @@
 .container-productpage {
-  position: relative;
-  width: 100%;
-  top: 80px;
-  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  padding: 24px;
+  padding-top: 104px;
 }
 
 .header-productpage {
   display: flex;
   justify-content: center;
+  position: relative;
   align-items: center;
-  height: 230px;
+  background-color: #2656a2;
+  border-radius: 30px;
+  padding: 18px 100px 18px 50px;
+  padding-left: 100px;
   img {
     width: 120px;
-    margin-right: -55px;
     z-index: 1;
+    position: absolute;
+    left: -60px;
   }
   h1 {
-    display: flex;
-    justify-content: center;
-    align-items: center;
     text-align: center;
-    height: 180px;
-    width: 950px;
-    border-radius: 30px;
-
-    font-family: "Noto Sans Thai", serif;
     font-size: 42px;
     font-weight: bold;
-    background-color: #2656a2;
     color: white;
   }
 }

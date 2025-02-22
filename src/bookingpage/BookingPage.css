@@ -57,17 +57,17 @@
     padding: 12px 20px 12px 35px;
     border-radius: 20px;
     .text-header {
-      font-size: 18px;
+      font-size: 28px;
     }
     img {
-      width: 80px;
-      left: -40px;
+      width: 90px;
+      left: -50px;
     }
   }
   .wrap-calendar {
     padding: 12px;
     .ant-picker-cell-inner {
-      height: 70px !important;
+      height: 84px !important;
     }
   }
 }
