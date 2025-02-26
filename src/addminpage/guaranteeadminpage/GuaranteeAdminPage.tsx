@@ -420,7 +420,7 @@ const GuaranteeAdminPage = () => {
           return (
             <div key={index} className="grid-guaranteeAdmin">
               <div className="guaranteeAdmin-image">
-                <img src="/public/assets/logokats.jpg" alt="Image" />
+                <img src={item.image} alt="Image" />
               </div>
               <div className="guaranteeAdmin-content">
                 <div className="text-p">

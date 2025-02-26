@@ -91,7 +91,7 @@ export const guarantee: Guarantees[] = [
     },
     price: "3,900 Baht",
     tel: "094-314-9467",
-    image: "",
+    image: "/public/assets/logoGun.jpg",
   },
   {
     number: "0004",
@@ -122,7 +122,7 @@ export const guarantee: Guarantees[] = [
     },
     price: "3,900 Baht",
     tel: "081-110-1548",
-    image: "/public/assets/logokats.jpg",
+    image: "/public/assets/logoGun.jpg",
   },
   {
     number: "0005",
@@ -153,6 +153,6 @@ export const guarantee: Guarantees[] = [
     },
     price: "3,500 Baht",
     tel: "081-110-8865",
-    image: "/public/assets/logokats.jpg",
+    image: "/public/assets/logoGun.jpg",
   },
 ];

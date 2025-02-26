@@ -1,9 +1,6 @@
 import { Route, Routes } from "react-router-dom";
-import Layout from "./layout/Layout";
-import HomePage from "./homepage/HomePage";
 import { Suspense } from "react";
 import "./App.css";
-import LayoutAdmin from "./layout/LayoutAdmin";
 import UserAdminPage from "./addminpage/useradminpage/UserAdminPage";
 import BookingAdminPage from "./addminpage/bookingadminpage/BookingAdminPage";
 import CalendarAdminPage from "./addminpage/calendaradminpage/CalendarAdminPage";
@@ -12,6 +9,9 @@ import FinanceAdminPage from "./addminpage/financeadminpage/FinanceAdminPage";
 import BinAdminPage from "./addminpage/binadminpage/BinAdminPage";
 import LoginPage from "./loginpage/Loginpage";
 import ProductAdminPage from "./addminpage/productadminpage/ProductAdminPage";
+import Layout from "./Layout/Layout";
+import HomePage from "./HomePage/HomePage";
+import LayoutAdmin from "./Layout/LayoutAdmin";
 
 function App() {
   return (
