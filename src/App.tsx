@@ -12,6 +12,7 @@ import ProductAdminPage from "./addminpage/productadminpage/ProductAdminPage";
 import Layout from "./Layout/Layout";
 import HomePage from "./HomePage/HomePage";
 import LayoutAdmin from "./Layout/LayoutAdmin";
+import CreateBookingAdminPage from "./addminpage/createbookingadminpage/CreateBookingAdminPage";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
         <Route path="main" element={<LayoutAdmin />}>
           <Route path="" element={<UserAdminPage />} />
           <Route path="booking" element={<BookingAdminPage />} />
+          <Route path="booking/create" element={<CreateBookingAdminPage />} />
           <Route path="calendar" element={<CalendarAdminPage />} />
           <Route path="guarantee" element={<GuaranteeAdminPage />} />
           <Route path="product" element={<ProductAdminPage />} />
