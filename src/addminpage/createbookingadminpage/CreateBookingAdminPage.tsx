@@ -5,6 +5,7 @@ import { mockUpProducts } from "../../data/MockUpProduct";
 import { Select } from "antd";
 import { PRICE_TYPE } from "../../model/product.type";
 import { BookingStatus, Guarantees } from "../../model/guarantee.type";
+import { useNavigate } from "react-router-dom";
 
 export interface BookingForm extends Guarantees {}
 
@@ -46,6 +47,7 @@ const CreateBookingAdminPage = () => {
   const [timeData] = useState(bookingTimeList);
   const [openDialogConfirm, setOpenDialogConfirm] = useState<boolean>(false);
   const [data, setData] = useState<BookingForm>();
+  const navigate = useNavigate();
 
   const { handleSubmit, control, setValue } = useForm<BookingForm>({
     defaultValues,
@@ -102,10 +104,16 @@ const CreateBookingAdminPage = () => {
       </div>
       <form onSubmit={handleSubmit(submit)}>
         <div className="btn-back">
-          <button type="button">ย้อนกลับ</button>
+          <button
+            type="button"
+            onClick={() => {
+              navigate("/main/booking");
+            }}
+          >
+            ย้อนกลับ
+          </button>
           <button
             type="submit"
-            className="btn-submit-CreateAdmin"
             onClick={() => {
               setOpenDialogConfirm(!openDialogConfirm);
             }}
