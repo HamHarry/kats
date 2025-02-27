@@ -23,6 +23,25 @@
   }
 }
 
+.btn-back {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 20px;
+  button {
+    min-width: 100px;
+    height: 40px;
+    border-radius: 5px;
+    background-color: #2656a2;
+    color: white;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+  }
+  button:hover {
+    background-color: #1a4f8a;
+  }
+}
+
 .wrap-container-CreateAdmin {
   display: flex;
   flex-direction: column;
@@ -46,66 +65,109 @@
       border: 2px solid #2656a2;
     }
   }
-  .inputVolume {
+  .input-Number {
     display: flex;
-    align-items: center;
-    gap: 100px;
-    margin-left: 20px;
-    margin-top: 20px;
-    input {
-      padding: 5px;
-      width: 250px;
-      margin-left: -10px;
-      height: 30px;
-      border-radius: 20px;
-      border: 2px solid #2656a2;
+    gap: 20px;
+    .inputVolume {
+      display: flex;
+      align-items: center;
+      gap: 42px;
+      margin-left: 20px;
+      margin-top: 20px;
+      input {
+        padding: 5px;
+        width: 250px;
+        margin-left: -10px;
+        height: 30px;
+        border-radius: 20px;
+        border: 2px solid #2656a2;
+      }
+    }
+    .inputNumber {
+      display: flex;
+      align-items: center;
+      gap: 100px;
+      margin-left: 20px;
+      margin-top: 20px;
+      input {
+        padding: 5px;
+        width: 250px;
+        height: 30px;
+        border-radius: 20px;
+        border: 2px solid #2656a2;
+      }
     }
   }
-  .inputDate {
+  .input-Date {
     display: flex;
-    align-items: center;
-    gap: 100px;
-    margin-left: 20px;
-    margin-top: 20px;
-    input {
-      padding: 5px;
-      width: 250px;
-      height: 30px;
-      border-radius: 20px;
-      border: 2px solid #2656a2;
+    gap: 20px;
+
+    .inputDate {
+      display: flex;
+      align-items: center;
+      gap: 100px;
+      margin-left: 20px;
+      margin-top: 20px;
+      input {
+        padding: 5px;
+        width: 250px;
+        height: 30px;
+        border-radius: 20px;
+        border: 2px solid #2656a2;
+      }
+    }
+    .inputTime {
+      display: flex;
+      align-items: center;
+      gap: 40px;
+      margin-left: 20px;
+      margin-top: 20px;
+      select {
+        width: 265px;
+        height: 45px;
+        margin-left: -2px;
+        border-radius: 20px;
+        border: 2px solid #2656a2;
+      }
     }
   }
-  .inputTime {
+  .input-Name {
     display: flex;
-    align-items: center;
-    gap: 100px;
-    margin-left: 20px;
-    margin-top: 20px;
-    select {
-      width: 265px;
-      height: 45px;
-      margin-left: -2px;
-      border-radius: 20px;
-      border: 2px solid #2656a2;
+    gap: 20px;
+
+    .inputName {
+      display: flex;
+      align-items: center;
+      gap: 115px;
+      margin-left: 20px;
+      margin-top: 20px;
+      input {
+        padding: 5px;
+        width: 250px;
+        height: 30px;
+        border-radius: 20px;
+        border: 2px solid #2656a2;
+      }
     }
-  }
-  .inputName {
-    display: flex;
-    align-items: center;
-    gap: 115px;
-    margin-left: 20px;
-    margin-top: 20px;
-    input {
-      padding: 5px;
-      width: 250px;
-      height: 30px;
-      border-radius: 20px;
-      border: 2px solid #2656a2;
+    .inputTel {
+      display: flex;
+      gap: 55px;
+      margin-left: 20px;
+      margin-top: 20px;
+      input {
+        padding: 5px;
+        width: 250px;
+        height: 30px;
+        margin-left: -20px;
+        border-radius: 20px;
+        border: 2px solid #2656a2;
+      }
     }
   }
   .input-car {
     display: flex;
     gap: 20px;
+
     .inputCarType {
       display: flex;
       align-items: center;
@@ -123,7 +185,7 @@
     .inputCarModel {
       display: flex;
       align-items: center;
-      gap: 20px;
+      gap: 30px;
       margin-left: 20px;
       margin-top: 20px;
       input {
@@ -163,7 +225,7 @@
     .inputProduct {
       display: flex;
       align-items: center;
-      gap: 20px;
+      gap: 35px;
       margin-left: 20px;
       margin-top: 20px;
     }
@@ -178,21 +240,6 @@
   .ant-select-single .ant-select-selector {
     border-radius: 20px !important;
     border: 2px solid #2656a2;
-  }
-
-  .inputImage {
-    display: flex;
-    gap: 112px;
-    margin-left: 20px;
-    margin-top: 20px;
-    input {
-      padding: 5px;
-      width: 250px;
-      height: 30px;
-      margin-left: -20px;
-      border-radius: 20px;
-      border: 2px solid #2656a2;
-    }
   }
 }
 

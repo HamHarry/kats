@@ -27,7 +27,7 @@ const defaultValues: BookingForm = {
     detail: "",
   },
   tel: "",
-  image: "/public/assets/logokats.jpg",
+  image: "",
   price: "",
   status: BookingStatus.PENDING,
 };
@@ -101,76 +101,109 @@ const CreateBookingAdminPage = () => {
         <h1>Create Booking</h1>
       </div>
       <form onSubmit={handleSubmit(submit)}>
+        <div className="btn-back">
+          <button type="button">ย้อนกลับ</button>
+          <button
+            type="submit"
+            className="btn-submit-CreateAdmin"
+            onClick={() => {
+              setOpenDialogConfirm(!openDialogConfirm);
+            }}
+          >
+            ยืนยัน
+          </button>
+        </div>
         <div className="wrap-container-CreateAdmin">
-          <Controller
-            name="number"
-            control={control}
-            render={({ field }) => {
-              return (
-                <div className="inputNumber">
-                  <h2>เลขที่</h2>
-                  <input {...field} type="text" />
-                </div>
-              );
-            }}
-          />
-          <Controller
-            name="volume"
-            control={control}
-            render={({ field }) => {
-              return (
-                <div className="inputVolume">
-                  <h2>เล่มที่</h2>
-                  <input {...field} type="text" />
-                </div>
-              );
-            }}
-          />
-          <Controller
-            name="bookDate"
-            control={control}
-            render={({ field }) => {
-              return (
-                <div className="inputDate">
-                  <h2>วันที่</h2>
-                  <input {...field} type="date" />
-                </div>
-              );
-            }}
-          />
-          <Controller
-            name="bookTime"
-            control={control}
-            render={({ field }) => {
-              return (
-                <div className="inputTime">
-                  <h2>เวลา</h2>
-                  <Select
-                    {...field}
-                    className="select-product"
-                    placeholder="เลือกเวลา"
-                    value={field.value || undefined}
-                    options={timeData.map((item) => ({
-                      label: `${item.time} น.`,
-                      value: item.time,
-                    }))}
-                  />
-                </div>
-              );
-            }}
-          />
-          <Controller
-            name="name"
-            control={control}
-            render={({ field }) => {
-              return (
-                <div className="inputName">
-                  <h2>ชื่อ</h2>
-                  <input {...field} type="text" />
-                </div>
-              );
-            }}
-          />
+          <div className="input-Number">
+            <Controller
+              name="number"
+              control={control}
+              render={({ field }) => {
+                return (
+                  <div className="inputNumber">
+                    <h2>เลขที่</h2>
+                    <input {...field} type="text" />
+                  </div>
+                );
+              }}
+            />
+
+            <Controller
+              name="volume"
+              control={control}
+              render={({ field }) => {
+                return (
+                  <div className="inputVolume">
+                    <h2>เล่มที่</h2>
+                    <input {...field} type="text" />
+                  </div>
+                );
+              }}
+            />
+          </div>
+          <div className="input-Date">
+            <Controller
+              name="bookDate"
+              control={control}
+              render={({ field }) => {
+                return (
+                  <div className="inputDate">
+                    <h2>วันที่</h2>
+                    <input {...field} type="date" />
+                  </div>
+                );
+              }}
+            />
+
+            <Controller
+              name="bookTime"
+              control={control}
+              render={({ field }) => {
+                return (
+                  <div className="inputTime">
+                    <h2>เวลา</h2>
+                    <Select
+                      {...field}
+                      className="select-product"
+                      placeholder="เลือกเวลา"
+                      value={field.value || undefined}
+                      options={timeData.map((item) => ({
+                        label: `${item.time} น.`,
+                        value: item.time,
+                      }))}
+                    />
+                  </div>
+                );
+              }}
+            />
+          </div>
+          <div className="input-Name">
+            <Controller
+              name="name"
+              control={control}
+              render={({ field }) => {
+                return (
+                  <div className="inputName">
+                    <h2>ชื่อ</h2>
+                    <input {...field} type="text" />
+                  </div>
+                );
+              }}
+            />
+
+            <Controller
+              name="tel"
+              control={control}
+              render={({ field }) => {
+                return (
+                  <div className="inputTel">
+                    <h2>เบอร์</h2>
+                    <input {...field} type="tel" />
+                  </div>
+                );
+              }}
+            />
+          </div>
           <div className="input-car">
             <Controller
               name="carType"
@@ -273,30 +306,6 @@ const CreateBookingAdminPage = () => {
               }}
             />
           </div>
-          <Controller
-            name="tel"
-            control={control}
-            render={({ field }) => {
-              return (
-                <div className="inputImage">
-                  <h2>เบอร์</h2>
-                  <input {...field} type="tel" />
-                </div>
-              );
-            }}
-          />
-        </div>
-        <div className="btn-CreateAdmin">
-          <button
-            type="submit"
-            className="btn-submit-CreateAdmin"
-            onClick={() => {
-              setOpenDialogConfirm(!openDialogConfirm);
-            }}
-          >
-            ยืนยัน
-          </button>
-          <button className="btn-edit-CreateAdmin">แก้ไข</button>
         </div>
         {rederDialogConfirm()}
       </form>
