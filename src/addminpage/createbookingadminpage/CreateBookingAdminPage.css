@@ -289,15 +289,15 @@
       justify-content: end;
       margin-top: 20px;
       margin-right: 10px;
-      .fa-circle-xmark {
+      .icon-close {
         cursor: pointer;
         font-size: 42px;
         color: #2656a2;
-        transition: all 0.5s;
+        transition: all 0.25s;
       }
-      .fa-circle-xmark:hover {
-        color: red;
-        transition: all 0.5s;
+      .icon-close:hover {
+        color: rgb(255, 87, 87);
+        transition: all 0.25s;
       }
     }
   }

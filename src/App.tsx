@@ -26,6 +26,10 @@ function App() {
           <Route path="" element={<UserAdminPage />} />
           <Route path="booking" element={<BookingAdminPage />} />
           <Route path="booking/create" element={<CreateBookingAdminPage />} />
+          <Route
+            path="booking/edit/:bookingId"
+            element={<CreateBookingAdminPage />}
+          />
           <Route path="calendar" element={<CalendarAdminPage />} />
           <Route path="guarantee" element={<GuaranteeAdminPage />} />
           <Route path="product" element={<ProductAdminPage />} />

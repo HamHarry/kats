@@ -10,7 +10,8 @@
   display: flex;
   justify-content: center;
   height: 80px;
-  min-width: 1200px;
+  max-width: 1200px;
+  width: 100%;
   border-radius: 20px;
   background-color: #2656a2;
   margin-bottom: 20px;

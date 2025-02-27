@@ -8,6 +8,7 @@ export enum BookingStatus {
 }
 
 export interface Guarantees {
+  _id?: string;
   number: string;
   volume: string;
   bookDate: string;

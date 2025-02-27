@@ -3,6 +3,7 @@ import { PRICE_TYPE } from "../model/product.type";
 
 export const guarantee: Guarantees[] = [
   {
+    _id: "01",
     number: "0001",
     volume: "001",
     bookDate: "2025-02-08",
@@ -33,6 +34,7 @@ export const guarantee: Guarantees[] = [
     image: "/public/assets/logokats.jpg",
   },
   {
+    _id: "02",
     number: "0002",
     volume: "002",
     bookDate: "2025-02-08",
@@ -63,6 +65,7 @@ export const guarantee: Guarantees[] = [
     image: "/public/assets/logokats.jpg",
   },
   {
+    _id: "03",
     number: "0003",
     volume: "003",
     bookDate: "2025-02-08",
@@ -94,6 +97,7 @@ export const guarantee: Guarantees[] = [
     image: "/public/assets/logoGun.jpg",
   },
   {
+    _id: "04",
     number: "0004",
     volume: "003",
     bookDate: "2025-02-16",
@@ -125,6 +129,7 @@ export const guarantee: Guarantees[] = [
     image: "/public/assets/logoGun.jpg",
   },
   {
+    _id: "05",
     number: "0005",
     volume: "003",
     bookDate: "2025-02-25",

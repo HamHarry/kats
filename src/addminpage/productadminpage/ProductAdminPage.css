@@ -4,16 +4,17 @@
   flex-direction: column;
   padding: 20px 20px 0px 20px;
   padding-left: 320px;
+  gap: 20px;
 }
 
 .header-productAdmin {
   display: flex;
   justify-content: center;
   height: 80px;
-  min-width: 1200px;
+  max-width: 1200px;
+  width: 100%;
   border-radius: 20px;
   background-color: #2656a2;
-  margin-bottom: 20px;
   h1 {
     display: flex;
     justify-content: center;
@@ -32,27 +33,26 @@
   .input-product-content {
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: end;
     gap: 20px;
     .input-product {
       p {
         font-size: 20px;
         color: #2656a2;
+        white-space: nowrap;
       }
-      input {
+      Input {
         min-width: 250px;
         height: 40px;
-        border-radius: 5px;
+        border-radius: 999px;
         border: 2px solid #2656a2;
-        padding: 5px;
+        padding: 5px 20px;
       }
     }
     .btn-create-product {
       display: flex;
       justify-content: center;
-      align-self: center;
-      padding-left: 20px;
-      padding-top: 30px;
+      align-self: end;
       button {
         min-width: 100px;
         height: 40px;
@@ -67,5 +67,24 @@
         background-color: #1a4f8a;
       }
     }
+  }
+}
+
+@media (max-width: 1240px) {
+  .input-product-content {
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+  }
+  .btn-create-product {
+    width: 100%;
+    button {
+      width: 100%;
+    }
+  }
+  .input-product {
+    display: flex;
+    align-items: center;
+    gap: 10px;
   }
 }

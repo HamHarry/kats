@@ -1,11 +1,13 @@
 import { Controller, useForm } from "react-hook-form";
 import "./CreateBookingAdminPage.css";
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { mockUpProducts } from "../../data/MockUpProduct";
 import { Select } from "antd";
 import { PRICE_TYPE } from "../../model/product.type";
 import { BookingStatus, Guarantees } from "../../model/guarantee.type";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { CloseCircleFilled } from "@ant-design/icons";
+import { guarantee } from "../../data/MockUpGuarantee";
 
 export interface BookingForm extends Guarantees {}
 
@@ -46,19 +48,50 @@ const CreateBookingAdminPage = () => {
   const [productData] = useState(mockUpProducts);
   const [timeData] = useState(bookingTimeList);
   const [openDialogConfirm, setOpenDialogConfirm] = useState<boolean>(false);
-  const [data, setData] = useState<BookingForm>();
   const navigate = useNavigate();
+  const { bookingId } = useParams();
 
-  const { handleSubmit, control, setValue } = useForm<BookingForm>({
+  const { handleSubmit, control, setValue, reset } = useForm<BookingForm>({
     defaultValues,
   });
 
+  const fetchPriceData = useCallback(() => {
+    try {
+      if (!bookingId) return;
+
+      const response = guarantee.find((item) => item._id === bookingId);
+
+      const findedProduct = productData.find(
+        (item) => String(item._id) === String(response?.product._id)
+      );
+
+      setPriceData(findedProduct?.productDetails as any);
+
+      reset(response);
+    } catch (error) {
+      console.log(error);
+    }
+  }, [bookingId, productData, reset]);
+
+  useEffect(() => {
+    fetchPriceData();
+  }, [fetchPriceData]);
+
   const submit = (value: BookingForm) => {
     try {
+      setOpenDialogConfirm(false);
+
       const item = {
         ...value,
       };
-      setData(item); // เก็บข็อมูลเพื่อยินยันการส่ง
+
+      console.log(item);
+
+      if (bookingId) {
+        alert(`edited successfully : ${bookingId}`);
+      } else {
+        alert("created successfully");
+      }
     } catch (error) {
       console.log(error);
     }
@@ -70,26 +103,26 @@ const CreateBookingAdminPage = () => {
         <div className="container-DialogConfirm">
           <div className="wrap-container-DialogConfirm">
             <div className="container-DialogConfirm-Navbar">
-              <i
-                className="fa-solid fa-circle-xmark"
+              <CloseCircleFilled
+                className="icon-close"
                 onClick={() => {
-                  setOpenDialogConfirm(!openDialogConfirm);
+                  setOpenDialogConfirm(false);
                 }}
-              ></i>
+              />
             </div>
             <h1>ยืนยันการจอง</h1>
             <div className="btn-DialogConfirm-Navbar">
-              <button
-                type="submit"
-                className="btn-submit-dialogConfirm"
-                onClick={() => {
-                  setOpenDialogConfirm(!openDialogConfirm);
-                  console.log(data); //ส่งข้อมูล
-                }}
-              >
+              <button type="submit" className="btn-submit-dialogConfirm">
                 ยืนยัน
               </button>
-              <button className="btn-edit-dialogConfirm">แก้ไข</button>
+              <button
+                className="btn-edit-dialogConfirm"
+                onClick={() => {
+                  setOpenDialogConfirm(false); //ส่งข้อมูล
+                }}
+              >
+                ยกเลิก
+              </button>
             </div>
           </div>
         </div>
@@ -113,9 +146,9 @@ const CreateBookingAdminPage = () => {
             ย้อนกลับ
           </button>
           <button
-            type="submit"
+            type="button"
             onClick={() => {
-              setOpenDialogConfirm(!openDialogConfirm);
+              setOpenDialogConfirm(true);
             }}
           >
             ยืนยัน
