@@ -140,7 +140,7 @@ const CreateBookingAdminPage = () => {
           <button
             type="button"
             onClick={() => {
-              navigate("/main/booking");
+              navigate("/admin/booking");
             }}
           >
             ย้อนกลับ

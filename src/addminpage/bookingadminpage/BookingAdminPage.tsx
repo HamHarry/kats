@@ -168,7 +168,7 @@ const BookingAdminPage = () => {
           <button
             className="btn-crate"
             type="button"
-            onClick={() => navigate("/main/booking/create")}
+            onClick={() => navigate("/admin/booking/create")}
           >
             สร้าง
           </button>
@@ -189,7 +189,7 @@ const BookingAdminPage = () => {
                       className="fa-solid fa-pen-to-square"
                       onClick={() => {
                         if (item._id) {
-                          navigate(`/main/booking/edit/${item._id}`);
+                          navigate(`/admin/booking/edit/${item._id}`);
                         }
                       }}
                     ></i>

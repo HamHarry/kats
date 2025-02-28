@@ -84,7 +84,10 @@ const ProductAdminPage = () => {
         <Table
           dataSource={mockUpProducts}
           columns={columns}
-          style={{ border: "2px solid #2656a2", borderRadius: "10px" }}
+          style={{
+            border: "2px solid #2656a2",
+            borderRadius: "10px",
+          }}
         />
       </div>
     </div>

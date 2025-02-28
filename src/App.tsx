@@ -22,7 +22,7 @@ function App() {
           <Route path="" element={<HomePage />} />
           <Route path="login" element={<LoginPage />} />
         </Route>
-        <Route path="main" element={<LayoutAdmin />}>
+        <Route path="admin" element={<LayoutAdmin />}>
           <Route path="" element={<UserAdminPage />} />
           <Route path="booking" element={<BookingAdminPage />} />
           <Route path="booking/create" element={<CreateBookingAdminPage />} />

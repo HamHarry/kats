@@ -20,7 +20,7 @@ const NavbarAdmin = () => {
         <ul>
           <li
             onClick={() => {
-              navigate("/main");
+              navigate("/admin");
             }}
           >
             <i className="fa-solid fa-image-portrait"></i>
@@ -28,7 +28,7 @@ const NavbarAdmin = () => {
           </li>
           <li
             onClick={() => {
-              navigate("/main/booking");
+              navigate("/admin/booking");
             }}
           >
             <i className="fa-solid fa-book-bookmark"></i>
@@ -36,7 +36,7 @@ const NavbarAdmin = () => {
           </li>
           <li
             onClick={() => {
-              navigate("/main/calendar");
+              navigate("/admin/calendar");
             }}
           >
             <i className="fa-solid fa-calendar-days"></i>
@@ -44,7 +44,7 @@ const NavbarAdmin = () => {
           </li>
           <li
             onClick={() => {
-              navigate("/main/guarantee");
+              navigate("/admin/guarantee");
             }}
           >
             <i className="fa-solid fa-square-check"></i>
@@ -52,7 +52,7 @@ const NavbarAdmin = () => {
           </li>
           <li
             onClick={() => {
-              navigate("/main/product");
+              navigate("/admin/product");
             }}
           >
             <i className="fa-solid fa-pen-to-square"></i>
@@ -60,7 +60,7 @@ const NavbarAdmin = () => {
           </li>
           <li
             onClick={() => {
-              navigate("/main/finance");
+              navigate("/admin/finance");
             }}
           >
             <i className="fa-solid fa-wallet"></i>
@@ -68,7 +68,7 @@ const NavbarAdmin = () => {
           </li>
           <li
             onClick={() => {
-              navigate("/main/bin");
+              navigate("/admin/bin");
             }}
           >
             <i className="fa-solid fa-trash-can"></i>
