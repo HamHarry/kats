@@ -22,4 +22,5 @@ export interface Guarantees {
   price: string;
   tel: string;
   image: string;
+  imagePrice?: string;
 }

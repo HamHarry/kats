@@ -1,34 +1,9 @@
 import { useState } from "react";
 import "./BookingAdminPage.css";
 import { guarantee } from "../../data/MockUpGuarantee";
-import { Controller, useForm } from "react-hook-form";
-import { BookingStatus, Guarantees } from "../../model/guarantee.type";
 import { useNavigate } from "react-router-dom";
-export interface BookingForm extends Guarantees {}
-
-const defaultValues: Guarantees = {
-  number: "",
-  volume: "",
-  bookDate: "",
-  bookTime: "",
-  name: "",
-  carType: "",
-  carModel: "",
-  register: "",
-  price: "",
-  tel: "",
-  image: "",
-  product: {
-    name: "",
-    catagory: {
-      name: "",
-      code: "",
-    },
-    productDetails: [],
-    detail: "",
-  },
-  status: BookingStatus.PENDING,
-};
+import { Guarantees } from "../../model/guarantee.type";
+import { CloseCircleFilled } from "@ant-design/icons";
 
 const BookingAdminPage = () => {
   const [guaranteeData, setGuaranteeData] = useState<Guarantees[]>(guarantee);
@@ -126,12 +101,12 @@ const BookingAdminPage = () => {
         <div className="container-DialogConfirm">
           <div className="wrap-container-DialogConfirm">
             <div className="container-DialogConfirm-Navbar">
-              <i
-                className="fa-solid fa-circle-xmark"
+              <CloseCircleFilled
+                className="icon-close"
                 onClick={() => {
-                  setOpenDialogConfirm(!openDialogConfirm);
+                  setOpenDialogConfirm(false);
                 }}
-              ></i>
+              />
             </div>
             <h1>ยืนยันการลบ</h1>
             <div className="btn-DialogConfirm-Navbar">
@@ -139,12 +114,12 @@ const BookingAdminPage = () => {
                 type="submit"
                 className="btn-submit-dialogConfirm"
                 onClick={() => {
-                  setOpenDialogConfirm(!openDialogConfirm);
+                  setOpenDialogConfirm(false);
                 }}
               >
                 ยืนยัน
               </button>
-              <button className="btn-edit-dialogConfirm">แก้ไข</button>
+              <button className="btn-edit-dialogConfirm">ยกเลิก</button>
             </div>
           </div>
         </div>

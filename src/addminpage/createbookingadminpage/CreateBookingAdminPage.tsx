@@ -6,7 +6,7 @@ import { Select } from "antd";
 import { PRICE_TYPE } from "../../model/product.type";
 import { BookingStatus, Guarantees } from "../../model/guarantee.type";
 import { useNavigate, useParams } from "react-router-dom";
-import { CloseCircleFilled } from "@ant-design/icons";
+import { CloseCircleFilled, FileAddFilled } from "@ant-design/icons";
 import { guarantee } from "../../data/MockUpGuarantee";
 
 export interface BookingForm extends Guarantees {}
@@ -31,6 +31,7 @@ const defaultValues: BookingForm = {
   },
   tel: "",
   image: "",
+  imagePrice: "",
   price: "",
   status: BookingStatus.PENDING,
 };
@@ -89,8 +90,10 @@ const CreateBookingAdminPage = () => {
 
       if (bookingId) {
         alert(`edited successfully : ${bookingId}`);
+        navigate("/admin/booking");
       } else {
         alert("created successfully");
+        navigate("/admin/booking");
       }
     } catch (error) {
       console.log(error);
@@ -347,6 +350,32 @@ const CreateBookingAdminPage = () => {
               }}
             />
           </div>
+          {/* <Controller
+            name="rustOff"
+            control={control}
+            render={({ field }) => {
+              return (
+                <div className="inputRust">
+                  
+                </div>
+              );
+            }}
+          /> */}
+          <Controller
+            name="imagePrice"
+            control={control}
+            render={({ field }) => {
+              return (
+                <div className="inputImage">
+                  <label htmlFor="file" className="text-image">
+                    <FileAddFilled className="icon-file" />
+                    <span>อัพโหลดภาพสลิปมัดจำ 1,000 บาท</span>
+                  </label>
+                  <input {...field} type="file" id="file" />
+                </div>
+              );
+            }}
+          />
         </div>
         {rederDialogConfirm()}
       </form>

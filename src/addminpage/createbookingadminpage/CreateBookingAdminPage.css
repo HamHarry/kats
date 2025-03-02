@@ -242,6 +242,34 @@
     border-radius: 20px !important;
     border: 2px solid #2656a2;
   }
+
+  .inputImage {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 20px;
+    .text-image {
+      height: 150px;
+      width: 300px;
+      display: flex;
+      flex-direction: column;
+      align-items: space-between;
+      gap: 20px;
+      cursor: pointer;
+      align-items: center;
+      justify-content: center;
+      border: 2px dashed #cacaca;
+      padding: 1.5rem;
+      border-radius: 10px;
+    }
+    .icon-file {
+      font-size: 80px;
+      color: #2656a2;
+    }
+    input {
+      display: none;
+    }
+  }
 }
 
 .btn-CreateAdmin {
