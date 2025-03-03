@@ -33,12 +33,12 @@ const NavbarGun = () => {
             </Link>
           </li>
           <li>
-            <Link to="Productkats" smooth={true} duration={200}>
+            <Link to="coatingGun" smooth={true} duration={200}>
               Coating
             </Link>
           </li>
           <li>
-            <Link to="Mapkats" smooth={true} duration={200}>
+            <Link to="guardGun" smooth={true} duration={200}>
               Guard
             </Link>
           </li>
