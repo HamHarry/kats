@@ -29,22 +29,17 @@ const NavbarGun = () => {
                 navigate("/");
               }}
             >
-              หน้าแรก
-            </Link>
-          </li>
-          <li>
-            <Link to="Bookingkats" smooth={true} duration={200}>
-              ตรวจสอบคิว
+              Home
             </Link>
           </li>
           <li>
             <Link to="Productkats" smooth={true} duration={200}>
-              สินค้า
+              Coating
             </Link>
           </li>
           <li>
             <Link to="Mapkats" smooth={true} duration={200}>
-              แผนที่
+              Guard
             </Link>
           </li>
           <li
@@ -52,7 +47,7 @@ const NavbarGun = () => {
               navigate("login");
             }}
           >
-            เข้าสู่ระบบ
+            Login
           </li>
         </ul>
       </div>
