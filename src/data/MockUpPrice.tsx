@@ -1,4 +1,4 @@
-import { ListPrice } from "../productpage/ProductPage";
+import { ListPrice } from "../productpagekats/ProductPageKats";
 
 export const mockUpPrice: ListPrice[] = [
   {

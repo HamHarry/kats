@@ -1,4 +1,4 @@
-.container-productpage {
+.container-ProductPageKats {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -7,7 +7,7 @@
   padding-top: 104px;
 }
 
-.header-productpage {
+.header-ProductPageKats {
   display: flex;
   justify-content: center;
   position: relative;
@@ -30,7 +30,7 @@
   }
 }
 
-.container-prodoct {
+.wrap-container-product {
   display: flex;
   flex-direction: column;
   .container-list-product {

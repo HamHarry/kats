@@ -1,12 +1,12 @@
 import { Link } from "react-scroll";
-import "./HomePage.css";
-import BookingPage from "../bookingpage/BookingPage";
-import ProductPage from "../productpage/ProductPage";
-import MapPage from "../mappage/MapPage";
-const HomePage = () => {
+import "./HomePagekats.css";
+import BookingPage from "../bookingpagekats/BookingPageKats";
+import ProductPage from "../productpagekats/ProductPageKats";
+import MapPage from "../mappagekats/MapPagekats";
+const HomePageKats = () => {
   return (
-    <div className="container-homepage">
-      <div className="header-homepage">
+    <div className="container-HomePageKats">
+      <div className="header-HomePageKats">
         <img src="/public/assets/katoon.png" alt="katoon" />
         <h1>
           ยินดีต้อนรับ <br />
@@ -80,17 +80,17 @@ const HomePage = () => {
         </div>
       </div>
 
-      <div className="bookingpage" id="Booking">
+      <div className="bookingpagekats" id="Bookingkats">
         <BookingPage />
       </div>
-      <div className="productpage" id="Product">
+      <div className="productpagekats" id="Productkats">
         <ProductPage />
       </div>
-      <div className="mappage" id="Map">
+      <div className="mappagekats" id="Mapkats">
         <MapPage />
       </div>
     </div>
   );
 };
 
-export default HomePage;
+export default HomePageKats;

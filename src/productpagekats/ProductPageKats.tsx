@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState } from "react";
-import "./ProductPage.css";
+import "./ProductPageKats.css";
 import { mockUpPrice } from "../data/MockUpPrice";
 
 export interface ListCarImage {
@@ -21,7 +21,7 @@ export interface ListPrice {
   carImages: ListCar[];
 }
 
-const ProductPage = () => {
+const ProductPageKats = () => {
   const [openDialogPrice, setOpenDialogPrice] = useState<boolean>(false);
   const [dataPrice] = useState<ListPrice[]>(mockUpPrice);
   const [dataDialog, setDataDialog] = useState<ListPrice>();
@@ -150,15 +150,15 @@ const ProductPage = () => {
   };
 
   return (
-    <div className="container-productpage">
-      <div className="header-productpage">
+    <div className="container-ProductPageKats">
+      <div className="header-ProductPageKats">
         <img src="/public/assets/katoon.png" alt="katoon" />
         <h1>
           สินค้า <br />
           รับประกัน 5 ปี (ทุกสินค้า)
         </h1>
       </div>
-      <div className="container-prodoct">
+      <div className="wrap-container-product">
         <div className="container-list-product">
           <div className="line">
             <div className="vertical-herder"></div>
@@ -200,4 +200,4 @@ const ProductPage = () => {
   );
 };
 
-export default ProductPage;
+export default ProductPageKats;

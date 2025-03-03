@@ -1,5 +1,5 @@
 import { Badge, Calendar, CalendarProps, Typography } from "antd";
-import "./BookingPage.css";
+import "./BookingPageKats.css";
 
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import "react-datepicker/dist/react-datepicker.css";
@@ -7,7 +7,7 @@ import dayjs, { Dayjs } from "dayjs";
 import { guarantee } from "../data/MockUpGuarantee";
 import { BookingStatus, Guarantees } from "../model/guarantee.type";
 
-const BookingPage = () => {
+const BookingPageKats = () => {
   const getStatus = (status: BookingStatus) => {
     switch (status) {
       case BookingStatus.PENDING:
@@ -72,4 +72,4 @@ const BookingPage = () => {
   );
 };
 
-export default BookingPage;
+export default BookingPageKats;

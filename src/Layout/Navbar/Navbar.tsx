@@ -33,17 +33,17 @@ const Navbar = () => {
             </Link>
           </li>
           <li>
-            <Link to="Booking" smooth={true} duration={200}>
+            <Link to="Bookingkats" smooth={true} duration={200}>
               ตรวจสอบคิว
             </Link>
           </li>
           <li>
-            <Link to="Product" smooth={true} duration={200}>
+            <Link to="Productkats" smooth={true} duration={200}>
               สินค้า
             </Link>
           </li>
           <li>
-            <Link to="Map" smooth={true} duration={200}>
+            <Link to="Mapkats" smooth={true} duration={200}>
               แผนที่
             </Link>
           </li>

@@ -10,16 +10,16 @@ import BinAdminPage from "./addminpage/binadminpage/BinAdminPage";
 import LoginPage from "./loginpage/Loginpage";
 import ProductAdminPage from "./addminpage/productadminpage/ProductAdminPage";
 import Layout from "./Layout/Layout";
-import HomePage from "./HomePage/HomePage";
 import LayoutAdmin from "./Layout/LayoutAdmin";
 import CreateBookingAdminPage from "./addminpage/createbookingadminpage/CreateBookingAdminPage";
+import HomePageKats from "./homepagekats/HomePagekats";
 
 function App() {
   return (
     <Suspense>
       <Routes>
         <Route path="/" element={<Layout />}>
-          <Route path="" element={<HomePage />} />
+          <Route path="" element={<HomePageKats />} />
           <Route path="login" element={<LoginPage />} />
         </Route>
         <Route path="admin" element={<LayoutAdmin />}>

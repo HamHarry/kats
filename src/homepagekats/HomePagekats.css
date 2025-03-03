@@ -1,4 +1,4 @@
-.container-homepage {
+.container-HomePageKats {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -7,7 +7,7 @@
   padding-top: 104px;
 }
 
-.header-homepage {
+.header-HomePageKats {
   display: flex;
   justify-content: center;
   position: relative;
@@ -116,13 +116,13 @@
 }
 
 @media (max-width: 1024px) {
-  .header-homepage h1 {
+  .header-HomePageKats h1 {
     font-size: 32px;
   }
 }
 
 @media (max-width: 795px) {
-  .header-homepage h1 {
+  .header-HomePageKats h1 {
     font-size: 24px;
   }
   .center-right {
@@ -140,7 +140,7 @@
 }
 
 @media (max-width: 640px) {
-  .header-homepage {
+  .header-HomePageKats {
     padding: 16px;
     padding-left: 60px;
     h1 {

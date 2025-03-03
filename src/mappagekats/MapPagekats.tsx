@@ -1,9 +1,9 @@
 import { Typography } from "antd";
-import "./MapPage.css";
-const MapPage = () => {
+import "./MapPagekats.css";
+const MapPageKats = () => {
   return (
-    <div className="container-mappage">
-      <div className="header-mappage">
+    <div className="container-MapPageKats">
+      <div className="header-MapPageKats">
         <img src="/public/assets/katoon.png" alt="katoon" />
         <Typography className="text-header">แผนที่</Typography>
       </div>
@@ -23,4 +23,4 @@ const MapPage = () => {
   );
 };
 
-export default MapPage;
+export default MapPageKats;
