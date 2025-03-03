@@ -1,11 +1,11 @@
 import { Link } from "react-scroll";
-import "./Navbar.css";
+import "./Navbarkats.css";
 import { useNavigate } from "react-router-dom";
-const Navbar = () => {
+const Navbarkats = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="navbar">
+    <div className="Navbarkats">
       <div className="logo">
         <Link
           to="Home"
@@ -60,4 +60,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+export default Navbarkats;

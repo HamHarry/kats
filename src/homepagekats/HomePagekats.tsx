@@ -32,18 +32,18 @@ const HomePageKats = () => {
           <div className="btn-content">
             <div className="btn-group-top">
               <button className="btn">
-                <Link to="Product" smooth={true} duration={200}>
+                <Link to="Productkats" smooth={true} duration={200}>
                   แนะนำสินค้า
                 </Link>
               </button>
               <button className="btn">
-                <Link to="Map" smooth={true} duration={200}>
+                <Link to="Mapkats" smooth={true} duration={200}>
                   แผนที่
                 </Link>
               </button>
             </div>
             <button className="btn">
-              <Link to="Booking" smooth={true} duration={200}>
+              <Link to="Bookingkats" smooth={true} duration={200}>
                 ตรวจสอบคิว
               </Link>
             </button>

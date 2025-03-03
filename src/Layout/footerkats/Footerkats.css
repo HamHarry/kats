@@ -1,4 +1,4 @@
-.footer {
+.Footerkats {
   position: fixed;
   bottom: 0;
   display: flex;
@@ -24,7 +24,7 @@
 }
 
 @media (max-width: 642px) {
-  .footer {
+  .Footerkats {
     font-size: 12px;
   }
 }

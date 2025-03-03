@@ -1,7 +1,7 @@
-import "./Footer.css";
-const Footer = () => {
+import "./Footerkats.css";
+const Footerkats = () => {
   return (
-    <div className="footer">
+    <div className="Footerkats">
       <p>ติดต่อสอบถามเพิ่มเติม</p>
       <div
         className="contact"
@@ -15,4 +15,4 @@ const Footer = () => {
   );
 };
 
-export default Footer;
+export default Footerkats;

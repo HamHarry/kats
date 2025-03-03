@@ -1,12 +1,12 @@
 import { Suspense } from "react";
-import Footer from "./footer/Footer";
+import Footer from "./footerkats/Footerkats";
 import { Outlet } from "react-router-dom";
-import Navbar from "./Navbar/Navbar";
+import Navbarkats from "./navbarkats/Navbarkats";
 
 const Layout = () => {
   return (
     <div className="cotainer-all" id="Home">
-      <Navbar />
+      <Navbarkats />
       <Suspense>
         <>
           <Outlet />
