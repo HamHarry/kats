@@ -1,20 +1,20 @@
 import { Suspense } from "react";
 import { Outlet } from "react-router-dom";
-import NavbarGun from "./navbargun/Navbargun";
-import FooterGun from "./footergun/Footergun";
+import Navbarkats from "./navbarkats/Navbarkats";
+import Footerkats from "./footerkats/Footerkats";
 
-const Layout = () => {
+const Layoutkats = () => {
   return (
     <div className="cotainer-all" id="Home">
-      <NavbarGun />
+      <Navbarkats />
       <Suspense>
         <>
           <Outlet />
         </>
       </Suspense>
-      <FooterGun />
+      <Footerkats />
     </div>
   );
 };
 
-export default Layout;
+export default Layoutkats;

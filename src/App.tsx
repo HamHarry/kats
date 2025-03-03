@@ -9,16 +9,22 @@ import FinanceAdminPage from "./addminpage/financeadminpage/FinanceAdminPage";
 import BinAdminPage from "./addminpage/binadminpage/BinAdminPage";
 import LoginPage from "./loginpage/Loginpage";
 import ProductAdminPage from "./addminpage/productadminpage/ProductAdminPage";
-import Layout from "./Layout/Layout";
 import LayoutAdmin from "./Layout/LayoutAdmin";
 import CreateBookingAdminPage from "./addminpage/createbookingadminpage/CreateBookingAdminPage";
 import HomePageKats from "./homepagekats/HomePagekats";
+import HomePageGun from "./homepagegun/HomePageGun";
+import Layoutkats from "./Layout/Layoutkats";
+import Layout from "./Layout/Layout";
 
 function App() {
   return (
     <Suspense>
       <Routes>
         <Route path="/" element={<Layout />}>
+          <Route path="" element={<HomePageGun />} />
+          <Route path="login" element={<LoginPage />} />
+        </Route>
+        <Route path="/kats" element={<Layoutkats />}>
           <Route path="" element={<HomePageKats />} />
           <Route path="login" element={<LoginPage />} />
         </Route>

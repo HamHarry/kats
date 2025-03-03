@@ -1,0 +1,178 @@
+.container-HomePageGun {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  padding: 24px;
+  padding-top: 104px;
+  background-color: #1e4d3f;
+}
+
+.header-HomePageGun {
+  display: flex;
+  justify-content: center;
+  position: relative;
+  align-items: center;
+  background-color: #103026;
+  border-radius: 30px;
+  padding: 24px;
+  padding-left: 80px;
+  padding-right: 80px;
+  img {
+    width: 300px;
+    z-index: 1;
+    position: absolute;
+    left: -150px;
+  }
+  h1 {
+    text-align: center;
+    font-size: 42px;
+    font-weight: bold;
+    color: #f3cd68;
+  }
+}
+
+.center {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 16px;
+  .center-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 16px;
+    h3 {
+      font-family: "Noto Sans Thai", serif;
+      text-align: center;
+      font-size: 22px;
+      color: #f3cd68;
+    }
+    .btn-content {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      justify-content: center;
+      align-items: center;
+      .btn-group-top {
+        display: flex;
+        gap: 16px;
+      }
+      .btn {
+        color: #f3cd68;
+        font-size: 28px;
+        font-weight: bold;
+        min-width: 200px;
+        border: none;
+        border-radius: 20px;
+        background-color: #103026;
+        cursor: pointer;
+        transition: all 0.5s;
+        padding: 10px;
+      }
+      .btn:hover {
+        text-shadow: 0 0 10px rgba(255, 255, 255, 0.8),
+          0 0 20px rgba(255, 255, 255, 0.6), 0 0 30px rgba(255, 255, 255, 0.4);
+        transition: all 0.5s;
+      }
+    }
+  }
+  .center-mid {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 16px;
+    .compare {
+      text-align: center;
+      img {
+        width: 240px;
+        height: 240px;
+        border-radius: 20px;
+        border: 5px solid #f3cd68;
+      }
+      h3 {
+        font-family: "Noto Sans Thai", serif;
+        text-align: center;
+        font-size: 25px;
+        color: #396cad;
+      }
+    }
+  }
+  .center-right {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 16px;
+    .image-botton {
+      display: flex;
+      flex-direction: row;
+      gap: 16px;
+      img {
+        border-radius: 20px;
+        border: 5px solid #f3cd68;
+        width: auto;
+        height: 430px;
+      }
+    }
+  }
+}
+
+@media (max-width: 1024px) {
+  .header-HomePageGun h1 {
+    font-size: 32px;
+  }
+}
+
+@media (max-width: 795px) {
+  .header-HomePageGun h1 {
+    font-size: 24px;
+  }
+  .center-right {
+    .image-top img {
+      width: 100%;
+    }
+    .image-botton {
+      flex-direction: column !important;
+      img {
+        width: 100% !important;
+        height: auto !important;
+      }
+    }
+  }
+}
+
+@media (max-width: 640px) {
+  .header-HomePageGun {
+    padding: 16px;
+    padding-left: 60px;
+    h1 {
+      font-size: 16px;
+    }
+    img {
+      width: 100px;
+      left: -30px;
+    }
+  }
+
+  .center {
+    .center-left {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      h3 {
+        font-size: 18px;
+      }
+    }
+    .btn-content {
+      width: 100%;
+      .btn-group-top {
+        width: 100%;
+      }
+      .btn {
+        width: 100%;
+        min-width: 0px;
+      }
+    }
+  }
+}
