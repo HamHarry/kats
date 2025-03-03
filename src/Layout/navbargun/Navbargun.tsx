@@ -29,7 +29,7 @@ const NavbarGun = () => {
                 navigate("/");
               }}
             >
-              Home
+              หน้าหลัก
             </Link>
           </li>
           <li>
@@ -47,7 +47,7 @@ const NavbarGun = () => {
               navigate("login");
             }}
           >
-            Login
+            เข้าสู่ระบบ
           </li>
         </ul>
       </div>
