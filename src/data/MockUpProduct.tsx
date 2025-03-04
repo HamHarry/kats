@@ -1,4 +1,4 @@
-import { Product, PRICE_TYPE } from "../model/product.type";
+import { Product, PRICE_TYPE, ProductType } from "../model/product.type";
 
 export const mockCategories = [
   {
@@ -24,6 +24,7 @@ export const mockUpProducts: Product[] = [
       { type: PRICE_TYPE.LUXURY, price: 8000 },
     ],
     detail: "",
+    productType: ProductType.KATS,
   },
   {
     _id: 2,
@@ -41,5 +42,6 @@ export const mockUpProducts: Product[] = [
       { type: PRICE_TYPE.STANDARD, price: 4900 },
     ],
     detail: "",
+    productType: ProductType.GUN,
   },
 ];

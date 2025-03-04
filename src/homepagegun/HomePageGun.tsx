@@ -67,9 +67,8 @@ const HomePageGun = () => {
         </div>
       </div>
 
-      <div className="coatingGun" id="coatingGun">
-        <CoatingPageGun />
-      </div>
+      <CoatingPageGun />
+
       <div className="guardGun" id="guardGun"></div>
     </div>
   );

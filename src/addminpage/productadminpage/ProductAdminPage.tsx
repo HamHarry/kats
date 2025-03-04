@@ -2,8 +2,21 @@ import { Input, Table, Typography } from "antd";
 import "./ProductAdminPage.css";
 import { mockUpProducts } from "../../data/MockUpProduct";
 import { Category, PRICE_TYPE, ProductDetail } from "../../model/product.type";
+import { useState } from "react";
+
+const initProductDetail: ProductDetail = {
+  type: PRICE_TYPE.STANDARD,
+  price: 0,
+};
 
 const ProductAdminPage = () => {
+  const [productDetails, setProductDetails] = useState<ProductDetail[]>([]);
+
+  // เพิ่มข้อมูล
+  const addProductDetails = () => {
+    setProductDetails([...productDetails, initProductDetail]);
+  };
+
   const columns = [
     { title: "ลำดับ", dataIndex: "id", key: "_id" },
     { title: "ชื่อสินค้า", dataIndex: "name", key: "name" },

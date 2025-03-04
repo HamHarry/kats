@@ -70,6 +70,12 @@
   }
 }
 
+.product-content {
+  .ant-table {
+    height: 600px;
+  }
+}
+
 @media (max-width: 1240px) {
   .input-product-content {
     flex-direction: column;

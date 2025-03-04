@@ -9,7 +9,7 @@ const CoatingPageGun = () => {
   const [dataImageWhite] = useState(MockUpSlidesWhiteImage);
   const navigate = useNavigate();
   return (
-    <div className="container-CoatingPageGun">
+    <div className="container-CoatingPageGun" id="coatingGun">
       <div className="header-CoatingPageGun">
         <h1>Gun Protection Coating</h1>
       </div>
@@ -48,10 +48,18 @@ const CoatingPageGun = () => {
               </div>
             );
           })}
+
+          {dataImageBlack.map((item, index) => {
+            return (
+              <div className="slide" key={index}>
+                <img src={item.image} alt="image" />
+              </div>
+            );
+          })}
         </div>
       </div>
 
-      <hr />
+      <hr className="line-hr" />
 
       <div className="content-series">
         <img src="/public/assets/gun/tanks/tank-white.png" alt="tank-white" />
@@ -86,10 +94,18 @@ const CoatingPageGun = () => {
               </div>
             );
           })}
+
+          {dataImageWhite.map((item, index) => {
+            return (
+              <div className="slide" key={index}>
+                <img src={item.image} alt="image" />
+              </div>
+            );
+          })}
         </div>
       </div>
 
-      <hr />
+      <hr className="line-hr" />
 
       <div className="content-kats">
         <div className="header-CoatingPageKats">

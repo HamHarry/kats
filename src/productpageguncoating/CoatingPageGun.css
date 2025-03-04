@@ -6,6 +6,7 @@
   padding: 24px;
   padding-top: 104px;
   background-color: #1e4d3f;
+  width: 100%;
 }
 
 .header-CoatingPageGun {
@@ -52,30 +53,52 @@
 }
 
 .content-preview {
-  display: flex;
-  margin-top: -10px;
-  .slide-track {
-    display: flex;
-    .slide {
-      display: flex;
-      align-items: center;
-      height: 200px;
-      width: 250px;
-      padding: 15px;
-      perspective: 150px;
-      img {
-        width: 100%;
-        border: 2px solid #f3cd68;
-        border-radius: 25px;
-      }
-      img:hover {
-        transform: translateZ(20px);
-      }
-    }
+  display: grid;
+  place-items: center;
+  height: 250px;
+  margin: auto;
+  width: 90%;
+  overflow: hidden;
+  position: relative;
+}
+
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(calc(-250px * 6));
   }
 }
 
-hr {
+.slide-track {
+  display: flex;
+  width: calc(250px * 12);
+  animation: scroll 40s linear infinite;
+}
+
+.slide-track:hover {
+  animation-play-state: paused;
+}
+
+.slide {
+  display: flex;
+  align-items: center;
+  height: 200px;
+  min-width: 250px;
+  padding: 15px;
+  perspective: 150px;
+  img {
+    width: 100%;
+    border: 2px solid #f3cd68;
+    border-radius: 25px;
+  }
+  img:hover {
+    transform: translateZ(20px);
+  }
+}
+
+.line-hr {
   width: 100%;
   padding: 2px;
   background-color: #f3cd68;

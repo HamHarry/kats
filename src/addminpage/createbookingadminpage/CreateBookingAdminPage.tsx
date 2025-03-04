@@ -3,7 +3,7 @@ import "./CreateBookingAdminPage.css";
 import { useCallback, useEffect, useState } from "react";
 import { mockUpProducts } from "../../data/MockUpProduct";
 import { Select } from "antd";
-import { PRICE_TYPE } from "../../model/product.type";
+import { PRICE_TYPE, ProductType } from "../../model/product.type";
 import { BookingStatus, Guarantees } from "../../model/guarantee.type";
 import { useNavigate, useParams } from "react-router-dom";
 import { CloseCircleFilled, FileAddFilled } from "@ant-design/icons";
@@ -28,6 +28,7 @@ const defaultValues: BookingForm = {
     },
     productDetails: [],
     detail: "",
+    productType: ProductType.KATS,
   },
   tel: "",
   image: "",
@@ -307,10 +308,7 @@ const CreateBookingAdminPage = () => {
                         );
 
                         if (findedProduct) {
-                          setValue("product", {
-                            ...findedProduct,
-                            productDetails: [],
-                          });
+                          setValue("product", findedProduct);
                           setPriceData(findedProduct?.productDetails as any);
                         }
                       }}
