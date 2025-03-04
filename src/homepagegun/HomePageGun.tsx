@@ -1,5 +1,6 @@
 import { Link } from "react-scroll";
 import "./HomePageGun.css";
+import CoatingPageGun from "../productpageguncoating/CoatingPageGun";
 const HomePageGun = () => {
   return (
     <div className="container-HomePageGun">
@@ -29,7 +30,7 @@ const HomePageGun = () => {
           </h3>
           <div className="btn-content">
             <button className="btn">
-              <Link to="/" smooth={true} duration={200}>
+              <Link to="coatingGun" smooth={true} duration={200}>
                 Coating
               </Link>
             </button>
@@ -66,7 +67,9 @@ const HomePageGun = () => {
         </div>
       </div>
 
-      <div className="coatingGun" id="coatingGun"></div>
+      <div className="coatingGun" id="coatingGun">
+        <CoatingPageGun />
+      </div>
       <div className="guardGun" id="guardGun"></div>
     </div>
   );
