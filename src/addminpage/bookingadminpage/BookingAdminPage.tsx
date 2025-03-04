@@ -4,6 +4,7 @@ import { guarantee } from "../../data/MockUpGuarantee";
 import { useNavigate } from "react-router-dom";
 import { Guarantees } from "../../model/guarantee.type";
 import { CloseCircleFilled } from "@ant-design/icons";
+import { ProductType } from "../../model/product.type";
 
 const BookingAdminPage = () => {
   const [guaranteeData, setGuaranteeData] = useState<Guarantees[]>(guarantee);
@@ -86,11 +87,6 @@ const BookingAdminPage = () => {
           <option value={"002"}>002</option>
           <option value={"003"}>003</option>
         </select>
-        {/* <select onChange={handleSelectChange}>
-          <option value={"All"}>All</option>
-          <option value={"KATS Coating"}>KATS</option>
-          <option value={"GUN"}>GUN</option>
-        </select> */}
       </div>
     );
   };
@@ -151,8 +147,17 @@ const BookingAdminPage = () => {
       </div>
       <div className="wrap-container-BookingAdmin">
         {guaranteeData.map((item, index) => {
+          const productType = item.product.productType;
+
           return (
-            <div key={index} className="grid-BookingAdmin">
+            <div
+              key={index}
+              className="grid-BookingAdmin"
+              style={{
+                backgroundColor:
+                  productType === ProductType.GUN ? "#043829" : "#2656A2",
+              }}
+            >
               <div className="BookingAdmin-image">
                 <img src={item.image} alt="Image" />
               </div>

@@ -3,6 +3,11 @@ export enum PRICE_TYPE {
   STANDARD = 2,
 }
 
+export enum ProductType {
+  KATS = 1,
+  GUN = 2,
+}
+
 export interface Category {
   _id?: number;
   name: string;
@@ -20,4 +25,5 @@ export interface Product {
   catagory: Category;
   productDetails: ProductDetail[];
   detail: string;
+  productType: ProductType;
 }

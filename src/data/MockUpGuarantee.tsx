@@ -1,5 +1,5 @@
 import { BookingStatus, Guarantees } from "../model/guarantee.type";
-import { PRICE_TYPE } from "../model/product.type";
+import { PRICE_TYPE, ProductType } from "../model/product.type";
 
 export const guarantee: Guarantees[] = [
   {
@@ -28,6 +28,7 @@ export const guarantee: Guarantees[] = [
         { type: PRICE_TYPE.LUXURY, price: 8000 },
       ],
       detail: "",
+      productType: ProductType.KATS,
     },
     price: "Luxury 6,900 Baht",
     tel: "081-842-0795",
@@ -60,6 +61,7 @@ export const guarantee: Guarantees[] = [
         { type: PRICE_TYPE.LUXURY, price: 8000 },
       ],
       detail: "",
+      productType: ProductType.KATS,
     },
     price: "4,900 Baht",
     tel: "098-270-7558",
@@ -93,6 +95,7 @@ export const guarantee: Guarantees[] = [
         { type: PRICE_TYPE.STANDARD, price: 4900 },
       ],
       detail: "",
+      productType: ProductType.GUN,
     },
     price: "3,900 Baht",
     tel: "094-314-9467",
@@ -126,6 +129,7 @@ export const guarantee: Guarantees[] = [
         { type: PRICE_TYPE.STANDARD, price: 4900 },
       ],
       detail: "",
+      productType: ProductType.GUN,
     },
     price: "3,900 Baht",
     tel: "081-110-1548",
@@ -159,6 +163,7 @@ export const guarantee: Guarantees[] = [
         { type: PRICE_TYPE.STANDARD, price: 4900 },
       ],
       detail: "",
+      productType: ProductType.GUN,
     },
     price: "3,500 Baht",
     tel: "081-110-8865",
