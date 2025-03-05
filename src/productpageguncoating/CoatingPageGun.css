@@ -130,21 +130,7 @@
       color: white;
     }
   }
-  .image-kats {
-    position: relative;
-    display: flex;
-    margin-top: 20px;
-    .katoon {
-      position: absolute;
-      height: 200px;
-      left: -19%;
-      top: -5%;
-    }
-    .logokats {
-      height: 300px;
-      border-radius: 10px;
-    }
-  }
+
   .btn-kats {
     margin-top: 20px;
     color: white;

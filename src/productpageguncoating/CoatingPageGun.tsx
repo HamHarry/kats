@@ -11,7 +11,7 @@ const CoatingPageGun = () => {
   return (
     <div className="container-CoatingPageGun" id="coatingGun">
       <div className="header-CoatingPageGun">
-        <h1>Gun Protection Coating</h1>
+        <h1>Gun Protection Coatings</h1>
       </div>
 
       <div className="content-series">
@@ -75,7 +75,8 @@ const CoatingPageGun = () => {
             <br />- ไม่ลอกล่อน สูตรน้ำ100%
             <br />- ไม่กัดซีลยาง ไม่ติดไฟ ไม่มีสารระเหย ไม่มีสารก่อมะเร็ง
             <br />- ยืดหยุ่นได้ตามการเคลื่อนไหวต่อตัวรถ
-            <br />- ไม่ติดไฟ ไม่ลามไฟ - ไม่มีกลิ่นเหม็น
+            <br />- ไม่ติดไฟ ไม่ลามไฟ
+            <br />- ไม่มีกลิ่นเหม็น
             <br />- เป็นมิตรกับสิ่งแวดล้อม
             <br />- สามารถย่อยสลายได้เองตามธรรมชาติ
             <br />- มีสีเงาใสสวยงาม
@@ -103,30 +104,6 @@ const CoatingPageGun = () => {
             );
           })}
         </div>
-      </div>
-
-      <hr className="line-hr" />
-
-      <div className="content-kats">
-        <div className="header-CoatingPageKats">
-          <h3>KATS COATINGS</h3>
-        </div>
-
-        <div className="image-kats">
-          <img className="katoon" src="/public/assets/katoon.png" alt="" />
-          <img className="logokats" src="/public/assets/logokats.jpg" alt="" />
-        </div>
-
-        <Link
-          to="Home"
-          smooth={true}
-          duration={200}
-          onClick={() => {
-            navigate("/kats");
-          }}
-        >
-          <div className="btn-kats">ข้อมูลเพิ่มเติม</div>
-        </Link>
       </div>
     </div>
   );

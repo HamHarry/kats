@@ -25,9 +25,9 @@ const HomePageKats = () => {
             <br />
             ISO/TS16949 อุตสาหกรรมยานยนต์ให้การรับรอง
             <br />
-            ร้านเปิด 8:00 - 18:00
+            ร้านเปิด 8:00 น. - 18:00 น.
             <br />
-            หยุดทุกวันพุธ
+            หยุดทุกวันจันทร์
           </h3>
           <div className="btn-content">
             <div className="btn-group-top">
@@ -45,6 +45,11 @@ const HomePageKats = () => {
             <button className="btn">
               <Link to="Bookingkats" smooth={true} duration={200}>
                 ตรวจสอบคิว
+              </Link>
+            </button>
+            <button className="btn-gun">
+              <Link to="Bookingkats" smooth={true} duration={200}>
+                GUN Protection
               </Link>
             </button>
           </div>

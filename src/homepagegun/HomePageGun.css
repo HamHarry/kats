@@ -49,9 +49,14 @@
     }
     .btn-content {
       display: flex;
+      flex-direction: column;
       gap: 16px;
       justify-content: center;
       align-items: center;
+      .btn-group-top {
+        display: flex;
+        gap: 16px;
+      }
       .btn {
         color: #f3cd68;
         font-size: 28px;
@@ -65,6 +70,22 @@
         padding: 10px;
       }
       .btn:hover {
+        text-shadow: 0 0 10px #ffcc66, 0 0 20px #ffcc66, 0 0 30px #ffcc66;
+        transition: all 0.5s;
+      }
+      .btn-kats {
+        color: white;
+        font-size: 28px;
+        font-weight: bold;
+        min-width: 200px;
+        border: none;
+        border-radius: 20px;
+        background-color: #2656a2;
+        cursor: pointer;
+        transition: all 0.5s;
+        padding: 10px;
+      }
+      .btn-kats:hover {
         text-shadow: 0 0 10px rgba(255, 255, 255, 0.8),
           0 0 20px rgba(255, 255, 255, 0.6), 0 0 30px rgba(255, 255, 255, 0.4);
         transition: all 0.5s;

@@ -1,7 +1,9 @@
 import { Link } from "react-scroll";
 import "./HomePageGun.css";
 import CoatingPageGun from "../productpageguncoating/CoatingPageGun";
+import { useNavigate } from "react-router-dom";
 const HomePageGun = () => {
+  const navigate = useNavigate();
   return (
     <div className="container-HomePageGun">
       <div className="header-HomePageGun">
@@ -29,14 +31,28 @@ const HomePageGun = () => {
             ตามความต้องการของลูกค้าได้ในอนาคตอีกด้วย
           </h3>
           <div className="btn-content">
-            <button className="btn">
-              <Link to="coatingGun" smooth={true} duration={200}>
-                Coating
-              </Link>
-            </button>
-            <button className="btn">
-              <Link to="/" smooth={true} duration={200}>
-                Guard
+            <div className="btn-group-top">
+              <button className="btn">
+                <Link to="coatingGun" smooth={true} duration={200}>
+                  Coatings
+                </Link>
+              </button>
+              <button className="btn">
+                <Link to="/" smooth={true} duration={200}>
+                  Guard
+                </Link>
+              </button>
+            </div>
+            <button className="btn-kats">
+              <Link
+                to="Home"
+                smooth={true}
+                duration={200}
+                onClick={() => {
+                  navigate("/kats");
+                }}
+              >
+                KATS Coatings
               </Link>
             </button>
           </div>
@@ -69,7 +85,7 @@ const HomePageGun = () => {
 
       <CoatingPageGun />
 
-      <div className="guardGun" id="guardGun"></div>
+      {/* <div className="guardGun" id="guardGun"></div> */}
     </div>
   );
 };

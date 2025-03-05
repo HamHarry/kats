@@ -42,13 +42,6 @@ const NavbarGun = () => {
               Guard
             </Link>
           </li>
-          <li
-            onClick={() => {
-              navigate("login");
-            }}
-          >
-            เข้าสู่ระบบ
-          </li>
         </ul>
       </div>
     </div>

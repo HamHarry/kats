@@ -12,7 +12,7 @@ const Navbarkats = () => {
           smooth={true}
           duration={200}
           onClick={() => {
-            navigate("/");
+            navigate("/kats");
           }}
         >
           <img src="/public/assets/logokats.jpg" alt="logo" />

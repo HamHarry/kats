@@ -74,6 +74,22 @@
           0 0 20px rgba(255, 255, 255, 0.6), 0 0 30px rgba(255, 255, 255, 0.4);
         transition: all 0.5s;
       }
+      .btn-gun {
+        color: #f3cd68;
+        font-size: 28px;
+        font-weight: bold;
+        min-width: 200px;
+        border: none;
+        border-radius: 20px;
+        background-color: #103026;
+        cursor: pointer;
+        transition: all 0.5s;
+        padding: 10px;
+      }
+      .btn-gun:hover {
+        text-shadow: 0 0 10px #ffcc66, 0 0 20px #ffcc66, 0 0 30px #ffcc66;
+        transition: all 0.5s;
+      }
     }
   }
   .center-mid {

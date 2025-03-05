@@ -8,32 +8,31 @@
   height: 80px;
   background-color: #2656a2;
   z-index: 100;
-}
-.logo img {
-  width: 150px;
-  height: 70px;
-  margin-left: 10px;
-  cursor: pointer;
-}
-.list-menu {
-  ul {
-    display: flex;
-    gap: 25px;
-    margin-right: 10px;
-    list-style: none;
-  }
-  li {
-    font-family: "Noto Sans Thai", serif;
-    font-size: 20px;
-    font-weight: bold;
+  .logo img {
+    width: 150px;
+    height: 70px;
+    margin-left: 10px;
     cursor: pointer;
-    color: #ffffff;
-    transition: all 0.5s;
   }
-  li:hover {
-    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8),
-      0 0 20px rgba(255, 255, 255, 0.6), 0 0 30px rgba(255, 255, 255, 0.4);
-    transition: all 0.5s;
+  .list-menu {
+    ul {
+      display: flex;
+      gap: 25px;
+      margin-right: 10px;
+      list-style: none;
+    }
+    li {
+      font-size: 20px;
+      font-weight: bold;
+      cursor: pointer;
+      color: #ffffff;
+      transition: all 0.5s;
+    }
+    li:hover {
+      text-shadow: 0 0 10px rgba(255, 255, 255, 0.8),
+        0 0 20px rgba(255, 255, 255, 0.6), 0 0 30px rgba(255, 255, 255, 0.4);
+      transition: all 0.5s;
+    }
   }
 }
 
