@@ -1,13 +1,12 @@
 import { useState } from "react";
-import { Link } from "react-scroll";
 import "./CoatingPageGun.css";
 import { MockUpSlidesBlackImage } from "../data/MockUpSlideBlackImage";
 import { MockUpSlidesWhiteImage } from "../data/MockUpSlidesWhiteImage";
-import { useNavigate } from "react-router-dom";
+import { MockUpTheparak } from "../data/MockUpTheparak";
 const CoatingPageGun = () => {
   const [dataImageBlack] = useState(MockUpSlidesBlackImage);
   const [dataImageWhite] = useState(MockUpSlidesWhiteImage);
-  const navigate = useNavigate();
+  const [dataImageTheparak] = useState(MockUpTheparak);
   return (
     <div className="container-CoatingPageGun" id="coatingGun">
       <div className="header-CoatingPageGun">
@@ -36,7 +35,7 @@ const CoatingPageGun = () => {
             <br />- ทนต่อน้ำทะเล และแช่น้ำได้นานกว่า 128 ชั่วโมง
           </p>
         </div>
-        <img src="/public/assets/gun/tanks/tank-black.png" alt="tank-black" />
+        <img src="/public/assets/gun/tanks/black-tank.png" alt="tank-black" />
       </div>
 
       <div className="content-preview">
@@ -62,7 +61,7 @@ const CoatingPageGun = () => {
       <hr className="line-hr" />
 
       <div className="content-series">
-        <img src="/public/assets/gun/tanks/tank-white.png" alt="tank-white" />
+        <img src="/public/assets/gun/tanks/white-tank.png" alt="tank-white" />
         <div className="text-box">
           <p>
             <span>GUN Protection Series 2</span>
@@ -103,6 +102,55 @@ const CoatingPageGun = () => {
               </div>
             );
           })}
+        </div>
+      </div>
+
+      <hr className="line-hr" />
+
+      <div className="header-CoatingPageGun">
+        <h1>สาขาที่เปิดบริการ</h1>
+      </div>
+
+      <div className="branch-theparak">
+        <div className="text-box-theparak">
+          <p>
+            GUN Protection Coatings พ่นกันสนิมรถยนต์
+            <br />
+            สูตรน้ำ ไร้กลิ่น ปลอดภัย สาขาเทพารักษ์
+          </p>
+          <img src="/public/assets/gun/theparak/theparak.jpg" alt="map" />
+          <button
+            type="button"
+            onClick={() => {
+              window.open(
+                "https://www.google.com/maps/place/%E0%B8%A8%E0%B8%B9%E0%B8%99%E0%B8%A2%E0%B9%8C%E0%B8%9E%E0%B9%88%E0%B8%99%E0%B8%81%E0%B8%B1%E0%B8%99%E0%B8%AA%E0%B8%99%E0%B8%B4%E0%B8%A1%E0%B8%A3%E0%B8%96%E0%B8%A2%E0%B8%99%E0%B8%95%E0%B8%A3%E0%B9%8C+KATS+Coatings+%E0%B9%80%E0%B8%97%E0%B8%9E%E0%B8%B2%E0%B8%A3%E0%B8%B1%E0%B8%81%E0%B8%A9%E0%B9%8C/@13.5987354,100.6863939,14z/data=!4m6!3m5!1s0x311d5f2ec0d6d80f:0xe42c9067c9826cb!8m2!3d13.6073104!4d100.6883421!16s%2Fg%2F11tn7hqyqn?entry=ttu&g_ep=EgoyMDI1MDEwOC4wIKXMDSoASAFQAw%3D%3D"
+              );
+            }}
+          >
+            แผนที่
+          </button>
+        </div>
+        <div className="image-preview-theparak">
+          <img src="/public/assets/gun/gunpage.jpg" alt="page" />
+          <div className="content-preview-theparak">
+            <div className="slide-track-theparak">
+              {dataImageTheparak.map((item, index) => {
+                return (
+                  <div className="slide" key={index}>
+                    <img src={item.image} alt="image" />
+                  </div>
+                );
+              })}
+
+              {dataImageTheparak.map((item, index) => {
+                return (
+                  <div className="slide" key={index}>
+                    <img src={item.image} alt="image" />
+                  </div>
+                );
+              })}
+            </div>
+          </div>
         </div>
       </div>
     </div>

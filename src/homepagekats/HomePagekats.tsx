@@ -3,7 +3,9 @@ import "./HomePagekats.css";
 import BookingPage from "../bookingpagekats/BookingPageKats";
 import ProductPage from "../productpagekats/ProductPageKats";
 import MapPage from "../mappagekats/MapPagekats";
+import { useNavigate } from "react-router-dom";
 const HomePageKats = () => {
+  const navigate = useNavigate();
   return (
     <div className="container-HomePageKats">
       <div className="header-HomePageKats">
@@ -48,7 +50,14 @@ const HomePageKats = () => {
               </Link>
             </button>
             <button className="btn-gun">
-              <Link to="Bookingkats" smooth={true} duration={200}>
+              <Link
+                to="Home"
+                smooth={true}
+                duration={200}
+                onClick={() => {
+                  navigate("/");
+                }}
+              >
                 GUN Protection
               </Link>
             </button>

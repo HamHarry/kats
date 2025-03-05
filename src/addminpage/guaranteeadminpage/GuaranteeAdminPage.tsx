@@ -3,6 +3,7 @@ import "./GuaranteeAdminPage.css";
 import { guarantee } from "../../data/MockUpGuarantee";
 import { Controller, useForm } from "react-hook-form";
 import { BookingStatus, Guarantees } from "../../model/guarantee.type";
+import { ProductType } from "../../model/product.type";
 
 const defaultValues: Guarantees = {
   number: "",
@@ -24,6 +25,7 @@ const defaultValues: Guarantees = {
     },
     productDetails: [],
     detail: "",
+    productType: ProductType.KATS,
   },
   status: BookingStatus.PENDING,
 };
@@ -417,8 +419,16 @@ const GuaranteeAdminPage = () => {
       </div>
       <div className="wrap-container-guaranteeAdmin">
         {guaranteeData.map((item, index) => {
+          const productType = item.product.productType;
           return (
-            <div key={index} className="grid-guaranteeAdmin">
+            <div
+              key={index}
+              className="grid-guaranteeAdmin"
+              style={{
+                backgroundColor:
+                  productType === ProductType.GUN ? "#043829" : "#2656A2",
+              }}
+            >
               <div className="guaranteeAdmin-image">
                 <img src={item.image} alt="Image" />
               </div>

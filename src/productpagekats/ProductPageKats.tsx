@@ -160,23 +160,13 @@ const ProductPageKats = () => {
       </div>
       <div className="wrap-container-product">
         <div className="container-list-product">
-          <div className="line">
-            <div className="vertical-herder"></div>
-            <div className="line-horizontal"></div>
-            <div className="verticals">
-              <div className="line-vertical1"></div>
-              <div className="line-vertical2"></div>
-              <div className="line-vertical3"></div>
-              <div className="line-vertical4"></div>
-            </div>
-          </div>
           <div className="container-list-product-box">
             {dataPrice.map((item, index) => {
               return (
                 <div key={index} className="list-product-box">
                   <div className="product-content-box">
                     <i className={item.icon}></i>
-                    <h4>{item.carType}</h4>
+                    <h3>{item.carType}</h3>
                     <p>{item.content1}</p>
                     <p>{item.content2}</p>
                     <h4>ราคา {item.price} บาท</h4>

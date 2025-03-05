@@ -26,7 +26,7 @@ const Navbarkats = () => {
               smooth={true}
               duration={200}
               onClick={() => {
-                navigate("/");
+                navigate("/kats");
               }}
             >
               หน้าแรก

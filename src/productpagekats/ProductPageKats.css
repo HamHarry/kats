@@ -56,77 +56,11 @@
   }
 }
 
-.line {
-  max-width: 1450px;
-  .line-horizontal {
-    position: relative;
-    height: 20px;
-    width: 1450px;
-    left: 0;
-    margin-top: 10px;
-    background-color: #2656a2;
-    border-radius: 20px;
-  }
-  .vertical-herder {
-    position: relative;
-    top: 20px;
-    left: 715px;
-    height: 100px;
-    width: 20px;
-    margin-top: -20px;
-    background-color: #2656a2;
-    border-radius: 20px;
-  }
-  .verticals {
-    display: flex;
-    height: 50px;
-    .line-vertical1 {
-      position: relative;
-      top: -60px;
-      left: 0px;
-      height: 70px;
-      width: 20px;
-      margin-top: 40px;
-      background-color: #2656a2;
-      border-radius: 20px;
-    }
-    .line-vertical2 {
-      position: relative;
-      top: -60px;
-      left: 455px;
-      height: 70px;
-      width: 20px;
-      margin-top: 40px;
-      background-color: #2656a2;
-      border-radius: 20px;
-    }
-    .line-vertical3 {
-      position: relative;
-      top: -60px;
-      left: 910px;
-      height: 70px;
-      width: 20px;
-      margin-top: 40px;
-      background-color: #2656a2;
-      border-radius: 20px;
-    }
-    .line-vertical4 {
-      position: relative;
-      top: -60px;
-      left: 1370px;
-      height: 70px;
-      width: 20px;
-      margin-top: 40px;
-      background-color: #2656a2;
-      border-radius: 20px;
-    }
-  }
-}
-
 .container-list-product-box {
   display: flex;
   width: 100%;
-  margin-top: 20px;
+  gap: 20px;
+  padding-top: 20px;
   .list-product-box {
     display: flex;
     flex-direction: column;
@@ -137,8 +71,8 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
-      height: 240px;
-      max-width: 350px;
+      height: 400px;
+      min-width: 400px;
       background-color: #2656a2;
       border-radius: 20px;
     }
@@ -146,47 +80,52 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      font-size: 60px;
+      font-size: 90px;
       color: white;
-      margin-top: 15px;
+      margin-top: 10px;
     }
     .fa-truck-pickup {
       display: flex;
       justify-content: center;
       align-items: center;
-      font-size: 60px;
+      font-size: 90px;
       color: white;
-      margin-top: 15px;
+      margin-top: 10px;
     }
     .fa-truck-field {
       display: flex;
       justify-content: center;
       align-items: center;
-      font-size: 60px;
+      font-size: 90px;
       color: white;
-      margin-top: 15px;
+      margin-top: 10px;
     }
     .fa-van-shuttle {
       display: flex;
       justify-content: center;
       align-items: center;
-      font-size: 60px;
+      font-size: 90px;
       color: white;
-      margin-top: 15px;
+      margin-top: 10px;
+    }
+    h3 {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 34px;
+      color: white;
     }
     h4 {
       display: flex;
       justify-content: center;
       align-items: center;
-      font-size: 32px;
-      font-family: "Noto Sans Thai", serif;
+      font-size: 34px;
       color: white;
-      margin-top: 5px;
+      margin-top: 20px;
     }
     p {
-      font-size: 18px;
-      font-family: "Noto Sans Thai", serif;
-      margin: 0 10px;
+      font-size: 22px;
+      margin: 0 20px;
       color: white;
     }
     button {
