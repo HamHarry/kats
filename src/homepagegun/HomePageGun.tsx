@@ -60,7 +60,7 @@ const HomePageGun = () => {
 
         <div className="center-mid">
           <div className="compare">
-            <img src="/public/assets/gun/gun5.jpg" alt="compare1" />
+            <img src="/public/assets/gun/gun6.jpg" alt="compare1" />
           </div>
           <div className="compare">
             <img src="/public/assets/gun/gun2.jpg" alt="compare2" />
@@ -71,7 +71,7 @@ const HomePageGun = () => {
           <div className="image-botton">
             <img
               className="demo1"
-              src="/public/assets/gun/gun6.jpg"
+              src="/public/assets/gun/gun5.jpg"
               alt="demo1"
             />
             <img
