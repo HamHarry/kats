@@ -27,12 +27,13 @@
 .create-product {
   display: flex;
   flex-direction: column;
+  width: 100%;
   h1 {
     color: #2656a2;
   }
   .input-product-content {
     display: flex;
-    justify-content: center;
+    justify-content: end;
     align-items: end;
     gap: 20px;
     .input-product {
@@ -78,14 +79,12 @@
 
 @media (max-width: 1240px) {
   .input-product-content {
-    flex-direction: column;
-    gap: 10px;
     align-items: center;
+    justify-content: center;
   }
   .btn-create-product {
-    width: 100%;
     button {
-      width: 100%;
+      min-width: 100px;
     }
   }
   .input-product {

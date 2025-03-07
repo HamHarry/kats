@@ -3,6 +3,7 @@ import "./ProductAdminPage.css";
 import { mockUpProducts } from "../../data/MockUpProduct";
 import { Category, PRICE_TYPE, ProductDetail } from "../../model/product.type";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const initProductDetail: ProductDetail = {
   type: PRICE_TYPE.STANDARD,
@@ -11,6 +12,7 @@ const initProductDetail: ProductDetail = {
 
 const ProductAdminPage = () => {
   const [productDetails, setProductDetails] = useState<ProductDetail[]>([]);
+  const navigate = useNavigate();
 
   // เพิ่มข้อมูล
   const addProductDetails = () => {
@@ -79,16 +81,14 @@ const ProductAdminPage = () => {
             <p>ชื่อสินค้า</p>
             <Input placeholder="ProductName..." />
           </div>
-          <div className="input-product">
-            <p>ลักษณะสินค้า</p>
-            <Input placeholder="ProductType..." />
-          </div>
-          <div className="input-product">
-            <p>ราคาสินค้า</p>
-            <Input placeholder="ProductPrice..." />
-          </div>
           <div className="btn-create-product">
-            <button>สร้างสินค้า</button>
+            <button
+              onClick={() => {
+                navigate("/admin/product/create");
+              }}
+            >
+              สร้างสินค้า
+            </button>
           </div>
         </div>
       </div>
