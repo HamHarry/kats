@@ -1,5 +1,5 @@
 import { useState } from "react";
-import "./UserAdminPage.css";
+import "./EmployeeAdminPage.css";
 import { CloseCircleFilled } from "@ant-design/icons";
 import { employeeTest } from "../../data/MockUpEmployees";
 
@@ -11,10 +11,10 @@ export interface Employees {
   image: string;
 }
 
-const UserAdminPage = () => {
-  const [userData, setUserData] = useState<Employees[]>(employeeTest);
+const EmployeeAdminPage = () => {
+  const [employeeData, setEmployeeData] = useState<Employees[]>(employeeTest);
   const [openDialogConfirm, setOpenDialogConfirm] = useState<boolean>(false);
-  const [userDataRef] = useState(userData);
+  const [userDataRef] = useState(employeeData);
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value.toLowerCase();
@@ -24,7 +24,7 @@ const UserAdminPage = () => {
       const valuePhone = item.phone.toLowerCase().includes(value);
       return valueUsername || valueName || valuePhone;
     });
-    setUserData(newValue);
+    setEmployeeData(newValue);
   };
 
   const rederDialogConfirm = () => {
@@ -69,24 +69,27 @@ const UserAdminPage = () => {
         <button>สร้าง</button>
       </div>
       <div className="wrap-container-employeeAdmin">
-        {userData.map((item, index) => {
+        {employeeData.map((item, index) => {
           return (
             <div key={index} className="grid-employee">
               <div className="employee-content">
-                <div className="text-p">
-                  <p>ตำแหน่ง: {item.position}</p>
-                  <div className="icon">
-                    <i className="fa-solid fa-pen-to-square"></i>
-                    <i
-                      className="fa-solid fa-trash-can"
-                      onClick={() => {
-                        setOpenDialogConfirm(true);
-                      }}
-                    ></i>
+                <img src={item.image} alt="profile" />
+                <div className="wrap-employee-content">
+                  <div className="text-p">
+                    <p>ตำแหน่ง: {item.position}</p>
+                    <div className="icon">
+                      <i className="fa-solid fa-pen-to-square"></i>
+                      <i
+                        className="fa-solid fa-trash-can"
+                        onClick={() => {
+                          setOpenDialogConfirm(true);
+                        }}
+                      ></i>
+                    </div>
                   </div>
+                  <p>ชื่อ: {item.name}</p>
+                  <p>โทรศัพท์: {item.phone}</p>
                 </div>
-                <p>ชื่อ: {item.name}</p>
-                <p>โทรศัพท์: {item.phone}</p>
               </div>
             </div>
           );
@@ -97,4 +100,4 @@ const UserAdminPage = () => {
   );
 };
 
-export default UserAdminPage;
+export default EmployeeAdminPage;

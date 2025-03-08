@@ -1,7 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 import { Suspense } from "react";
 import "./App.css";
-import UserAdminPage from "./addminpage/useradminpage/UserAdminPage";
 import BookingAdminPage from "./addminpage/bookingadminpage/BookingAdminPage";
 import CalendarAdminPage from "./addminpage/calendaradminpage/CalendarAdminPage";
 import GuaranteeAdminPage from "./addminpage/guaranteeadminpage/GuaranteeAdminPage";
@@ -16,6 +15,7 @@ import HomePageGun from "./homepagegun/HomePageGun";
 import Layoutkats from "./Layout/Layoutkats";
 import Layout from "./Layout/Layout";
 import CreateProductAdminPage from "./addminpage/createproductadminpage/CreateProductAdminPage";
+import EmployeeAdminPage from "./addminpage/employeeadminpage/EmployeeAdminPage";
 
 function App() {
   return (
@@ -30,7 +30,7 @@ function App() {
           <Route path="login" element={<LoginPage />} />
         </Route>
         <Route path="admin" element={<LayoutAdmin />}>
-          <Route path="" element={<UserAdminPage />} />
+          <Route path="" element={<EmployeeAdminPage />} />
           <Route path="booking" element={<BookingAdminPage />} />
           <Route path="booking/create" element={<CreateBookingAdminPage />} />
           <Route
