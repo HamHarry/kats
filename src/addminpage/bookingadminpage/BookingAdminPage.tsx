@@ -3,7 +3,7 @@ import "./BookingAdminPage.css";
 import { guarantee } from "../../data/MockUpGuarantee";
 import { useNavigate } from "react-router-dom";
 import { Guarantees } from "../../model/guarantee.type";
-import { CloseCircleFilled } from "@ant-design/icons";
+import { CheckCircleFilled, CloseCircleFilled } from "@ant-design/icons";
 import { ProductType } from "../../model/product.type";
 
 const BookingAdminPage = () => {
@@ -165,6 +165,7 @@ const BookingAdminPage = () => {
                 <div className="text-p">
                   <p>วันที่: {item.bookDate}</p>
                   <div className="icon">
+                    <CheckCircleFilled className="icon-check" />
                     <i
                       className="fa-solid fa-pen-to-square"
                       onClick={() => {
