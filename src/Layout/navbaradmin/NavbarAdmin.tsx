@@ -24,7 +24,7 @@ const NavbarAdmin = () => {
             }}
           >
             <i className="fa-solid fa-image-portrait"></i>
-            <p>ข้อมูลทั้งหมดของ Users</p>
+            <p>ข้อมูล Employees</p>
           </li>
           <li
             onClick={() => {

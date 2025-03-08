@@ -31,42 +31,23 @@
   h1 {
     color: #2656a2;
   }
-  .input-product-content {
+
+  .btn-create-product {
     display: flex;
-    justify-content: end;
-    align-items: end;
-    gap: 20px;
-    .input-product {
-      p {
-        font-size: 20px;
-        color: #2656a2;
-        white-space: nowrap;
-      }
-      Input {
-        min-width: 250px;
-        height: 40px;
-        border-radius: 999px;
-        border: 2px solid #2656a2;
-        padding: 5px 20px;
-      }
+    justify-content: center;
+    align-self: end;
+    button {
+      min-width: 100px;
+      height: 40px;
+      border-radius: 5px;
+      background-color: #2656a2;
+      color: white;
+      font-size: 16px;
+      border: none;
+      cursor: pointer;
     }
-    .btn-create-product {
-      display: flex;
-      justify-content: center;
-      align-self: end;
-      button {
-        min-width: 100px;
-        height: 40px;
-        border-radius: 5px;
-        background-color: #2656a2;
-        color: white;
-        font-size: 16px;
-        border: none;
-        cursor: pointer;
-      }
-      button:hover {
-        background-color: #1a4f8a;
-      }
+    button:hover {
+      background-color: #1a4f8a;
     }
   }
 }
@@ -78,18 +59,9 @@
 }
 
 @media (max-width: 1240px) {
-  .input-product-content {
-    align-items: center;
-    justify-content: center;
-  }
   .btn-create-product {
     button {
       min-width: 100px;
     }
-  }
-  .input-product {
-    display: flex;
-    align-items: center;
-    gap: 10px;
   }
 }

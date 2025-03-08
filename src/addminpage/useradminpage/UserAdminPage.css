@@ -1,4 +1,4 @@
-.container-userAdmin {
+.container-employeeAdmin {
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -7,7 +7,7 @@
   gap: 20px;
 }
 
-.header-userAdmin {
+.header-employeeAdmin {
   display: flex;
   justify-content: center;
   height: 80px;
@@ -25,10 +25,12 @@
   }
 }
 
-.search-user {
+.search-employee {
   display: flex;
   justify-content: end;
+  align-items: center;
   margin-bottom: 20px;
+  gap: 20px;
   width: 100%;
   input {
     width: 300px;
@@ -39,19 +41,32 @@
     font-family: "Noto Sans Thai", serif;
     border: 3px solid #2656a2;
   }
+  button {
+    min-width: 100px;
+    height: 40px;
+    border-radius: 5px;
+    background-color: #2656a2;
+    color: white;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+  }
+  button:hover {
+    background-color: #1a4f8a;
+  }
 }
 
-.wrap-container-userAdmin {
+.wrap-container-employeeAdmin {
   display: flex;
   flex-direction: column;
   height: 640px;
   width: 100%;
   overflow-y: hidden;
-  .grid-user {
+  .grid-employee {
     display: flex;
     justify-content: center;
   }
-  .user-content {
+  .employee-content {
     display: flex;
     flex-direction: column;
     margin-bottom: 20px;
@@ -64,10 +79,19 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      .fa-pen-to-square {
-        font-size: 30px;
-        cursor: pointer;
-        color: #ffffff;
+      .icon {
+        display: flex;
+        gap: 10px;
+        .fa-pen-to-square {
+          font-size: 30px;
+          cursor: pointer;
+          color: #ffffff;
+        }
+        .fa-trash-can {
+          font-size: 30px;
+          cursor: pointer;
+          color: #ffffff;
+        }
       }
     }
     p {
@@ -76,6 +100,6 @@
     }
   }
 }
-.wrap-container-userAdmin:hover {
+.wrap-container-employeeAdmin:hover {
   overflow-y: auto;
 }

@@ -39,7 +39,9 @@ const defaultValues: BookingForm = {
 
 const bookingTimeList = [
   { time: "08:00" },
+  { time: "08:30" },
   { time: "10:00" },
+  { time: "10:30" },
   { time: "13:00" },
   { time: "15:00" },
   { time: "17:00" },

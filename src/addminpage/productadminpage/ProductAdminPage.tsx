@@ -1,23 +1,11 @@
-import { Input, Table, Typography } from "antd";
+import { Table, Typography } from "antd";
 import "./ProductAdminPage.css";
 import { mockUpProducts } from "../../data/MockUpProduct";
 import { Category, PRICE_TYPE, ProductDetail } from "../../model/product.type";
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const initProductDetail: ProductDetail = {
-  type: PRICE_TYPE.STANDARD,
-  price: 0,
-};
-
 const ProductAdminPage = () => {
-  const [productDetails, setProductDetails] = useState<ProductDetail[]>([]);
   const navigate = useNavigate();
-
-  // เพิ่มข้อมูล
-  const addProductDetails = () => {
-    setProductDetails([...productDetails, initProductDetail]);
-  };
 
   const columns = [
     { title: "ลำดับ", dataIndex: "id", key: "_id" },
@@ -76,20 +64,14 @@ const ProductAdminPage = () => {
       </div>
 
       <div className="create-product">
-        <div className="input-product-content">
-          <div className="input-product">
-            <p>ชื่อสินค้า</p>
-            <Input placeholder="ProductName..." />
-          </div>
-          <div className="btn-create-product">
-            <button
-              onClick={() => {
-                navigate("/admin/product/create");
-              }}
-            >
-              สร้างสินค้า
-            </button>
-          </div>
+        <div className="btn-create-product">
+          <button
+            onClick={() => {
+              navigate("/admin/product/create");
+            }}
+          >
+            สร้างสินค้า
+          </button>
         </div>
       </div>
 

@@ -23,3 +23,12 @@
     color: white;
   }
 }
+
+.content-createproductAdmin {
+  display: flex;
+  gap: 20px;
+  .input-createproduct {
+    display: flex;
+    gap: 10px;
+  }
+}
