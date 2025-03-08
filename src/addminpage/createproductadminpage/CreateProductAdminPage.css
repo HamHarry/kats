@@ -24,11 +24,77 @@
   }
 }
 
-.content-createproductAdmin {
+.btn-createproductAdmin {
   display: flex;
-  gap: 20px;
-  .input-createproduct {
+  justify-content: space-between;
+  padding-bottom: 20px;
+  button {
+    width: 100px;
+    height: 45px;
+    border: none;
+    border-radius: 20px;
+    background-color: #2656a2;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+    transition: all 0.5s;
+  }
+  button:hover {
+    background-color: #1a4f8a;
+  }
+}
+
+.wrap-container-createproductAdmin {
+  display: flex;
+  flex-direction: column;
+  border: 5px solid #2656a2;
+  border-radius: 20px;
+  padding: 0px 20px 0px 20px;
+  height: 700px;
+  width: 900px;
+  .inputNameProduct {
     display: flex;
-    gap: 10px;
+    align-items: center;
+    gap: 100px;
+    margin-left: 20px;
+    margin-top: 20px;
+    input {
+      padding: 5px;
+      width: 250px;
+      margin-left: -10px;
+      height: 30px;
+      border-radius: 20px;
+      border: 2px solid #2656a2;
+    }
+  }
+  .inputTypeProduct {
+    display: flex;
+    align-items: center;
+    gap: 52px;
+    margin-left: 20px;
+    margin-top: 20px;
+    input {
+      padding: 5px;
+      width: 250px;
+      margin-left: -10px;
+      height: 30px;
+      border-radius: 20px;
+      border: 2px solid #2656a2;
+    }
+  }
+  .inputPriceProduct {
+    display: flex;
+    align-items: center;
+    gap: 80px;
+    margin-left: 20px;
+    margin-top: 20px;
+    input {
+      padding: 5px;
+      width: 250px;
+      margin-left: -10px;
+      height: 30px;
+      border-radius: 20px;
+      border: 2px solid #2656a2;
+    }
   }
 }
