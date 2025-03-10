@@ -14,9 +14,10 @@ const CoatingPageGun = () => {
       </div>
 
       <div className="content-series">
+        <img src="/public/assets/gun/tanks/black-tank.png" alt="tank-black" />
         <div className="text-box">
           <p>
-            <span>GUN Protection Series 1</span>
+            <span>GUN Protection Series 1 & Series 2</span>
             <br />
             น้ำยาพ่นกันสนิมสีดำเงา สูตรน้ำ 100% ราคาและคุณภาพดีที่สุดในประเทศไทย
             <br />
@@ -35,59 +36,12 @@ const CoatingPageGun = () => {
             <br />- ทนต่อน้ำทะเล และแช่น้ำได้นานกว่า 128 ชั่วโมง
           </p>
         </div>
-        <img src="/public/assets/gun/tanks/black-tank.png" alt="tank-black" />
-      </div>
-
-      <div className="content-preview">
-        <div className="slide-track">
-          {dataImageBlack.map((item, index) => {
-            return (
-              <div className="slide" key={index}>
-                <img src={item.image} alt="image" />
-              </div>
-            );
-          })}
-
-          {dataImageBlack.map((item, index) => {
-            return (
-              <div className="slide" key={index}>
-                <img src={item.image} alt="image" />
-              </div>
-            );
-          })}
-        </div>
-      </div>
-
-      <hr className="line-hr" />
-
-      <div className="content-series">
         <img src="/public/assets/gun/tanks/white-tank.png" alt="tank-white" />
-        <div className="text-box">
-          <p>
-            <span>GUN Protection Series 2</span>
-            <br />
-            น้ำยาพ่นกันสนิมสีใส สูตรน้ำ 100% ราคาและคุณภาพดีที่สุดในประเทศไทย
-            <br />
-            นำเข้าจากมาเลเซียเมืองร้อยเกาะ
-            ผู้เชี่ยวชาญด้านกรดเกลือที่มีทะเลล้อมรอบ
-            <br />- สำหรับพ่นกันสนิมใต้ท้องรถยนต์
-            <br />- ไม่ลอกล่อน สูตรน้ำ100%
-            <br />- ไม่กัดซีลยาง ไม่ติดไฟ ไม่มีสารระเหย ไม่มีสารก่อมะเร็ง
-            <br />- ยืดหยุ่นได้ตามการเคลื่อนไหวต่อตัวรถ
-            <br />- ไม่ติดไฟ ไม่ลามไฟ
-            <br />- ไม่มีกลิ่นเหม็น
-            <br />- เป็นมิตรกับสิ่งแวดล้อม
-            <br />- สามารถย่อยสลายได้เองตามธรรมชาติ
-            <br />- มีสีเงาใสสวยงาม
-            <br />- สามารถหยุดการลามของสนิมได้จริง
-            <br />- ทนต่อน้ำทะเล และแช่น้ำได้นานกว่า 128 ชั่วโมง
-          </p>
-        </div>
       </div>
 
       <div className="content-preview">
         <div className="slide-track">
-          {dataImageWhite.map((item, index) => {
+          {dataImageBlack.map((item, index) => {
             return (
               <div className="slide" key={index}>
                 <img src={item.image} alt="image" />
@@ -103,6 +57,23 @@ const CoatingPageGun = () => {
             );
           })}
         </div>
+      </div>
+
+      <div className="poster-row">
+        <img src="/public/assets/gun/poster2.jpg" alt="" />
+        <img src="/public/assets/gun/poster3.jpg" alt="" />
+        <img src="/public/assets/gun/poster1.jpg" alt="" />
+        <img src="/public/assets/gun/poster4.jpg" alt="" />
+      </div>
+
+      <div className="poster-tel">
+        <p>
+          สั่งซื้อหรือสอบถามเพิ่มเติม
+          <br />
+          โทร. 081-842-0795
+          <br />
+          คุณมานะ น้อยบัว
+        </p>
       </div>
 
       <hr className="line-hr" />
