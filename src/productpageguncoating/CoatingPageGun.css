@@ -37,18 +37,6 @@
   }
 }
 
-.poster-tel {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 20px 20px 0px 20px;
-  p {
-    text-align: center;
-    color: #f3cd68;
-    font-size: 42px;
-  }
-}
-
 .content-series {
   display: flex;
   justify-content: center;
@@ -70,8 +58,12 @@
       }
     }
   }
-  img {
-    height: 350px;
+  .tanks {
+    width: 350px;
+    padding-bottom: 20px;
+    img {
+      height: 350px;
+    }
   }
 }
 

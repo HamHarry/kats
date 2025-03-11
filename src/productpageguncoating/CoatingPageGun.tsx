@@ -3,6 +3,7 @@ import "./CoatingPageGun.css";
 import { MockUpSlidesBlackImage } from "../data/MockUpSlideBlackImage";
 import { MockUpSlidesWhiteImage } from "../data/MockUpSlidesWhiteImage";
 import { MockUpTheparak } from "../data/MockUpTheparak";
+import { Carousel } from "antd";
 const CoatingPageGun = () => {
   const [dataImageBlack] = useState(MockUpSlidesBlackImage);
   const [dataImageWhite] = useState(MockUpSlidesWhiteImage);
@@ -14,7 +15,6 @@ const CoatingPageGun = () => {
       </div>
 
       <div className="content-series">
-        <img src="/public/assets/gun/tanks/black-tank.png" alt="tank-black" />
         <div className="text-box">
           <p>
             <span>GUN Protection Series 1 & Series 2</span>
@@ -36,7 +36,10 @@ const CoatingPageGun = () => {
             <br />- ทนต่อน้ำทะเล และแช่น้ำได้นานกว่า 128 ชั่วโมง
           </p>
         </div>
-        <img src="/public/assets/gun/tanks/white-tank.png" alt="tank-white" />
+        <Carousel autoplay className="tanks">
+          <img src="/public/assets/gun/tanks/black-tank.png" alt="tank-black" />
+          <img src="/public/assets/gun/tanks/white-tank.png" alt="tank-white" />
+        </Carousel>
       </div>
 
       <div className="content-preview">
@@ -64,16 +67,6 @@ const CoatingPageGun = () => {
         <img src="/public/assets/gun/poster3.jpg" alt="" />
         <img src="/public/assets/gun/poster1.jpg" alt="" />
         <img src="/public/assets/gun/poster4.jpg" alt="" />
-      </div>
-
-      <div className="poster-tel">
-        <p>
-          สั่งซื้อหรือสอบถามเพิ่มเติม
-          <br />
-          โทร. 081-842-0795
-          <br />
-          คุณมานะ น้อยบัว
-        </p>
       </div>
 
       <hr className="line-hr" />
