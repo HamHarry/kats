@@ -16,6 +16,7 @@ import Layoutkats from "./Layout/Layoutkats";
 import Layout from "./Layout/Layout";
 import CreateProductAdminPage from "./addminpage/createproductadminpage/CreateProductAdminPage";
 import EmployeeAdminPage from "./addminpage/employeeadminpage/EmployeeAdminPage";
+import UserAdminPage from "./addminpage/useradminpage/UserAdminPage";
 
 function App() {
   return (
@@ -30,7 +31,8 @@ function App() {
           <Route path="login" element={<LoginPage />} />
         </Route>
         <Route path="admin" element={<LayoutAdmin />}>
-          <Route path="" element={<EmployeeAdminPage />} />
+          <Route path="" element={<UserAdminPage />} />
+          <Route path="employee" element={<EmployeeAdminPage />} />
           <Route path="booking" element={<BookingAdminPage />} />
           <Route path="booking/create" element={<CreateBookingAdminPage />} />
           <Route

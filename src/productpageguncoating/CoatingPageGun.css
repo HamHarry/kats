@@ -65,6 +65,9 @@
       height: 350px;
     }
   }
+  img {
+    height: 350px;
+  }
 }
 
 .content-preview {
@@ -258,6 +261,56 @@
       img:hover {
         transform: translateZ(20px);
       }
+    }
+  }
+}
+
+.branch-phetburi {
+  display: flex;
+  gap: 20px;
+  padding-bottom: 20px;
+  .text-box-phetburi {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    p {
+      font-weight: bold;
+      color: #f3cd68;
+      font-size: 32px;
+      text-align: center;
+    }
+    img {
+      height: 400px;
+      border: 5px solid #f3cd68;
+      border-radius: 25px;
+    }
+    button {
+      margin-top: 20px;
+      color: #f3cd68;
+      font-size: 28px;
+      font-weight: bold;
+      min-width: 200px;
+      border: none;
+      border-radius: 20px;
+      background-color: #103026;
+      cursor: pointer;
+      transition: all 0.5s;
+      padding: 10px;
+    }
+    button:hover {
+      text-shadow: 0 0 10px #ffcc66, 0 0 20px #ffcc66, 0 0 30px #ffcc66;
+      transition: all 0.5s;
+    }
+  }
+  .image-preview-phetburi {
+    display: flex;
+    flex-direction: column;
+    img {
+      max-height: 150px;
+      border: 5px solid #f3cd68;
+      border-radius: 25px;
+      margin-top: 40px;
     }
   }
 }

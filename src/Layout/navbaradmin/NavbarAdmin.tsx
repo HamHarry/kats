@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import "./NavbarAdmin.css";
 import { useState } from "react";
 const NavbarAdmin = () => {
-  const [selected, setSelected] = useState("employee");
+  const [selected, setSelected] = useState("user");
   const navigate = useNavigate();
   return (
     <div className="navbarAdmin">
@@ -21,9 +21,19 @@ const NavbarAdmin = () => {
       <div className="menu">
         <ul>
           <li
-            className={selected === "employee" ? "selected" : "select"}
+            className={selected === "user" ? "selected" : "select"}
             onClick={() => {
               navigate("/admin");
+              setSelected("user");
+            }}
+          >
+            <i className="fa-solid fa-user"></i>
+            <p>ข้อมูล Users</p>
+          </li>
+          <li
+            className={selected === "employee" ? "selected" : "select"}
+            onClick={() => {
+              navigate("/admin/employee");
               setSelected("employee");
             }}
           >
@@ -96,7 +106,7 @@ const NavbarAdmin = () => {
       <div
         className="logout"
         onClick={() => {
-          navigate("/");
+          navigate("/kats");
         }}
       >
         <i className="fa-solid fa-arrow-right-from-bracket"></i>

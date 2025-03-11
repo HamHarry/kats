@@ -62,11 +62,35 @@ const CoatingPageGun = () => {
         </div>
       </div>
 
+      <div className="content-series">
+        <img src="/public/assets/gun/tanks/tankDamp.png" alt="tank-Damp" />
+        <div className="text-box">
+          <p>
+            <span>GUN Protection Series 3</span>
+            <br />
+            น้ำยาพ่นกันสนิมแบบเก็บเสียงพร้อมกันกระแทก
+            <br />
+            นำเข้าจากมาเลเซียเมืองร้อยเกาะ
+            ผู้เชี่ยวชาญด้านกรดเกลือที่มีทะเลล้อมรอบ
+            <br />- กันกระแทก กันเสียง กันสนิมในตัวเดียวกัน 3in1
+            <br />- ไม่ลอกล่อน สูตรน้ำ100%
+            <br />- ไม่กัดซีลยาง ไม่ติดไฟ ไม่มีสารระเหย ไม่มีสารก่อมะเร็ง
+            <br />- ยืดหยุ่นได้ตามการเคลื่อนไหวต่อตัวรถเพิ่มน้ำหนักเบาไม่เกิน
+            2Kg./คัน
+            <br />- ลดเสียงรบกวนจากพื้นห้องโดยสารได้ 50-60%
+            <br />- ไม่ต้องรื้อห้องโดยสาร
+            <br />- ติดทนถาวร 10 ปี
+          </p>
+        </div>
+      </div>
+
+      <div className="content-preview-damp"></div>
+
       <div className="poster-row">
-        <img src="/public/assets/gun/poster2.jpg" alt="" />
-        <img src="/public/assets/gun/poster3.jpg" alt="" />
-        <img src="/public/assets/gun/poster1.jpg" alt="" />
-        <img src="/public/assets/gun/poster4.jpg" alt="" />
+        <img src="/public/assets/gun/poster2.jpg" alt="poster" />
+        <img src="/public/assets/gun/poster3.jpg" alt="poster" />
+        <img src="/public/assets/gun/poster1.jpg" alt="poster" />
+        <img src="/public/assets/gun/poster4.jpg" alt="poster" />
       </div>
 
       <hr className="line-hr" />
@@ -115,6 +139,31 @@ const CoatingPageGun = () => {
               })}
             </div>
           </div>
+        </div>
+      </div>
+
+      <div className="branch-phetburi">
+        <div className="text-box-phetburi">
+          <p>
+            3D auto wash เพชรบุรี
+            <br />
+            (And Car Detailing Center)
+          </p>
+          <img src="/public/assets/gun/phetburi/gun_phetburi.jpg" alt="map" />
+          <button
+            type="button"
+            onClick={() => {
+              window.open(
+                "https://www.google.co.th/maps/place/3D+Auto+wash+เพชรบุรี/@13.101781,99.9415362,17z/data=!4m14!1m7!3m6!1s0x30fd2752e62548ef:0xa9e7acf30e8c0fc2!2zM0QgQXV0byB3YXNoIOC5gOC4nuC4iuC4o-C4muC4uOC4o-C4tQ!8m2!3d13.1017758!4d99.9441111!16s%2Fg%2F11wqnw23bn!3m5!1s0x30fd2752e62548ef:0xa9e7acf30e8c0fc2!8m2!3d13.1017758!4d99.9441111!16s%2Fg%2F11wqnw23bn?hl=th&entry=ttu&g_ep=EgoyMDI1MDMwOC4wIKXMDSoASAFQAw%3D%3D"
+              );
+            }}
+          >
+            แผนที่
+          </button>
+        </div>
+        <div className="image-preview-phetburi">
+          <img src="/public/assets/gun/phetburi/3D_page.jpg" alt="page" />
+          <div className="content-preview-theparak"></div>
         </div>
       </div>
     </div>
