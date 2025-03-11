@@ -60,7 +60,7 @@ const ProductAdminPage = () => {
   return (
     <div className="container-productAdmin">
       <div className="header-productAdmin">
-        <h1>สินค้า</h1>
+        <h1>Product</h1>
       </div>
 
       <div className="create-product">

@@ -1,10 +1,25 @@
-import { Product, PRICE_TYPE, ProductType } from "../model/product.type";
+import {
+  Product,
+  PRICE_TYPE,
+  ProductType,
+  Category,
+} from "../model/product.type";
 
-export const mockCategories = [
+export const mockCategories: Category[] = [
   {
     _id: 1,
     name: "Coating",
     code: "C",
+  },
+  {
+    _id: 2,
+    name: "Damp",
+    code: "D",
+  },
+  {
+    _id: 3,
+    name: "Guard",
+    code: "G",
   },
 ];
 

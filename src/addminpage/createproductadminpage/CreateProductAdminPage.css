@@ -5,6 +5,30 @@
   padding: 20px 20px 0px 20px;
   padding-left: 320px;
   gap: 20px;
+
+  input {
+    padding: 5px;
+    min-width: 250px;
+    margin-left: -10px;
+    height: 30px;
+    border-radius: 20px;
+    border: 2px solid #2656a2;
+  }
+
+  button {
+    width: 100px;
+    height: 45px;
+    border: none;
+    border-radius: 20px;
+    background-color: #2656a2;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+    transition: all 0.5s;
+  }
+  button:hover {
+    background-color: #1a4f8a;
+  }
 }
 
 .header-createproductAdmin {
@@ -28,20 +52,6 @@
   display: flex;
   justify-content: space-between;
   padding-bottom: 20px;
-  button {
-    width: 100px;
-    height: 45px;
-    border: none;
-    border-radius: 20px;
-    background-color: #2656a2;
-    color: white;
-    font-size: 20px;
-    cursor: pointer;
-    transition: all 0.5s;
-  }
-  button:hover {
-    background-color: #1a4f8a;
-  }
 }
 
 .wrap-container-createproductAdmin {
@@ -55,46 +65,64 @@
   .inputNameProduct {
     display: flex;
     align-items: center;
-    gap: 100px;
+    gap: 125px;
     margin-left: 20px;
     margin-top: 20px;
-    input {
-      padding: 5px;
-      width: 250px;
-      margin-left: -10px;
-      height: 30px;
-      border-radius: 20px;
-      border: 2px solid #2656a2;
-    }
+  }
+  .inputCatagory {
+    display: flex;
+    align-items: center;
+    gap: 70px;
+    margin-left: 20px;
+    margin-top: 20px;
   }
   .inputTypeProduct {
     display: flex;
     align-items: center;
-    gap: 52px;
+    gap: 72px;
     margin-left: 20px;
     margin-top: 20px;
-    input {
-      padding: 5px;
-      width: 250px;
-      margin-left: -10px;
-      height: 30px;
-      border-radius: 20px;
-      border: 2px solid #2656a2;
-    }
   }
   .inputPriceProduct {
+    display: flex;
+    align-items: center;
+    gap: 105px;
+    margin-left: 20px;
+    margin-top: 20px;
+  }
+  .inputDetailProduct {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    border: 2px dashed #2656a2;
+    border-radius: 10px;
+    padding: 24px;
+    max-width: 700px;
+    margin-left: 70px;
+    margin-top: 20px;
+    .inputDetailProduct-inside {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+    }
+  }
+  .inputProductType {
     display: flex;
     align-items: center;
     gap: 80px;
     margin-left: 20px;
     margin-top: 20px;
-    input {
-      padding: 5px;
-      width: 250px;
-      margin-left: -10px;
-      height: 30px;
-      border-radius: 20px;
-      border: 2px solid #2656a2;
-    }
+  }
+
+  .select-product {
+    width: 265px;
+    height: 45px;
+    border-radius: 20px;
+  }
+
+  .ant-select-single .ant-select-selector {
+    border-radius: 20px !important;
+    border: 2px solid #2656a2;
   }
 }
