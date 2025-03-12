@@ -70,7 +70,7 @@ const HomePageGun = () => {
 
         <div className="center-right">
           <video
-            src="https://www.youtube.com/watch?v=phXh8DtPY6U"
+            src="/public/assets/gun/file.mp4"
             autoPlay
             loop
             muted
