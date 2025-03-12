@@ -30,6 +30,7 @@
 .poster-row {
   display: flex;
   gap: 20px;
+  padding-bottom: 40px;
   img {
     height: 350px;
     border: 5px solid #f3cd68;

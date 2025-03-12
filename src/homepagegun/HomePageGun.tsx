@@ -2,6 +2,7 @@ import { Link } from "react-scroll";
 import "./HomePageGun.css";
 import CoatingPageGun from "../productpageguncoating/CoatingPageGun";
 import { useNavigate } from "react-router-dom";
+
 const HomePageGun = () => {
   const navigate = useNavigate();
   return (
@@ -60,26 +61,21 @@ const HomePageGun = () => {
 
         <div className="center-mid">
           <div className="compare">
-            <img src="/public/assets/gun/gun6.jpg" alt="compare1" />
+            <img src="/public/assets/gun/gun5.jpg" alt="compare1" />
           </div>
           <div className="compare">
-            <img src="/public/assets/gun/gun2.jpg" alt="compare2" />
+            <img src="/public/assets/gun/gun4.jpg" alt="compare2" />
           </div>
         </div>
 
         <div className="center-right">
-          <div className="image-botton">
-            <img
-              className="demo1"
-              src="/public/assets/gun/gun5.jpg"
-              alt="demo1"
-            />
-            <img
-              className="demo2"
-              src="/public/assets/gun/gun4.jpg"
-              alt="demo2"
-            />
-          </div>
+          <video
+            src="/public/assets/gun/file.mp4"
+            autoPlay
+            loop
+            muted
+            controls
+          />
         </div>
       </div>
 

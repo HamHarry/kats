@@ -31,7 +31,7 @@
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 16px;
+  gap: 40px;
   .center-left {
     display: flex;
     flex-direction: column;
@@ -114,19 +114,9 @@
   }
   .center-right {
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 16px;
-    .image-botton {
-      display: flex;
-      flex-direction: row;
-      gap: 16px;
-      img {
-        border-radius: 20px;
-        border: 5px solid #f3cd68;
-        width: auto;
-        height: 430px;
-      }
+    gap: 20px;
+    video {
+      max-width: 700px;
     }
   }
 }
@@ -158,23 +148,32 @@
 @media (max-width: 640px) {
   .header-HomePageGun {
     padding: 16px;
-    padding-left: 60px;
     h1 {
-      font-size: 16px;
-    }
-    img {
-      width: 100px;
-      left: -30px;
+      font-size: 20px;
     }
   }
 
-  .center {
+  .centerGun {
+    .center-mid {
+      .compare {
+        img {
+          height: 300px;
+        }
+      }
+    }
     .center-left {
       display: flex;
       flex-direction: column;
       justify-content: center;
       h3 {
         font-size: 18px;
+      }
+    }
+    .center-right {
+      display: flex;
+      gap: 20px;
+      video {
+        max-width: 500px;
       }
     }
     .btn-content {

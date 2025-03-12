@@ -93,8 +93,6 @@ const CoatingPageGun = () => {
         <img src="/public/assets/gun/poster4.jpg" alt="poster" />
       </div>
 
-      <hr className="line-hr" />
-
       <div className="header-CoatingPageGun">
         <h1>สาขาที่เปิดบริการ</h1>
       </div>
@@ -166,6 +164,8 @@ const CoatingPageGun = () => {
           <div className="content-preview-theparak"></div>
         </div>
       </div>
+
+      <hr className="line-hr" />
     </div>
   );
 };
