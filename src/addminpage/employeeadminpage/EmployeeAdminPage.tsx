@@ -2,27 +2,21 @@ import { useState } from "react";
 import "./EmployeeAdminPage.css";
 import { CloseCircleFilled } from "@ant-design/icons";
 import { employeeTest } from "../../data/MockUpEmployees";
-
-export interface Employees {
-  id?: string;
-  position: string;
-  name: string;
-  phone: string;
-  image: string;
-}
+import { useNavigate } from "react-router-dom";
+import { Employees } from "../../model/employee.type";
 
 const EmployeeAdminPage = () => {
   const [employeeData, setEmployeeData] = useState<Employees[]>(employeeTest);
   const [openDialogConfirm, setOpenDialogConfirm] = useState<boolean>(false);
   const [userDataRef] = useState(employeeData);
+  const navigate = useNavigate();
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value.toLowerCase();
     const newValue = userDataRef.filter((item) => {
-      const valueUsername = item.position.toLowerCase().includes(value);
       const valueName = item.name.toLowerCase().includes(value);
-      const valuePhone = item.phone.toLowerCase().includes(value);
-      return valueUsername || valueName || valuePhone;
+      const valuePhone = item.tel.toLowerCase().includes(value);
+      return valueName || valuePhone;
     });
     setEmployeeData(newValue);
   };
@@ -66,7 +60,13 @@ const EmployeeAdminPage = () => {
       </div>
       <div className="search-employee">
         <input type="text" placeholder="Search..." onChange={handleSearch} />
-        <button>สร้าง</button>
+        <button
+          onClick={() => {
+            navigate("/admin/employee/create");
+          }}
+        >
+          สร้าง
+        </button>
       </div>
       <div className="wrap-container-employeeAdmin">
         {employeeData.map((item, index) => {
@@ -76,9 +76,27 @@ const EmployeeAdminPage = () => {
                 <img src={item.image} alt="profile" />
                 <div className="wrap-employee-content">
                   <div className="text-p">
-                    <p>ตำแหน่ง: {item.position}</p>
+                    <p>
+                      ตำแหน่ง:{" "}
+                      {`${
+                        item.position === 0
+                          ? "หัวหน้า"
+                          : item.position === 1
+                          ? "ผู้ดูแลระบบ"
+                          : item.position === 2
+                          ? "ช่างล้างรถ"
+                          : "ช่างพ่นสี"
+                      }`}
+                    </p>
                     <div className="icon">
-                      <i className="fa-solid fa-pen-to-square"></i>
+                      <i
+                        className="fa-solid fa-pen-to-square"
+                        // onClick={() => {
+                        //   if (item._id) {
+                        //     navigate(`/admin/employee/edit/${item._id}`);
+                        //   }
+                        // }}
+                      ></i>
                       <i
                         className="fa-solid fa-trash-can"
                         onClick={() => {
@@ -88,7 +106,7 @@ const EmployeeAdminPage = () => {
                     </div>
                   </div>
                   <p>ชื่อ: {item.name}</p>
-                  <p>โทรศัพท์: {item.phone}</p>
+                  <p>โทรศัพท์: {item.tel}</p>
                 </div>
               </div>
             </div>

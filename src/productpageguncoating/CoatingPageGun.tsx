@@ -140,31 +140,6 @@ const CoatingPageGun = () => {
         </div>
       </div>
 
-      <div className="branch-phetburi">
-        <div className="text-box-phetburi">
-          <p>
-            3D auto wash เพชรบุรี
-            <br />
-            (And Car Detailing Center)
-          </p>
-          <img src="/public/assets/gun/phetburi/gun_phetburi.jpg" alt="map" />
-          <button
-            type="button"
-            onClick={() => {
-              window.open(
-                "https://www.google.co.th/maps/place/3D+Auto+wash+เพชรบุรี/@13.101781,99.9415362,17z/data=!4m14!1m7!3m6!1s0x30fd2752e62548ef:0xa9e7acf30e8c0fc2!2zM0QgQXV0byB3YXNoIOC5gOC4nuC4iuC4o-C4muC4uOC4o-C4tQ!8m2!3d13.1017758!4d99.9441111!16s%2Fg%2F11wqnw23bn!3m5!1s0x30fd2752e62548ef:0xa9e7acf30e8c0fc2!8m2!3d13.1017758!4d99.9441111!16s%2Fg%2F11wqnw23bn?hl=th&entry=ttu&g_ep=EgoyMDI1MDMwOC4wIKXMDSoASAFQAw%3D%3D"
-              );
-            }}
-          >
-            แผนที่
-          </button>
-        </div>
-        <div className="image-preview-phetburi">
-          <img src="/public/assets/gun/phetburi/3D_page.jpg" alt="page" />
-          <div className="content-preview-theparak"></div>
-        </div>
-      </div>
-
       <hr className="line-hr" />
     </div>
   );

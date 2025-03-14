@@ -10,7 +10,7 @@ const initCategoryForm: Category = {
 const CreateTypeProductPage = () => {
   const navigate = useNavigate();
 
-  const { control, handleSubmit, setValue } = useForm({
+  const { control, handleSubmit } = useForm({
     defaultValues: initCategoryForm,
   });
 

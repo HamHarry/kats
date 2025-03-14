@@ -1,16 +1,16 @@
-import { Employees } from "../addminpage/employeeadminpage/EmployeeAdminPage";
+import { EmployeePositions, Employees } from "../model/employee.type";
 
 export const employeeTest: Employees[] = [
   {
-    position: "CEO",
     name: "Saowapak Noibua",
-    phone: "089-270-7558",
+    tel: "089-270-7558",
+    position: EmployeePositions.CEO,
     image: "/public/assets/profile/profileham.jpg",
   },
   {
-    position: "Admin",
     name: "Ingkarat Rechai",
-    phone: "094-314-9467",
+    position: EmployeePositions.AMIN,
+    tel: "094-314-9467",
     image: "/public/assets/profile/profilemild.jpg",
   },
 ];

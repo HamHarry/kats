@@ -92,10 +92,8 @@ const CreateBookingAdminPage = () => {
       console.log(item);
 
       if (bookingId) {
-        alert(`edited successfully : ${bookingId}`);
         navigate("/admin/booking");
       } else {
-        alert("created successfully");
         navigate("/admin/booking");
       }
     } catch (error) {
@@ -350,17 +348,7 @@ const CreateBookingAdminPage = () => {
               }}
             />
           </div>
-          {/* <Controller
-            name="rustOff"
-            control={control}
-            render={({ field }) => {
-              return (
-                <div className="inputRust">
-                  
-                </div>
-              );
-            }}
-          /> */}
+
           <Controller
             name="imagePrice"
             control={control}

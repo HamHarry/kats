@@ -18,6 +18,7 @@ import CreateProductAdminPage from "./addminpage/createproductadminpage/CreatePr
 import EmployeeAdminPage from "./addminpage/employeeadminpage/EmployeeAdminPage";
 import UserAdminPage from "./addminpage/useradminpage/UserAdminPage";
 import CreateTypeProductPage from "./addminpage/createtypeproductpage/CreateTypeProductPage";
+import CreateEmployeeAdminPage from "./addminpage/createemployeeadminpage/CreateEmployeeAdminPage";
 
 function App() {
   return (
@@ -34,6 +35,11 @@ function App() {
         <Route path="admin" element={<LayoutAdmin />}>
           <Route path="" element={<UserAdminPage />} />
           <Route path="employee" element={<EmployeeAdminPage />} />
+          <Route path="employee/create" element={<CreateEmployeeAdminPage />} />
+          <Route
+            path="employee/edit/:employeeId"
+            element={<CreateEmployeeAdminPage />}
+          />
           <Route path="booking" element={<BookingAdminPage />} />
           <Route path="booking/create" element={<CreateBookingAdminPage />} />
           <Route
