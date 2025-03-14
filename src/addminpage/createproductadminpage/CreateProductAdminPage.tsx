@@ -185,7 +185,13 @@ const CreateProductAdminPage = () => {
                     name={`productDetails.${index}.price`}
                     defaultValue={detail.price}
                     render={({ field }) => {
-                      return <input {...field} type="text" />;
+                      return (
+                        <input
+                          className="input-prices"
+                          {...field}
+                          type="number"
+                        />
+                      );
                     }}
                   />
 

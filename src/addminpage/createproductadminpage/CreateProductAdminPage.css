@@ -125,4 +125,8 @@
     border-radius: 20px !important;
     border: 2px solid #2656a2;
   }
+
+  .input-prices {
+    text-align: end;
+  }
 }
