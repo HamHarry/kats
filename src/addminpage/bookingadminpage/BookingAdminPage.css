@@ -110,10 +110,21 @@
         display: flex;
         align-items: center;
         gap: 10px;
-        .icon-check {
+        .icon-check-wait {
           font-size: 30px;
-          cursor: pointer;
-          color: #ffffff;
+          color: yellow;
+        }
+        .fa-circle {
+          font-size: 30px;
+          color: blue;
+        }
+        .icon-check-complete {
+          font-size: 30px;
+          color: green;
+        }
+        .icon-check-cancel {
+          font-size: 30px;
+          color: red;
         }
         .fa-pen-to-square {
           font-size: 30px;
