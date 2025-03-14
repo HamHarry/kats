@@ -17,6 +17,7 @@ import Layout from "./Layout/Layout";
 import CreateProductAdminPage from "./addminpage/createproductadminpage/CreateProductAdminPage";
 import EmployeeAdminPage from "./addminpage/employeeadminpage/EmployeeAdminPage";
 import UserAdminPage from "./addminpage/useradminpage/UserAdminPage";
+import CreateTypeProductPage from "./addminpage/createtypeproductpage/CreateTypeProductPage";
 
 function App() {
   return (
@@ -42,7 +43,14 @@ function App() {
           <Route path="calendar" element={<CalendarAdminPage />} />
           <Route path="guarantee" element={<GuaranteeAdminPage />} />
           <Route path="product" element={<ProductAdminPage />} />
-          <Route path="product/create" element={<CreateProductAdminPage />} />
+          <Route
+            path="product/createTypeProduct"
+            element={<CreateTypeProductPage />}
+          />
+          <Route
+            path="product/createProduct"
+            element={<CreateProductAdminPage />}
+          />
           <Route path="finance" element={<FinanceAdminPage />} />
           <Route path="bin" element={<BinAdminPage />} />
         </Route>

@@ -36,8 +36,9 @@
     display: flex;
     justify-content: center;
     align-self: end;
+    gap: 20px;
     button {
-      min-width: 100px;
+      padding: 5px;
       height: 40px;
       border-radius: 5px;
       background-color: #2656a2;

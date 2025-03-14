@@ -7,7 +7,6 @@ import {
   ProductType,
 } from "../../model/product.type";
 import "./CreateProductAdminPage.css";
-import { CloseCircleFilled } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import { Controller, useForm } from "react-hook-form";
 import { Select } from "antd";
@@ -65,39 +64,6 @@ const CreateProductAdminPage = () => {
     };
 
     console.log(body);
-  };
-
-  const rederDialogConfirm = () => {
-    return (
-      <dialog open={openDialogConfirm}>
-        <div className="container-DialogConfirm">
-          <div className="wrap-container-DialogConfirm">
-            <div className="container-DialogConfirm-Navbar">
-              <CloseCircleFilled
-                className="icon-close"
-                onClick={() => {
-                  setOpenDialogConfirm(false);
-                }}
-              />
-            </div>
-            <h1>ยืนยันการจอง</h1>
-            <div className="btn-DialogConfirm-Navbar">
-              <button type="submit" className="btn-submit-dialogConfirm">
-                ยืนยัน
-              </button>
-              <button
-                className="btn-edit-dialogConfirm"
-                onClick={() => {
-                  setOpenDialogConfirm(false); //ส่งข้อมูล
-                }}
-              >
-                ยกเลิก
-              </button>
-            </div>
-          </div>
-        </div>
-      </dialog>
-    );
   };
 
   return (
@@ -242,7 +208,6 @@ const CreateProductAdminPage = () => {
             })}
           </div>
         </div>
-        {rederDialogConfirm()}
       </form>
     </div>
   );

@@ -67,7 +67,14 @@ const ProductAdminPage = () => {
         <div className="btn-create-product">
           <button
             onClick={() => {
-              navigate("/admin/product/create");
+              navigate("/admin/product/createTypeProduct");
+            }}
+          >
+            สร้างลักษณะสินค้า
+          </button>
+          <button
+            onClick={() => {
+              navigate("/admin/product/createProduct");
             }}
           >
             สร้างสินค้า
