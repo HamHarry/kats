@@ -1,14 +1,38 @@
 import { Table, Typography } from "antd";
 import "./ProductAdminPage.css";
-import { mockUpProducts } from "../../data/MockUpProduct";
-import { Category, PRICE_TYPE, ProductDetail } from "../../model/product.type";
+import {
+  Category,
+  PRICE_TYPE,
+  Product,
+  ProductDetail,
+} from "../../model/product.type";
 import { useNavigate } from "react-router-dom";
+import { useCallback, useEffect, useState } from "react";
+import { useAppDispatch } from "../../stores/store";
+import { getAllProducts } from "../../stores/slices/productSlice";
 
 const ProductAdminPage = () => {
+  const dispath = useAppDispatch();
   const navigate = useNavigate();
+  const [products, setProducts] = useState<Product[]>([]);
+
+  const fetchAllProduct = useCallback(async () => {
+    try {
+      const { data: productsRes = [] } = await dispath(
+        getAllProducts()
+      ).unwrap();
+
+      setProducts(productsRes);
+    } catch (error) {
+      console.log(error);
+    }
+  }, [dispath]);
+
+  useEffect(() => {
+    fetchAllProduct();
+  }, [fetchAllProduct]);
 
   const columns = [
-    { title: "ลำดับ", dataIndex: "id", key: "_id" },
     { title: "ชื่อสินค้า", dataIndex: "name", key: "name" },
     {
       title: "ลักษณะสินค้า",
@@ -84,7 +108,7 @@ const ProductAdminPage = () => {
 
       <div className="product-content" style={{ width: "100%" }}>
         <Table
-          dataSource={mockUpProducts}
+          dataSource={products}
           columns={columns}
           style={{
             border: "2px solid #2656a2",

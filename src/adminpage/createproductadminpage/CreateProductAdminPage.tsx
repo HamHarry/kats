@@ -8,9 +8,14 @@ import {
 } from "../../model/product.type";
 import "./CreateProductAdminPage.css";
 import { useNavigate } from "react-router-dom";
-import { Controller, useForm } from "react-hook-form";
+import { Controller, useFieldArray, useForm } from "react-hook-form";
 import { Select } from "antd";
-import { mockCategories } from "../../data/MockUpProduct";
+import {
+  createProduct,
+  getAllCatagories,
+} from "../../stores/slices/productSlice";
+import { useAppDispatch } from "../../stores/store";
+import CircleLoading from "../../shared/circleLoading";
 
 const initProductDetail: ProductDetail = {
   type: PRICE_TYPE.STANDARD,
@@ -29,31 +34,42 @@ const initProductForm: Product = {
 };
 
 const CreateProductAdminPage = () => {
-  const [productDetails, setProductDetails] = useState<ProductDetail[]>([
-    initProductDetail,
-  ]);
-
-  const [categories, setCategories] = useState<Category[]>([]);
-  const [openDialogConfirm, setOpenDialogConfirm] = useState<boolean>(false);
+  const dispath = useAppDispatch();
   const navigate = useNavigate();
 
-  const { control, handleSubmit, setValue } = useForm({
+  const [categories, setCategories] = useState<Category[]>([]);
+
+  const [isCatagoryLoading, setIsCatagoryLoading] = useState<boolean>(false);
+
+  const { control, handleSubmit } = useForm({
     defaultValues: initProductForm,
   });
 
-  const fetchcategoriesData = useCallback(() => {
+  const productDetailFields = useFieldArray({
+    name: "productDetails",
+    control,
+  });
+
+  const fetchCategoriesData = useCallback(async () => {
     try {
-      setCategories(mockCategories);
+      setIsCatagoryLoading(true);
+      const { data: catagoriesRes = [] } = await dispath(
+        getAllCatagories()
+      ).unwrap();
+
+      setCategories(catagoriesRes);
     } catch (error) {
       console.log(error);
+    } finally {
+      setIsCatagoryLoading(false);
     }
-  }, []);
+  }, [dispath]);
 
   useEffect(() => {
-    fetchcategoriesData();
-  }, [fetchcategoriesData]);
+    fetchCategoriesData();
+  }, [fetchCategoriesData]);
 
-  const onSubmit = (value: Product) => {
+  const onSubmit = async (value: Product) => {
     const findedCatagory = categories.find(
       (item) => item._id === value.catagory._id
     );
@@ -64,7 +80,19 @@ const CreateProductAdminPage = () => {
     };
 
     console.log(body);
+
+    await dispath(createProduct(body));
   };
+
+  const handleRemoveproductDetail = useCallback(
+    (index: number) => {
+      if (!productDetailFields?.fields?.length) return;
+      if (productDetailFields.fields.length === 1) return;
+
+      productDetailFields.remove(Number(index));
+    },
+    [productDetailFields]
+  );
 
   return (
     <div className="container-createproductAdmin">
@@ -148,13 +176,13 @@ const CreateProductAdminPage = () => {
             <button
               type="button"
               onClick={() => {
-                setProductDetails([...productDetails, initProductDetail]);
+                productDetailFields.append(initProductDetail);
               }}
             >
               เพิ่มราคา
             </button>
 
-            {productDetails.map((detail, index) => {
+            {productDetailFields.fields.map((detail, index) => {
               return (
                 <div key={index} className="inputDetailProduct-inside">
                   <Controller
@@ -198,13 +226,7 @@ const CreateProductAdminPage = () => {
                   {index !== 0 && (
                     <button
                       type="button"
-                      onClick={() => {
-                        const filteredProductDetails = productDetails.filter(
-                          (_, indexDetail) => index !== indexDetail
-                        );
-                        setProductDetails(filteredProductDetails);
-                        setValue("productDetails", filteredProductDetails);
-                      }}
+                      onClick={() => handleRemoveproductDetail(index)}
                     >
                       ลบ
                     </button>
@@ -215,6 +237,8 @@ const CreateProductAdminPage = () => {
           </div>
         </div>
       </form>
+
+      <CircleLoading open={isCatagoryLoading} />
     </div>
   );
 };

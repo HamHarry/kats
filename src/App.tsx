@@ -1,24 +1,24 @@
 import { Route, Routes } from "react-router-dom";
 import { Suspense } from "react";
 import "./App.css";
-import BookingAdminPage from "./addminpage/bookingadminpage/BookingAdminPage";
-import CalendarAdminPage from "./addminpage/calendaradminpage/CalendarAdminPage";
-import GuaranteeAdminPage from "./addminpage/guaranteeadminpage/GuaranteeAdminPage";
-import FinanceAdminPage from "./addminpage/financeadminpage/FinanceAdminPage";
-import BinAdminPage from "./addminpage/binadminpage/BinAdminPage";
+import BookingAdminPage from "./adminpage/bookingadminpage/BookingAdminPage";
+import CalendarAdminPage from "./adminpage/calendaradminpage/CalendarAdminPage";
+import GuaranteeAdminPage from "./adminpage/guaranteeadminpage/GuaranteeAdminPage";
+import FinanceAdminPage from "./adminpage/financeadminpage/FinanceAdminPage";
+import BinAdminPage from "./adminpage/binadminpage/BinAdminPage";
 import LoginPage from "./loginpage/Loginpage";
-import ProductAdminPage from "./addminpage/productadminpage/ProductAdminPage";
+import ProductAdminPage from "./adminpage/productadminpage/ProductAdminPage";
 import LayoutAdmin from "./Layout/LayoutAdmin";
-import CreateBookingAdminPage from "./addminpage/createbookingadminpage/CreateBookingAdminPage";
+import CreateBookingAdminPage from "./adminpage/createbookingadminpage/CreateBookingAdminPage";
 import HomePageKats from "./homepagekats/HomePagekats";
 import HomePageGun from "./homepagegun/HomePageGun";
 import Layoutkats from "./Layout/Layoutkats";
 import Layout from "./Layout/Layout";
-import CreateProductAdminPage from "./addminpage/createproductadminpage/CreateProductAdminPage";
-import EmployeeAdminPage from "./addminpage/employeeadminpage/EmployeeAdminPage";
-import UserAdminPage from "./addminpage/useradminpage/UserAdminPage";
-import CreateTypeProductPage from "./addminpage/createtypeproductpage/CreateTypeProductPage";
-import CreateEmployeeAdminPage from "./addminpage/createemployeeadminpage/CreateEmployeeAdminPage";
+import CreateProductAdminPage from "./adminpage/createproductadminpage/CreateProductAdminPage";
+import EmployeeAdminPage from "./adminpage/employeeadminpage/EmployeeAdminPage";
+import UserAdminPage from "./adminpage/useradminpage/UserAdminPage";
+import CreateTypeProductPage from "./adminpage/createtypeproductpage/CreateTypeProductPage";
+import CreateEmployeeAdminPage from "./adminpage/createemployeeadminpage/CreateEmployeeAdminPage";
 
 function App() {
   return (
