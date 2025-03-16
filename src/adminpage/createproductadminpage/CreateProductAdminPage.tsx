@@ -191,11 +191,13 @@ const CreateProductAdminPage = () => {
 
             {productDetailFields.fields.map((detail, index) => {
               return (
-                <div key={index} className="inputDetailProduct-inside">
+                <div
+                  key={`${detail.id}_${index}`}
+                  className="inputDetailProduct-inside"
+                >
                   <Controller
                     control={control}
                     name={`productDetails.${index}.type`}
-                    defaultValue={detail.type}
                     render={({ field }) => {
                       return (
                         <Select
@@ -218,7 +220,6 @@ const CreateProductAdminPage = () => {
                   <Controller
                     control={control}
                     name={`productDetails.${index}.price`}
-                    defaultValue={detail.price}
                     render={({ field }) => {
                       return (
                         <input
