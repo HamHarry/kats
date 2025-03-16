@@ -1,4 +1,4 @@
-.container-productAdmin {
+.container-categoryAdmin {
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -7,7 +7,7 @@
   gap: 20px;
 }
 
-.header-productAdmin {
+.header-categoryAdmin {
   display: flex;
   justify-content: center;
   height: 80px;
@@ -24,15 +24,14 @@
   }
 }
 
-.create-product {
+.create-category {
   display: flex;
   flex-direction: column;
   width: 100%;
 
-  .btn-create-product {
+  .btn-create-category {
     display: flex;
-    justify-content: center;
-    align-self: end;
+    justify-content: space-between;
     gap: 20px;
     button {
       padding: 5px;
@@ -46,20 +45,6 @@
     }
     button:hover {
       background-color: #1a4f8a;
-    }
-  }
-}
-
-.product-content {
-  .ant-table {
-    height: 600px;
-  }
-}
-
-@media (max-width: 1240px) {
-  .btn-create-product {
-    button {
-      min-width: 100px;
     }
   }
 }

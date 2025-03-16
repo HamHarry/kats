@@ -56,7 +56,7 @@ const EmployeeAdminPage = () => {
   return (
     <div className="container-employeeAdmin">
       <div className="header-employeeAdmin">
-        <h1>Employee</h1>
+        <h1>Employees</h1>
       </div>
       <div className="search-employee">
         <input type="text" placeholder="Search..." onChange={handleSearch} />

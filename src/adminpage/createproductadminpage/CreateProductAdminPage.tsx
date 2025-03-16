@@ -110,7 +110,14 @@ const CreateProductAdminPage = () => {
           >
             ย้อนกลับ
           </button>
-          <button type="submit">ยืนยัน</button>
+          <button
+            type="submit"
+            onClick={() => {
+              navigate("/admin/product");
+            }}
+          >
+            ยืนยัน
+          </button>
         </div>
 
         <div className="wrap-container-createproductAdmin">

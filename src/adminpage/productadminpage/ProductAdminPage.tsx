@@ -84,17 +84,17 @@ const ProductAdminPage = () => {
   return (
     <div className="container-productAdmin">
       <div className="header-productAdmin">
-        <h1>Product</h1>
+        <h1>Products</h1>
       </div>
 
       <div className="create-product">
         <div className="btn-create-product">
           <button
             onClick={() => {
-              navigate("/admin/product/createTypeProduct");
+              navigate("/admin/category");
             }}
           >
-            สร้างลักษณะสินค้า
+            โหมดหมู่สินค้า
           </button>
           <button
             onClick={() => {
