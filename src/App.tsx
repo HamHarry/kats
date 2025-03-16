@@ -19,7 +19,8 @@ import EmployeeAdminPage from "./adminpage/employeeadminpage/EmployeeAdminPage";
 import UserAdminPage from "./adminpage/useradminpage/UserAdminPage";
 import CreateTypeProductPage from "./adminpage/createtypeproductpage/CreateTypeProductPage";
 import CreateEmployeeAdminPage from "./adminpage/createemployeeadminpage/CreateEmployeeAdminPage";
-import CategoryAdminPage from "./adminpage/categoryadminpage/CategoryAdminPage";
+import CatagoryAdminPage from "./adminpage/catagoryadminpage/CatagoryAdminPage";
+import CreateCatagoryAdminPage from "./adminpage/createcatagoryadminpage/CreateCatagoryAdminPage";
 
 function App() {
   return (
@@ -58,7 +59,11 @@ function App() {
             path="product/createProduct"
             element={<CreateProductAdminPage />}
           />
-          <Route path="category" element={<CategoryAdminPage />} />
+          <Route path="catagory" element={<CatagoryAdminPage />} />
+          <Route
+            path="catagory/createCatagory"
+            element={<CreateCatagoryAdminPage />}
+          />
           <Route path="finance" element={<FinanceAdminPage />} />
           <Route path="bin" element={<BinAdminPage />} />
         </Route>

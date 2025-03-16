@@ -1,4 +1,4 @@
-.container-categoryAdmin {
+.container-catagoryAdmin {
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -7,7 +7,7 @@
   gap: 20px;
 }
 
-.header-categoryAdmin {
+.header-catagoryAdmin {
   display: flex;
   justify-content: center;
   height: 80px;
@@ -24,12 +24,12 @@
   }
 }
 
-.create-category {
+.create-catagory {
   display: flex;
   flex-direction: column;
   width: 100%;
 
-  .btn-create-category {
+  .btn-create-catagory {
     display: flex;
     justify-content: space-between;
     gap: 20px;

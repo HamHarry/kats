@@ -8,7 +8,7 @@ export enum ProductType {
   GUN = 2,
 }
 
-export interface Category {
+export interface Catagory {
   _id?: number;
   name: string;
   code: string;
@@ -22,7 +22,7 @@ export interface ProductDetail {
 export interface Product {
   _id?: number;
   name: string;
-  catagory: Category;
+  catagory: Catagory;
   productDetails: ProductDetail[];
   detail: string;
   productType: ProductType;

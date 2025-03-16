@@ -1,30 +1,30 @@
 import { useNavigate } from "react-router-dom";
-import "./CategoryAdminPage.css";
+import "./CatagoryAdminPage.css";
 import { Table } from "antd";
 import { useAppDispatch } from "../../stores/store";
-import { Category } from "../../model/product.type";
+import { Catagory } from "../../model/product.type";
 import { useCallback, useEffect, useState } from "react";
 import { getAllCatagories } from "../../stores/slices/productSlice";
-const CategoryAdminPage = () => {
+const CatagoryAdminPage = () => {
   const dispath = useAppDispatch();
   const navigate = useNavigate();
-  const [categorys, setCategorys] = useState<Category[]>([]);
+  const [catagorys, setCatagorys] = useState<Catagory[]>([]);
 
-  const fetchAllCategory = useCallback(async () => {
+  const fetchAllCatagory = useCallback(async () => {
     try {
-      const { data: categorysRes = [] } = await dispath(
+      const { data: catagorysRes = [] } = await dispath(
         getAllCatagories()
       ).unwrap();
 
-      setCategorys(categorysRes);
+      setCatagorys(catagorysRes);
     } catch (error) {
       console.log(error);
     }
   }, [dispath]);
 
   useEffect(() => {
-    fetchAllCategory();
-  }, [fetchAllCategory]);
+    fetchAllCatagory();
+  }, [fetchAllCatagory]);
 
   const columns = [
     { title: "หมวดหมู่สินค้า", dataIndex: "name", key: "name" },
@@ -36,13 +36,13 @@ const CategoryAdminPage = () => {
   ];
 
   return (
-    <div className="container-categoryAdmin">
-      <div className="header-categoryAdmin">
-        <h1>Categorys</h1>
+    <div className="container-catagoryAdmin">
+      <div className="header-catagoryAdmin">
+        <h1>Catagorys</h1>
       </div>
 
-      <div className="create-category">
-        <div className="btn-create-category">
+      <div className="create-catagory">
+        <div className="btn-create-catagory">
           <button
             onClick={() => {
               navigate("/admin/product");
@@ -52,7 +52,7 @@ const CategoryAdminPage = () => {
           </button>
           <button
             onClick={() => {
-              navigate("/admin/category");
+              navigate("/admin/catagory/createCatagory");
             }}
           >
             สร้างหมวดหมู่สินค้า
@@ -62,7 +62,7 @@ const CategoryAdminPage = () => {
 
       <div className="product-content" style={{ width: "100%" }}>
         <Table
-          dataSource={categorys}
+          dataSource={catagorys}
           columns={columns}
           style={{
             border: "2px solid #2656a2",
@@ -74,4 +74,4 @@ const CategoryAdminPage = () => {
   );
 };
 
-export default CategoryAdminPage;
+export default CatagoryAdminPage;

@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import {
-  Category,
+  Catagory,
   PRICE_TYPE,
   Product,
   ProductDetail,
@@ -37,9 +37,9 @@ const CreateProductAdminPage = () => {
   const dispath = useAppDispatch();
   const navigate = useNavigate();
 
-  const [categories, setCategories] = useState<Category[]>([]);
+  const [categories, setCategories] = useState<Catagory[]>([]);
 
-  const [isCatagoryLoading, setIsCatagoryLoading] = useState<boolean>(false);
+  const [isProductLoading, setIsProductLoading] = useState<boolean>(false);
 
   const { control, handleSubmit } = useForm({
     defaultValues: initProductForm,
@@ -52,7 +52,7 @@ const CreateProductAdminPage = () => {
 
   const fetchCategoriesData = useCallback(async () => {
     try {
-      setIsCatagoryLoading(true);
+      setIsProductLoading(true);
       const { data: catagoriesRes = [] } = await dispath(
         getAllCatagories()
       ).unwrap();
@@ -61,7 +61,7 @@ const CreateProductAdminPage = () => {
     } catch (error) {
       console.log(error);
     } finally {
-      setIsCatagoryLoading(false);
+      setIsProductLoading(false);
     }
   }, [dispath]);
 
@@ -79,13 +79,13 @@ const CreateProductAdminPage = () => {
       catagory: findedCatagory || value.catagory,
     };
 
-    console.log(body);
-
     await dispath(createProduct(body));
   };
 
   const handleRemoveproductDetail = useCallback(
     (index: number) => {
+      console.log("Current Fields:", productDetailFields.fields);
+      console.log("Removing Index:", index);
       if (!productDetailFields?.fields?.length) return;
       if (productDetailFields.fields.length === 1) return;
 
@@ -245,7 +245,7 @@ const CreateProductAdminPage = () => {
         </div>
       </form>
 
-      <CircleLoading open={isCatagoryLoading} />
+      <CircleLoading open={isProductLoading} />
     </div>
   );
 };

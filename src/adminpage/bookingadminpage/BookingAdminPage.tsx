@@ -7,7 +7,6 @@ import {
   CheckCircleFilled,
   ClockCircleFilled,
   CloseCircleFilled,
-  CreditCardFilled,
 } from "@ant-design/icons";
 import { ProductType } from "../../model/product.type";
 
@@ -131,7 +130,7 @@ const BookingAdminPage = () => {
   return (
     <div className="container-BookingAdmin">
       <div className="header-BookingAdmin">
-        <h1>Booking</h1>
+        <h1>Bookings</h1>
       </div>
       <div className="search-BookingAdmin">
         <div>{selectMenu()}</div>

@@ -1,9 +1,9 @@
 import { useNavigate } from "react-router-dom";
 import "./CreateTypeProductPage.css";
-import { Category } from "../../model/product.type";
+import { Catagory } from "../../model/product.type";
 import { Controller, useForm } from "react-hook-form";
 
-const initCategoryForm: Category = {
+const initCatagoryForm: Catagory = {
   name: "",
   code: "",
 };
@@ -11,10 +11,10 @@ const CreateTypeProductPage = () => {
   const navigate = useNavigate();
 
   const { control, handleSubmit } = useForm({
-    defaultValues: initCategoryForm,
+    defaultValues: initCatagoryForm,
   });
 
-  const onSubmit = (value: Category) => {
+  const onSubmit = (value: Catagory) => {
     const item = {
       ...value,
     };

@@ -1,7 +1,7 @@
 import { Table, Typography } from "antd";
 import "./ProductAdminPage.css";
 import {
-  Category,
+  Catagory,
   PRICE_TYPE,
   Product,
   ProductDetail,
@@ -38,7 +38,7 @@ const ProductAdminPage = () => {
       title: "ลักษณะสินค้า",
       dataIndex: "catagory",
       key: "catagory",
-      render: (catagory: Category) => {
+      render: (catagory: Catagory) => {
         return <Typography>{catagory.name}</Typography>;
       },
     },
@@ -91,7 +91,7 @@ const ProductAdminPage = () => {
         <div className="btn-create-product">
           <button
             onClick={() => {
-              navigate("/admin/category");
+              navigate("/admin/catagory");
             }}
           >
             โหมดหมู่สินค้า

@@ -5,7 +5,7 @@ import { EmployeePositions, Employees } from "../../model/employee.type";
 import { Select } from "antd";
 import { FileAddFilled } from "@ant-design/icons";
 
-const initCategoryForm: Employees = {
+const initCatagoryForm: Employees = {
   name: "",
   tel: "",
   position: EmployeePositions.CEO,
@@ -15,7 +15,7 @@ const CreateEmployeeAdminPage = () => {
   const navigate = useNavigate();
 
   const { control, handleSubmit } = useForm({
-    defaultValues: initCategoryForm,
+    defaultValues: initCatagoryForm,
   });
 
   const onSubmit = (value: Employees) => {

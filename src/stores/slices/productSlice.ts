@@ -26,8 +26,16 @@ export const getAllProducts = createAsyncThunk(
   }
 );
 
+export const createCatagory = createAsyncThunk(
+  "catagory/create",
+  async (payload: any): Promise<any> => {
+    const response = await productServices.createCatagory(payload);
+    return response;
+  }
+);
+
 export const getAllCatagories = createAsyncThunk(
-  "product/get/all/catagories",
+  "catagories/get/all",
   async (): Promise<any> => {
     const response = await productServices.getAllCatagories();
     return response;
