@@ -8,7 +8,7 @@ import { FileAddFilled } from "@ant-design/icons";
 const initCatagoryForm: Employees = {
   name: "",
   tel: "",
-  position: EmployeePositions.CEO,
+  staffRole: EmployeePositions.CEO,
   image: "",
 };
 const CreateEmployeeAdminPage = () => {
@@ -72,7 +72,7 @@ const CreateEmployeeAdminPage = () => {
               <h2>ตำแหน่ง</h2>
               <Controller
                 control={control}
-                name="position"
+                name="staffRole"
                 render={({ field }) => {
                   return (
                     <Select

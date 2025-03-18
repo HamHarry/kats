@@ -65,8 +65,9 @@ const GunGuardPage = () => {
       </div>
 
       <div className="header-GuardPage">
-        <h1>Gun Compare</h1>
+        <h1>Compare</h1>
       </div>
+
       <div className="container-compare">
         <table>
           {datacompare.map((item, index) => {

@@ -79,11 +79,11 @@ const EmployeeAdminPage = () => {
                     <p>
                       ตำแหน่ง:{" "}
                       {`${
-                        item.position === 0
+                        item.staffRole === 0
                           ? "หัวหน้า"
-                          : item.position === 1
+                          : item.staffRole === 1
                           ? "ผู้ดูแลระบบ"
-                          : item.position === 2
+                          : item.staffRole === 2
                           ? "ช่างล้างรถ"
                           : "ช่างพ่นสี"
                       }`}

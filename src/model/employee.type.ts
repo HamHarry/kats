@@ -9,6 +9,6 @@ export interface Employees {
   _id?: string;
   name: string;
   tel: string;
-  position: EmployeePositions;
+  staffRole: EmployeePositions;
   image: string;
 }
