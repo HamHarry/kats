@@ -38,7 +38,7 @@ const NavbarGun = () => {
             </Link>
           </li>
           <li>
-            <Link to="guardGun" smooth={true} duration={200}>
+            <Link to="GunGuard" smooth={true} duration={200}>
               Guard
             </Link>
           </li>

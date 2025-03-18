@@ -10,17 +10,17 @@ export enum BookingStatus {
 export interface Guarantees {
   _id?: string;
   number: string;
-  volume: string;
+  receiptBookNo: string;
   bookDate: string;
   bookTime: string;
   name: string;
   carType: string;
   carModel: string;
-  register: string;
+  licensePlate: string;
   status: BookingStatus;
   product: Product;
   price: string;
   tel: string;
-  image: string;
-  imagePrice?: string;
+  image?: string;
+  slip?: string;
 }

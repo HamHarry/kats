@@ -2,6 +2,7 @@ import { Link } from "react-scroll";
 import "./HomePageGun.css";
 import CoatingPageGun from "../productpageguncoating/CoatingPageGun";
 import { useNavigate } from "react-router-dom";
+import GunGuardPage from "../productpagegunguard/GunGuardPage";
 
 const HomePageGun = () => {
   const navigate = useNavigate();
@@ -81,7 +82,7 @@ const HomePageGun = () => {
 
       <CoatingPageGun />
 
-      {/* <div className="guardGun" id="guardGun"></div> */}
+      <GunGuardPage />
     </div>
   );
 };

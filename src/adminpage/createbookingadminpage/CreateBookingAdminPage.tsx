@@ -1,25 +1,25 @@
 import { Controller, useForm } from "react-hook-form";
 import "./CreateBookingAdminPage.css";
 import { useCallback, useEffect, useState } from "react";
-import { mockUpProducts } from "../../data/MockUpProduct";
 import { Select } from "antd";
-import { PRICE_TYPE, ProductType } from "../../model/product.type";
+import { PRICE_TYPE, Product, ProductType } from "../../model/product.type";
 import { BookingStatus, Guarantees } from "../../model/guarantee.type";
 import { useNavigate, useParams } from "react-router-dom";
 import { CloseCircleFilled, FileAddFilled } from "@ant-design/icons";
-import { guarantee } from "../../data/MockUpGuarantee";
+import { useAppDispatch } from "../../stores/store";
+import { getAllProducts } from "../../stores/slices/productSlice";
 
 export interface BookingForm extends Guarantees {}
 
 const defaultValues: BookingForm = {
   number: "",
-  volume: "",
+  receiptBookNo: "",
   bookDate: "",
   bookTime: "",
   name: "",
   carType: "",
   carModel: "",
-  register: "",
+  licensePlate: "",
   product: {
     name: "",
     catagory: {
@@ -32,7 +32,6 @@ const defaultValues: BookingForm = {
   },
   tel: "",
   image: "",
-  imagePrice: "",
   price: "",
   status: BookingStatus.PENDING,
 };
@@ -48,8 +47,10 @@ const bookingTimeList = [
 ];
 
 const CreateBookingAdminPage = () => {
+  const dispath = useAppDispatch();
+
   const [priceData, setPriceData] = useState([]);
-  const [productData] = useState(mockUpProducts);
+  const [productDatas, setProductDatas] = useState<Product[]>([]);
   const [timeData] = useState(bookingTimeList);
   const [openDialogConfirm, setOpenDialogConfirm] = useState<boolean>(false);
   const navigate = useNavigate();
@@ -59,27 +60,21 @@ const CreateBookingAdminPage = () => {
     defaultValues,
   });
 
-  const fetchPriceData = useCallback(() => {
+  const fetchAllProduct = useCallback(async () => {
     try {
-      if (!bookingId) return;
+      const { data: productsRes = [] } = await dispath(
+        getAllProducts()
+      ).unwrap();
 
-      const response = guarantee.find((item) => item._id === bookingId);
-
-      const findedProduct = productData.find(
-        (item) => String(item._id) === String(response?.product._id)
-      );
-
-      setPriceData(findedProduct?.productDetails as any);
-
-      reset(response);
+      setProductDatas(productsRes);
     } catch (error) {
       console.log(error);
     }
-  }, [bookingId, productData, reset]);
+  }, [dispath]);
 
   useEffect(() => {
-    fetchPriceData();
-  }, [fetchPriceData]);
+    fetchAllProduct();
+  }, [fetchAllProduct]);
 
   const submit = (value: BookingForm) => {
     try {
@@ -174,7 +169,7 @@ const CreateBookingAdminPage = () => {
             />
 
             <Controller
-              name="volume"
+              name="receiptBookNo"
               control={control}
               render={({ field }) => {
                 return (
@@ -276,7 +271,7 @@ const CreateBookingAdminPage = () => {
             />
           </div>
           <Controller
-            name="register"
+            name="licensePlate"
             control={control}
             render={({ field }) => {
               return (
@@ -303,7 +298,7 @@ const CreateBookingAdminPage = () => {
                       onSelect={(value) => {
                         field.onChange(value);
 
-                        const findedProduct = productData.find(
+                        const findedProduct = productDatas?.find(
                           (item) => String(item._id) === String(value)
                         );
 
@@ -313,7 +308,7 @@ const CreateBookingAdminPage = () => {
                         }
                       }}
                     >
-                      {productData.map((item) => (
+                      {productDatas?.map((item) => (
                         <Select.Option key={item._id} value={item._id}>
                           {item.name}
                         </Select.Option>
@@ -350,7 +345,7 @@ const CreateBookingAdminPage = () => {
           </div>
 
           <Controller
-            name="imagePrice"
+            name="image"
             control={control}
             render={({ field }) => {
               return (
