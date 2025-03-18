@@ -1,14 +1,14 @@
 import { useNavigate } from "react-router-dom";
 import "./CreateEmployeeAdminPage.css";
 import { Controller, useForm } from "react-hook-form";
-import { EmployeePositions, Employees } from "../../model/employee.type";
+import { EmployeeRole, Employees } from "../../model/employee.type";
 import { Select } from "antd";
 import { FileAddFilled } from "@ant-design/icons";
 
 const initCatagoryForm: Employees = {
   name: "",
   tel: "",
-  staffRole: EmployeePositions.CEO,
+  staffRole: EmployeeRole.CEO,
   image: "",
 };
 const CreateEmployeeAdminPage = () => {
@@ -81,16 +81,16 @@ const CreateEmployeeAdminPage = () => {
                       className="select-product"
                       value={field.value || undefined}
                     >
-                      <Select.Option value={EmployeePositions.CEO}>
+                      <Select.Option value={EmployeeRole.CEO}>
                         หัวหน้า
                       </Select.Option>
-                      <Select.Option value={EmployeePositions.AMIN}>
+                      <Select.Option value={EmployeeRole.AMIN}>
                         ผู้ดูแลระบบ
                       </Select.Option>
-                      <Select.Option value={EmployeePositions.SPRAYER}>
+                      <Select.Option value={EmployeeRole.SPRAYER}>
                         ช่างพ่นกันสนิม
                       </Select.Option>
-                      <Select.Option value={EmployeePositions.WASHTECNICIAN}>
+                      <Select.Option value={EmployeeRole.WASHTECNICIAN}>
                         ช่างล้างรถ
                       </Select.Option>
                     </Select>

@@ -102,17 +102,16 @@
   .input-Date {
     display: flex;
     gap: 20px;
-
     .inputDate {
       display: flex;
       align-items: center;
       gap: 100px;
       margin-left: 20px;
       margin-top: 20px;
-      input {
+      .ant-picker-outlined {
         padding: 5px;
-        width: 250px;
-        height: 30px;
+        width: 265px;
+        height: 45px;
         border-radius: 20px;
         border: 2px solid #2656a2;
       }

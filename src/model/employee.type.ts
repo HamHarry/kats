@@ -1,4 +1,4 @@
-export enum EmployeePositions {
+export enum EmployeeRole {
   CEO = 0, // หัวหน้า
   AMIN = 1, // ผู้ดูแลระบบ
   WASHTECNICIAN = 2, // ช่างล้างรถ
@@ -9,6 +9,6 @@ export interface Employees {
   _id?: string;
   name: string;
   tel: string;
-  staffRole: EmployeePositions;
+  staffRole: EmployeeRole;
   image: string;
 }

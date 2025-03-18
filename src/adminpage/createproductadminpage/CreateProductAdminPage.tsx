@@ -223,9 +223,14 @@ const CreateProductAdminPage = () => {
                     render={({ field }) => {
                       return (
                         <input
-                          className="input-prices"
                           {...field}
+                          className="input-prices"
                           type="number"
+                          onChange={(event) => {
+                            if (event.target.value) {
+                              field.onChange(Number(event.target.value));
+                            }
+                          }}
                         />
                       );
                     }}

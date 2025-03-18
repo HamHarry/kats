@@ -1,8 +1,7 @@
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import "./BookingAdminPage.css";
-import { guarantee } from "../../data/MockUpGuarantee";
 import { useNavigate } from "react-router-dom";
-import { Guarantees } from "../../model/guarantee.type";
+import { Bookings } from "../../model/booking.type";
 import {
   CheckCircleFilled,
   ClockCircleFilled,
@@ -10,21 +9,46 @@ import {
   PayCircleFilled,
 } from "@ant-design/icons";
 import { ProductType } from "../../model/product.type";
+import { useAppDispatch } from "../../stores/store";
+import { getAllBookings } from "../../stores/slices/bookingSlice";
+import CircleLoading from "../../shared/circleLoading";
 
 const BookingAdminPage = () => {
-  const [guaranteeData, setGuaranteeData] = useState<Guarantees[]>(guarantee);
-  const [guaranteeDataRef] = useState(guaranteeData);
+  const navigate = useNavigate();
+  const dispath = useAppDispatch();
+
+  const [bookingData, setBookingData] = useState<Bookings[]>([]);
+  const [bookingDataRef] = useState(bookingData);
   const [openDialogConfirm, setOpenDialogConfirm] = useState<boolean>(false);
   const [openDialogPay, setOpenDialogPay] = useState<boolean>(false);
   const [selectedVolumer, setSelectedVolumer] = useState<string>("All");
-  const navigate = useNavigate();
   const [searchValue, setSearchValue] = useState("");
+  const [isBookingLoading, setIsBookingLoading] = useState<boolean>(false);
+
+  const fetchAllBooking = useCallback(async () => {
+    try {
+      setIsBookingLoading(true);
+      const { data: bookingsRes = [] } = await dispath(
+        getAllBookings()
+      ).unwrap();
+
+      setBookingData(bookingsRes);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsBookingLoading(false);
+    }
+  }, [dispath]);
+
+  useEffect(() => {
+    fetchAllBooking();
+  }, [fetchAllBooking]);
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value.toLowerCase();
     console.log(value);
 
-    const newValue = guaranteeDataRef.filter((item) => {
+    const newValue = bookingDataRef.filter((item) => {
       const statusVolume =
         item.receiptBookNo === selectedVolumer || selectedVolumer === "All";
       const valueName = item.name.toLowerCase().includes(value);
@@ -32,7 +56,7 @@ const BookingAdminPage = () => {
       const valueNumber = item.number.toLowerCase().includes(value);
       return statusVolume && (valueName || valueTel || valueNumber);
     });
-    setGuaranteeData(newValue);
+    setBookingData(newValue);
     setSearchValue(value);
   };
 
@@ -40,16 +64,16 @@ const BookingAdminPage = () => {
     const selectedValue = event.target.value;
 
     if (selectedValue === "All") {
-      const newlist = guaranteeDataRef.filter((item) => {
+      const newlist = bookingDataRef.filter((item) => {
         const searchNumber = item.number.toLowerCase().includes(searchValue);
         const searchTel = item.tel.toLowerCase().includes(searchValue);
         const searchName = item.name.toLowerCase().includes(searchValue);
         return searchNumber || searchTel || searchName;
       });
-      setGuaranteeData(newlist);
+      setBookingData(newlist);
       setSelectedVolumer("All");
     } else if (selectedValue === "001") {
-      const newlist = guaranteeDataRef.filter((item) => {
+      const newlist = bookingDataRef.filter((item) => {
         const searchNumber = item.number.toLowerCase().includes(searchValue);
         const searchTel = item.tel.toLowerCase().includes(searchValue);
         const searchName = item.name.toLowerCase().includes(searchValue);
@@ -58,10 +82,10 @@ const BookingAdminPage = () => {
           (searchNumber || searchTel || searchName)
         );
       });
-      setGuaranteeData(newlist);
+      setBookingData(newlist);
       setSelectedVolumer("001");
     } else if (selectedValue === "002") {
-      const newlist = guaranteeDataRef.filter((item) => {
+      const newlist = bookingDataRef.filter((item) => {
         const searchNumber = item.number.toLowerCase().includes(searchValue);
         const searchTel = item.tel.toLowerCase().includes(searchValue);
         const searchName = item.name.toLowerCase().includes(searchValue);
@@ -70,10 +94,10 @@ const BookingAdminPage = () => {
           (searchNumber || searchTel || searchName)
         );
       });
-      setGuaranteeData(newlist);
+      setBookingData(newlist);
       setSelectedVolumer("002");
     } else if (selectedValue === "003") {
-      const newlist = guaranteeDataRef.filter((item) => {
+      const newlist = bookingDataRef.filter((item) => {
         const searchNumber = item.number.toLowerCase().includes(searchValue);
         const searchTel = item.tel.toLowerCase().includes(searchValue);
         const searchName = item.name.toLowerCase().includes(searchValue);
@@ -82,7 +106,7 @@ const BookingAdminPage = () => {
           (searchNumber || searchTel || searchName)
         );
       });
-      setGuaranteeData(newlist);
+      setBookingData(newlist);
       setSelectedVolumer("003");
     }
   };
@@ -177,7 +201,7 @@ const BookingAdminPage = () => {
         </div>
       </div>
       <div className="wrap-container-BookingAdmin">
-        {guaranteeData.map((item, index) => {
+        {bookingData.map((item, index) => {
           const productType = item.product.productType;
 
           return (
@@ -232,7 +256,7 @@ const BookingAdminPage = () => {
                 <p>เลขที่: {item.number}</p>
                 <p>เล่มที่: {item.receiptBookNo}</p>
                 <p>
-                  สินค้า: {item.product.name} {item.price}
+                  สินค้า: {item.product.name} {item.price.price}
                 </p>
                 <p>
                   รถ: {item.carType} {item.carModel}
@@ -245,6 +269,7 @@ const BookingAdminPage = () => {
       </div>
       {rederDialogConfirm()}
       {renderDialogPay()}
+      <CircleLoading open={isBookingLoading} />
     </div>
   );
 };

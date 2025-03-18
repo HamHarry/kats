@@ -1,4 +1,4 @@
-import { Product } from "./product.type";
+import { Product, ProductDetail } from "./product.type";
 
 export enum BookingStatus {
   PENDING = 0, // รอจ่ายเงิน
@@ -7,7 +7,7 @@ export enum BookingStatus {
   CANCELED = 3, // ยกเลิก
 }
 
-export interface Guarantees {
+export interface Bookings {
   _id?: string;
   number: string;
   receiptBookNo: string;
@@ -19,7 +19,7 @@ export interface Guarantees {
   licensePlate: string;
   status: BookingStatus;
   product: Product;
-  price: string;
+  price: ProductDetail;
   tel: string;
   image?: string;
   slip?: string;

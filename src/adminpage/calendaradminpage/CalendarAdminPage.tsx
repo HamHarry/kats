@@ -1,10 +1,37 @@
 import "./CalendarAdminPage.css";
 import { Badge, Calendar, CalendarProps, Typography } from "antd";
 import dayjs, { Dayjs } from "dayjs";
-import { guarantee } from "../../data/MockUpGuarantee";
-import { BookingStatus, Guarantees } from "../../model/guarantee.type";
+import { BookingStatus, Bookings } from "../../model/booking.type";
+import { useCallback, useEffect, useState } from "react";
+import { useAppDispatch } from "../../stores/store";
+import { getAllBookings } from "../../stores/slices/bookingSlice";
+import CircleLoading from "../../shared/circleLoading";
 
 const CalendarAdminPage = () => {
+  const dispath = useAppDispatch();
+
+  const [bookingData, setBookingData] = useState<Bookings[]>([]);
+  const [isBookingLoading, setIsBookingLoading] = useState<boolean>(false);
+
+  const fetchAllBooking = useCallback(async () => {
+    try {
+      setIsBookingLoading(true);
+      const { data: bookingsRes = [] } = await dispath(
+        getAllBookings()
+      ).unwrap();
+
+      setBookingData(bookingsRes);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsBookingLoading(false);
+    }
+  }, [dispath]);
+
+  useEffect(() => {
+    fetchAllBooking();
+  }, [fetchAllBooking]);
+
   const getStatus = (status: BookingStatus) => {
     switch (status) {
       case BookingStatus.PENDING:
@@ -21,7 +48,7 @@ const CalendarAdminPage = () => {
     }
   };
 
-  const renderBookedCalendar = (bookingData: Guarantees) => {
+  const renderBookedCalendar = (bookingData: Bookings) => {
     const { bookTime, status, carType, carModel } = bookingData;
 
     return (
@@ -42,13 +69,13 @@ const CalendarAdminPage = () => {
   };
 
   const cellRender: CalendarProps<Dayjs>["cellRender"] = (current) => {
-    const bookingData = guarantee.filter((data) =>
+    const bookings = bookingData.filter((data) =>
       dayjs(data.bookDate).isSame(current, "date")
     );
 
     return (
       <div className="booking">
-        {bookingData.map((data, index) => {
+        {bookings.map((data, index) => {
           return <div key={index}>{renderBookedCalendar(data)}</div>;
         })}
       </div>
@@ -83,6 +110,8 @@ const CalendarAdminPage = () => {
       <div className="wrap-calendarAdmin">
         <Calendar cellRender={cellRender} />
       </div>
+
+      <CircleLoading open={isBookingLoading} />
     </div>
   );
 };

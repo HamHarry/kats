@@ -5,7 +5,7 @@ import "react-big-calendar/lib/css/react-big-calendar.css";
 import "react-datepicker/dist/react-datepicker.css";
 import dayjs, { Dayjs } from "dayjs";
 import { guarantee } from "../data/MockUpGuarantee";
-import { BookingStatus, Guarantees } from "../model/guarantee.type";
+import { BookingStatus, Bookings } from "../model/booking.type";
 
 const BookingPageKats = () => {
   const getStatus = (status: BookingStatus) => {
@@ -24,7 +24,7 @@ const BookingPageKats = () => {
     }
   };
 
-  const renderBookedCalendar = (bookingData: Guarantees) => {
+  const renderBookedCalendar = (bookingData: Bookings) => {
     const { bookTime, status, carType, carModel } = bookingData;
 
     return (

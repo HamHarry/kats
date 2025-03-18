@@ -1,15 +1,21 @@
 import { Controller, useForm } from "react-hook-form";
 import "./CreateBookingAdminPage.css";
 import { useCallback, useEffect, useState } from "react";
-import { Select } from "antd";
-import { PRICE_TYPE, Product, ProductType } from "../../model/product.type";
-import { BookingStatus, Guarantees } from "../../model/guarantee.type";
+import { DatePicker, Select } from "antd";
+import { PRICE_TYPE, Product, ProductDetail } from "../../model/product.type";
+import { BookingStatus, Bookings } from "../../model/booking.type";
 import { useNavigate, useParams } from "react-router-dom";
 import { CloseCircleFilled, FileAddFilled } from "@ant-design/icons";
 import { useAppDispatch } from "../../stores/store";
 import { getAllProducts } from "../../stores/slices/productSlice";
+import dayjs from "dayjs";
+import { createBooking } from "../../stores/slices/bookingSlice";
+import CircleLoading from "../../shared/circleLoading";
 
-export interface BookingForm extends Guarantees {}
+export interface BookingForm extends Omit<Bookings, "product" | "price"> {
+  product: string;
+  price: number;
+}
 
 const defaultValues: BookingForm = {
   number: "",
@@ -20,19 +26,10 @@ const defaultValues: BookingForm = {
   carType: "",
   carModel: "",
   licensePlate: "",
-  product: {
-    name: "",
-    catagory: {
-      name: "",
-      code: "",
-    },
-    productDetails: [],
-    detail: "",
-    productType: ProductType.KATS,
-  },
+  product: "",
   tel: "",
   image: "",
-  price: "",
+  price: 0,
   status: BookingStatus.PENDING,
 };
 
@@ -48,20 +45,22 @@ const bookingTimeList = [
 
 const CreateBookingAdminPage = () => {
   const dispath = useAppDispatch();
-
-  const [priceData, setPriceData] = useState([]);
-  const [productDatas, setProductDatas] = useState<Product[]>([]);
-  const [timeData] = useState(bookingTimeList);
-  const [openDialogConfirm, setOpenDialogConfirm] = useState<boolean>(false);
   const navigate = useNavigate();
   const { bookingId } = useParams();
 
-  const { handleSubmit, control, setValue, reset } = useForm<BookingForm>({
+  const [priceData, setPriceData] = useState<ProductDetail[]>([]);
+  const [productDatas, setProductDatas] = useState<Product[]>([]);
+  const [timeData] = useState(bookingTimeList);
+  const [openDialogConfirm, setOpenDialogConfirm] = useState<boolean>(false);
+  const [isBookingLoading, setIsBookingLoading] = useState<boolean>(false);
+
+  const { handleSubmit, control } = useForm<BookingForm>({
     defaultValues,
   });
 
   const fetchAllProduct = useCallback(async () => {
     try {
+      setIsBookingLoading(true);
       const { data: productsRes = [] } = await dispath(
         getAllProducts()
       ).unwrap();
@@ -69,6 +68,8 @@ const CreateBookingAdminPage = () => {
       setProductDatas(productsRes);
     } catch (error) {
       console.log(error);
+    } finally {
+      setIsBookingLoading(false);
     }
   }, [dispath]);
 
@@ -76,23 +77,27 @@ const CreateBookingAdminPage = () => {
     fetchAllProduct();
   }, [fetchAllProduct]);
 
-  const submit = (value: BookingForm) => {
+  const submit = async (value: BookingForm) => {
     try {
       setOpenDialogConfirm(false);
 
       const item = {
         ...value,
+        bookDate: dayjs(value.bookDate).toISOString(),
+        price: priceData[value.price],
       };
 
-      console.log(item);
-
       if (bookingId) {
-        navigate("/admin/booking");
+        // แก้ไข
+        console.log(item);
       } else {
-        navigate("/admin/booking");
+        // สร้าง
+        await dispath(createBooking(item));
       }
     } catch (error) {
       console.log(error);
+    } finally {
+      navigate("/admin/booking");
     }
   };
 
@@ -189,7 +194,7 @@ const CreateBookingAdminPage = () => {
                 return (
                   <div className="inputDate">
                     <h2>วันที่</h2>
-                    <input {...field} type="date" />
+                    <DatePicker {...field} />
                   </div>
                 );
               }}
@@ -284,7 +289,7 @@ const CreateBookingAdminPage = () => {
           />
           <div className="input-product">
             <Controller
-              name="product._id"
+              name="product"
               control={control}
               render={({ field }) => {
                 return (
@@ -303,7 +308,6 @@ const CreateBookingAdminPage = () => {
                         );
 
                         if (findedProduct) {
-                          setValue("product", findedProduct);
                           setPriceData(findedProduct?.productDetails as any);
                         }
                       }}
@@ -331,11 +335,11 @@ const CreateBookingAdminPage = () => {
                       placeholder="เลือกราคา"
                       value={field.value || undefined}
                       disabled={priceData.length === 0}
-                      options={priceData.map((item: any) => ({
+                      options={priceData.map((item: any, index) => ({
                         label: `${
                           item.type === PRICE_TYPE.LUXURY ? "luxury" : ""
                         } ${item.price} Baht`,
-                        value: item.price,
+                        value: index,
                       }))}
                     />
                   </div>
@@ -362,6 +366,7 @@ const CreateBookingAdminPage = () => {
         </div>
         {rederDialogConfirm()}
       </form>
+      <CircleLoading open={isBookingLoading} />
     </div>
   );
 };

@@ -2,10 +2,10 @@ import { useState } from "react";
 import "./GuaranteeAdminPage.css";
 import { guarantee } from "../../data/MockUpGuarantee";
 import { Controller, useForm } from "react-hook-form";
-import { BookingStatus, Guarantees } from "../../model/guarantee.type";
+import { BookingStatus, Bookings } from "../../model/booking.type";
 import { ProductType } from "../../model/product.type";
 
-const defaultValues: Guarantees = {
+const defaultValues: Bookings = {
   number: "",
   bookDate: "",
   bookTime: "",
@@ -31,20 +31,20 @@ const defaultValues: Guarantees = {
 };
 
 const GuaranteeAdminPage = () => {
-  const [guaranteeData, setGuaranteeData] = useState<Guarantees[]>(guarantee);
+  const [guaranteeData, setGuaranteeData] = useState<Bookings[]>(guarantee);
   const [guaranteeDataRef] = useState(guaranteeData);
   const [openDialogProfile, setOpenDialogProfile] = useState<boolean>(false);
   const [openDialogConfirm, setOpenDialogConfirm] = useState<boolean>(false);
-  const [dialogData, setDialogData] = useState<Guarantees>();
-  const [updateData, setUpdateData] = useState<Guarantees>();
+  const [dialogData, setDialogData] = useState<Bookings>();
+  const [updateData, setUpdateData] = useState<Bookings>();
   const [selectedVolumer, setSelectedVolumer] = useState<string>("All");
   const [searchValue, setSearchValue] = useState("");
 
-  const { handleSubmit, control } = useForm<Guarantees>({
+  const { handleSubmit, control } = useForm<Bookings>({
     defaultValues,
   });
 
-  const submitProfile = (value: Guarantees) => {
+  const submitProfile = (value: Bookings) => {
     try {
       const item = {
         ...value,
