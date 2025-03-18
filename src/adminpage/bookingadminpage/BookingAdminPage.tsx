@@ -7,6 +7,7 @@ import {
   CheckCircleFilled,
   ClockCircleFilled,
   CloseCircleFilled,
+  PayCircleFilled,
 } from "@ant-design/icons";
 import { ProductType } from "../../model/product.type";
 
@@ -14,6 +15,7 @@ const BookingAdminPage = () => {
   const [guaranteeData, setGuaranteeData] = useState<Guarantees[]>(guarantee);
   const [guaranteeDataRef] = useState(guaranteeData);
   const [openDialogConfirm, setOpenDialogConfirm] = useState<boolean>(false);
+  const [openDialogPay, setOpenDialogPay] = useState<boolean>(false);
   const [selectedVolumer, setSelectedVolumer] = useState<string>("All");
   const navigate = useNavigate();
   const [searchValue, setSearchValue] = useState("");
@@ -95,6 +97,28 @@ const BookingAdminPage = () => {
           <option value={"003"}>003</option>
         </select>
       </div>
+    );
+  };
+
+  const renderDialogPay = () => {
+    return (
+      <dialog open={openDialogPay}>
+        <div className="container-DialogPay">
+          <div className="wrap-container-DialogPay">
+            <div className="container-DialogPay-Navbar">
+              <CloseCircleFilled
+                className="icon-close"
+                onClick={() => {
+                  setOpenDialogPay(false);
+                }}
+              />
+            </div>
+            <div className="ImagePay">
+              <img src="/public/assets/pay/TestPay.jpg" alt="pay" />
+            </div>
+          </div>
+        </div>
+      </dialog>
     );
   };
 
@@ -181,6 +205,12 @@ const BookingAdminPage = () => {
                     ) : (
                       <CloseCircleFilled className="icon-check-cancel" />
                     )}
+                    <PayCircleFilled
+                      className="icon-pay"
+                      onClick={() => {
+                        setOpenDialogPay(true);
+                      }}
+                    />
                     <i
                       className="fa-solid fa-pen-to-square"
                       onClick={() => {
@@ -192,7 +222,7 @@ const BookingAdminPage = () => {
                     <i
                       className="fa-solid fa-trash-can"
                       onClick={() => {
-                        setOpenDialogConfirm(!openDialogConfirm);
+                        setOpenDialogConfirm(true);
                       }}
                     ></i>
                   </div>
@@ -214,6 +244,7 @@ const BookingAdminPage = () => {
         })}
       </div>
       {rederDialogConfirm()}
+      {renderDialogPay()}
     </div>
   );
 };

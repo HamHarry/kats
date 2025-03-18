@@ -40,7 +40,7 @@ const HomePageGun = () => {
                 </Link>
               </button>
               <button className="btn">
-                <Link to="/" smooth={true} duration={200}>
+                <Link to="GunGuard" smooth={true} duration={200}>
                   Guard
                 </Link>
               </button>
