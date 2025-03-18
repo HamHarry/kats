@@ -7,13 +7,11 @@ import { ProductType } from "../../model/product.type";
 
 const defaultValues: Guarantees = {
   number: "",
-  volume: "",
   bookDate: "",
   bookTime: "",
   name: "",
   carType: "",
   carModel: "",
-  register: "",
   price: "",
   tel: "",
   image: "/public/assets/logokats.jpg",
@@ -28,6 +26,8 @@ const defaultValues: Guarantees = {
     productType: ProductType.KATS,
   },
   status: BookingStatus.PENDING,
+  receiptBookNo: "",
+  licensePlate: "",
 };
 
 const GuaranteeAdminPage = () => {
@@ -62,7 +62,7 @@ const GuaranteeAdminPage = () => {
 
     const newValue = guaranteeDataRef.filter((item) => {
       const statusVolume =
-        item.volume === selectedVolumer || selectedVolumer === "All";
+        item.receiptBookNo === selectedVolumer || selectedVolumer === "All";
       const valueName = item.name.toLowerCase().includes(value);
       const valueTel = item.tel.toLowerCase().includes(value);
       const valueNumber = item.number.toLowerCase().includes(value);
@@ -90,7 +90,8 @@ const GuaranteeAdminPage = () => {
         const searchTel = item.tel.toLowerCase().includes(searchValue);
         const searchName = item.name.toLowerCase().includes(searchValue);
         return (
-          item.volume === "001" && (searchNumber || searchTel || searchName)
+          item.receiptBookNo === "001" &&
+          (searchNumber || searchTel || searchName)
         );
       });
       setGuaranteeData(newlist);
@@ -101,7 +102,8 @@ const GuaranteeAdminPage = () => {
         const searchTel = item.tel.toLowerCase().includes(searchValue);
         const searchName = item.name.toLowerCase().includes(searchValue);
         return (
-          item.volume === "002" && (searchNumber || searchTel || searchName)
+          item.receiptBookNo === "002" &&
+          (searchNumber || searchTel || searchName)
         );
       });
       setGuaranteeData(newlist);
@@ -112,7 +114,8 @@ const GuaranteeAdminPage = () => {
         const searchTel = item.tel.toLowerCase().includes(searchValue);
         const searchName = item.name.toLowerCase().includes(searchValue);
         return (
-          item.volume === "003" && (searchNumber || searchTel || searchName)
+          item.receiptBookNo === "003" &&
+          (searchNumber || searchTel || searchName)
         );
       });
       setGuaranteeData(newlist);
@@ -217,14 +220,14 @@ const GuaranteeAdminPage = () => {
                       <div className="text-volume">
                         <h4>เล่มที่</h4>
                         <Controller
-                          name="volume"
+                          name="receiptBookNo"
                           control={control}
                           render={({ field }) => {
                             return (
                               <input
                                 {...field}
                                 type="text"
-                                value={dialogData?.volume}
+                                value={dialogData?.receiptBookNo}
                               />
                             );
                           }}
@@ -331,14 +334,14 @@ const GuaranteeAdminPage = () => {
                       <div className="text-register">
                         <h4>ทะเบียน</h4>
                         <Controller
-                          name="register"
+                          name="licensePlate"
                           control={control}
                           render={({ field }) => {
                             return (
                               <input
                                 {...field}
                                 type="text"
-                                value={dialogData?.register}
+                                value={dialogData?.licensePlate}
                               />
                             );
                           }}
@@ -455,14 +458,14 @@ const GuaranteeAdminPage = () => {
                 <p>ชื่อ: {item.name}</p>
                 <p>เบอร์: {item.tel}</p>
                 <p>เลขที่: {item.number}</p>
-                <p>เล่มที่: {item.volume}</p>
+                <p>เล่มที่: {item.receiptBookNo}</p>
                 <p>
                   สินค้า: {item.product.name} {item.price}
                 </p>
                 <p>
                   รถ: {item.carType} {item.carModel}
                 </p>
-                <p>ทะเบียน: {item.register}</p>
+                <p>ทะเบียน: {item.licensePlate}</p>
               </div>
             </div>
           );

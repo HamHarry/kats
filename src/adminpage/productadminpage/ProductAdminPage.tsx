@@ -10,14 +10,17 @@ import { useNavigate } from "react-router-dom";
 import { useCallback, useEffect, useState } from "react";
 import { useAppDispatch } from "../../stores/store";
 import { getAllProducts } from "../../stores/slices/productSlice";
+import CircleLoading from "../../shared/circleLoading";
 
 const ProductAdminPage = () => {
   const dispath = useAppDispatch();
   const navigate = useNavigate();
   const [products, setProducts] = useState<Product[]>([]);
+  const [isProductLoading, setIsProductLoading] = useState<boolean>(false);
 
   const fetchAllProduct = useCallback(async () => {
     try {
+      setIsProductLoading(true);
       const { data: productsRes = [] } = await dispath(
         getAllProducts()
       ).unwrap();
@@ -25,6 +28,8 @@ const ProductAdminPage = () => {
       setProducts(productsRes);
     } catch (error) {
       console.log(error);
+    } finally {
+      setIsProductLoading(false);
     }
   }, [dispath]);
 
@@ -116,6 +121,7 @@ const ProductAdminPage = () => {
           }}
         />
       </div>
+      <CircleLoading open={isProductLoading} />
     </div>
   );
 };

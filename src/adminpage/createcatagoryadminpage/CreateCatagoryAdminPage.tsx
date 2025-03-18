@@ -23,8 +23,6 @@ const CreateCatagoryAdminPage = () => {
       ...value,
     };
 
-    console.log(body);
-
     await dispath(createCatagory(body));
   };
 

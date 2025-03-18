@@ -5,13 +5,16 @@ import { useAppDispatch } from "../../stores/store";
 import { Catagory } from "../../model/product.type";
 import { useCallback, useEffect, useState } from "react";
 import { getAllCatagories } from "../../stores/slices/productSlice";
+import CircleLoading from "../../shared/circleLoading";
 const CatagoryAdminPage = () => {
   const dispath = useAppDispatch();
   const navigate = useNavigate();
   const [catagorys, setCatagorys] = useState<Catagory[]>([]);
+  const [isProductLoading, setIsProductLoading] = useState<boolean>(false);
 
   const fetchAllCatagory = useCallback(async () => {
     try {
+      setIsProductLoading(true);
       const { data: catagorysRes = [] } = await dispath(
         getAllCatagories()
       ).unwrap();
@@ -19,6 +22,8 @@ const CatagoryAdminPage = () => {
       setCatagorys(catagorysRes);
     } catch (error) {
       console.log(error);
+    } finally {
+      setIsProductLoading(false);
     }
   }, [dispath]);
 
@@ -70,6 +75,8 @@ const CatagoryAdminPage = () => {
           }}
         />
       </div>
+
+      <CircleLoading open={isProductLoading} />
     </div>
   );
 };
