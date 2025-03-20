@@ -1,37 +1,36 @@
 import { useState } from "react";
 import "./GuaranteeAdminPage.css";
-import { guarantee } from "../../data/MockUpGuarantee";
 import { Controller, useForm } from "react-hook-form";
 import { BookingStatus, Bookings } from "../../model/booking.type";
 import { ProductType } from "../../model/product.type";
 
-const defaultValues: Bookings = {
-  number: "",
-  bookDate: "",
-  bookTime: "",
-  name: "",
-  carType: "",
-  carModel: "",
-  price: "",
-  tel: "",
-  image: "/public/assets/logokats.jpg",
-  product: {
-    name: "",
-    catagory: {
-      name: "",
-      code: "",
-    },
-    productDetails: [],
-    detail: "",
-    productType: ProductType.KATS,
-  },
-  status: BookingStatus.PENDING,
-  receiptBookNo: "",
-  licensePlate: "",
-};
+// const defaultValues: Bookings = {
+//   number: "",
+//   bookDate: "",
+//   bookTime: "",
+//   name: "",
+//   carType: "",
+//   carModel: "",
+//   price: "",
+//   tel: "",
+//   image: "/public/assets/logokats.jpg",
+//   product: {
+//     name: "",
+//     catagory: {
+//       name: "",
+//       code: "",
+//     },
+//     productDetails: [],
+//     detail: "",
+//     productType: ProductType.KATS,
+//   },
+//   status: BookingStatus.PENDING,
+//   receiptBookNo: "",
+//   licensePlate: "",
+// };
 
 const GuaranteeAdminPage = () => {
-  const [guaranteeData, setGuaranteeData] = useState<Bookings[]>(guarantee);
+  const [guaranteeData, setGuaranteeData] = useState<Bookings[]>();
   const [guaranteeDataRef] = useState(guaranteeData);
   const [openDialogProfile, setOpenDialogProfile] = useState<boolean>(false);
   const [openDialogConfirm, setOpenDialogConfirm] = useState<boolean>(false);
@@ -40,106 +39,105 @@ const GuaranteeAdminPage = () => {
   const [selectedVolumer, setSelectedVolumer] = useState<string>("All");
   const [searchValue, setSearchValue] = useState("");
 
-  const { handleSubmit, control } = useForm<Bookings>({
-    defaultValues,
-  });
+  // const { handleSubmit, control } = useForm<Bookings>({
+  //   defaultValues,
+  // });
 
-  const submitProfile = (value: Bookings) => {
-    try {
-      const item = {
-        ...value,
-      };
-      setUpdateData(item); // เก็บข็อมูลเพื่อยินยันการส่ง
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  console.log(updateData);
+  // const submitProfile = (value: Bookings) => {
+  //   try {
+  //     const item = {
+  //       ...value,
+  //     };
+  //     setUpdateData(item); // เก็บข็อมูลเพื่อยินยันการส่ง
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
-  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value.toLowerCase();
-    console.log(value);
+  // const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   const value = e.target.value.toLowerCase();
+  //   console.log(value);
 
-    const newValue = guaranteeDataRef.filter((item) => {
-      const statusVolume =
-        item.receiptBookNo === selectedVolumer || selectedVolumer === "All";
-      const valueName = item.name.toLowerCase().includes(value);
-      const valueTel = item.tel.toLowerCase().includes(value);
-      const valueNumber = item.number.toLowerCase().includes(value);
-      return statusVolume && (valueName || valueTel || valueNumber);
-    });
-    setGuaranteeData(newValue);
-    setSearchValue(value);
-  };
+  //   const newValue = guaranteeDataRef.filter((item) => {
+  //     const statusVolume =
+  //       item.receiptBookNo === selectedVolumer || selectedVolumer === "All";
+  //     const valueName = item.name.toLowerCase().includes(value);
+  //     const valueTel = item.tel.toLowerCase().includes(value);
+  //     const valueNumber = item.number.toLowerCase().includes(value);
+  //     return statusVolume && (valueName || valueTel || valueNumber);
+  //   });
+  //   setGuaranteeData(newValue);
+  //   setSearchValue(value);
+  // };
 
-  const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const selectedValue = event.target.value;
+  // const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+  //   const selectedValue = event.target.value;
 
-    if (selectedValue === "All") {
-      const newlist = guaranteeDataRef.filter((item) => {
-        const searchNumber = item.number.toLowerCase().includes(searchValue);
-        const searchTel = item.tel.toLowerCase().includes(searchValue);
-        const searchName = item.name.toLowerCase().includes(searchValue);
-        return searchNumber || searchTel || searchName;
-      });
-      setGuaranteeData(newlist);
-      setSelectedVolumer("All");
-    } else if (selectedValue === "001") {
-      const newlist = guaranteeDataRef.filter((item) => {
-        const searchNumber = item.number.toLowerCase().includes(searchValue);
-        const searchTel = item.tel.toLowerCase().includes(searchValue);
-        const searchName = item.name.toLowerCase().includes(searchValue);
-        return (
-          item.receiptBookNo === "001" &&
-          (searchNumber || searchTel || searchName)
-        );
-      });
-      setGuaranteeData(newlist);
-      setSelectedVolumer("001");
-    } else if (selectedValue === "002") {
-      const newlist = guaranteeDataRef.filter((item) => {
-        const searchNumber = item.number.toLowerCase().includes(searchValue);
-        const searchTel = item.tel.toLowerCase().includes(searchValue);
-        const searchName = item.name.toLowerCase().includes(searchValue);
-        return (
-          item.receiptBookNo === "002" &&
-          (searchNumber || searchTel || searchName)
-        );
-      });
-      setGuaranteeData(newlist);
-      setSelectedVolumer("002");
-    } else if (selectedValue === "003") {
-      const newlist = guaranteeDataRef.filter((item) => {
-        const searchNumber = item.number.toLowerCase().includes(searchValue);
-        const searchTel = item.tel.toLowerCase().includes(searchValue);
-        const searchName = item.name.toLowerCase().includes(searchValue);
-        return (
-          item.receiptBookNo === "003" &&
-          (searchNumber || searchTel || searchName)
-        );
-      });
-      setGuaranteeData(newlist);
-      setSelectedVolumer("003");
-    }
-  };
+  //   if (selectedValue === "All") {
+  //     const newlist = guaranteeDataRef.filter((item) => {
+  //       const searchNumber = item.number.toLowerCase().includes(searchValue);
+  //       const searchTel = item.tel.toLowerCase().includes(searchValue);
+  //       const searchName = item.name.toLowerCase().includes(searchValue);
+  //       return searchNumber || searchTel || searchName;
+  //     });
+  //     setGuaranteeData(newlist);
+  //     setSelectedVolumer("All");
+  //   } else if (selectedValue === "001") {
+  //     const newlist = guaranteeDataRef.filter((item) => {
+  //       const searchNumber = item.number.toLowerCase().includes(searchValue);
+  //       const searchTel = item.tel.toLowerCase().includes(searchValue);
+  //       const searchName = item.name.toLowerCase().includes(searchValue);
+  //       return (
+  //         item.receiptBookNo === "001" &&
+  //         (searchNumber || searchTel || searchName)
+  //       );
+  //     });
+  //     setGuaranteeData(newlist);
+  //     setSelectedVolumer("001");
+  //   } else if (selectedValue === "002") {
+  //     const newlist = guaranteeDataRef.filter((item) => {
+  //       const searchNumber = item.number.toLowerCase().includes(searchValue);
+  //       const searchTel = item.tel.toLowerCase().includes(searchValue);
+  //       const searchName = item.name.toLowerCase().includes(searchValue);
+  //       return (
+  //         item.receiptBookNo === "002" &&
+  //         (searchNumber || searchTel || searchName)
+  //       );
+  //     });
+  //     setGuaranteeData(newlist);
+  //     setSelectedVolumer("002");
+  //   } else if (selectedValue === "003") {
+  //     const newlist = guaranteeDataRef.filter((item) => {
+  //       const searchNumber = item.number.toLowerCase().includes(searchValue);
+  //       const searchTel = item.tel.toLowerCase().includes(searchValue);
+  //       const searchName = item.name.toLowerCase().includes(searchValue);
+  //       return (
+  //         item.receiptBookNo === "003" &&
+  //         (searchNumber || searchTel || searchName)
+  //       );
+  //     });
+  //     setGuaranteeData(newlist);
+  //     setSelectedVolumer("003");
+  //   }
+  // };
 
-  const selectMenu = () => {
-    return (
-      <div className="btn-menu">
-        <select onChange={handleSelectChange}>
-          <option value={"All"}>All</option>
-          <option value={"001"}>001</option>
-          <option value={"002"}>002</option>
-          <option value={"003"}>003</option>
-        </select>
-        {/* <select onChange={handleSelectChange}>
-          <option value={"All"}>All</option>
-          <option value={"KATS Coating"}>KATS</option>
-          <option value={"GUN"}>GUN</option>
-        </select> */}
-      </div>
-    );
-  };
+  // const selectMenu = () => {
+  //   return (
+  //     <div className="btn-menu">
+  //       <select onChange={handleSelectChange}>
+  //         <option value={"All"}>All</option>
+  //         <option value={"001"}>001</option>
+  //         <option value={"002"}>002</option>
+  //         <option value={"003"}>003</option>
+  //       </select>
+  //       {/* <select onChange={handleSelectChange}>
+  //         <option value={"All"}>All</option>
+  //         <option value={"KATS Coating"}>KATS</option>
+  //         <option value={"GUN"}>GUN</option>
+  //       </select> */}
+  //     </div>
+  //   );
+  // };
 
   const rederDialogConfirm = () => {
     return (
@@ -173,239 +171,239 @@ const GuaranteeAdminPage = () => {
     );
   };
 
-  const rederEditProfile = () => (
-    <dialog open={openDialogProfile}>
-      <div className="container-Edit-Profile">
-        <div className="wrap-container-Edit-Profile">
-          <form onSubmit={handleSubmit(submitProfile)}>
-            <div className="container-Edit-Profile-Navbar">
-              <button type="submit">
-                <h3>บันทึก</h3>
-              </button>
-              <i
-                className="fa-solid fa-circle-xmark"
-                onClick={() => {
-                  setOpenDialogProfile(!openDialogProfile);
-                }}
-              ></i>
-            </div>
-            <div className="content-Profile">
-              <div className="card-profile">
-                <div className="wrap-card-profile">
-                  <img src={dialogData?.image} alt="profile" />
-                  <div className="text-all">
-                    <div className="text-column-number">
-                      <div className="text-number">
-                        <h4>เลขที่</h4>
-                        <Controller
-                          name="number"
-                          control={control}
-                          render={({ field }) => {
-                            return (
-                              <input
-                                {...field}
-                                type="text"
-                                value={dialogData?.number}
-                              />
-                            );
-                          }}
-                        />
-                      </div>
-                      <div className="text-branch">
-                        <h4>สาขา</h4>
-                        <p>ลาดกระบัง</p>
-                      </div>
-                    </div>
-                    <div className="text-column-volume">
-                      <div className="text-volume">
-                        <h4>เล่มที่</h4>
-                        <Controller
-                          name="receiptBookNo"
-                          control={control}
-                          render={({ field }) => {
-                            return (
-                              <input
-                                {...field}
-                                type="text"
-                                value={dialogData?.receiptBookNo}
-                              />
-                            );
-                          }}
-                        />
-                      </div>
-                      <div className="guadrantee">
-                        <div className="text-guadrantee-typeProduct">
-                          <h4>ประกันสินค้า</h4>
-                          <Controller
-                            name="product._id"
-                            control={control}
-                            render={({ field }) => {
-                              return (
-                                <input
-                                  {...field}
-                                  type="text"
-                                  value={dialogData?.product.name}
-                                />
-                              );
-                            }}
-                          />
-                        </div>
-                        <div className="text-guadrantee">
-                          <Controller
-                            name="price"
-                            control={control}
-                            render={({ field }) => {
-                              return (
-                                <input
-                                  {...field}
-                                  type="text"
-                                  value={dialogData?.price}
-                                />
-                              );
-                            }}
-                          />
-                        </div>
-                      </div>
-                    </div>
-                    <div className="text-column-date">
-                      <div className="text-date">
-                        <h4>วันที่</h4>
-                        <Controller
-                          name="bookDate"
-                          control={control}
-                          render={({ field }) => {
-                            return (
-                              <input
-                                {...field}
-                                type="date"
-                                value={dialogData?.bookDate}
-                              />
-                            );
-                          }}
-                        />
-                      </div>
-                      <div className="text-car">
-                        <h4>รถยนต์</h4>
-                        <Controller
-                          name="carType"
-                          control={control}
-                          render={({ field }) => {
-                            return (
-                              <input
-                                {...field}
-                                type="text"
-                                value={dialogData?.carType}
-                              />
-                            );
-                          }}
-                        />
-                        <Controller
-                          name="carModel"
-                          control={control}
-                          render={({ field }) => {
-                            return (
-                              <input
-                                {...field}
-                                type="text"
-                                value={dialogData?.carModel}
-                              />
-                            );
-                          }}
-                        />
-                      </div>
-                    </div>
-                    <div className="text-column-name">
-                      <div className="text-name">
-                        <h4>ชื่อ</h4>
-                        <Controller
-                          name="name"
-                          control={control}
-                          render={({ field }) => {
-                            return (
-                              <input
-                                {...field}
-                                type="text"
-                                value={dialogData?.name}
-                              />
-                            );
-                          }}
-                        />
-                      </div>
-                      <div className="text-register">
-                        <h4>ทะเบียน</h4>
-                        <Controller
-                          name="licensePlate"
-                          control={control}
-                          render={({ field }) => {
-                            return (
-                              <input
-                                {...field}
-                                type="text"
-                                value={dialogData?.licensePlate}
-                              />
-                            );
-                          }}
-                        />
-                      </div>
-                    </div>
-                    <div className="text-tel">
-                      <h4>เบอร์</h4>
-                      <Controller
-                        name="tel"
-                        control={control}
-                        render={({ field }) => {
-                          return (
-                            <input
-                              {...field}
-                              type="text"
-                              value={dialogData?.tel}
-                            />
-                          );
-                        }}
-                      />
-                    </div>
-                  </div>
-                </div>
-                <hr />
-                <div className="guarante-date">
-                  <table>
-                    <thead>
-                      <tr>
-                        <th>ครั้งที่</th>
-                        <th>วันที่เข้ารับบริการ</th>
-                        <th>คาน</th>
-                        <th>ซุ้มล้อ</th>
-                        <th>ปีกนก</th>
-                        <th>แชสซี่ส์</th>
-                        <th>ใต้ท้อง</th>
-                      </tr>
-                    </thead>
+  // const rederEditProfile = () => (
+  //   <dialog open={openDialogProfile}>
+  //     <div className="container-Edit-Profile">
+  //       <div className="wrap-container-Edit-Profile">
+  //         <form onSubmit={handleSubmit(submitProfile)}>
+  //           <div className="container-Edit-Profile-Navbar">
+  //             <button type="submit">
+  //               <h3>บันทึก</h3>
+  //             </button>
+  //             <i
+  //               className="fa-solid fa-circle-xmark"
+  //               onClick={() => {
+  //                 setOpenDialogProfile(!openDialogProfile);
+  //               }}
+  //             ></i>
+  //           </div>
+  //           <div className="content-Profile">
+  //             <div className="card-profile">
+  //               <div className="wrap-card-profile">
+  //                 <img src={dialogData?.image} alt="profile" />
+  //                 <div className="text-all">
+  //                   <div className="text-column-number">
+  //                     <div className="text-number">
+  //                       <h4>เลขที่</h4>
+  //                       <Controller
+  //                         name="number"
+  //                         control={control}
+  //                         render={({ field }) => {
+  //                           return (
+  //                             <input
+  //                               {...field}
+  //                               type="text"
+  //                               value={dialogData?.number}
+  //                             />
+  //                           );
+  //                         }}
+  //                       />
+  //                     </div>
+  //                     <div className="text-branch">
+  //                       <h4>สาขา</h4>
+  //                       <p>ลาดกระบัง</p>
+  //                     </div>
+  //                   </div>
+  //                   <div className="text-column-volume">
+  //                     <div className="text-volume">
+  //                       <h4>เล่มที่</h4>
+  //                       <Controller
+  //                         name="receiptBookNo"
+  //                         control={control}
+  //                         render={({ field }) => {
+  //                           return (
+  //                             <input
+  //                               {...field}
+  //                               type="text"
+  //                               value={dialogData?.receiptBookNo}
+  //                             />
+  //                           );
+  //                         }}
+  //                       />
+  //                     </div>
+  //                     <div className="guadrantee">
+  //                       <div className="text-guadrantee-typeProduct">
+  //                         <h4>ประกันสินค้า</h4>
+  //                         <Controller
+  //                           name="product._id"
+  //                           control={control}
+  //                           render={({ field }) => {
+  //                             return (
+  //                               <input
+  //                                 {...field}
+  //                                 type="text"
+  //                                 value={dialogData?.product.name}
+  //                               />
+  //                             );
+  //                           }}
+  //                         />
+  //                       </div>
+  //                       <div className="text-guadrantee">
+  //                         <Controller
+  //                           name="price"
+  //                           control={control}
+  //                           render={({ field }) => {
+  //                             return (
+  //                               <input
+  //                                 {...field}
+  //                                 type="text"
+  //                                 value={dialogData?.price}
+  //                               />
+  //                             );
+  //                           }}
+  //                         />
+  //                       </div>
+  //                     </div>
+  //                   </div>
+  //                   <div className="text-column-date">
+  //                     <div className="text-date">
+  //                       <h4>วันที่</h4>
+  //                       <Controller
+  //                         name="bookDate"
+  //                         control={control}
+  //                         render={({ field }) => {
+  //                           return (
+  //                             <input
+  //                               {...field}
+  //                               type="date"
+  //                               value={dialogData?.bookDate}
+  //                             />
+  //                           );
+  //                         }}
+  //                       />
+  //                     </div>
+  //                     <div className="text-car">
+  //                       <h4>รถยนต์</h4>
+  //                       <Controller
+  //                         name="carType"
+  //                         control={control}
+  //                         render={({ field }) => {
+  //                           return (
+  //                             <input
+  //                               {...field}
+  //                               type="text"
+  //                               value={dialogData?.carType}
+  //                             />
+  //                           );
+  //                         }}
+  //                       />
+  //                       <Controller
+  //                         name="carModel"
+  //                         control={control}
+  //                         render={({ field }) => {
+  //                           return (
+  //                             <input
+  //                               {...field}
+  //                               type="text"
+  //                               value={dialogData?.carModel}
+  //                             />
+  //                           );
+  //                         }}
+  //                       />
+  //                     </div>
+  //                   </div>
+  //                   <div className="text-column-name">
+  //                     <div className="text-name">
+  //                       <h4>ชื่อ</h4>
+  //                       <Controller
+  //                         name="name"
+  //                         control={control}
+  //                         render={({ field }) => {
+  //                           return (
+  //                             <input
+  //                               {...field}
+  //                               type="text"
+  //                               value={dialogData?.name}
+  //                             />
+  //                           );
+  //                         }}
+  //                       />
+  //                     </div>
+  //                     <div className="text-register">
+  //                       <h4>ทะเบียน</h4>
+  //                       <Controller
+  //                         name="licensePlate"
+  //                         control={control}
+  //                         render={({ field }) => {
+  //                           return (
+  //                             <input
+  //                               {...field}
+  //                               type="text"
+  //                               value={dialogData?.licensePlate}
+  //                             />
+  //                           );
+  //                         }}
+  //                       />
+  //                     </div>
+  //                   </div>
+  //                   <div className="text-tel">
+  //                     <h4>เบอร์</h4>
+  //                     <Controller
+  //                       name="tel"
+  //                       control={control}
+  //                       render={({ field }) => {
+  //                         return (
+  //                           <input
+  //                             {...field}
+  //                             type="text"
+  //                             value={dialogData?.tel}
+  //                           />
+  //                         );
+  //                       }}
+  //                     />
+  //                   </div>
+  //                 </div>
+  //               </div>
+  //               <hr />
+  //               <div className="guarante-date">
+  //                 <table>
+  //                   <thead>
+  //                     <tr>
+  //                       <th>ครั้งที่</th>
+  //                       <th>วันที่เข้ารับบริการ</th>
+  //                       <th>คาน</th>
+  //                       <th>ซุ้มล้อ</th>
+  //                       <th>ปีกนก</th>
+  //                       <th>แชสซี่ส์</th>
+  //                       <th>ใต้ท้อง</th>
+  //                     </tr>
+  //                   </thead>
 
-                    <tbody>
-                      {[...Array(10)].map((_, index) => (
-                        <tr key={index}>
-                          <td>{index + 1}</td>
-                          <input className="input-date" type="date" />
+  //                   <tbody>
+  //                     {[...Array(10)].map((_, index) => (
+  //                       <tr key={index}>
+  //                         <td>{index + 1}</td>
+  //                         <input className="input-date" type="date" />
 
-                          {[...Array(5)].map((_, index) => {
-                            return (
-                              <td key={index}>
-                                <input className="checkbox" type="checkbox" />
-                              </td>
-                            );
-                          })}
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
-          </form>
-        </div>
-      </div>
-    </dialog>
-  );
+  //                         {[...Array(5)].map((_, index) => {
+  //                           return (
+  //                             <td key={index}>
+  //                               <input className="checkbox" type="checkbox" />
+  //                             </td>
+  //                           );
+  //                         })}
+  //                       </tr>
+  //                     ))}
+  //                   </tbody>
+  //                 </table>
+  //               </div>
+  //             </div>
+  //           </div>
+  //         </form>
+  //       </div>
+  //     </div>
+  //   </dialog>
+  // );
 
   return (
     <div className="container-guaranteeAdmin">
@@ -413,14 +411,14 @@ const GuaranteeAdminPage = () => {
         <h1>Guarantee</h1>
       </div>
       <div className="search-guaranteeAdmin">
-        <div>{selectMenu()}</div>
-        <input
+        {/* <div>{selectMenu()}</div> */}
+        {/* <input
           type="text"
           placeholder="Search...(Name,Phone,Number,Volumer)"
           onChange={handleSearch}
-        />
+        /> */}
       </div>
-      <div className="wrap-container-guaranteeAdmin">
+      {/* <div className="wrap-container-guaranteeAdmin">
         {guaranteeData.map((item, index) => {
           const productType = item.product.productType;
           return (
@@ -471,7 +469,7 @@ const GuaranteeAdminPage = () => {
           );
         })}
       </div>
-      {rederEditProfile()}
+      {rederEditProfile()} */}
       {rederDialogConfirm()}
     </div>
   );

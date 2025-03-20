@@ -4,7 +4,6 @@ import "./BookingPageKats.css";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import "react-datepicker/dist/react-datepicker.css";
 import dayjs, { Dayjs } from "dayjs";
-import { guarantee } from "../data/MockUpGuarantee";
 import { BookingStatus, Bookings } from "../model/booking.type";
 
 const BookingPageKats = () => {
@@ -45,15 +44,15 @@ const BookingPageKats = () => {
   };
 
   const cellRender: CalendarProps<Dayjs>["cellRender"] = (current) => {
-    const bookingData = guarantee.filter((data) =>
-      dayjs(data.bookDate).isSame(current, "date")
-    );
+    // const bookingData = guarantee.filter((data) =>
+    //   dayjs(data.bookDate).isSame(current, "date")
+    // );
 
     return (
       <div className="booking">
-        {bookingData.map((data, index) => {
+        {/* {bookingData.map((data, index) => {
           return <div key={index}>{renderBookedCalendar(data)}</div>;
-        })}
+        })} */}
       </div>
     );
   };
