@@ -4,6 +4,8 @@ import { Controller, useForm } from "react-hook-form";
 import { EmployeeRole, Employees } from "../../model/employee.type";
 import { Select } from "antd";
 import { FileAddFilled } from "@ant-design/icons";
+import { useAppDispatch } from "../../stores/store";
+import { createEmployee } from "../../stores/slices/employeeSlice";
 
 const initCatagoryForm: Employees = {
   name: "",
@@ -13,16 +15,20 @@ const initCatagoryForm: Employees = {
 };
 const CreateEmployeeAdminPage = () => {
   const navigate = useNavigate();
+  const dispath = useAppDispatch();
 
   const { control, handleSubmit } = useForm({
     defaultValues: initCatagoryForm,
   });
 
-  const onSubmit = (value: Employees) => {
-    const item = {
+  const onSubmit = async (value: Employees) => {
+    const body: Employees = {
       ...value,
     };
-    console.log(item);
+
+    await dispath(createEmployee(body));
+
+    navigate("/admin/employee");
   };
 
   return (

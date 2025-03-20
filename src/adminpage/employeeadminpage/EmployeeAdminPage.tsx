@@ -1,15 +1,38 @@
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import "./EmployeeAdminPage.css";
 import { CloseCircleFilled } from "@ant-design/icons";
-import { employeeTest } from "../../data/MockUpEmployees";
 import { useNavigate } from "react-router-dom";
 import { Employees } from "../../model/employee.type";
+import { useAppDispatch } from "../../stores/store";
+import { getAllEmployees } from "../../stores/slices/employeeSlice";
+import CircleLoading from "../../shared/circleLoading";
 
 const EmployeeAdminPage = () => {
-  const [employeeData, setEmployeeData] = useState<Employees[]>(employeeTest);
+  const [employeeData, setEmployeeData] = useState<Employees[]>([]);
   const [openDialogConfirm, setOpenDialogConfirm] = useState<boolean>(false);
+  const [isEmployeeLoading, setIsEmployeeLoading] = useState<boolean>(false);
   const [userDataRef] = useState(employeeData);
   const navigate = useNavigate();
+  const dispath = useAppDispatch();
+
+  const fetchAllEmployee = useCallback(async () => {
+    try {
+      setIsEmployeeLoading(true);
+      const { data: employeesRes = [] } = await dispath(
+        getAllEmployees()
+      ).unwrap();
+
+      setEmployeeData(employeesRes);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsEmployeeLoading(false);
+    }
+  }, [dispath]);
+
+  useEffect(() => {
+    fetchAllEmployee();
+  }, [fetchAllEmployee]);
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value.toLowerCase();
@@ -114,6 +137,7 @@ const EmployeeAdminPage = () => {
         })}
       </div>
       {rederDialogConfirm()}
+      <CircleLoading open={isEmployeeLoading} />
     </div>
   );
 };
