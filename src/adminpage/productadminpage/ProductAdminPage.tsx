@@ -76,7 +76,7 @@ const ProductAdminPage = () => {
                     padding: "5px 10px",
                   }}
                 >
-                  <Typography>{productDetail.price}</Typography>
+                  <Typography>{productDetail.amount}</Typography>
                 </div>
               );
             })}

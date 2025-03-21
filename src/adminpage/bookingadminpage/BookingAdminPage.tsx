@@ -10,7 +10,10 @@ import {
 } from "@ant-design/icons";
 import { ProductType } from "../../model/product.type";
 import { useAppDispatch } from "../../stores/store";
-import { getAllBookings } from "../../stores/slices/bookingSlice";
+import {
+  deleteBookingById,
+  getAllBookings,
+} from "../../stores/slices/bookingSlice";
 import CircleLoading from "../../shared/circleLoading";
 
 const BookingAdminPage = () => {
@@ -18,11 +21,9 @@ const BookingAdminPage = () => {
   const dispath = useAppDispatch();
 
   const [bookingData, setBookingData] = useState<Bookings[]>([]);
-  const [bookingDataRef] = useState(bookingData);
+  const [selectBookingId, setSelectBookingId] = useState<string>();
   const [openDialogConfirm, setOpenDialogConfirm] = useState<boolean>(false);
   const [openDialogPay, setOpenDialogPay] = useState<boolean>(false);
-  const [selectedVolumer, setSelectedVolumer] = useState<string>("All");
-  const [searchValue, setSearchValue] = useState("");
   const [isBookingLoading, setIsBookingLoading] = useState<boolean>(false);
 
   const fetchAllBooking = useCallback(async () => {
@@ -44,77 +45,26 @@ const BookingAdminPage = () => {
     fetchAllBooking();
   }, [fetchAllBooking]);
 
-  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value.toLowerCase();
-    console.log(value);
+  const deleted = async () => {
+    try {
+      if (!selectBookingId) return;
 
-    const newValue = bookingDataRef.filter((item) => {
-      const statusVolume =
-        item.receiptBookNo === selectedVolumer || selectedVolumer === "All";
-      const valueName = item.name.toLowerCase().includes(value);
-      const valueTel = item.tel.toLowerCase().includes(value);
-      const valueNumber = item.number.toLowerCase().includes(value);
-      return statusVolume && (valueName || valueTel || valueNumber);
-    });
-    setBookingData(newValue);
-    setSearchValue(value);
-  };
+      setIsBookingLoading(true);
+      await dispath(deleteBookingById(selectBookingId)).unwrap();
 
-  const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const selectedValue = event.target.value;
-
-    if (selectedValue === "All") {
-      const newlist = bookingDataRef.filter((item) => {
-        const searchNumber = item.number.toLowerCase().includes(searchValue);
-        const searchTel = item.tel.toLowerCase().includes(searchValue);
-        const searchName = item.name.toLowerCase().includes(searchValue);
-        return searchNumber || searchTel || searchName;
-      });
-      setBookingData(newlist);
-      setSelectedVolumer("All");
-    } else if (selectedValue === "001") {
-      const newlist = bookingDataRef.filter((item) => {
-        const searchNumber = item.number.toLowerCase().includes(searchValue);
-        const searchTel = item.tel.toLowerCase().includes(searchValue);
-        const searchName = item.name.toLowerCase().includes(searchValue);
-        return (
-          item.receiptBookNo === "001" &&
-          (searchNumber || searchTel || searchName)
-        );
-      });
-      setBookingData(newlist);
-      setSelectedVolumer("001");
-    } else if (selectedValue === "002") {
-      const newlist = bookingDataRef.filter((item) => {
-        const searchNumber = item.number.toLowerCase().includes(searchValue);
-        const searchTel = item.tel.toLowerCase().includes(searchValue);
-        const searchName = item.name.toLowerCase().includes(searchValue);
-        return (
-          item.receiptBookNo === "002" &&
-          (searchNumber || searchTel || searchName)
-        );
-      });
-      setBookingData(newlist);
-      setSelectedVolumer("002");
-    } else if (selectedValue === "003") {
-      const newlist = bookingDataRef.filter((item) => {
-        const searchNumber = item.number.toLowerCase().includes(searchValue);
-        const searchTel = item.tel.toLowerCase().includes(searchValue);
-        const searchName = item.name.toLowerCase().includes(searchValue);
-        return (
-          item.receiptBookNo === "003" &&
-          (searchNumber || searchTel || searchName)
-        );
-      });
-      setBookingData(newlist);
-      setSelectedVolumer("003");
+      setOpenDialogConfirm(false);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsBookingLoading(false);
+      fetchAllBooking();
     }
   };
 
   const selectMenu = () => {
     return (
       <div className="btn-menu">
-        <select onChange={handleSelectChange}>
+        <select onChange={() => {}}>
           <option value={"All"}>All</option>
           <option value={"001"}>001</option>
           <option value={"002"}>002</option>
@@ -165,7 +115,7 @@ const BookingAdminPage = () => {
                 type="submit"
                 className="btn-submit-dialogConfirm"
                 onClick={() => {
-                  setOpenDialogConfirm(false);
+                  deleted();
                 }}
               >
                 ยืนยัน
@@ -189,7 +139,7 @@ const BookingAdminPage = () => {
           <input
             type="text"
             placeholder="Search...(Name,Phone,Number,Volumer)"
-            onChange={handleSearch}
+            onChange={() => {}}
           />
           <button
             className="btn-crate"
@@ -247,6 +197,7 @@ const BookingAdminPage = () => {
                       className="fa-solid fa-trash-can"
                       onClick={() => {
                         setOpenDialogConfirm(true);
+                        setSelectBookingId(item._id);
                       }}
                     ></i>
                   </div>
@@ -256,7 +207,7 @@ const BookingAdminPage = () => {
                 <p>เลขที่: {item.number}</p>
                 <p>เล่มที่: {item.receiptBookNo}</p>
                 <p>
-                  สินค้า: {item.product.name} {item.price.price}
+                  สินค้า: {item.product.name} {item.price.amount}
                 </p>
                 <p>
                   รถ: {item.carType} {item.carModel}

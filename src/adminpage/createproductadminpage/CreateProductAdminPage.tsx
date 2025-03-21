@@ -19,7 +19,7 @@ import CircleLoading from "../../shared/circleLoading";
 
 const initProductDetail: ProductDetail = {
   type: PRICE_TYPE.STANDARD,
-  price: 0,
+  amount: 0,
 };
 
 const initProductForm: Product = {
@@ -219,7 +219,7 @@ const CreateProductAdminPage = () => {
 
                   <Controller
                     control={control}
-                    name={`productDetails.${index}.price`}
+                    name={`productDetails.${index}.amount`}
                     render={({ field }) => {
                       return (
                         <input

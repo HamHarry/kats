@@ -5,8 +5,35 @@ import "react-big-calendar/lib/css/react-big-calendar.css";
 import "react-datepicker/dist/react-datepicker.css";
 import dayjs, { Dayjs } from "dayjs";
 import { BookingStatus, Bookings } from "../model/booking.type";
+import { useCallback, useEffect, useState } from "react";
+import { useAppDispatch } from "../stores/store";
+import { getAllBookings } from "../stores/slices/bookingSlice";
+import CircleLoading from "../shared/circleLoading";
 
 const BookingPageKats = () => {
+  const dispath = useAppDispatch();
+  const [bookings, setBookings] = useState<Bookings[]>([]);
+  const [isBookingLoading, setIsBookingLoading] = useState<boolean>(false);
+
+  const fetchAllBooking = useCallback(async () => {
+    try {
+      setIsBookingLoading(true);
+      const { data: bookingsRes = [] } = await dispath(
+        getAllBookings()
+      ).unwrap();
+
+      setBookings(bookingsRes);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsBookingLoading(false);
+    }
+  }, [dispath]);
+
+  useEffect(() => {
+    fetchAllBooking();
+  }, [fetchAllBooking]);
+
   const getStatus = (status: BookingStatus) => {
     switch (status) {
       case BookingStatus.PENDING:
@@ -44,15 +71,15 @@ const BookingPageKats = () => {
   };
 
   const cellRender: CalendarProps<Dayjs>["cellRender"] = (current) => {
-    // const bookingData = guarantee.filter((data) =>
-    //   dayjs(data.bookDate).isSame(current, "date")
-    // );
+    const bookingData = bookings.filter((data) =>
+      dayjs(data.bookDate).isSame(current, "date")
+    );
 
     return (
       <div className="booking">
-        {/* {bookingData.map((data, index) => {
+        {bookingData.map((data, index) => {
           return <div key={index}>{renderBookedCalendar(data)}</div>;
-        })} */}
+        })}
       </div>
     );
   };
@@ -67,6 +94,8 @@ const BookingPageKats = () => {
       <div className="wrap-calendar">
         <Calendar cellRender={cellRender} />
       </div>
+
+      <CircleLoading open={isBookingLoading} />
     </div>
   );
 };

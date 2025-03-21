@@ -335,10 +335,10 @@ const CreateBookingAdminPage = () => {
                       placeholder="เลือกราคา"
                       value={field.value || undefined}
                       disabled={priceData.length === 0}
-                      options={priceData.map((item: any, index) => ({
+                      options={priceData.map((item, index) => ({
                         label: `${
                           item.type === PRICE_TYPE.LUXURY ? "luxury" : ""
-                        } ${item.price} Baht`,
+                        } ${item.amount} Baht`,
                         value: index,
                       }))}
                     />

@@ -16,3 +16,11 @@ export const getAllBookings = async (): Promise<any> => {
 
   return response;
 };
+
+export const deleteBookingById = async (bookingId: string): Promise<any> => {
+  const response = await axios.delete(
+    `${import.meta.env.VITE_BASE_SERVER_URL}/bookings/${bookingId}`
+  );
+
+  return response;
+};

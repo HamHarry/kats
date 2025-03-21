@@ -16,7 +16,7 @@ export interface Catagory {
 
 export interface ProductDetail {
   type: PRICE_TYPE;
-  price: number;
+  amount: number;
 }
 
 export interface Product {

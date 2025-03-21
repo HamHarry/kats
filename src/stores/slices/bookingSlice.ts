@@ -26,4 +26,12 @@ export const getAllBookings = createAsyncThunk(
   }
 );
 
+export const deleteBookingById = createAsyncThunk(
+  "booking/DeleteById",
+  async (bookingId: string): Promise<any> => {
+    const response = await bookingServices.deleteBookingById(bookingId);
+    return response;
+  }
+);
+
 export default bookingSlice.reducer;
