@@ -99,9 +99,9 @@ const BookingAdminPage = () => {
   const rederDialogConfirm = () => {
     return (
       <dialog open={openDialogConfirm}>
-        <div className="container-DialogConfirm">
-          <div className="wrap-container-DialogConfirm">
-            <div className="container-DialogConfirm-Navbar">
+        <div className="container-DialogConfirmDelete">
+          <div className="wrap-container-DialogConfirmDelete">
+            <div className="container-DialogConfirmDelete-Navbar">
               <CloseCircleFilled
                 className="icon-close"
                 onClick={() => {
@@ -110,17 +110,17 @@ const BookingAdminPage = () => {
               />
             </div>
             <h1>ยืนยันการลบ</h1>
-            <div className="btn-DialogConfirm-Navbar">
+            <div className="btn-DialogConfirmDelete-Navbar">
               <button
                 type="submit"
-                className="btn-submit-dialogConfirm"
+                className="btn-submit-dialogConfirmDelete"
                 onClick={() => {
                   deleted();
                 }}
               >
                 ยืนยัน
               </button>
-              <button className="btn-edit-dialogConfirm">ยกเลิก</button>
+              <button className="btn-edit-dialogConfirmDelete">ยกเลิก</button>
             </div>
           </div>
         </div>
@@ -212,7 +212,10 @@ const BookingAdminPage = () => {
                 <p>
                   รถ: {item.carType} {item.carModel}
                 </p>
-                <p>ทะเบียน: {item.licensePlate}</p>
+                <div className="licensePlate-approve">
+                  <p>ทะเบียน: {item.licensePlate}</p>
+                  <button className="btn-approve">อนุมัติ</button>
+                </div>
               </div>
             </div>
           );
