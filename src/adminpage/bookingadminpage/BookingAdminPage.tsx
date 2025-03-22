@@ -25,6 +25,7 @@ const BookingAdminPage = () => {
   const [bookingData, setBookingData] = useState<Bookings[]>([]);
   const [selectBookingId, setSelectBookingId] = useState<string>();
   const [selectDataBooking, setSelectDataBooking] = useState<Bookings>();
+  const [selectImagePay, setSelectImagePay] = useState<string>();
   const [openDialogConfirmDelete, setOpenDialogConfirmDelete] =
     useState<boolean>(false);
   const [openDialogConfirmApprove, setOpenDialogConfirmApprove] =
@@ -80,6 +81,14 @@ const BookingAdminPage = () => {
         console.log(data);
 
         await dispath(approveBookingById(data)).unwrap();
+      } else if (selectDataBooking.status === 1) {
+        const data: Bookings = {
+          ...selectDataBooking,
+          status: BookingStatus.COMPLETED,
+        };
+        console.log(data);
+
+        await dispath(approveBookingById(data)).unwrap();
       }
     } catch (error) {
       console.log(error);
@@ -114,7 +123,7 @@ const BookingAdminPage = () => {
         onCancel={() => setOpenDialogPay(false)}
       >
         <div className="ImagePay">
-          <img src="/public/assets/pay/TestPay.jpg" alt="pay" />
+          <img src={selectImagePay} alt="" />
         </div>
       </Modal>
     );
@@ -220,7 +229,14 @@ const BookingAdminPage = () => {
               }}
             >
               <div className="BookingAdmin-image">
-                <img src={item.image} alt="Image" />
+                <img
+                  src={
+                    item.product.name === "KATS Coating"
+                      ? "/public/assets/logokats.jpg"
+                      : "/public/assets/logoGun.jpg"
+                  }
+                  alt="Image"
+                />
               </div>
               <div className="BookingAdmin-content">
                 <div className="text-p">
@@ -238,6 +254,7 @@ const BookingAdminPage = () => {
                     <PayCircleFilled
                       className="icon-pay"
                       onClick={() => {
+                        setSelectImagePay(item.image);
                         setOpenDialogPay(true);
                       }}
                     />
@@ -268,12 +285,17 @@ const BookingAdminPage = () => {
                 <p>
                   รถ: {item.carType} {item.carModel}
                 </p>
-                <div className="licensePlate-approve">
+                <div
+                  className={
+                    item.status === BookingStatus.COMPLETED
+                      ? "licensePlate-approve-none"
+                      : "licensePlate-approve"
+                  }
+                >
                   <p>
                     ทะเบียน: {item.licensePlate} {item.province}
                   </p>
                   <button
-                    className="btn-approve"
                     onClick={() => {
                       setOpenDialogConfirmApprove(true);
                       setSelectDataBooking(item);
