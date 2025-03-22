@@ -295,17 +295,16 @@ const BookingAdminPage = () => {
                 <p>
                   รถ: {item.carType} {item.carModel}
                 </p>
-                <div
-                  className={
-                    item.status === BookingStatus.COMPLETED
-                      ? "licensePlate-approve-none"
-                      : "licensePlate-approve"
-                  }
-                >
+                <div className="licensePlate-approve">
                   <p>
                     ทะเบียน: {item.licensePlate} {item.province}
                   </p>
                   <button
+                    className={
+                      item.status === BookingStatus.COMPLETED
+                        ? "btn-approve-none"
+                        : "btn-approve"
+                    }
                     onClick={() => {
                       setOpenDialogConfirmApprove(true);
                       setSelectDataBooking(item);

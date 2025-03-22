@@ -150,7 +150,7 @@
     .licensePlate-approve {
       display: flex;
       justify-content: space-between;
-      button {
+      .btn-approve {
         padding: 0px 10px;
         border-radius: 10px;
         background-color: white;
@@ -159,9 +159,9 @@
         cursor: pointer;
         color: black;
       }
-    }
-    .licensePlate-approve-none {
-      display: none;
+      .btn-approve-none {
+        display: none;
+      }
     }
   }
 }
