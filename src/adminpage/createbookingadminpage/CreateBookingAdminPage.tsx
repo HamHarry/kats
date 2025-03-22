@@ -31,6 +31,7 @@ const defaultValues: BookingForm = {
   image: "",
   price: 0,
   status: BookingStatus.PENDING,
+  province: "",
 };
 
 const bookingTimeList = [
@@ -275,18 +276,34 @@ const CreateBookingAdminPage = () => {
               }}
             />
           </div>
-          <Controller
-            name="licensePlate"
-            control={control}
-            render={({ field }) => {
-              return (
-                <div className="inputRegister">
-                  <h2>ทะเบียน</h2>
-                  <input {...field} type="text" />
-                </div>
-              );
-            }}
-          />
+          <div className="input-licensePlate">
+            <Controller
+              name="licensePlate"
+              control={control}
+              render={({ field }) => {
+                return (
+                  <div className="inputRegister">
+                    <h2>ทะเบียน</h2>
+                    <input {...field} type="text" />
+                  </div>
+                );
+              }}
+            />
+
+            <Controller
+              name="province"
+              control={control}
+              render={({ field }) => {
+                return (
+                  <div className="inputProvince">
+                    <h2>จังหวัด</h2>
+                    <input {...field} type="text" />
+                  </div>
+                );
+              }}
+            />
+          </div>
+
           <div className="input-product">
             <Controller
               name="product"

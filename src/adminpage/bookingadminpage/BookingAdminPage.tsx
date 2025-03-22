@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import "./BookingAdminPage.css";
 import { useNavigate } from "react-router-dom";
-import { Bookings } from "../../model/booking.type";
+import { Bookings, BookingStatus } from "../../model/booking.type";
 import {
   CheckCircleFilled,
   ClockCircleFilled,
@@ -11,6 +11,7 @@ import {
 import { ProductType } from "../../model/product.type";
 import { useAppDispatch } from "../../stores/store";
 import {
+  approveBookingById,
   deleteBookingById,
   getAllBookings,
 } from "../../stores/slices/bookingSlice";
@@ -22,7 +23,11 @@ const BookingAdminPage = () => {
 
   const [bookingData, setBookingData] = useState<Bookings[]>([]);
   const [selectBookingId, setSelectBookingId] = useState<string>();
-  const [openDialogConfirm, setOpenDialogConfirm] = useState<boolean>(false);
+  const [selectDataBooking, setSelectDataBooking] = useState<Bookings>();
+  const [openDialogConfirmDelete, setOpenDialogConfirmDelete] =
+    useState<boolean>(false);
+  const [openDialogConfirmApprove, setOpenDialogConfirmApprove] =
+    useState<boolean>(false);
   const [openDialogPay, setOpenDialogPay] = useState<boolean>(false);
   const [isBookingLoading, setIsBookingLoading] = useState<boolean>(false);
 
@@ -52,7 +57,29 @@ const BookingAdminPage = () => {
       setIsBookingLoading(true);
       await dispath(deleteBookingById(selectBookingId)).unwrap();
 
-      setOpenDialogConfirm(false);
+      setOpenDialogConfirmDelete(false);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsBookingLoading(false);
+      fetchAllBooking();
+    }
+  };
+
+  const approved = async () => {
+    try {
+      setIsBookingLoading(true);
+      if (!selectDataBooking?._id) return;
+
+      if (selectDataBooking.status === 0) {
+        const data: Bookings = {
+          ...selectDataBooking,
+          status: BookingStatus.PAID,
+        };
+        console.log(data);
+
+        await dispath(approveBookingById(data)).unwrap();
+      }
     } catch (error) {
       console.log(error);
     } finally {
@@ -96,16 +123,16 @@ const BookingAdminPage = () => {
     );
   };
 
-  const rederDialogConfirm = () => {
+  const rederDialogConfirmDelete = () => {
     return (
-      <dialog open={openDialogConfirm}>
+      <dialog open={openDialogConfirmDelete}>
         <div className="container-DialogConfirmDelete">
           <div className="wrap-container-DialogConfirmDelete">
             <div className="container-DialogConfirmDelete-Navbar">
               <CloseCircleFilled
                 className="icon-close"
                 onClick={() => {
-                  setOpenDialogConfirm(false);
+                  setOpenDialogConfirmDelete(false);
                 }}
               />
             </div>
@@ -120,7 +147,53 @@ const BookingAdminPage = () => {
               >
                 ยืนยัน
               </button>
-              <button className="btn-edit-dialogConfirmDelete">ยกเลิก</button>
+              <button
+                className="btn-edit-dialogConfirmDelete"
+                onClick={() => {
+                  setOpenDialogConfirmDelete(false);
+                }}
+              >
+                ยกเลิก
+              </button>
+            </div>
+          </div>
+        </div>
+      </dialog>
+    );
+  };
+
+  const rederDialogConfirmApprove = () => {
+    return (
+      <dialog open={openDialogConfirmApprove}>
+        <div className="container-DialogConfirmApprove">
+          <div className="wrap-container-DialogConfirmApprove">
+            <div className="container-DialogConfirmApprove-Navbar">
+              <CloseCircleFilled
+                className="icon-close"
+                onClick={() => {
+                  setOpenDialogConfirmApprove(false);
+                }}
+              />
+            </div>
+            <h1>ยืนยันการอนุมัติ</h1>
+            <div className="btn-DialogConfirmApprove-Navbar">
+              <button
+                type="submit"
+                className="btn-submit-DialogConfirmApprove"
+                onClick={() => {
+                  approved();
+                }}
+              >
+                ยืนยัน
+              </button>
+              <button
+                className="btn-edit-DialogConfirmApprove"
+                onClick={() => {
+                  setOpenDialogConfirmApprove(false);
+                }}
+              >
+                ยกเลิก
+              </button>
             </div>
           </div>
         </div>
@@ -196,7 +269,7 @@ const BookingAdminPage = () => {
                     <i
                       className="fa-solid fa-trash-can"
                       onClick={() => {
-                        setOpenDialogConfirm(true);
+                        setOpenDialogConfirmDelete(true);
                         setSelectBookingId(item._id);
                       }}
                     ></i>
@@ -213,15 +286,26 @@ const BookingAdminPage = () => {
                   รถ: {item.carType} {item.carModel}
                 </p>
                 <div className="licensePlate-approve">
-                  <p>ทะเบียน: {item.licensePlate}</p>
-                  <button className="btn-approve">อนุมัติ</button>
+                  <p>
+                    ทะเบียน: {item.licensePlate} {item.province}
+                  </p>
+                  <button
+                    className="btn-approve"
+                    onClick={() => {
+                      setOpenDialogConfirmApprove(true);
+                      setSelectDataBooking(item);
+                    }}
+                  >
+                    อนุมัติ
+                  </button>
                 </div>
               </div>
             </div>
           );
         })}
       </div>
-      {rederDialogConfirm()}
+      {rederDialogConfirmDelete()}
+      {rederDialogConfirmApprove()}
       {renderDialogPay()}
       <CircleLoading open={isBookingLoading} />
     </div>

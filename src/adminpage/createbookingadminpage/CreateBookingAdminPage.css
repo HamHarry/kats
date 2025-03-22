@@ -198,18 +198,36 @@
     }
   }
 
-  .inputRegister {
+  .input-licensePlate {
     display: flex;
-    align-items: center;
-    gap: 65px;
-    margin-left: 20px;
-    margin-top: 20px;
-    input {
-      padding: 5px;
-      width: 250px;
-      height: 30px;
-      border-radius: 20px;
-      border: 2px solid #2656a2;
+    gap: 20px;
+    .inputRegister {
+      display: flex;
+      align-items: center;
+      gap: 65px;
+      margin-left: 20px;
+      margin-top: 20px;
+      input {
+        padding: 5px;
+        width: 250px;
+        height: 30px;
+        border-radius: 20px;
+        border: 2px solid #2656a2;
+      }
+    }
+    .inputProvince {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin-left: 20px;
+      margin-top: 20px;
+      input {
+        padding: 5px;
+        width: 250px;
+        height: 30px;
+        border-radius: 20px;
+        border: 2px solid #2656a2;
+      }
     }
   }
   .input-product {

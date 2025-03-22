@@ -17,6 +17,7 @@ export interface Bookings {
   carType: string;
   carModel: string;
   licensePlate: string;
+  province: string;
   status: BookingStatus;
   product: Product;
   price: ProductDetail;

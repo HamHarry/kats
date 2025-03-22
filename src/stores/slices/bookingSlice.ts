@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import * as bookingServices from "../../services/bookingService";
+import { Bookings } from "../../model/booking.type";
 
 const initialState: any = {};
 
@@ -22,6 +23,14 @@ export const getAllBookings = createAsyncThunk(
   "booking/get/all",
   async (): Promise<any> => {
     const response = await bookingServices.getAllBookings();
+    return response;
+  }
+);
+
+export const approveBookingById = createAsyncThunk(
+  "booking/ApproveById",
+  async (data: Bookings): Promise<any> => {
+    const response = await bookingServices.approveBookingById(data);
     return response;
   }
 );
