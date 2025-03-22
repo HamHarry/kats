@@ -290,7 +290,7 @@ const BookingAdminPage = () => {
                 <p>เลขที่: {item.number}</p>
                 <p>เล่มที่: {item.receiptBookNo}</p>
                 <p>
-                  สินค้า: {item.product.name} {item.price.amount}
+                  สินค้า: {item.product.name} {item.price.amount} บาท
                 </p>
                 <p>
                   รถ: {item.carType} {item.carModel}
