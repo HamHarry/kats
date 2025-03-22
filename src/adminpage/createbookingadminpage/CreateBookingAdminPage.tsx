@@ -1,11 +1,11 @@
 import { Controller, useForm } from "react-hook-form";
 import "./CreateBookingAdminPage.css";
-import { useCallback, useEffect, useState } from "react";
-import { DatePicker, Select } from "antd";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { DatePicker, Modal, Select } from "antd";
 import { PRICE_TYPE, Product, ProductDetail } from "../../model/product.type";
 import { BookingStatus, Bookings } from "../../model/booking.type";
 import { useNavigate, useParams } from "react-router-dom";
-import { CloseCircleFilled, FileAddFilled } from "@ant-design/icons";
+import { FileAddFilled } from "@ant-design/icons";
 import { useAppDispatch } from "../../stores/store";
 import { getAllProducts } from "../../stores/slices/productSlice";
 import dayjs from "dayjs";
@@ -49,6 +49,8 @@ const CreateBookingAdminPage = () => {
   const navigate = useNavigate();
   const { bookingId } = useParams();
 
+  const formRef = useRef<any>(null);
+
   const [priceData, setPriceData] = useState<ProductDetail[]>([]);
   const [productDatas, setProductDatas] = useState<Product[]>([]);
   const [timeData] = useState(bookingTimeList);
@@ -82,9 +84,11 @@ const CreateBookingAdminPage = () => {
     try {
       setOpenDialogConfirm(false);
 
+      console.log(value);
+
       const item = {
         ...value,
-        bookDate: dayjs(value.bookDate).toISOString(),
+        bookDate: value.bookDate ? dayjs(value.bookDate).toISOString() : "",
         price: priceData[value.price],
       };
 
@@ -93,45 +97,39 @@ const CreateBookingAdminPage = () => {
         console.log(item);
       } else {
         // สร้าง
-        await dispath(createBooking(item));
+        await dispath(createBooking(item)).unwrap();
+
+        navigate("/admin/booking");
       }
     } catch (error) {
       console.log(error);
-    } finally {
-      navigate("/admin/booking");
     }
   };
 
   const rederDialogConfirm = () => {
     return (
-      <dialog open={openDialogConfirm}>
-        <div className="container-DialogConfirm">
-          <div className="wrap-container-DialogConfirm">
-            <div className="container-DialogConfirm-Navbar">
-              <CloseCircleFilled
-                className="icon-close"
-                onClick={() => {
-                  setOpenDialogConfirm(false);
-                }}
-              />
-            </div>
-            <h1>ยืนยันการจอง</h1>
-            <div className="btn-DialogConfirm-Navbar">
-              <button type="submit" className="btn-submit-dialogConfirm">
-                ยืนยัน
-              </button>
-              <button
-                className="btn-edit-dialogConfirm"
-                onClick={() => {
-                  setOpenDialogConfirm(false); //ส่งข้อมูล
-                }}
-              >
-                ยกเลิก
-              </button>
-            </div>
-          </div>
+      <Modal
+        centered
+        className="wrap-container-DialogConfirm"
+        open={openDialogConfirm}
+        onCancel={() => setOpenDialogConfirm(false)}
+      >
+        <h1>ยืนยันการจอง</h1>
+
+        <div className="btn-DialogConfirm-Navbar">
+          <button onClick={() => formRef.current?.requestSubmit()}>
+            ยืนยัน
+          </button>
+          <button
+            className="btn-edit-dialogConfirm"
+            onClick={() => {
+              setOpenDialogConfirm(false);
+            }}
+          >
+            ยกเลิก
+          </button>
         </div>
-      </dialog>
+      </Modal>
     );
   };
 
@@ -140,7 +138,7 @@ const CreateBookingAdminPage = () => {
       <div className="header-CreateAdmin">
         <h1>Create Booking</h1>
       </div>
-      <form onSubmit={handleSubmit(submit)}>
+      <form onSubmit={handleSubmit(submit)} ref={formRef}>
         <div className="btn-back">
           <button
             type="button"

@@ -166,46 +166,102 @@
   overflow-y: auto;
 }
 
-.container-DialogPay {
-  background-color: rgba(0, 0, 0, 0.4);
-  position: fixed;
-  top: 0px;
-  left: 300px;
-  width: 100%;
-  height: 100%;
-  z-index: 200;
-  .wrap-container-DialogPay {
-    position: fixed;
-    top: 50%;
-    left: 57.85%;
-    transform: translate(-50%, -50%);
-    min-width: 800px;
-    height: 800px;
+.wrap-container-DialogPay {
+  min-width: 800px;
+  height: 800px;
+  border-radius: 20px;
+  .ant-modal-content {
     background-color: #2656a2;
+  }
+  .ImagePay {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    img {
+      height: 700px;
+      border-radius: 20px;
+    }
+  }
+  .ant-modal-footer {
+    display: none;
+  }
+}
+
+.wrap-container-DialogDelete {
+  width: 350px;
+  height: 300px;
+  .ant-modal-content {
+    background-color: white;
+    border: 5px solid #2656a2;
     border-radius: 20px;
-    .container-DialogPay-Navbar {
-      display: flex;
-      justify-content: end;
-      margin: 20px;
-      .icon-close {
-        font-size: 30px;
-        cursor: pointer;
-        color: #ffffff;
-        transition: all 0.5s;
-      }
-      .icon-close:hover {
-        color: red;
-        transition: all 0.5s;
-      }
+  }
+  h1 {
+    text-align: center;
+    font-size: 50px;
+    color: #2656a2;
+  }
+  .btn-DialogDelete-Navbar {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+    gap: 20px;
+    button {
+      padding: 10px 20px;
+      border-radius: 20px;
+      background-color: #2656a2;
+      color: white;
+      font-size: 20px;
+      border: none;
+      cursor: pointer;
     }
-    .ImagePay {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      img {
-        height: 700px;
-      }
+    button:hover {
+      background-color: #1a3b7f;
+      text-shadow: 0 0 10px rgba(255, 255, 255, 0.8),
+        0 0 20px rgba(255, 255, 255, 0.6), 0 0 30px rgba(255, 255, 255, 0.4);
+      transition: all 0.5s;
     }
+  }
+  .ant-modal-footer {
+    display: none;
+  }
+}
+
+.wrap-container-DialogApprove {
+  width: 350px;
+  height: 300px;
+  .ant-modal-content {
+    background-color: white;
+    border: 5px solid #2656a2;
+    border-radius: 20px;
+  }
+  h1 {
+    text-align: center;
+    font-size: 50px;
+    color: #2656a2;
+  }
+  .btn-DialogApprove-Navbar {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+    gap: 20px;
+    button {
+      padding: 10px 20px;
+      border-radius: 20px;
+      background-color: #2656a2;
+      color: white;
+      font-size: 20px;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #1a3b7f;
+      text-shadow: 0 0 10px rgba(255, 255, 255, 0.8),
+        0 0 20px rgba(255, 255, 255, 0.6), 0 0 30px rgba(255, 255, 255, 0.4);
+      transition: all 0.5s;
+    }
+  }
+  .ant-modal-footer {
+    display: none;
   }
 }
 
@@ -559,134 +615,6 @@
           }
         }
       }
-    }
-  }
-}
-
-.container-DialogConfirmDelete {
-  background-color: rgba(0, 0, 0, 0.4);
-  position: fixed;
-  top: 0px;
-  left: 300px;
-  width: 100%;
-  height: 100%;
-  z-index: 200;
-  .wrap-container-DialogConfirmDelete {
-    position: fixed;
-    top: 50%;
-    left: 55%;
-    transform: translate(-50%, -50%);
-    background-color: white;
-    border: 5px solid #2656a2;
-    border-radius: 20px;
-    width: 350px;
-    height: 300px;
-    .container-DialogConfirmDelete-Navbar {
-      display: flex;
-      justify-content: end;
-      margin-top: 20px;
-      margin-right: 10px;
-      .icon-close {
-        cursor: pointer;
-        font-size: 42px;
-        color: #2656a2;
-        transition: all 0.25s;
-      }
-      .icon-close:hover {
-        color: rgb(255, 87, 87);
-        transition: all 0.25s;
-      }
-    }
-  }
-  h1 {
-    text-align: center;
-    margin-top: 30px;
-    font-size: 50px;
-    color: #2656a2;
-  }
-  .btn-DialogConfirmDelete-Navbar {
-    display: flex;
-    justify-content: center;
-    margin-top: 30px;
-    gap: 20px;
-    button {
-      padding: 10px 20px;
-      border-radius: 20px;
-      background-color: #2656a2;
-      color: white;
-      font-size: 20px;
-      border: none;
-      cursor: pointer;
-    }
-    button:hover {
-      background-color: #1a3b7f;
-      text-shadow: 0 0 10px rgba(255, 255, 255, 0.8),
-        0 0 20px rgba(255, 255, 255, 0.6), 0 0 30px rgba(255, 255, 255, 0.4);
-      transition: all 0.5s;
-    }
-  }
-}
-
-.container-DialogConfirmApprove {
-  background-color: rgba(0, 0, 0, 0.4);
-  position: fixed;
-  top: 0px;
-  left: 300px;
-  width: 100%;
-  height: 100%;
-  z-index: 200;
-  .wrap-container-DialogConfirmApprove {
-    position: fixed;
-    top: 50%;
-    left: 55%;
-    transform: translate(-50%, -50%);
-    background-color: white;
-    border: 5px solid #2656a2;
-    border-radius: 20px;
-    width: 400px;
-    height: 300px;
-    .container-DialogConfirmApprove-Navbar {
-      display: flex;
-      justify-content: end;
-      margin-top: 20px;
-      margin-right: 10px;
-      .icon-close {
-        cursor: pointer;
-        font-size: 42px;
-        color: #2656a2;
-        transition: all 0.25s;
-      }
-      .icon-close:hover {
-        color: rgb(255, 87, 87);
-        transition: all 0.25s;
-      }
-    }
-  }
-  h1 {
-    text-align: center;
-    margin-top: 30px;
-    font-size: 50px;
-    color: #2656a2;
-  }
-  .btn-DialogConfirmApprove-Navbar {
-    display: flex;
-    justify-content: center;
-    margin-top: 30px;
-    gap: 20px;
-    button {
-      padding: 10px 20px;
-      border-radius: 20px;
-      background-color: #2656a2;
-      color: white;
-      font-size: 20px;
-      border: none;
-      cursor: pointer;
-    }
-    button:hover {
-      background-color: #1a3b7f;
-      text-shadow: 0 0 10px rgba(255, 255, 255, 0.8),
-        0 0 20px rgba(255, 255, 255, 0.6), 0 0 30px rgba(255, 255, 255, 0.4);
-      transition: all 0.5s;
     }
   }
 }

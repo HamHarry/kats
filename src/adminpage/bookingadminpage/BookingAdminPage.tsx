@@ -16,6 +16,7 @@ import {
   getAllBookings,
 } from "../../stores/slices/bookingSlice";
 import CircleLoading from "../../shared/circleLoading";
+import { Modal } from "antd";
 
 const BookingAdminPage = () => {
   const navigate = useNavigate();
@@ -103,101 +104,83 @@ const BookingAdminPage = () => {
 
   const renderDialogPay = () => {
     return (
-      <dialog open={openDialogPay}>
-        <div className="container-DialogPay">
-          <div className="wrap-container-DialogPay">
-            <div className="container-DialogPay-Navbar">
-              <CloseCircleFilled
-                className="icon-close"
-                onClick={() => {
-                  setOpenDialogPay(false);
-                }}
-              />
-            </div>
-            <div className="ImagePay">
-              <img src="/public/assets/pay/TestPay.jpg" alt="pay" />
-            </div>
-          </div>
+      <Modal
+        centered
+        className="wrap-container-DialogPay"
+        open={openDialogPay}
+        onOk={() => {
+          setOpenDialogPay(false);
+        }}
+        onCancel={() => setOpenDialogPay(false)}
+      >
+        <div className="ImagePay">
+          <img src="/public/assets/pay/TestPay.jpg" alt="pay" />
         </div>
-      </dialog>
+      </Modal>
     );
   };
 
   const rederDialogConfirmDelete = () => {
     return (
-      <dialog open={openDialogConfirmDelete}>
-        <div className="container-DialogConfirmDelete">
-          <div className="wrap-container-DialogConfirmDelete">
-            <div className="container-DialogConfirmDelete-Navbar">
-              <CloseCircleFilled
-                className="icon-close"
-                onClick={() => {
-                  setOpenDialogConfirmDelete(false);
-                }}
-              />
-            </div>
-            <h1>ยืนยันการลบ</h1>
-            <div className="btn-DialogConfirmDelete-Navbar">
-              <button
-                type="submit"
-                className="btn-submit-dialogConfirmDelete"
-                onClick={() => {
-                  deleted();
-                }}
-              >
-                ยืนยัน
-              </button>
-              <button
-                className="btn-edit-dialogConfirmDelete"
-                onClick={() => {
-                  setOpenDialogConfirmDelete(false);
-                }}
-              >
-                ยกเลิก
-              </button>
-            </div>
-          </div>
+      <Modal
+        centered
+        className="wrap-container-DialogDelete"
+        open={openDialogConfirmDelete}
+        onCancel={() => setOpenDialogConfirmDelete(false)}
+      >
+        <h1>ยืนยันการลบ</h1>
+
+        <div className="btn-DialogDelete-Navbar">
+          <button
+            type="button"
+            onClick={() => {
+              deleted();
+              setOpenDialogConfirmDelete(false);
+            }}
+          >
+            ยืนยัน
+          </button>
+          <button
+            onClick={() => {
+              setOpenDialogConfirmDelete(false);
+            }}
+          >
+            ยกเลิก
+          </button>
         </div>
-      </dialog>
+      </Modal>
     );
   };
 
   const rederDialogConfirmApprove = () => {
     return (
-      <dialog open={openDialogConfirmApprove}>
-        <div className="container-DialogConfirmApprove">
-          <div className="wrap-container-DialogConfirmApprove">
-            <div className="container-DialogConfirmApprove-Navbar">
-              <CloseCircleFilled
-                className="icon-close"
-                onClick={() => {
-                  setOpenDialogConfirmApprove(false);
-                }}
-              />
-            </div>
-            <h1>ยืนยันการอนุมัติ</h1>
-            <div className="btn-DialogConfirmApprove-Navbar">
-              <button
-                type="submit"
-                className="btn-submit-DialogConfirmApprove"
-                onClick={() => {
-                  approved();
-                }}
-              >
-                ยืนยัน
-              </button>
-              <button
-                className="btn-edit-DialogConfirmApprove"
-                onClick={() => {
-                  setOpenDialogConfirmApprove(false);
-                }}
-              >
-                ยกเลิก
-              </button>
-            </div>
-          </div>
+      <Modal
+        centered
+        className="wrap-container-DialogApprove"
+        open={openDialogConfirmApprove}
+        onCancel={() => setOpenDialogConfirmApprove(false)}
+      >
+        <h1>ยืนยันการอนุมัติ</h1>
+
+        <div className="btn-DialogApprove-Navbar">
+          <button
+            type="button"
+            onClick={() => {
+              approved();
+              setOpenDialogConfirmApprove(false);
+            }}
+          >
+            ยืนยัน
+          </button>
+          <button
+            onClick={() => {
+              setOpenDialogConfirmApprove(false);
+            }}
+          >
+            ยกเลิก
+          </button>
         </div>
-      </dialog>
+      </Modal>
     );
   };
 
