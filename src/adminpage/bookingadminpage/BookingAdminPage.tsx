@@ -17,6 +17,10 @@ import {
 } from "../../stores/slices/bookingSlice";
 import CircleLoading from "../../shared/circleLoading";
 import { Modal } from "antd";
+import dayjs from "dayjs";
+import utc from "dayjs/plugin/utc";
+
+dayjs.extend(utc);
 
 const BookingAdminPage = () => {
   const navigate = useNavigate();
@@ -219,6 +223,12 @@ const BookingAdminPage = () => {
         {bookingData.map((item, index) => {
           const productType = item.product.productType;
 
+          const formattedDate = item.bookDate
+            ? dayjs.utc(item.bookDate).local().format("D/M") +
+              "/" +
+              (dayjs.utc(item.bookDate).year() + 543)
+            : "ไม่ระบุวันที่";
+
           return (
             <div
               key={index}
@@ -240,7 +250,7 @@ const BookingAdminPage = () => {
               </div>
               <div className="BookingAdmin-content">
                 <div className="text-p">
-                  <p>วันที่: {item.bookDate}</p>
+                  <p>วันที่: {formattedDate}</p>
                   <div className="icon">
                     {item.status === 0 ? (
                       <ClockCircleFilled className="icon-check-wait" />
