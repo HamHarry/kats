@@ -16,3 +16,11 @@ export const getAllEmployees = async (): Promise<any> => {
 
   return response;
 };
+
+export const deleteEmployeeById = async (employeeId: string): Promise<any> => {
+  const response = await axios.delete(
+    `${import.meta.env.VITE_BASE_SERVER_URL}/employees/${employeeId}`
+  );
+
+  return response;
+};

@@ -28,7 +28,7 @@ export const getAllBookings = createAsyncThunk(
 );
 
 export const approveBookingById = createAsyncThunk(
-  "booking/ApproveById",
+  "booking/approveById",
   async (data: Bookings): Promise<any> => {
     const response = await bookingServices.approveBookingById(data);
     return response;
@@ -36,7 +36,7 @@ export const approveBookingById = createAsyncThunk(
 );
 
 export const deleteBookingById = createAsyncThunk(
-  "booking/DeleteById",
+  "booking/deleteById",
   async (bookingId: string): Promise<any> => {
     const response = await bookingServices.deleteBookingById(bookingId);
     return response;

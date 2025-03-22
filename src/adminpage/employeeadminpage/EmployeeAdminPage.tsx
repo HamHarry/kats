@@ -1,17 +1,21 @@
 import { useCallback, useEffect, useState } from "react";
 import "./EmployeeAdminPage.css";
-import { CloseCircleFilled } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import { Employees } from "../../model/employee.type";
 import { useAppDispatch } from "../../stores/store";
-import { getAllEmployees } from "../../stores/slices/employeeSlice";
+import {
+  deleteEmployeeById,
+  getAllEmployees,
+} from "../../stores/slices/employeeSlice";
 import CircleLoading from "../../shared/circleLoading";
+import { Modal } from "antd";
 
 const EmployeeAdminPage = () => {
   const [employeeData, setEmployeeData] = useState<Employees[]>([]);
-  const [openDialogConfirm, setOpenDialogConfirm] = useState<boolean>(false);
+  const [selectEmployeeById, setSelectEmployeeById] = useState<string>();
+  const [openDialogConfirmDelete, setOpenDialogConfirmDelete] =
+    useState<boolean>(false);
   const [isEmployeeLoading, setIsEmployeeLoading] = useState<boolean>(false);
-  const [userDataRef] = useState(employeeData);
   const navigate = useNavigate();
   const dispath = useAppDispatch();
 
@@ -34,45 +38,53 @@ const EmployeeAdminPage = () => {
     fetchAllEmployee();
   }, [fetchAllEmployee]);
 
-  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value.toLowerCase();
-    const newValue = userDataRef.filter((item) => {
-      const valueName = item.name.toLowerCase().includes(value);
-      const valuePhone = item.tel.toLowerCase().includes(value);
-      return valueName || valuePhone;
-    });
-    setEmployeeData(newValue);
+  const deleted = async () => {
+    try {
+      console.log(selectEmployeeById);
+
+      if (!selectEmployeeById) return;
+
+      setIsEmployeeLoading(true);
+      await dispath(deleteEmployeeById(selectEmployeeById)).unwrap();
+
+      setOpenDialogConfirmDelete(false);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsEmployeeLoading(false);
+      fetchAllEmployee();
+    }
   };
 
-  const rederDialogConfirm = () => {
+  const rederDialogConfirmDelete = () => {
     return (
-      <dialog open={openDialogConfirm}>
-        <div className="container-DialogConfirm">
-          <div className="wrap-container-DialogConfirm">
-            <div className="container-DialogConfirm-Navbar">
-              <CloseCircleFilled
-                className="icon-close"
-                onClick={() => {
-                  setOpenDialogConfirm(false);
-                }}
-              />
-            </div>
-            <h1>ยืนยันการลบ</h1>
-            <div className="btn-DialogConfirm-Navbar">
-              <button
-                type="submit"
-                className="btn-submit-dialogConfirm"
-                onClick={() => {
-                  setOpenDialogConfirm(false);
-                }}
-              >
-                ยืนยัน
-              </button>
-              <button className="btn-edit-dialogConfirm">ยกเลิก</button>
-            </div>
-          </div>
+      <Modal
+        centered
+        className="wrap-container-DialogDelete"
+        open={openDialogConfirmDelete}
+        onCancel={() => setOpenDialogConfirmDelete(false)}
+      >
+        <h1>ยืนยันการลบ</h1>
+
+        <div className="btn-DialogDelete-Navbar">
+          <button
+            type="button"
+            onClick={() => {
+              deleted();
+              setOpenDialogConfirmDelete(false);
+            }}
+          >
+            ยืนยัน
+          </button>
+          <button
+            onClick={() => {
+              setOpenDialogConfirmDelete(false);
+            }}
+          >
+            ยกเลิก
+          </button>
         </div>
-      </dialog>
+      </Modal>
     );
   };
 
@@ -82,7 +94,7 @@ const EmployeeAdminPage = () => {
         <h1>Employees</h1>
       </div>
       <div className="search-employee">
-        <input type="text" placeholder="Search..." onChange={handleSearch} />
+        <input type="text" placeholder="Search..." />
         <button
           onClick={() => {
             navigate("/admin/employee/create");
@@ -123,7 +135,8 @@ const EmployeeAdminPage = () => {
                       <i
                         className="fa-solid fa-trash-can"
                         onClick={() => {
-                          setOpenDialogConfirm(true);
+                          setOpenDialogConfirmDelete(true);
+                          setSelectEmployeeById(item._id);
                         }}
                       ></i>
                     </div>
@@ -136,7 +149,7 @@ const EmployeeAdminPage = () => {
           );
         })}
       </div>
-      {rederDialogConfirm()}
+      {rederDialogConfirmDelete()}
       <CircleLoading open={isEmployeeLoading} />
     </div>
   );

@@ -26,4 +26,12 @@ export const getAllEmployees = createAsyncThunk(
   }
 );
 
+export const deleteEmployeeById = createAsyncThunk(
+  "employee/deleteById",
+  async (employeeId: string): Promise<any> => {
+    const response = await employeeServices.deleteEmployeeById(employeeId);
+    return response;
+  }
+);
+
 export default employeeSlice.reducer;
