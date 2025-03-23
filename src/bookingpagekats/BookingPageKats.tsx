@@ -4,7 +4,7 @@ import "./BookingPageKats.css";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import "react-datepicker/dist/react-datepicker.css";
 import dayjs, { Dayjs } from "dayjs";
-import { BookingStatus, Bookings } from "../model/booking.type";
+import { BookingStatus, BookingData } from "../model/booking.type";
 import { useCallback, useEffect, useState } from "react";
 import { useAppDispatch } from "../stores/store";
 import { getAllBookings } from "../stores/slices/bookingSlice";
@@ -12,7 +12,7 @@ import CircleLoading from "../shared/circleLoading";
 
 const BookingPageKats = () => {
   const dispath = useAppDispatch();
-  const [bookings, setBookings] = useState<Bookings[]>([]);
+  const [bookings, setBookings] = useState<BookingData[]>([]);
   const [isBookingLoading, setIsBookingLoading] = useState<boolean>(false);
 
   const fetchAllBooking = useCallback(async () => {
@@ -50,7 +50,7 @@ const BookingPageKats = () => {
     }
   };
 
-  const renderBookedCalendar = (bookingData: Bookings) => {
+  const renderBookedCalendar = (bookingData: BookingData) => {
     const { bookTime, status, carType, carModel } = bookingData;
 
     return (

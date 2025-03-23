@@ -1,7 +1,7 @@
 import "./CalendarAdminPage.css";
 import { Badge, Calendar, CalendarProps, Typography } from "antd";
 import dayjs, { Dayjs } from "dayjs";
-import { BookingStatus, Bookings } from "../../model/booking.type";
+import { BookingStatus, BookingData } from "../../model/booking.type";
 import { useCallback, useEffect, useState } from "react";
 import { useAppDispatch } from "../../stores/store";
 import { getAllBookings } from "../../stores/slices/bookingSlice";
@@ -10,7 +10,7 @@ import CircleLoading from "../../shared/circleLoading";
 const CalendarAdminPage = () => {
   const dispath = useAppDispatch();
 
-  const [bookingData, setBookingData] = useState<Bookings[]>([]);
+  const [bookingData, setBookingData] = useState<BookingData[]>([]);
   const [isBookingLoading, setIsBookingLoading] = useState<boolean>(false);
 
   const fetchAllBooking = useCallback(async () => {
@@ -48,7 +48,7 @@ const CalendarAdminPage = () => {
     }
   };
 
-  const renderBookedCalendar = (bookingData: Bookings) => {
+  const renderBookedCalendar = (bookingData: BookingData) => {
     const { bookTime, status, carType, carModel } = bookingData;
 
     return (

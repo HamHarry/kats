@@ -3,7 +3,7 @@ import "./ProductAdminPage.css";
 import {
   Catagory,
   PRICE_TYPE,
-  Product,
+  ProductData,
   ProductDetail,
 } from "../../model/product.type";
 import { useNavigate } from "react-router-dom";
@@ -15,7 +15,7 @@ import CircleLoading from "../../shared/circleLoading";
 const ProductAdminPage = () => {
   const dispath = useAppDispatch();
   const navigate = useNavigate();
-  const [products, setProducts] = useState<Product[]>([]);
+  const [products, setProducts] = useState<ProductData[]>([]);
   const [isProductLoading, setIsProductLoading] = useState<boolean>(false);
 
   const fetchAllProduct = useCallback(async () => {

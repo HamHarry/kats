@@ -2,25 +2,35 @@ import { Controller, useForm } from "react-hook-form";
 import "./CreateBookingAdminPage.css";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { DatePicker, Modal, Select } from "antd";
-import { PRICE_TYPE, Product, ProductDetail } from "../../model/product.type";
-import { BookingStatus, Bookings } from "../../model/booking.type";
+import {
+  PRICE_TYPE,
+  ProductData,
+  ProductDetail,
+} from "../../model/product.type";
+import { BookingStatus, BookingData } from "../../model/booking.type";
 import { useNavigate, useParams } from "react-router-dom";
 import { FileAddFilled } from "@ant-design/icons";
 import { useAppDispatch } from "../../stores/store";
 import { getAllProducts } from "../../stores/slices/productSlice";
 import dayjs from "dayjs";
-import { createBooking } from "../../stores/slices/bookingSlice";
+import {
+  createBooking,
+  getBookingById,
+  updateBookingById,
+} from "../../stores/slices/bookingSlice";
 import CircleLoading from "../../shared/circleLoading";
 
-export interface BookingForm extends Omit<Bookings, "product" | "price"> {
+export interface BookingForm
+  extends Omit<BookingData, "product" | "price" | "bookDate"> {
   product: string;
   price: number;
+  bookDate: dayjs.Dayjs;
 }
 
 const defaultValues: BookingForm = {
   number: "",
   receiptBookNo: "",
-  bookDate: "",
+  bookDate: dayjs(),
   bookTime: "",
   name: "",
   carType: "",
@@ -52,14 +62,54 @@ const CreateBookingAdminPage = () => {
   const formRef = useRef<any>(null);
 
   const [priceData, setPriceData] = useState<ProductDetail[]>([]);
-  const [productDatas, setProductDatas] = useState<Product[]>([]);
+  const [productDatas, setProductDatas] = useState<ProductData[]>([]);
   const [timeData] = useState(bookingTimeList);
   const [openDialogConfirm, setOpenDialogConfirm] = useState<boolean>(false);
   const [isBookingLoading, setIsBookingLoading] = useState<boolean>(false);
 
-  const { handleSubmit, control } = useForm<BookingForm>({
+  const { handleSubmit, control, reset } = useForm<BookingForm>({
     defaultValues,
   });
+
+  const initailForm = useCallback(async () => {
+    try {
+      if (!bookingId) return;
+
+      const { data } = await dispath(getBookingById(bookingId)).unwrap();
+
+      const bookingRes = data as BookingData;
+
+      const priceIndex = bookingRes.product.productDetails.findIndex((item) => {
+        return JSON.stringify(item) === JSON.stringify(bookingRes.price);
+      });
+
+      setPriceData(bookingRes.product.productDetails || []);
+
+      const initBookingForm: BookingForm = {
+        product: bookingRes.product._id || "",
+        price: priceIndex > -1 ? priceIndex : 0,
+        number: bookingRes.number || "",
+        receiptBookNo: bookingRes.receiptBookNo || "",
+        bookDate: dayjs(bookingRes.bookDate),
+        bookTime: bookingRes.bookTime || "",
+        name: bookingRes.name || "",
+        carType: bookingRes.carType || "",
+        carModel: bookingRes.carModel || "",
+        licensePlate: bookingRes.licensePlate || "",
+        province: bookingRes.province || "",
+        status: bookingRes.status || BookingStatus.PENDING,
+        tel: bookingRes.tel || "",
+      };
+
+      reset(initBookingForm);
+    } catch (error) {
+      console.log(error);
+    }
+  }, [bookingId, dispath, reset]);
+
+  useEffect(() => {
+    initailForm();
+  }, [initailForm]);
 
   const fetchAllProduct = useCallback(async () => {
     try {
@@ -94,7 +144,14 @@ const CreateBookingAdminPage = () => {
 
       if (bookingId) {
         // แก้ไข
-        console.log(item);
+        const body = {
+          data: item,
+          bookingId,
+        };
+
+        await dispath(updateBookingById(body)).unwrap();
+
+        navigate("/admin/booking");
       } else {
         // สร้าง
         await dispath(createBooking(item)).unwrap();

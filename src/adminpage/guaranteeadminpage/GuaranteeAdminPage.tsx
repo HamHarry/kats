@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "./GuaranteeAdminPage.css";
 import { Controller, useForm } from "react-hook-form";
-import { BookingStatus, Bookings } from "../../model/booking.type";
+import { BookingStatus, BookingData } from "../../model/booking.type";
 import { ProductType } from "../../model/product.type";
 
 // const defaultValues: Bookings = {
@@ -30,12 +30,12 @@ import { ProductType } from "../../model/product.type";
 // };
 
 const GuaranteeAdminPage = () => {
-  const [guaranteeData, setGuaranteeData] = useState<Bookings[]>();
+  const [guaranteeData, setGuaranteeData] = useState<BookingData[]>();
   const [guaranteeDataRef] = useState(guaranteeData);
   const [openDialogProfile, setOpenDialogProfile] = useState<boolean>(false);
   const [openDialogConfirm, setOpenDialogConfirm] = useState<boolean>(false);
-  const [dialogData, setDialogData] = useState<Bookings>();
-  const [updateData, setUpdateData] = useState<Bookings>();
+  const [dialogData, setDialogData] = useState<BookingData>();
+  const [updateData, setUpdateData] = useState<BookingData>();
   const [selectedVolumer, setSelectedVolumer] = useState<string>("All");
   const [searchValue, setSearchValue] = useState("");
 

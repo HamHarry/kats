@@ -1,4 +1,4 @@
-import { Product, ProductDetail } from "./product.type";
+import { ProductData, ProductDetail } from "./product.type";
 
 export enum BookingStatus {
   PENDING = 0, // รอจ่ายเงิน
@@ -7,7 +7,7 @@ export enum BookingStatus {
   CANCELED = 3, // ยกเลิก
 }
 
-export interface Bookings {
+export interface BookingData {
   _id?: string;
   number: string;
   receiptBookNo: string;
@@ -19,7 +19,7 @@ export interface Bookings {
   licensePlate: string;
   province: string;
   status: BookingStatus;
-  product: Product;
+  product: ProductData;
   price: ProductDetail;
   tel: string;
   image?: string;

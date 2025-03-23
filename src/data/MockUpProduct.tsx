@@ -1,5 +1,5 @@
 import {
-  Product,
+  ProductData,
   PRICE_TYPE,
   ProductType,
   Catagory,
@@ -23,7 +23,7 @@ export const mockCategories: Catagory[] = [
   },
 ];
 
-export const mockUpProducts: Product[] = [
+export const mockUpProducts: ProductData[] = [
   {
     _id: 1,
     name: "KATS Coating",

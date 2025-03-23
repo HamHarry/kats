@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 import {
   Catagory,
   PRICE_TYPE,
-  Product,
+  ProductData,
   ProductDetail,
   ProductType,
 } from "../../model/product.type";
@@ -22,7 +22,7 @@ const initProductDetail: ProductDetail = {
   amount: 0,
 };
 
-const initProductForm: Product = {
+const initProductForm: ProductData = {
   name: "",
   catagory: {
     name: "",
@@ -69,12 +69,12 @@ const CreateProductAdminPage = () => {
     fetchCategoriesData();
   }, [fetchCategoriesData]);
 
-  const onSubmit = async (value: Product) => {
+  const onSubmit = async (value: ProductData) => {
     const findedCatagory = categories.find(
       (item) => item._id === value.catagory._id
     );
 
-    const body: Product = {
+    const body: ProductData = {
       ...value,
       catagory: findedCatagory || value.catagory,
     };

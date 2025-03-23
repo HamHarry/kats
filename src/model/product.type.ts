@@ -19,8 +19,8 @@ export interface ProductDetail {
   amount: number;
 }
 
-export interface Product {
-  _id?: number;
+export interface ProductData {
+  _id?: string;
   name: string;
   catagory: Catagory;
   productDetails: ProductDetail[];

@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import "./BookingAdminPage.css";
 import { useNavigate } from "react-router-dom";
-import { Bookings, BookingStatus } from "../../model/booking.type";
+import { BookingData, BookingStatus } from "../../model/booking.type";
 import {
   CheckCircleFilled,
   ClockCircleFilled,
@@ -18,17 +18,14 @@ import {
 import CircleLoading from "../../shared/circleLoading";
 import { Modal } from "antd";
 import dayjs from "dayjs";
-import utc from "dayjs/plugin/utc";
-
-dayjs.extend(utc);
 
 const BookingAdminPage = () => {
   const navigate = useNavigate();
   const dispath = useAppDispatch();
 
-  const [bookingData, setBookingData] = useState<Bookings[]>([]);
+  const [bookingData, setBookingData] = useState<BookingData[]>([]);
   const [selectBookingId, setSelectBookingId] = useState<string>();
-  const [selectDataBooking, setSelectDataBooking] = useState<Bookings>();
+  const [selectDataBooking, setSelectDataBooking] = useState<BookingData>();
   const [selectImagePay, setSelectImagePay] = useState<string>();
   const [openDialogConfirmDelete, setOpenDialogConfirmDelete] =
     useState<boolean>(false);
@@ -78,7 +75,7 @@ const BookingAdminPage = () => {
       if (!selectDataBooking?._id) return;
 
       if (selectDataBooking.status === 0) {
-        const data: Bookings = {
+        const data: BookingData = {
           ...selectDataBooking,
           status: BookingStatus.PAID,
         };
@@ -86,7 +83,7 @@ const BookingAdminPage = () => {
 
         await dispath(approveBookingById(data)).unwrap();
       } else if (selectDataBooking.status === 1) {
-        const data: Bookings = {
+        const data: BookingData = {
           ...selectDataBooking,
           status: BookingStatus.COMPLETED,
         };
@@ -224,10 +221,8 @@ const BookingAdminPage = () => {
           const productType = item.product.productType;
 
           const formattedDate = item.bookDate
-            ? dayjs.utc(item.bookDate).local().format("D/M") +
-              "/" +
-              (dayjs.utc(item.bookDate).year() + 543)
-            : "ไม่ระบุวันที่";
+            ? dayjs(item.bookDate).format("DD/MM/YYYY")
+            : "-";
 
           return (
             <div
