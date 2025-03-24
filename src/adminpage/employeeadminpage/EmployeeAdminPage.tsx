@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import "./EmployeeAdminPage.css";
 import { useNavigate } from "react-router-dom";
-import { Employees } from "../../model/employee.type";
+import { EmployeeData } from "../../model/employee.type";
 import { useAppDispatch } from "../../stores/store";
 import {
   deleteEmployeeById,
@@ -11,7 +11,7 @@ import CircleLoading from "../../shared/circleLoading";
 import { Modal } from "antd";
 
 const EmployeeAdminPage = () => {
-  const [employeeData, setEmployeeData] = useState<Employees[]>([]);
+  const [employeeData, setEmployeeData] = useState<EmployeeData[]>([]);
   const [selectEmployeeById, setSelectEmployeeById] = useState<string>();
   const [openDialogConfirmDelete, setOpenDialogConfirmDelete] =
     useState<boolean>(false);
@@ -126,11 +126,11 @@ const EmployeeAdminPage = () => {
                     <div className="icon">
                       <i
                         className="fa-solid fa-pen-to-square"
-                        // onClick={() => {
-                        //   if (item._id) {
-                        //     navigate(`/admin/employee/edit/${item._id}`);
-                        //   }
-                        // }}
+                        onClick={() => {
+                          if (item._id) {
+                            navigate(`/admin/employee/edit/${item._id}`);
+                          }
+                        }}
                       ></i>
                       <i
                         className="fa-solid fa-trash-can"

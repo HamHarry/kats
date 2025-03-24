@@ -26,6 +26,22 @@ export const getAllEmployees = createAsyncThunk(
   }
 );
 
+export const getEmployeeById = createAsyncThunk(
+  "Employee/get/id",
+  async (employeeId: string): Promise<any> => {
+    const response = await employeeServices.getEmployeeById(employeeId);
+    return response;
+  }
+);
+
+export const updateEmployeeById = createAsyncThunk(
+  "Employee/update/id",
+  async (body: any): Promise<any> => {
+    const response = await employeeServices.getEmployeeById(body);
+    return response;
+  }
+);
+
 export const deleteEmployeeById = createAsyncThunk(
   "employee/deleteById",
   async (employeeId: string): Promise<any> => {

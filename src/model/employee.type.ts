@@ -5,7 +5,7 @@ export enum EmployeeRole {
   SPRAYER = 3, // ช่างพ่นสี
 }
 
-export interface Employees {
+export interface EmployeeData {
   _id?: string;
   name: string;
   tel: string;

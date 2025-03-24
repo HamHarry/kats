@@ -1,13 +1,17 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import "./CreateEmployeeAdminPage.css";
 import { Controller, useForm } from "react-hook-form";
-import { EmployeeRole, Employees } from "../../model/employee.type";
+import { EmployeeRole, EmployeeData } from "../../model/employee.type";
 import { Select } from "antd";
 import { FileAddFilled } from "@ant-design/icons";
 import { useAppDispatch } from "../../stores/store";
-import { createEmployee } from "../../stores/slices/employeeSlice";
+import {
+  createEmployee,
+  getEmployeeById,
+} from "../../stores/slices/employeeSlice";
+import { useCallback, useEffect } from "react";
 
-const initCatagoryForm: Employees = {
+const initCatagoryForm: EmployeeData = {
   name: "",
   tel: "",
   staffRole: EmployeeRole.CEO,
@@ -16,13 +20,39 @@ const initCatagoryForm: Employees = {
 const CreateEmployeeAdminPage = () => {
   const navigate = useNavigate();
   const dispath = useAppDispatch();
+  const { employeeId } = useParams();
 
-  const { control, handleSubmit } = useForm({
+  const { control, handleSubmit, reset } = useForm({
     defaultValues: initCatagoryForm,
   });
 
-  const onSubmit = async (value: Employees) => {
-    const body: Employees = {
+  const initailForm = useCallback(async () => {
+    try {
+      if (!employeeId) return;
+
+      const { data } = await dispath(getEmployeeById(employeeId)).unwrap();
+
+      const employeeRes = data as EmployeeData;
+
+      const initEmployeeForm: EmployeeData = {
+        name: employeeRes.name || "",
+        tel: employeeRes.tel || "",
+        staffRole: employeeRes.staffRole || EmployeeRole.CEO,
+        image: employeeRes.image || "",
+      };
+
+      reset(initEmployeeForm);
+    } catch (error) {
+      console.log(error);
+    }
+  }, [dispath, reset, employeeId]);
+
+  useEffect(() => {
+    initailForm();
+  }, [initailForm]);
+
+  const onSubmit = async (value: EmployeeData) => {
+    const body: EmployeeData = {
       ...value,
     };
 
