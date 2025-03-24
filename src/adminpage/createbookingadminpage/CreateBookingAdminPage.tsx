@@ -76,29 +76,27 @@ const CreateBookingAdminPage = () => {
       if (!bookingId) return;
 
       const { data } = await dispath(getBookingById(bookingId)).unwrap();
-
       const bookingRes = data as BookingData;
-
       const priceIndex = bookingRes.product.productDetails.findIndex((item) => {
         return JSON.stringify(item) === JSON.stringify(bookingRes.price);
       });
 
-      setPriceData(bookingRes.product.productDetails || []);
+      setPriceData(bookingRes.product.productDetails ?? []);
 
       const initBookingForm: BookingForm = {
-        product: bookingRes.product._id || "",
+        product: bookingRes.product._id ?? "",
         price: priceIndex > -1 ? priceIndex : 0,
-        number: bookingRes.number || "",
-        receiptBookNo: bookingRes.receiptBookNo || "",
+        number: bookingRes.number ?? "",
+        receiptBookNo: bookingRes.receiptBookNo ?? "",
         bookDate: dayjs(bookingRes.bookDate),
-        bookTime: bookingRes.bookTime || "",
-        name: bookingRes.name || "",
-        carType: bookingRes.carType || "",
-        carModel: bookingRes.carModel || "",
-        licensePlate: bookingRes.licensePlate || "",
-        province: bookingRes.province || "",
-        status: bookingRes.status || BookingStatus.PENDING,
-        tel: bookingRes.tel || "",
+        bookTime: bookingRes.bookTime ?? "",
+        name: bookingRes.name ?? "",
+        carType: bookingRes.carType ?? "",
+        carModel: bookingRes.carModel ?? "",
+        licensePlate: bookingRes.licensePlate ?? "",
+        province: bookingRes.province ?? "",
+        status: bookingRes.status ?? BookingStatus.PENDING,
+        tel: bookingRes.tel ?? "",
       };
 
       reset(initBookingForm);
@@ -405,7 +403,7 @@ const CreateBookingAdminPage = () => {
                       {...field}
                       className="select-product"
                       placeholder="เลือกราคา"
-                      value={field.value || undefined}
+                      value={field.value ?? undefined}
                       disabled={priceData.length === 0}
                       options={priceData.map((item, index) => ({
                         label: `${

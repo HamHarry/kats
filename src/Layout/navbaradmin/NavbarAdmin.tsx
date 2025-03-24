@@ -98,6 +98,16 @@ const NavbarAdmin = () => {
             <i className="fa-solid fa-trash-can"></i>
             <p>คืนค่าข้อมูล</p>
           </li>
+          <li
+            className={selected === "setting" ? "selected" : "select"}
+            onClick={() => {
+              navigate("/admin/setting");
+              setSelected("setting");
+            }}
+          >
+            <i className="fa-solid fa-gear"></i>
+            <p>คืนค่าข้อมูล</p>
+          </li>
         </ul>
       </div>
       <hr />

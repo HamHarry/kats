@@ -29,16 +29,14 @@ const CreateEmployeeAdminPage = () => {
   const initailForm = useCallback(async () => {
     try {
       if (!employeeId) return;
-
       const { data } = await dispath(getEmployeeById(employeeId)).unwrap();
-
       const employeeRes = data as EmployeeData;
 
       const initEmployeeForm: EmployeeData = {
-        name: employeeRes.name || "",
-        tel: employeeRes.tel || "",
-        staffRole: employeeRes.staffRole || EmployeeRole.CEO,
-        image: employeeRes.image || "",
+        name: employeeRes.name ?? "",
+        tel: employeeRes.tel ?? "",
+        staffRole: employeeRes.staffRole ?? EmployeeRole.CEO,
+        image: employeeRes.image ?? "",
       };
 
       reset(initEmployeeForm);
@@ -115,7 +113,7 @@ const CreateEmployeeAdminPage = () => {
                       {...field}
                       placeholder="เลือกดำแหน่งพนักงาน"
                       className="select-product"
-                      value={field.value || undefined}
+                      value={field.value ?? undefined}
                     >
                       <Select.Option value={EmployeeRole.CEO}>
                         หัวหน้า
