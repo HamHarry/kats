@@ -46,7 +46,7 @@ const LoginPage = () => {
       showLoading();
 
       console.log(item);
-      navigate("/admin");
+      navigate("/admin/employee");
 
       // const { data: loginedData } = await dispatch(login(item)).unwrap();
       // const decodedToken = jwtDecode(loginedData.accessToken);

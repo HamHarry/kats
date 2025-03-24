@@ -408,7 +408,7 @@ const GuaranteeAdminPage = () => {
   return (
     <div className="container-guaranteeAdmin">
       <div className="header-guaranteeAdmin">
-        <h1>Guarantee</h1>
+        <h1>Guarantees</h1>
       </div>
       <div className="search-guaranteeAdmin">
         {/* <div>{selectMenu()}</div> */}

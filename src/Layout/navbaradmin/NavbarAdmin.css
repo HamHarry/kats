@@ -22,6 +22,7 @@
       font-size: 42px;
       margin: 0 20px 0 10px;
       color: white;
+      cursor: pointer;
     }
     .username {
       display: flex;

@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import "./NavbarAdmin.css";
 import { useState } from "react";
 const NavbarAdmin = () => {
-  const [selected, setSelected] = useState("user");
+  const [selected, setSelected] = useState("employee");
   const navigate = useNavigate();
   return (
     <div className="navbarAdmin">
@@ -10,26 +10,24 @@ const NavbarAdmin = () => {
         <img src="/public/assets/logokats.jpg" alt="logo" />
       </div>
       <hr />
+
       <div className="user">
-        <i className="fa-regular fa-circle-user"></i>
+        <i
+          className="fa-regular fa-circle-user"
+          onClick={() => {
+            navigate("/admin/user");
+          }}
+        ></i>
         <div className="username">
           <h3>Admin</h3>
           <p>ผู้ดูแล</p>
         </div>
       </div>
+
       <hr />
+
       <div className="menu">
         <ul>
-          <li
-            className={selected === "user" ? "selected" : "select"}
-            onClick={() => {
-              navigate("/admin");
-              setSelected("user");
-            }}
-          >
-            <i className="fa-solid fa-user"></i>
-            <p>ข้อมูล Users</p>
-          </li>
           <li
             className={selected === "employee" ? "selected" : "select"}
             onClick={() => {

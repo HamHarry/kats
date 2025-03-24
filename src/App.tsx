@@ -35,7 +35,7 @@ function App() {
           <Route path="login" element={<LoginPage />} />
         </Route>
         <Route path="admin" element={<LayoutAdmin />}>
-          <Route path="" element={<UserAdminPage />} />
+          <Route path="user" element={<UserAdminPage />} />
           <Route path="employee" element={<EmployeeAdminPage />} />
           <Route path="employee/create" element={<CreateEmployeeAdminPage />} />
           <Route
