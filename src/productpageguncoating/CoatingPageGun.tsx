@@ -104,7 +104,9 @@ const CoatingPageGun = () => {
             <br />
             สูตรน้ำ ไร้กลิ่น ปลอดภัย สาขาเทพารักษ์
           </p>
+
           <img src="/public/assets/gun/theparak/theparak.jpg" alt="map" />
+
           <button
             type="button"
             onClick={() => {
@@ -117,7 +119,13 @@ const CoatingPageGun = () => {
           </button>
         </div>
         <div className="image-preview-theparak">
-          <img src="/public/assets/gun/gunpage.jpg" alt="page" />
+          <img
+            src="/public/assets/gun/gunpage.jpg"
+            alt="page"
+            onClick={() => {
+              window.open("https://www.facebook.com/guncoatings");
+            }}
+          />
           <div className="content-preview-theparak">
             <div className="slide-track-theparak">
               {dataImageTheparak.map((item, index) => {

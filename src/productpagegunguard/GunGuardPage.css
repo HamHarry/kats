@@ -138,3 +138,72 @@
     }
   }
 }
+
+.text-operate {
+  padding: 10px;
+  background-color: #103026;
+  border: 3px solid #f3cd68;
+  border-radius: 15px;
+  h3 {
+    text-align: center;
+    color: #f3cd68;
+    font-size: 34px;
+  }
+}
+
+.operate-card {
+  display: flex;
+  gap: 30px;
+  padding-bottom: 20px;
+  .operate-card-inside {
+    display: flex;
+    flex-direction: column;
+    border-radius: 20px;
+    border: 5px solid #f3cd68;
+    img {
+      max-height: 350px;
+    }
+    h3 {
+      padding-top: 10px;
+      padding-left: 20px;
+      font-size: 32px;
+      font-weight: bold;
+      color: #f3cd68;
+    }
+    p {
+      text-align: center;
+      font-size: 24px;
+      font-weight: bold;
+      color: #f3cd68;
+    }
+  }
+}
+
+.gun-timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding-bottom: 40px;
+  img {
+    max-height: 500px;
+    border-radius: 20px;
+    border: 5px solid #f3cd68;
+  }
+  .text-gun-timeline {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    .gun-timeline-inside {
+      display: flex;
+      gap: 10px;
+      p {
+        color: #f3cd68;
+        font-size: 18px;
+      }
+    }
+    i {
+      color: #f3cd68;
+      font-size: 24px;
+    }
+  }
+}

@@ -5,12 +5,9 @@ const FooterGun = () => {
       <p>ติดต่อสอบถามเพิ่มเติม</p>
       <div
         className="contact"
-        onClick={() => window.open("https://www.facebook.com/guncoatings")}
+        onClick={() => window.open("https://www.facebook.com/gunenggroup")}
       >
-        <p>
-          : เพจ Facebook GUN Protection Coatings พ่นกันสนิมรถยนต์สูตรน้ำ
-          ไร้กลิ่น ปลอดภัย เพจหลัก
-        </p>
+        <p>: เพจ Facebook Gun-Eng Innovation สำนักงานใหญ่</p>
       </div>
     </div>
   );

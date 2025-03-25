@@ -106,7 +106,7 @@ const NavbarAdmin = () => {
             }}
           >
             <i className="fa-solid fa-gear"></i>
-            <p>คืนค่าข้อมูล</p>
+            <p>ตั้งค่า</p>
           </li>
         </ul>
       </div>

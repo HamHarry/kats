@@ -215,6 +215,7 @@
       border: 5px solid #f3cd68;
       border-radius: 25px;
       margin-top: 40px;
+      cursor: pointer;
     }
     .content-preview-theparak {
       display: grid;
