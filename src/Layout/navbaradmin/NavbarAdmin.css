@@ -133,3 +133,43 @@
     transition: all 0.5s;
   }
 }
+
+@media (max-width: 1270px) {
+  .navbarAdmin {
+    width: 250px;
+  }
+}
+
+@media (max-width: 1080px) {
+  .navbarAdmin {
+    width: 200px;
+    .logo-admin {
+      img {
+        width: 160px;
+        height: auto;
+      }
+    }
+    .user {
+      .username {
+        h3 {
+          font-size: 20px;
+        }
+        p {
+          font-size: 14px;
+        }
+      }
+      .fa-circle-user {
+        font-size: 36px;
+      }
+    }
+    .menu {
+      ul {
+        li {
+          p {
+            font-size: 16px;
+          }
+        }
+      }
+    }
+  }
+}
