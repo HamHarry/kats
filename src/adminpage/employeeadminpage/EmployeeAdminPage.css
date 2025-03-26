@@ -121,3 +121,9 @@
     padding-left: 270px;
   }
 }
+
+@media (max-width: 1080px) {
+  .container-employeeAdmin {
+    padding-left: 220px;
+  }
+}

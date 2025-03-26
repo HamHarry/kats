@@ -126,3 +126,15 @@
     border: 2px solid #2656a2;
   }
 }
+
+@media (max-width: 1280px) {
+  .container-CreateEmployee {
+    padding-left: 270px;
+  }
+}
+
+@media (max-width: 1080px) {
+  .container-CreateEmployee {
+    padding-left: 220px;
+  }
+}

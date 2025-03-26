@@ -11,11 +11,12 @@ const NavbarAdmin = () => {
       </div>
       <hr />
 
-      <div className="user">
+      <div className={selected === "user" ? "usered" : "user"}>
         <i
           className="fa-regular fa-circle-user"
           onClick={() => {
             navigate("/admin/user");
+            setSelected("user");
           }}
         ></i>
         <div className="username">

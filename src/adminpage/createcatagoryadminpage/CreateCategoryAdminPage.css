@@ -83,3 +83,9 @@
     padding-left: 270px;
   }
 }
+
+@media (max-width: 1080px) {
+  .container-createcategoryAdmin {
+    padding-left: 220px;
+  }
+}

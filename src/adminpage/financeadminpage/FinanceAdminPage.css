@@ -29,3 +29,9 @@
     padding-left: 270px;
   }
 }
+
+@media (max-width: 1080px) {
+  .container-financeAdmin {
+    padding-left: 220px;
+  }
+}
