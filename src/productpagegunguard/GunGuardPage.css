@@ -207,3 +207,320 @@
     }
   }
 }
+
+@media (max-width: 1630px) {
+  .container-values {
+    .crad-values {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+}
+
+@media (max-width: 1550px) {
+  .content-guard {
+    display: flex;
+    .content-guard-inside {
+      .text-box {
+        p {
+          font-size: 20px;
+          span {
+            display: flex;
+            justify-content: center;
+            font-size: 26px;
+            margin-bottom: -35px;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 1520px) {
+  .content-guard {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    .content-guard-inside {
+      .text-box {
+        p {
+          font-size: 22px;
+          span {
+            display: flex;
+            justify-content: center;
+            font-size: 28px;
+            margin-bottom: -35px;
+          }
+        }
+      }
+    }
+    .image-guard {
+      display: flex;
+      flex-direction: row;
+    }
+  }
+}
+
+@media (max-width: 1230px) {
+  .operate-card {
+    .operate-card-inside {
+      img {
+        max-height: 300px;
+      }
+      h3 {
+        font-size: 28px;
+      }
+      p {
+        font-size: 20px;
+      }
+    }
+  }
+}
+
+@media (max-width: 1130px) {
+  .container-compare {
+    table {
+      th {
+        font-size: 20px;
+      }
+      td {
+        font-size: 12px;
+      }
+    }
+  }
+  .gun-timeline {
+    .text-gun-timeline {
+      .gun-timeline-inside {
+        p {
+          font-size: 16px;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 1024px) {
+  .header-GuardPage h1 {
+    font-size: 32px;
+  }
+  .content-guard {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    .content-guard-inside {
+      .text-box {
+        p {
+          font-size: 18px;
+          span {
+            display: flex;
+            justify-content: center;
+            font-size: 24px;
+            margin-bottom: -35px;
+          }
+        }
+      }
+    }
+  }
+  .container-values {
+    .crad-values {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5px;
+      margin-bottom: -40px;
+      .crad-value {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: -40px;
+        img {
+          max-width: 300px;
+        }
+        h2 {
+          font-size: 32px;
+        }
+        p {
+          font-size: 18px;
+        }
+      }
+    }
+  }
+  .text-operate {
+    h3 {
+      font-size: 28px;
+    }
+  }
+  .operate-card {
+    .operate-card-inside {
+      img {
+        max-height: 270px;
+      }
+      h3 {
+        font-size: 24px;
+      }
+      p {
+        font-size: 18px;
+      }
+    }
+  }
+}
+
+@media (max-width: 990px) {
+  .gun-timeline {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    img {
+      max-width: 600px;
+    }
+    .text-gun-timeline {
+      display: flex;
+      flex-direction: column;
+      .gun-timeline-inside {
+        p {
+          font-size: 16px;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 950px) {
+  .text-operate {
+    h3 {
+      font-size: 24px;
+    }
+  }
+  .operate-card {
+    .operate-card-inside {
+      img {
+        max-height: 240px;
+      }
+      h3 {
+        font-size: 24px;
+      }
+      p {
+        font-size: 18px;
+      }
+    }
+  }
+}
+
+@media (max-width: 880px) {
+  .container-compare {
+    table {
+      th {
+        font-size: 18px;
+      }
+      td {
+        font-size: 10px;
+      }
+    }
+  }
+}
+
+@media (max-width: 850px) {
+  .text-operate {
+    h3 {
+      font-size: 20px;
+    }
+  }
+  .operate-card {
+    .operate-card-inside {
+      img {
+        max-height: 200px;
+      }
+      h3 {
+        font-size: 24px;
+      }
+      p {
+        font-size: 18px;
+      }
+    }
+  }
+}
+
+@media (max-width: 740px) {
+  .text-operate {
+    h3 {
+      font-size: 16px;
+    }
+  }
+  .operate-card {
+    .operate-card-inside {
+      img {
+        max-height: 160px;
+      }
+      h3 {
+        font-size: 18px;
+      }
+      p {
+        font-size: 14px;
+      }
+    }
+  }
+}
+
+@media (max-width: 795px) {
+  .header-GuardPage h1 {
+    font-size: 24px;
+  }
+  .content-guard {
+    .image-guard {
+      display: flex;
+      flex-direction: row;
+      img {
+        max-height: 300px;
+      }
+    }
+  }
+}
+
+@media (max-width: 700px) {
+  .content-guard {
+    .image-guard {
+      display: flex;
+      flex-direction: row;
+      img {
+        max-height: 250px;
+      }
+    }
+  }
+  video {
+    max-height: 500px !important;
+  }
+  .container-values {
+    .crad-values {
+      margin-bottom: -80px;
+      .crad-value {
+        margin-top: -40px;
+        margin-bottom: -80px;
+        img {
+          max-width: 250px;
+        }
+        h2 {
+          font-size: 28px;
+        }
+        p {
+          font-size: 16px;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 640px) {
+  .header-GuardPage {
+    padding: 16px;
+    h1 {
+      font-size: 20px;
+    }
+  }
+  .gun-timeline {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    img {
+      max-width: 450px;
+    }
+  }
+}

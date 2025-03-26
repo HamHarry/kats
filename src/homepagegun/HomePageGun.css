@@ -127,6 +127,18 @@
   }
 }
 
+@media (max-width: 983px) {
+  .centerGun {
+    .center-mid {
+      .compare {
+        img {
+          height: 450px;
+        }
+      }
+    }
+  }
+}
+
 @media (max-width: 795px) {
   .header-HomePageGun h1 {
     font-size: 24px;
@@ -143,6 +155,24 @@
       }
     }
   }
+  .center-right {
+    video {
+      max-width: 600px !important;
+    }
+  }
+}
+
+@media (max-width: 700px) {
+  .centerGun {
+    .center-left {
+      h3 {
+        font-size: 18px;
+        span {
+          font-size: 32px;
+        }
+      }
+    }
+  }
 }
 
 @media (max-width: 640px) {
@@ -154,6 +184,14 @@
   }
 
   .centerGun {
+    .center-left {
+      h3 {
+        font-size: 14px;
+        span {
+          font-size: 28px;
+        }
+      }
+    }
     .center-mid {
       .compare {
         img {
@@ -173,7 +211,7 @@
       display: flex;
       gap: 20px;
       video {
-        max-width: 500px;
+        max-width: 500px !important;
       }
     }
     .btn-content {

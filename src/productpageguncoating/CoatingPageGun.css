@@ -32,7 +32,7 @@
   gap: 20px;
   padding-bottom: 40px;
   img {
-    height: 350px;
+    height: 300px;
     border: 5px solid #f3cd68;
     border-radius: 25px;
   }
@@ -123,7 +123,6 @@
   background-color: #f3cd68;
   border: none;
   border-radius: 10px;
-  margin-bottom: 50px;
 }
 
 .content-kats {
@@ -261,6 +260,161 @@
       }
       img:hover {
         transform: translateZ(20px);
+      }
+    }
+  }
+}
+
+@media (max-width: 1550px) {
+  .poster-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+  .branch-theparak {
+    .text-box-theparak {
+      p {
+        font-size: 24px;
+      }
+    }
+    .image-preview-theparak {
+      img {
+        max-height: 120px;
+      }
+      .content-preview-theparak {
+        max-width: 750px;
+      }
+    }
+  }
+}
+
+@media (max-width: 1380px) {
+  .branch-theparak {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+
+    .text-box-theparak {
+      p {
+        font-size: 20px;
+      }
+    }
+    .image-preview-theparak {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      img {
+        max-width: 800px;
+      }
+      .content-preview-theparak {
+        max-width: 750px;
+      }
+    }
+  }
+}
+
+@media (max-width: 1024px) {
+  .header-CoatingPageGun h1 {
+    font-size: 32px;
+  }
+}
+
+@media (max-width: 880px) {
+  .content-series {
+    .text-box {
+      p {
+        font-size: 14px;
+        span {
+          font-size: 20px;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 840px) {
+  .branch-theparak {
+    .image-preview-theparak {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      img {
+        max-width: 600px;
+      }
+      .content-preview-theparak {
+        max-width: 550px;
+      }
+    }
+  }
+}
+
+@media (max-width: 815px) {
+  .content-series {
+    .text-box {
+      p {
+        font-size: 12px;
+        span {
+          font-size: 18px;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 795px) {
+  .header-CoatingPageGun h1 {
+    font-size: 24px;
+  }
+  .content-series {
+    .text-box {
+      p {
+        font-size: 10px;
+        span {
+          font-size: 16px;
+        }
+      }
+    }
+  }
+  .poster-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    img {
+      max-width: 300px;
+    }
+  }
+}
+
+@media (max-width: 670px) {
+  .poster-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    img {
+      height: 250px;
+      max-width: 250px;
+    }
+  }
+}
+
+@media (max-width: 640px) {
+  .header-CoatingPageGun {
+    padding: 16px;
+    h1 {
+      font-size: 20px;
+    }
+  }
+  .content-series {
+    display: flex;
+    flex-direction: column;
+  }
+  .branch-theparak {
+    .image-preview-theparak {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      img {
+        max-width: 500px;
+      }
+      .content-preview-theparak {
+        max-width: 450px;
       }
     }
   }
