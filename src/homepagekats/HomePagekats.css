@@ -137,7 +137,7 @@
   }
 }
 
-@media (max-width: 795px) {
+@media (max-width: 855px) {
   .header-HomePageKats h1 {
     font-size: 24px;
   }
@@ -155,7 +155,7 @@
   }
 }
 
-@media (max-width: 640px) {
+@media (max-width: 700px) {
   .header-HomePageKats {
     padding: 16px;
     padding-left: 60px;
@@ -167,7 +167,9 @@
       left: -30px;
     }
   }
+}
 
+@media (max-width: 640px) {
   .center {
     .center-left {
       display: flex;

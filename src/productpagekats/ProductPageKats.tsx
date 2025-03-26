@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "./ProductPageKats.css";
 import { mockUpPrice } from "../data/MockUpPrice";
+import { Modal } from "antd";
 
 export interface ListCarImage {
   image: string;
@@ -62,7 +63,12 @@ const ProductPageKats = () => {
     };
 
     return (
-      <dialog open={openDialogPrice}>
+      <Modal
+        centered
+        className="wrap-container-DialogConfirm"
+        open={openDialogPrice}
+        onCancel={() => setOpenDialogPrice(false)}
+      >
         <div className="container-DialogPrice">
           {dataDialog && (
             <div className="wrap-container-DialogPrice">
@@ -144,7 +150,7 @@ const ProductPageKats = () => {
             </div>
           )}
         </div>
-      </dialog>
+      </Modal>
     );
   };
 

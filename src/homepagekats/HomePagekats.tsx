@@ -1,8 +1,8 @@
 import { Link } from "react-scroll";
 import "./HomePagekats.css";
-import BookingPage from "../bookingpagekats/BookingPageKats";
-import ProductPage from "../productpagekats/ProductPageKats";
-import MapPage from "../mappagekats/MapPagekats";
+import BookingPageKats from "../bookingpagekats/BookingPageKats";
+import ProductPageKats from "../productpagekats/ProductPageKats";
+import MapPageKats from "../mappagekats/MapPagekats";
 import { useNavigate } from "react-router-dom";
 const HomePageKats = () => {
   const navigate = useNavigate();
@@ -95,13 +95,13 @@ const HomePageKats = () => {
       </div>
 
       <div className="bookingpagekats" id="Bookingkats">
-        <BookingPage />
+        <BookingPageKats />
       </div>
       <div className="productpagekats" id="Productkats">
-        <ProductPage />
+        <ProductPageKats />
       </div>
       <div className="mappagekats" id="Mapkats">
-        <MapPage />
+        <MapPageKats />
       </div>
     </div>
   );
