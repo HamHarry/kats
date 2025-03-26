@@ -621,3 +621,9 @@
     }
   }
 }
+
+@media (max-width: 1280px) {
+  .container-BookingAdmin {
+    padding-left: 270px;
+  }
+}

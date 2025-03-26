@@ -130,3 +130,9 @@
     text-align: end;
   }
 }
+
+@media (max-width: 1280px) {
+  .container-createproductAdmin {
+    padding-left: 270px;
+  }
+}

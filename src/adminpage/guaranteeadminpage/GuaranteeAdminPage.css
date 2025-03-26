@@ -524,3 +524,9 @@
     }
   }
 }
+
+@media (max-width: 1280px) {
+  .container-guaranteeAdmin {
+    padding-left: 270px;
+  }
+}

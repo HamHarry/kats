@@ -115,3 +115,9 @@
 .wrap-container-employeeAdmin:hover {
   overflow-y: auto;
 }
+
+@media (max-width: 1280px) {
+  .container-employeeAdmin {
+    padding-left: 270px;
+  }
+}

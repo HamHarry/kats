@@ -23,3 +23,9 @@
     color: white;
   }
 }
+
+@media (max-width: 1280px) {
+  .container-financeAdmin {
+    padding-left: 270px;
+  }
+}

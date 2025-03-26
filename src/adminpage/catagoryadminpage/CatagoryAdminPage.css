@@ -48,3 +48,9 @@
     }
   }
 }
+
+@media (max-width: 1280px) {
+  .container-catagoryAdmin {
+    padding-left: 270px;
+  }
+}
