@@ -35,7 +35,7 @@
     height: 27px;
     padding: 5px;
     border-radius: 10px;
-    margin-right: 50px;
+    margin-right: 20px;
     font-size: 12px;
     font-family: "Noto Sans Thai", serif;
     border: 3px solid #2656a2;
@@ -43,7 +43,7 @@
   select {
     width: 80px;
     height: 45px;
-    margin-left: 50px;
+    margin-left: 20px;
     border-radius: 20px;
     border: 2px solid #2656a2;
     font-family: "Noto Sans Thai", serif;
@@ -76,7 +76,7 @@
       margin-right: 20px;
       img {
         width: 200px;
-        height: 100px;
+        height: 200px;
         border-radius: 20px;
         border: 2px solid #ffffff;
       }

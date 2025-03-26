@@ -1,173 +1,146 @@
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import "./GuaranteeAdminPage.css";
 import { Controller, useForm } from "react-hook-form";
 import { BookingStatus, BookingData } from "../../model/booking.type";
 import { ProductType } from "../../model/product.type";
-
-// const defaultValues: Bookings = {
-//   number: "",
-//   bookDate: "",
-//   bookTime: "",
-//   name: "",
-//   carType: "",
-//   carModel: "",
-//   price: "",
-//   tel: "",
-//   image: "/public/assets/logokats.jpg",
-//   product: {
-//     name: "",
-//     catagory: {
-//       name: "",
-//       code: "",
-//     },
-//     productDetails: [],
-//     detail: "",
-//     productType: ProductType.KATS,
-//   },
-//   status: BookingStatus.PENDING,
-//   receiptBookNo: "",
-//   licensePlate: "",
-// };
+import { useAppDispatch } from "../../stores/store";
+import CircleLoading from "../../shared/circleLoading";
+import {
+  deleteBookingById,
+  getAllBookings,
+} from "../../stores/slices/bookingSlice";
+import dayjs from "dayjs";
+import { Modal } from "antd";
 
 const GuaranteeAdminPage = () => {
-  const [guaranteeData, setGuaranteeData] = useState<BookingData[]>();
-  const [guaranteeDataRef] = useState(guaranteeData);
-  const [openDialogProfile, setOpenDialogProfile] = useState<boolean>(false);
-  const [openDialogConfirm, setOpenDialogConfirm] = useState<boolean>(false);
-  const [dialogData, setDialogData] = useState<BookingData>();
-  const [updateData, setUpdateData] = useState<BookingData>();
-  const [selectedVolumer, setSelectedVolumer] = useState<string>("All");
-  const [searchValue, setSearchValue] = useState("");
+  const dispath = useAppDispatch();
 
-  // const { handleSubmit, control } = useForm<Bookings>({
-  //   defaultValues,
-  // });
+  const [guaranteeData, setGuaranteeData] = useState<BookingData[]>([]);
+  // const [openDialogProfile, setOpenDialogProfile] = useState<boolean>(false);
+  const [openDialogDelete, setOpenDialogDelete] = useState<boolean>(false);
+  const [isGuaranteeLoading, setIsGuaranteeLoading] = useState<boolean>(false);
+  const [selectGuaranteeById, setSelectGuaranteeById] = useState<string>();
 
-  // const submitProfile = (value: Bookings) => {
-  //   try {
-  //     const item = {
-  //       ...value,
-  //     };
-  //     setUpdateData(item); // เก็บข็อมูลเพื่อยินยันการส่ง
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
+  const fetchAllBooking = useCallback(async () => {
+    try {
+      setIsGuaranteeLoading(true);
+      const { data: bookingsRes = [] } = await dispath(
+        getAllBookings()
+      ).unwrap();
 
-  // const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   const value = e.target.value.toLowerCase();
-  //   console.log(value);
+      const finedData = bookingsRes.filter((item: any) => {
+        return item.status === BookingStatus.COMPLETED;
+      });
 
-  //   const newValue = guaranteeDataRef.filter((item) => {
-  //     const statusVolume =
-  //       item.receiptBookNo === selectedVolumer || selectedVolumer === "All";
-  //     const valueName = item.name.toLowerCase().includes(value);
-  //     const valueTel = item.tel.toLowerCase().includes(value);
-  //     const valueNumber = item.number.toLowerCase().includes(value);
-  //     return statusVolume && (valueName || valueTel || valueNumber);
-  //   });
-  //   setGuaranteeData(newValue);
-  //   setSearchValue(value);
-  // };
+      setGuaranteeData(finedData);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsGuaranteeLoading(false);
+    }
+  }, [dispath]);
 
-  // const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-  //   const selectedValue = event.target.value;
+  useEffect(() => {
+    fetchAllBooking();
+  }, [fetchAllBooking]);
 
-  //   if (selectedValue === "All") {
-  //     const newlist = guaranteeDataRef.filter((item) => {
-  //       const searchNumber = item.number.toLowerCase().includes(searchValue);
-  //       const searchTel = item.tel.toLowerCase().includes(searchValue);
-  //       const searchName = item.name.toLowerCase().includes(searchValue);
-  //       return searchNumber || searchTel || searchName;
-  //     });
-  //     setGuaranteeData(newlist);
-  //     setSelectedVolumer("All");
-  //   } else if (selectedValue === "001") {
-  //     const newlist = guaranteeDataRef.filter((item) => {
-  //       const searchNumber = item.number.toLowerCase().includes(searchValue);
-  //       const searchTel = item.tel.toLowerCase().includes(searchValue);
-  //       const searchName = item.name.toLowerCase().includes(searchValue);
-  //       return (
-  //         item.receiptBookNo === "001" &&
-  //         (searchNumber || searchTel || searchName)
-  //       );
-  //     });
-  //     setGuaranteeData(newlist);
-  //     setSelectedVolumer("001");
-  //   } else if (selectedValue === "002") {
-  //     const newlist = guaranteeDataRef.filter((item) => {
-  //       const searchNumber = item.number.toLowerCase().includes(searchValue);
-  //       const searchTel = item.tel.toLowerCase().includes(searchValue);
-  //       const searchName = item.name.toLowerCase().includes(searchValue);
-  //       return (
-  //         item.receiptBookNo === "002" &&
-  //         (searchNumber || searchTel || searchName)
-  //       );
-  //     });
-  //     setGuaranteeData(newlist);
-  //     setSelectedVolumer("002");
-  //   } else if (selectedValue === "003") {
-  //     const newlist = guaranteeDataRef.filter((item) => {
-  //       const searchNumber = item.number.toLowerCase().includes(searchValue);
-  //       const searchTel = item.tel.toLowerCase().includes(searchValue);
-  //       const searchName = item.name.toLowerCase().includes(searchValue);
-  //       return (
-  //         item.receiptBookNo === "003" &&
-  //         (searchNumber || searchTel || searchName)
-  //       );
-  //     });
-  //     setGuaranteeData(newlist);
-  //     setSelectedVolumer("003");
-  //   }
-  // };
-
-  // const selectMenu = () => {
-  //   return (
-  //     <div className="btn-menu">
-  //       <select onChange={handleSelectChange}>
-  //         <option value={"All"}>All</option>
-  //         <option value={"001"}>001</option>
-  //         <option value={"002"}>002</option>
-  //         <option value={"003"}>003</option>
-  //       </select>
-  //       {/* <select onChange={handleSelectChange}>
-  //         <option value={"All"}>All</option>
-  //         <option value={"KATS Coating"}>KATS</option>
-  //         <option value={"GUN"}>GUN</option>
-  //       </select> */}
-  //     </div>
-  //   );
-  // };
-
-  const rederDialogConfirm = () => {
+  const selectMenu = () => {
     return (
-      <dialog open={openDialogConfirm}>
-        <div className="container-DialogConfirm">
-          <div className="wrap-container-DialogConfirm">
-            <div className="container-DialogConfirm-Navbar">
-              <i
-                className="fa-solid fa-circle-xmark"
-                onClick={() => {
-                  setOpenDialogConfirm(!openDialogConfirm);
-                }}
-              ></i>
-            </div>
-            <h1>ยืนยันการลบ</h1>
-            <div className="btn-DialogConfirm-Navbar">
-              <button
-                type="submit"
-                className="btn-submit-dialogConfirm"
-                onClick={() => {
-                  setOpenDialogConfirm(!openDialogConfirm);
-                }}
-              >
-                ยืนยัน
-              </button>
-              <button className="btn-edit-dialogConfirm">แก้ไข</button>
-            </div>
-          </div>
+      <div className="btn-menu">
+        <select>
+          <option value={"All"}>All</option>
+          <option value={"001"}>001</option>
+          <option value={"002"}>002</option>
+          <option value={"003"}>003</option>
+        </select>
+        <select>
+          <option value={"All"}>All</option>
+          <option value={"KATS Coating"}>KATS</option>
+          <option value={"GUN"}>GUN</option>
+        </select>
+      </div>
+    );
+  };
+
+  const deleted = async () => {
+    try {
+      if (!selectGuaranteeById) return;
+
+      setIsGuaranteeLoading(true);
+      await dispath(deleteBookingById(selectGuaranteeById)).unwrap();
+
+      setOpenDialogDelete(false);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsGuaranteeLoading(false);
+      fetchAllBooking();
+    }
+  };
+
+  const rederDialogDelete = () => {
+    return (
+      <Modal
+        centered
+        className="wrap-container-DialogConfirm"
+        open={openDialogDelete}
+        onCancel={() => setOpenDialogDelete(false)}
+      >
+        <h1>ยืนยันการลบ</h1>
+
+        <div className="btn-DialogConfirm-Navbar">
+          <button
+            onClick={() => {
+              setOpenDialogDelete(false);
+              deleted();
+            }}
+          >
+            ยืนยัน
+          </button>
+          <button
+            className="btn-edit-dialogConfirm"
+            onClick={() => {
+              setOpenDialogDelete(false);
+            }}
+          >
+            ยกเลิก
+          </button>
         </div>
-      </dialog>
+      </Modal>
+      // <dialog open={openDialogConfirm}>
+      //   <div className="container-DialogConfirm">
+      //     <div className="wrap-container-DialogConfirm">
+      //       <div className="container-DialogConfirm-Navbar">
+      //         <i
+      //           className="fa-solid fa-circle-xmark"
+      //           onClick={() => {
+      //             setOpenDialogConfirm(false);
+      //           }}
+      //         ></i>
+      //       </div>
+      //       <h1>ยืนยันการลบ</h1>
+      //       <div className="btn-DialogConfirm-Navbar">
+      //         <button
+      //           type="submit"
+      //           className="btn-submit-dialogConfirm"
+      //           onClick={() => {
+      //             setOpenDialogConfirm(false);
+      //           }}
+      //         >
+      //           ยืนยัน
+      //         </button>
+      //         <button
+      //           className="btn-edit-dialogConfirm"
+      //           onClick={() => {
+      //             setOpenDialogConfirm(false);
+      //           }}
+      //         >
+      //           ยกเลิก
+      //         </button>
+      //       </div>
+      //     </div>
+      //   </div>
+      // </dialog>
     );
   };
 
@@ -411,16 +384,16 @@ const GuaranteeAdminPage = () => {
         <h1>Guarantees</h1>
       </div>
       <div className="search-guaranteeAdmin">
-        {/* <div>{selectMenu()}</div> */}
-        {/* <input
-          type="text"
-          placeholder="Search...(Name,Phone,Number,Volumer)"
-          onChange={handleSearch}
-        /> */}
+        <div>{selectMenu()}</div>
+        <input type="text" placeholder="Search...(Name,Phone,Number,Volumer)" />
       </div>
-      {/* <div className="wrap-container-guaranteeAdmin">
+      <div className="wrap-container-guaranteeAdmin">
         {guaranteeData.map((item, index) => {
           const productType = item.product.productType;
+
+          const formattedDate = item.bookDate
+            ? dayjs(item.bookDate).format("DD/MM/YYYY")
+            : "-";
           return (
             <div
               key={index}
@@ -431,24 +404,24 @@ const GuaranteeAdminPage = () => {
               }}
             >
               <div className="guaranteeAdmin-image">
-                <img src={item.image} alt="Image" />
+                <img src={item.image} alt="" />
               </div>
               <div className="guaranteeAdmin-content">
                 <div className="text-p">
-                  <p>วันที่: {item.bookDate}</p>
+                  <p>วันที่: {formattedDate}</p>
                   <div className="icon">
                     <i
                       className="fa-solid fa-pen-to-square"
                       onClick={() => {
-                        setOpenDialogProfile(!openDialogProfile);
-                        setDialogData(item);
+                        // setOpenDialogProfile(true);
+                        // setDialogData(item._id);
                       }}
                     ></i>
                     <i
                       className="fa-solid fa-trash-can"
                       onClick={() => {
-                        setOpenDialogConfirm(!openDialogConfirm);
-                        setDialogData(item);
+                        setOpenDialogDelete(true);
+                        setSelectGuaranteeById(item._id);
                       }}
                     ></i>
                   </div>
@@ -458,7 +431,7 @@ const GuaranteeAdminPage = () => {
                 <p>เลขที่: {item.number}</p>
                 <p>เล่มที่: {item.receiptBookNo}</p>
                 <p>
-                  สินค้า: {item.product.name} {item.price}
+                  สินค้า: {item.product.name} {item.price.amount}
                 </p>
                 <p>
                   รถ: {item.carType} {item.carModel}
@@ -469,8 +442,9 @@ const GuaranteeAdminPage = () => {
           );
         })}
       </div>
-      {rederEditProfile()} */}
-      {rederDialogConfirm()}
+      {/* {rederEditProfile()} */}
+      {rederDialogDelete()}
+      <CircleLoading open={isGuaranteeLoading} />
     </div>
   );
 };
