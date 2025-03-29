@@ -280,7 +280,7 @@ const BookingAdminPage = () => {
                     ></i>
                   </div>
                 </div>
-                <p>ชื่อ: {item.name}</p>
+                <p>ชื่อ: คุณ{item.name}</p>
                 <p>เบอร์: {item.tel}</p>
                 <p>เลขที่: {item.number}</p>
                 <p>เล่มที่: {item.receiptBookNo}</p>

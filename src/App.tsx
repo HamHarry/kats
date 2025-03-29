@@ -21,6 +21,7 @@ import CreateTypeProductPage from "./adminpage/createtypeproductpage/CreateTypeP
 import CreateEmployeeAdminPage from "./adminpage/createemployeeadminpage/CreateEmployeeAdminPage";
 import CatagoryAdminPage from "./adminpage/catagoryadminpage/CatagoryAdminPage";
 import CreateCatagoryAdminPage from "./adminpage/createcatagoryadminpage/CreateCatagoryAdminPage";
+import EditGuaranteeAdminPage from "./adminpage/editguaranteeadminpage/EditGuaranteeAdminPage";
 
 function App() {
   return (
@@ -50,6 +51,10 @@ function App() {
           />
           <Route path="calendar" element={<CalendarAdminPage />} />
           <Route path="guarantee" element={<GuaranteeAdminPage />} />
+          <Route
+            path="guarantee/edit/:bookingId"
+            element={<EditGuaranteeAdminPage />}
+          />
           <Route path="product" element={<ProductAdminPage />} />
           <Route
             path="product/createTypeProduct"
