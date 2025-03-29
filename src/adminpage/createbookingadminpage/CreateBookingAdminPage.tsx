@@ -418,21 +418,39 @@ const CreateBookingAdminPage = () => {
             />
           </div>
 
-          <Controller
-            name="image"
-            control={control}
-            render={({ field }) => {
-              return (
-                <div className="inputImage">
-                  <label htmlFor="file" className="text-image">
-                    <FileAddFilled className="icon-file" />
-                    <span>อัพโหลดภาพสลิปมัดจำ 1,000 บาท</span>
-                  </label>
-                  <input {...field} type="file" id="file" />
-                </div>
-              );
-            }}
-          />
+          <div className="input-image">
+            <Controller
+              name="image"
+              control={control}
+              render={({ field }) => {
+                return (
+                  <div className="inputImage">
+                    <label htmlFor="file" className="text-image">
+                      <FileAddFilled className="icon-file" />
+                      <span>อัพโหลดภาพรถยนต์</span>
+                    </label>
+                    <input {...field} type="file" id="file" />
+                  </div>
+                );
+              }}
+            />
+
+            <Controller
+              name="slip"
+              control={control}
+              render={({ field }) => {
+                return (
+                  <div className="inputImage">
+                    <label htmlFor="file" className="text-image">
+                      <FileAddFilled className="icon-file" />
+                      <span>อัพโหลดภาพสลิปมัดจำ 1,000 บาท</span>
+                    </label>
+                    <input {...field} type="file" id="file" />
+                  </div>
+                );
+              }}
+            />
+          </div>
         </div>
         {rederDialogConfirm()}
       </form>

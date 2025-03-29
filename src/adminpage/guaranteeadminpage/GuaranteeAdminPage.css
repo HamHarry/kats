@@ -92,7 +92,7 @@
         display: flex;
         align-items: center;
         gap: 10px;
-        .fa-plus {
+        .fa-certificate {
           font-size: 30px;
           cursor: pointer;
           color: #ffffff;

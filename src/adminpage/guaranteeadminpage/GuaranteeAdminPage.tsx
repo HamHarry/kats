@@ -10,9 +10,11 @@ import {
 } from "../../stores/slices/bookingSlice";
 import dayjs from "dayjs";
 import { Modal } from "antd";
+import { useNavigate } from "react-router-dom";
 
 const GuaranteeAdminPage = () => {
   const dispath = useAppDispatch();
+  const navigate = useNavigate();
 
   const [guaranteeData, setGuaranteeData] = useState<BookingData[]>([]);
   // const [openDialogProfile, setOpenDialogProfile] = useState<boolean>(false);
@@ -106,40 +108,6 @@ const GuaranteeAdminPage = () => {
           </button>
         </div>
       </Modal>
-      // <dialog open={openDialogConfirm}>
-      //   <div className="container-DialogConfirm">
-      //     <div className="wrap-container-DialogConfirm">
-      //       <div className="container-DialogConfirm-Navbar">
-      //         <i
-      //           className="fa-solid fa-circle-xmark"
-      //           onClick={() => {
-      //             setOpenDialogConfirm(false);
-      //           }}
-      //         ></i>
-      //       </div>
-      //       <h1>ยืนยันการลบ</h1>
-      //       <div className="btn-DialogConfirm-Navbar">
-      //         <button
-      //           type="submit"
-      //           className="btn-submit-dialogConfirm"
-      //           onClick={() => {
-      //             setOpenDialogConfirm(false);
-      //           }}
-      //         >
-      //           ยืนยัน
-      //         </button>
-      //         <button
-      //           className="btn-edit-dialogConfirm"
-      //           onClick={() => {
-      //             setOpenDialogConfirm(false);
-      //           }}
-      //         >
-      //           ยกเลิก
-      //         </button>
-      //       </div>
-      //     </div>
-      //   </div>
-      // </dialog>
     );
   };
 
@@ -409,11 +377,11 @@ const GuaranteeAdminPage = () => {
                 <div className="text-p">
                   <p>วันที่: {formattedDate}</p>
                   <div className="icon">
+                    <i className="fa-solid fa-certificate"></i>
                     <i
                       className="fa-solid fa-pen-to-square"
                       onClick={() => {
-                        // setOpenDialogProfile(true);
-                        // setDialogData(item._id);
+                        navigate(`/admin/booking/edit/${item._id}`);
                       }}
                     ></i>
                     <i
