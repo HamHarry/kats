@@ -3,14 +3,28 @@ export enum PaymentCategory {
   SALARY = 1,
 }
 
+export enum Category_Type {
+  FUEL = 0, // น้ำมัน
+  TRAVEL = 1, // เดินทาง
+  ACCOMMODATION = 2, // ที่พัก
+  ALLOWANCE = 3, // เบี้ยเลี้ยง
+  TRANSPORT = 4, // ขนส่ง
+  TOOL = 5, // อุปกรณ์
+  MEDICAL = 6, // รักษา
+}
+
+export interface CategoryDetail {
+  type: Category_Type;
+  amount: number;
+}
+
 export interface FinanceData {
   _id?: string;
   number: number;
   ownerName: string;
   section: PaymentCategory;
-  category: string;
+  categorys: CategoryDetail[];
   date: string;
   datePrice: string;
-  amount: number;
   detel: string;
 }

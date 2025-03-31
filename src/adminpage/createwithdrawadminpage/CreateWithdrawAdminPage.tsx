@@ -1,24 +1,68 @@
-import { Controller, useForm } from "react-hook-form";
+import { Controller, useFieldArray, useForm } from "react-hook-form";
 import "./CreateWithdrawAdminPage.css";
 import { useNavigate } from "react-router-dom";
-import { FinanceData, PaymentCategory } from "../../model/finance.type";
+import {
+  Category_Type,
+  CategoryDetail,
+  FinanceData,
+  PaymentCategory,
+} from "../../model/finance.type";
+import CircleLoading from "../../shared/circleLoading";
+import { useCallback, useEffect, useState } from "react";
+import { EmployeeData } from "../../model/employee.type";
+import { useAppDispatch } from "../../stores/store";
+import { getAllEmployees } from "../../stores/slices/employeeSlice";
+import { DatePicker, Select } from "antd";
+
+const initCategoryDetail: CategoryDetail = {
+  type: Category_Type.FUEL,
+  amount: 0,
+};
 
 const initWithdrawForm: FinanceData = {
   number: 0,
   ownerName: "",
-  category: "",
+  categorys: [initCategoryDetail],
   date: "",
   datePrice: "",
-  amount: 0,
   section: PaymentCategory.WITHDRAW,
   detel: "",
 };
 
 const CreateWithdrawAdminPage = () => {
+  const dispath = useAppDispatch();
   const navigate = useNavigate();
+  const [isCreateWithDrawLoading, setIsCreateWithDrawLoading] =
+    useState<boolean>(false);
+  const [employeeData, setEmployeeData] = useState<EmployeeData[]>([]);
+
   const { control, handleSubmit } = useForm({
     defaultValues: initWithdrawForm,
   });
+
+  const categoryDetailFields = useFieldArray({
+    name: "categorys",
+    control,
+  });
+
+  const fetchEmployeeData = useCallback(async () => {
+    try {
+      setIsCreateWithDrawLoading(true);
+      const { data: EmployeesRes = [] } = await dispath(
+        getAllEmployees()
+      ).unwrap();
+
+      setEmployeeData(EmployeesRes);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsCreateWithDrawLoading(false);
+    }
+  }, [dispath]);
+
+  useEffect(() => {
+    fetchEmployeeData();
+  }, [fetchEmployeeData]);
 
   const onSubmit = async (value: FinanceData) => {
     const body = {
@@ -27,6 +71,18 @@ const CreateWithdrawAdminPage = () => {
 
     console.log(body);
   };
+
+  const handleRemoveCatagoryDetail = useCallback(
+    (index: number) => {
+      console.log("Current Fields:", categoryDetailFields.fields);
+      console.log("Removing Index:", index);
+      if (!categoryDetailFields?.fields?.length) return;
+      if (categoryDetailFields.fields.length === 1) return;
+
+      categoryDetailFields.remove(Number(index));
+    },
+    [categoryDetailFields]
+  );
 
   return (
     <div className="container-CreateWithdrawAdminPage">
@@ -61,7 +117,30 @@ const CreateWithdrawAdminPage = () => {
               control={control}
               name="ownerName"
               render={({ field }) => {
-                return <input {...field} type="text" />;
+                return (
+                  <Select
+                    {...field}
+                    placeholder="เลือกพนักงาน"
+                    className="select-employee"
+                    value={field.value || undefined}
+                  >
+                    {employeeData.map((item) => (
+                      <Select.Option key={item._id} value={item._id}>
+                        {item.name} (
+                        {`${
+                          item.staffRole === 0
+                            ? "หัวหน้า"
+                            : item.staffRole === 1
+                            ? "ผู้ดูแลระบบ"
+                            : item.staffRole === 2
+                            ? "ช่างล้างรถ"
+                            : "ช่างพ่นสี"
+                        }`}
+                        )
+                      </Select.Option>
+                    ))}
+                  </Select>
+                );
               }}
             />
           </div>
@@ -104,7 +183,7 @@ const CreateWithdrawAdminPage = () => {
               control={control}
               name="date"
               render={({ field }) => {
-                return <input {...field} type="text" />;
+                return <DatePicker {...field} />;
               }}
             />
           </div>
@@ -112,25 +191,90 @@ const CreateWithdrawAdminPage = () => {
           <div className="wrap-inputList">
             <h2>รายการ</h2>
             <div className="inputList">
-              <Controller
-                control={control}
-                name="ownerName"
-                render={({ field }) => {
-                  return <input {...field} type="text" />;
+              <button
+                className="btn-append"
+                type="button"
+                onClick={() => {
+                  categoryDetailFields.append(initCategoryDetail);
                 }}
-              />
+              >
+                เพิ่มหมวดหมู่
+              </button>
 
-              <Controller
-                control={control}
-                name="ownerName"
-                render={({ field }) => {
-                  return <input {...field} type="text" />;
-                }}
-              />
+              {categoryDetailFields.fields.map((detail, index) => {
+                return (
+                  <div key={`${detail.id}_${index}`} className="list-category">
+                    <Controller
+                      control={control}
+                      name={`categorys.${index}.type`}
+                      render={({ field }) => {
+                        return (
+                          <Select
+                            {...field}
+                            placeholder="เลือกหมวดหมู่"
+                            className="select-category"
+                            value={field.value || undefined}
+                          >
+                            <Select.Option value={Category_Type.FUEL}>
+                              ค่าน้ำมัน
+                            </Select.Option>
+                            <Select.Option value={Category_Type.TRAVEL}>
+                              ค่าเดินทาง
+                            </Select.Option>
+                            <Select.Option value={Category_Type.ACCOMMODATION}>
+                              ค่าที่พัก
+                            </Select.Option>
+                            <Select.Option value={Category_Type.ALLOWANCE}>
+                              ค่าเบี้ยเลี้ยง
+                            </Select.Option>
+                            <Select.Option value={Category_Type.TRANSPORT}>
+                              ค่าขนส่ง
+                            </Select.Option>
+                            <Select.Option value={Category_Type.TOOL}>
+                              ค่าอุปกรณ์
+                            </Select.Option>
+                            <Select.Option value={Category_Type.MEDICAL}>
+                              ค่ารักษา
+                            </Select.Option>
+                          </Select>
+                        );
+                      }}
+                    />
+
+                    <Controller
+                      control={control}
+                      name={`categorys.${index}.amount`}
+                      render={({ field }) => {
+                        return (
+                          <input
+                            {...field}
+                            type="number"
+                            onChange={(event) => {
+                              if (event.target.value) {
+                                field.onChange(Number(event.target.value));
+                              }
+                            }}
+                          />
+                        );
+                      }}
+                    />
+
+                    {index !== 0 && (
+                      <button
+                        type="button"
+                        onClick={() => handleRemoveCatagoryDetail(index)}
+                      >
+                        ลบ
+                      </button>
+                    )}
+                  </div>
+                );
+              })}
             </div>
           </div>
         </div>
       </form>
+      <CircleLoading open={isCreateWithDrawLoading} />
     </div>
   );
 };

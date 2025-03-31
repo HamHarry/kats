@@ -46,7 +46,7 @@ const WithdrawAdminPage = () => {
   return (
     <div className="container-WithdrawAdminPage">
       <div className="header-WithdrawAdminPage">
-        <h1>Withdraws & Salarys</h1>
+        <h1>Withdraw & Salary</h1>
       </div>
 
       <div className="create-withdraw">

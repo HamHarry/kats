@@ -8,7 +8,7 @@ import {
   ProductDetail,
 } from "../../model/product.type";
 import { BookingStatus, BookingData } from "../../model/booking.type";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { FileAddFilled } from "@ant-design/icons";
 import { useAppDispatch } from "../../stores/store";
 import { getAllProducts } from "../../stores/slices/productSlice";
@@ -58,6 +58,8 @@ const CreateBookingAdminPage = () => {
   const dispath = useAppDispatch();
   const navigate = useNavigate();
   const { bookingId } = useParams();
+  const [searchParams] = useSearchParams();
+  const targetDate = searchParams.get("targetDate");
 
   const formRef = useRef<any>(null);
 
@@ -67,9 +69,17 @@ const CreateBookingAdminPage = () => {
   const [openDialogConfirm, setOpenDialogConfirm] = useState<boolean>(false);
   const [isBookingLoading, setIsBookingLoading] = useState<boolean>(false);
 
-  const { handleSubmit, control, reset } = useForm<BookingForm>({
+  const { handleSubmit, control, reset, setValue } = useForm<BookingForm>({
     defaultValues,
   });
+
+  useEffect(() => {
+    if (targetDate) {
+      setValue("bookDate", dayjs(targetDate));
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const initailForm = useCallback(async () => {
     try {

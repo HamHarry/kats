@@ -59,8 +59,8 @@
   flex-direction: column;
   border: 5px solid #2656a2;
   border-radius: 20px;
-  padding: 0px 20px 0px 20px;
-  height: 700px;
+  padding: 20px;
+  height: 650px;
   width: 700px;
   .inputEmployee {
     display: flex;
@@ -68,10 +68,12 @@
     h2 {
       font-size: 24px;
     }
-    input {
-      padding: 5px;
+    .select-employee {
+      height: 45px;
+    }
+    .ant-select-single .ant-select-selector {
+      border-radius: 20px !important;
       border: 2px solid #2656a2;
-      margin-left: 0px;
     }
   }
   .inputDetel {
@@ -105,10 +107,11 @@
     h2 {
       font-size: 24px;
     }
-    input {
-      padding: 5px;
+    .ant-picker-outlined {
+      padding: 20px;
+      height: 45px;
+      border-radius: 20px;
       border: 2px solid #2656a2;
-      margin-left: 0px;
     }
   }
   .wrap-inputList {
@@ -117,15 +120,31 @@
     h2 {
       font-size: 24px;
     }
+
     .inputList {
       border: 2px dashed #2656a2;
       border-radius: 10px;
       padding: 15px;
-      input {
-        padding: 5px;
-        border: 2px solid #2656a2;
-        margin-left: 0px;
-        margin-left: 12px;
+      .btn-append {
+        width: 150px;
+        margin-bottom: 5px;
+      }
+      .list-category {
+        display: flex;
+        gap: 20px;
+        padding-bottom: 5px;
+        input {
+          padding: 5px;
+          border: 2px solid #2656a2;
+        }
+        .select-category {
+          width: 255px;
+          height: 45px;
+        }
+        .ant-select-single .ant-select-selector {
+          border-radius: 20px !important;
+          border: 2px solid #2656a2;
+        }
       }
     }
   }
