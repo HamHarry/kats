@@ -22,6 +22,7 @@ import CreateEmployeeAdminPage from "./adminpage/createemployeeadminpage/CreateE
 import CatagoryAdminPage from "./adminpage/catagoryadminpage/CatagoryAdminPage";
 import CreateCatagoryAdminPage from "./adminpage/createcatagoryadminpage/CreateCatagoryAdminPage";
 import EditGuaranteeAdminPage from "./adminpage/editguaranteeadminpage/EditGuaranteeAdminPage";
+import SettingAdminPage from "./adminpage/settingadminpage/SettingAdminPage";
 
 function App() {
   return (
@@ -71,6 +72,7 @@ function App() {
           />
           <Route path="finance" element={<FinanceAdminPage />} />
           <Route path="bin" element={<BinAdminPage />} />
+          <Route path="setting" element={<SettingAdminPage />} />
         </Route>
       </Routes>
     </Suspense>
