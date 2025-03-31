@@ -4,6 +4,7 @@
   flex-direction: column;
   padding: 20px 20px 0px 20px;
   padding-left: 320px;
+  gap: 20px;
 }
 
 .header-WithdrawAdminPage {
@@ -14,12 +15,123 @@
   width: 100%;
   border-radius: 20px;
   background-color: #2656a2;
-  margin-bottom: 20px;
   h1 {
     display: flex;
     justify-content: center;
     align-items: center;
     font-size: 42px;
     color: white;
+  }
+}
+
+.create-withdraw {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+  .btn-create-withdraw {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-self: end;
+    gap: 20px;
+    button {
+      padding: 5px;
+      height: 40px;
+      min-width: 80px;
+      border-radius: 5px;
+      background-color: #2656a2;
+      color: white;
+      font-size: 16px;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #1a4f8a;
+    }
+  }
+}
+
+.dropdown-Create {
+  position: absolute;
+  top: 50px;
+  right: 0px;
+  border-radius: 20px;
+  background-color: #2656a2;
+  min-width: 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 1;
+}
+.dropdown-Create::before {
+  content: "";
+  position: absolute;
+  top: -5;
+  right: 25px;
+  height: 10px;
+  width: 20px;
+  background-color: #2656a2;
+  transform: rotate(45deg);
+  z-index: -1;
+}
+.dropdown-Create.active {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  transition: 0.5s ease;
+  .btn-Create {
+    width: 100%;
+    padding: 10px;
+    background-color: #2656a2;
+    color: white;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    &:hover {
+      background-color: #1a4f8a;
+    }
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+.dropdown-Create.inactive {
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-20);
+  transition: 0.5s ease;
+  .btn-Create {
+    width: 100%;
+    padding: 10px;
+    background-color: #2656a2;
+    color: white;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    &:hover {
+      background-color: #1a4f8a;
+    }
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+.withdraw-content {
+  .ant-table {
+    height: 600px;
+  }
+}
+
+@media (max-width: 1280px) {
+  .container-WithdrawAdminPage {
+    padding-left: 270px;
+  }
+}
+
+@media (max-width: 1080px) {
+  .container-WithdrawAdminPage {
+    padding-left: 220px;
   }
 }
