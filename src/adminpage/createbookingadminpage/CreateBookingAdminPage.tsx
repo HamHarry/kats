@@ -46,9 +46,9 @@ const defaultValues: BookingForm = {
 
 const bookingTimeList = [
   { time: "08:00" },
-  { time: "08:30" },
+  { time: "09:00" },
   { time: "10:00" },
-  { time: "10:30" },
+  { time: "11:00" },
   { time: "13:00" },
   { time: "15:00" },
   { time: "17:00" },
@@ -418,39 +418,21 @@ const CreateBookingAdminPage = () => {
             />
           </div>
 
-          <div className="input-image">
-            <Controller
-              name="image"
-              control={control}
-              render={({ field }) => {
-                return (
-                  <div className="inputImage">
-                    <label htmlFor="file" className="text-image">
-                      <FileAddFilled className="icon-file" />
-                      <span>อัพโหลดภาพรถยนต์</span>
-                    </label>
-                    <input {...field} type="file" id="file" />
-                  </div>
-                );
-              }}
-            />
-
-            <Controller
-              name="slip"
-              control={control}
-              render={({ field }) => {
-                return (
-                  <div className="inputImage">
-                    <label htmlFor="file" className="text-image">
-                      <FileAddFilled className="icon-file" />
-                      <span>อัพโหลดภาพสลิปมัดจำ 1,000 บาท</span>
-                    </label>
-                    <input {...field} type="file" id="file" />
-                  </div>
-                );
-              }}
-            />
-          </div>
+          <Controller
+            name="slip"
+            control={control}
+            render={({ field }) => {
+              return (
+                <div className="inputImage">
+                  <label htmlFor="file" className="text-image">
+                    <FileAddFilled className="icon-file" />
+                    <span>อัพโหลดภาพสลิปมัดจำ 1,000 บาท</span>
+                  </label>
+                  <input {...field} type="file" id="file" />
+                </div>
+              );
+            }}
+          />
         </div>
         {rederDialogConfirm()}
       </form>

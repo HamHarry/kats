@@ -115,7 +115,11 @@ const GuaranteeAdminPage = () => {
   const rederEditProfile = () => (
     <Modal
       centered
-      className="wrap-container-Edit-Profile"
+      className={
+        userData?.product.name === "KATS Coating"
+          ? "wrap-container-Edit-Profile-kats"
+          : "wrap-container-Edit-Profile-gun"
+      }
       open={openDialogProfile}
       onCancel={() => setOpenDialogProfile(false)}
     >
