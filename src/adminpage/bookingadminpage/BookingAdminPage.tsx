@@ -13,17 +13,20 @@ import { useAppDispatch } from "../../stores/store";
 import {
   approveBookingById,
   deleteBookingById,
+  getAllBookingPaginations,
   getAllBookings,
 } from "../../stores/slices/bookingSlice";
 import CircleLoading from "../../shared/circleLoading";
 import { Modal } from "antd";
 import dayjs from "dayjs";
+import { debounce } from "lodash";
 
 const BookingAdminPage = () => {
   const navigate = useNavigate();
   const dispath = useAppDispatch();
 
-  const [bookingData, setBookingData] = useState<BookingData[]>([]);
+  const [bookingDatas, setBookingDatas] = useState<BookingData[]>([]);
+  const [bookingDataLites, setBookingDataLites] = useState<BookingData[]>([]);
   const [selectBookingId, setSelectBookingId] = useState<string>();
   const [selectDataBooking, setSelectDataBooking] = useState<BookingData>();
   const [selectImagePay, setSelectImagePay] = useState<string>();
@@ -33,25 +36,49 @@ const BookingAdminPage = () => {
     useState<boolean>(false);
   const [openDialogPay, setOpenDialogPay] = useState<boolean>(false);
   const [isBookingLoading, setIsBookingLoading] = useState<boolean>(false);
+  const [searchTerm, setSearchTerm] = useState<string>("");
+  const [selectedReceiptBookNo, setSelectedReceiptBookNo] =
+    useState<string>("all");
 
   const fetchAllBooking = useCallback(async () => {
     try {
       setIsBookingLoading(true);
+
+      const query = {
+        term: searchTerm,
+        receiptBookNo: selectedReceiptBookNo,
+      };
+
       const { data: bookingsRes = [] } = await dispath(
-        getAllBookings()
+        getAllBookingPaginations(query)
       ).unwrap();
 
-      setBookingData(bookingsRes);
+      setBookingDatas(bookingsRes);
     } catch (error) {
       console.log(error);
     } finally {
       setIsBookingLoading(false);
     }
-  }, [dispath]);
+  }, [dispath, searchTerm, selectedReceiptBookNo]);
 
   useEffect(() => {
     fetchAllBooking();
   }, [fetchAllBooking]);
+
+  const fetchAllBookingLite = useCallback(async () => {
+    const { data: allBookings = [] } = await dispath(getAllBookings()).unwrap();
+
+    setBookingDataLites(allBookings);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    fetchAllBookingLite();
+  }, [fetchAllBookingLite]);
+
+  const handleSetSearchTerm = debounce((value) => {
+    setSearchTerm(value);
+  }, 500);
 
   const deleted = async () => {
     try {
@@ -100,13 +127,22 @@ const BookingAdminPage = () => {
   };
 
   const selectMenu = () => {
+    const receiptBookNoList = bookingDataLites
+      .map((booking) => booking.receiptBookNo)
+      .filter((value, index, self) => self.indexOf(value) === index);
+
     return (
       <div className="btn-menu">
-        <select onChange={() => {}}>
-          <option value={"All"}>All</option>
-          <option value={"001"}>001</option>
-          <option value={"002"}>002</option>
-          <option value={"003"}>003</option>
+        <select onChange={(e) => setSelectedReceiptBookNo(e.target.value)}>
+          <option value="all">All</option>
+
+          {receiptBookNoList.map((item, index) => {
+            return (
+              <option key={index} value={item}>
+                {item}
+              </option>
+            );
+          })}
         </select>
       </div>
     );
@@ -205,7 +241,7 @@ const BookingAdminPage = () => {
           <input
             type="text"
             placeholder="Search...(Name,Phone,Number,Volumer)"
-            onChange={() => {}}
+            onChange={(e) => handleSetSearchTerm(e.target.value)}
           />
           <button
             className="btn-crate"
@@ -217,7 +253,7 @@ const BookingAdminPage = () => {
         </div>
       </div>
       <div className="wrap-container-BookingAdmin">
-        {bookingData.map((item, index) => {
+        {bookingDatas.map((item, index) => {
           const productType = item.product.productType;
 
           const formattedDate = item.bookDate

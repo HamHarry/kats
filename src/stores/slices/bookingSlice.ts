@@ -35,6 +35,14 @@ export const getAllBookings = createAsyncThunk(
   }
 );
 
+export const getAllBookingPaginations = createAsyncThunk(
+  "booking/get/all/Pagination",
+  async (query: any): Promise<any> => {
+    const response = await bookingServices.getAllBookingPaginations(query);
+    return response;
+  }
+);
+
 export const getBookingById = createAsyncThunk(
   "booking/get/id",
   async (bookingId: string): Promise<any> => {

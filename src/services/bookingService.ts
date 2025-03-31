@@ -27,6 +27,15 @@ export const getAllBookings = async (): Promise<any> => {
   return response;
 };
 
+export const getAllBookingPaginations = async (query: any): Promise<any> => {
+  const response = await axios.get(
+    `${import.meta.env.VITE_BASE_SERVER_URL}/bookings/pagination`,
+    { params: query }
+  );
+
+  return response;
+};
+
 export const getBookingById = async (bookingId: string): Promise<any> => {
   const response = await axios.get(
     `${import.meta.env.VITE_BASE_SERVER_URL}/bookings/${bookingId}`
