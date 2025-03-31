@@ -30,12 +30,10 @@
       h3 {
         font-size: 24px;
         color: white;
-        font-family: "Noto Sans Thai", serif;
       }
       p {
         font-size: 16px;
         color: white;
-        font-family: "Noto Sans Thai", serif;
       }
     }
   }
@@ -57,12 +55,10 @@
       h3 {
         font-size: 24px;
         color: white;
-        font-family: "Noto Sans Thai", serif;
       }
       p {
         font-size: 16px;
         color: white;
-        font-family: "Noto Sans Thai", serif;
       }
     }
   }
@@ -92,7 +88,6 @@
         font-size: 18px;
         color: white;
         margin-left: 20px;
-        font-family: "Noto Sans Thai", serif;
       }
       li:hover {
         text-shadow: 0 0 10px rgba(255, 255, 255, 0.8),
@@ -127,6 +122,14 @@
         font-size: 40px;
         color: white;
       }
+      .fa-hand-holding-dollar {
+        font-size: 40px;
+        color: white;
+      }
+      .fa-file-invoice-dollar {
+        font-size: 40px;
+        color: white;
+      }
       .fa-trash-can {
         font-size: 40px;
         color: white;
@@ -151,7 +154,6 @@
       font-size: 18px;
       color: white;
       margin-left: 20px;
-      font-family: "Noto Sans Thai", serif;
     }
   }
   .logout:hover {

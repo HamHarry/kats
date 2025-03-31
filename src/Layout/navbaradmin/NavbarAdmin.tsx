@@ -80,13 +80,33 @@ const NavbarAdmin = () => {
             <p>สินค้า</p>
           </li>
           <li
+            className={selected === "withdraw" ? "selected" : "select"}
+            onClick={() => {
+              navigate("/admin/withdraw");
+              setSelected("withdraw");
+            }}
+          >
+            <i className="fa-solid fa-wallet"></i>
+            <p>ค่าใช้จ่าย & เบิกเงิน</p>
+          </li>
+          <li
+            className={selected === "salary" ? "selected" : "select"}
+            onClick={() => {
+              navigate("/admin/salary");
+              setSelected("salary");
+            }}
+          >
+            <i className="fa-solid fa-hand-holding-dollar"></i>
+            <p>เงินเดือน</p>
+          </li>
+          <li
             className={selected === "finace" ? "selected" : "select"}
             onClick={() => {
               navigate("/admin/finance");
               setSelected("finace");
             }}
           >
-            <i className="fa-solid fa-wallet"></i>
+            <i className="fa-solid fa-file-invoice-dollar"></i>
             <p>การเงิน</p>
           </li>
           <li
