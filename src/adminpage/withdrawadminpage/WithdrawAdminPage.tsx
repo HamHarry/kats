@@ -4,7 +4,7 @@ import { Table } from "antd";
 import { useState } from "react";
 
 const WithdrawAdminPage = () => {
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   const [withdrawData, setWithdrawData] = useState([]);
   const [selectedCreate, setSelectedCreate] = useState<boolean>(false);
 
@@ -23,10 +23,20 @@ const WithdrawAdminPage = () => {
       <div
         className={`dropdown-Create ${selectedCreate ? "active" : "inactive"}`}
       >
-        <button className="btn-Create" onClick={() => {}}>
+        <button
+          className="btn-Create"
+          onClick={() => {
+            navigate("/admin/withdraw/createWithdraw");
+          }}
+        >
           สร้างค่าใช้จ่าย
         </button>
-        <button className="btn-Create" onClick={() => {}}>
+        <button
+          className="btn-Create"
+          onClick={() => {
+            navigate("/admin/withdraw/createSalaryAdvance");
+          }}
+        >
           เบิกเงินเดือน
         </button>
       </div>
@@ -36,7 +46,7 @@ const WithdrawAdminPage = () => {
   return (
     <div className="container-WithdrawAdminPage">
       <div className="header-WithdrawAdminPage">
-        <h1>Withdraws</h1>
+        <h1>Withdraws & Salarys</h1>
       </div>
 
       <div className="create-withdraw">

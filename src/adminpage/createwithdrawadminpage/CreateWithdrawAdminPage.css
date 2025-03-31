@@ -1,0 +1,144 @@
+.container-CreateWithdrawAdminPage {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  padding: 20px 20px 0px 20px;
+  padding-left: 320px;
+  gap: 20px;
+
+  input {
+    padding: 5px;
+    min-width: 250px;
+    margin-left: -10px;
+    height: 30px;
+    border-radius: 20px;
+    border: 2px solid #2656a2;
+  }
+
+  button {
+    width: 100px;
+    height: 45px;
+    border: none;
+    border-radius: 20px;
+    background-color: #2656a2;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+    transition: all 0.5s;
+  }
+  button:hover {
+    background-color: #1a4f8a;
+  }
+}
+
+.header-CreateWithdrawAdminPage {
+  display: flex;
+  justify-content: center;
+  height: 80px;
+  max-width: 1200px;
+  width: 100%;
+  border-radius: 20px;
+  background-color: #2656a2;
+  h1 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 42px;
+    color: white;
+  }
+}
+
+.btn-CreateWithdrawAdminPage {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 20px;
+}
+
+.wrap-container-CreateWithdrawAdminPage {
+  display: flex;
+  flex-direction: column;
+  border: 5px solid #2656a2;
+  border-radius: 20px;
+  padding: 0px 20px 0px 20px;
+  height: 700px;
+  width: 700px;
+  .inputEmployee {
+    display: flex;
+    flex-direction: column;
+    h2 {
+      font-size: 24px;
+    }
+    input {
+      padding: 5px;
+      border: 2px solid #2656a2;
+      margin-left: 0px;
+    }
+  }
+  .inputDetel {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 5px;
+    h2 {
+      font-size: 24px;
+    }
+    .input-owner-detel {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      input {
+        padding: 5px;
+        border: 2px solid #2656a2;
+        margin-left: 0px;
+      }
+      textarea {
+        padding: 5px;
+        border: 2px solid #2656a2;
+        border-radius: 20px;
+        max-height: 100px;
+        resize: vertical;
+      }
+    }
+  }
+  .inputDate {
+    display: flex;
+    flex-direction: column;
+    h2 {
+      font-size: 24px;
+    }
+    input {
+      padding: 5px;
+      border: 2px solid #2656a2;
+      margin-left: 0px;
+    }
+  }
+  .wrap-inputList {
+    display: flex;
+    flex-direction: column;
+    h2 {
+      font-size: 24px;
+    }
+    .inputList {
+      border: 2px dashed #2656a2;
+      border-radius: 10px;
+      padding: 15px;
+      input {
+        padding: 5px;
+        border: 2px solid #2656a2;
+        margin-left: 0px;
+        margin-left: 12px;
+      }
+    }
+  }
+}
+
+@media (max-width: 1280px) {
+  .container-CreateWithdrawAdminPage {
+    padding-left: 270px;
+  }
+}
+
+@media (max-width: 1080px) {
+  .container-CreateWithdrawAdminPage {
+    padding-left: 220px;
+  }
+}
