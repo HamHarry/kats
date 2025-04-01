@@ -1,12 +1,12 @@
 import { useNavigate } from "react-router-dom";
 import "./WithdrawAdminPage.css";
-import { Table } from "antd";
+import { Button, Dropdown, Space, Table } from "antd";
 import { useState } from "react";
+import { DownOutlined } from "@ant-design/icons";
 
 const WithdrawAdminPage = () => {
   const navigate = useNavigate();
   const [withdrawData, setWithdrawData] = useState([]);
-  const [selectedCreate, setSelectedCreate] = useState<boolean>(false);
 
   const columns = [
     { title: "เลขที่", dataIndex: "name", key: "name" },
@@ -18,29 +18,25 @@ const WithdrawAdminPage = () => {
     { title: "รวมยอดค่าใช้จ่าย", dataIndex: "name", key: "name" },
   ];
 
-  const SelectedCreate = () => {
-    return (
-      <div
-        className={`dropdown-Create ${selectedCreate ? "active" : "inactive"}`}
-      >
-        <button
-          className="btn-Create"
-          onClick={() => {
-            navigate("/admin/withdraw/createWithdraw");
-          }}
-        >
-          สร้างค่าใช้จ่าย
-        </button>
-        <button
-          className="btn-Create"
-          onClick={() => {
-            navigate("/admin/withdraw/createSalaryAdvance");
-          }}
-        >
-          เบิกเงินเดือน
-        </button>
-      </div>
-    );
+  const handleMenuClick = (item: any) => {
+    if (!item) return;
+    navigate(`/admin/withdraw/${item.key}`);
+  };
+
+  const items = [
+    {
+      label: "สร้างค่าใช้จ่าย",
+      key: "createWithdraw",
+    },
+    {
+      label: "เบิกเงินเดือน",
+      key: "createSalaryAdvance",
+    },
+  ];
+
+  const menuProps = {
+    items,
+    onClick: handleMenuClick,
   };
 
   return (
@@ -51,14 +47,14 @@ const WithdrawAdminPage = () => {
 
       <div className="create-withdraw">
         <div className="btn-create-withdraw">
-          <button
-            onClick={() => {
-              setSelectedCreate(!selectedCreate);
-            }}
-          >
-            สร้าง
-          </button>
-          {SelectedCreate()}
+          <Dropdown menu={menuProps}>
+            <Button>
+              <Space>
+                สร้าง
+                <DownOutlined />
+              </Space>
+            </Button>
+          </Dropdown>
         </div>
       </div>
 
