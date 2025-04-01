@@ -17,7 +17,7 @@ import {
   getAllBookings,
 } from "../../stores/slices/bookingSlice";
 import CircleLoading from "../../shared/circleLoading";
-import { Modal } from "antd";
+import { Modal, Select } from "antd";
 import dayjs from "dayjs";
 import { debounce } from "lodash";
 

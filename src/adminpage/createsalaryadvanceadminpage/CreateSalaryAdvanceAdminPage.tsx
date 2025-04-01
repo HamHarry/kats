@@ -12,7 +12,7 @@ import { useCallback, useEffect, useState } from "react";
 import { EmployeeData } from "../../model/employee.type";
 import { useAppDispatch } from "../../stores/store";
 import { getAllEmployees } from "../../stores/slices/employeeSlice";
-import { DatePicker, InputNumber, Select } from "antd";
+import { InputNumber, Select } from "antd";
 import dayjs from "dayjs";
 
 const initCategoryDetail: CategoryDetail = {
@@ -35,7 +35,7 @@ const initFinanceForm: FinanceData = {
 const CreateSalaryAdvanceAdminPage = () => {
   const dispath = useAppDispatch();
   const navigate = useNavigate();
-  const [isCreateWithDrawLoading, setIsCreateWithDrawLoading] =
+  const [isSalaryAdvanceLoading, setIsSalaryAdvanceLoading] =
     useState<boolean>(false);
 
   const [employeeData, setEmployeeData] = useState<EmployeeData[]>([]);
@@ -46,7 +46,7 @@ const CreateSalaryAdvanceAdminPage = () => {
 
   const fetchEmployeeData = useCallback(async () => {
     try {
-      setIsCreateWithDrawLoading(true);
+      setIsSalaryAdvanceLoading(true);
       const { data: EmployeesRes = [] } = await dispath(
         getAllEmployees()
       ).unwrap();
@@ -55,7 +55,7 @@ const CreateSalaryAdvanceAdminPage = () => {
     } catch (error) {
       console.log(error);
     } finally {
-      setIsCreateWithDrawLoading(false);
+      setIsSalaryAdvanceLoading(false);
     }
   }, [dispath]);
 
@@ -174,7 +174,7 @@ const CreateSalaryAdvanceAdminPage = () => {
           </div>
         </div>
       </form>
-      <CircleLoading open={isCreateWithDrawLoading} />
+      <CircleLoading open={isSalaryAdvanceLoading} />
     </div>
   );
 };
