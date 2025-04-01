@@ -3,13 +3,13 @@ import "./CreateEmployeeAdminPage.css";
 import { Controller, useForm } from "react-hook-form";
 import { EmployeeRole, EmployeeData } from "../../model/employee.type";
 import { Select } from "antd";
-import { FileAddFilled } from "@ant-design/icons";
+import { FileAddFilled, LineHeightOutlined } from "@ant-design/icons";
 import { useAppDispatch } from "../../stores/store";
 import {
   createEmployee,
   getEmployeeById,
 } from "../../stores/slices/employeeSlice";
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 const initCatagoryForm: EmployeeData = {
   name: "",
@@ -21,6 +21,8 @@ const CreateEmployeeAdminPage = () => {
   const navigate = useNavigate();
   const dispath = useAppDispatch();
   const { employeeId } = useParams();
+
+  const [baseImage, setBaseImage] = useState("");
 
   const { control, handleSubmit, reset } = useForm({
     defaultValues: initCatagoryForm,
@@ -54,9 +56,33 @@ const CreateEmployeeAdminPage = () => {
       ...value,
     };
 
-    await dispath(createEmployee(body));
+    console.log(body);
+
+    // await dispath(createEmployee(body));
 
     navigate("/admin/employee");
+  };
+
+  // เก็บไฟล์รูปภาพเป็น Base64
+  const uploadImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    const base64 = (await convertBase64(file)) as string;
+    setBaseImage(base64);
+  };
+
+  const convertBase64 = (file: any) => {
+    return new Promise((resolve, reject) => {
+      const fileReader = new FileReader();
+
+      fileReader.readAsDataURL(file);
+
+      fileReader.onload = () => {
+        resolve(fileReader.result);
+      };
+      fileReader.onerror = (e: any) => {
+        reject(e);
+      };
+    });
   };
 
   return (
@@ -145,15 +171,24 @@ const CreateEmployeeAdminPage = () => {
                         <FileAddFilled className="icon-file" />
                         <span>อัพโหลดรูปภาพ</span>
                       </label>
-                      <input {...field} type="file" id="file" />
+                      <input
+                        {...field}
+                        type="file"
+                        id="file"
+                        onChange={(e) => {
+                          uploadImage(e);
+                        }}
+                      />
                     </div>
                   );
                 }}
               />
             </div>
           </div>
-          {/* preview */}
-          <img src="/public/assets/user.png" alt="image" />
+          <div className="PreviewImage">
+            <h2>ตัวอย่างรูปภาพประจำตัว</h2>
+            {baseImage && <img src={baseImage} alt="image" />}
+          </div>
         </div>
       </form>
     </div>

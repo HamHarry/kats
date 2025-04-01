@@ -119,11 +119,23 @@
       }
     }
   }
-  img {
-    margin-top: 20px;
-    height: 200px;
-    border-radius: 50%;
-    border: 2px solid #2656a2;
+  .PreviewImage {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 300px;
+    align-items: center;
+    h2 {
+      margin-top: 45px;
+      font-size: 24px;
+    }
+    img {
+      margin-top: 20px;
+      height: 200px;
+      width: 200px;
+      border-radius: 50%;
+      border: 2px solid #2656a2;
+    }
   }
 }
 
