@@ -62,6 +62,7 @@ const CreateBookingAdminPage = () => {
   const targetDate = searchParams.get("targetDate");
 
   const formRef = useRef<any>(null);
+  const [baseImage, setBaseImage] = useState("");
 
   const [priceData, setPriceData] = useState<ProductDetail[]>([]);
   const [productDatas, setProductDatas] = useState<ProductData[]>([]);
@@ -148,6 +149,7 @@ const CreateBookingAdminPage = () => {
         ...value,
         bookDate: value.bookDate ? dayjs(value.bookDate).toISOString() : "",
         price: priceData[value.price],
+        // slip: baseImage,
       };
 
       if (bookingId) {
@@ -169,6 +171,28 @@ const CreateBookingAdminPage = () => {
     } catch (error) {
       console.log(error);
     }
+  };
+
+  // เก็บไฟล์รูปภาพเป็น Base64
+  const uploadImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    const base64 = (await convertBase64(file)) as string;
+    setBaseImage(base64);
+  };
+
+  const convertBase64 = (file: any) => {
+    return new Promise((resolve, reject) => {
+      const fileReader = new FileReader();
+
+      fileReader.readAsDataURL(file);
+
+      fileReader.onload = () => {
+        resolve(fileReader.result);
+      };
+      fileReader.onerror = (e: any) => {
+        reject(e);
+      };
+    });
   };
 
   const rederDialogConfirm = () => {
@@ -438,7 +462,14 @@ const CreateBookingAdminPage = () => {
                     <FileAddFilled className="icon-file" />
                     <span>อัพโหลดภาพสลิปมัดจำ 1,000 บาท</span>
                   </label>
-                  <input {...field} type="file" id="file" />
+                  <input
+                    {...field}
+                    type="file"
+                    id="file"
+                    onChange={(e) => {
+                      uploadImage(e);
+                    }}
+                  />
                 </div>
               );
             }}
