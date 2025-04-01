@@ -240,7 +240,7 @@ const BookingAdminPage = () => {
         <div className="search-content-right">
           <input
             type="text"
-            placeholder="Search...(Name,Phone,Number,Volumer)"
+            placeholder="Search...(Name,Phone,Number)"
             onChange={(e) => handleSetSearchTerm(e.target.value)}
           />
           <button

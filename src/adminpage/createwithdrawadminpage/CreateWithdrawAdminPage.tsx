@@ -13,6 +13,7 @@ import { EmployeeData } from "../../model/employee.type";
 import { useAppDispatch } from "../../stores/store";
 import { getAllEmployees } from "../../stores/slices/employeeSlice";
 import { DatePicker, Select } from "antd";
+import dayjs from "dayjs";
 
 const initCategoryDetail: CategoryDetail = {
   type: Category_Type.FUEL,
@@ -21,11 +22,12 @@ const initCategoryDetail: CategoryDetail = {
 
 const initWithdrawForm: FinanceData = {
   number: 0,
+  name: "",
   ownerName: "",
+  section: PaymentCategory.WITHDRAW,
   categorys: [initCategoryDetail],
   date: "",
   datePrice: "",
-  section: PaymentCategory.WITHDRAW,
   detel: "",
 };
 
@@ -67,6 +69,7 @@ const CreateWithdrawAdminPage = () => {
   const onSubmit = async (value: FinanceData) => {
     const body = {
       ...value,
+      date: value.date ? dayjs(value.date).toISOString() : "",
     };
 
     console.log(body);
@@ -115,7 +118,7 @@ const CreateWithdrawAdminPage = () => {
             <h2>พนักงาน</h2>
             <Controller
               control={control}
-              name="ownerName"
+              name="name"
               render={({ field }) => {
                 return (
                   <Select
@@ -125,7 +128,7 @@ const CreateWithdrawAdminPage = () => {
                     value={field.value || undefined}
                   >
                     {employeeData.map((item) => (
-                      <Select.Option key={item._id} value={item._id}>
+                      <Select.Option key={item._id} value={item.name}>
                         {item.name} (
                         {`${
                           item.staffRole === 0

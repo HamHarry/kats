@@ -21,6 +21,7 @@ export interface CategoryDetail {
 export interface FinanceData {
   _id?: string;
   number: number;
+  name: string;
   ownerName: string;
   section: PaymentCategory;
   categorys: CategoryDetail[];
