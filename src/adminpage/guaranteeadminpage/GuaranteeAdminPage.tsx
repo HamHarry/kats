@@ -6,28 +6,44 @@ import { useAppDispatch } from "../../stores/store";
 import CircleLoading from "../../shared/circleLoading";
 import {
   deleteBookingById,
+  getAllBookingPaginations,
   getAllBookings,
 } from "../../stores/slices/bookingSlice";
 import dayjs from "dayjs";
 import { Modal } from "antd";
 import { useNavigate } from "react-router-dom";
+import { debounce } from "lodash";
 
 const GuaranteeAdminPage = () => {
   const dispath = useAppDispatch();
   const navigate = useNavigate();
+  const [isGuaranteeLoading, setIsGuaranteeLoading] = useState<boolean>(false);
 
   const [guaranteeData, setGuaranteeData] = useState<BookingData[]>([]);
+  const [guaranteeDataLites, setGuaranteeDataLites] = useState<BookingData[]>(
+    []
+  );
   const [userData, setUserData] = useState<BookingData>();
   const [openDialogProfile, setOpenDialogProfile] = useState<boolean>(false);
   const [openDialogDelete, setOpenDialogDelete] = useState<boolean>(false);
-  const [isGuaranteeLoading, setIsGuaranteeLoading] = useState<boolean>(false);
   const [selectGuaranteeById, setSelectGuaranteeById] = useState<string>();
+  const [searchTerm, setSearchTerm] = useState<string>("");
+  const [selectedReceiptBookNo, setSelectedReceiptBookNo] =
+    useState<string>("all");
+  const [selectedProductName, setSelectedProductName] = useState<string>("all");
 
   const fetchAllBooking = useCallback(async () => {
     try {
       setIsGuaranteeLoading(true);
+
+      const query = {
+        term: searchTerm,
+        receiptBookNo: selectedReceiptBookNo,
+        productName: selectedProductName,
+      };
+
       const { data: bookingsRes = [] } = await dispath(
-        getAllBookings()
+        getAllBookingPaginations(query)
       ).unwrap();
 
       const finedData = bookingsRes.filter((item: any) => {
@@ -40,25 +56,60 @@ const GuaranteeAdminPage = () => {
     } finally {
       setIsGuaranteeLoading(false);
     }
-  }, [dispath]);
+  }, [dispath, searchTerm, selectedProductName, selectedReceiptBookNo]);
 
   useEffect(() => {
     fetchAllBooking();
   }, [fetchAllBooking]);
 
+  const fetchAllBookingLite = useCallback(async () => {
+    const { data: allBookings = [] } = await dispath(getAllBookings()).unwrap();
+
+    setGuaranteeDataLites(allBookings);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    fetchAllBookingLite();
+  }, [fetchAllBookingLite]);
+
+  const handleSetSearchTerm = debounce((value) => {
+    setSearchTerm(value);
+  }, 500);
+
   const selectMenu = () => {
+    const receiptBookNoList = guaranteeDataLites
+      .map((item) => item.receiptBookNo)
+      .filter((value, index, self) => self.indexOf(value) === index);
+    const productName = guaranteeDataLites
+      .map((item) => item.product.name)
+      .filter((value, index, self) => self.indexOf(value) === index);
+
     return (
       <div className="btn-menu">
-        <select>
-          <option value={"All"}>All</option>
-          <option value={"001"}>001</option>
-          <option value={"002"}>002</option>
-          <option value={"003"}>003</option>
+        <select onChange={(e) => setSelectedReceiptBookNo(e.target.value)}>
+          <option value={"all"}>All</option>
+          {receiptBookNoList.map((item, index) => {
+            return (
+              <option key={index} value={item}>
+                {item}
+              </option>
+            );
+          })}
         </select>
-        <select>
-          <option value={"All"}>All</option>
-          <option value={"KATS Coating"}>KATS</option>
-          <option value={"GUN"}>GUN</option>
+
+        <select
+          className="btn-productName"
+          onChange={(e) => setSelectedProductName(e.target.value)}
+        >
+          <option value={"all"}>All</option>
+          {productName.map((item, index) => {
+            return (
+              <option key={index} value={item}>
+                {item}
+              </option>
+            );
+          })}
         </select>
       </div>
     );
@@ -244,7 +295,11 @@ const GuaranteeAdminPage = () => {
       </div>
       <div className="search-guaranteeAdmin">
         <div>{selectMenu()}</div>
-        <input type="text" placeholder="Search...(Name,Phone,Number,Volumer)" />
+        <input
+          type="text"
+          placeholder="Search...(Name,Phone,Number)"
+          onChange={(e) => handleSetSearchTerm(e.target.value)}
+        />
       </div>
       <div className="wrap-container-guaranteeAdmin">
         {guaranteeData.map((item, index) => {

@@ -3,7 +3,7 @@ import "./CreateEmployeeAdminPage.css";
 import { Controller, useForm } from "react-hook-form";
 import { EmployeeRole, EmployeeData } from "../../model/employee.type";
 import { Select } from "antd";
-import { FileAddFilled, LineHeightOutlined } from "@ant-design/icons";
+import { FileAddFilled } from "@ant-design/icons";
 import { useAppDispatch } from "../../stores/store";
 import {
   createEmployee,
@@ -54,11 +54,10 @@ const CreateEmployeeAdminPage = () => {
   const onSubmit = async (value: EmployeeData) => {
     const body: EmployeeData = {
       ...value,
+      image: baseImage,
     };
 
-    console.log(body);
-
-    // await dispath(createEmployee(body));
+    await dispath(createEmployee(body));
 
     navigate("/admin/employee");
   };

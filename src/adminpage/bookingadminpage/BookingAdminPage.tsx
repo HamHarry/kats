@@ -17,13 +17,14 @@ import {
   getAllBookings,
 } from "../../stores/slices/bookingSlice";
 import CircleLoading from "../../shared/circleLoading";
-import { Modal, Select } from "antd";
+import { Modal } from "antd";
 import dayjs from "dayjs";
 import { debounce } from "lodash";
 
 const BookingAdminPage = () => {
   const navigate = useNavigate();
   const dispath = useAppDispatch();
+  const [isBookingLoading, setIsBookingLoading] = useState<boolean>(false);
 
   const [bookingDatas, setBookingDatas] = useState<BookingData[]>([]);
   const [bookingDataLites, setBookingDataLites] = useState<BookingData[]>([]);
@@ -35,7 +36,6 @@ const BookingAdminPage = () => {
   const [openDialogConfirmApprove, setOpenDialogConfirmApprove] =
     useState<boolean>(false);
   const [openDialogPay, setOpenDialogPay] = useState<boolean>(false);
-  const [isBookingLoading, setIsBookingLoading] = useState<boolean>(false);
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [selectedReceiptBookNo, setSelectedReceiptBookNo] =
     useState<string>("all");
