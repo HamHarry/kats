@@ -21,11 +21,12 @@ export interface CategoryDetail {
 export interface FinanceData {
   _id?: string;
   number: number;
-  name: string;
-  ownerName: string;
-  section: PaymentCategory;
+  name: string; // ชื่อบุคคล
+  ownerName: string; // หัวข้อ
+  section: PaymentCategory; // หมวดหมู่
   categorys: CategoryDetail[];
-  date: string;
-  datePrice: string;
-  detel: string;
+  price: number; // จำนวนเงิน
+  date: string; // วันที่สร้าง
+  datePrice: string; // วันที่จ่าย
+  detel: string; // รายละเอียด
 }

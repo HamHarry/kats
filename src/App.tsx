@@ -26,6 +26,7 @@ import SettingAdminPage from "./adminpage/settingadminpage/SettingAdminPage";
 import WithdrawAdminPage from "./adminpage/withdrawadminpage/WithdrawAdminPage";
 import SalaryAdminPage from "./adminpage/salaryadminpage/SalaryAdminPage";
 import CreateWithdrawAdminPage from "./adminpage/createwithdrawadminpage/CreateWithdrawAdminPage";
+import CreateSalaryAdvanceAdminPage from "./adminpage/createsalaryadvanceadminpage/CreateSalaryAdvanceAdminPage";
 
 function App() {
   return (
@@ -79,6 +80,10 @@ function App() {
             element={<CreateWithdrawAdminPage />}
           />
           <Route path="salary" element={<SalaryAdminPage />} />
+          <Route
+            path="salary/createSalaryAdvance"
+            element={<CreateSalaryAdvanceAdminPage />}
+          />
           <Route path="finance" element={<FinanceAdminPage />} />
           <Route path="bin" element={<BinAdminPage />} />
           <Route path="setting" element={<SettingAdminPage />} />

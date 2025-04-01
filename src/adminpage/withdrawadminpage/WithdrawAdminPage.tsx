@@ -20,7 +20,12 @@ const WithdrawAdminPage = () => {
 
   const handleMenuClick = (item: any) => {
     if (!item) return;
-    navigate(`/admin/withdraw/${item.key}`);
+
+    if (item.key === "createWithdraw") {
+      return navigate(`/admin/withdraw/${item.key}`);
+    } else {
+      navigate(`/admin/salary/${item.key}`);
+    }
   };
 
   const items = [

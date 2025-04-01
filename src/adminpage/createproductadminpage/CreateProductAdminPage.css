@@ -72,14 +72,14 @@
   .inputCatagory {
     display: flex;
     align-items: center;
-    gap: 70px;
+    gap: 69px;
     margin-left: 20px;
     margin-top: 20px;
   }
   .inputTypeProduct {
     display: flex;
     align-items: center;
-    gap: 72px;
+    gap: 69px;
     margin-left: 20px;
     margin-top: 20px;
   }

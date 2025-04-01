@@ -12,7 +12,7 @@ import { useCallback, useEffect, useState } from "react";
 import { EmployeeData } from "../../model/employee.type";
 import { useAppDispatch } from "../../stores/store";
 import { getAllEmployees } from "../../stores/slices/employeeSlice";
-import { DatePicker, Select } from "antd";
+import { DatePicker, InputNumber, Select } from "antd";
 import dayjs from "dayjs";
 
 const initCategoryDetail: CategoryDetail = {
@@ -20,12 +20,13 @@ const initCategoryDetail: CategoryDetail = {
   amount: 0,
 };
 
-const initWithdrawForm: FinanceData = {
+const initFinanceForm: FinanceData = {
   number: 0,
   name: "",
   ownerName: "",
   section: PaymentCategory.WITHDRAW,
   categorys: [initCategoryDetail],
+  price: 0,
   date: "",
   datePrice: "",
   detel: "",
@@ -39,7 +40,7 @@ const CreateWithdrawAdminPage = () => {
   const [employeeData, setEmployeeData] = useState<EmployeeData[]>([]);
 
   const { control, handleSubmit } = useForm({
-    defaultValues: initWithdrawForm,
+    defaultValues: initFinanceForm,
   });
 
   const categoryDetailFields = useFieldArray({
@@ -249,14 +250,11 @@ const CreateWithdrawAdminPage = () => {
                       name={`categorys.${index}.amount`}
                       render={({ field }) => {
                         return (
-                          <input
+                          <InputNumber
+                            className="input-number"
                             {...field}
-                            type="number"
-                            onChange={(event) => {
-                              if (event.target.value) {
-                                field.onChange(Number(event.target.value));
-                              }
-                            }}
+                            addonAfter="฿"
+                            placeholder="กรอกจำนวนเงิน"
                           />
                         );
                       }}
