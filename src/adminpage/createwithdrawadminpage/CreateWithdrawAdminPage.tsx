@@ -240,6 +240,9 @@ const CreateWithdrawAdminPage = () => {
                             <Select.Option value={Category_Type.MEDICAL}>
                               ค่ารักษา
                             </Select.Option>
+                            <Select.Option value={Category_Type.OTHER}>
+                              ค่าอื่นๆ
+                            </Select.Option>
                           </Select>
                         );
                       }}

@@ -11,6 +11,7 @@ export enum Category_Type {
   TRANSPORT = 4, // ขนส่ง
   TOOL = 5, // อุปกรณ์
   MEDICAL = 6, // รักษา
+  OTHER = 7, // อื่นๆ
 }
 
 export interface CategoryDetail {
