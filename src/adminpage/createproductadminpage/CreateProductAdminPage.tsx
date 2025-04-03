@@ -22,15 +22,14 @@ const initProductDetail: ProductDetail = {
   amount: 0,
 };
 
-const initProductForm: ProductData = {
+interface ProductDataForm extends Omit<ProductData, "catagory"> {}
+
+const initProductForm: ProductDataForm = {
   name: "",
-  catagory: {
-    name: "",
-    code: "",
-  },
   productDetails: [initProductDetail],
   detail: "",
   productType: ProductType.KATS,
+  catagoryId: "",
 };
 
 const CreateProductAdminPage = () => {
@@ -53,6 +52,7 @@ const CreateProductAdminPage = () => {
   const fetchCategoriesData = useCallback(async () => {
     try {
       setIsProductLoading(true);
+
       const { data: catagoriesRes = [] } = await dispath(
         getAllCatagories()
       ).unwrap();
@@ -69,17 +69,12 @@ const CreateProductAdminPage = () => {
     fetchCategoriesData();
   }, [fetchCategoriesData]);
 
-  const onSubmit = async (value: ProductData) => {
-    const findedCatagory = categories.find(
-      (item) => item._id === value.catagory._id
-    );
-
-    const body: ProductData = {
-      ...value,
-      catagory: findedCatagory || value.catagory,
-    };
-
-    await dispath(createProduct(body));
+  const onSubmit = async (value: ProductDataForm) => {
+    try {
+      await dispath(createProduct(value));
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const handleRemoveproductDetail = useCallback(
@@ -137,7 +132,7 @@ const CreateProductAdminPage = () => {
 
             <Controller
               control={control}
-              name="catagory._id"
+              name="catagoryId"
               render={({ field }) => {
                 return (
                   <Select

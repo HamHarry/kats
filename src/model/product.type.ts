@@ -9,7 +9,7 @@ export enum ProductType {
 }
 
 export interface Catagory {
-  _id?: number;
+  _id?: string;
   name: string;
   code: string;
 }
@@ -23,6 +23,7 @@ export interface ProductData {
   _id?: string;
   name: string;
   catagory: Catagory;
+  catagoryId: string;
   productDetails: ProductDetail[];
   detail: string;
   productType: ProductType;

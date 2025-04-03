@@ -14,7 +14,6 @@ import {
   approveBookingById,
   deleteBookingById,
   getAllBookingPaginations,
-  getAllBookings,
 } from "../../stores/slices/bookingSlice";
 import CircleLoading from "../../shared/circleLoading";
 import { Modal } from "antd";
@@ -65,16 +64,15 @@ const BookingAdminPage = () => {
     fetchAllBooking();
   }, [fetchAllBooking]);
 
-  const fetchAllBookingLite = useCallback(async () => {
-    const { data: allBookings = [] } = await dispath(getAllBookings()).unwrap();
-
-    setBookingDataLites(allBookings);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  const initailBookingLites = useCallback(() => {
+    if (!bookingDataLites.length) {
+      setBookingDataLites(bookingDatas);
+    }
+  }, [bookingDataLites, bookingDatas]);
 
   useEffect(() => {
-    fetchAllBookingLite();
-  }, [fetchAllBookingLite]);
+    initailBookingLites();
+  }, [initailBookingLites]);
 
   const handleSetSearchTerm = debounce((value) => {
     setSearchTerm(value);
@@ -106,7 +104,6 @@ const BookingAdminPage = () => {
           ...selectDataBooking,
           status: BookingStatus.PAID,
         };
-        console.log(data);
 
         await dispath(approveBookingById(data)).unwrap();
       } else if (selectDataBooking.status === 1) {
@@ -114,7 +111,6 @@ const BookingAdminPage = () => {
           ...selectDataBooking,
           status: BookingStatus.COMPLETED,
         };
-        console.log(data);
 
         await dispath(approveBookingById(data)).unwrap();
       }

@@ -22,7 +22,7 @@ import CircleLoading from "../../shared/circleLoading";
 
 export interface BookingForm
   extends Omit<BookingData, "product" | "price" | "bookDate"> {
-  product: string;
+  productId: string;
   price: number;
   bookDate: dayjs.Dayjs;
 }
@@ -36,7 +36,7 @@ const defaultValues: BookingForm = {
   carType: "",
   carModel: "",
   licensePlate: "",
-  product: "",
+  productId: "",
   tel: "",
   image: "",
   price: 0,
@@ -62,7 +62,7 @@ const CreateBookingAdminPage = () => {
   const targetDate = searchParams.get("targetDate");
 
   const formRef = useRef<any>(null);
-  const [baseImage, setBaseImage] = useState("");
+  const [_baseImage, setBaseImage] = useState("");
 
   const [priceData, setPriceData] = useState<ProductDetail[]>([]);
   const [productDatas, setProductDatas] = useState<ProductData[]>([]);
@@ -95,7 +95,7 @@ const CreateBookingAdminPage = () => {
       setPriceData(bookingRes.product.productDetails ?? []);
 
       const initBookingForm: BookingForm = {
-        product: bookingRes.product._id ?? "",
+        productId: bookingRes.product._id ?? "",
         price: priceIndex > -1 ? priceIndex : 0,
         number: bookingRes.number ?? "",
         receiptBookNo: bookingRes.receiptBookNo ?? "",
@@ -143,12 +143,11 @@ const CreateBookingAdminPage = () => {
     try {
       setOpenDialogConfirm(false);
 
-      console.log(value);
-
       const item = {
         ...value,
         bookDate: value.bookDate ? dayjs(value.bookDate).toISOString() : "",
         price: priceData[value.price],
+        productId: value.productId,
         // slip: baseImage,
       };
 
@@ -393,7 +392,7 @@ const CreateBookingAdminPage = () => {
 
           <div className="input-product">
             <Controller
-              name="product"
+              name="productId"
               control={control}
               render={({ field }) => {
                 return (
