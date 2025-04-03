@@ -14,6 +14,109 @@ import { Modal } from "antd";
 import { useNavigate } from "react-router-dom";
 import { debounce } from "lodash";
 
+export interface CarStructure {
+  serviceNo: number; // ครั้งที่
+  serviceDate: string; // วันที่เข้ารับบริการ
+  isBeam: boolean; // คาน
+  isWheelArch: boolean; // ซุ้มล้อ
+  isControlArm: boolean; // ปีกนก
+  isChassis: boolean; // แชสซี่ส์
+  isUnderbody: boolean; // ใต้ท้อง
+}
+
+const guarantees: CarStructure[] = [
+  {
+    serviceNo: 1,
+    serviceDate: "",
+    isBeam: false,
+    isWheelArch: false,
+    isControlArm: false,
+    isChassis: false,
+    isUnderbody: false,
+  },
+  {
+    serviceNo: 2,
+    serviceDate: "",
+    isBeam: false,
+    isWheelArch: false,
+    isControlArm: false,
+    isChassis: false,
+    isUnderbody: false,
+  },
+  {
+    serviceNo: 3,
+    serviceDate: "",
+    isBeam: false,
+    isWheelArch: false,
+    isControlArm: false,
+    isChassis: false,
+    isUnderbody: false,
+  },
+  {
+    serviceNo: 4,
+    serviceDate: "",
+    isBeam: false,
+    isWheelArch: false,
+    isControlArm: false,
+    isChassis: false,
+    isUnderbody: false,
+  },
+  {
+    serviceNo: 5,
+    serviceDate: "",
+    isBeam: false,
+    isWheelArch: false,
+    isControlArm: false,
+    isChassis: false,
+    isUnderbody: false,
+  },
+  {
+    serviceNo: 6,
+    serviceDate: "",
+    isBeam: false,
+    isWheelArch: false,
+    isControlArm: false,
+    isChassis: false,
+    isUnderbody: false,
+  },
+  {
+    serviceNo: 7,
+    serviceDate: "",
+    isBeam: false,
+    isWheelArch: false,
+    isControlArm: false,
+    isChassis: false,
+    isUnderbody: false,
+  },
+  {
+    serviceNo: 8,
+    serviceDate: "",
+    isBeam: false,
+    isWheelArch: false,
+    isControlArm: false,
+    isChassis: false,
+    isUnderbody: false,
+  },
+  {
+    serviceNo: 9,
+    serviceDate: "",
+    isBeam: false,
+    isWheelArch: false,
+    isControlArm: false,
+    isChassis: false,
+    isUnderbody: false,
+  },
+  {
+    serviceNo: 10,
+    serviceDate: "",
+    isBeam: false,
+    isWheelArch: false,
+    isControlArm: false,
+    isChassis: false,
+    isUnderbody: false,
+  },
+];
+
 const GuaranteeAdminPage = () => {
   const dispath = useAppDispatch();
   const navigate = useNavigate();
@@ -223,10 +326,19 @@ const GuaranteeAdminPage = () => {
                     ? "IsNotImageProfile "
                     : "IsImageProfile"
                 }
-                src={userData?.image}
+                src={baseImage}
                 alt="profile"
               />
-              <i className="fa-solid fa-camera"></i>
+              <label htmlFor="file" className="text-image">
+                <i className="fa-solid fa-camera"></i>
+              </label>
+              <input
+                type="file"
+                id="file"
+                onChange={(e) => {
+                  uploadImage(e);
+                }}
+              />
             </div>
             <div className="text-all">
               <div className="text-column-number">
@@ -300,20 +412,31 @@ const GuaranteeAdminPage = () => {
               </thead>
 
               <tbody>
-                {[...Array(10)].map((_, index) => (
-                  <tr key={index}>
-                    <td>{index + 1}</td>
-                    <input className="input-date" type="date" />
-
-                    {[...Array(5)].map((_, index) => {
-                      return (
-                        <td key={index}>
-                          <input className="checkbox" type="checkbox" />
-                        </td>
-                      );
-                    })}
-                  </tr>
-                ))}
+                {guarantees.map((item, index) => {
+                  return (
+                    <tr key={index}>
+                      <td>{item.serviceNo}</td>
+                      <td>
+                        <input className="input-date" type="date" />
+                      </td>
+                      <td>
+                        <input className="checkbox" type="checkbox" />
+                      </td>
+                      <td>
+                        <input className="checkbox" type="checkbox" />
+                      </td>
+                      <td>
+                        <input className="checkbox" type="checkbox" />
+                      </td>
+                      <td>
+                        <input className="checkbox" type="checkbox" />
+                      </td>
+                      <td>
+                        <input className="checkbox" type="checkbox" />
+                      </td>
+                    </tr>
+                  );
+                })}
               </tbody>
             </table>
           </div>

@@ -220,10 +220,17 @@ const CreateProductAdminPage = () => {
                         <input
                           {...field}
                           className="input-prices"
-                          type="number"
+                          type="text"
                           onChange={(event) => {
-                            if (event.target.value) {
-                              field.onChange(Number(event.target.value));
+                            const value = event.target.value.replace(
+                              /[^0-9.]/g,
+                              ""
+                            );
+                            const validated = value.match(
+                              /^(\d*\.{0,1}\d{0,2}$)/
+                            );
+                            if (validated) {
+                              field.onChange(Number(value));
                             }
                           }}
                         />
