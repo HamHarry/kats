@@ -24,6 +24,7 @@ const GuaranteeAdminPage = () => {
     []
   );
   const [userData, setUserData] = useState<BookingData>();
+  const [baseImage, setBaseImage] = useState("");
   const [openDialogProfile, setOpenDialogProfile] = useState<boolean>(false);
   const [openDialogDelete, setOpenDialogDelete] = useState<boolean>(false);
   const [selectGuaranteeById, setSelectGuaranteeById] = useState<string>();
@@ -76,6 +77,28 @@ const GuaranteeAdminPage = () => {
   const handleSetSearchTerm = debounce((value) => {
     setSearchTerm(value);
   }, 500);
+
+  // เก็บไฟล์รูปภาพเป็น Base64
+  const uploadImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    const base64 = (await convertBase64(file)) as string;
+    setBaseImage(base64);
+  };
+
+  const convertBase64 = (file: any) => {
+    return new Promise((resolve, reject) => {
+      const fileReader = new FileReader();
+
+      fileReader.readAsDataURL(file);
+
+      fileReader.onload = () => {
+        resolve(fileReader.result);
+      };
+      fileReader.onerror = (e: any) => {
+        reject(e);
+      };
+    });
+  };
 
   const selectMenu = () => {
     const receiptBookNoList = guaranteeDataLites
@@ -193,7 +216,18 @@ const GuaranteeAdminPage = () => {
       <div className="content-Profile">
         <div className="card-profile">
           <div className="wrap-card-profile">
-            <img src={userData?.image} alt="profile" />
+            <div className="ImageProfile">
+              <img
+                className={
+                  userData?.image === ""
+                    ? "IsNotImageProfile "
+                    : "IsImageProfile"
+                }
+                src={userData?.image}
+                alt="profile"
+              />
+              <i className="fa-solid fa-camera"></i>
+            </div>
             <div className="text-all">
               <div className="text-column-number">
                 <div className="text-number">

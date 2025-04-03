@@ -79,7 +79,7 @@
       align-items: center;
       margin-right: 20px;
       img {
-        width: 200px;
+        min-width: 300px;
         height: 200px;
         border-radius: 20px;
         border: 2px solid #ffffff;
@@ -479,16 +479,33 @@
     .card-profile {
       display: flex;
       flex-direction: column;
-      img {
-        width: 350px;
-        height: 200px;
-        border-radius: 20px;
-        border: 5px solid #ffffff;
-        margin-right: 20px;
-      }
       .wrap-card-profile {
         display: flex;
         width: 100%;
+        .ImageProfile {
+          position: relative;
+          min-width: 350px;
+          height: 200px;
+          border-radius: 10px;
+          border: 5px solid #ffffff;
+          margin-right: 20px;
+          .IsImageProfile {
+            min-width: 350px;
+            height: 200px;
+          }
+          .IsNotImageProfile {
+            min-width: 350px;
+            height: 200px;
+          }
+          .fa-camera {
+            position: absolute;
+            left: 88%;
+            bottom: 5%;
+            font-size: 30px;
+            color: #ffffff;
+            cursor: pointer;
+          }
+        }
         .text-column-number {
           display: flex;
           align-items: center;
