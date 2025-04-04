@@ -38,7 +38,7 @@ const defaultValues: BookingForm = {
   licensePlate: "",
   productId: "",
   tel: "",
-  image: "",
+  slip: "",
   price: 0,
   status: BookingStatus.PENDING,
   province: "",

@@ -166,16 +166,15 @@ const GuaranteeAdminPage = () => {
     fetchAllBooking();
   }, [fetchAllBooking]);
 
-  const fetchAllBookingLite = useCallback(async () => {
-    const { data: allBookings = [] } = await dispath(getAllBookings()).unwrap();
-
-    setGuaranteeDataLites(allBookings);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  const initailGuaranteeLites = useCallback(() => {
+    if (!guaranteeDataLites.length) {
+      setGuaranteeDataLites(guaranteeData);
+    }
+  }, [guaranteeDataLites, guaranteeData]);
 
   useEffect(() => {
-    fetchAllBookingLite();
-  }, [fetchAllBookingLite]);
+    initailGuaranteeLites();
+  }, [initailGuaranteeLites]);
 
   const handleSetSearchTerm = debounce((value) => {
     setSearchTerm(value);

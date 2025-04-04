@@ -4,12 +4,21 @@ import App from "./App.tsx";
 import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import { store } from "./stores/store.ts";
+import { ConfigProvider } from "antd";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <BrowserRouter>
       <Provider store={store}>
-        <App />
+        <ConfigProvider
+          theme={{
+            token: {
+              fontFamily: "Noto Sans Thai",
+            },
+          }}
+        >
+          <App />
+        </ConfigProvider>
       </Provider>
     </BrowserRouter>
   </StrictMode>

@@ -11,7 +11,7 @@ import {
 } from "../../stores/slices/employeeSlice";
 import { useCallback, useEffect, useState } from "react";
 
-const initCatagoryForm: EmployeeData = {
+const initEmployeeForm: EmployeeData = {
   name: "",
   tel: "",
   staffRole: EmployeeRole.CEO,
@@ -25,7 +25,7 @@ const CreateEmployeeAdminPage = () => {
   const [baseImage, setBaseImage] = useState("");
 
   const { control, handleSubmit, reset } = useForm({
-    defaultValues: initCatagoryForm,
+    defaultValues: initEmployeeForm,
   });
 
   const initailForm = useCallback(async () => {

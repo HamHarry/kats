@@ -5,10 +5,45 @@ export enum EmployeeRole {
   SPRAYER = 3, // ช่างพ่นสี
 }
 
+export enum PaymentStatus {
+  BANK = 0, // เงินสด
+  CASH = 1, // ธนาคาร
+}
+
+export enum PaymentType {
+  MONTHLY = 0, // รายวัน
+  DAILY = 1, // รายเดือน
+}
+
+export enum SalaryStatus {
+  PENDING = 0, // รอจ่ายเงิน
+  PAID = 1, // จ่ายเงินแล้ว
+}
+
+export enum BankType {
+  BANK_OF_AYUDHYA = 0, // ธนาคารกรุงศรีอยุธยา
+  BANGKOK_BANK = 1, // ธนาคารกรุงเทพ
+  KRUNG_THAI_BANK = 2, // ธนาคารกรุงไทย
+  KASIKORNBANK = 3, // ธนาคารกสิกรไทย
+  TMBTHANACHART_BANK = 4, // ธนาคารทหารไทยธนชาต
+  GOVERNMENT_SAVINGS_BANK = 5, // ธนาคารออมสิน
+  SIAM_COMMERCIAL_BANK = 6, // ธนาคารไทยพาณิชย์
+}
+
 export interface EmployeeData {
   _id?: string;
   name: string;
   tel: string;
   staffRole: EmployeeRole;
   image: string;
+  salary?: SalaryData;
+}
+
+export interface SalaryData {
+  paymentStatus?: PaymentStatus;
+  paymentType?: PaymentType;
+  bankName?: BankType;
+  accountNumber?: string;
+  amount?: number;
+  SalaryStatus?: SalaryStatus;
 }
