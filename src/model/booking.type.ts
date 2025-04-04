@@ -7,6 +7,16 @@ export enum BookingStatus {
   CANCELED = 3, // ยกเลิก
 }
 
+export interface CarStructure {
+  serviceNo: number; // ครั้งที่
+  serviceDate: string; // วันที่เข้ารับบริการ
+  isBeam: boolean; // คาน
+  isWheelArch: boolean; // ซุ้มล้อ
+  isControlArm: boolean; // ปีกนก
+  isChassis: boolean; // แชสซี่ส์
+  isUnderbody: boolean; // ใต้ท้อง
+}
+
 export interface BookingData {
   _id?: string;
   number: string;
@@ -20,6 +30,7 @@ export interface BookingData {
   province: string;
   status: BookingStatus;
   product: ProductData;
+  guarantees: CarStructure[];
   price: ProductDetail;
   tel: string;
   image?: string;

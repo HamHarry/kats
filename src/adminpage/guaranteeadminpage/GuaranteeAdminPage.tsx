@@ -1,140 +1,88 @@
 import { useCallback, useEffect, useState } from "react";
 import "./GuaranteeAdminPage.css";
-import { BookingStatus, BookingData } from "../../model/booking.type";
+import {
+  BookingStatus,
+  BookingData,
+  CarStructure,
+} from "../../model/booking.type";
 import { ProductType } from "../../model/product.type";
 import { useAppDispatch } from "../../stores/store";
 import CircleLoading from "../../shared/circleLoading";
 import {
   deleteBookingById,
   getAllBookingPaginations,
-  getAllBookings,
+  getBookingById,
+  updateBookingById,
 } from "../../stores/slices/bookingSlice";
 import dayjs from "dayjs";
-import { Modal } from "antd";
+import { DatePicker, Modal } from "antd";
 import { useNavigate } from "react-router-dom";
-import { debounce } from "lodash";
-
-export interface CarStructure {
-  serviceNo: number; // ครั้งที่
-  serviceDate: string; // วันที่เข้ารับบริการ
-  isBeam: boolean; // คาน
-  isWheelArch: boolean; // ซุ้มล้อ
-  isControlArm: boolean; // ปีกนก
-  isChassis: boolean; // แชสซี่ส์
-  isUnderbody: boolean; // ใต้ท้อง
+import { cloneDeep, debounce } from "lodash";
+import { Controller, useFieldArray, useForm } from "react-hook-form";
+export interface GuaranteeForm {
+  guarantees: CarStructure[];
 }
 
-const guarantees: CarStructure[] = [
-  {
-    serviceNo: 1,
-    serviceDate: "",
-    isBeam: false,
-    isWheelArch: false,
-    isControlArm: false,
-    isChassis: false,
-    isUnderbody: false,
-  },
-  {
-    serviceNo: 2,
-    serviceDate: "",
-    isBeam: false,
-    isWheelArch: false,
-    isControlArm: false,
-    isChassis: false,
-    isUnderbody: false,
-  },
-  {
-    serviceNo: 3,
-    serviceDate: "",
-    isBeam: false,
-    isWheelArch: false,
-    isControlArm: false,
-    isChassis: false,
-    isUnderbody: false,
-  },
-  {
-    serviceNo: 4,
-    serviceDate: "",
-    isBeam: false,
-    isWheelArch: false,
-    isControlArm: false,
-    isChassis: false,
-    isUnderbody: false,
-  },
-  {
-    serviceNo: 5,
-    serviceDate: "",
-    isBeam: false,
-    isWheelArch: false,
-    isControlArm: false,
-    isChassis: false,
-    isUnderbody: false,
-  },
-  {
-    serviceNo: 6,
-    serviceDate: "",
-    isBeam: false,
-    isWheelArch: false,
-    isControlArm: false,
-    isChassis: false,
-    isUnderbody: false,
-  },
-  {
-    serviceNo: 7,
-    serviceDate: "",
-    isBeam: false,
-    isWheelArch: false,
-    isControlArm: false,
-    isChassis: false,
-    isUnderbody: false,
-  },
-  {
-    serviceNo: 8,
-    serviceDate: "",
-    isBeam: false,
-    isWheelArch: false,
-    isControlArm: false,
-    isChassis: false,
-    isUnderbody: false,
-  },
-  {
-    serviceNo: 9,
-    serviceDate: "",
-    isBeam: false,
-    isWheelArch: false,
-    isControlArm: false,
-    isChassis: false,
-    isUnderbody: false,
-  },
-  {
-    serviceNo: 10,
-    serviceDate: "",
-    isBeam: false,
-    isWheelArch: false,
-    isControlArm: false,
-    isChassis: false,
-    isUnderbody: false,
-  },
-];
+const defaultValues: GuaranteeForm = {
+  guarantees: [],
+};
 
 const GuaranteeAdminPage = () => {
   const dispath = useAppDispatch();
   const navigate = useNavigate();
   const [isGuaranteeLoading, setIsGuaranteeLoading] = useState<boolean>(false);
 
-  const [guaranteeData, setGuaranteeData] = useState<BookingData[]>([]);
-  const [guaranteeDataLites, setGuaranteeDataLites] = useState<BookingData[]>(
-    []
-  );
-  const [userData, setUserData] = useState<BookingData>();
+  const [booking, setBooking] = useState<BookingData>();
+  const [selectBookingId, setSelectBookingId] = useState<string>();
+
+  const [bookingDatas, setBookingDatas] = useState<BookingData[]>([]);
+  const [bookingDataLites, setBookingDataLites] = useState<BookingData[]>([]);
   const [baseImage, setBaseImage] = useState("");
   const [openDialogProfile, setOpenDialogProfile] = useState<boolean>(false);
   const [openDialogDelete, setOpenDialogDelete] = useState<boolean>(false);
-  const [selectGuaranteeById, setSelectGuaranteeById] = useState<string>();
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [selectedReceiptBookNo, setSelectedReceiptBookNo] =
     useState<string>("all");
   const [selectedProductName, setSelectedProductName] = useState<string>("all");
+
+  const { control, reset, handleSubmit } = useForm<GuaranteeForm>({
+    defaultValues,
+  });
+  console.log(selectBookingId);
+
+  const guaranteeField = useFieldArray({ name: "guarantees", control });
+
+  const submit = async (data: GuaranteeForm) => {
+    try {
+      if (!booking) return;
+
+      setIsGuaranteeLoading(true);
+
+      const { guarantees } = data;
+      const filterGuarantees = guarantees.filter((item) => item.serviceDate);
+
+      if (!filterGuarantees.length) return;
+
+      const newBooking = {
+        ...booking,
+        guarantees: filterGuarantees,
+      };
+
+      const bookingId = newBooking._id;
+      const body = {
+        bookingId,
+        data: newBooking,
+      };
+
+      await dispath(updateBookingById(body)).unwrap();
+
+      setOpenDialogProfile(false);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsGuaranteeLoading(false);
+    }
+  };
 
   const fetchAllBooking = useCallback(async () => {
     try {
@@ -154,7 +102,7 @@ const GuaranteeAdminPage = () => {
         return item.status === BookingStatus.COMPLETED;
       });
 
-      setGuaranteeData(finedData);
+      setBookingDatas(finedData);
     } catch (error) {
       console.log(error);
     } finally {
@@ -166,11 +114,55 @@ const GuaranteeAdminPage = () => {
     fetchAllBooking();
   }, [fetchAllBooking]);
 
-  const initailGuaranteeLites = useCallback(() => {
-    if (!guaranteeDataLites.length) {
-      setGuaranteeDataLites(guaranteeData);
+  const fetchBookingById = useCallback(async () => {
+    try {
+      if (!selectBookingId) return;
+
+      setIsGuaranteeLoading(true);
+
+      const { data: bookingRes } = await dispath(
+        getBookingById(selectBookingId)
+      ).unwrap();
+
+      setBooking(bookingRes);
+
+      const guarantees: CarStructure[] = bookingRes?.guarantees || [];
+
+      const clonedGuarantees = cloneDeep(guarantees);
+
+      const remainingGuarantees = 10 - clonedGuarantees.length;
+
+      Array.from({ length: remainingGuarantees }, (_, index) => {
+        const guarantee: CarStructure = {
+          serviceNo: clonedGuarantees.length + index + 1,
+          serviceDate: "",
+          isBeam: false,
+          isWheelArch: false,
+          isControlArm: false,
+          isChassis: false,
+          isUnderbody: false,
+        };
+
+        clonedGuarantees.push(guarantee);
+      });
+
+      reset({ guarantees: clonedGuarantees });
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsGuaranteeLoading(false);
     }
-  }, [guaranteeDataLites, guaranteeData]);
+  }, [dispath, reset, selectBookingId]);
+
+  useEffect(() => {
+    fetchBookingById();
+  }, [fetchBookingById]);
+
+  const initailGuaranteeLites = useCallback(() => {
+    if (!bookingDataLites.length) {
+      setBookingDataLites(bookingDatas);
+    }
+  }, [bookingDataLites, bookingDatas]);
 
   useEffect(() => {
     initailGuaranteeLites();
@@ -203,10 +195,10 @@ const GuaranteeAdminPage = () => {
   };
 
   const selectMenu = () => {
-    const receiptBookNoList = guaranteeDataLites
+    const receiptBookNoList = bookingDataLites
       .map((item) => item.receiptBookNo)
       .filter((value, index, self) => self.indexOf(value) === index);
-    const productName = guaranteeDataLites
+    const productName = bookingDataLites
       .map((item) => item.product.name)
       .filter((value, index, self) => self.indexOf(value) === index);
 
@@ -242,10 +234,10 @@ const GuaranteeAdminPage = () => {
 
   const deleted = async () => {
     try {
-      if (!selectGuaranteeById) return;
+      if (!selectBookingId) return;
 
       setIsGuaranteeLoading(true);
-      await dispath(deleteBookingById(selectGuaranteeById)).unwrap();
+      await dispath(deleteBookingById(selectBookingId)).unwrap();
 
       setOpenDialogDelete(false);
     } catch (error) {
@@ -254,6 +246,111 @@ const GuaranteeAdminPage = () => {
       setIsGuaranteeLoading(false);
       fetchAllBooking();
     }
+  };
+
+  const renderGuarantee = () => {
+    return guaranteeField.fields.map((item, index) => {
+      return (
+        <tr key={index}>
+          <td>{item.serviceNo}</td>
+          <td>
+            <Controller
+              control={control} // Replace with your control object
+              name={`guarantees.${index}.serviceDate`}
+              render={({ field }) => (
+                <DatePicker
+                  className="input-date"
+                  value={field.value ? dayjs(field.value) : null}
+                  onChange={(date) => {
+                    field.onChange(date?.toISOString() ?? "");
+                  }}
+                />
+              )}
+            />
+          </td>
+          <td>
+            <Controller
+              control={control}
+              name={`guarantees.${index}.isBeam`}
+              render={({ field }) => (
+                <input
+                  className="checkbox"
+                  type="checkbox"
+                  checked={field.value}
+                  onChange={(e) => {
+                    field.onChange(e.target.checked);
+                  }}
+                />
+              )}
+            />
+          </td>
+          <td>
+            <Controller
+              control={control}
+              name={`guarantees.${index}.isWheelArch`}
+              render={({ field }) => (
+                <input
+                  className="checkbox"
+                  type="checkbox"
+                  checked={field.value}
+                  onChange={(e) => {
+                    field.onChange(e.target.checked);
+                  }}
+                />
+              )}
+            />
+          </td>
+          <td>
+            <Controller
+              control={control}
+              name={`guarantees.${index}.isControlArm`}
+              render={({ field }) => (
+                <input
+                  className="checkbox"
+                  type="checkbox"
+                  checked={field.value}
+                  onChange={(e) => {
+                    field.onChange(e.target.checked);
+                  }}
+                />
+              )}
+            />
+          </td>
+          <td>
+            <Controller
+              control={control}
+              name={`guarantees.${index}.isChassis`}
+              render={({ field }) => (
+                <input
+                  className="checkbox"
+                  type="checkbox"
+                  checked={field.value}
+                  onChange={(e) => {
+                    field.onChange(e.target.checked);
+                  }}
+                />
+              )}
+            />
+          </td>
+          <td>
+            <Controller
+              control={control}
+              name={`guarantees.${index}.isUnderbody`}
+              render={({ field }) => (
+                <input
+                  className="checkbox"
+                  type="checkbox"
+                  checked={field.value}
+                  onChange={(e) => {
+                    field.onChange(e.target.checked);
+                  }}
+                />
+              )}
+            />
+          </td>
+        </tr>
+      );
+    });
   };
 
   const rederDialogDelete = () => {
@@ -288,159 +385,142 @@ const GuaranteeAdminPage = () => {
     );
   };
 
-  const rederEditProfile = () => (
+  const rederBookingModal = () => (
     <Modal
       centered
       className={
-        userData?.product.name === "KATS Coating"
+        booking?.product.name === "KATS Coating"
           ? "wrap-container-Edit-Profile-kats"
           : "wrap-container-Edit-Profile-gun"
       }
       open={openDialogProfile}
-      onCancel={() => setOpenDialogProfile(false)}
+      onCancel={() => {
+        setOpenDialogProfile(false);
+        setSelectBookingId(undefined);
+      }}
     >
-      <div className="container-Edit-Profile-Navbar">
-        <button
-          type="button"
-          onClick={() => {
-            setOpenDialogProfile(false);
-          }}
-        >
-          <h3>บันทึก</h3>
-        </button>
-        <i
-          className="fa-solid fa-circle-xmark"
-          onClick={() => {
-            setOpenDialogProfile(false);
-          }}
-        ></i>
-      </div>
-      <div className="content-Profile">
-        <div className="card-profile">
-          <div className="wrap-card-profile">
-            <div className="ImageProfile">
-              <img
-                className={
-                  userData?.image === ""
-                    ? "IsNotImageProfile "
-                    : "IsImageProfile"
-                }
-                src={baseImage}
-                alt="profile"
-              />
-              <label htmlFor="file" className="text-image">
-                <i className="fa-solid fa-camera"></i>
-              </label>
-              <input
-                type="file"
-                id="file"
-                onChange={(e) => {
-                  uploadImage(e);
-                }}
-              />
-            </div>
-            <div className="text-all">
-              <div className="text-column-number">
-                <div className="text-number">
-                  <h4>เลขที่</h4>
-                  <p>{userData?.number}</p>
-                </div>
-                <div className="text-branch">
-                  <h4>สาขา</h4>
-                  <p>ลาดกระบัง</p>
-                </div>
+      <form onSubmit={handleSubmit(submit)}>
+        <div className="container-Edit-Profile-Navbar">
+          <button
+            type="submit"
+            onClick={() => {
+              setOpenDialogProfile(false);
+              setSelectBookingId(undefined);
+              setBooking(undefined);
+            }}
+          >
+            <h3>บันทึก</h3>
+          </button>
+          <i
+            className="fa-solid fa-circle-xmark"
+            onClick={() => {
+              setOpenDialogProfile(false);
+              setSelectBookingId(undefined);
+              setBooking(undefined);
+            }}
+          ></i>
+        </div>
+        <div className="content-Profile">
+          <div className="card-profile">
+            <div className="wrap-card-profile">
+              <div className="ImageProfile">
+                <img
+                  className={
+                    booking?.image === ""
+                      ? "IsNotImageProfile "
+                      : "IsImageProfile"
+                  }
+                  src={baseImage}
+                  alt="profile"
+                />
+                <label htmlFor="file" className="text-image">
+                  <i className="fa-solid fa-camera"></i>
+                </label>
+                <input
+                  type="file"
+                  id="file"
+                  onChange={(e) => {
+                    uploadImage(e);
+                  }}
+                />
               </div>
-              <div className="text-column-volume">
-                <div className="text-volume">
-                  <h4>เล่มที่</h4>
-                  <p>{userData?.receiptBookNo}</p>
-                </div>
-                <div className="guadrantee">
-                  <div className="text-guadrantee-typeProduct">
-                    <h4>ประกันสินค้า</h4>
-                    <p>{userData?.product.name}</p>
+              <div className="text-all">
+                <div className="text-column-number">
+                  <div className="text-number">
+                    <h4>เลขที่</h4>
+                    <p>{booking?.number}</p>
                   </div>
-                  <div className="text-guadrantee">
-                    <p>{userData?.price.amount} บาท</p>
+                  <div className="text-branch">
+                    <h4>สาขา</h4>
+                    <p>ลาดกระบัง</p>
                   </div>
                 </div>
-              </div>
-              <div className="text-column-date">
-                <div className="text-date">
-                  <h4>วันที่</h4>
-                  <p>{dayjs(userData?.bookDate).format("DD/MM/YYYY")}</p>
+                <div className="text-column-volume">
+                  <div className="text-volume">
+                    <h4>เล่มที่</h4>
+                    <p>{booking?.receiptBookNo}</p>
+                  </div>
+                  <div className="guadrantee">
+                    <div className="text-guadrantee-typeProduct">
+                      <h4>ประกันสินค้า</h4>
+                      <p>{booking?.product.name}</p>
+                    </div>
+                    <div className="text-guadrantee">
+                      <p>{booking?.price.amount} บาท</p>
+                    </div>
+                  </div>
                 </div>
-                <div className="text-car">
-                  <h4>รถยนต์</h4>
-                  <p>
-                    {userData?.carType} {userData?.carModel}
-                  </p>
+                <div className="text-column-date">
+                  <div className="text-date">
+                    <h4>วันที่</h4>
+                    <p>{dayjs(booking?.bookDate).format("DD/MM/YYYY")}</p>
+                  </div>
+                  <div className="text-car">
+                    <h4>รถยนต์</h4>
+                    <p>
+                      {booking?.carType} {booking?.carModel}
+                    </p>
+                  </div>
                 </div>
-              </div>
-              <div className="text-column-name">
-                <div className="text-name">
-                  <h4>ชื่อ</h4>
-                  <p>คุณ{userData?.name}</p>
+                <div className="text-column-name">
+                  <div className="text-name">
+                    <h4>ชื่อ</h4>
+                    <p>คุณ{booking?.name}</p>
+                  </div>
+                  <div className="text-register">
+                    <h4>ทะเบียน</h4>
+                    <p>
+                      {booking?.licensePlate} {booking?.province}
+                    </p>
+                  </div>
                 </div>
-                <div className="text-register">
-                  <h4>ทะเบียน</h4>
-                  <p>
-                    {userData?.licensePlate} {userData?.province}
-                  </p>
+                <div className="text-tel">
+                  <h4>เบอร์</h4>
+                  <p>{booking?.tel}</p>
                 </div>
-              </div>
-              <div className="text-tel">
-                <h4>เบอร์</h4>
-                <p>{userData?.tel}</p>
               </div>
             </div>
-          </div>
-          <hr />
-          <div className="guarante-date">
-            <table>
-              <thead>
-                <tr>
-                  <th>ครั้งที่</th>
-                  <th>วันที่เข้ารับบริการ</th>
-                  <th>คาน</th>
-                  <th>ซุ้มล้อ</th>
-                  <th>ปีกนก</th>
-                  <th>แชสซี่ส์</th>
-                  <th>ใต้ท้อง</th>
-                </tr>
-              </thead>
+            <hr />
+            <div className="guarante-date">
+              <table>
+                <thead>
+                  <tr>
+                    <th>ครั้งที่</th>
+                    <th>วันที่เข้ารับบริการ</th>
+                    <th>คาน</th>
+                    <th>ซุ้มล้อ</th>
+                    <th>ปีกนก</th>
+                    <th>แชสซี่ส์</th>
+                    <th>ใต้ท้อง</th>
+                  </tr>
+                </thead>
 
-              <tbody>
-                {guarantees.map((item, index) => {
-                  return (
-                    <tr key={index}>
-                      <td>{item.serviceNo}</td>
-                      <td>
-                        <input className="input-date" type="date" />
-                      </td>
-                      <td>
-                        <input className="checkbox" type="checkbox" />
-                      </td>
-                      <td>
-                        <input className="checkbox" type="checkbox" />
-                      </td>
-                      <td>
-                        <input className="checkbox" type="checkbox" />
-                      </td>
-                      <td>
-                        <input className="checkbox" type="checkbox" />
-                      </td>
-                      <td>
-                        <input className="checkbox" type="checkbox" />
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
+                <tbody>{renderGuarantee()}</tbody>
+              </table>
+            </div>
           </div>
         </div>
-      </div>
+      </form>
     </Modal>
   );
 
@@ -458,7 +538,7 @@ const GuaranteeAdminPage = () => {
         />
       </div>
       <div className="wrap-container-guaranteeAdmin">
-        {guaranteeData.map((item, index) => {
+        {bookingDatas.map((item, index) => {
           const productType = item.product.productType;
 
           const formattedDate = item.bookDate
@@ -484,7 +564,7 @@ const GuaranteeAdminPage = () => {
                       className="fa-solid fa-square-check"
                       onClick={() => {
                         setOpenDialogProfile(true);
-                        setUserData(item);
+                        setSelectBookingId(item._id);
                       }}
                     ></i>
                     <i
@@ -497,7 +577,7 @@ const GuaranteeAdminPage = () => {
                       className="fa-solid fa-trash-can"
                       onClick={() => {
                         setOpenDialogDelete(true);
-                        setSelectGuaranteeById(item._id);
+                        setSelectBookingId(item._id);
                       }}
                     ></i>
                   </div>
@@ -518,7 +598,7 @@ const GuaranteeAdminPage = () => {
           );
         })}
       </div>
-      {rederEditProfile()}
+      {rederBookingModal()}
       {rederDialogDelete()}
       <CircleLoading open={isGuaranteeLoading} />
     </div>
