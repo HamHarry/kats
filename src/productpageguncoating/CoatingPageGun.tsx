@@ -84,7 +84,15 @@ const CoatingPageGun = () => {
         </div>
       </div>
 
-      <div className="content-preview-damp"></div>
+      <div className="content-preview-damp">
+        <video
+          src="/public/assets/gun/MYOMK75_01.mp4"
+          autoPlay
+          loop
+          muted
+          controls
+        ></video>
+      </div>
 
       <div className="poster-row">
         <img src="/public/assets/gun/poster2.jpg" alt="poster" />

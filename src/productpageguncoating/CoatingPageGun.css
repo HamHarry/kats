@@ -27,6 +27,12 @@
   }
 }
 
+.content-preview-damp {
+  video {
+    height: 650px;
+  }
+}
+
 .poster-row {
   display: flex;
   gap: 20px;
