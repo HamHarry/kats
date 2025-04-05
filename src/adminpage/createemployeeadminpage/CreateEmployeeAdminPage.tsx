@@ -1,22 +1,38 @@
-import { useNavigate, useParams } from "react-router-dom";
 import "./CreateEmployeeAdminPage.css";
 import { Controller, useForm } from "react-hook-form";
-import { EmployeeRole, EmployeeData } from "../../model/employee.type";
-import { Select } from "antd";
+import {
+  EmployeeRole,
+  EmployeeData,
+  PaymentStatus,
+  PaymentType,
+  BankType,
+} from "../../model/employee.type";
+import { Select, Typography } from "antd";
 import { FileAddFilled } from "@ant-design/icons";
 import { useAppDispatch } from "../../stores/store";
 import {
   createEmployee,
   getEmployeeById,
+  updateEmployeeById,
 } from "../../stores/slices/employeeSlice";
 import { useCallback, useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { BankDatas } from "../../data/BankData";
 
 const initEmployeeForm: EmployeeData = {
   name: "",
   tel: "",
   staffRole: EmployeeRole.CEO,
   image: "",
+  salary: {
+    paymentStatus: PaymentStatus.BANK,
+    paymentType: PaymentType.MONTHLY,
+    bankName: BankType.BANK_OF_AYUDHYA,
+    accountNumber: "",
+    amount: 0,
+  },
 };
+
 const CreateEmployeeAdminPage = () => {
   const navigate = useNavigate();
   const dispath = useAppDispatch();
@@ -24,9 +40,11 @@ const CreateEmployeeAdminPage = () => {
 
   const [baseImage, setBaseImage] = useState("");
 
-  const { control, handleSubmit, reset } = useForm({
+  const { control, handleSubmit, reset, watch } = useForm({
     defaultValues: initEmployeeForm,
   });
+
+  const watchPaymentStatus = watch("salary.paymentStatus");
 
   const initailForm = useCallback(async () => {
     try {
@@ -39,6 +57,14 @@ const CreateEmployeeAdminPage = () => {
         tel: employeeRes.tel ?? "",
         staffRole: employeeRes.staffRole ?? EmployeeRole.CEO,
         image: employeeRes.image ?? "",
+        salary: {
+          paymentStatus:
+            employeeRes.salary?.paymentStatus ?? PaymentStatus.BANK,
+          paymentType: employeeRes.salary?.paymentType ?? PaymentType.MONTHLY,
+          bankName: employeeRes.salary?.bankName ?? BankType.BANK_OF_AYUDHYA,
+          accountNumber: employeeRes.salary?.accountNumber ?? "",
+          amount: employeeRes.salary?.amount ?? 0,
+        },
       };
 
       reset(initEmployeeForm);
@@ -52,14 +78,28 @@ const CreateEmployeeAdminPage = () => {
   }, [initailForm]);
 
   const onSubmit = async (value: EmployeeData) => {
-    const body: EmployeeData = {
-      ...value,
-      image: baseImage,
-    };
+    try {
+      const newEmployee = {
+        ...value,
+      };
 
-    await dispath(createEmployee(body));
+      if (employeeId) {
+        const body = {
+          employeeId,
+          data: newEmployee,
+        };
 
-    navigate("/admin/employee");
+        await dispath(updateEmployeeById(body)).unwrap();
+
+        navigate("/admin/employee");
+      } else {
+        await dispath(createEmployee(newEmployee)).unwrap();
+
+        navigate("/admin/employee");
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   // เก็บไฟล์รูปภาพเป็น Base64
@@ -85,8 +125,8 @@ const CreateEmployeeAdminPage = () => {
   };
 
   return (
-    <div className="container-CreateEmployee">
-      <div className="header-CreateEmployee">
+    <div className="container-CreateEmployeeAdminPage">
+      <div className="header-CreateEmployeeAdminPage">
         <h1>Create Employee</h1>
       </div>
 
@@ -103,7 +143,7 @@ const CreateEmployeeAdminPage = () => {
           <button type="submit">ยืนยัน</button>
         </div>
 
-        <div className="wrap-container-CreateEmployee">
+        <div className="wrap-container-CreateEmployeeAdminPage">
           <div className="input-left">
             <div className="inputNameEmployee">
               <h2>ชื่อพนักงาน</h2>
@@ -183,7 +223,156 @@ const CreateEmployeeAdminPage = () => {
                 }}
               />
             </div>
+
+            <div className="inputPaymentStatus">
+              <h2>การชำระเงิน</h2>
+              <Controller
+                control={control}
+                name="salary.paymentStatus"
+                render={({ field }) => {
+                  return (
+                    <Select
+                      {...field}
+                      placeholder="เลือกการชำระเงินเดือน"
+                      className="select-product"
+                      value={field.value ?? undefined}
+                      onClick={() => {
+                        // setIsAccountNumber();
+                      }}
+                    >
+                      <Select.Option value={PaymentStatus.BANK}>
+                        ธนาคาร
+                      </Select.Option>
+                      <Select.Option value={PaymentStatus.CASH}>
+                        เงินสด
+                      </Select.Option>
+                    </Select>
+                  );
+                }}
+              />
+            </div>
+
+            <div className="inputPaymentType">
+              <h2>ประเภทการชำระเงิน</h2>
+              <Controller
+                control={control}
+                name="salary.paymentType"
+                render={({ field }) => {
+                  return (
+                    <Select
+                      {...field}
+                      placeholder="เลือกประเภทการชำระเงิน"
+                      className="select-product"
+                      value={field.value ?? undefined}
+                    >
+                      <Select.Option value={PaymentType.MONTHLY}>
+                        รายเดือน
+                      </Select.Option>
+                      <Select.Option value={PaymentType.DAILY}>
+                        รายวัน
+                      </Select.Option>
+                    </Select>
+                  );
+                }}
+              />
+            </div>
+
+            {watchPaymentStatus === PaymentStatus.BANK && (
+              <>
+                <div className="inputAccountNumber">
+                  <h2>เลขบัญชี</h2>
+                  <Controller
+                    control={control}
+                    name="salary.accountNumber"
+                    render={({ field }) => {
+                      return (
+                        <input
+                          {...field}
+                          className="input-prices"
+                          type="text"
+                          placeholder="กรอกเลขบัญชี"
+                          onChange={(event) => {
+                            const value = event.target.value.replace(
+                              /[^0-9.]/g,
+                              ""
+                            );
+                            const validated = value.match(
+                              /^(\d*\.{0,1}\d{0,2}$)/
+                            );
+                            if (validated) {
+                              field.onChange(Number(value));
+                            }
+                          }}
+                        />
+                      );
+                    }}
+                  />
+                </div>
+
+                <div className="inputBankName">
+                  <h2>บัญชีธนาคาร</h2>
+                  <Controller
+                    control={control}
+                    name="salary.bankName"
+                    render={({ field }) => {
+                      return (
+                        <Select
+                          {...field}
+                          placeholder="เลือกบัญชีธนาคาร"
+                          className="select-product"
+                          value={field.value ?? undefined}
+                        >
+                          {BankDatas.map((bank, index) => {
+                            return (
+                              <Select.Option key={index} value={bank.type}>
+                                <div className="bank-select">
+                                  <img
+                                    className="bank-logo"
+                                    src={bank.img}
+                                    alt=""
+                                  />
+                                  <Typography>{bank.name}</Typography>
+                                </div>
+                              </Select.Option>
+                            );
+                          })}
+                        </Select>
+                      );
+                    }}
+                  />
+                </div>
+              </>
+            )}
+
+            <div className="inputAmount">
+              <h2>จำนวนเงิน</h2>
+              <Controller
+                control={control}
+                name="salary.amount"
+                render={({ field }) => {
+                  return (
+                    <input
+                      {...field}
+                      className="input-prices"
+                      type="text"
+                      placeholder="กรอกจำนวนเงิน"
+                      onChange={(event) => {
+                        const value = event.target.value.replace(
+                          /[^0-9.]/g,
+                          ""
+                        );
+                        const validated = value.match(/^(\d*\.{0,1}\d{0,2}$)/);
+                        if (validated) {
+                          field.onChange(Number(value));
+                        }
+                      }}
+                    />
+                  );
+                }}
+              />
+            </div>
           </div>
+
           <div className="PreviewImage">
             <h2>ตัวอย่างรูปภาพประจำตัว</h2>
             {baseImage && <img src={baseImage} alt="image" />}

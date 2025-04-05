@@ -48,7 +48,6 @@ const GuaranteeAdminPage = () => {
   const { control, reset, handleSubmit } = useForm<GuaranteeForm>({
     defaultValues,
   });
-  console.log(selectBookingId);
 
   const guaranteeField = useFieldArray({ name: "guarantees", control });
 

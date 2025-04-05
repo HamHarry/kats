@@ -15,11 +15,6 @@ export enum PaymentType {
   DAILY = 1, // รายเดือน
 }
 
-export enum SalaryStatus {
-  PENDING = 0, // รอจ่ายเงิน
-  PAID = 1, // จ่ายเงินแล้ว
-}
-
 export enum BankType {
   BANK_OF_AYUDHYA = 0, // ธนาคารกรุงศรีอยุธยา
   BANGKOK_BANK = 1, // ธนาคารกรุงเทพ
@@ -45,5 +40,4 @@ export interface SalaryData {
   bankName?: BankType;
   accountNumber?: string;
   amount?: number;
-  SalaryStatus?: SalaryStatus;
 }

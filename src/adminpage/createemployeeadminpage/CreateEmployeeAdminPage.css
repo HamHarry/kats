@@ -1,4 +1,4 @@
-.container-CreateEmployee {
+.container-CreateEmployeeAdminPage {
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -31,7 +31,7 @@
   }
 }
 
-.header-CreateEmployee {
+.header-CreateEmployeeAdminPage {
   display: flex;
   justify-content: center;
   height: 80px;
@@ -48,14 +48,14 @@
   }
 }
 
-.wrap-container-CreateEmployee {
+.wrap-container-CreateEmployeeAdminPage {
   display: flex;
   border: 5px solid #2656a2;
   border-radius: 20px;
   padding: 0px 20px 0px 20px;
-  height: 400px;
+  height: 700px;
   width: 900px;
-  gap: 40px;
+  gap: 20px;
   .input-left {
     display: flex;
     flex-direction: column;
@@ -63,19 +63,25 @@
       display: flex;
       align-items: center;
       margin-top: 40px;
-      gap: 86px;
+      h2 {
+        width: 220px;
+      }
     }
     .inputTelEmployee {
       display: flex;
       align-items: center;
-      gap: 117px;
       margin-top: 20px;
+      h2 {
+        width: 220px;
+      }
     }
     .inputPositionEmployee {
       display: flex;
       align-items: center;
-      gap: 107px;
       margin-top: 20px;
+      h2 {
+        width: 210px;
+      }
     }
     .select-product {
       width: 265px;
@@ -89,8 +95,50 @@
     .inputImageEmployee {
       display: flex;
       align-items: center;
-      gap: 34px;
       margin-top: 20px;
+      h2 {
+        width: 210px;
+      }
+    }
+    .inputPaymentStatus {
+      display: flex;
+      align-items: center;
+      margin-top: 20px;
+      h2 {
+        width: 210px;
+      }
+    }
+    .inputPaymentType {
+      display: flex;
+      align-items: center;
+      margin-top: 20px;
+      h2 {
+        width: 210px;
+      }
+    }
+    .inputAccountNumber {
+      display: flex;
+      align-items: center;
+      margin-top: 20px;
+      h2 {
+        width: 220px;
+      }
+    }
+    .inputBankName {
+      display: flex;
+      align-items: center;
+      margin-top: 20px;
+      h2 {
+        width: 210px;
+      }
+    }
+    .inputAmount {
+      display: flex;
+      align-items: center;
+      margin-top: 20px;
+      h2 {
+        width: 220px;
+      }
     }
     .inputImage {
       display: flex;
@@ -139,14 +187,27 @@
   }
 }
 
+.bank-logo {
+  width: 10px;
+  height: 10px;
+  border-radius: 50px;
+  border: 2px solid #2656a2;
+}
+
+.bank-select {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
 @media (max-width: 1280px) {
-  .container-CreateEmployee {
+  .container-CreateEmployeeAdminPage {
     padding-left: 270px;
   }
 }
 
 @media (max-width: 1080px) {
-  .container-CreateEmployee {
+  .container-CreateEmployeeAdminPage {
     padding-left: 220px;
   }
 }

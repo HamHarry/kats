@@ -30,7 +30,7 @@ export interface BookingData {
   province: string;
   status: BookingStatus;
   product: ProductData;
-  guarantees: CarStructure[];
+  guarantees?: CarStructure[];
   price: ProductDetail;
   tel: string;
   image?: string;

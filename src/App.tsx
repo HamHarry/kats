@@ -18,7 +18,6 @@ import CreateProductAdminPage from "./adminpage/createproductadminpage/CreatePro
 import EmployeeAdminPage from "./adminpage/employeeadminpage/EmployeeAdminPage";
 import UserAdminPage from "./adminpage/useradminpage/UserAdminPage";
 import CreateTypeProductPage from "./adminpage/createtypeproductpage/CreateTypeProductPage";
-import CreateEmployeeAdminPage from "./adminpage/createemployeeadminpage/CreateEmployeeAdminPage";
 import CatagoryAdminPage from "./adminpage/catagoryadminpage/CatagoryAdminPage";
 import CreateCatagoryAdminPage from "./adminpage/createcatagoryadminpage/CreateCatagoryAdminPage";
 import EditGuaranteeAdminPage from "./adminpage/editguaranteeadminpage/EditGuaranteeAdminPage";
@@ -27,7 +26,7 @@ import WithdrawAdminPage from "./adminpage/withdrawadminpage/WithdrawAdminPage";
 import SalaryAdminPage from "./adminpage/salaryadminpage/SalaryAdminPage";
 import CreateWithdrawAdminPage from "./adminpage/createwithdrawadminpage/CreateWithdrawAdminPage";
 import CreateSalaryAdvanceAdminPage from "./adminpage/createsalaryadvanceadminpage/CreateSalaryAdvanceAdminPage";
-import EditEmployeeAdminPage from "./adminpage/editemployeeadminpage/EditEmployeeAdminPage";
+import CreateEmployeeAdminPage from "./adminpage/createemployeeadminpage/CreateEmployeeAdminPage";
 
 function App() {
   return (
@@ -47,7 +46,7 @@ function App() {
           <Route path="employee/create" element={<CreateEmployeeAdminPage />} />
           <Route
             path="employee/edit/:employeeId"
-            element={<EditEmployeeAdminPage />}
+            element={<CreateEmployeeAdminPage />}
           />
           <Route path="booking" element={<BookingAdminPage />} />
           <Route path="booking/create" element={<CreateBookingAdminPage />} />
