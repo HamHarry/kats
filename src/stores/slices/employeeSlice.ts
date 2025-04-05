@@ -37,7 +37,7 @@ export const getEmployeeById = createAsyncThunk(
 export const updateEmployeeById = createAsyncThunk(
   "Employee/update/id",
   async (body: any): Promise<any> => {
-    const response = await employeeServices.getEmployeeById(body);
+    const response = await employeeServices.updateEmployeeById(body);
     return response;
   }
 );

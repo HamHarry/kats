@@ -20,7 +20,7 @@ import CircleLoading from "../../shared/circleLoading";
 
 export interface BookingForm
   extends Omit<BookingData, "product" | "price" | "bookDate"> {
-  product: string;
+  productId: string;
   price: number;
   bookDate: dayjs.Dayjs;
 }
@@ -34,7 +34,7 @@ const defaultValues: BookingForm = {
   carType: "",
   carModel: "",
   licensePlate: "",
-  product: "",
+  productId: "",
   tel: "",
   image: "",
   price: 0,
@@ -82,7 +82,7 @@ const EditGuaranteeAdminPage = () => {
       setPriceData(bookingRes.product.productDetails ?? []);
 
       const initBookingForm: BookingForm = {
-        product: bookingRes.product._id ?? "",
+        productId: bookingRes.product._id ?? "",
         price: priceIndex > -1 ? priceIndex : 0,
         number: bookingRes.number ?? "",
         receiptBookNo: bookingRes.receiptBookNo ?? "",
@@ -136,6 +136,7 @@ const EditGuaranteeAdminPage = () => {
         ...value,
         bookDate: value.bookDate ? dayjs(value.bookDate).toISOString() : "",
         price: priceData[value.price],
+        productId: value.productId,
       };
 
       if (bookingId) {
@@ -355,7 +356,7 @@ const EditGuaranteeAdminPage = () => {
 
           <div className="input-product">
             <Controller
-              name="product"
+              name="productId"
               control={control}
               render={({ field }) => {
                 return (

@@ -112,11 +112,11 @@ const CalendarAdminPage = () => {
       <div className="wrap-calendarAdmin">
         <Calendar
           cellRender={cellRender}
-          onSelect={(targetDate) => {
-            navigate(
-              `/admin/booking/create?targetDate=${targetDate.toISOString()}`
-            );
-          }}
+          // onSelect={(targetDate) => {
+          //   navigate(
+          //     `/admin/booking/create?targetDate=${targetDate.toISOString()}`
+          //   );
+          // }}
         />
       </div>
 
