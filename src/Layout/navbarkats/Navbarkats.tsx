@@ -47,13 +47,13 @@ const Navbarkats = () => {
               แผนที่
             </Link>
           </li>
-          <li
+          {/* <li
             onClick={() => {
               navigate("login");
             }}
           >
             เข้าสู่ระบบ
-          </li>
+          </li> */}
         </ul>
       </div>
     </div>
