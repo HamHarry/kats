@@ -382,8 +382,8 @@ const BookingAdminPage = () => {
 
                   <div
                     className={
-                      item.status === BookingStatus.COMPLETED &&
-                      BookingStatus.CANCELED
+                      item.status === BookingStatus.COMPLETED ||
+                      item.status === BookingStatus.CANCELED
                         ? "btn-approve-none"
                         : "btn-approve"
                     }
