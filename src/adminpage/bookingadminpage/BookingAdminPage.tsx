@@ -34,6 +34,8 @@ const BookingAdminPage = () => {
     useState<boolean>(false);
   const [openDialogConfirmApprove, setOpenDialogConfirmApprove] =
     useState<boolean>(false);
+  const [openDialogCancelApprove, setOpenDialogCancelApprove] =
+    useState<boolean>(false);
   const [openDialogPay, setOpenDialogPay] = useState<boolean>(false);
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [selectedReceiptBookNo, setSelectedReceiptBookNo] =
@@ -114,6 +116,25 @@ const BookingAdminPage = () => {
 
         await dispath(approveBookingById(data)).unwrap();
       }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsBookingLoading(false);
+      fetchAllBooking();
+    }
+  };
+
+  const cancel = async () => {
+    try {
+      setIsBookingLoading(true);
+      if (!selectDataBooking?._id) return;
+
+      const data: BookingData = {
+        ...selectDataBooking,
+        status: BookingStatus.CANCELED,
+      };
+
+      await dispath(approveBookingById(data)).unwrap();
     } catch (error) {
       console.log(error);
     } finally {
@@ -226,6 +247,38 @@ const BookingAdminPage = () => {
     );
   };
 
+  const rederDialogCancelApprove = () => {
+    return (
+      <Modal
+        centered
+        className="wrap-container-DialogApprove"
+        open={openDialogCancelApprove}
+        onCancel={() => setOpenDialogCancelApprove(false)}
+      >
+        <h1>ยืนยันการยกเลิก</h1>
+
+        <div className="btn-DialogApprove-Navbar">
+          <button
+            type="button"
+            onClick={() => {
+              cancel();
+              setOpenDialogCancelApprove(false);
+            }}
+          >
+            ยืนยัน
+          </button>
+          <button
+            onClick={() => {
+              setOpenDialogCancelApprove(false);
+            }}
+          >
+            ยกเลิก
+          </button>
+        </div>
+      </Modal>
+    );
+  };
+
   return (
     <div className="container-BookingAdmin">
       <div className="header-BookingAdmin">
@@ -326,19 +379,33 @@ const BookingAdminPage = () => {
                   <p>
                     ทะเบียน: {item.licensePlate} {item.province}
                   </p>
-                  <button
+
+                  <div
                     className={
-                      item.status === BookingStatus.COMPLETED
+                      item.status === BookingStatus.COMPLETED ||
+                      BookingStatus.CANCELED
                         ? "btn-approve-none"
                         : "btn-approve"
                     }
-                    onClick={() => {
-                      setOpenDialogConfirmApprove(true);
-                      setSelectDataBooking(item);
-                    }}
                   >
-                    อนุมัติ
-                  </button>
+                    <button
+                      onClick={() => {
+                        setOpenDialogConfirmApprove(true);
+                        setSelectDataBooking(item);
+                      }}
+                    >
+                      อนุมัติ
+                    </button>
+
+                    <button
+                      onClick={() => {
+                        setOpenDialogCancelApprove(true);
+                        setSelectDataBooking(item);
+                      }}
+                    >
+                      ยกเลิก
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
@@ -347,6 +414,7 @@ const BookingAdminPage = () => {
       </div>
       {rederDialogConfirmDelete()}
       {rederDialogConfirmApprove()}
+      {rederDialogCancelApprove()}
       {renderDialogPay()}
       <CircleLoading open={isBookingLoading} />
     </div>

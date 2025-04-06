@@ -151,13 +151,17 @@
       display: flex;
       justify-content: space-between;
       .btn-approve {
-        padding: 0px 10px;
-        border-radius: 10px;
-        background-color: white;
-        font-size: 18px;
-        border: none;
-        cursor: pointer;
-        color: black;
+        display: flex;
+        gap: 10px;
+        button {
+          padding: 0px 10px;
+          border-radius: 10px;
+          background-color: white;
+          font-size: 18px;
+          border: none;
+          cursor: pointer;
+          color: black;
+        }
       }
       .btn-approve-none {
         display: none;

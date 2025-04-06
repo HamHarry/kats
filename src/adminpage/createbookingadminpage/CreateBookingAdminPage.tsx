@@ -62,7 +62,7 @@ const CreateBookingAdminPage = () => {
   const targetDate = searchParams.get("targetDate");
 
   const formRef = useRef<any>(null);
-  const [_baseImage, setBaseImage] = useState("");
+  const [baseImage, setBaseImage] = useState("");
 
   const [priceData, setPriceData] = useState<ProductDetail[]>([]);
   const [productDatas, setProductDatas] = useState<ProductData[]>([]);
@@ -73,6 +73,8 @@ const CreateBookingAdminPage = () => {
   const { handleSubmit, control, reset, setValue } = useForm<BookingForm>({
     defaultValues,
   });
+
+  console.log(baseImage);
 
   useEffect(() => {
     if (targetDate) {
