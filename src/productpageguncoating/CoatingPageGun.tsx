@@ -4,10 +4,13 @@ import { MockUpSlidesBlackImage } from "../data/MockUpSlideBlackImage";
 import { MockUpSlidesWhiteImage } from "../data/MockUpSlidesWhiteImage";
 import { MockUpTheparak } from "../data/MockUpTheparak";
 import { Carousel } from "antd";
+import { DampData } from "../data/MockUpSlideDamp";
 const CoatingPageGun = () => {
   const [dataImageBlack] = useState(MockUpSlidesBlackImage);
   const [dataImageWhite] = useState(MockUpSlidesWhiteImage);
   const [dataImageTheparak] = useState(MockUpTheparak);
+  const [dataImageDamp] = useState(DampData);
+
   return (
     <div className="container-CoatingPageGun" id="coatingGun">
       <div className="header-CoatingPageGun">
@@ -92,6 +95,34 @@ const CoatingPageGun = () => {
           muted
           controls
         ></video>
+
+        <div className="container-preview-damp">
+          <div className="header-preview-damp">
+            <h1>ตัวอย่างรถ Mazda 2</h1>
+          </div>
+
+          <img src="/public/assets/gun/damps/mazda/mazda.png" alt="" />
+
+          <div className="content-slide-Damp">
+            <div className="slide-Damp">
+              {dataImageDamp.map((item, index) => {
+                return (
+                  <div className="slide" key={index}>
+                    <img src={item.image} alt="image" />
+                  </div>
+                );
+              })}
+
+              {dataImageDamp.map((item, index) => {
+                return (
+                  <div className="slide" key={index}>
+                    <img src={item.image} alt="image" />
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </div>
       </div>
 
       <div className="poster-row">
