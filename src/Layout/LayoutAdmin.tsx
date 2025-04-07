@@ -2,7 +2,7 @@ import { Suspense } from "react";
 import { Outlet } from "react-router-dom";
 import NavbarAdmin from "./navbaradmin/NavbarAdmin";
 
-const Layout = () => {
+const LayoutAdmin = () => {
   return (
     <div className="cotainer-all-admin">
       <NavbarAdmin />
@@ -15,4 +15,4 @@ const Layout = () => {
   );
 };
 
-export default Layout;
+export default LayoutAdmin;
