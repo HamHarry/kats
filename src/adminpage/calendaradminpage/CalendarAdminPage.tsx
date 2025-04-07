@@ -6,11 +6,9 @@ import { useCallback, useEffect, useState } from "react";
 import { useAppDispatch } from "../../stores/store";
 import { getAllBookings } from "../../stores/slices/bookingSlice";
 import CircleLoading from "../../shared/circleLoading";
-import { useNavigate } from "react-router-dom";
 
 const CalendarAdminPage = () => {
   const dispath = useAppDispatch();
-  const navigate = useNavigate();
 
   const [bookingData, setBookingData] = useState<BookingData[]>([]);
   const [isBookingLoading, setIsBookingLoading] = useState<boolean>(false);
@@ -110,14 +108,7 @@ const CalendarAdminPage = () => {
       </div>
 
       <div className="wrap-calendarAdmin">
-        <Calendar
-          cellRender={cellRender}
-          // onSelect={(targetDate) => {
-          //   navigate(
-          //     `/admin/booking/create?targetDate=${targetDate.toISOString()}`
-          //   );
-          // }}
-        />
+        <Calendar cellRender={cellRender} />
       </div>
 
       <CircleLoading open={isBookingLoading} />

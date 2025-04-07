@@ -8,12 +8,9 @@ import FinanceAdminPage from "./adminpage/financeadminpage/FinanceAdminPage";
 import BinAdminPage from "./adminpage/binadminpage/BinAdminPage";
 import LoginPage from "./loginpage/Loginpage";
 import ProductAdminPage from "./adminpage/productadminpage/ProductAdminPage";
-import LayoutAdmin from "./Layout/LayoutAdmin";
 import CreateBookingAdminPage from "./adminpage/createbookingadminpage/CreateBookingAdminPage";
 import HomePageKats from "./homepagekats/HomePagekats";
 import HomePageGun from "./homepagegun/HomePageGun";
-import Layoutkats from "./Layout/Layoutkats";
-import Layout from "./Layout/Layout";
 import CreateProductAdminPage from "./adminpage/createproductadminpage/CreateProductAdminPage";
 import EmployeeAdminPage from "./adminpage/employeeadminpage/EmployeeAdminPage";
 import UserAdminPage from "./adminpage/useradminpage/UserAdminPage";
@@ -27,6 +24,9 @@ import SalaryAdminPage from "./adminpage/salaryadminpage/SalaryAdminPage";
 import CreateWithdrawAdminPage from "./adminpage/createwithdrawadminpage/CreateWithdrawAdminPage";
 import CreateSalaryAdvanceAdminPage from "./adminpage/createsalaryadvanceadminpage/CreateSalaryAdvanceAdminPage";
 import CreateEmployeeAdminPage from "./adminpage/createemployeeadminpage/CreateEmployeeAdminPage";
+import Layout from "./layout/Layout";
+import Layoutkats from "./layout/Layoutkats";
+import LayoutAdmin from "./layout/LayoutAdmin";
 
 function App() {
   return (
