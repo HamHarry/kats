@@ -1,12 +1,9 @@
 import { Route, Routes } from "react-router-dom";
 import { Suspense } from "react";
 import "./App.css";
-import Layout from "./layout/Layout";
 import HomePageGun from "./homepagegun/HomePageGun";
 import LoginPage from "./loginpage/Loginpage";
-import Layoutkats from "./layout/Layoutkats";
 import HomePageKats from "./homepagekats/HomePagekats";
-import LayoutAdmin from "./layout/LayoutAdmin";
 import UserAdminPage from "./adminpage/useradminpage/UserAdminPage";
 import EmployeeAdminPage from "./adminpage/employeeadminpage/EmployeeAdminPage";
 import CreateEmployeeAdminPage from "./adminpage/createemployeeadminpage/CreateEmployeeAdminPage";
@@ -27,6 +24,9 @@ import CreateSalaryAdvanceAdminPage from "./adminpage/createsalaryadvanceadminpa
 import FinanceAdminPage from "./adminpage/financeadminpage/FinanceAdminPage";
 import BinAdminPage from "./adminpage/binadminpage/BinAdminPage";
 import SettingAdminPage from "./adminpage/settingadminpage/SettingAdminPage";
+import Layout from "./Layout/Layout";
+import Layoutkats from "./Layout/Layoutkats";
+import LayoutAdmin from "./Layout/LayoutAdmin";
 
 function App() {
   return (

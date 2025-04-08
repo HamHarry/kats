@@ -62,7 +62,7 @@ const CreateBookingAdminPage = () => {
   const targetDate = searchParams.get("targetDate");
 
   const formRef = useRef<any>(null);
-  const [_baseImage, setBaseImage] = useState("");
+  const [baseImage, setBaseImage] = useState("");
 
   const [priceData, setPriceData] = useState<ProductDetail[]>([]);
   const [productDatas, setProductDatas] = useState<ProductData[]>([]);
@@ -150,6 +150,8 @@ const CreateBookingAdminPage = () => {
         productId: value.productId,
         // slip: baseImage,
       };
+
+      console.log(baseImage);
 
       if (bookingId) {
         // แก้ไข
