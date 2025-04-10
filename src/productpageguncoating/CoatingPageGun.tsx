@@ -89,7 +89,7 @@ const CoatingPageGun = () => {
 
       <div className="content-preview-damp">
         <video
-          src="/public/assets/gun/VideoDamp.mp4"
+          src="/public/assets/gun/MYOMK75_01.mp4"
           autoPlay
           loop
           muted
