@@ -7,7 +7,7 @@ const NavbarAdmin = () => {
   return (
     <div className="navbarAdmin">
       <div className="logo-admin">
-        <img src="/public/assets/logokats.jpg" alt="logo" />
+        <img src="/assets/logokats.jpg" alt="logo" />
       </div>
       <hr />
 

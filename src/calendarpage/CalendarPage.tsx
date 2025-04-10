@@ -86,7 +86,7 @@ const CalendarPage = () => {
   return (
     <div className="container-orderpage">
       <div className="header-orderpage">
-        <img src="/public/assets/katoon.png" alt="katoon" />
+        <img src="/assets/katoon.png" alt="katoon" />
         <Typography className="text-header">ตรวจสอบคิว</Typography>
       </div>
 

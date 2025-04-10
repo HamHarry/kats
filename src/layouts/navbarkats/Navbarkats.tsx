@@ -15,7 +15,7 @@ const Navbarkats = () => {
             navigate("/kats");
           }}
         >
-          <img src="/public/assets/logokats.jpg" alt="logo" />
+          <img src="/assets/logokats.jpg" alt="logo" />
         </Link>
       </div>
       <div className="list-menu">

@@ -37,12 +37,12 @@ const GunGuardPage = () => {
         </div>
 
         <div className="image-guard">
-          <img src="/public/assets/gun/gun2.jpg" alt="image" />
-          <img src="/public/assets/gun/gun3.jpg" alt="image" />
+          <img src="/assets/gun/gun2.jpg" alt="image" />
+          <img src="/assets/gun/gun3.jpg" alt="image" />
         </div>
 
         <video
-          src="/public/assets/gun/roof/gunguard.mov"
+          src="/assets/gun/roof/gunguard.mov"
           autoPlay
           loop
           muted
@@ -220,7 +220,7 @@ const GunGuardPage = () => {
       </div>
 
       <div className="gun-timeline">
-        <img src="/public/assets/gun/roof/261723_0.jpg" alt="" />
+        <img src="/assets/gun/roof/261723_0.jpg" alt="" />
         <div className="text-gun-timeline">
           {datatimeline.map((item, index) => {
             return (

@@ -15,7 +15,7 @@ const NavbarGun = () => {
             navigate("/");
           }}
         >
-          <img src="/public/assets/logoG.png" alt="logo" />
+          <img src="/assets/logoG.png" alt="logo" />
         </Link>
       </div>
       <div className="list-menu">

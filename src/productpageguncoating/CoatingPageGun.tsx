@@ -40,8 +40,8 @@ const CoatingPageGun = () => {
           </p>
         </div>
         <Carousel autoplay className="tanks">
-          <img src="/public/assets/gun/tanks/black-tank.png" alt="tank-black" />
-          <img src="/public/assets/gun/tanks/white-tank.png" alt="tank-white" />
+          <img src="/assets/gun/tanks/black-tank.png" alt="tank-black" />
+          <img src="/assets/gun/tanks/white-tank.png" alt="tank-white" />
         </Carousel>
       </div>
 
@@ -66,7 +66,7 @@ const CoatingPageGun = () => {
       </div>
 
       <div className="content-series">
-        <img src="/public/assets/gun/tanks/tankDamp.png" alt="tank-Damp" />
+        <img src="/assets/gun/tanks/tankDamp.png" alt="tank-Damp" />
         <div className="text-box">
           <p>
             <span>GUN Protection Series 3</span>
@@ -89,7 +89,7 @@ const CoatingPageGun = () => {
 
       <div className="content-preview-damp">
         <video
-          src="/public/assets/gun/MYOMK75_01.mp4"
+          src="/assets/gun/MYOMK75_01.mp4"
           autoPlay
           loop
           muted
@@ -101,7 +101,7 @@ const CoatingPageGun = () => {
             <h1>ตัวอย่างรถ Mazda 2</h1>
           </div>
 
-          <img src="/public/assets/gun/damps/mazda/mazda.png" alt="" />
+          <img src="/assets/gun/damps/mazda/mazda.png" alt="" />
 
           <div className="content-slide-Damp">
             <div className="slide-Damp">
@@ -126,10 +126,10 @@ const CoatingPageGun = () => {
       </div>
 
       <div className="poster-row">
-        <img src="/public/assets/gun/poster2.jpg" alt="poster" />
-        <img src="/public/assets/gun/poster3.jpg" alt="poster" />
-        <img src="/public/assets/gun/poster1.jpg" alt="poster" />
-        <img src="/public/assets/gun/poster4.jpg" alt="poster" />
+        <img src="/assets/gun/poster2.jpg" alt="poster" />
+        <img src="/assets/gun/poster3.jpg" alt="poster" />
+        <img src="/assets/gun/poster1.jpg" alt="poster" />
+        <img src="/assets/gun/poster4.jpg" alt="poster" />
       </div>
 
       <div className="header-CoatingPageGun">
@@ -144,7 +144,7 @@ const CoatingPageGun = () => {
             สูตรน้ำ ไร้กลิ่น ปลอดภัย สาขาเทพารักษ์
           </p>
 
-          <img src="/public/assets/gun/theparak/theparak.jpg" alt="map" />
+          <img src="/assets/gun/theparak/theparak.jpg" alt="map" />
 
           <button
             type="button"
@@ -159,7 +159,7 @@ const CoatingPageGun = () => {
         </div>
         <div className="image-preview-theparak">
           <img
-            src="/public/assets/gun/gunpage.jpg"
+            src="/assets/gun/gunpage.jpg"
             alt="page"
             onClick={() => {
               window.open("https://www.facebook.com/guncoatings");

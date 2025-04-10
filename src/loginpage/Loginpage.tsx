@@ -70,7 +70,7 @@ const LoginPage = () => {
     <>
       <div className="container-login">
         <div className="wrap-login">
-          <img src="/public/assets/katoon.png" alt="katoon" />
+          <img src="/assets/katoon.png" alt="katoon" />
           <h1>เข้าสู่ระบบ</h1>
           <form onSubmit={handleSubmit(submit)}>
             <Controller
