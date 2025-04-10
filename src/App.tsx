@@ -24,11 +24,11 @@ import CreateSalaryAdvanceAdminPage from "./adminpage/createsalaryadvanceadminpa
 import FinanceAdminPage from "./adminpage/financeadminpage/FinanceAdminPage";
 import BinAdminPage from "./adminpage/binadminpage/BinAdminPage";
 import SettingAdminPage from "./adminpage/settingadminpage/SettingAdminPage";
-import Layout from "./layout/Layout.tsx";
-import Layoutkats from "./layout/Layoutkats.tsx";
-import LayoutAdmin from "./layout/LayoutAdmin.tsx";
+import Layout from "./layouts/Layout.tsx";
+import Layoutkats from "./layouts/Layoutkats.tsx";
+import LayoutAdmin from "./layouts/LayoutAdmin.tsx";
 import CalendarPage from "./calendarpage/CalendarPage";
-import LayoutCalendar from "./layout/LayoutCalendar.tsx";
+import LayoutCalendar from "./layouts/LayoutCalendar.tsx";
 
 function App() {
   return (
