@@ -24,9 +24,11 @@ import CreateSalaryAdvanceAdminPage from "./adminpage/createsalaryadvanceadminpa
 import FinanceAdminPage from "./adminpage/financeadminpage/FinanceAdminPage";
 import BinAdminPage from "./adminpage/binadminpage/BinAdminPage";
 import SettingAdminPage from "./adminpage/settingadminpage/SettingAdminPage";
-import Layout from "./Layout/Layout";
-import Layoutkats from "./Layout/Layoutkats";
-import LayoutAdmin from "./Layout/LayoutAdmin";
+import Layout from "./layout/Layout";
+import Layoutkats from "./layout/Layoutkats";
+import LayoutAdmin from "./layout/LayoutAdmin";
+import CalendarPage from "./calendarpage/CalendarPage";
+import LayoutCalendar from "./layout/LayoutCalendar";
 
 function App() {
   return (
@@ -38,6 +40,9 @@ function App() {
         <Route path="/kats" element={<Layoutkats />}>
           <Route path="" element={<HomePageKats />} />
           <Route path="login" element={<LoginPage />} />
+        </Route>
+        <Route path="/calendar" element={<LayoutCalendar />}>
+          <Route path="" element={<CalendarPage />} />
         </Route>
         <Route path="admin" element={<LayoutAdmin />}>
           <Route path="user" element={<UserAdminPage />} />
