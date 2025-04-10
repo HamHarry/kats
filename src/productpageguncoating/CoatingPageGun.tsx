@@ -88,13 +88,9 @@ const CoatingPageGun = () => {
       </div>
 
       <div className="content-preview-damp">
-        <video
-          src="/assets/gun/MYOMK75_01.mp4"
-          autoPlay
-          loop
-          muted
-          controls
-        ></video>
+        <video autoPlay loop muted controls>
+          <source src="/assets/gun/MYOMK75_01.mp4" type="video/mp4" />
+        </video>
 
         <div className="container-preview-damp">
           <div className="header-preview-damp">
