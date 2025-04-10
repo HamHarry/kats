@@ -70,7 +70,7 @@ const HomePageGun = () => {
         </div>
 
         <div className="center-right">
-          <video src="/assets/gun/file.mp4" autoPlay loop muted controls />
+          <video src="/assets/gun/file.mov" autoPlay loop muted controls />
         </div>
       </div>
 
