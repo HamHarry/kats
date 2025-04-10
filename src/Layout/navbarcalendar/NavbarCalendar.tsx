@@ -1,7 +1,7 @@
 import { Link } from "react-scroll";
-import "./Navbarkats.css";
+import "../navbarkats/Navbarkats.css";
 import { useNavigate } from "react-router-dom";
-const Navbarkats = () => {
+const NavbarCalendar = () => {
   const navigate = useNavigate();
 
   return (
@@ -32,32 +32,10 @@ const Navbarkats = () => {
               หน้าแรก
             </Link>
           </li>
-          <li>
-            <Link to="Bookingkats" smooth={true} duration={200}>
-              ตรวจสอบคิว
-            </Link>
-          </li>
-          <li>
-            <Link to="Productkats" smooth={true} duration={200}>
-              สินค้า
-            </Link>
-          </li>
-          <li>
-            <Link to="Mapkats" smooth={true} duration={200}>
-              แผนที่
-            </Link>
-          </li>
-          {/* <li
-            onClick={() => {
-              navigate("login");
-            }}
-          >
-            เข้าสู่ระบบ
-          </li> */}
         </ul>
       </div>
     </div>
   );
 };
 
-export default Navbarkats;
+export default NavbarCalendar;

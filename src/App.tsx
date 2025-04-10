@@ -1,32 +1,34 @@
 import { Route, Routes } from "react-router-dom";
 import { Suspense } from "react";
 import "./App.css";
+import HomePageGun from "./homepagegun/HomePageGun";
+import LoginPage from "./loginpage/Loginpage";
+import HomePageKats from "./homepagekats/HomePagekats";
+import UserAdminPage from "./adminpage/useradminpage/UserAdminPage";
+import EmployeeAdminPage from "./adminpage/employeeadminpage/EmployeeAdminPage";
+import CreateEmployeeAdminPage from "./adminpage/createemployeeadminpage/CreateEmployeeAdminPage";
 import BookingAdminPage from "./adminpage/bookingadminpage/BookingAdminPage";
+import CreateBookingAdminPage from "./adminpage/createbookingadminpage/CreateBookingAdminPage";
 import CalendarAdminPage from "./adminpage/calendaradminpage/CalendarAdminPage";
 import GuaranteeAdminPage from "./adminpage/guaranteeadminpage/GuaranteeAdminPage";
-import FinanceAdminPage from "./adminpage/financeadminpage/FinanceAdminPage";
-import BinAdminPage from "./adminpage/binadminpage/BinAdminPage";
-import LoginPage from "./loginpage/Loginpage";
+import EditGuaranteeAdminPage from "./adminpage/editguaranteeadminpage/EditGuaranteeAdminPage";
 import ProductAdminPage from "./adminpage/productadminpage/ProductAdminPage";
-import LayoutAdmin from "./Layout/LayoutAdmin";
-import CreateBookingAdminPage from "./adminpage/createbookingadminpage/CreateBookingAdminPage";
-import HomePageKats from "./homepagekats/HomePagekats";
-import HomePageGun from "./homepagegun/HomePageGun";
-import Layoutkats from "./Layout/Layoutkats";
-import Layout from "./Layout/Layout";
-import CreateProductAdminPage from "./adminpage/createproductadminpage/CreateProductAdminPage";
-import EmployeeAdminPage from "./adminpage/employeeadminpage/EmployeeAdminPage";
-import UserAdminPage from "./adminpage/useradminpage/UserAdminPage";
 import CreateTypeProductPage from "./adminpage/createtypeproductpage/CreateTypeProductPage";
+import CreateProductAdminPage from "./adminpage/createproductadminpage/CreateProductAdminPage";
 import CatagoryAdminPage from "./adminpage/catagoryadminpage/CatagoryAdminPage";
 import CreateCatagoryAdminPage from "./adminpage/createcatagoryadminpage/CreateCatagoryAdminPage";
-import EditGuaranteeAdminPage from "./adminpage/editguaranteeadminpage/EditGuaranteeAdminPage";
-import SettingAdminPage from "./adminpage/settingadminpage/SettingAdminPage";
 import WithdrawAdminPage from "./adminpage/withdrawadminpage/WithdrawAdminPage";
-import SalaryAdminPage from "./adminpage/salaryadminpage/SalaryAdminPage";
 import CreateWithdrawAdminPage from "./adminpage/createwithdrawadminpage/CreateWithdrawAdminPage";
+import SalaryAdminPage from "./adminpage/salaryadminpage/SalaryAdminPage";
 import CreateSalaryAdvanceAdminPage from "./adminpage/createsalaryadvanceadminpage/CreateSalaryAdvanceAdminPage";
-import CreateEmployeeAdminPage from "./adminpage/createemployeeadminpage/CreateEmployeeAdminPage";
+import FinanceAdminPage from "./adminpage/financeadminpage/FinanceAdminPage";
+import BinAdminPage from "./adminpage/binadminpage/BinAdminPage";
+import SettingAdminPage from "./adminpage/settingadminpage/SettingAdminPage";
+import Layout from "./layout/Layout";
+import Layoutkats from "./layout/Layoutkats";
+import LayoutAdmin from "./layout/LayoutAdmin";
+import CalendarPage from "./calendarpage/CalendarPage";
+import LayoutCalendar from "./layout/LayoutCalendar";
 
 function App() {
   return (
@@ -34,11 +36,13 @@ function App() {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route path="" element={<HomePageGun />} />
-          <Route path="login" element={<LoginPage />} />
         </Route>
         <Route path="/kats" element={<Layoutkats />}>
           <Route path="" element={<HomePageKats />} />
           <Route path="login" element={<LoginPage />} />
+        </Route>
+        <Route path="/calendar" element={<LayoutCalendar />}>
+          <Route path="" element={<CalendarPage />} />
         </Route>
         <Route path="admin" element={<LayoutAdmin />}>
           <Route path="user" element={<UserAdminPage />} />

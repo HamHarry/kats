@@ -1,16 +1,17 @@
-import "./CalendarAdminPage.css";
 import { Badge, Calendar, CalendarProps, Typography } from "antd";
+import "react-big-calendar/lib/css/react-big-calendar.css";
+import "react-datepicker/dist/react-datepicker.css";
 import dayjs, { Dayjs } from "dayjs";
-import { BookingStatus, BookingData } from "../../model/booking.type";
+import { BookingStatus, BookingData } from "../model/booking.type";
 import { useCallback, useEffect, useState } from "react";
-import { useAppDispatch } from "../../stores/store";
-import { getAllBookings } from "../../stores/slices/bookingSlice";
-import CircleLoading from "../../shared/circleLoading";
+import { useAppDispatch } from "../stores/store";
+import { getAllBookings } from "../stores/slices/bookingSlice";
+import CircleLoading from "../shared/circleLoading";
+import "../bookingpagekats/BookingPageKats.css";
 
-const CalendarAdminPage = () => {
+const CalendarPage = () => {
   const dispath = useAppDispatch();
-
-  const [bookingData, setBookingData] = useState<BookingData[]>([]);
+  const [bookings, setBookings] = useState<BookingData[]>([]);
   const [isBookingLoading, setIsBookingLoading] = useState<boolean>(false);
 
   const fetchAllBooking = useCallback(async () => {
@@ -20,7 +21,7 @@ const CalendarAdminPage = () => {
         getAllBookings()
       ).unwrap();
 
-      setBookingData(bookingsRes);
+      setBookings(bookingsRes);
     } catch (error) {
       console.log(error);
     } finally {
@@ -69,13 +70,13 @@ const CalendarAdminPage = () => {
   };
 
   const cellRender: CalendarProps<Dayjs>["cellRender"] = (current) => {
-    const bookings = bookingData.filter((data) =>
+    const bookingData = bookings.filter((data) =>
       dayjs(data.bookDate).isSame(current, "date")
     );
 
     return (
       <div className="booking">
-        {bookings.map((data, index) => {
+        {bookingData.map((data, index) => {
           return <div key={index}>{renderBookedCalendar(data)}</div>;
         })}
       </div>
@@ -83,31 +84,13 @@ const CalendarAdminPage = () => {
   };
 
   return (
-    <div className="container-calendarAdmin">
-      <div className="header-calendarAdmin">
-        <h1>Calendar</h1>
+    <div className="container-orderpage">
+      <div className="header-orderpage">
+        <img src="/public/assets/katoon.png" alt="katoon" />
+        <Typography className="text-header">ตรวจสอบคิว</Typography>
       </div>
 
-      <div className="guid">
-        <div className="guid-yellow">
-          <div className="box-yellow"></div>
-          <p>กำลังรอการชำระ</p>
-        </div>
-        <div className="guid-blue">
-          <div className="box-blue"></div>
-          <p>จ่ายสำเร็จ</p>
-        </div>
-        <div className="guid-green">
-          <div className="box-green"></div>
-          <p>ใช้บริการสำเร็จ</p>
-        </div>
-        <div className="guid-red">
-          <div className="box-red"></div>
-          <p>ยกเลิก</p>
-        </div>
-      </div>
-
-      <div className="wrap-calendarAdmin">
+      <div className="wrap-calendar">
         <Calendar cellRender={cellRender} />
       </div>
 
@@ -116,4 +99,4 @@ const CalendarAdminPage = () => {
   );
 };
 
-export default CalendarAdminPage;
+export default CalendarPage;
