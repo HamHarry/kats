@@ -5,10 +5,11 @@ import { EmployeeData } from "../../model/employee.type";
 import { useAppDispatch } from "../../stores/store";
 import {
   deleteEmployeeById,
-  getAllEmployees,
+  getAllEmployeePaginations,
 } from "../../stores/slices/employeeSlice";
 import CircleLoading from "../../shared/circleLoading";
 import { Modal } from "antd";
+import { debounce } from "lodash";
 
 const EmployeeAdminPage = () => {
   const [employeeData, setEmployeeData] = useState<EmployeeData[]>([]);
@@ -16,14 +17,20 @@ const EmployeeAdminPage = () => {
   const [openDialogConfirmDelete, setOpenDialogConfirmDelete] =
     useState<boolean>(false);
   const [isEmployeeLoading, setIsEmployeeLoading] = useState<boolean>(false);
+  const [searchTerm, setSearchTerm] = useState<string>("");
   const navigate = useNavigate();
   const dispath = useAppDispatch();
 
   const fetchAllEmployee = useCallback(async () => {
     try {
       setIsEmployeeLoading(true);
+
+      const query = {
+        term: searchTerm,
+      };
+
       const { data: employeesRes = [] } = await dispath(
-        getAllEmployees()
+        getAllEmployeePaginations(query)
       ).unwrap();
 
       setEmployeeData(employeesRes);
@@ -32,7 +39,7 @@ const EmployeeAdminPage = () => {
     } finally {
       setIsEmployeeLoading(false);
     }
-  }, [dispath]);
+  }, [dispath, searchTerm]);
 
   useEffect(() => {
     fetchAllEmployee();
@@ -55,6 +62,10 @@ const EmployeeAdminPage = () => {
       fetchAllEmployee();
     }
   };
+
+  const handleSetSearchTerm = debounce((value) => {
+    setSearchTerm(value);
+  }, 500);
 
   const rederDialogConfirmDelete = () => {
     return (
@@ -94,7 +105,11 @@ const EmployeeAdminPage = () => {
         <h1>Employees</h1>
       </div>
       <div className="search-employee">
-        <input type="text" placeholder="Search..." />
+        <input
+          type="text"
+          placeholder="Search..."
+          onChange={(e) => handleSetSearchTerm(e.target.value)}
+        />
         <button
           onClick={() => {
             navigate("/admin/employee/create");

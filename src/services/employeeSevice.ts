@@ -25,6 +25,15 @@ export const getEmployeeById = async (employeeId: string): Promise<any> => {
   return response;
 };
 
+export const getAllEmployeePaginations = async (query: any): Promise<any> => {
+  const response = await axios.get(
+    `${import.meta.env.VITE_BASE_SERVER_URL}/employees/pagination`,
+    { params: query }
+  );
+
+  return response;
+};
+
 export const updateEmployeeById = async (body: any): Promise<any> => {
   const response = await axios.put(
     `${import.meta.env.VITE_BASE_SERVER_URL}/employees/${body.employeeId}`,
