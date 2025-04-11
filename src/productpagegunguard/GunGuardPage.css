@@ -524,3 +524,122 @@
     }
   }
 }
+
+@media (max-width: 600px) {
+  .container-GuardPage {
+    .content-guard {
+      .content-guard-inside {
+        .text-box {
+          p {
+            font-size: 14px;
+            span {
+              font-size: 20px;
+              margin-bottom: -20px;
+            }
+          }
+        }
+      }
+      .image-guard {
+        img {
+          max-height: 150px;
+        }
+      }
+      video {
+        max-height: 400px !important;
+      }
+    }
+    .container-values {
+      .crad-values {
+        .crad-value {
+          margin-top: -100px;
+          margin-bottom: -200px;
+          gap: 10px;
+          img {
+            max-width: 150px;
+          }
+          h2 {
+            font-size: 18px;
+          }
+          p {
+            font-size: 12px;
+          }
+        }
+      }
+    }
+    .container-compare {
+      table {
+        th {
+          font-size: 12px;
+        }
+        td {
+          font-size: 8px;
+        }
+      }
+    }
+    .text-operate {
+      h3 {
+        font-size: 14px;
+      }
+    }
+    .operate-card {
+      .operate-card-inside {
+        img {
+          max-height: 120px;
+        }
+        h3 {
+          font-size: 16px;
+        }
+        p {
+          font-size: 12px;
+        }
+      }
+    }
+    .gun-timeline {
+      img {
+        max-width: 350px;
+      }
+      .text-gun-timeline {
+        .gun-timeline-inside {
+          p {
+            font-size: 12px;
+          }
+          i {
+            font-size: 16px;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .container-GuardPage {
+    .content-guard {
+      .content-guard-inside {
+        .text-box {
+          p {
+            font-size: 12px;
+            span {
+              font-size: 18px;
+              margin-bottom: -15px;
+            }
+          }
+        }
+      }
+    }
+    .operate-card {
+      .operate-card-inside {
+        border: 3px solid #f3cd68;
+        img {
+          max-height: 100px;
+        }
+        h3 {
+          font-size: 14px;
+        }
+        p {
+          font-size: 10px;
+        }
+      }
+    }
+  }
+}

@@ -36,16 +36,18 @@
 }
 
 @media (max-width: 642px) {
-  .logo img {
-    width: 100px;
-    height: 50px;
-  }
-  .list-menu {
-    ul {
-      gap: 10px;
+  .NavbarGun {
+    .logo img {
+      width: 100px;
+      height: 50px;
     }
-    li {
-      font-size: 16px;
+    .list-menu {
+      ul {
+        gap: 10px;
+      }
+      li {
+        font-size: 16px;
+      }
     }
   }
 }
