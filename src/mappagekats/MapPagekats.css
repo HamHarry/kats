@@ -96,6 +96,10 @@
 }
 
 @media (max-width: 683px) {
+  .container-MapPageKats {
+    padding: 6px;
+    padding-top: 80px;
+  }
   .header-MapPageKats {
     padding: 12px 35px 12px 35px;
     .text-header {

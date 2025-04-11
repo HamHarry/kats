@@ -351,10 +351,6 @@
             p {
               font-size: 18px;
             }
-            button {
-              max-width: 200px;
-              font-size: 16px;
-            }
           }
         }
       }
@@ -409,10 +405,6 @@
             p {
               font-size: 16px;
             }
-            button {
-              max-width: 200px;
-              font-size: 16px;
-            }
           }
         }
       }
@@ -460,10 +452,6 @@
             p {
               font-size: 14px;
             }
-            button {
-              max-width: 200px;
-              font-size: 16px;
-            }
           }
         }
       }
@@ -500,9 +488,86 @@
             p {
               font-size: 16px;
             }
-            button {
-              max-width: 200px;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 584px) {
+  .wrap-container-product {
+    .container-list-product {
+      .container-list-product-box {
+        .list-product-box {
+          .product-content-box {
+            height: 250px;
+            min-width: 200px;
+            .fa-car-side {
+              font-size: 40px;
+            }
+            .fa-truck-pickup {
+              font-size: 40px;
+            }
+            .fa-truck-field {
+              font-size: 40px;
+            }
+            .fa-van-shuttle {
+              font-size: 40px;
+            }
+            h3 {
+              font-size: 18px;
+            }
+            h4 {
+              font-size: 18px;
+            }
+            p {
+              font-size: 14px;
+            }
+          }
+          button {
+            margin-left: 0px;
+            color: white;
+            font-size: 16px;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 500px) {
+  .container-ProductPageKats {
+    padding: 10px;
+    padding-top: 100px;
+  }
+  .wrap-container-product {
+    .container-list-product {
+      .container-list-product-box {
+        .list-product-box {
+          .product-content-box {
+            height: 200px;
+            min-width: 200px;
+            .fa-car-side {
+              font-size: 30px;
+            }
+            .fa-truck-pickup {
+              font-size: 30px;
+            }
+            .fa-truck-field {
+              font-size: 30px;
+            }
+            .fa-van-shuttle {
+              font-size: 30px;
+            }
+            h3 {
               font-size: 16px;
+            }
+            h4 {
+              font-size: 16px;
+            }
+            p {
+              font-size: 12px;
             }
           }
         }

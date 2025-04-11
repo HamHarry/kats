@@ -28,3 +28,9 @@
     font-size: 12px;
   }
 }
+
+@media (max-width: 500px) {
+  .Footerkats {
+    font-size: 10px;
+  }
+}
