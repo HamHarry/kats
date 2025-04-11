@@ -121,3 +121,24 @@
     }
   }
 }
+
+@media (max-width: 460px) {
+  .container-MapPageKats {
+    padding: 0px;
+    padding-top: 40px;
+  }
+  .header-MapPageKats {
+    padding: 12px 0px 12px 0px;
+    max-width: 200px;
+  }
+  .container-map {
+    img {
+      height: 150px;
+    }
+    button {
+      width: 150px;
+      height: 50px;
+      font-size: 16px;
+    }
+  }
+}

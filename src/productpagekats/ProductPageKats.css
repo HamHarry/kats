@@ -575,3 +575,43 @@
     }
   }
 }
+
+@media (max-width: 460px) {
+  .container-ProductPageKats {
+    padding: 10px;
+    padding-top: 100px;
+  }
+  .wrap-container-product {
+    .container-list-product {
+      .container-list-product-box {
+        .list-product-box {
+          .product-content-box {
+            height: 200px;
+            min-width: 150px;
+            .fa-car-side {
+              font-size: 30px;
+            }
+            .fa-truck-pickup {
+              font-size: 30px;
+            }
+            .fa-truck-field {
+              font-size: 30px;
+            }
+            .fa-van-shuttle {
+              font-size: 30px;
+            }
+            h3 {
+              font-size: 12px;
+            }
+            h4 {
+              font-size: 12px;
+            }
+            p {
+              font-size: 10px;
+            }
+          }
+        }
+      }
+    }
+  }
+}

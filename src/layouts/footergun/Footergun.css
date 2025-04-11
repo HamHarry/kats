@@ -28,3 +28,9 @@
     font-size: 12px;
   }
 }
+
+@media (max-width: 470px) {
+  .FooterGun {
+    font-size: 10px;
+  }
+}

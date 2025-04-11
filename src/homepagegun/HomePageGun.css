@@ -274,3 +274,42 @@
     }
   }
 }
+
+@media (max-width: 425px) {
+  .container-HomePageGun {
+    .centerGun {
+      .center-left {
+        h3 {
+          font-size: 12px;
+          span {
+            font-size: 20px;
+          }
+        }
+      }
+    }
+    .centerGun {
+      .center-right {
+        display: flex;
+        gap: 20px;
+        video {
+          max-width: 300px !important;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 400px) {
+  .container-HomePageGun {
+    .centerGun {
+      .center-left {
+        h3 {
+          font-size: 10px;
+          span {
+            font-size: 18px;
+          }
+        }
+      }
+    }
+  }
+}

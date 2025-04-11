@@ -617,3 +617,13 @@
     }
   }
 }
+
+@media (max-width: 425px) {
+  .container-CoatingPageGun {
+    .container-preview-damp {
+      img {
+        max-width: 300px;
+      }
+    }
+  }
+}

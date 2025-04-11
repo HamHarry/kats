@@ -643,3 +643,36 @@
     }
   }
 }
+
+@media (max-width: 425px) {
+  .container-GuardPage {
+    .container-compare {
+      table {
+        th {
+          font-size: 10px;
+        }
+        td {
+          font-size: 6px;
+        }
+      }
+    }
+    .text-operate {
+      h3 {
+        font-size: 12px;
+      }
+    }
+    .operate-card {
+      .operate-card-inside {
+        img {
+          max-height: 90px;
+        }
+        h3 {
+          font-size: 14px;
+        }
+        p {
+          font-size: 8px;
+        }
+      }
+    }
+  }
+}
