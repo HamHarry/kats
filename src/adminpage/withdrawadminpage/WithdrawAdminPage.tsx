@@ -6,7 +6,7 @@ import { DownOutlined } from "@ant-design/icons";
 
 const WithdrawAdminPage = () => {
   const navigate = useNavigate();
-  const [withdrawData, setWithdrawData] = useState([]);
+  const [withdrawData] = useState([]);
 
   const columns = [
     { title: "เลขที่", dataIndex: "name", key: "name" },
