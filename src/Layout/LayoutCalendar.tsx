@@ -1,18 +1,20 @@
 import { Suspense } from "react";
 import { Outlet } from "react-router-dom";
-import NavbarAdmin from "./navbaradmin/NavbarAdmin";
+import NavbarCalendar from "./navbarcalendar/NavbarCalendar";
+import Footerkats from "./footerkats/Footerkats";
 
-const LayoutAdmin = () => {
+const LayoutCalendar = () => {
   return (
     <div className="cotainer-all-admin">
-      <NavbarAdmin />
+      <NavbarCalendar />
       <Suspense>
         <>
           <Outlet />
         </>
       </Suspense>
+      <Footerkats />
     </div>
   );
 };
 
-export default LayoutAdmin;
+export default LayoutCalendar;

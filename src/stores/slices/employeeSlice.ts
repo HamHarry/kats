@@ -26,6 +26,14 @@ export const getAllEmployees = createAsyncThunk(
   }
 );
 
+export const getAllEmployeePaginations = createAsyncThunk(
+  "employee/get/all/Pagination",
+  async (query: any): Promise<any> => {
+    const response = await employeeServices.getAllEmployeePaginations(query);
+    return response;
+  }
+);
+
 export const getEmployeeById = createAsyncThunk(
   "Employee/get/id",
   async (employeeId: string): Promise<any> => {
