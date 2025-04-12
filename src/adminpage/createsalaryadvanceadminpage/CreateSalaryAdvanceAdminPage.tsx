@@ -24,7 +24,7 @@ const initFinanceForm: FinanceData = {
   number: 0,
   name: "",
   ownerName: "",
-  section: PaymentCategory.WITHDRAW,
+  section: PaymentCategory.SALARY,
   categorys: [initCategoryDetail],
   price: 0,
   date: "",

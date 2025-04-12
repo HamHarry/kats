@@ -78,8 +78,6 @@ const CreateWithdrawAdminPage = () => {
 
   const handleRemoveCatagoryDetail = useCallback(
     (index: number) => {
-      console.log("Current Fields:", categoryDetailFields.fields);
-      console.log("Removing Index:", index);
       if (!categoryDetailFields?.fields?.length) return;
       if (categoryDetailFields.fields.length === 1) return;
 
@@ -199,6 +197,8 @@ const CreateWithdrawAdminPage = () => {
                 className="btn-append"
                 type="button"
                 onClick={() => {
+                  if (categoryDetailFields?.fields.length === 4) return;
+
                   categoryDetailFields.append(initCategoryDetail);
                 }}
               >

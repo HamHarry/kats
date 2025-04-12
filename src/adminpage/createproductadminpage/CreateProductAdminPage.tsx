@@ -79,8 +79,6 @@ const CreateProductAdminPage = () => {
 
   const handleRemoveproductDetail = useCallback(
     (index: number) => {
-      console.log("Current Fields:", productDetailFields.fields);
-      console.log("Removing Index:", index);
       if (!productDetailFields?.fields?.length) return;
       if (productDetailFields.fields.length === 1) return;
 
@@ -178,6 +176,8 @@ const CreateProductAdminPage = () => {
             <button
               type="button"
               onClick={() => {
+                if (productDetailFields?.fields.length === 6) return;
+
                 productDetailFields.append(initProductDetail);
               }}
             >
