@@ -309,6 +309,17 @@
             font-size: 18px;
           }
         }
+        .btn-content {
+          .btn-group-top {
+            .btn {
+              font-size: 18px;
+            }
+          }
+        }
+        .btn-kats {
+          font-size: 18px;
+          width: 100%;
+        }
       }
     }
   }
