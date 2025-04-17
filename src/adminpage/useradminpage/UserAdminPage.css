@@ -4,6 +4,30 @@
   flex-direction: column;
   padding: 20px 20px 0px 20px;
   padding-left: 320px;
+
+  input {
+    padding: 5px;
+    min-width: 250px;
+    margin-left: -10px;
+    height: 30px;
+    border-radius: 20px;
+    border: 2px solid #2656a2;
+  }
+
+  button {
+    width: 100px;
+    height: 45px;
+    border: none;
+    border-radius: 20px;
+    background-color: #2656a2;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+    transition: all 0.5s;
+  }
+  button:hover {
+    background-color: #1a4f8a;
+  }
 }
 
 .header-userAdmin {
@@ -21,6 +45,161 @@
     align-items: center;
     font-size: 42px;
     color: white;
+  }
+}
+
+.wrap-container-userAdmin {
+  display: flex;
+  flex-direction: column;
+  border: 5px solid #2656a2;
+  border-radius: 20px;
+  padding: 0px 20px 0px 20px;
+  height: 700px;
+  width: 900px;
+  gap: 20px;
+  .container-top-userAdmin {
+    display: flex;
+    gap: 20px;
+    .input-left {
+      display: flex;
+      flex-direction: column;
+      .inputNameuserAdmin {
+        display: flex;
+        align-items: center;
+        margin-top: 40px;
+        h2 {
+          width: 220px;
+        }
+      }
+      .inputTeluserAdmin {
+        display: flex;
+        align-items: center;
+        margin-top: 20px;
+        h2 {
+          width: 220px;
+        }
+      }
+      .inputPositionuserAdmin {
+        display: flex;
+        align-items: center;
+        margin-top: 20px;
+        h2 {
+          width: 210px;
+        }
+      }
+      .select-product {
+        width: 265px;
+        height: 45px;
+        border-radius: 20px;
+      }
+      .ant-select-single .ant-select-selector {
+        border-radius: 20px !important;
+        border: 2px solid #2656a2;
+      }
+      .inputImageuserAdmin {
+        display: flex;
+        align-items: center;
+        margin-top: 20px;
+        h2 {
+          width: 210px;
+        }
+      }
+      .inputPaymentStatus {
+        display: flex;
+        align-items: center;
+        margin-top: 20px;
+        h2 {
+          width: 210px;
+        }
+      }
+      .inputPaymentType {
+        display: flex;
+        align-items: center;
+        margin-top: 20px;
+        h2 {
+          width: 210px;
+        }
+      }
+      .inputAccountNumber {
+        display: flex;
+        align-items: center;
+        margin-top: 20px;
+        h2 {
+          width: 220px;
+        }
+      }
+      .inputBankName {
+        display: flex;
+        align-items: center;
+        margin-top: 20px;
+        h2 {
+          width: 210px;
+        }
+      }
+      .inputAmount {
+        display: flex;
+        align-items: center;
+        margin-top: 20px;
+        h2 {
+          width: 220px;
+        }
+      }
+    }
+    .input-right {
+      text-align: center;
+      margin-top: 40px;
+      .inputImage {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 20px;
+        .text-image {
+          width: 265px;
+          height: 45px;
+          display: flex;
+          flex-direction: column;
+          align-items: space-between;
+          gap: 5px;
+          cursor: pointer;
+          align-items: center;
+          justify-content: center;
+          border: 2px dashed #2656a2;
+          padding: 1.5rem;
+          border-radius: 10px;
+        }
+        .icon-file {
+          font-size: 20px;
+          color: #2656a2;
+        }
+        input {
+          display: none;
+        }
+      }
+      .PreviewImage {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        max-width: 317px;
+        align-items: center;
+        h2 {
+          margin-top: 45px;
+          font-size: 24px;
+        }
+        img {
+          margin-top: 20px;
+          height: 200px;
+          width: 200px;
+          border-radius: 50%;
+          border: 2px solid #2656a2;
+        }
+      }
+    }
+  }
+  .btn-createproductAdmin {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 50px;
   }
 }
 

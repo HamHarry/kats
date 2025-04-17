@@ -1,10 +1,337 @@
+import { Select, Typography } from "antd";
 import "./UserAdminPage.css";
+import {
+  BankType,
+  EmployeeData,
+  EmployeeRole,
+  PaymentStatus,
+  PaymentType,
+} from "../../model/employee.type";
+import { Controller, useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { FileAddFilled } from "@ant-design/icons";
+import { BankDatas } from "../../data/BankData";
+
+const initUserForm: EmployeeData = {
+  name: "",
+  tel: "",
+  staffRole: EmployeeRole.CEO,
+  image: "",
+  salary: {
+    paymentStatus: PaymentStatus.BANK,
+    paymentType: PaymentType.MONTHLY,
+    bankName: BankType.BANK_OF_AYUDHYA,
+    accountNumber: "",
+    amount: 0,
+  },
+};
+
 const UserAdminPage = () => {
+  const navigate = useNavigate();
+  // const dispath = useAppDispatch();
+  const [baseImage, setBaseImage] = useState("");
+
+  const { control, handleSubmit, watch } = useForm({
+    defaultValues: initUserForm,
+  });
+  const watchPaymentStatus = watch("salary.paymentStatus");
+
+  const onSubmit = async (value: EmployeeData) => {
+    try {
+      const newUser = {
+        ...value,
+      };
+
+      console.log(newUser);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  // เก็บไฟล์รูปภาพเป็น Base64
+  const uploadImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    const base64 = (await convertBase64(file)) as string;
+    setBaseImage(base64);
+  };
+
+  const convertBase64 = (file: any) => {
+    return new Promise((resolve, reject) => {
+      const fileReader = new FileReader();
+
+      fileReader.readAsDataURL(file);
+
+      fileReader.onload = () => {
+        resolve(fileReader.result);
+      };
+      fileReader.onerror = (e: any) => {
+        reject(e);
+      };
+    });
+  };
+
   return (
     <div className="container-userAdmin">
       <div className="header-userAdmin">
         <h1>Users</h1>
       </div>
+
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <div className="wrap-container-userAdmin">
+          <div className="container-top-userAdmin">
+            <div className="input-left">
+              <div className="inputNameuserAdmin">
+                <h2>ชื่อพนักงาน</h2>
+                <Controller
+                  control={control}
+                  name="name"
+                  render={({ field }) => {
+                    return <input {...field} type="text" />;
+                  }}
+                />
+              </div>
+
+              <div className="inputTeluserAdmin">
+                <h2>โทรศัพท์</h2>
+                <Controller
+                  control={control}
+                  name="tel"
+                  render={({ field }) => {
+                    return <input {...field} type="text" />;
+                  }}
+                />
+              </div>
+
+              <div className="inputPositionuserAdmin">
+                <h2>ตำแหน่ง</h2>
+                <Controller
+                  control={control}
+                  name="staffRole"
+                  render={({ field }) => {
+                    return (
+                      <Select
+                        {...field}
+                        placeholder="เลือกดำแหน่งพนักงาน"
+                        className="select-product"
+                        value={field.value ?? undefined}
+                      >
+                        <Select.Option value={EmployeeRole.CEO}>
+                          หัวหน้า
+                        </Select.Option>
+                        <Select.Option value={EmployeeRole.AMIN}>
+                          ผู้ดูแลระบบ
+                        </Select.Option>
+                        <Select.Option value={EmployeeRole.SPRAYER}>
+                          ช่างพ่นกันสนิม
+                        </Select.Option>
+                        <Select.Option value={EmployeeRole.WASHTECNICIAN}>
+                          ช่างล้างรถ
+                        </Select.Option>
+                      </Select>
+                    );
+                  }}
+                />
+              </div>
+
+              <div className="inputPaymentStatus">
+                <h2>การชำระเงิน</h2>
+                <Controller
+                  control={control}
+                  name="salary.paymentStatus"
+                  render={({ field }) => {
+                    return (
+                      <Select
+                        {...field}
+                        placeholder="เลือกการชำระเงินเดือน"
+                        className="select-product"
+                        value={field.value ?? undefined}
+                        onClick={() => {
+                          // setIsAccountNumber();
+                        }}
+                      >
+                        <Select.Option value={PaymentStatus.BANK}>
+                          ธนาคาร
+                        </Select.Option>
+                        <Select.Option value={PaymentStatus.CASH}>
+                          เงินสด
+                        </Select.Option>
+                      </Select>
+                    );
+                  }}
+                />
+              </div>
+
+              <div className="inputPaymentType">
+                <h2>ประเภทการชำระเงิน</h2>
+                <Controller
+                  control={control}
+                  name="salary.paymentType"
+                  render={({ field }) => {
+                    return (
+                      <Select
+                        {...field}
+                        placeholder="เลือกประเภทการชำระเงิน"
+                        className="select-product"
+                        value={field.value ?? undefined}
+                      >
+                        <Select.Option value={PaymentType.MONTHLY}>
+                          รายเดือน
+                        </Select.Option>
+                        <Select.Option value={PaymentType.DAILY}>
+                          รายวัน
+                        </Select.Option>
+                      </Select>
+                    );
+                  }}
+                />
+              </div>
+
+              {watchPaymentStatus === PaymentStatus.BANK && (
+                <>
+                  <div className="inputAccountNumber">
+                    <h2>เลขบัญชี</h2>
+                    <Controller
+                      control={control}
+                      name="salary.accountNumber"
+                      render={({ field }) => {
+                        return (
+                          <input
+                            {...field}
+                            className="input-prices"
+                            type="text"
+                            placeholder="กรอกเลขบัญชี"
+                            onChange={(event) => {
+                              const value = event.target.value.replace(
+                                /[^0-9.]/g,
+                                ""
+                              );
+                              const validated = value.match(
+                                /^(\d*\.{0,1}\d{0,2}$)/
+                              );
+                              if (validated) {
+                                field.onChange(Number(value));
+                              }
+                            }}
+                          />
+                        );
+                      }}
+                    />
+                  </div>
+
+                  <div className="inputBankName">
+                    <h2>บัญชีธนาคาร</h2>
+                    <Controller
+                      control={control}
+                      name="salary.bankName"
+                      render={({ field }) => {
+                        return (
+                          <Select
+                            {...field}
+                            placeholder="เลือกบัญชีธนาคาร"
+                            className="select-product"
+                            value={field.value ?? undefined}
+                          >
+                            {BankDatas.map((bank, index) => {
+                              return (
+                                <Select.Option key={index} value={bank.type}>
+                                  <div className="bank-select">
+                                    <img
+                                      className="bank-logo"
+                                      src={bank.img}
+                                      alt=""
+                                    />
+                                    <Typography>{bank.name}</Typography>
+                                  </div>
+                                </Select.Option>
+                              );
+                            })}
+                          </Select>
+                        );
+                      }}
+                    />
+                  </div>
+                </>
+              )}
+
+              <div className="inputAmount">
+                <h2>จำนวนเงิน</h2>
+                <Controller
+                  control={control}
+                  name="salary.amount"
+                  render={({ field }) => {
+                    return (
+                      <input
+                        {...field}
+                        className="input-prices"
+                        type="text"
+                        placeholder="กรอกจำนวนเงิน"
+                        onChange={(event) => {
+                          const value = event.target.value.replace(
+                            /[^0-9.]/g,
+                            ""
+                          );
+                          const validated = value.match(
+                            /^(\d*\.{0,1}\d{0,2}$)/
+                          );
+                          if (validated) {
+                            field.onChange(Number(value));
+                          }
+                        }}
+                      />
+                    );
+                  }}
+                />
+              </div>
+            </div>
+
+            <div className="input-right">
+              <div className="inputImageuserAdmin">
+                <h2>รูปภาพประจำตัว</h2>
+                <Controller
+                  name="image"
+                  control={control}
+                  render={({ field }) => {
+                    return (
+                      <div className="inputImage">
+                        <label htmlFor="file" className="text-image">
+                          <FileAddFilled className="icon-file" />
+                          <span>อัพโหลดรูปภาพ</span>
+                        </label>
+                        <input
+                          {...field}
+                          type="file"
+                          id="file"
+                          onChange={(e) => {
+                            uploadImage(e);
+                          }}
+                        />
+                      </div>
+                    );
+                  }}
+                />
+              </div>
+
+              <div className="PreviewImage">
+                <h2>ตัวอย่างรูปภาพประจำตัว</h2>
+                {baseImage && <img src={baseImage} alt="image" />}
+              </div>
+            </div>
+          </div>
+
+          <div className="btn-createproductAdmin">
+            <button
+              type="button"
+              onClick={() => {
+                navigate("/admin/employee");
+              }}
+            >
+              ย้อนกลับ
+            </button>
+            <button type="submit">ยืนยัน</button>
+          </div>
+        </div>
+      </form>
     </div>
   );
 };
