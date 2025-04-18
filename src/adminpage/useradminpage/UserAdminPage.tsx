@@ -1,4 +1,4 @@
-import { Select, Typography } from "antd";
+import { Modal, Select, Typography } from "antd";
 import "./UserAdminPage.css";
 import {
   BankType,
@@ -8,8 +8,7 @@ import {
   PaymentType,
 } from "../../model/employee.type";
 import { Controller, useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { FileAddFilled } from "@ant-design/icons";
 import { BankDatas } from "../../data/BankData";
 
@@ -28,9 +27,10 @@ const initUserForm: EmployeeData = {
 };
 
 const UserAdminPage = () => {
-  const navigate = useNavigate();
+  const formRef = useRef<any>(null);
   // const dispath = useAppDispatch();
   const [baseImage, setBaseImage] = useState("");
+  const [openDialogConfirm, setOpenDialogConfirm] = useState<boolean>(false);
 
   const { control, handleSubmit, watch } = useForm({
     defaultValues: initUserForm,
@@ -41,12 +41,41 @@ const UserAdminPage = () => {
     try {
       const newUser = {
         ...value,
+        image: baseImage,
       };
 
       console.log(newUser);
+      setOpenDialogConfirm(false);
     } catch (error) {
       console.log(error);
     }
+  };
+
+  const rederDialogConfirm = () => {
+    return (
+      <Modal
+        centered
+        className="wrap-container-DialogConfirm"
+        open={openDialogConfirm}
+        onCancel={() => setOpenDialogConfirm(false)}
+      >
+        <h1>ยืนยันการแก้ไข</h1>
+
+        <div className="btn-DialogConfirm-Navbar">
+          <button onClick={() => formRef.current?.requestSubmit()}>
+            ยืนยัน
+          </button>
+          <button
+            className="btn-edit-dialogConfirm"
+            onClick={() => {
+              setOpenDialogConfirm(false);
+            }}
+          >
+            ยกเลิก
+          </button>
+        </div>
+      </Modal>
+    );
   };
 
   // เก็บไฟล์รูปภาพเป็น Base64
@@ -77,8 +106,19 @@ const UserAdminPage = () => {
         <h1>Users</h1>
       </div>
 
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(onSubmit)} ref={formRef}>
         <div className="wrap-container-userAdmin">
+          <div className="btn-createproductAdmin">
+            <button
+              type="button"
+              onClick={() => {
+                setOpenDialogConfirm(true);
+              }}
+            >
+              แก้ไข
+            </button>
+          </div>
+
           <div className="container-top-userAdmin">
             <div className="input-left">
               <div className="inputNameuserAdmin">
@@ -318,19 +358,8 @@ const UserAdminPage = () => {
               </div>
             </div>
           </div>
-
-          <div className="btn-createproductAdmin">
-            <button
-              type="button"
-              onClick={() => {
-                navigate("/admin/employee");
-              }}
-            >
-              ย้อนกลับ
-            </button>
-            <button type="submit">ยืนยัน</button>
-          </div>
         </div>
+        {rederDialogConfirm()}
       </form>
     </div>
   );

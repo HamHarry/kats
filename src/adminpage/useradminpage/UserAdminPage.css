@@ -197,9 +197,10 @@
   }
   .btn-createproductAdmin {
     display: flex;
-    justify-content: center;
+    justify-content: end;
     gap: 20px;
-    margin-top: 50px;
+    margin-top: 20px;
+    margin-bottom: -40px;
   }
 }
 
