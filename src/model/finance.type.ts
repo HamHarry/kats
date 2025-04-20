@@ -22,7 +22,7 @@ export interface CategoryDetail {
 export interface FinanceData {
   _id?: string;
   number: number;
-  name: string; // ชื่อบุคคล
+  employeeId: string; // ชื่อบุคคล
   ownerName: string; // หัวข้อ
   section: PaymentCategory; // หมวดหมู่
   categorys: CategoryDetail[];

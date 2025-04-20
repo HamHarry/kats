@@ -3,7 +3,7 @@ import "./CreateWithdrawAdminPage.css";
 import { useNavigate } from "react-router-dom";
 import {
   Category_Type,
-  CategoryDetail,
+  CategoryDetail as CatagoryDetail,
   FinanceData,
   PaymentCategory,
 } from "../../model/finance.type";
@@ -15,14 +15,14 @@ import { getAllEmployees } from "../../stores/slices/employeeSlice";
 import { DatePicker, InputNumber, Select } from "antd";
 import dayjs from "dayjs";
 
-const initCategoryDetail: CategoryDetail = {
+const initCategoryDetail: CatagoryDetail = {
   type: Category_Type.FUEL,
   amount: 0,
 };
 
 const initFinanceForm: FinanceData = {
   number: 0,
-  name: "",
+  employeeId: "",
   ownerName: "",
   section: PaymentCategory.WITHDRAW,
   categorys: [initCategoryDetail],
@@ -117,7 +117,7 @@ const CreateWithdrawAdminPage = () => {
             <h2>พนักงาน</h2>
             <Controller
               control={control}
-              name="name"
+              name="employeeId"
               render={({ field }) => {
                 return (
                   <Select
@@ -127,7 +127,7 @@ const CreateWithdrawAdminPage = () => {
                     value={field.value || undefined}
                   >
                     {employeeData.map((item) => (
-                      <Select.Option key={item._id} value={item.name}>
+                      <Select.Option key={item._id} value={item._id}>
                         {item.name} (
                         {`${
                           item.staffRole === 0

@@ -22,8 +22,8 @@ const initCategoryDetail: CategoryDetail = {
 
 const initFinanceForm: FinanceData = {
   number: 0,
-  name: "",
-  ownerName: "",
+  employeeId: "",
+  ownerName: "เบิกเงินเดือน",
   section: PaymentCategory.SALARY,
   categorys: [initCategoryDetail],
   price: 0,
@@ -103,7 +103,7 @@ const CreateSalaryAdvanceAdminPage = () => {
             <h2>พนักงาน</h2>
             <Controller
               control={control}
-              name="name"
+              name="employeeId"
               render={({ field }) => {
                 return (
                   <Select
@@ -113,7 +113,7 @@ const CreateSalaryAdvanceAdminPage = () => {
                     value={field.value || undefined}
                   >
                     {employeeData.map((item) => (
-                      <Select.Option key={item._id} value={item.name}>
+                      <Select.Option key={item._id} value={item._id}>
                         {item.name} (
                         {`${
                           item.staffRole === 0
