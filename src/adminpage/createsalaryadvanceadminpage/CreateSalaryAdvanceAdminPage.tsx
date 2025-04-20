@@ -16,7 +16,7 @@ import { InputNumber, Select } from "antd";
 import dayjs from "dayjs";
 
 const initCategoryDetail: CategoryDetail = {
-  type: Category_Type.FUEL,
+  type: Category_Type.SALARY_ADVANCE,
   amount: 0,
 };
 
