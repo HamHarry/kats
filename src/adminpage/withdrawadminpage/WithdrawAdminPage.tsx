@@ -8,6 +8,7 @@ import { useAppDispatch } from "../../stores/store";
 import { getAllExpenses } from "../../stores/slices/expenseSlice";
 import { EmployeeData } from "../../model/employee.type";
 import { CategoryDetail } from "../../model/finance.type";
+import dayjs from "dayjs";
 
 const WithdrawAdminPage = () => {
   const dispath = useAppDispatch();
@@ -47,8 +48,27 @@ const WithdrawAdminPage = () => {
       },
     },
     { title: "หัวข้อ", dataIndex: "ownerName", key: "ownerName" },
-    { title: "หมวดหมู่", dataIndex: "section", key: "section" },
-    { title: "วันที่สร้าง", dataIndex: "date", key: "date" },
+    {
+      title: "หมวดหมู่",
+      dataIndex: "section",
+      key: "section",
+      render: (section: number) => {
+        return (
+          <Typography>
+            {section === 0 ? "ค่าใช้จ่าย" : "เบิกเงินเดือน"}
+          </Typography>
+        );
+      },
+    },
+    {
+      title: "วันที่สร้าง",
+      dataIndex: "date",
+      key: "date",
+      render: (date: string) => {
+        const formattedDate = date ? dayjs(date).format("DD/MM/YYYY") : "-";
+        return <Typography>{formattedDate}</Typography>;
+      },
+    },
     { title: "วันที่ชำระเงิน", dataIndex: "datePrice", key: "datePrice" },
     {
       title: "รวมยอดค่าใช้จ่าย",

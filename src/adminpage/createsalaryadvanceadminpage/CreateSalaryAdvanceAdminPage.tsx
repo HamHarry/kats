@@ -2,7 +2,7 @@ import { Controller, useForm } from "react-hook-form";
 import "./CreateSalaryAdvanceAdminPage.css";
 import { useNavigate } from "react-router-dom";
 import {
-  Category_Type,
+  CategoryType,
   CategoryDetail,
   FinanceData,
   PaymentCategory,
@@ -16,7 +16,7 @@ import { InputNumber, Select } from "antd";
 import dayjs from "dayjs";
 
 const initCategoryDetail: CategoryDetail = {
-  type: Category_Type.SALARY_ADVANCE,
+  type: CategoryType.SALARY_ADVANCE,
   amount: 0,
 };
 

@@ -3,7 +3,7 @@ export enum PaymentCategory {
   SALARY = 1,
 }
 
-export enum Category_Type {
+export enum CategoryType {
   FUEL = 0, // น้ำมัน
   TRAVEL = 1, // เดินทาง
   ACCOMMODATION = 2, // ที่พัก
@@ -16,7 +16,7 @@ export enum Category_Type {
 }
 
 export interface CategoryDetail {
-  type: Category_Type;
+  type: CategoryType;
   amount: number;
 }
 

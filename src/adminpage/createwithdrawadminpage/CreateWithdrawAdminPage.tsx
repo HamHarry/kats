@@ -2,7 +2,7 @@ import { Controller, useFieldArray, useForm } from "react-hook-form";
 import "./CreateWithdrawAdminPage.css";
 import { useNavigate } from "react-router-dom";
 import {
-  Category_Type,
+  CategoryType,
   CategoryDetail as CatagoryDetail,
   FinanceData,
   PaymentCategory,
@@ -14,20 +14,25 @@ import { useAppDispatch } from "../../stores/store";
 import { getAllEmployees } from "../../stores/slices/employeeSlice";
 import { DatePicker, InputNumber, Select } from "antd";
 import dayjs from "dayjs";
+import { createExpense } from "../../stores/slices/expenseSlice";
 
 const initCategoryDetail: CatagoryDetail = {
-  type: Category_Type.FUEL,
+  type: CategoryType.FUEL,
   amount: 0,
 };
 
-const initFinanceForm: FinanceData = {
+export interface FinanceForm extends Omit<FinanceData, "date"> {
+  date: dayjs.Dayjs;
+}
+
+const initFinanceForm: FinanceForm = {
   number: 0,
   employeeId: "",
   ownerName: "",
   section: PaymentCategory.WITHDRAW,
   categorys: [initCategoryDetail],
   price: 0,
-  date: "",
+  date: dayjs(),
   datePrice: "",
   detel: "",
 };
@@ -67,13 +72,14 @@ const CreateWithdrawAdminPage = () => {
     fetchEmployeeData();
   }, [fetchEmployeeData]);
 
-  const onSubmit = async (value: FinanceData) => {
+  const onSubmit = async (value: FinanceForm) => {
     const body = {
       ...value,
       date: value.date ? dayjs(value.date).toISOString() : "",
     };
 
-    console.log(body);
+    await dispath(createExpense(body)).unwrap();
+    navigate("/admin/withdraw");
   };
 
   const handleRemoveCatagoryDetail = useCallback(
@@ -102,14 +108,7 @@ const CreateWithdrawAdminPage = () => {
           >
             ย้อนกลับ
           </button>
-          <button
-            type="submit"
-            onClick={() => {
-              navigate("/admin/withdraw");
-            }}
-          >
-            ยืนยัน
-          </button>
+          <button type="submit">ยืนยัน</button>
         </div>
 
         <div className="wrap-container-CreateWithdrawAdminPage">
@@ -219,28 +218,28 @@ const CreateWithdrawAdminPage = () => {
                             className="select-category"
                             value={field.value || undefined}
                           >
-                            <Select.Option value={Category_Type.FUEL}>
+                            <Select.Option value={CategoryType.FUEL}>
                               ค่าน้ำมัน
                             </Select.Option>
-                            <Select.Option value={Category_Type.TRAVEL}>
+                            <Select.Option value={CategoryType.TRAVEL}>
                               ค่าเดินทาง
                             </Select.Option>
-                            <Select.Option value={Category_Type.ACCOMMODATION}>
+                            <Select.Option value={CategoryType.ACCOMMODATION}>
                               ค่าที่พัก
                             </Select.Option>
-                            <Select.Option value={Category_Type.ALLOWANCE}>
+                            <Select.Option value={CategoryType.ALLOWANCE}>
                               ค่าเบี้ยเลี้ยง
                             </Select.Option>
-                            <Select.Option value={Category_Type.TRANSPORT}>
+                            <Select.Option value={CategoryType.TRANSPORT}>
                               ค่าขนส่ง
                             </Select.Option>
-                            <Select.Option value={Category_Type.TOOL}>
+                            <Select.Option value={CategoryType.TOOL}>
                               ค่าอุปกรณ์
                             </Select.Option>
-                            <Select.Option value={Category_Type.MEDICAL}>
+                            <Select.Option value={CategoryType.MEDICAL}>
                               ค่ารักษา
                             </Select.Option>
-                            <Select.Option value={Category_Type.OTHER}>
+                            <Select.Option value={CategoryType.OTHER}>
                               ค่าอื่นๆ
                             </Select.Option>
                           </Select>
