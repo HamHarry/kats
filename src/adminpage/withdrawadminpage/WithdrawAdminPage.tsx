@@ -1,21 +1,69 @@
 import { useNavigate } from "react-router-dom";
 import "./WithdrawAdminPage.css";
-import { Button, Dropdown, Space, Table } from "antd";
-import { useState } from "react";
+import { Button, Dropdown, Space, Table, Typography } from "antd";
+import { useCallback, useEffect, useState } from "react";
 import { DownOutlined } from "@ant-design/icons";
+import CircleLoading from "../../shared/circleLoading";
+import { useAppDispatch } from "../../stores/store";
+import { getAllExpenses } from "../../stores/slices/expenseSlice";
+import { EmployeeData } from "../../model/employee.type";
+import { CategoryDetail } from "../../model/finance.type";
 
 const WithdrawAdminPage = () => {
+  const dispath = useAppDispatch();
   const navigate = useNavigate();
-  const [withdrawData] = useState([]);
+  const [withdrawData, setWithdrawData] = useState([]);
+  const [isExpenseLoading, setIsExpenseLoading] = useState<boolean>(false);
+  const [total, setTotal] = useState<number>(0);
+
+  const fetchAllExpense = useCallback(async () => {
+    try {
+      setIsExpenseLoading(true);
+      const { data: ExpensesRes = [] } = await dispath(
+        getAllExpenses()
+      ).unwrap();
+
+      console.log(ExpensesRes);
+
+      setWithdrawData(ExpensesRes);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsExpenseLoading(false);
+    }
+  }, [dispath]);
+
+  useEffect(() => {
+    fetchAllExpense();
+  }, [fetchAllExpense]);
 
   const columns = [
-    { title: "เลขที่", dataIndex: "name", key: "name" },
-    { title: "ผู้สร้างเอกสาร", dataIndex: "name", key: "name" },
-    { title: "หัวข้อ", dataIndex: "name", key: "name" },
-    { title: "หมวดหมู่", dataIndex: "name", key: "name" },
-    { title: "วันที่สร้าง", dataIndex: "name", key: "name" },
-    { title: "วันที่ชำระเงิน", dataIndex: "name", key: "name" },
-    { title: "รวมยอดค่าใช้จ่าย", dataIndex: "name", key: "name" },
+    { title: "เลขที่", dataIndex: "number", key: "number" },
+    {
+      title: "ผู้สร้างเอกสาร",
+      dataIndex: "employee",
+      key: "employee",
+      render: (employee: EmployeeData) => {
+        return <Typography>{employee.name}</Typography>;
+      },
+    },
+    { title: "หัวข้อ", dataIndex: "ownerName", key: "ownerName" },
+    { title: "หมวดหมู่", dataIndex: "section", key: "section" },
+    { title: "วันที่สร้าง", dataIndex: "date", key: "date" },
+    { title: "วันที่ชำระเงิน", dataIndex: "datePrice", key: "datePrice" },
+    {
+      title: "รวมยอดค่าใช้จ่าย",
+      dataIndex: "categorys",
+      key: "categorys",
+      render: (categorys: CategoryDetail[]) => {
+        const total = categorys.reduce((prev, item) => {
+          return prev + item.amount;
+        }, 0);
+        setTotal(total);
+
+        return <Typography>{total}</Typography>;
+      },
+    }, // ยังไม่แน่ใจว่าทำยังไง
   ];
 
   const handleMenuClick = (item: any) => {
@@ -73,6 +121,8 @@ const WithdrawAdminPage = () => {
           }}
         />
       </div>
+
+      <CircleLoading open={isExpenseLoading} />
     </div>
   );
 };
