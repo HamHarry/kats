@@ -14,7 +14,6 @@ const WithdrawAdminPage = () => {
   const navigate = useNavigate();
   const [withdrawData, setWithdrawData] = useState([]);
   const [isExpenseLoading, setIsExpenseLoading] = useState<boolean>(false);
-  const [total, setTotal] = useState<number>(0);
 
   const fetchAllExpense = useCallback(async () => {
     try {
@@ -59,11 +58,10 @@ const WithdrawAdminPage = () => {
         const total = categorys.reduce((prev, item) => {
           return prev + item.amount;
         }, 0);
-        setTotal(total);
 
         return <Typography>{total}</Typography>;
       },
-    }, // ยังไม่แน่ใจว่าทำยังไง
+    },
   ];
 
   const handleMenuClick = (item: any) => {
