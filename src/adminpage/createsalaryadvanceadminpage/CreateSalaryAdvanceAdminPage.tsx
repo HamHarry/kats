@@ -3,7 +3,7 @@ import "./CreateSalaryAdvanceAdminPage.css";
 import { useNavigate } from "react-router-dom";
 import {
   CategoryType,
-  CategoryDetail,
+  CatagoryDetail,
   FinanceData,
   PaymentCategory,
 } from "../../model/finance.type";
@@ -17,7 +17,7 @@ import dayjs from "dayjs";
 import { createExpense } from "../../stores/slices/expenseSlice";
 import { DeleteStatus } from "../../model/delete.type";
 
-const initCategoryDetail: CategoryDetail = {
+const initCategoryDetail: CatagoryDetail = {
   type: CategoryType.SALARY_ADVANCE,
   amount: 0,
 };

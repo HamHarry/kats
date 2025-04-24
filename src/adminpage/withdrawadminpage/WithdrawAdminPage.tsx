@@ -10,7 +10,11 @@ import {
   isDeleteExpenseById,
 } from "../../stores/slices/expenseSlice";
 import { EmployeeData } from "../../model/employee.type";
-import { CategoryDetail, FinanceData } from "../../model/finance.type";
+import {
+  CatagoryDetail,
+  FinanceData,
+  PaymentCategory,
+} from "../../model/finance.type";
 import dayjs from "dayjs";
 import { DeleteStatus } from "../../model/delete.type";
 
@@ -83,7 +87,7 @@ const WithdrawAdminPage = () => {
       title: "รวมยอดค่าใช้จ่าย",
       dataIndex: "categorys",
       key: "categorys",
-      render: (categorys: CategoryDetail[]) => {
+      render: (categorys: CatagoryDetail[]) => {
         const total = categorys.reduce((prev, item) => {
           return prev + item.amount;
         }, 0);
@@ -106,7 +110,13 @@ const WithdrawAdminPage = () => {
         >
           <a
             onClick={() => {
-              return navigate(`/admin/edit/${item._id}`);
+              if (item.section === PaymentCategory.WITHDRAW) {
+                return navigate(`/admin/withdraw/edit/withdraw/${item._id}`);
+              } else {
+                return navigate(
+                  `/admin/withdraw/edit/salaryadvance/${item._id}`
+                );
+              }
             }}
           >
             ตรวจสอบ
@@ -130,7 +140,7 @@ const WithdrawAdminPage = () => {
     if (item.key === "createWithdraw") {
       return navigate(`/admin/withdraw/${item.key}`);
     } else {
-      navigate(`/admin/salary/${item.key}`);
+      navigate(`/admin/withdraw/${item.key}`);
     }
   };
 

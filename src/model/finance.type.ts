@@ -17,7 +17,7 @@ export enum CategoryType {
   SALARY_ADVANCE = 8, // เบิกเงินเดือน
 }
 
-export interface CategoryDetail {
+export interface CatagoryDetail {
   type: CategoryType;
   amount: number;
 }
@@ -28,10 +28,11 @@ export interface FinanceData {
   employeeId: string; // ชื่อบุคคล
   ownerName: string; // หัวข้อ
   section: PaymentCategory; // หมวดหมู่
-  categorys: CategoryDetail[];
+  categorys: CatagoryDetail[];
   price: number; // จำนวนเงิน
   date: string; // วันที่สร้าง
   datePrice: string; // วันที่จ่าย
   detel: string; // รายละเอียด
   delete: DeleteStatus; // สถานะการลบ
+  slip: string; // หลักฐานการจ่ายเงิน
 }

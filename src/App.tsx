@@ -29,6 +29,7 @@ import Layoutkats from "./layouts/Layoutkats.tsx";
 import LayoutAdmin from "./layouts/LayoutAdmin.tsx";
 import CalendarPage from "./calendarpage/CalendarPage";
 import LayoutCalendar from "./layouts/LayoutCalendar.tsx";
+import EditWithDrawAdminPage from "./adminpage/editwithdrawadminpage/EditWithDrawAdminPage.tsx";
 
 function App() {
   return (
@@ -83,11 +84,15 @@ function App() {
             path="withdraw/createWithdraw"
             element={<CreateWithdrawAdminPage />}
           />
-          <Route path="salary" element={<SalaryAdminPage />} />
           <Route
-            path="salary/createSalaryAdvance"
+            path="withdraw/createSalaryAdvance"
             element={<CreateSalaryAdvanceAdminPage />}
           />
+          <Route
+            path="withdraw/edit/withdraw/:expenseId"
+            element={<EditWithDrawAdminPage />}
+          />
+          <Route path="salary" element={<SalaryAdminPage />} />
           <Route path="finance" element={<FinanceAdminPage />} />
           <Route path="bin" element={<BinAdminPage />} />
           <Route path="setting" element={<SettingAdminPage />} />

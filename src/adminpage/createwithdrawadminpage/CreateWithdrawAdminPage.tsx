@@ -3,7 +3,7 @@ import "./CreateWithdrawAdminPage.css";
 import { useNavigate } from "react-router-dom";
 import {
   CategoryType,
-  CategoryDetail as CatagoryDetail,
+  CatagoryDetail,
   FinanceData,
   PaymentCategory,
 } from "../../model/finance.type";
@@ -37,6 +37,7 @@ const initFinanceForm: FinanceForm = {
   datePrice: "",
   detel: "",
   delete: DeleteStatus.ISNOTDELETE,
+  slip: "",
 };
 
 const CreateWithdrawAdminPage = () => {
