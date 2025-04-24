@@ -31,7 +31,7 @@ const WithdrawAdminPage = () => {
       ).unwrap();
 
       const filteredExpenses = ExpensesRes.filter((item: FinanceData) => {
-        return item.delete === 0;
+        return item.delete === DeleteStatus.ISNOTDELETE;
       });
 
       setWithdrawData(filteredExpenses);
