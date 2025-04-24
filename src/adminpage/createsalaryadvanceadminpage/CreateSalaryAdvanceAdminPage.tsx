@@ -14,22 +14,29 @@ import { useAppDispatch } from "../../stores/store";
 import { getAllEmployees } from "../../stores/slices/employeeSlice";
 import { InputNumber, Select } from "antd";
 import dayjs from "dayjs";
+import { createExpense } from "../../stores/slices/expenseSlice";
+import { DeleteStatus } from "../../model/delete.type";
 
 const initCategoryDetail: CategoryDetail = {
   type: CategoryType.SALARY_ADVANCE,
   amount: 0,
 };
 
-const initFinanceForm: FinanceData = {
+export interface FinanceForm extends Omit<FinanceData, "date"> {
+  date: dayjs.Dayjs;
+}
+
+const initFinanceForm: FinanceForm = {
   number: 0,
   employeeId: "",
   ownerName: "เบิกเงินเดือน",
   section: PaymentCategory.SALARY,
   categorys: [initCategoryDetail],
   price: 0,
-  date: "",
+  date: dayjs(),
   datePrice: "",
   detel: "",
+  delete: DeleteStatus.ISNOTDELETE,
 };
 
 const CreateSalaryAdvanceAdminPage = () => {
@@ -63,13 +70,15 @@ const CreateSalaryAdvanceAdminPage = () => {
     fetchEmployeeData();
   }, [fetchEmployeeData]);
 
-  const onSubmit = async (value: FinanceData) => {
+  const onSubmit = async (value: FinanceForm) => {
     const body = {
       ...value,
       date: value.date ? dayjs(value.date).toISOString() : "",
     };
 
-    console.log(body);
+    await dispath(createExpense(body)).unwrap();
+
+    navigate("/admin/withdraw");
   };
 
   return (
@@ -88,14 +97,7 @@ const CreateSalaryAdvanceAdminPage = () => {
           >
             ย้อนกลับ
           </button>
-          <button
-            type="submit"
-            onClick={() => {
-              navigate("/admin/withdraw");
-            }}
-          >
-            ยืนยัน
-          </button>
+          <button type="submit">ยืนยัน</button>
         </div>
 
         <div className="wrap-container-CreateSalaryAdvanceAdminPage">
@@ -159,7 +161,7 @@ const CreateSalaryAdvanceAdminPage = () => {
             <h2>จำนวนเงิน</h2>
             <Controller
               control={control}
-              name="date"
+              name={`categorys.${0}.amount`}
               render={({ field }) => {
                 return (
                   <InputNumber

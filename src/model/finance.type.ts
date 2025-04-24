@@ -1,3 +1,5 @@
+import { DeleteStatus } from "./delete.type";
+
 export enum PaymentCategory {
   WITHDRAW = 0,
   SALARY = 1,
@@ -31,4 +33,5 @@ export interface FinanceData {
   date: string; // วันที่สร้าง
   datePrice: string; // วันที่จ่าย
   detel: string; // รายละเอียด
+  delete: DeleteStatus; // สถานะการลบ
 }

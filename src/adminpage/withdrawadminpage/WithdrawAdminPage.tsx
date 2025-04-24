@@ -1,20 +1,27 @@
 import { useNavigate } from "react-router-dom";
 import "./WithdrawAdminPage.css";
-import { Button, Dropdown, Space, Table, Typography } from "antd";
+import { Button, Dropdown, Modal, Space, Table, Typography } from "antd";
 import { useCallback, useEffect, useState } from "react";
 import { DownOutlined } from "@ant-design/icons";
 import CircleLoading from "../../shared/circleLoading";
 import { useAppDispatch } from "../../stores/store";
-import { getAllExpenses } from "../../stores/slices/expenseSlice";
+import {
+  getAllExpenses,
+  isDeleteExpenseById,
+} from "../../stores/slices/expenseSlice";
 import { EmployeeData } from "../../model/employee.type";
-import { CategoryDetail } from "../../model/finance.type";
+import { CategoryDetail, FinanceData } from "../../model/finance.type";
 import dayjs from "dayjs";
+import { DeleteStatus } from "../../model/delete.type";
 
 const WithdrawAdminPage = () => {
   const dispath = useAppDispatch();
   const navigate = useNavigate();
   const [withdrawData, setWithdrawData] = useState([]);
   const [isExpenseLoading, setIsExpenseLoading] = useState<boolean>(false);
+  const [openDialogConfirmDelete, setOpenDialogConfirmDelete] =
+    useState<boolean>(false);
+  const [selectedExpenseData, setSelectedExpenseData] = useState<FinanceData>();
 
   const fetchAllExpense = useCallback(async () => {
     try {
@@ -23,9 +30,11 @@ const WithdrawAdminPage = () => {
         getAllExpenses()
       ).unwrap();
 
-      console.log(ExpensesRes);
+      const filteredExpenses = ExpensesRes.filter((item: FinanceData) => {
+        return item.delete === 0;
+      });
 
-      setWithdrawData(ExpensesRes);
+      setWithdrawData(filteredExpenses);
     } catch (error) {
       console.log(error);
     } finally {
@@ -82,6 +91,37 @@ const WithdrawAdminPage = () => {
         return <Typography>{total}</Typography>;
       },
     },
+    {
+      title: "",
+      key: "action",
+      render: (item: FinanceData) => (
+        <Space
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            fontSize: "14px",
+            gap: "20px",
+          }}
+        >
+          <a
+            onClick={() => {
+              return navigate(`/admin/edit/${item._id}`);
+            }}
+          >
+            ตรวจสอบ
+          </a>
+          <a
+            onClick={() => {
+              setSelectedExpenseData(item);
+              setOpenDialogConfirmDelete(true);
+            }}
+          >
+            ลบ
+          </a>
+        </Space>
+      ),
+    },
   ];
 
   const handleMenuClick = (item: any) => {
@@ -108,6 +148,58 @@ const WithdrawAdminPage = () => {
   const menuProps = {
     items,
     onClick: handleMenuClick,
+  };
+
+  const deleted = async () => {
+    try {
+      setIsExpenseLoading(true);
+      if (!selectedExpenseData?._id) return;
+
+      const body: FinanceData = {
+        ...selectedExpenseData,
+        delete: DeleteStatus.ISDELETE,
+      };
+
+      await dispath(isDeleteExpenseById(body)).unwrap();
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsExpenseLoading(false);
+      setOpenDialogConfirmDelete(false);
+      fetchAllExpense();
+    }
+  };
+
+  const rederDialogConfirmDelete = () => {
+    return (
+      <Modal
+        centered
+        className="wrap-container-DialogDelete"
+        open={openDialogConfirmDelete}
+        onCancel={() => setOpenDialogConfirmDelete(false)}
+      >
+        <h1>ยืนยันการลบ</h1>
+
+        <div className="btn-DialogDelete-Navbar">
+          <button
+            type="button"
+            onClick={() => {
+              deleted();
+              setOpenDialogConfirmDelete(false);
+            }}
+          >
+            ยืนยัน
+          </button>
+          <button
+            onClick={() => {
+              setOpenDialogConfirmDelete(false);
+            }}
+          >
+            ยกเลิก
+          </button>
+        </div>
+      </Modal>
+    );
   };
 
   return (
@@ -140,6 +232,7 @@ const WithdrawAdminPage = () => {
         />
       </div>
 
+      {rederDialogConfirmDelete()}
       <CircleLoading open={isExpenseLoading} />
     </div>
   );

@@ -15,6 +15,7 @@ import { getAllEmployees } from "../../stores/slices/employeeSlice";
 import { DatePicker, InputNumber, Select } from "antd";
 import dayjs from "dayjs";
 import { createExpense } from "../../stores/slices/expenseSlice";
+import { DeleteStatus } from "../../model/delete.type";
 
 const initCategoryDetail: CatagoryDetail = {
   type: CategoryType.FUEL,
@@ -35,6 +36,7 @@ const initFinanceForm: FinanceForm = {
   date: dayjs(),
   datePrice: "",
   detel: "",
+  delete: DeleteStatus.ISNOTDELETE,
 };
 
 const CreateWithdrawAdminPage = () => {
