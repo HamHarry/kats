@@ -14,7 +14,7 @@ const CoatingPageGun = () => {
   return (
     <div className="container-CoatingPageGun" id="coatingGun">
       <div className="header-CoatingPageGun">
-        <h1>Gun Protection Coatings</h1>
+        <h1>Gun Coatings</h1>
       </div>
 
       <div className="content-series">

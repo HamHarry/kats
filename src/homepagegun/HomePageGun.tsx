@@ -11,7 +11,7 @@ const HomePageGun = () => {
       <div className="header-HomePageGun">
         <h1>
           ยินดีต้อนรับ <br />
-          Guneng Innovation Co.,Ltd.
+          ศูนย์พ่นกันสนิม Gun Protection
         </h1>
       </div>
 
