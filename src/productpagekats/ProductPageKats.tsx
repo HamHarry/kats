@@ -157,7 +157,7 @@ const ProductPageKats = () => {
   return (
     <div className="container-ProductPageKats">
       <div className="header-ProductPageKats">
-        <img src="/public/assets/katoon.png" alt="katoon" />
+        <img src="/assets/katoon.png" alt="katoon" />
         <h1>
           สินค้า <br />
           รับประกัน 5 ปี (ทุกสินค้า)

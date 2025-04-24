@@ -181,7 +181,6 @@
     h3 {
       font-size: 32px;
       color: white;
-      font-family: "Noto Sans Thai", serif;
       margin-left: 10px;
     }
     .fa-circle-xmark {
@@ -216,7 +215,6 @@
       h3 {
         font-size: 32px;
         color: white;
-        font-family: "Noto Sans Thai", serif;
       }
       .carName {
         display: flex;
@@ -351,9 +349,74 @@
             p {
               font-size: 18px;
             }
-            button {
-              max-width: 200px;
-              font-size: 16px;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 870px) {
+  .ant-modal-content {
+    .wrap-container-DialogPrice {
+      width: 600px;
+      height: 600px;
+
+      .container-DialogPrice-Navbar {
+        h3 {
+          font-size: 22px;
+        }
+        .fa-circle-xmark {
+          font-size: 22px;
+        }
+      }
+      .carImages {
+        display: flex;
+        justify-content: center;
+        height: 600px;
+        img {
+          height: 200px;
+          width: 250px;
+        }
+        .sliderName {
+          height: 600px;
+          width: 250px;
+          h3 {
+            font-size: 22px;
+          }
+          .carName {
+            width: 350px;
+            margin-top: 20px;
+            .fa-circle-left {
+              font-size: 22px;
+            }
+            .fa-circle-right {
+              font-size: 22px;
+            }
+          }
+        }
+        .sliderName-hidden {
+          height: 200px;
+          width: 250px;
+        }
+        .image {
+          height: 200px;
+          width: 250px;
+          .sliderImage {
+            height: 200px;
+            width: 250px;
+          }
+          .sliderImage-hidden {
+            height: 200px;
+            height: 0;
+          }
+          .btn-left-right {
+            width: 350px;
+            .fa-circle-left {
+              font-size: 22px;
+            }
+            .fa-circle-right {
+              font-size: 22px;
             }
           }
         }
@@ -409,10 +472,6 @@
             p {
               font-size: 16px;
             }
-            button {
-              max-width: 200px;
-              font-size: 16px;
-            }
           }
         }
       }
@@ -460,13 +519,22 @@
             p {
               font-size: 14px;
             }
-            button {
-              max-width: 200px;
-              font-size: 16px;
-            }
           }
         }
       }
+    }
+  }
+}
+
+@media (max-width: 630px) {
+  .ant-modal-content {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 100px;
+    .wrap-container-DialogPrice {
+      width: 500px;
+      height: 600px;
     }
   }
 }
@@ -500,9 +568,209 @@
             p {
               font-size: 16px;
             }
-            button {
-              max-width: 200px;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 584px) {
+  .wrap-container-product {
+    .container-list-product {
+      .container-list-product-box {
+        .list-product-box {
+          .product-content-box {
+            height: 250px;
+            min-width: 200px;
+            .fa-car-side {
+              font-size: 40px;
+            }
+            .fa-truck-pickup {
+              font-size: 40px;
+            }
+            .fa-truck-field {
+              font-size: 40px;
+            }
+            .fa-van-shuttle {
+              font-size: 40px;
+            }
+            h3 {
+              font-size: 18px;
+            }
+            h4 {
+              font-size: 18px;
+            }
+            p {
+              font-size: 14px;
+            }
+          }
+          button {
+            margin-left: 0px;
+            color: white;
+            font-size: 16px;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 520px) {
+  .ant-modal-content {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 100px;
+    .wrap-container-DialogPrice {
+      width: 400px;
+      height: 600px;
+      .container-DialogPrice-Navbar {
+        h3 {
+          font-size: 16px;
+        }
+        .fa-circle-xmark {
+          font-size: 22px;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 500px) {
+  .container-ProductPageKats {
+    padding: 10px;
+    padding-top: 100px;
+  }
+  .wrap-container-product {
+    .container-list-product {
+      .container-list-product-box {
+        .list-product-box {
+          .product-content-box {
+            height: 200px;
+            min-width: 200px;
+            .fa-car-side {
+              font-size: 30px;
+            }
+            .fa-truck-pickup {
+              font-size: 30px;
+            }
+            .fa-truck-field {
+              font-size: 30px;
+            }
+            .fa-van-shuttle {
+              font-size: 30px;
+            }
+            h3 {
               font-size: 16px;
+            }
+            h4 {
+              font-size: 16px;
+            }
+            p {
+              font-size: 12px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 460px) {
+  .container-ProductPageKats {
+    padding: 10px;
+    padding-top: 100px;
+  }
+  .wrap-container-product {
+    .container-list-product {
+      .container-list-product-box {
+        .list-product-box {
+          .product-content-box {
+            height: 200px;
+            min-width: 150px;
+            .fa-car-side {
+              font-size: 30px;
+            }
+            .fa-truck-pickup {
+              font-size: 30px;
+            }
+            .fa-truck-field {
+              font-size: 30px;
+            }
+            .fa-van-shuttle {
+              font-size: 30px;
+            }
+            h3 {
+              font-size: 12px;
+            }
+            h4 {
+              font-size: 12px;
+            }
+            p {
+              font-size: 10px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 440px) {
+  .ant-modal-content {
+    .wrap-container-DialogPrice {
+      width: 300px;
+      height: 600px;
+
+      .container-DialogPrice-Navbar {
+        h3 {
+          font-size: 12px;
+        }
+        .fa-circle-xmark {
+          font-size: 22px;
+        }
+      }
+      .carImages {
+        height: 600px;
+        img {
+          height: 170px;
+          width: 200px;
+        }
+        .sliderName {
+          h3 {
+            font-size: 15px;
+          }
+          .carName {
+            width: 250px;
+            .fa-circle-left {
+              font-size: 14px;
+            }
+            .fa-circle-right {
+              font-size: 14px;
+            }
+          }
+        }
+        .image {
+          height: 170px;
+          width: 200px;
+          padding-top: 20px;
+          .sliderImage {
+            height: 170px;
+            width: 200px;
+          }
+          .sliderImage-hidden {
+            height: 200px;
+            height: 0;
+          }
+          .btn-left-right {
+            margin-top: 250px;
+            width: 100px;
+            .fa-circle-left {
+              font-size: 22px;
+            }
+            .fa-circle-right {
+              font-size: 22px;
             }
           }
         }

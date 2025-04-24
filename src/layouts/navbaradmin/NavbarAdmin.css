@@ -1,0 +1,222 @@
+.navbarAdmin {
+  position: absolute;
+  width: 300px;
+  height: 100%;
+  background-color: #2656a2;
+  .logo-admin {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 15px;
+    height: 100px;
+    img {
+      height: 100px;
+      width: 200px;
+    }
+  }
+  .user {
+    display: flex;
+    align-items: center;
+    height: 80px;
+    .fa-circle-user {
+      font-size: 42px;
+      margin: 0 20px 0 10px;
+      color: white;
+      cursor: pointer;
+    }
+    .username {
+      display: flex;
+      flex-direction: column;
+      h3 {
+        font-size: 24px;
+        color: white;
+      }
+      p {
+        font-size: 16px;
+        color: white;
+      }
+    }
+  }
+  .usered {
+    display: flex;
+    align-items: center;
+    height: 80px;
+    .fa-circle-user {
+      font-size: 42px;
+      margin: 0 20px 0 10px;
+      color: white;
+      cursor: pointer;
+      text-shadow: 0 0 10px rgba(255, 255, 255, 0.8),
+        0 0 20px rgba(255, 255, 255, 0.6), 0 0 30px rgba(255, 255, 255, 0.4);
+    }
+    .username {
+      display: flex;
+      flex-direction: column;
+      h3 {
+        font-size: 24px;
+        color: white;
+      }
+      p {
+        font-size: 16px;
+        color: white;
+      }
+    }
+  }
+  .menu {
+    display: flex;
+    flex-direction: column;
+    height: 650px;
+    ul {
+      margin-top: 20px;
+      .select {
+        display: flex;
+        align-items: center;
+        margin-left: 10px;
+        margin-bottom: 20px;
+        cursor: pointer;
+      }
+      .selected {
+        display: flex;
+        align-items: center;
+        margin-left: 10px;
+        margin-bottom: 20px;
+        cursor: pointer;
+        text-shadow: 0 0 10px rgba(255, 255, 255, 0.8),
+          0 0 20px rgba(255, 255, 255, 0.6), 0 0 30px rgba(255, 255, 255, 0.4);
+      }
+      p {
+        font-size: 18px;
+        color: white;
+        margin-left: 20px;
+      }
+      li:hover {
+        text-shadow: 0 0 10px rgba(255, 255, 255, 0.8),
+          0 0 20px rgba(255, 255, 255, 0.6), 0 0 30px rgba(255, 255, 255, 0.4);
+        transition: all 0.5s;
+      }
+      .fa-user {
+        font-size: 40px;
+        color: white;
+      }
+      .fa-image-portrait {
+        font-size: 40px;
+        color: white;
+      }
+      .fa-book-bookmark {
+        font-size: 40px;
+        color: white;
+      }
+      .fa-calendar-days {
+        font-size: 40px;
+        color: white;
+      }
+      .fa-square-check {
+        font-size: 40px;
+        color: white;
+      }
+      .fa-pen-to-square {
+        font-size: 40px;
+        color: white;
+      }
+      .fa-wallet {
+        font-size: 40px;
+        color: white;
+      }
+      .fa-hand-holding-dollar {
+        font-size: 40px;
+        color: white;
+      }
+      .fa-file-invoice-dollar {
+        font-size: 40px;
+        color: white;
+      }
+      .fa-trash-can {
+        font-size: 40px;
+        color: white;
+      }
+      .fa-gear {
+        font-size: 40px;
+        color: white;
+      }
+    }
+  }
+  .logout {
+    display: flex;
+    align-items: center;
+    margin-left: 10px;
+    cursor: pointer;
+    margin-top: 15px;
+    .fa-arrow-right-from-bracket {
+      font-size: 40px;
+      color: white;
+    }
+    p {
+      font-size: 18px;
+      color: white;
+      margin-left: 20px;
+    }
+  }
+  .logout:hover {
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8),
+      0 0 20px rgba(255, 255, 255, 0.6), 0 0 30px rgba(255, 255, 255, 0.4);
+    transition: all 0.5s;
+  }
+}
+
+@media (max-width: 1280px) {
+  .navbarAdmin {
+    width: 250px;
+  }
+}
+
+@media (max-width: 1080px) {
+  .navbarAdmin {
+    width: 200px;
+    .logo-admin {
+      img {
+        width: 160px;
+        height: auto;
+      }
+    }
+    .user {
+      .username {
+        h3 {
+          font-size: 20px;
+        }
+        p {
+          font-size: 14px;
+        }
+      }
+      .fa-circle-user {
+        font-size: 36px;
+      }
+    }
+    .usered {
+      .username {
+        h3 {
+          font-size: 20px;
+        }
+        p {
+          font-size: 14px;
+        }
+      }
+      .fa-circle-user {
+        font-size: 36px;
+      }
+    }
+    .menu {
+      ul {
+        li {
+          p {
+            font-size: 16px;
+          }
+        }
+      }
+    }
+    .logout {
+      p {
+        font-size: 16px;
+      }
+    }
+  }
+}

@@ -9,7 +9,7 @@ const HomePageKats = () => {
   return (
     <div className="container-HomePageKats">
       <div className="header-HomePageKats">
-        <img src="/public/assets/katoon.png" alt="katoon" />
+        <img src="/assets/katoon.png" alt="katoon" />
         <h1>
           ยินดีต้อนรับ <br />
           ศูนย์พ่นกันสนิม KATS Coatings สาขาลาดกระบัง
@@ -67,29 +67,21 @@ const HomePageKats = () => {
         <div className="center-mid">
           <div className="compare">
             <h3>Before</h3>
-            <img src="/public/assets/kats_compare1.jpg" alt="compare1" />
+            <img src="/assets/kats_compare1.jpg" alt="compare1" />
           </div>
           <div className="compare">
             <h3>After</h3>
-            <img src="/public/assets/kats_compare2.jpg" alt="compare2" />
+            <img src="/assets/kats_compare2.jpg" alt="compare2" />
           </div>
         </div>
 
         <div className="center-right">
           <div className="image-top">
-            <img src="/public/assets/kats_page.png" alt="page" />
+            <img src="/assets/kats_page.png" alt="page" />
           </div>
           <div className="image-botton">
-            <img
-              className="demo1"
-              src="/public/assets/kats_demo1.jpg"
-              alt="demo1"
-            />
-            <img
-              className="demo2"
-              src="/public/assets/kats_demo2.jpg"
-              alt="demo2"
-            />
+            <img className="demo1" src="/assets/kats_demo1.jpg" alt="demo1" />
+            <img className="demo2" src="/assets/kats_demo2.jpg" alt="demo2" />
           </div>
         </div>
       </div>

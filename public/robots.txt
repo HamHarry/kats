@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://gunenginnovation.vercel.app/sitemap.xml

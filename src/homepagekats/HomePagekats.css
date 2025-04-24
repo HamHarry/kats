@@ -191,3 +191,56 @@
     }
   }
 }
+
+@media (max-width: 480px) {
+  .container-HomePageKats {
+    .header-HomePageKats {
+      padding: 16px;
+      padding-left: 60px;
+      h1 {
+        font-size: 12px;
+      }
+      img {
+        width: 90px;
+        left: -30px;
+      }
+    }
+    .center {
+      .center-left {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        h3 {
+          font-size: 16px;
+        }
+      }
+      .btn-content {
+        width: 100%;
+        .btn-group-top {
+          width: 100%;
+        }
+        .btn {
+          color: white;
+          font-size: 18px;
+          font-weight: bold;
+          min-width: 80px;
+        }
+        .btn-gun {
+          color: white;
+          font-size: 18px;
+          width: 100%;
+        }
+      }
+    }
+    .center-right {
+      .image-botton {
+        display: flex;
+        align-items: center;
+        img {
+          width: 350px !important;
+          height: auto !important;
+        }
+      }
+    }
+  }
+}

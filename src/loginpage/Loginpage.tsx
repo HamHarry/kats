@@ -5,7 +5,7 @@ import { Controller, useForm } from "react-hook-form";
 import { useState } from "react";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup/src/yup.js";
-import "./LoginPage.css";
+import "./Loginpage.css";
 
 const schema = yup.object({
   username: yup.string().required("Username or Email is required"),
@@ -70,7 +70,7 @@ const LoginPage = () => {
     <>
       <div className="container-login">
         <div className="wrap-login">
-          <img src="/public/assets/katoon.png" alt="katoon" />
+          <img src="/assets/katoon.png" alt="katoon" />
           <h1>เข้าสู่ระบบ</h1>
           <form onSubmit={handleSubmit(submit)}>
             <Controller

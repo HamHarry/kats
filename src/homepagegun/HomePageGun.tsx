@@ -11,7 +11,7 @@ const HomePageGun = () => {
       <div className="header-HomePageGun">
         <h1>
           ยินดีต้อนรับ <br />
-          Guneng Innovation Co.,Ltd.
+          ศูนย์พ่นกันสนิม Gun Protection
         </h1>
       </div>
 
@@ -62,21 +62,15 @@ const HomePageGun = () => {
 
         <div className="center-mid">
           <div className="compare">
-            <img src="/public/assets/gun/gun5.jpg" alt="compare1" />
+            <img src="/assets/gun/gun5.jpg" alt="compare1" />
           </div>
           <div className="compare">
-            <img src="/public/assets/gun/gun4.jpg" alt="compare2" />
+            <img src="/assets/gun/gun4.jpg" alt="compare2" />
           </div>
         </div>
 
         <div className="center-right">
-          <video
-            src="/public/assets/gun/file.mp4"
-            autoPlay
-            loop
-            muted
-            controls
-          />
+          <video src="/assets/gun/file.mov" autoPlay loop muted controls />
         </div>
       </div>
 

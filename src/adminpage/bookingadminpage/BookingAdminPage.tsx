@@ -322,8 +322,8 @@ const BookingAdminPage = () => {
                 <img
                   src={
                     item.product.name === "KATS Coating"
-                      ? "/public/assets/logokats.jpg"
-                      : "/public/assets/logoGun.jpg"
+                      ? "/assets/logokats.jpg"
+                      : "/assets/logoGun.jpg"
                   }
                   alt="Image"
                 />

@@ -1,0 +1,42 @@
+.Footerkats {
+  position: fixed;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #2656a2;
+  height: 50px;
+  width: 100%;
+  color: white;
+  font-size: 15px;
+  z-index: 100;
+}
+
+.contact {
+  cursor: pointer;
+  transition: all 0.5s;
+}
+.contact:hover {
+  cursor: pointer;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.8),
+    0 0 20px rgba(255, 255, 255, 0.6), 0 0 30px rgba(255, 255, 255, 0.4);
+  transition: all 0.5s;
+}
+
+@media (max-width: 642px) {
+  .Footerkats {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 500px) {
+  .Footerkats {
+    font-size: 10px;
+  }
+}
+
+@media (max-width: 400px) {
+  .Footerkats {
+    font-size: 8px;
+  }
+}

@@ -4,11 +4,11 @@ const MapPageKats = () => {
   return (
     <div className="container-MapPageKats">
       <div className="header-MapPageKats">
-        <img src="/public/assets/katoon.png" alt="katoon" />
+        <img src="/assets/katoon.png" alt="katoon" />
         <Typography className="text-header">แผนที่</Typography>
       </div>
       <div className="container-map">
-        <img src="/public/assets/map1.png" alt="map" />
+        <img src="/assets/map1.png" alt="map" />
         <button
           onClick={() => {
             window.open(
