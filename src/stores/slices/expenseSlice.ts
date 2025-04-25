@@ -26,6 +26,30 @@ export const getAllExpenses = createAsyncThunk(
   }
 );
 
+export const getExpenseById = createAsyncThunk(
+  "expense/get/id",
+  async (expenseId: string): Promise<any> => {
+    const response = await expenseServices.getExpenseById(expenseId);
+    return response;
+  }
+);
+
+export const updateExpenseById = createAsyncThunk(
+  "expense/update/id",
+  async (body: any): Promise<any> => {
+    const response = await expenseServices.updateExpenseById(body);
+    return response;
+  }
+);
+
+export const approveExpenseById = createAsyncThunk(
+  "expense/approveExpenseById/id",
+  async (body: FinanceData): Promise<any> => {
+    const response = await expenseServices.approveExpenseById(body);
+    return response;
+  }
+);
+
 export const isDeleteExpenseById = createAsyncThunk(
   "expense/updatestatusDelete/id",
   async (body: FinanceData): Promise<any> => {

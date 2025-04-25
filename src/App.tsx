@@ -30,6 +30,7 @@ import LayoutAdmin from "./layouts/LayoutAdmin.tsx";
 import CalendarPage from "./calendarpage/CalendarPage";
 import LayoutCalendar from "./layouts/LayoutCalendar.tsx";
 import EditWithDrawAdminPage from "./adminpage/editwithdrawadminpage/EditWithDrawAdminPage.tsx";
+import EditSalaryAdvanceAdminPage from "./adminpage/editsalaryadvanceadminpage/EditSalaryAdvanceAdminPage.tsx";
 
 function App() {
   return (
@@ -91,6 +92,10 @@ function App() {
           <Route
             path="withdraw/edit/withdraw/:expenseId"
             element={<EditWithDrawAdminPage />}
+          />
+          <Route
+            path="withdraw/edit/salaryadvance/:expenseId"
+            element={<EditSalaryAdvanceAdminPage />}
           />
           <Route path="salary" element={<SalaryAdminPage />} />
           <Route path="finance" element={<FinanceAdminPage />} />

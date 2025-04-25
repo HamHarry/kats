@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import "./EditWithDrawAdminPage.css";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useAppDispatch } from "../../stores/store";
 import CircleLoading from "../../shared/circleLoading";
 import { Controller, useFieldArray, useForm } from "react-hook-form";
@@ -16,6 +16,7 @@ import { DatePicker, InputNumber, Select } from "antd";
 import { getAllEmployees } from "../../stores/slices/employeeSlice";
 import { EmployeeData } from "../../model/employee.type";
 import { FileAddFilled } from "@ant-design/icons";
+import { getExpenseById } from "../../stores/slices/expenseSlice";
 
 const initCategoryDetail: CatagoryDetail = {
   type: CategoryType.FUEL,
@@ -43,15 +44,46 @@ const initFinanceForm: FinanceForm = {
 const EditWithDrawAdminPage = () => {
   const dispath = useAppDispatch();
   const navigate = useNavigate();
-  // const { expenseId } = useParams();
+  const { expenseId } = useParams();
   const [baseImage, setBaseImage] = useState("");
   const [isEditWithDrawLoading, setIsCreateWithDrawLoading] =
     useState<boolean>(false);
   const [employeeData, setEmployeeData] = useState<EmployeeData[]>([]);
 
-  const { control, handleSubmit } = useForm({
+  const { control, handleSubmit, reset } = useForm({
     defaultValues: initFinanceForm,
   });
+
+  const initailForm = useCallback(async () => {
+    try {
+      if (!expenseId) return;
+
+      const { data } = await dispath(getExpenseById(expenseId)).unwrap();
+      const expenseRes = data as FinanceData;
+
+      const initBookingForm: FinanceForm = {
+        number: expenseRes.number ?? 0,
+        employeeId: expenseRes.employeeId ?? "",
+        ownerName: expenseRes.ownerName ?? "",
+        section: expenseRes.section ?? PaymentCategory.WITHDRAW,
+        categorys: expenseRes.categorys ?? [],
+        price: expenseRes.price ?? 0,
+        date: dayjs(expenseRes.date),
+        datePrice: expenseRes.datePrice ?? "",
+        detel: expenseRes.detel ?? "",
+        delete: expenseRes.delete ?? DeleteStatus.ISNOTDELETE,
+        slip: expenseRes.slip ?? "",
+      };
+
+      reset(initBookingForm);
+    } catch (error) {
+      console.log(error);
+    }
+  }, [dispath, expenseId, reset]);
+
+  useEffect(() => {
+    initailForm();
+  }, [initailForm]);
 
   const categoryDetailFields = useFieldArray({
     name: "categorys",
@@ -124,7 +156,7 @@ const EditWithDrawAdminPage = () => {
   return (
     <div className="container-EditWithDrawAdminPage">
       <div className="header-EditWithDrawAdminPage">
-        <h1>Edit Expense</h1>
+        <h1>Edit WithDraw</h1>
       </div>
 
       <form onSubmit={handleSubmit(onSubmit)}>

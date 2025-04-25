@@ -6,6 +6,7 @@ import { DownOutlined } from "@ant-design/icons";
 import CircleLoading from "../../shared/circleLoading";
 import { useAppDispatch } from "../../stores/store";
 import {
+  approveExpenseById,
   getAllExpenses,
   isDeleteExpenseById,
 } from "../../stores/slices/expenseSlice";
@@ -24,6 +25,8 @@ const WithdrawAdminPage = () => {
   const [withdrawData, setWithdrawData] = useState([]);
   const [isExpenseLoading, setIsExpenseLoading] = useState<boolean>(false);
   const [openDialogConfirmDelete, setOpenDialogConfirmDelete] =
+    useState<boolean>(false);
+  const [openDialogConfirmApprove, setOpenDialogConfirmApprove] =
     useState<boolean>(false);
   const [selectedExpenseData, setSelectedExpenseData] = useState<FinanceData>();
 
@@ -82,7 +85,17 @@ const WithdrawAdminPage = () => {
         return <Typography>{formattedDate}</Typography>;
       },
     },
-    { title: "วันที่ชำระเงิน", dataIndex: "datePrice", key: "datePrice" },
+    {
+      title: "วันที่ชำระเงิน",
+      dataIndex: "datePrice",
+      key: "datePrice",
+      render: (datePrice: string) => {
+        const formattedDate = datePrice
+          ? dayjs(datePrice).format("DD/MM/YYYY")
+          : "";
+        return <Typography>{formattedDate}</Typography>;
+      },
+    },
     {
       title: "รวมยอดค่าใช้จ่าย",
       dataIndex: "categorys",
@@ -105,7 +118,6 @@ const WithdrawAdminPage = () => {
             justifyContent: "center",
             alignItems: "center",
             fontSize: "14px",
-            gap: "20px",
           }}
         >
           <a
@@ -119,8 +131,47 @@ const WithdrawAdminPage = () => {
               }
             }}
           >
-            ตรวจสอบ
+            แก้ไข
           </a>
+        </Space>
+      ),
+    },
+    {
+      title: "",
+      key: "action",
+      render: (item: FinanceData) => (
+        <Space
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            fontSize: "14px",
+          }}
+        >
+          <a
+            className={item.datePrice === "" ? "" : "linkIsNone"}
+            onClick={() => {
+              setSelectedExpenseData(item);
+              setOpenDialogConfirmApprove(true);
+            }}
+          >
+            อนุมัติ
+          </a>
+        </Space>
+      ),
+    },
+    {
+      title: "",
+      key: "action",
+      render: (item: FinanceData) => (
+        <Space
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            fontSize: "14px",
+          }}
+        >
           <a
             onClick={() => {
               setSelectedExpenseData(item);
@@ -160,6 +211,25 @@ const WithdrawAdminPage = () => {
     onClick: handleMenuClick,
   };
 
+  const approved = async () => {
+    try {
+      setIsExpenseLoading(true);
+      if (!selectedExpenseData?._id) return;
+
+      const body: FinanceData = {
+        ...selectedExpenseData,
+        datePrice: dayjs().toISOString(),
+      };
+
+      await dispath(approveExpenseById(body)).unwrap();
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsExpenseLoading(false);
+      fetchAllExpense();
+    }
+  };
+
   const deleted = async () => {
     try {
       setIsExpenseLoading(true);
@@ -178,6 +248,40 @@ const WithdrawAdminPage = () => {
       setOpenDialogConfirmDelete(false);
       fetchAllExpense();
     }
+  };
+
+  const rederDialogConfirmApprove = () => {
+    return (
+      <Modal
+        centered
+        className="container-DialogApprove-Expense"
+        open={openDialogConfirmApprove}
+        onCancel={() => setOpenDialogConfirmApprove(false)}
+        footer={
+          <div className="btn-DialogApprove-Navbar">
+            <button
+              type="button"
+              onClick={() => {
+                approved();
+                setOpenDialogConfirmApprove(false);
+                console.log("อนุมัติแล้ว");
+              }}
+            >
+              ยืนยัน
+            </button>
+            <button
+              onClick={() => {
+                setOpenDialogConfirmApprove(false);
+              }}
+            >
+              ยกเลิก
+            </button>
+          </div>
+        }
+      >
+        <h1>ยืนยันการอนุมัติ</h1>
+      </Modal>
+    );
   };
 
   const rederDialogConfirmDelete = () => {
@@ -215,7 +319,7 @@ const WithdrawAdminPage = () => {
   return (
     <div className="container-WithdrawAdminPage">
       <div className="header-WithdrawAdminPage">
-        <h1>Withdraw & Salary</h1>
+        <h1>Withdraw & Salary Advance</h1>
       </div>
 
       <div className="create-withdraw">
@@ -243,6 +347,7 @@ const WithdrawAdminPage = () => {
       </div>
 
       {rederDialogConfirmDelete()}
+      {rederDialogConfirmApprove()}
       <CircleLoading open={isExpenseLoading} />
     </div>
   );

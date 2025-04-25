@@ -2,7 +2,7 @@ import { DeleteStatus } from "./delete.type";
 
 export enum PaymentCategory {
   WITHDRAW = 0,
-  SALARY = 1,
+  SALARY = 1, // เบิกเงินเดือน
 }
 
 export enum CategoryType {
@@ -34,5 +34,5 @@ export interface FinanceData {
   datePrice: string; // วันที่จ่าย
   detel: string; // รายละเอียด
   delete: DeleteStatus; // สถานะการลบ
-  slip: string; // หลักฐานการจ่ายเงิน
+  slip?: string; // หลักฐานการจ่ายเงิน
 }

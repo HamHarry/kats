@@ -37,6 +37,7 @@ const initFinanceForm: FinanceForm = {
   datePrice: "",
   detel: "",
   delete: DeleteStatus.ISNOTDELETE,
+  slip: "",
 };
 
 const CreateSalaryAdvanceAdminPage = () => {
@@ -44,7 +45,6 @@ const CreateSalaryAdvanceAdminPage = () => {
   const navigate = useNavigate();
   const [isSalaryAdvanceLoading, setIsSalaryAdvanceLoading] =
     useState<boolean>(false);
-
   const [employeeData, setEmployeeData] = useState<EmployeeData[]>([]);
 
   const { control, handleSubmit } = useForm({
