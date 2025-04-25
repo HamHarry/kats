@@ -13,6 +13,7 @@ import {
 import { EmployeeData } from "../../model/employee.type";
 import {
   CatagoryDetail,
+  ExpenseStatus,
   FinanceData,
   PaymentCategory,
 } from "../../model/finance.type";
@@ -109,6 +110,15 @@ const WithdrawAdminPage = () => {
       },
     },
     {
+      title: "สถานะ",
+      dataIndex: "status",
+      key: "status",
+      render: (status: number) => {
+        const statusText = status === 0 ? "รออนุมัติ" : "อนุมัติแล้ว";
+        return <Typography>{statusText}</Typography>;
+      },
+    },
+    {
       title: "",
       key: "action",
       render: (item: FinanceData) => (
@@ -121,6 +131,7 @@ const WithdrawAdminPage = () => {
           }}
         >
           <a
+            className={item.status === 1 ? "linkIsNone" : ""}
             onClick={() => {
               if (item.section === PaymentCategory.WITHDRAW) {
                 return navigate(`/admin/withdraw/edit/withdraw/${item._id}`);
@@ -133,23 +144,8 @@ const WithdrawAdminPage = () => {
           >
             แก้ไข
           </a>
-        </Space>
-      ),
-    },
-    {
-      title: "",
-      key: "action",
-      render: (item: FinanceData) => (
-        <Space
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            fontSize: "14px",
-          }}
-        >
           <a
-            className={item.datePrice === "" ? "" : "linkIsNone"}
+            className={item.status === 1 ? "linkIsNone" : ""}
             onClick={() => {
               setSelectedExpenseData(item);
               setOpenDialogConfirmApprove(true);
@@ -157,21 +153,6 @@ const WithdrawAdminPage = () => {
           >
             อนุมัติ
           </a>
-        </Space>
-      ),
-    },
-    {
-      title: "",
-      key: "action",
-      render: (item: FinanceData) => (
-        <Space
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            fontSize: "14px",
-          }}
-        >
           <a
             onClick={() => {
               setSelectedExpenseData(item);
@@ -219,6 +200,7 @@ const WithdrawAdminPage = () => {
       const body: FinanceData = {
         ...selectedExpenseData,
         datePrice: dayjs().toISOString(),
+        status: ExpenseStatus.APPROVE,
       };
 
       await dispath(approveExpenseById(body)).unwrap();
@@ -280,6 +262,9 @@ const WithdrawAdminPage = () => {
         }
       >
         <h1>ยืนยันการอนุมัติ</h1>
+
+        {/* เดียวมาทำ */}
+        <div></div>
       </Modal>
     );
   };

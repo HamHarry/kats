@@ -1,11 +1,12 @@
 import { Controller, useFieldArray, useForm } from "react-hook-form";
 import "./CreateWithdrawAdminPage.css";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import {
   CategoryType,
   CatagoryDetail,
   FinanceData,
   PaymentCategory,
+  ExpenseStatus,
 } from "../../model/finance.type";
 import CircleLoading from "../../shared/circleLoading";
 import { useCallback, useEffect, useState } from "react";
@@ -14,7 +15,10 @@ import { useAppDispatch } from "../../stores/store";
 import { getAllEmployees } from "../../stores/slices/employeeSlice";
 import { DatePicker, InputNumber, Select } from "antd";
 import dayjs from "dayjs";
-import { createExpense } from "../../stores/slices/expenseSlice";
+import {
+  createExpense,
+  getExpenseById,
+} from "../../stores/slices/expenseSlice";
 import { DeleteStatus } from "../../model/delete.type";
 
 const initCategoryDetail: CatagoryDetail = {
@@ -38,18 +42,52 @@ const initFinanceForm: FinanceForm = {
   detel: "",
   delete: DeleteStatus.ISNOTDELETE,
   slip: "",
+  status: ExpenseStatus.PENDING,
 };
 
 const CreateWithdrawAdminPage = () => {
   const dispath = useAppDispatch();
   const navigate = useNavigate();
+  const { expenseId } = useParams();
   const [isCreateWithDrawLoading, setIsCreateWithDrawLoading] =
     useState<boolean>(false);
   const [employeeData, setEmployeeData] = useState<EmployeeData[]>([]);
 
-  const { control, handleSubmit } = useForm({
+  const { control, handleSubmit, reset } = useForm({
     defaultValues: initFinanceForm,
   });
+
+  const initailForm = useCallback(async () => {
+    try {
+      if (!expenseId) return;
+
+      const { data } = await dispath(getExpenseById(expenseId)).unwrap();
+      const expenseRes = data as FinanceData;
+
+      const initBookingForm: FinanceForm = {
+        number: expenseRes.number ?? 0,
+        employeeId: expenseRes.employeeId ?? "",
+        ownerName: expenseRes.ownerName ?? "",
+        section: expenseRes.section ?? PaymentCategory.WITHDRAW,
+        categorys: expenseRes.categorys ?? [],
+        price: expenseRes.price ?? 0,
+        date: dayjs(expenseRes.date),
+        datePrice: expenseRes.datePrice ?? "",
+        detel: expenseRes.detel ?? "",
+        delete: expenseRes.delete ?? DeleteStatus.ISNOTDELETE,
+        slip: expenseRes.slip ?? "",
+        status: expenseRes.status ?? ExpenseStatus.PENDING,
+      };
+
+      reset(initBookingForm);
+    } catch (error) {
+      console.log(error);
+    }
+  }, [dispath, expenseId, reset]);
+
+  useEffect(() => {
+    initailForm();
+  }, [initailForm]);
 
   const categoryDetailFields = useFieldArray({
     name: "categorys",

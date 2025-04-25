@@ -17,6 +17,11 @@ export enum CategoryType {
   SALARY_ADVANCE = 8, // เบิกเงินเดือน
 }
 
+export enum ExpenseStatus {
+  PENDING = 0,
+  APPROVE = 1,
+}
+
 export interface CatagoryDetail {
   type: CategoryType;
   amount: number;
@@ -35,4 +40,5 @@ export interface FinanceData {
   detel: string; // รายละเอียด
   delete: DeleteStatus; // สถานะการลบ
   slip?: string; // หลักฐานการจ่ายเงิน
+  status: ExpenseStatus; // สถานะการอนุมัติ
 }
