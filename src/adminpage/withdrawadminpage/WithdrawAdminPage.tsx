@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import "./WithdrawAdminPage.css";
 import { Button, Dropdown, Modal, Space, Table, Typography } from "antd";
 import { useCallback, useEffect, useState } from "react";
-import { DownOutlined } from "@ant-design/icons";
+import { DownOutlined, FileAddFilled } from "@ant-design/icons";
 import CircleLoading from "../../shared/circleLoading";
 import { useAppDispatch } from "../../stores/store";
 import {
@@ -30,6 +30,7 @@ const WithdrawAdminPage = () => {
   const [openDialogConfirmApprove, setOpenDialogConfirmApprove] =
     useState<boolean>(false);
   const [selectedExpenseData, setSelectedExpenseData] = useState<FinanceData>();
+  const [baseImage, setBaseImage] = useState("");
 
   const fetchAllExpense = useCallback(async () => {
     try {
@@ -53,6 +54,28 @@ const WithdrawAdminPage = () => {
   useEffect(() => {
     fetchAllExpense();
   }, [fetchAllExpense]);
+
+  // เก็บไฟล์รูปภาพเป็น Base64
+  const uploadImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    const base64 = (await convertBase64(file)) as string;
+    setBaseImage(base64);
+  };
+
+  const convertBase64 = (file: any) => {
+    return new Promise((resolve, reject) => {
+      const fileReader = new FileReader();
+
+      fileReader.readAsDataURL(file);
+
+      fileReader.onload = () => {
+        resolve(fileReader.result);
+      };
+      fileReader.onerror = (e: any) => {
+        reject(e);
+      };
+    });
+  };
 
   const columns = [
     { title: "เลขที่", dataIndex: "number", key: "number" },
@@ -233,6 +256,9 @@ const WithdrawAdminPage = () => {
   };
 
   const rederDialogConfirmApprove = () => {
+    const formattedDate = selectedExpenseData
+      ? dayjs(selectedExpenseData.date).format("DD/MM/YYYY")
+      : "";
     return (
       <Modal
         centered
@@ -261,10 +287,100 @@ const WithdrawAdminPage = () => {
           </div>
         }
       >
-        <h1>ยืนยันการอนุมัติ</h1>
+        <div className="container-Expense-navbar">
+          <h1>ค่าใช้จ่าย & เบิกเงิน</h1>
 
-        {/* เดียวมาทำ */}
-        <div></div>
+          <i className="fa-solid fa-circle-xmark"></i>
+        </div>
+
+        <div className="container-Expense">
+          <div className="container-Expense-left">
+            <div className="container-ExpenseUser">
+              <div className="container-ExpenseUser-left">
+                <img src="" alt="" />
+              </div>
+
+              {/* รอดึงข้อมูล Employee */}
+              <div className="container-ExpenseUser-right">
+                <h4>{selectedExpenseData?.employeeId}</h4>
+
+                <div className="previewTel">
+                  <i className="fa-solid fa-phone"></i>
+                  <p>เบอร์</p>
+                </div>
+
+                <div className="previewRol">
+                  <i className="fa-solid fa-user"></i>
+                  <p>ตำแหน่ง</p>
+                </div>
+              </div>
+            </div>
+
+            <div className="wrap-container-ExpenseData">
+              <h4>ข้อมูล</h4>
+
+              <div className="container-ExpenseData">
+                <div className="previewOnerName">
+                  <p>หัวข้อ</p>
+                  <p>{selectedExpenseData?.ownerName}</p>
+                </div>
+
+                <div className="previewDetel">
+                  <p>รายละเอียด</p>
+                  <p>{selectedExpenseData?.detel}</p>
+                </div>
+
+                <div className="previewDate">
+                  <p>วันที่สร้าง</p>
+                  <p>{formattedDate}</p>
+                </div>
+              </div>
+            </div>
+
+            <div className="wrap-container-ExpenseList">
+              <h4>รายการ</h4>
+
+              <div className="container-ExpenseList">
+                <div className="previewCatagory">
+                  <p>หัวข้อ</p>
+                  <p>dsadasds</p>
+                </div>
+
+                <div className="previewTotal">
+                  <p>ยอดค่าใช้จ่าย</p>
+                  <p>asdsadsadsa</p>
+                </div>
+              </div>
+            </div>
+
+            <div className="wrap-inputImage">
+              <h4>หลักฐานการโอน</h4>
+              <div className="inputImage">
+                <label htmlFor="file" className="text-image">
+                  <FileAddFilled className="icon-file" />
+                  <span>อัพโหลดหลักฐานการชำระ</span>
+                </label>
+                <input
+                  // {...field}
+                  type="file"
+                  id="file"
+                  onChange={(e) => {
+                    uploadImage(e);
+                  }}
+                />
+              </div>
+            </div>
+          </div>
+
+          <div className="container-Expense-right">
+            {baseImage && (
+              <div className="PreviewImage">
+                <h2>รูปภาพหลักฐานการชำระ</h2>
+                <img src={baseImage} alt="image" />
+              </div>
+            )}
+          </div>
+        </div>
       </Modal>
     );
   };

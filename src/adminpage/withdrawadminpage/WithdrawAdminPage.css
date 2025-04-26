@@ -80,7 +80,7 @@
   }
   .btn-DialogApprove-Navbar {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     margin-top: 30px;
     gap: 20px;
     button {
@@ -99,9 +99,178 @@
       transition: all 0.5s;
     }
   }
-  /* .ant-modal-footer {
-    display: none;
-  } */
+  .container-Expense-navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .fa-circle-xmark {
+      font-size: 30px;
+      color: #2656a2;
+      cursor: pointer;
+    }
+    .fa-circle-xmark:hover {
+      color: #1a3b7f;
+      text-shadow: 0 0 10px rgba(255, 255, 255, 0.8),
+        0 0 20px rgba(255, 255, 255, 0.6), 0 0 30px rgba(255, 255, 255, 0.4);
+      transition: all 0.5s;
+    }
+  }
+  .container-Expense {
+    display: flex;
+    /* justify-content: space-evenly; */
+    align-items: center;
+    gap: 150px;
+    .container-Expense-left {
+      display: flex;
+      flex-direction: column;
+      padding-left: 40px;
+      .container-ExpenseUser {
+        display: flex;
+        gap: 20px;
+        .container-ExpenseUser-left {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+          }
+        }
+        .container-ExpenseUser-right {
+          display: flex;
+          flex-direction: column;
+          h4 {
+            font-size: 18px;
+          }
+          .previewTel {
+            display: flex;
+            gap: 10px;
+            .fa-phone {
+              font-size: 20px;
+              color: #2656a2;
+            }
+            p {
+              font-size: 18px;
+            }
+          }
+          .previewRol {
+            display: flex;
+            gap: 10px;
+            .fa-user {
+              font-size: 20px;
+              color: #2656a2;
+            }
+            p {
+              font-size: 18px;
+            }
+          }
+        }
+      }
+      .wrap-container-ExpenseData {
+        display: flex;
+        flex-direction: column;
+        h4 {
+          font-size: 20px;
+        }
+        .container-ExpenseData {
+          display: flex;
+          flex-direction: column;
+          .previewOnerName {
+            display: flex;
+            gap: 67px;
+            p {
+              font-size: 16px;
+            }
+          }
+          .previewDetel {
+            display: flex;
+            gap: 30px;
+            p {
+              font-size: 16px;
+            }
+          }
+          .previewDate {
+            display: flex;
+            gap: 42px;
+            p {
+              font-size: 16px;
+            }
+          }
+        }
+      }
+      .wrap-container-ExpenseList {
+        display: flex;
+        flex-direction: column;
+        h4 {
+          font-size: 20px;
+        }
+        .container-ExpenseList {
+          display: flex;
+          flex-direction: column;
+          .previewCatagory {
+            display: flex;
+            gap: 70px;
+          }
+          .previewTotal {
+            display: flex;
+            gap: 28px;
+          }
+        }
+      }
+      .wrap-inputImage {
+        display: flex;
+        flex-direction: column;
+        h4 {
+          font-size: 20px;
+        }
+        .inputImage {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin-top: 20px;
+          .text-image {
+            width: 265px;
+            height: 45px;
+            display: flex;
+            flex-direction: column;
+            align-items: space-between;
+            gap: 5px;
+            cursor: pointer;
+            align-items: center;
+            justify-content: center;
+            border: 2px dashed #2656a2;
+            padding: 1.5rem;
+            border-radius: 10px;
+          }
+          .icon-file {
+            font-size: 20px;
+            color: #2656a2;
+          }
+          input {
+            display: none;
+          }
+        }
+      }
+    }
+    .container-Expense-right {
+      .PreviewImage {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        max-width: 317px;
+        align-items: center;
+        h2 {
+          margin-top: 45px;
+          font-size: 24px;
+        }
+        img {
+          margin-top: 20px;
+          width: 300px;
+        }
+      }
+    }
+  }
 }
 
 @media (max-width: 1280px) {
