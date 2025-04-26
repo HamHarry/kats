@@ -65,6 +65,7 @@ function App() {
             element={<EditGuaranteeAdminPage />}
           />
           <Route path="product" element={<ProductAdminPage />} />
+          {/* สร้าง type */}
           <Route
             path="product/createTypeProduct"
             element={<CreateTypeProductPage />}
@@ -73,9 +74,17 @@ function App() {
             path="product/createProduct"
             element={<CreateProductAdminPage />}
           />
+          <Route
+            path="product/edit/Product/:productId"
+            element={<CreateProductAdminPage />}
+          />
           <Route path="catagory" element={<CatagoryAdminPage />} />
           <Route
             path="catagory/createCatagory"
+            element={<CreateCatagoryAdminPage />}
+          />
+          <Route
+            path="catagory/edit/Catagory/:catagoryId"
             element={<CreateCatagoryAdminPage />}
           />
           <Route path="withdraw" element={<WithdrawAdminPage />} />

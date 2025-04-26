@@ -1,21 +1,24 @@
 import { useCallback, useEffect, useState } from "react";
 import {
-  Catagory,
+  CatagoryData,
   PRICE_TYPE,
   ProductData,
   ProductDetail,
   ProductType,
 } from "../../model/product.type";
 import "./CreateProductAdminPage.css";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Controller, useFieldArray, useForm } from "react-hook-form";
 import { Select } from "antd";
 import {
   createProduct,
   getAllCatagories,
+  getProductById,
+  updateProductById,
 } from "../../stores/slices/productSlice";
 import { useAppDispatch } from "../../stores/store";
 import CircleLoading from "../../shared/circleLoading";
+import { DeleteStatus } from "../../model/delete.type";
 
 const initProductDetail: ProductDetail = {
   type: PRICE_TYPE.STANDARD,
@@ -30,19 +33,48 @@ const initProductForm: ProductDataForm = {
   detail: "",
   productType: ProductType.KATS,
   catagoryId: "",
+  delete: DeleteStatus.ISNOTDELETE,
 };
 
 const CreateProductAdminPage = () => {
   const dispath = useAppDispatch();
   const navigate = useNavigate();
+  const { productId } = useParams();
 
-  const [categories, setCategories] = useState<Catagory[]>([]);
+  const [categories, setCategories] = useState<CatagoryData[]>([]);
 
   const [isProductLoading, setIsProductLoading] = useState<boolean>(false);
 
-  const { control, handleSubmit } = useForm({
+  const { control, handleSubmit, reset } = useForm({
     defaultValues: initProductForm,
   });
+
+  const initailForm = useCallback(async () => {
+    try {
+      if (!productId) return;
+
+      const { data } = await dispath(getProductById(productId)).unwrap();
+      const productRes = data as ProductData;
+
+      const initBookingForm: ProductData = {
+        name: productRes.name ?? "",
+        catagory: productRes.catagory ?? [],
+        catagoryId: productRes.catagoryId ?? "",
+        productDetails: productRes.productDetails ?? [],
+        detail: productRes.detail ?? "",
+        productType: productRes.productType ?? ProductType.KATS,
+        delete: productRes.delete ?? DeleteStatus.ISNOTDELETE,
+      };
+
+      reset(initBookingForm);
+    } catch (error) {
+      console.log(error);
+    }
+  }, [dispath, productId, reset]);
+
+  useEffect(() => {
+    initailForm();
+  }, [initailForm]);
 
   const productDetailFields = useFieldArray({
     name: "productDetails",
@@ -71,7 +103,25 @@ const CreateProductAdminPage = () => {
 
   const onSubmit = async (value: ProductDataForm) => {
     try {
-      await dispath(createProduct(value));
+      const item = {
+        ...value,
+      };
+
+      if (productId) {
+        // แก้ไข
+        const body = {
+          data: item,
+          productId,
+        };
+        await dispath(updateProductById(body)).unwrap();
+
+        navigate("/admin/product");
+      } else {
+        // สร้าง
+        await dispath(createProduct(item)).unwrap();
+
+        navigate("/admin/product");
+      }
     } catch (error) {
       console.log(error);
     }
@@ -103,14 +153,7 @@ const CreateProductAdminPage = () => {
           >
             ย้อนกลับ
           </button>
-          <button
-            type="submit"
-            onClick={() => {
-              navigate("/admin/product");
-            }}
-          >
-            ยืนยัน
-          </button>
+          <button type="submit">ยืนยัน</button>
         </div>
 
         <div className="wrap-container-createproductAdmin">

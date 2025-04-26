@@ -1,9 +1,9 @@
 import { useNavigate } from "react-router-dom";
 import "./CreateTypeProductPage.css";
-import { Catagory } from "../../model/product.type";
+import { CatagoryData } from "../../model/product.type";
 import { Controller, useForm } from "react-hook-form";
 
-const initCatagoryForm: Catagory = {
+const initCatagoryForm: CatagoryData = {
   name: "",
   code: "",
 };
@@ -14,7 +14,7 @@ const CreateTypeProductPage = () => {
     defaultValues: initCatagoryForm,
   });
 
-  const onSubmit = (value: Catagory) => {
+  const onSubmit = (value: CatagoryData) => {
     const item = {
       ...value,
     };

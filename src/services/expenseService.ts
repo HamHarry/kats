@@ -26,10 +26,10 @@ export const getExpenseById = async (expenseId: string): Promise<any> => {
   return response;
 };
 
-export const updateExpenseById = async (body: FinanceData): Promise<any> => {
+export const updateExpenseById = async (body: any): Promise<any> => {
   const response = await axios.put(
-    `${import.meta.env.VITE_BASE_SERVER_URL}/expenses/${body._id}`,
-    body
+    `${import.meta.env.VITE_BASE_SERVER_URL}/expenses/${body.expenseId}`,
+    body.data
   );
 
   return response;

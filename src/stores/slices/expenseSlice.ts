@@ -51,7 +51,7 @@ export const approveExpenseById = createAsyncThunk(
 );
 
 export const cencelExpenseById = createAsyncThunk(
-  "expense/ cencelExpenseById/id",
+  "expense/cencelExpenseById/id",
   async (body: FinanceData): Promise<any> => {
     const response = await expenseServices.cencelExpenseById(body);
     return response;

@@ -190,7 +190,8 @@ const WithdrawAdminPage = () => {
                 ? "linkIsNone"
                 : ""
             }
-            onClick={() => {
+            onClick={(e) => {
+              e.stopPropagation();
               if (item.section === PaymentCategory.WITHDRAW) {
                 return navigate(`/admin/withdraw/edit/withdraw/${item._id}`);
               } else {
@@ -203,7 +204,8 @@ const WithdrawAdminPage = () => {
             แก้ไข
           </a>
           <a
-            onClick={() => {
+            onClick={(e) => {
+              e.stopPropagation();
               setSelectedExpenseData(item);
               setOpenDialogConfirmDelete(true);
             }}

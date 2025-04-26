@@ -18,6 +18,7 @@ import dayjs from "dayjs";
 import {
   createExpense,
   getExpenseById,
+  updateExpenseById,
 } from "../../stores/slices/expenseSlice";
 import { DeleteStatus } from "../../model/delete.type";
 
@@ -107,14 +108,30 @@ const CreateSalaryAdvanceAdminPage = () => {
   }, [fetchEmployeeData]);
 
   const onSubmit = async (value: FinanceForm) => {
-    const body = {
-      ...value,
-      date: value.date ? dayjs(value.date).toISOString() : "",
-    };
+    try {
+      const item = {
+        ...value,
+        date: value.date ? dayjs(value.date).toISOString() : "",
+      };
 
-    await dispath(createExpense(body)).unwrap();
+      if (expenseId) {
+        const body = {
+          // แก้ไข
+          data: item,
+          expenseId,
+        };
+        await dispath(updateExpenseById(body)).unwrap();
 
-    navigate("/admin/withdraw");
+        navigate("/admin/withdraw");
+      } else {
+        // สร้าง
+        await dispath(createExpense(item)).unwrap();
+
+        navigate("/admin/withdraw");
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (

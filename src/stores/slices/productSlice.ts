@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import * as productServices from "../../services/productService";
+import { CatagoryData, ProductData } from "../../model/product.type";
 
 const initialState: any = {};
 
@@ -38,6 +39,54 @@ export const getAllCatagories = createAsyncThunk(
   "catagories/get/all",
   async (): Promise<any> => {
     const response = await productServices.getAllCatagories();
+    return response;
+  }
+);
+
+export const getProductById = createAsyncThunk(
+  "product/get/id",
+  async (productId: string): Promise<any> => {
+    const response = await productServices.getProductById(productId);
+    return response;
+  }
+);
+
+export const getCatagoryById = createAsyncThunk(
+  "catagory/get/id",
+  async (catagoryId: string): Promise<any> => {
+    const response = await productServices.getCatagoryById(catagoryId);
+    return response;
+  }
+);
+
+export const updateProductById = createAsyncThunk(
+  "product/update/id",
+  async (body: any): Promise<any> => {
+    const response = await productServices.updateProductById(body);
+    return response;
+  }
+);
+
+export const updateCatagoryById = createAsyncThunk(
+  "catagory/update/id",
+  async (body: any): Promise<any> => {
+    const response = await productServices.updateCatagoryById(body);
+    return response;
+  }
+);
+
+export const isDeleteProductById = createAsyncThunk(
+  "product/delete/id",
+  async (body: ProductData): Promise<any> => {
+    const response = await productServices.isDeleteProductById(body);
+    return response;
+  }
+);
+
+export const isDeleteCatagoryById = createAsyncThunk(
+  "catagory/delete/id",
+  async (body: CatagoryData): Promise<any> => {
+    const response = await productServices.isDeleteCatagoryById(body);
     return response;
   }
 );
