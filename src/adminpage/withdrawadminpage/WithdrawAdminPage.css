@@ -24,6 +24,14 @@
   }
 }
 
+.width-40 {
+  width: 40px;
+}
+
+.width-100 {
+  width: 100px;
+}
+
 .create-withdraw {
   display: flex;
   flex-direction: column;
@@ -81,6 +89,7 @@
   .btn-DialogApprove-Navbar {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     margin-top: 30px;
     gap: 20px;
     button {
@@ -97,6 +106,17 @@
       text-shadow: 0 0 10px rgba(255, 255, 255, 0.8),
         0 0 20px rgba(255, 255, 255, 0.6), 0 0 30px rgba(255, 255, 255, 0.4);
       transition: all 0.5s;
+    }
+    a {
+      font-size: 16px;
+      color: rgb(220, 20, 60);
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    a:hover {
+      color: rgb(255, 80, 100);
+      text-shadow: 0 0 8px rgba(255, 80, 100, 0.6);
     }
   }
   .container-Expense-navbar {
@@ -140,12 +160,13 @@
         .container-ExpenseUser-right {
           display: flex;
           flex-direction: column;
+          justify-content: center;
           h4 {
-            font-size: 18px;
+            font-size: 20px;
+            color: #2656a2;
           }
           .previewTel {
             display: flex;
-            gap: 10px;
             .fa-phone {
               font-size: 20px;
               color: #2656a2;
@@ -156,7 +177,6 @@
           }
           .previewRol {
             display: flex;
-            gap: 10px;
             .fa-user {
               font-size: 20px;
               color: #2656a2;
@@ -172,27 +192,25 @@
         flex-direction: column;
         h4 {
           font-size: 20px;
+          color: #2656a2;
         }
         .container-ExpenseData {
           display: flex;
           flex-direction: column;
           .previewOnerName {
             display: flex;
-            gap: 67px;
             p {
               font-size: 16px;
             }
           }
           .previewDetel {
             display: flex;
-            gap: 30px;
             p {
               font-size: 16px;
             }
           }
           .previewDate {
             display: flex;
-            gap: 42px;
             p {
               font-size: 16px;
             }
@@ -204,17 +222,26 @@
         flex-direction: column;
         h4 {
           font-size: 20px;
+          color: #2656a2;
         }
         .container-ExpenseList {
           display: flex;
           flex-direction: column;
           .previewCatagory {
             display: flex;
-            gap: 70px;
+            font-size: 16px;
           }
           .previewTotal {
             display: flex;
-            gap: 28px;
+            font-size: 16px;
+          }
+          .previewStatus {
+            display: flex;
+            font-size: 16px;
+          }
+          .previewPriceDate {
+            display: flex;
+            font-size: 16px;
           }
         }
       }
@@ -223,6 +250,7 @@
         flex-direction: column;
         h4 {
           font-size: 20px;
+          color: #2656a2;
         }
         .inputImage {
           display: flex;

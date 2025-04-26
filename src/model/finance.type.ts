@@ -20,6 +20,7 @@ export enum CategoryType {
 export enum ExpenseStatus {
   PENDING = 0,
   APPROVE = 1,
+  CANCEL = 2,
 }
 
 export interface CatagoryDetail {
@@ -34,7 +35,6 @@ export interface FinanceData {
   ownerName: string; // หัวข้อ
   section: PaymentCategory; // หมวดหมู่
   categorys: CatagoryDetail[];
-  price: number; // จำนวนเงิน
   date: string; // วันที่สร้าง
   datePrice: string; // วันที่จ่าย
   detel: string; // รายละเอียด

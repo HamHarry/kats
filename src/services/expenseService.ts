@@ -44,6 +44,15 @@ export const approveExpenseById = async (body: FinanceData): Promise<any> => {
   return response;
 };
 
+export const cencelExpenseById = async (body: FinanceData): Promise<any> => {
+  const response = await axios.post(
+    `${import.meta.env.VITE_BASE_SERVER_URL}/expenses/cencel/${body._id}`,
+    body
+  );
+
+  return response;
+};
+
 export const isDeleteExpenseById = async (body: FinanceData): Promise<any> => {
   const response = await axios.post(
     `${import.meta.env.VITE_BASE_SERVER_URL}/expenses/selectDelete/${body._id}`,

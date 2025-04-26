@@ -36,7 +36,6 @@ const initFinanceForm: FinanceForm = {
   ownerName: "",
   section: PaymentCategory.WITHDRAW,
   categorys: [initCategoryDetail],
-  price: 0,
   date: dayjs(),
   datePrice: "",
   detel: "",
@@ -70,7 +69,6 @@ const CreateWithdrawAdminPage = () => {
         ownerName: expenseRes.ownerName ?? "",
         section: expenseRes.section ?? PaymentCategory.WITHDRAW,
         categorys: expenseRes.categorys ?? [],
-        price: expenseRes.price ?? 0,
         date: dayjs(expenseRes.date),
         datePrice: expenseRes.datePrice ?? "",
         detel: expenseRes.detel ?? "",
@@ -257,7 +255,7 @@ const CreateWithdrawAdminPage = () => {
                             {...field}
                             placeholder="เลือกหมวดหมู่"
                             className="select-category"
-                            value={field.value || undefined}
+                            value={field.value ?? undefined}
                           >
                             <Select.Option value={CategoryType.FUEL}>
                               ค่าน้ำมัน

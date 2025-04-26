@@ -19,6 +19,7 @@ import {
 } from "../../model/finance.type";
 import dayjs from "dayjs";
 import { DeleteStatus } from "../../model/delete.type";
+import { getAllEmployees } from "../../stores/slices/employeeSlice";
 
 const WithdrawAdminPage = () => {
   const dispath = useAppDispatch();
@@ -31,6 +32,7 @@ const WithdrawAdminPage = () => {
     useState<boolean>(false);
   const [selectedExpenseData, setSelectedExpenseData] = useState<FinanceData>();
   const [baseImage, setBaseImage] = useState("");
+  const [employeeData, setEmployeeData] = useState<EmployeeData[]>([]);
 
   const fetchAllExpense = useCallback(async () => {
     try {
@@ -54,6 +56,25 @@ const WithdrawAdminPage = () => {
   useEffect(() => {
     fetchAllExpense();
   }, [fetchAllExpense]);
+
+  const fetchEmployeeData = useCallback(async () => {
+    try {
+      setIsExpenseLoading(true);
+      const { data: EmployeesRes = [] } = await dispath(
+        getAllEmployees()
+      ).unwrap();
+
+      setEmployeeData(EmployeesRes);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsExpenseLoading(false);
+    }
+  }, [dispath]);
+
+  useEffect(() => {
+    fetchEmployeeData();
+  }, [fetchEmployeeData]);
 
   // เก็บไฟล์รูปภาพเป็น Base64
   const uploadImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -137,8 +158,16 @@ const WithdrawAdminPage = () => {
       dataIndex: "status",
       key: "status",
       render: (status: number) => {
-        const statusText = status === 0 ? "รออนุมัติ" : "อนุมัติแล้ว";
-        return <Typography>{statusText}</Typography>;
+        const statusText =
+          status === 0
+            ? "รออนุมัติ"
+            : status === 1
+            ? "อนุมัติแล้ว"
+            : "ยกเลิกเอกสาร";
+
+        const color =
+          status === 0 ? "#FFD700" : status === 1 ? "#008B00" : "#FF0000";
+        return <Typography style={{ color }}>{statusText}</Typography>;
       },
     },
     {
@@ -154,7 +183,13 @@ const WithdrawAdminPage = () => {
           }}
         >
           <a
-            className={item.status === 1 ? "linkIsNone" : ""}
+            className={
+              item.status === 1
+                ? "linkIsNone"
+                : item.status === 2
+                ? "linkIsNone"
+                : ""
+            }
             onClick={() => {
               if (item.section === PaymentCategory.WITHDRAW) {
                 return navigate(`/admin/withdraw/edit/withdraw/${item._id}`);
@@ -166,15 +201,6 @@ const WithdrawAdminPage = () => {
             }}
           >
             แก้ไข
-          </a>
-          <a
-            className={item.status === 1 ? "linkIsNone" : ""}
-            onClick={() => {
-              setSelectedExpenseData(item);
-              setOpenDialogConfirmApprove(true);
-            }}
-          >
-            อนุมัติ
           </a>
           <a
             onClick={() => {
@@ -235,6 +261,26 @@ const WithdrawAdminPage = () => {
     }
   };
 
+  const cencel = async () => {
+    try {
+      setIsExpenseLoading(true);
+      if (!selectedExpenseData?._id) return;
+
+      const body: FinanceData = {
+        ...selectedExpenseData,
+        datePrice: dayjs().toISOString(),
+        status: ExpenseStatus.CANCEL,
+      };
+
+      await dispath(approveExpenseById(body)).unwrap();
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsExpenseLoading(false);
+      fetchAllExpense();
+    }
+  };
+
   const deleted = async () => {
     try {
       setIsExpenseLoading(true);
@@ -259,6 +305,34 @@ const WithdrawAdminPage = () => {
     const formattedDate = selectedExpenseData
       ? dayjs(selectedExpenseData.date).format("DD/MM/YYYY")
       : "";
+
+    const formattedStatus =
+      selectedExpenseData?.status === 0
+        ? "รออนุมัติ"
+        : selectedExpenseData?.status === 1
+        ? "อนุมัติแล้ว"
+        : "ยกเลิกเอกสาร";
+
+    const total = selectedExpenseData?.categorys.reduce((prev, item) => {
+      return prev + item.amount;
+    }, 0);
+
+    const employeeName = employeeData.find((item) => {
+      return item._id === selectedExpenseData?.employeeId;
+    });
+
+    const employeeRole =
+      employeeName?.staffRole === 0
+        ? "หัวหน้า"
+        : employeeName?.staffRole === 1
+        ? "ผู้ดูแลระบบ"
+        : employeeName?.staffRole === 2
+        ? "ช่างล้างรถ"
+        : "ช่างพ่นสี";
+
+    const section =
+      selectedExpenseData?.section === 0 ? "ค่าใช้จ่าย" : "เบิกเงินเดือน";
+
     return (
       <Modal
         centered
@@ -266,52 +340,65 @@ const WithdrawAdminPage = () => {
         open={openDialogConfirmApprove}
         onCancel={() => setOpenDialogConfirmApprove(false)}
         footer={
-          <div className="btn-DialogApprove-Navbar">
-            <button
-              type="button"
-              onClick={() => {
-                approved();
-                setOpenDialogConfirmApprove(false);
-                console.log("อนุมัติแล้ว");
-              }}
-            >
-              ยืนยัน
-            </button>
-            <button
-              onClick={() => {
-                setOpenDialogConfirmApprove(false);
-              }}
-            >
-              ยกเลิก
-            </button>
-          </div>
+          selectedExpenseData?.status === 0 && (
+            <div className="btn-DialogApprove-Navbar">
+              <button
+                type="button"
+                onClick={() => {
+                  approved();
+                  setOpenDialogConfirmApprove(false);
+                  console.log("อนุมัติแล้ว");
+                }}
+              >
+                ชำระเงิน
+              </button>
+              <a
+                onClick={() => {
+                  cencel();
+                  setOpenDialogConfirmApprove(false);
+                }}
+              >
+                ยกเลิกเอกสาร
+              </a>
+            </div>
+          )
         }
       >
         <div className="container-Expense-navbar">
           <h1>ค่าใช้จ่าย & เบิกเงิน</h1>
 
-          <i className="fa-solid fa-circle-xmark"></i>
+          <i
+            className="fa-solid fa-circle-xmark"
+            onClick={() => {
+              setOpenDialogConfirmApprove(false);
+            }}
+          ></i>
         </div>
 
         <div className="container-Expense">
           <div className="container-Expense-left">
             <div className="container-ExpenseUser">
               <div className="container-ExpenseUser-left">
-                <img src="" alt="" />
+                <img src="/public/assets/logoGun.jpg" alt="" />
               </div>
 
-              {/* รอดึงข้อมูล Employee */}
               <div className="container-ExpenseUser-right">
-                <h4>{selectedExpenseData?.employeeId}</h4>
+                <h4>{employeeName?.name}</h4>
 
                 <div className="previewTel">
-                  <i className="fa-solid fa-phone"></i>
-                  <p>เบอร์</p>
+                  <div className="width-40">
+                    <i className="fa-solid fa-phone"></i>
+                  </div>
+
+                  <p>{employeeName?.tel}</p>
                 </div>
 
                 <div className="previewRol">
-                  <i className="fa-solid fa-user"></i>
-                  <p>ตำแหน่ง</p>
+                  <div className="width-40">
+                    <i className="fa-solid fa-user"></i>
+                  </div>
+
+                  <p>{employeeRole}</p>
                 </div>
               </div>
             </div>
@@ -321,17 +408,26 @@ const WithdrawAdminPage = () => {
 
               <div className="container-ExpenseData">
                 <div className="previewOnerName">
-                  <p>หัวข้อ</p>
-                  <p>{selectedExpenseData?.ownerName}</p>
+                  <div className="width-100">
+                    <p>หัวข้อ</p>
+                  </div>
+
+                  <p>{section}</p>
                 </div>
 
                 <div className="previewDetel">
-                  <p>รายละเอียด</p>
+                  <div className="width-100">
+                    <p>รายละเอียด</p>
+                  </div>
+
                   <p>{selectedExpenseData?.detel}</p>
                 </div>
 
                 <div className="previewDate">
-                  <p>วันที่สร้าง</p>
+                  <div className="width-100">
+                    <p>วันที่สร้าง</p>
+                  </div>
+
                   <p>{formattedDate}</p>
                 </div>
               </div>
@@ -342,13 +438,35 @@ const WithdrawAdminPage = () => {
 
               <div className="container-ExpenseList">
                 <div className="previewCatagory">
-                  <p>หัวข้อ</p>
-                  <p>dsadasds</p>
+                  <div className="width-100">
+                    <p>หมวดหมู่</p>
+                  </div>
+
+                  <p>{selectedExpenseData?.ownerName}</p>
                 </div>
 
                 <div className="previewTotal">
-                  <p>ยอดค่าใช้จ่าย</p>
-                  <p>asdsadsadsa</p>
+                  <div className="width-100">
+                    <p>ยอดค่าใช้จ่าย</p>
+                  </div>
+
+                  <p>{total} บาท</p>
+                </div>
+
+                <div className="previewStatus">
+                  <div className="width-100">
+                    <p>สถานะเอกสาร</p>
+                  </div>
+
+                  <p>{formattedStatus}</p>
+                </div>
+
+                <div className="previewPriceDate">
+                  <div className="width-100">
+                    <p>วันที่ชำระเงิน</p>
+                  </div>
+
+                  <p>{selectedExpenseData?.datePrice}</p>
                 </div>
               </div>
             </div>
@@ -443,6 +561,14 @@ const WithdrawAdminPage = () => {
           style={{
             border: "2px solid #2656a2",
             borderRadius: "10px",
+          }}
+          onRow={(record) => {
+            return {
+              onClick: () => {
+                setSelectedExpenseData(record);
+                setOpenDialogConfirmApprove(true);
+              },
+            };
           }}
         />
       </div>
