@@ -9,6 +9,7 @@ import { useCallback, useEffect, useState } from "react";
 import { useAppDispatch } from "../stores/store";
 import { getAllBookings } from "../stores/slices/bookingSlice";
 import CircleLoading from "../shared/circleLoading";
+import { DeleteStatus } from "../model/delete.type";
 
 const BookingPageKats = () => {
   const dispath = useAppDispatch();
@@ -22,7 +23,11 @@ const BookingPageKats = () => {
         getAllBookings()
       ).unwrap();
 
-      setBookings(bookingsRes);
+      const filteredBookings = bookingsRes.filter((item: BookingData) => {
+        return item.delete === DeleteStatus.ISNOTDELETE;
+      });
+
+      setBookings(filteredBookings);
     } catch (error) {
       console.log(error);
     } finally {

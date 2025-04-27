@@ -6,6 +6,7 @@ import { useCallback, useEffect, useState } from "react";
 import { useAppDispatch } from "../../stores/store";
 import { getAllBookings } from "../../stores/slices/bookingSlice";
 import CircleLoading from "../../shared/circleLoading";
+import { DeleteStatus } from "../../model/delete.type";
 
 const CalendarAdminPage = () => {
   const dispath = useAppDispatch();
@@ -20,7 +21,11 @@ const CalendarAdminPage = () => {
         getAllBookings()
       ).unwrap();
 
-      setBookingData(bookingsRes);
+      const filteredBookings = bookingsRes.filter((item: BookingData) => {
+        return item.delete === DeleteStatus.ISNOTDELETE;
+      });
+
+      setBookingData(filteredBookings);
     } catch (error) {
       console.log(error);
     } finally {

@@ -8,10 +8,12 @@ import { useAppDispatch } from "../stores/store";
 import { getAllBookings } from "../stores/slices/bookingSlice";
 import CircleLoading from "../shared/circleLoading";
 import "../bookingpagekats/BookingPageKats.css";
+import { DeleteStatus } from "../model/delete.type";
 
 const CalendarPage = () => {
   const dispath = useAppDispatch();
-  const [bookings, setBookings] = useState<BookingData[]>([]);
+
+  const [bookingData, setBookingData] = useState<BookingData[]>([]);
   const [isBookingLoading, setIsBookingLoading] = useState<boolean>(false);
 
   const fetchAllBooking = useCallback(async () => {
@@ -21,7 +23,11 @@ const CalendarPage = () => {
         getAllBookings()
       ).unwrap();
 
-      setBookings(bookingsRes);
+      const filteredBookings = bookingsRes.filter((item: BookingData) => {
+        return item.delete === DeleteStatus.ISNOTDELETE;
+      });
+
+      setBookingData(filteredBookings);
     } catch (error) {
       console.log(error);
     } finally {
@@ -70,13 +76,13 @@ const CalendarPage = () => {
   };
 
   const cellRender: CalendarProps<Dayjs>["cellRender"] = (current) => {
-    const bookingData = bookings.filter((data) =>
+    const bookings = bookingData.filter((data) =>
       dayjs(data.bookDate).isSame(current, "date")
     );
 
     return (
       <div className="booking">
-        {bookingData.map((data, index) => {
+        {bookings.map((data, index) => {
           return <div key={index}>{renderBookedCalendar(data)}</div>;
         })}
       </div>

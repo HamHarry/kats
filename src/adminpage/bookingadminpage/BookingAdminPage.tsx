@@ -54,11 +54,11 @@ const BookingAdminPage = () => {
         getAllBookingPaginations(query)
       ).unwrap();
 
-      const filteredExpenses = bookingsRes.filter((item: BookingData) => {
+      const filteredBookings = bookingsRes.filter((item: BookingData) => {
         return item.delete === DeleteStatus.ISNOTDELETE;
       });
 
-      setBookingDatas(filteredExpenses);
+      setBookingDatas(filteredBookings);
     } catch (error) {
       console.log(error);
     } finally {
