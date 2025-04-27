@@ -19,6 +19,7 @@ import {
   updateBookingById,
 } from "../../stores/slices/bookingSlice";
 import CircleLoading from "../../shared/circleLoading";
+import { DeleteStatus } from "../../model/delete.type";
 
 export interface BookingForm
   extends Omit<BookingData, "product" | "price" | "bookDate"> {
@@ -42,6 +43,7 @@ const defaultValues: BookingForm = {
   price: 0,
   status: BookingStatus.PENDING,
   province: "",
+  delete: DeleteStatus.ISNOTDELETE,
 };
 
 const bookingTimeList = [
@@ -110,6 +112,7 @@ const CreateBookingAdminPage = () => {
         province: bookingRes.province ?? "",
         status: bookingRes.status ?? BookingStatus.PENDING,
         tel: bookingRes.tel ?? "",
+        delete: bookingRes.delete ?? DeleteStatus.ISNOTDELETE,
       };
 
       reset(initBookingForm);

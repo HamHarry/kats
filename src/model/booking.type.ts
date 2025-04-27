@@ -1,3 +1,4 @@
+import { DeleteStatus } from "./delete.type";
 import { ProductData, ProductDetail } from "./product.type";
 
 export enum BookingStatus {
@@ -5,6 +6,7 @@ export enum BookingStatus {
   PAID = 1, // จ่ายเงินแล้ว
   COMPLETED = 2, // เสร็จสิ้น
   CANCELED = 3, // ยกเลิก
+  DELETE = 4, // สถานะลบ
 }
 
 export interface CarStructure {
@@ -35,4 +37,5 @@ export interface BookingData {
   tel: string;
   image?: string;
   slip?: string;
+  delete: DeleteStatus;
 }

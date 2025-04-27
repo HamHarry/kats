@@ -53,6 +53,15 @@ export const updateBookingById = async (body: any): Promise<any> => {
   return response;
 };
 
+export const isDeleteBookingById = async (body: any): Promise<any> => {
+  const response = await axios.post(
+    `${import.meta.env.VITE_BASE_SERVER_URL}/bookings/selectDelete/${body._id}`,
+    body
+  );
+
+  return response;
+};
+
 export const deleteBookingById = async (bookingId: string): Promise<any> => {
   const response = await axios.delete(
     `${import.meta.env.VITE_BASE_SERVER_URL}/bookings/${bookingId}`

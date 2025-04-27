@@ -12,13 +12,14 @@ import { ProductType } from "../../model/product.type";
 import { useAppDispatch } from "../../stores/store";
 import {
   approveBookingById,
-  deleteBookingById,
   getAllBookingPaginations,
+  isDeleteBookingById,
 } from "../../stores/slices/bookingSlice";
 import CircleLoading from "../../shared/circleLoading";
 import { Modal } from "antd";
 import dayjs from "dayjs";
 import { debounce } from "lodash";
+import { DeleteStatus } from "../../model/delete.type";
 
 const BookingAdminPage = () => {
   const navigate = useNavigate();
@@ -27,7 +28,6 @@ const BookingAdminPage = () => {
 
   const [bookingDatas, setBookingDatas] = useState<BookingData[]>([]);
   const [bookingDataLites, setBookingDataLites] = useState<BookingData[]>([]);
-  const [selectBookingId, setSelectBookingId] = useState<string>();
   const [selectDataBooking, setSelectDataBooking] = useState<BookingData>();
   const [selectImagePay, setSelectImagePay] = useState<string>();
   const [openDialogConfirmDelete, setOpenDialogConfirmDelete] =
@@ -54,7 +54,11 @@ const BookingAdminPage = () => {
         getAllBookingPaginations(query)
       ).unwrap();
 
-      setBookingDatas(bookingsRes);
+      const filteredExpenses = bookingsRes.filter((item: BookingData) => {
+        return item.delete === DeleteStatus.ISNOTDELETE;
+      });
+
+      setBookingDatas(filteredExpenses);
     } catch (error) {
       console.log(error);
     } finally {
@@ -80,12 +84,17 @@ const BookingAdminPage = () => {
     setSearchTerm(value);
   }, 500);
 
-  const deleted = async () => {
+  const isStatusDelete = async () => {
     try {
-      if (!selectBookingId) return;
-
       setIsBookingLoading(true);
-      await dispath(deleteBookingById(selectBookingId)).unwrap();
+      if (!selectDataBooking?._id) return;
+
+      const data: BookingData = {
+        ...selectDataBooking,
+        delete: DeleteStatus.ISDELETE,
+      };
+
+      await dispath(isDeleteBookingById(data)).unwrap();
 
       setOpenDialogConfirmDelete(false);
     } catch (error) {
@@ -101,21 +110,12 @@ const BookingAdminPage = () => {
       setIsBookingLoading(true);
       if (!selectDataBooking?._id) return;
 
-      if (selectDataBooking.status === 0) {
-        const data: BookingData = {
-          ...selectDataBooking,
-          status: BookingStatus.PAID,
-        };
+      const data: BookingData = {
+        ...selectDataBooking,
+        status: BookingStatus.COMPLETED,
+      };
 
-        await dispath(approveBookingById(data)).unwrap();
-      } else if (selectDataBooking.status === 1) {
-        const data: BookingData = {
-          ...selectDataBooking,
-          status: BookingStatus.COMPLETED,
-        };
-
-        await dispath(approveBookingById(data)).unwrap();
-      }
+      await dispath(approveBookingById(data)).unwrap();
     } catch (error) {
       console.log(error);
     } finally {
@@ -197,7 +197,7 @@ const BookingAdminPage = () => {
           <button
             type="button"
             onClick={() => {
-              deleted();
+              isStatusDelete();
               setOpenDialogConfirmDelete(false);
             }}
           >
@@ -223,7 +223,7 @@ const BookingAdminPage = () => {
         open={openDialogConfirmApprove}
         onCancel={() => setOpenDialogConfirmApprove(false)}
       >
-        <h1>ยืนยันการอนุมัติ</h1>
+        <h1>ยืนยันการชำระสำเร็จ</h1>
 
         <div className="btn-DialogApprove-Navbar">
           <button
@@ -360,7 +360,7 @@ const BookingAdminPage = () => {
                       className="fa-solid fa-trash-can"
                       onClick={() => {
                         setOpenDialogConfirmDelete(true);
-                        setSelectBookingId(item._id);
+                        setSelectDataBooking(item);
                       }}
                     ></i>
                   </div>
@@ -394,7 +394,7 @@ const BookingAdminPage = () => {
                         setSelectDataBooking(item);
                       }}
                     >
-                      อนุมัติ
+                      สำเร็จ
                     </button>
 
                     <button

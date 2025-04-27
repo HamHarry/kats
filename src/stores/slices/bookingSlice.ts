@@ -59,6 +59,14 @@ export const updateBookingById = createAsyncThunk(
   }
 );
 
+export const isDeleteBookingById = createAsyncThunk(
+  "booking/updatestatusDelete/id",
+  async (body: any): Promise<any> => {
+    const response = await bookingServices.isDeleteBookingById(body);
+    return response;
+  }
+);
+
 export const deleteBookingById = createAsyncThunk(
   "booking/deleteById",
   async (bookingId: string): Promise<any> => {
