@@ -147,6 +147,7 @@
       .container-ExpenseUser {
         display: flex;
         gap: 20px;
+        padding-bottom: 20px;
         .container-ExpenseUser-left {
           display: flex;
           justify-content: center;
@@ -167,6 +168,8 @@
           }
           .previewTel {
             display: flex;
+            justify-content: start;
+            align-items: center;
             .fa-phone {
               font-size: 20px;
               color: #2656a2;
@@ -177,6 +180,8 @@
           }
           .previewRol {
             display: flex;
+            justify-content: start;
+            align-items: center;
             .fa-user {
               font-size: 20px;
               color: #2656a2;

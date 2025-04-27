@@ -30,6 +30,8 @@ const WithdrawAdminPage = () => {
     useState<boolean>(false);
   const [openDialogConfirmApprove, setOpenDialogConfirmApprove] =
     useState<boolean>(false);
+  const [openDialogCancelApprove, setOpenDialogCancelApprove] =
+    useState<boolean>(false);
   const [selectedExpenseData, setSelectedExpenseData] = useState<FinanceData>();
   const [baseImage, setBaseImage] = useState("");
   const [employeeData, setEmployeeData] = useState<EmployeeData[]>([]);
@@ -356,8 +358,7 @@ const WithdrawAdminPage = () => {
               </button>
               <a
                 onClick={() => {
-                  cencel();
-                  setOpenDialogConfirmApprove(false);
+                  setOpenDialogCancelApprove(true);
                 }}
               >
                 ยกเลิกเอกสาร
@@ -537,6 +538,39 @@ const WithdrawAdminPage = () => {
     );
   };
 
+  const rederDialogCancelDelete = () => {
+    return (
+      <Modal
+        centered
+        className="wrap-container-DialogDelete"
+        open={openDialogCancelApprove}
+        onCancel={() => setOpenDialogCancelApprove(false)}
+      >
+        <h1>ยืนยันการลบเอกสาร</h1>
+
+        <div className="btn-DialogDelete-Navbar">
+          <button
+            type="button"
+            onClick={() => {
+              cencel();
+              setOpenDialogCancelApprove(false);
+              setOpenDialogConfirmApprove(false);
+            }}
+          >
+            ยืนยัน
+          </button>
+          <button
+            onClick={() => {
+              setOpenDialogCancelApprove(false);
+            }}
+          >
+            ยกเลิก
+          </button>
+        </div>
+      </Modal>
+    );
+  };
+
   return (
     <div className="container-WithdrawAdminPage">
       <div className="header-WithdrawAdminPage">
@@ -577,6 +611,7 @@ const WithdrawAdminPage = () => {
 
       {rederDialogConfirmDelete()}
       {rederDialogConfirmApprove()}
+      {rederDialogCancelDelete()}
       <CircleLoading open={isExpenseLoading} />
     </div>
   );
