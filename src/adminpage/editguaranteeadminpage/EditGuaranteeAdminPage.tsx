@@ -42,6 +42,7 @@ const defaultValues: BookingForm = {
   status: BookingStatus.PENDING,
   province: "",
   delete: DeleteStatus.ISNOTDELETE,
+  codeId: 0,
 };
 
 const bookingTimeList = [
@@ -98,6 +99,7 @@ const EditGuaranteeAdminPage = () => {
         status: bookingRes.status ?? BookingStatus.PENDING,
         tel: bookingRes.tel ?? "",
         delete: bookingRes.delete ?? DeleteStatus.ISNOTDELETE,
+        codeId: bookingRes.codeId ?? 0,
       };
 
       reset(initBookingForm);

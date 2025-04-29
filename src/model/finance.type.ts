@@ -30,7 +30,7 @@ export interface CatagoryDetail {
 
 export interface FinanceData {
   _id?: string;
-  number: number;
+  codeId: number;
   employeeId: string; // ชื่อบุคคล
   ownerName: string; // หัวข้อ
   section: PaymentCategory; // หมวดหมู่

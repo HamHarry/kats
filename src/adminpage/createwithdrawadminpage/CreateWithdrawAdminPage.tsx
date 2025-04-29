@@ -32,7 +32,7 @@ export interface FinanceForm extends Omit<FinanceData, "date"> {
 }
 
 const initFinanceForm: FinanceForm = {
-  number: 0,
+  codeId: 0,
   employeeId: "",
   ownerName: "",
   section: PaymentCategory.WITHDRAW,
@@ -65,7 +65,7 @@ const CreateWithdrawAdminPage = () => {
       const expenseRes = data as FinanceData;
 
       const initBookingForm: FinanceForm = {
-        number: expenseRes.number ?? 0,
+        codeId: expenseRes.codeId ?? 0,
         employeeId: expenseRes.employeeId ?? "",
         ownerName: expenseRes.ownerName ?? "",
         section: expenseRes.section ?? PaymentCategory.WITHDRAW,

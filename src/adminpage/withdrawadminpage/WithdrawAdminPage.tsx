@@ -101,7 +101,7 @@ const WithdrawAdminPage = () => {
   };
 
   const columns = [
-    { title: "เลขที่", dataIndex: "number", key: "number" },
+    { title: "เลขที่", dataIndex: "codeId", key: "codeId" },
     {
       title: "ผู้สร้างเอกสาร",
       dataIndex: "employee",

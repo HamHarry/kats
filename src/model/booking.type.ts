@@ -21,6 +21,7 @@ export interface CarStructure {
 
 export interface BookingData {
   _id?: string;
+  codeId: number;
   number: string;
   receiptBookNo: string;
   bookDate: string;
