@@ -1,9 +1,13 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import "./NavbarAdmin.css";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 const NavbarAdmin = () => {
   const [selected, setSelected] = useState("employee");
   const navigate = useNavigate();
+  const { t } = useTranslation();
+  const { lang } = useParams();
+
   return (
     <div className="navbarAdmin">
       <div className="logo-admin">
@@ -15,7 +19,7 @@ const NavbarAdmin = () => {
         <i
           className="fa-regular fa-circle-user"
           onClick={() => {
-            navigate("/admin/user");
+            navigate(`/admin/user/`);
             setSelected("user");
           }}
         ></i>
@@ -37,7 +41,7 @@ const NavbarAdmin = () => {
             }}
           >
             <i className="fa-solid fa-image-portrait"></i>
-            <p>ข้อมูล Employees</p>
+            <p>{t("ข้อมูลพนักงาน")}</p>
           </li>
           <li
             className={selected === "booking" ? "selected" : "select"}
@@ -47,7 +51,7 @@ const NavbarAdmin = () => {
             }}
           >
             <i className="fa-solid fa-book-bookmark"></i>
-            <p>จองคิว</p>
+            <p>{t("จองคิว")}</p>
           </li>
           <li
             className={selected === "calendar" ? "selected" : "select"}
@@ -57,7 +61,7 @@ const NavbarAdmin = () => {
             }}
           >
             <i className="fa-solid fa-calendar-days"></i>
-            <p>ปฏิทินการจอง</p>
+            <p>{t("ปฏิทินการจอง")}</p>
           </li>
           <li
             className={selected === "guarantee" ? "selected" : "select"}
@@ -67,7 +71,7 @@ const NavbarAdmin = () => {
             }}
           >
             <i className="fa-solid fa-square-check"></i>
-            <p>ข้อมูลรับประกัน</p>
+            <p>{t("ข้อมูลรับประกัน")}</p>
           </li>
           <li
             className={selected === "product" ? "selected" : "select"}
@@ -77,7 +81,7 @@ const NavbarAdmin = () => {
             }}
           >
             <i className="fa-solid fa-pen-to-square"></i>
-            <p>สินค้า</p>
+            <p>{t("สินค้า")}</p>
           </li>
           <li
             className={selected === "withdraw" ? "selected" : "select"}
@@ -87,7 +91,7 @@ const NavbarAdmin = () => {
             }}
           >
             <i className="fa-solid fa-wallet"></i>
-            <p>ค่าใช้จ่าย & เบิกเงิน</p>
+            <p>{t("ค่าใช้จ่าย & เบิกเงิน")}</p>
           </li>
           <li
             className={selected === "salary" ? "selected" : "select"}
@@ -97,7 +101,7 @@ const NavbarAdmin = () => {
             }}
           >
             <i className="fa-solid fa-hand-holding-dollar"></i>
-            <p>เงินเดือน</p>
+            <p>{t("เงินเดือน")}</p>
           </li>
           <li
             className={selected === "finace" ? "selected" : "select"}
@@ -107,7 +111,7 @@ const NavbarAdmin = () => {
             }}
           >
             <i className="fa-solid fa-file-invoice-dollar"></i>
-            <p>การเงิน</p>
+            <p>{t("การเงิน")}</p>
           </li>
           <li
             className={selected === "bin" ? "selected" : "select"}
@@ -117,17 +121,17 @@ const NavbarAdmin = () => {
             }}
           >
             <i className="fa-solid fa-trash-can"></i>
-            <p>คืนค่าข้อมูล</p>
+            <p>{t("คืนค่าข้อมูล")}</p>
           </li>
           <li
             className={selected === "setting" ? "selected" : "select"}
             onClick={() => {
-              navigate("/admin/setting");
+              navigate(`/admin/setting/${lang}`);
               setSelected("setting");
             }}
           >
             <i className="fa-solid fa-gear"></i>
-            <p>ตั้งค่า</p>
+            <p>{t("ตั้งค่า")}</p>
           </li>
         </ul>
       </div>
@@ -139,7 +143,7 @@ const NavbarAdmin = () => {
         }}
       >
         <i className="fa-solid fa-arrow-right-from-bracket"></i>
-        <p>ออกจากระบบ</p>
+        <p>{t("ออกจากระบบ")}</p>
       </div>
     </div>
   );

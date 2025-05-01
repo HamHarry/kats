@@ -2,10 +2,12 @@ import { useNavigate } from "react-router-dom";
 import "./CreateTypeProductPage.css";
 import { CatagoryData } from "../../model/product.type";
 import { Controller, useForm } from "react-hook-form";
+import { DeleteStatus } from "../../model/delete.type";
 
 const initCatagoryForm: CatagoryData = {
   name: "",
   code: "",
+  delete: DeleteStatus.ISNOTDELETE,
 };
 const CreateTypeProductPage = () => {
   const navigate = useNavigate();
