@@ -48,25 +48,31 @@
   }
 }
 
+.product-content {
+  .ant-table {
+    height: 400px;
+  }
+}
+
 .wrap-container-createproductTypeProduct {
   display: flex;
   flex-direction: column;
   align-items: center;
   border: 5px solid #2656a2;
   border-radius: 20px;
-  padding: 0px 20px 0px 20px;
-  height: 400px;
-  width: 900px;
+  padding: 0px 20px 50px 20px;
+  min-width: 900px;
   .inputNameTypeProduct {
     display: flex;
     align-items: center;
     margin-top: 40px;
-    gap: 86px;
+    gap: 20px;
   }
   .inputCodeProduct {
     display: flex;
     align-items: center;
-    gap: 125px;
+    gap: 20px;
     margin-top: 20px;
+    padding-bottom: 40px;
   }
 }

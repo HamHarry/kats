@@ -80,4 +80,14 @@
       color: #2656a2;
     }
   }
+  .SettingAdminPage-content-brand {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    .fa-bookmark {
+      font-size: 40px;
+      color: #2656a2;
+    }
+  }
 }

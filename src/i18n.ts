@@ -5,7 +5,7 @@ const resources = {
   th: {
     translation: {
       ตั้งค่า: "ตั้งค่า",
-      // navbar
+      // navbar admin
       ข้อมูลพนักงาน: "ข้อมูลพนักงาน",
       จองคิว: "จองคิว",
       ปฏิทินการจอง: "ปฏิทินการจอง",
@@ -22,7 +22,7 @@ const resources = {
   en: {
     translation: {
       ตั้งค่า: "Settings",
-      // navbar
+      // navbar admin
       ข้อมูลพนักงาน: "Employees",
       จองคิว: "Bookings",
       ปฏิทินการจอง: "Calendar",

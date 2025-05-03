@@ -65,11 +65,6 @@ function App() {
             element={<EditGuaranteeAdminPage />}
           />
           <Route path="product" element={<ProductAdminPage />} />
-          {/* สร้าง type */}
-          <Route
-            path="product/createTypeProduct"
-            element={<CreateTypeProductPage />}
-          />
           <Route
             path="product/createProduct"
             element={<CreateProductAdminPage />}
@@ -108,6 +103,11 @@ function App() {
           <Route path="finance" element={<FinanceAdminPage />} />
           <Route path="bin" element={<BinAdminPage />} />
           <Route path="setting/:lang" element={<SettingAdminPage />} />
+          {/* สร้าง type */}
+          <Route
+            path="setting/createTypeProduct"
+            element={<CreateTypeProductPage />}
+          />
         </Route>
       </Routes>
     </Suspense>

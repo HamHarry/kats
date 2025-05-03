@@ -2,9 +2,10 @@ import { Dropdown, Space } from "antd";
 import "./SettingAdminPage.css";
 import { DownOutlined } from "@ant-design/icons";
 import { useTranslation } from "react-i18next";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const SettingAdminPage = () => {
+  const navigate = useNavigate();
   const { t, i18n } = useTranslation();
   const { lang } = useParams();
   i18n.changeLanguage(lang);
@@ -153,6 +154,36 @@ const SettingAdminPage = () => {
             <h2>ธนาคาร</h2>
 
             <p>ตั้งค่า เพิ่ม-ลด และกำหนดข้อมูลธนาคาร</p>
+          </div>
+        </div>
+
+        <div className="SettingAdminPage-content-brand">
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              height: "70px",
+              width: "70px",
+              border: "2px solid #2656a2",
+              borderRadius: "20px",
+            }}
+          >
+            <i className="fa-solid fa-bookmark"></i>
+          </div>
+
+          <div
+            className="content-company"
+            style={{
+              cursor: "pointer",
+            }}
+            onClick={() => {
+              navigate("/admin/setting/createTypeProduct");
+            }}
+          >
+            <h2>แบรนด์สินค้า</h2>
+
+            <p>ตั้งค่า เพิ่ม-ลด และกำหนดข้อมูลแบรนด์สินค้า</p>
           </div>
         </div>
       </div>
