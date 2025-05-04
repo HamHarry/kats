@@ -21,6 +21,7 @@ const initCatagoryForm: TypeProductData = {
 const CreateTypeProductPage = () => {
   const navigate = useNavigate();
   const dispath = useAppDispatch();
+
   const [isTypeProductLoading, setIsTypeProductLoading] =
     useState<boolean>(false);
   const [typeProducts, setTypeProducts] = useState<TypeProductData[]>([]);
@@ -150,7 +151,7 @@ const CreateTypeProductPage = () => {
   return (
     <div className="container-TypeProduct">
       <div className="header-TypeProduct">
-        <h1>Create TypeProduct</h1>
+        <h1>สร้างแบรนด์สินค้า</h1>
       </div>
 
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -210,13 +211,6 @@ const CreateTypeProductPage = () => {
               style={{
                 border: "2px solid #2656a2",
                 borderRadius: "10px",
-              }}
-              onRow={(record) => {
-                return {
-                  onClick: () => {
-                    // navigate(`/admin/product/edit/Product/${record._id}`);
-                  },
-                };
               }}
             />
           </div>

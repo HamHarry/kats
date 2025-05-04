@@ -5,8 +5,9 @@ import { useTranslation } from "react-i18next";
 const NavbarAdmin = () => {
   const [selected, setSelected] = useState("employee");
   const navigate = useNavigate();
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { lang } = useParams();
+  i18n.changeLanguage(lang);
 
   return (
     <div className="navbarAdmin">
