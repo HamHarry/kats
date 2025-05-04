@@ -18,6 +18,7 @@ import {
 import { useCallback, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { BankDatas } from "../../data/BankData";
+import { useTranslation } from "react-i18next";
 
 const initEmployeeForm: EmployeeData = {
   name: "",
@@ -37,6 +38,9 @@ const CreateEmployeeAdminPage = () => {
   const navigate = useNavigate();
   const dispath = useAppDispatch();
   const { employeeId } = useParams();
+  const { t, i18n } = useTranslation();
+  const { lang } = useParams();
+  i18n.changeLanguage(lang);
 
   const [baseImage, setBaseImage] = useState("");
 
@@ -127,7 +131,7 @@ const CreateEmployeeAdminPage = () => {
   return (
     <div className="container-CreateEmployeeAdminPage">
       <div className="header-CreateEmployeeAdminPage">
-        <h1>Create Employee</h1>
+        <h1>{t("สร้างข้อมูลพนักงาน")}</h1>
       </div>
 
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -138,15 +142,15 @@ const CreateEmployeeAdminPage = () => {
               navigate("/admin/employee");
             }}
           >
-            ย้อนกลับ
+            {t("ย้อนกลับ")}
           </button>
-          <button type="submit">ยืนยัน</button>
+          <button type="submit">{t("ยืนยัน")}</button>
         </div>
 
         <div className="wrap-container-CreateEmployeeAdminPage">
           <div className="input-left">
             <div className="inputNameEmployee">
-              <h2>ชื่อพนักงาน</h2>
+              <h2>{t("ชื่อพนักงาน")}</h2>
               <Controller
                 control={control}
                 name="name"
@@ -157,7 +161,7 @@ const CreateEmployeeAdminPage = () => {
             </div>
 
             <div className="inputTelEmployee">
-              <h2>โทรศัพท์</h2>
+              <h2>{t("โทรศัพท์")}</h2>
               <Controller
                 control={control}
                 name="tel"
@@ -168,7 +172,7 @@ const CreateEmployeeAdminPage = () => {
             </div>
 
             <div className="inputPositionEmployee">
-              <h2>ตำแหน่ง</h2>
+              <h2>{t("ตำแหน่ง")}</h2>
               <Controller
                 control={control}
                 name="staffRole"
@@ -181,16 +185,16 @@ const CreateEmployeeAdminPage = () => {
                       value={field.value ?? undefined}
                     >
                       <Select.Option value={EmployeeRole.CEO}>
-                        หัวหน้า
+                        {t("หัวหน้า")}
                       </Select.Option>
                       <Select.Option value={EmployeeRole.AMIN}>
-                        ผู้ดูแลระบบ
+                        {t("ผู้ดูแลระบบ")}
                       </Select.Option>
                       <Select.Option value={EmployeeRole.SPRAYER}>
-                        ช่างพ่นกันสนิม
+                        {t("ช่างพ่นกันสนิม")}
                       </Select.Option>
                       <Select.Option value={EmployeeRole.WASHTECNICIAN}>
-                        ช่างล้างรถ
+                        {t("ช่างล้างรถ")}
                       </Select.Option>
                     </Select>
                   );
@@ -199,7 +203,7 @@ const CreateEmployeeAdminPage = () => {
             </div>
 
             <div className="inputImageEmployee">
-              <h2>รูปภาพประจำตัว</h2>
+              <h2>{t("รูปภาพประจำตัว")}</h2>
               <Controller
                 name="image"
                 control={control}
@@ -208,7 +212,7 @@ const CreateEmployeeAdminPage = () => {
                     <div className="inputImage">
                       <label htmlFor="file" className="text-image">
                         <FileAddFilled className="icon-file" />
-                        <span>อัพโหลดรูปภาพ</span>
+                        <span>{t("อัพโหลดรูปภาพ")}</span>
                       </label>
                       <input
                         {...field}
@@ -225,7 +229,7 @@ const CreateEmployeeAdminPage = () => {
             </div>
 
             <div className="inputPaymentStatus">
-              <h2>การชำระเงิน</h2>
+              <h2>{t("การชำระเงิน")}</h2>
               <Controller
                 control={control}
                 name="salary.paymentStatus"
@@ -241,10 +245,10 @@ const CreateEmployeeAdminPage = () => {
                       }}
                     >
                       <Select.Option value={PaymentStatus.BANK}>
-                        ธนาคาร
+                        {t("ธนาคาร")}
                       </Select.Option>
                       <Select.Option value={PaymentStatus.CASH}>
-                        เงินสด
+                        {t("เงินสด")}
                       </Select.Option>
                     </Select>
                   );
@@ -253,7 +257,7 @@ const CreateEmployeeAdminPage = () => {
             </div>
 
             <div className="inputPaymentType">
-              <h2>ประเภทการชำระเงิน</h2>
+              <h2>{t("ประเภทการชำระเงิน")}</h2>
               <Controller
                 control={control}
                 name="salary.paymentType"
@@ -266,10 +270,10 @@ const CreateEmployeeAdminPage = () => {
                       value={field.value ?? undefined}
                     >
                       <Select.Option value={PaymentType.MONTHLY}>
-                        รายเดือน
+                        {t("รายเดือน")}
                       </Select.Option>
                       <Select.Option value={PaymentType.DAILY}>
-                        รายวัน
+                        {t("รายวัน")}
                       </Select.Option>
                     </Select>
                   );
@@ -280,7 +284,7 @@ const CreateEmployeeAdminPage = () => {
             {watchPaymentStatus === PaymentStatus.BANK && (
               <>
                 <div className="inputAccountNumber">
-                  <h2>เลขบัญชี</h2>
+                  <h2>{t("เลขบัญชี")}</h2>
                   <Controller
                     control={control}
                     name="salary.accountNumber"
@@ -290,7 +294,7 @@ const CreateEmployeeAdminPage = () => {
                           {...field}
                           className="input-prices"
                           type="text"
-                          placeholder="กรอกเลขบัญชี"
+                          placeholder={t("กรอกเลขบัญชี")}
                           onChange={(event) => {
                             const value = event.target.value.replace(
                               /[^0-9.]/g,
@@ -310,7 +314,7 @@ const CreateEmployeeAdminPage = () => {
                 </div>
 
                 <div className="inputBankName">
-                  <h2>บัญชีธนาคาร</h2>
+                  <h2>{t("บัญชีธนาคาร")}</h2>
                   <Controller
                     control={control}
                     name="salary.bankName"
@@ -345,7 +349,7 @@ const CreateEmployeeAdminPage = () => {
             )}
 
             <div className="inputAmount">
-              <h2>จำนวนเงิน</h2>
+              <h2>{t("จำนวนเงิน")}</h2>
               <Controller
                 control={control}
                 name="salary.amount"
@@ -374,7 +378,7 @@ const CreateEmployeeAdminPage = () => {
           </div>
 
           <div className="PreviewImage">
-            <h2>ตัวอย่างรูปภาพประจำตัว</h2>
+            <h2>{t("ตัวอย่างรูปภาพประจำตัว")}</h2>
             {baseImage && <img src={baseImage} alt="image" />}
           </div>
         </div>

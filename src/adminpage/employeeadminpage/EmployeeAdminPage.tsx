@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import "./EmployeeAdminPage.css";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { EmployeeData } from "../../model/employee.type";
 import { useAppDispatch } from "../../stores/store";
 import {
@@ -10,6 +10,7 @@ import {
 import CircleLoading from "../../shared/circleLoading";
 import { Modal } from "antd";
 import { debounce } from "lodash";
+import { useTranslation } from "react-i18next";
 
 const EmployeeAdminPage = () => {
   const [employeeData, setEmployeeData] = useState<EmployeeData[]>([]);
@@ -20,6 +21,9 @@ const EmployeeAdminPage = () => {
   const [searchTerm, setSearchTerm] = useState<string>("");
   const navigate = useNavigate();
   const dispath = useAppDispatch();
+  const { t, i18n } = useTranslation();
+  const { lang } = useParams();
+  i18n.changeLanguage(lang);
 
   const fetchAllEmployee = useCallback(async () => {
     try {
@@ -75,7 +79,7 @@ const EmployeeAdminPage = () => {
         open={openDialogConfirmDelete}
         onCancel={() => setOpenDialogConfirmDelete(false)}
       >
-        <h1>ยืนยันการลบ</h1>
+        <h1>{t("ยืนยันการลบ")}</h1>
 
         <div className="btn-DialogDelete-Navbar">
           <button
@@ -85,14 +89,14 @@ const EmployeeAdminPage = () => {
               setOpenDialogConfirmDelete(false);
             }}
           >
-            ยืนยัน
+            {t("ยืนยัน")}
           </button>
           <button
             onClick={() => {
               setOpenDialogConfirmDelete(false);
             }}
           >
-            ยกเลิก
+            {t("ยกเลิก")}
           </button>
         </div>
       </Modal>
@@ -102,7 +106,7 @@ const EmployeeAdminPage = () => {
   return (
     <div className="container-employeeAdmin">
       <div className="header-employeeAdmin">
-        <h1>Employees</h1>
+        <h1>{t("ข้อมูลพนักงาน")}</h1>
       </div>
       <div className="search-employee">
         <input
@@ -115,7 +119,7 @@ const EmployeeAdminPage = () => {
             navigate("/admin/employee/create");
           }}
         >
-          สร้าง
+          {t("สร้าง")}
         </button>
       </div>
       <div className="wrap-container-employeeAdmin">
@@ -127,7 +131,7 @@ const EmployeeAdminPage = () => {
                 <div className="wrap-employee-content">
                   <div className="text-p">
                     <p>
-                      ตำแหน่ง:{" "}
+                      {t("ตำแหน่ง")}{" "}
                       {`${
                         item.staffRole === 0
                           ? "หัวหน้า"
@@ -156,8 +160,12 @@ const EmployeeAdminPage = () => {
                       ></i>
                     </div>
                   </div>
-                  <p>ชื่อ: {item.name}</p>
-                  <p>โทรศัพท์: {item.tel}</p>
+                  <p>
+                    {t("ชื่อ")}: {item.name}
+                  </p>
+                  <p>
+                    {t("โทรศัพท์")}: {item.tel}
+                  </p>
                 </div>
               </div>
             </div>
