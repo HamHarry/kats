@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import "./BookingAdminPage.css";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { BookingData, BookingStatus } from "../../model/booking.type";
 import {
   CheckCircleFilled,
@@ -20,10 +20,14 @@ import { Modal } from "antd";
 import dayjs from "dayjs";
 import { debounce } from "lodash";
 import { DeleteStatus } from "../../model/delete.type";
+import { useTranslation } from "react-i18next";
 
 const BookingAdminPage = () => {
   const navigate = useNavigate();
   const dispath = useAppDispatch();
+  const { t, i18n } = useTranslation();
+  const { lang } = useParams();
+  i18n.changeLanguage(lang);
   const [isBookingLoading, setIsBookingLoading] = useState<boolean>(false);
 
   const [bookingDatas, setBookingDatas] = useState<BookingData[]>([]);
@@ -151,7 +155,7 @@ const BookingAdminPage = () => {
     return (
       <div className="btn-menu">
         <select onChange={(e) => setSelectedReceiptBookNo(e.target.value)}>
-          <option value="all">All</option>
+          <option value="all">{t("ทั้งหมด")}</option>
 
           {receiptBookNoList.map((item, index) => {
             return (
@@ -191,7 +195,7 @@ const BookingAdminPage = () => {
         open={openDialogConfirmDelete}
         onCancel={() => setOpenDialogConfirmDelete(false)}
       >
-        <h1>ยืนยันการลบ</h1>
+        <h1>{t("ยืนยันการลบ")}</h1>
 
         <div className="btn-DialogDelete-Navbar">
           <button
@@ -201,14 +205,14 @@ const BookingAdminPage = () => {
               setOpenDialogConfirmDelete(false);
             }}
           >
-            ยืนยัน
+            {t("ยืนยัน")}
           </button>
           <button
             onClick={() => {
               setOpenDialogConfirmDelete(false);
             }}
           >
-            ยกเลิก
+            {t("ยกเลิก")}
           </button>
         </div>
       </Modal>
@@ -223,7 +227,7 @@ const BookingAdminPage = () => {
         open={openDialogConfirmApprove}
         onCancel={() => setOpenDialogConfirmApprove(false)}
       >
-        <h1>ยืนยันการชำระสำเร็จ</h1>
+        <h1>{t("ยืนยันการชำระสำเร็จ")}</h1>
 
         <div className="btn-DialogApprove-Navbar">
           <button
@@ -233,14 +237,14 @@ const BookingAdminPage = () => {
               setOpenDialogConfirmApprove(false);
             }}
           >
-            ยืนยัน
+            {t("ยืนยัน")}
           </button>
           <button
             onClick={() => {
               setOpenDialogConfirmApprove(false);
             }}
           >
-            ยกเลิก
+            {t("ยกเลิก")}
           </button>
         </div>
       </Modal>
@@ -255,7 +259,7 @@ const BookingAdminPage = () => {
         open={openDialogCancelApprove}
         onCancel={() => setOpenDialogCancelApprove(false)}
       >
-        <h1>ยืนยันการยกเลิก</h1>
+        <h1>{t("ยืนยันการยกเลิก")}</h1>
 
         <div className="btn-DialogApprove-Navbar">
           <button
@@ -265,14 +269,14 @@ const BookingAdminPage = () => {
               setOpenDialogCancelApprove(false);
             }}
           >
-            ยืนยัน
+            {t("ยืนยัน")}
           </button>
           <button
             onClick={() => {
               setOpenDialogCancelApprove(false);
             }}
           >
-            ยกเลิก
+            {t("ยกเลิก")}
           </button>
         </div>
       </Modal>
@@ -282,7 +286,7 @@ const BookingAdminPage = () => {
   return (
     <div className="container-BookingAdmin">
       <div className="header-BookingAdmin">
-        <h1>Bookings</h1>
+        <h1>{t("จองคิว")}</h1>
       </div>
       <div className="search-BookingAdmin">
         <div>{selectMenu()}</div>
@@ -297,7 +301,7 @@ const BookingAdminPage = () => {
             type="button"
             onClick={() => navigate("/admin/booking/create")}
           >
-            สร้าง
+            {t("สร้าง")}
           </button>
         </div>
       </div>
@@ -330,7 +334,9 @@ const BookingAdminPage = () => {
               </div>
               <div className="BookingAdmin-content">
                 <div className="text-p">
-                  <p>วันที่: {formattedDate}</p>
+                  <p>
+                    {t("วันที่")}: {formattedDate}
+                  </p>
                   <div className="icon">
                     {item.status === 0 ? (
                       <ClockCircleFilled className="icon-check-wait" />
@@ -365,19 +371,29 @@ const BookingAdminPage = () => {
                     ></i>
                   </div>
                 </div>
-                <p>ชื่อ: คุณ{item.name}</p>
-                <p>เบอร์: {item.tel}</p>
-                <p>เลขที่: {item.number}</p>
-                <p>เล่มที่: {item.receiptBookNo}</p>
                 <p>
-                  สินค้า: {item.product.name} {item.price.amount} บาท
+                  {t("ชื่อ")}: {t("คุณ")}
+                  {item.name}
                 </p>
                 <p>
-                  รถ: {item.carType} {item.carModel}
+                  {t("โทรศัพท์")}: {item.tel}
+                </p>
+                <p>
+                  {t("เลขที่")}: {item.number}
+                </p>
+                <p>
+                  {t("เล่มที่")}: {item.receiptBookNo}
+                </p>
+                <p>
+                  {t("สินค้า")}: {item.product.name} {item.price.amount}{" "}
+                  {t("บาท")}
+                </p>
+                <p>
+                  {t("รถ")}: {item.carType} {item.carModel}
                 </p>
                 <div className="licensePlate-approve">
                   <p>
-                    ทะเบียน: {item.licensePlate} {item.province}
+                    {t("ทะเบียน")}: {item.licensePlate} {item.province}
                   </p>
 
                   <div
@@ -394,7 +410,7 @@ const BookingAdminPage = () => {
                         setSelectDataBooking(item);
                       }}
                     >
-                      สำเร็จ
+                      {t("สำเร็จ")}
                     </button>
 
                     <button
@@ -403,7 +419,7 @@ const BookingAdminPage = () => {
                         setSelectDataBooking(item);
                       }}
                     >
-                      ยกเลิก
+                      {t("ยกเลิก")}
                     </button>
                   </div>
                 </div>

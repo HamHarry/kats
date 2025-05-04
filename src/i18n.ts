@@ -9,7 +9,7 @@ const resources = {
       ตำแหน่ง: "ตำแหน่ง",
       ชื่อ: "ชื่อ",
       โทรศัพท์: "โทรศัพท์",
-      // Create Employee Page
+      // Create Employee Page and Update
       สร้างข้อมูลพนักงาน: "สร้างข้อมูลพนักงาน",
       ชื่อพนักงาน: "ชื่อพนักงาน",
       หัวหน้า: "หัวหน้า",
@@ -28,6 +28,25 @@ const resources = {
       บัญชีธนาคาร: "บัญชีธนาคาร",
       จำนวนเงิน: "จำนวนเงิน",
       ตัวอย่างรูปภาพประจำตัว: "ตัวอย่างรูปภาพประจำตัว",
+
+      // Booking Page
+      ทั้งหมด: "ทั้งหมด",
+      วันที่: "วันที่",
+      คุณ: "คุณ",
+      เลขที่: "เลขที่",
+      เล่มที่: "เล่มที่",
+      บาท: "บาท",
+      รถ: "รถ",
+      ทะเบียน: "ทะเบียน",
+      สำเร็จ: "สำเร็จ",
+      // Create Booking Page and Update
+      สร้างการจอง: "สร้างการจอง",
+      เวลา: "เวลา",
+      ประเภทรถ: "ประเภทรถ",
+      รุ่นรถ: "รุ่นรถ",
+      จังหวัด: "จังหวัด",
+      ราคา: "ราคา",
+      "อัพโหลดภาพสลิปมัดจำ 1,000 บาท": "อัพโหลดภาพสลิปมัดจำ 1,000 บาท",
 
       // setting Page
       เลือกภาษา: "เลือกภาษา",
@@ -61,6 +80,15 @@ const resources = {
       ยืนยัน: "ยืนยัน",
       ยกเลิก: "ยกเลิก",
 
+      //rederDialogConfirmApprovePayment
+      ยืนยันการชำระสำเร็จ: "ยืนยันการชำระสำเร็จ",
+
+      //rederDialogCancelApprove
+      ยืนยันการยกเลิก: "ยืนยันการยกเลิก",
+
+      //rederDialoComfirmBooking
+      ยืนยันการจอง: "ยืนยันการจอง",
+
       // submit
       ย้อนกลับ: "ย้อนกลับ",
       // -----------------------------------------------------
@@ -73,7 +101,7 @@ const resources = {
       ตำแหน่ง: "Position",
       ชื่อ: "Name",
       โทรศัพท์: "Phone",
-      // Create Employee Page
+      // Create Employee Page and Update
       สร้างข้อมูลพนักงาน: "Create Employee",
       ชื่อพนักงาน: "Employee Name",
       หัวหน้า: "Boss",
@@ -92,6 +120,26 @@ const resources = {
       บัญชีธนาคาร: "Bank Account",
       จำนวนเงิน: "Amount",
       ตัวอย่างรูปภาพประจำตัว: "Profile Picture Example",
+
+      // Booking Page
+      ทั้งหมด: "All",
+      วันที่: "Date",
+      คุณ: "K.",
+      เลขที่: "Number",
+      เล่มที่: "BookNo",
+      บาท: "Baht",
+      รถ: "Car",
+      ทะเบียน: "License plate",
+      สำเร็จ: "Complete",
+      // Create Booking Page and Update
+      สร้างการจอง: "Create Booking",
+      เวลา: "Time",
+      ประเภทรถ: "CarType",
+      รุ่นรถ: "CarModel",
+      จังหวัด: "Province",
+      ราคา: "Price",
+      "อัพโหลดภาพสลิปมัดจำ 1,000 บาท":
+        "Upload a picture of the 1,000 baht deposit slip.",
 
       // setting Page
       เลือกภาษา: "Choose Language",
@@ -124,6 +172,12 @@ const resources = {
       ยืนยันการลบ: "Confirm Deletion",
       ยืนยัน: "Confirm",
       ยกเลิก: "Cancel",
+
+      //rederDialogConfirmApprovePayment
+      ยืนยันการชำระสำเร็จ: "Confirm Payment",
+
+      //rederDialogCancelApprove
+      ยืนยันการยกเลิก: "Confirm Cancellation",
 
       // submit
       ย้อนกลับ: "Back",

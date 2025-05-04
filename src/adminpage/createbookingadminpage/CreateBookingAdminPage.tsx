@@ -20,6 +20,7 @@ import {
 } from "../../stores/slices/bookingSlice";
 import CircleLoading from "../../shared/circleLoading";
 import { DeleteStatus } from "../../model/delete.type";
+import { useTranslation } from "react-i18next";
 
 export interface BookingForm
   extends Omit<BookingData, "product" | "price" | "bookDate"> {
@@ -60,6 +61,9 @@ const bookingTimeList = [
 const CreateBookingAdminPage = () => {
   const dispath = useAppDispatch();
   const navigate = useNavigate();
+  const { t, i18n } = useTranslation();
+  const { lang } = useParams();
+  i18n.changeLanguage(lang);
   const { bookingId } = useParams();
   const [searchParams] = useSearchParams();
   const targetDate = searchParams.get("targetDate");
@@ -211,11 +215,11 @@ const CreateBookingAdminPage = () => {
         open={openDialogConfirm}
         onCancel={() => setOpenDialogConfirm(false)}
       >
-        <h1>ยืนยันการจอง</h1>
+        <h1>{t("ยืนยันการจอง")}</h1>
 
         <div className="btn-DialogConfirm-Navbar">
           <button onClick={() => formRef.current?.requestSubmit()}>
-            ยืนยัน
+            {t("ยืนยัน")}
           </button>
           <button
             className="btn-edit-dialogConfirm"
@@ -223,7 +227,7 @@ const CreateBookingAdminPage = () => {
               setOpenDialogConfirm(false);
             }}
           >
-            ยกเลิก
+            {t("ยกเลิก")}
           </button>
         </div>
       </Modal>
@@ -233,7 +237,7 @@ const CreateBookingAdminPage = () => {
   return (
     <div className="container-CreateAdmin">
       <div className="header-CreateAdmin">
-        <h1>Create Booking</h1>
+        <h1>{t("สร้างการจอง")}</h1>
       </div>
       <form onSubmit={handleSubmit(submit)} ref={formRef}>
         <div className="btn-back">
@@ -243,7 +247,7 @@ const CreateBookingAdminPage = () => {
               navigate("/admin/booking");
             }}
           >
-            ย้อนกลับ
+            {t("ย้อนกลับ")}
           </button>
           <button
             type="button"
@@ -251,7 +255,7 @@ const CreateBookingAdminPage = () => {
               setOpenDialogConfirm(true);
             }}
           >
-            ยืนยัน
+            {t("ยืนยัน")}
           </button>
         </div>
         <div className="wrap-container-CreateAdmin">
@@ -262,7 +266,10 @@ const CreateBookingAdminPage = () => {
               render={({ field }) => {
                 return (
                   <div className="inputNumber">
-                    <h2>เลขที่</h2>
+                    <div style={{ width: "120px" }}>
+                      <h2>{t("เลขที่")}</h2>
+                    </div>
+
                     <input {...field} type="text" />
                   </div>
                 );
@@ -275,7 +282,10 @@ const CreateBookingAdminPage = () => {
               render={({ field }) => {
                 return (
                   <div className="inputVolume">
-                    <h2>เล่มที่</h2>
+                    <div style={{ width: "120px" }}>
+                      <h2>{t("เล่มที่")}</h2>
+                    </div>
+
                     <input {...field} type="text" />
                   </div>
                 );
@@ -289,7 +299,10 @@ const CreateBookingAdminPage = () => {
               render={({ field }) => {
                 return (
                   <div className="inputDate">
-                    <h2>วันที่</h2>
+                    <div style={{ width: "120px" }}>
+                      <h2>{t("วันที่")}</h2>
+                    </div>
+
                     <DatePicker {...field} />
                   </div>
                 );
@@ -302,7 +315,10 @@ const CreateBookingAdminPage = () => {
               render={({ field }) => {
                 return (
                   <div className="inputTime">
-                    <h2>เวลา</h2>
+                    <div style={{ width: "120px" }}>
+                      <h2>{t("เวลา")}</h2>
+                    </div>
+
                     <Select
                       {...field}
                       className="select-product"
@@ -325,7 +341,10 @@ const CreateBookingAdminPage = () => {
               render={({ field }) => {
                 return (
                   <div className="inputName">
-                    <h2>ชื่อ</h2>
+                    <div style={{ width: "120px" }}>
+                      <h2>{t("ชื่อ")}</h2>
+                    </div>
+
                     <input {...field} type="text" />
                   </div>
                 );
@@ -338,7 +357,10 @@ const CreateBookingAdminPage = () => {
               render={({ field }) => {
                 return (
                   <div className="inputTel">
-                    <h2>เบอร์</h2>
+                    <div style={{ width: "120px" }}>
+                      <h2>{t("โทรศัพท์")}</h2>
+                    </div>
+
                     <input {...field} type="tel" />
                   </div>
                 );
@@ -352,7 +374,10 @@ const CreateBookingAdminPage = () => {
               render={({ field }) => {
                 return (
                   <div className="inputCarType">
-                    <h2>ประเภทรถ</h2>
+                    <div style={{ width: "120px" }}>
+                      <h2>{t("ประเภทรถ")}</h2>
+                    </div>
+
                     <input {...field} type="text" />
                   </div>
                 );
@@ -364,7 +389,10 @@ const CreateBookingAdminPage = () => {
               render={({ field }) => {
                 return (
                   <div className="inputCarModel">
-                    <h2>รุ่นรถ</h2>
+                    <div style={{ width: "120px" }}>
+                      <h2>{t("รุ่นรถ")}</h2>
+                    </div>
+
                     <input {...field} type="text" />
                   </div>
                 );
@@ -378,7 +406,10 @@ const CreateBookingAdminPage = () => {
               render={({ field }) => {
                 return (
                   <div className="inputRegister">
-                    <h2>ทะเบียน</h2>
+                    <div style={{ width: "120px" }}>
+                      <h2>{t("ทะเบียน")}</h2>
+                    </div>
+
                     <input {...field} type="text" />
                   </div>
                 );
@@ -391,7 +422,10 @@ const CreateBookingAdminPage = () => {
               render={({ field }) => {
                 return (
                   <div className="inputProvince">
-                    <h2>จังหวัด</h2>
+                    <div style={{ width: "120px" }}>
+                      <h2>{t("จังหวัด")}</h2>
+                    </div>
+
                     <input {...field} type="text" />
                   </div>
                 );
@@ -406,7 +440,10 @@ const CreateBookingAdminPage = () => {
               render={({ field }) => {
                 return (
                   <div className="inputTypeProduct">
-                    <h2>สินค้า</h2>
+                    <div style={{ width: "120px" }}>
+                      <h2>{t("สินค้า")}</h2>
+                    </div>
+
                     <Select
                       {...field}
                       placeholder="เลือกสินค้า"
@@ -440,7 +477,10 @@ const CreateBookingAdminPage = () => {
               render={({ field }) => {
                 return (
                   <div className="inputProduct">
-                    <h2>ราคา</h2>
+                    <div style={{ width: "120px" }}>
+                      <h2>{t("ราคา")}</h2>
+                    </div>
+
                     <Select
                       {...field}
                       className="select-product"
@@ -468,7 +508,7 @@ const CreateBookingAdminPage = () => {
                 <div className="inputImage">
                   <label htmlFor="file" className="text-image">
                     <FileAddFilled className="icon-file" />
-                    <span>อัพโหลดภาพสลิปมัดจำ 1,000 บาท</span>
+                    <span>{t("อัพโหลดภาพสลิปมัดจำ 1,000 บาท")}</span>
                   </label>
                   <input
                     {...field}
