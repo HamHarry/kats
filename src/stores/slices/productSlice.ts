@@ -1,6 +1,10 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import * as productServices from "../../services/productService";
-import { CatagoryData, ProductData } from "../../model/product.type";
+import {
+  CatagoryData,
+  ProductData,
+  TypeProductData,
+} from "../../model/product.type";
 
 const initialState: any = {};
 
@@ -39,6 +43,22 @@ export const getAllCatagories = createAsyncThunk(
   "catagories/get/all",
   async (): Promise<any> => {
     const response = await productServices.getAllCatagories();
+    return response;
+  }
+);
+
+export const createTypeProduct = createAsyncThunk(
+  "typeProduct/create",
+  async (payload: any): Promise<any> => {
+    const response = await productServices.createTypeProduct(payload);
+    return response;
+  }
+);
+
+export const getAllTypeProduct = createAsyncThunk(
+  "typeProduct/get/all",
+  async (): Promise<any> => {
+    const response = await productServices.getAllTypeProduct();
     return response;
   }
 );
@@ -87,6 +107,14 @@ export const isDeleteCatagoryById = createAsyncThunk(
   "catagory/delete/id",
   async (body: CatagoryData): Promise<any> => {
     const response = await productServices.isDeleteCatagoryById(body);
+    return response;
+  }
+);
+
+export const isDeleteTypeProductById = createAsyncThunk(
+  "typeProduct/delete/id",
+  async (body: TypeProductData): Promise<any> => {
+    const response = await productServices.isDeleteTypeProductById(body);
     return response;
   }
 );

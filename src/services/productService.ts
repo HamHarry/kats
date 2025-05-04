@@ -35,6 +35,23 @@ export const getAllCatagories = async (): Promise<any> => {
   return response;
 };
 
+export const createTypeProduct = async (payload: any): Promise<any> => {
+  const response = await axios.post(
+    `${import.meta.env.VITE_BASE_SERVER_URL}/products/typeProduct`,
+    payload
+  );
+
+  return response;
+};
+
+export const getAllTypeProduct = async (): Promise<any> => {
+  const response = await axios.get(
+    `${import.meta.env.VITE_BASE_SERVER_URL}/products/typeProduct`
+  );
+
+  return response;
+};
+
 export const getProductById = async (productId: string): Promise<any> => {
   const response = await axios.get(
     `${import.meta.env.VITE_BASE_SERVER_URL}/products/${productId}`
@@ -87,6 +104,19 @@ export const isDeleteCatagoryById = async (
     `${import.meta.env.VITE_BASE_SERVER_URL}/products/catagories/selectDelete/${
       body._id
     }`,
+    body
+  );
+
+  return response;
+};
+
+export const isDeleteTypeProductById = async (
+  body: CatagoryData
+): Promise<any> => {
+  const response = await axios.post(
+    `${
+      import.meta.env.VITE_BASE_SERVER_URL
+    }/products/typeProduct/selectDelete/${body._id}`,
     body
   );
 

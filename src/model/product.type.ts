@@ -17,6 +17,13 @@ export interface CatagoryData {
   delete: DeleteStatus; // สถานะการลบ
 }
 
+export interface TypeProductData {
+  _id?: string;
+  name: string;
+  code: string;
+  delete: DeleteStatus; // สถานะการลบ
+}
+
 export interface ProductDetail {
   type: PRICE_TYPE;
   amount: number;
