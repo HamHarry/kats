@@ -8,7 +8,6 @@ import {
   CloseCircleFilled,
   PayCircleFilled,
 } from "@ant-design/icons";
-import { ProductType } from "../../model/product.type";
 import { useAppDispatch } from "../../stores/store";
 import {
   approveBookingById,
@@ -307,7 +306,7 @@ const BookingAdminPage = () => {
       </div>
       <div className="wrap-container-BookingAdmin">
         {bookingDatas.map((item, index) => {
-          const productType = item.product.productType;
+          const productType = item.product.typeProduct?.name;
 
           const formattedDate = item.bookDate
             ? dayjs(item.bookDate).format("DD/MM/YYYY")
@@ -318,8 +317,7 @@ const BookingAdminPage = () => {
               key={index}
               className="grid-BookingAdmin"
               style={{
-                backgroundColor:
-                  productType === ProductType.GUN ? "#043829" : "#2656A2",
+                backgroundColor: productType === "GUN" ? "#043829" : "#2656A2",
               }}
             >
               <div className="BookingAdmin-image">

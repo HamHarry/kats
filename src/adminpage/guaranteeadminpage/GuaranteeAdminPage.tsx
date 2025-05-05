@@ -5,7 +5,6 @@ import {
   BookingData,
   CarStructure,
 } from "../../model/booking.type";
-import { ProductType } from "../../model/product.type";
 import { useAppDispatch } from "../../stores/store";
 import CircleLoading from "../../shared/circleLoading";
 import {
@@ -538,7 +537,7 @@ const GuaranteeAdminPage = () => {
       </div>
       <div className="wrap-container-guaranteeAdmin">
         {bookingDatas.map((item, index) => {
-          const productType = item.product.productType;
+          const productType = item.product.typeProduct?.name;
 
           const formattedDate = item.bookDate
             ? dayjs(item.bookDate).format("DD/MM/YYYY")
@@ -548,8 +547,7 @@ const GuaranteeAdminPage = () => {
               key={index}
               className="grid-guaranteeAdmin"
               style={{
-                backgroundColor:
-                  productType === ProductType.GUN ? "#043829" : "#2656A2",
+                backgroundColor: productType === "GUN" ? "#043829" : "#2656A2",
               }}
             >
               <div className="guaranteeAdmin-image">

@@ -5,11 +5,6 @@ export enum PRICE_TYPE {
   STANDARD = 2,
 }
 
-export enum ProductType {
-  KATS = 1,
-  GUN = 2,
-}
-
 export interface CatagoryData {
   _id?: string;
   name: string;
@@ -36,6 +31,7 @@ export interface ProductData {
   catagoryId: string;
   productDetails: ProductDetail[];
   detail: string;
-  productType: ProductType;
+  typeProductId: string;
+  typeProduct: TypeProductData;
   delete: DeleteStatus; // สถานะการลบ
 }

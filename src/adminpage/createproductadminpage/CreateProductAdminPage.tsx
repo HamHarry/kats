@@ -4,7 +4,7 @@ import {
   PRICE_TYPE,
   ProductData,
   ProductDetail,
-  ProductType,
+  TypeProductData,
 } from "../../model/product.type";
 import "./CreateProductAdminPage.css";
 import { useNavigate, useParams } from "react-router-dom";
@@ -13,6 +13,7 @@ import { Select } from "antd";
 import {
   createProduct,
   getAllCatagories,
+  getAllTypeProduct,
   getProductById,
   updateProductById,
 } from "../../stores/slices/productSlice";
@@ -25,15 +26,16 @@ const initProductDetail: ProductDetail = {
   amount: 0,
 };
 
-interface ProductDataForm extends Omit<ProductData, "catagory"> {}
+interface ProductDataForm
+  extends Omit<ProductData, "catagory" | "typeProduct"> {}
 
 const initProductForm: ProductDataForm = {
   name: "",
   productDetails: [initProductDetail],
   detail: "",
-  productType: ProductType.KATS,
   catagoryId: "",
   delete: DeleteStatus.ISNOTDELETE,
+  typeProductId: "",
 };
 
 const CreateProductAdminPage = () => {
@@ -42,6 +44,7 @@ const CreateProductAdminPage = () => {
   const { productId } = useParams();
 
   const [categories, setCategories] = useState<CatagoryData[]>([]);
+  const [typeProduct, setTypeProduct] = useState<TypeProductData[]>([]);
 
   const [isProductLoading, setIsProductLoading] = useState<boolean>(false);
 
@@ -62,8 +65,9 @@ const CreateProductAdminPage = () => {
         catagoryId: productRes.catagoryId ?? "",
         productDetails: productRes.productDetails ?? [],
         detail: productRes.detail ?? "",
-        productType: productRes.productType ?? ProductType.KATS,
+        typeProduct: productRes.typeProduct ?? [],
         delete: productRes.delete ?? DeleteStatus.ISNOTDELETE,
+        typeProductId: productRes.typeProductId ?? "",
       };
 
       reset(initBookingForm);
@@ -100,6 +104,26 @@ const CreateProductAdminPage = () => {
   useEffect(() => {
     fetchCategoriesData();
   }, [fetchCategoriesData]);
+
+  const fetchTypeProductData = useCallback(async () => {
+    try {
+      setIsProductLoading(true);
+
+      const { data: TypeProductRes = [] } = await dispath(
+        getAllTypeProduct()
+      ).unwrap();
+
+      setTypeProduct(TypeProductRes);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsProductLoading(false);
+    }
+  }, [dispath]);
+
+  useEffect(() => {
+    fetchTypeProductData();
+  }, [fetchTypeProductData]);
 
   const onSubmit = async (value: ProductDataForm) => {
     try {
@@ -198,7 +222,7 @@ const CreateProductAdminPage = () => {
 
             <Controller
               control={control}
-              name="productType"
+              name="typeProductId"
               render={({ field }) => {
                 return (
                   <Select
@@ -207,8 +231,11 @@ const CreateProductAdminPage = () => {
                     className="select-product"
                     value={field.value || undefined}
                   >
-                    <Select.Option value={ProductType.KATS}>KATS</Select.Option>
-                    <Select.Option value={ProductType.GUN}>GUN</Select.Option>
+                    {typeProduct.map((item) => (
+                      <Select.Option key={item._id} value={item._id}>
+                        {item.name}
+                      </Select.Option>
+                    ))}
                   </Select>
                 );
               }}
