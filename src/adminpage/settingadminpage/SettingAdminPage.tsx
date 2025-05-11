@@ -1,8 +1,8 @@
-import { Dropdown, Space } from "antd";
+import { Select } from "antd";
 import "./SettingAdminPage.css";
-import { DownOutlined } from "@ant-design/icons";
 import { useTranslation } from "react-i18next";
 import { useNavigate, useParams } from "react-router-dom";
+import i18next from "i18next";
 
 const SettingAdminPage = () => {
   const navigate = useNavigate();
@@ -10,7 +10,7 @@ const SettingAdminPage = () => {
   const { lang } = useParams();
   i18n.changeLanguage(lang);
 
-  const items = [
+  const languageOptions = [
     {
       label: "ภาษาไทย",
       key: "th",
@@ -20,6 +20,8 @@ const SettingAdminPage = () => {
       key: "en",
     },
   ];
+
+  console.log(i18next.language.toString());
 
   const handleMenuClick = (item: any) => {
     if (!item) return;
@@ -31,10 +33,11 @@ const SettingAdminPage = () => {
     }
   };
 
-  const menuProps = {
-    items,
-    onClick: handleMenuClick,
-  };
+  // const menuProps: MenuProps = {
+  //   items: languageOptions,
+  //   onClick: handleMenuClick,
+  //   defaultValue: "th",
+  // };
 
   return (
     <div className="container-SettingAdminPage">
@@ -58,22 +61,17 @@ const SettingAdminPage = () => {
             <i className="fa-solid fa-globe"></i>
           </div>
 
-          <Dropdown menu={menuProps} trigger={["click"]}>
-            <a onClick={(e) => e.preventDefault()}>
-              <Space
-                style={{
-                  border: "2px solid #2656a2",
-                  borderRadius: "10px",
-                  padding: "5px",
-                  cursor: "pointer",
-                  fontSize: "20px",
-                }}
-              >
-                {t("เลือกภาษา")}
-                <DownOutlined />
-              </Space>
-            </a>
-          </Dropdown>
+          <Select
+            placeholder="เลือกพนักงาน"
+            className="select-employee"
+            defaultValue={"th"}
+          >
+            {languageOptions.map((item) => (
+              <Select.Option key={item.key} value={item.key}>
+                {item.label}
+              </Select.Option>
+            ))}
+          </Select>
         </div>
 
         <div className="SettingAdminPage-content-company">

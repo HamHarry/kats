@@ -537,7 +537,7 @@ const GuaranteeAdminPage = () => {
       </div>
       <div className="wrap-container-guaranteeAdmin">
         {bookingDatas.map((item, index) => {
-          const productType = item.product.typeProduct?.name;
+          const productType = item.product.typeProduct.name;
 
           const formattedDate = item.bookDate
             ? dayjs(item.bookDate).format("DD/MM/YYYY")

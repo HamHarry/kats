@@ -1,3 +1,4 @@
+import i18next from "i18next";
 import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
 
@@ -189,10 +190,16 @@ const resources = {
 i18n.use(initReactI18next).init({
   resources,
   lng: "th",
-
   interpolation: {
     escapeValue: false,
   },
 });
+
+const currentLang = localStorage.getItem("user_language");
+console.log(!currentLang);
+if (!currentLang) {
+  i18next.changeLanguage("th");
+  localStorage.setItem("user_language", "th");
+}
 
 export default i18n;
