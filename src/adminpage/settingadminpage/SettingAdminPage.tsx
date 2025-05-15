@@ -63,7 +63,7 @@ const SettingAdminPage = () => {
 
           <Select
             placeholder="เลือกพนักงาน"
-            className="select-employee"
+            className="select-language"
             defaultValue={"th"}
           >
             {languageOptions.map((item) => (

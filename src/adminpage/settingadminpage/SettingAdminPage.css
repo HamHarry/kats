@@ -49,6 +49,12 @@
       font-size: 40px;
       color: #2656a2;
     }
+    .select-language {
+      height: 45px;
+    }
+    .ant-select-single .ant-select-selector {
+      border: 2px solid #2656a2;
+    }
   }
   .SettingAdminPage-content-company {
     display: flex;
