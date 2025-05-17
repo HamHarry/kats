@@ -11,13 +11,19 @@ import {
   deleteBookingById,
   getAllBookingPaginations,
   getBookingById,
-  updateBookingById,
+  updateGuaranteeByBookingId,
 } from "../../stores/slices/bookingSlice";
 import dayjs from "dayjs";
-import { DatePicker, Modal } from "antd";
+import { Modal } from "antd";
 import { useNavigate } from "react-router-dom";
 import { cloneDeep, debounce } from "lodash";
 import { Controller, useFieldArray, useForm } from "react-hook-form";
+import { DatePickerStyle } from "../../AppStyle";
+import {
+  CheckCircleFilled,
+  ClockCircleFilled,
+  CloseCircleFilled,
+} from "@ant-design/icons";
 export interface GuaranteeForm {
   guarantees: CarStructure[];
 }
@@ -72,7 +78,7 @@ const GuaranteeAdminPage = () => {
         data: newBooking,
       };
 
-      await dispath(updateBookingById(body)).unwrap();
+      await dispath(updateGuaranteeByBookingId(body)).unwrap();
 
       setOpenDialogProfile(false);
     } catch (error) {
@@ -97,7 +103,9 @@ const GuaranteeAdminPage = () => {
       ).unwrap();
 
       const finedData = bookingsRes.filter((item: any) => {
-        return item.status === BookingStatus.COMPLETED;
+        return (
+          item.status === BookingStatus.COMPLETED || BookingStatus.CHECKING
+        );
       });
 
       setBookingDatas(finedData);
@@ -132,8 +140,9 @@ const GuaranteeAdminPage = () => {
 
       Array.from({ length: remainingGuarantees }, (_, index) => {
         const guarantee: CarStructure = {
-          serviceNo: clonedGuarantees.length + index + 1,
+          serviceNo: guarantees.length + index + 1,
           serviceDate: "",
+          status: BookingStatus.PENDING,
           isBeam: false,
           isWheelArch: false,
           isControlArm: false,
@@ -248,23 +257,29 @@ const GuaranteeAdminPage = () => {
 
   const renderGuarantee = () => {
     return guaranteeField.fields.map((item, index) => {
+      const isFirstGuarantee = index === 0;
+      const isCompleted = item.status === BookingStatus.COMPLETED;
+      const disable = isFirstGuarantee || isCompleted;
       return (
         <tr key={index}>
           <td>{item.serviceNo}</td>
           <td>
-            <Controller
-              control={control} // Replace with your control object
-              name={`guarantees.${index}.serviceDate`}
-              render={({ field }) => (
-                <DatePicker
-                  className="input-date"
-                  value={field.value ? dayjs(field.value) : null}
-                  onChange={(date) => {
-                    field.onChange(date?.toISOString() ?? "");
-                  }}
-                />
-              )}
-            />
+            <div style={{ display: "flex", gap: "10px" }}>
+              <Controller
+                control={control} // Replace with your control object
+                name={`guarantees.${index}.serviceDate`}
+                render={({ field }) => (
+                  <DatePickerStyle
+                    className="input-date"
+                    disabled={disable}
+                    value={field.value ? dayjs(field.value) : null}
+                    onChange={(date) => {
+                      field.onChange(date?.toISOString() ?? "");
+                    }}
+                  />
+                )}
+              />
+            </div>
           </td>
           <td>
             <Controller
@@ -274,6 +289,7 @@ const GuaranteeAdminPage = () => {
                 <input
                   className="checkbox"
                   type="checkbox"
+                  disabled={disable}
                   checked={field.value}
                   onChange={(e) => {
                     field.onChange(e.target.checked);
@@ -290,6 +306,7 @@ const GuaranteeAdminPage = () => {
                 <input
                   className="checkbox"
                   type="checkbox"
+                  disabled={disable}
                   checked={field.value}
                   onChange={(e) => {
                     field.onChange(e.target.checked);
@@ -306,6 +323,7 @@ const GuaranteeAdminPage = () => {
                 <input
                   className="checkbox"
                   type="checkbox"
+                  disabled={disable}
                   checked={field.value}
                   onChange={(e) => {
                     field.onChange(e.target.checked);
@@ -322,6 +340,7 @@ const GuaranteeAdminPage = () => {
                 <input
                   className="checkbox"
                   type="checkbox"
+                  disabled={disable}
                   checked={field.value}
                   onChange={(e) => {
                     field.onChange(e.target.checked);
@@ -338,6 +357,7 @@ const GuaranteeAdminPage = () => {
                 <input
                   className="checkbox"
                   type="checkbox"
+                  disabled={disable}
                   checked={field.value}
                   onChange={(e) => {
                     field.onChange(e.target.checked);
@@ -405,6 +425,7 @@ const GuaranteeAdminPage = () => {
               setOpenDialogProfile(false);
               setSelectBookingId(undefined);
               setBooking(undefined);
+              fetchAllBooking();
             }}
           >
             <h3>บันทึก</h3>
@@ -557,6 +578,17 @@ const GuaranteeAdminPage = () => {
                 <div className="text-p">
                   <p>วันที่: {formattedDate}</p>
                   <div className="icon">
+                    {item.status === BookingStatus.PENDING ? (
+                      <ClockCircleFilled className="icon-check-wait" />
+                    ) : item.status === BookingStatus.PAID ? (
+                      <i className="fa-solid fa-circle"></i>
+                    ) : item.status === BookingStatus.COMPLETED ? (
+                      <CheckCircleFilled className="icon-check-complete" />
+                    ) : item.status === BookingStatus.CANCELED ? (
+                      <CloseCircleFilled className="icon-check-cancel" />
+                    ) : (
+                      <i className="fa-solid fa-wrench"></i>
+                    )}
                     <i
                       className="fa-solid fa-square-check"
                       onClick={() => {

@@ -102,7 +102,7 @@ function App() {
           <Route path="salary" element={<SalaryAdminPage />} />
           <Route path="finance" element={<FinanceAdminPage />} />
           <Route path="bin" element={<BinAdminPage />} />
-          <Route path="setting/:lang" element={<SettingAdminPage />} />
+          <Route path="setting" element={<SettingAdminPage />} />
           {/* สร้าง type */}
           <Route
             path="setting/createTypeProduct"

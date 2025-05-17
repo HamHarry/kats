@@ -41,6 +41,8 @@ const CalendarAdminPage = () => {
     switch (status) {
       case BookingStatus.PENDING:
         return "warning";
+      case BookingStatus.CHECKING:
+        return "processing";
       case BookingStatus.PAID:
         return "processing";
       case BookingStatus.COMPLETED:
@@ -54,7 +56,10 @@ const CalendarAdminPage = () => {
   };
 
   const renderBookedCalendar = (bookingData: BookingData) => {
-    const { bookTime, status, carType, carModel } = bookingData;
+    const { bookTime, guarantees, carType, carModel } = bookingData;
+    const status = guarantees?.map((item) => {
+      return item.status;
+    });
 
     return (
       <div
@@ -75,7 +80,9 @@ const CalendarAdminPage = () => {
 
   const cellRender: CalendarProps<Dayjs>["cellRender"] = (current) => {
     const bookings = bookingData.filter((data) =>
-      dayjs(data.bookDate).isSame(current, "date")
+      data.guarantees?.some((item) =>
+        dayjs(item.serviceDate).isSame(current, "date")
+      )
     );
 
     return (
@@ -100,7 +107,7 @@ const CalendarAdminPage = () => {
         </div>
         <div className="guid-blue">
           <div className="box-blue"></div>
-          <p>จ่ายสำเร็จ</p>
+          <p>จ่ายสำเร็จ & ตรวจสภาพรถ</p>
         </div>
         <div className="guid-green">
           <div className="box-green"></div>

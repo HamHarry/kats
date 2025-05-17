@@ -59,6 +59,14 @@ export const updateBookingById = createAsyncThunk(
   }
 );
 
+export const updateGuaranteeByBookingId = createAsyncThunk(
+  "guarantee/update/id",
+  async (body: any): Promise<any> => {
+    const response = await bookingServices.updateGuaranteeByBookingId(body);
+    return response;
+  }
+);
+
 export const isDeleteBookingById = createAsyncThunk(
   "booking/updatestatusDelete/id",
   async (body: any): Promise<any> => {

@@ -6,12 +6,13 @@ export enum BookingStatus {
   PAID = 1, // จ่ายเงินแล้ว
   COMPLETED = 2, // เสร็จสิ้น
   CANCELED = 3, // ยกเลิก
-  DELETE = 4, // สถานะลบ
+  CHECKING = 4, // เช็คสภาพรถยนต์
 }
 
 export interface CarStructure {
   serviceNo: number; // ครั้งที่
   serviceDate: string; // วันที่เข้ารับบริการ
+  status: BookingStatus; // วันที่เข้ารับบริการ
   isBeam: boolean; // คาน
   isWheelArch: boolean; // ซุ้มล้อ
   isControlArm: boolean; // ปีกนก

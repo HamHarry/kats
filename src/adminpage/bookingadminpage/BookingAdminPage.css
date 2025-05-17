@@ -126,6 +126,10 @@
           font-size: 30px;
           color: red;
         }
+        .fa-wrench {
+          font-size: 25px;
+          color: yellow;
+        }
         .fa-pen-to-square {
           font-size: 30px;
           cursor: pointer;

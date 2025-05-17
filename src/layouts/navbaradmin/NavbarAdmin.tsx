@@ -127,7 +127,7 @@ const NavbarAdmin = () => {
           <li
             className={selected === "setting" ? "selected" : "select"}
             onClick={() => {
-              navigate(`/admin/setting/${lang}`);
+              navigate(`/admin/setting`);
               setSelected("setting");
             }}
           >

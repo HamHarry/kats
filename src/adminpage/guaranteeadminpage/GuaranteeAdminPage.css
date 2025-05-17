@@ -96,6 +96,31 @@
         display: flex;
         align-items: center;
         gap: 10px;
+        .icon-check-wait {
+          font-size: 30px;
+          color: yellow;
+          margin-bottom: -3px;
+        }
+        .fa-circle {
+          font-size: 30px;
+          color: blue;
+          margin-bottom: -3px;
+        }
+        .icon-check-complete {
+          font-size: 30px;
+          color: green;
+          margin-bottom: -3px;
+        }
+        .icon-check-cancel {
+          font-size: 30px;
+          color: red;
+          margin-bottom: -3px;
+        }
+        .fa-wrench {
+          font-size: 25px;
+          color: yellow;
+          margin-bottom: -3px;
+        }
         .fa-square-check {
           margin-bottom: -3px;
           margin-right: 4px;

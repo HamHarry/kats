@@ -1,4 +1,4 @@
-import { Select, Space, Table } from "antd";
+import { Select } from "antd";
 import "./BinAdminPage.css";
 import { useState } from "react";
 

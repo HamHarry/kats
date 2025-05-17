@@ -108,14 +108,19 @@ const BookingAdminPage = () => {
     }
   };
 
-  const approved = async () => {
+  const onSubmit = async () => {
     try {
       setIsBookingLoading(true);
       if (!selectDataBooking?._id) return;
 
+      const status =
+        selectDataBooking.status === BookingStatus.CHECKING
+          ? selectDataBooking.status
+          : BookingStatus.COMPLETED;
+
       const data: BookingData = {
         ...selectDataBooking,
-        status: BookingStatus.COMPLETED,
+        status,
       };
 
       await dispath(approveBookingById(data)).unwrap();
@@ -232,7 +237,7 @@ const BookingAdminPage = () => {
           <button
             type="button"
             onClick={() => {
-              approved();
+              onSubmit();
               setOpenDialogConfirmApprove(false);
             }}
           >
@@ -308,9 +313,17 @@ const BookingAdminPage = () => {
         {bookingDatas.map((item, index) => {
           const productType = item.product.typeProduct.name;
 
-          const formattedDate = item.bookDate
-            ? dayjs(item.bookDate).format("DD/MM/YYYY")
-            : "-";
+          const completedGuarantees =
+            item.guarantees?.filter(
+              (g) => g.status === BookingStatus.COMPLETED
+            ) ?? [];
+
+          const currentGuarantee =
+            item.guarantees?.[completedGuarantees.length];
+
+          const bookDate = currentGuarantee?.serviceDate || item.bookDate;
+
+          const formattedDate = dayjs(bookDate).format("DD/MM/YYYY");
 
           return (
             <div
@@ -336,14 +349,16 @@ const BookingAdminPage = () => {
                     {t("วันที่")}: {formattedDate}
                   </p>
                   <div className="icon">
-                    {item.status === 0 ? (
+                    {item.status === BookingStatus.PENDING ? (
                       <ClockCircleFilled className="icon-check-wait" />
-                    ) : item.status === 1 ? (
+                    ) : item.status === BookingStatus.PAID ? (
                       <i className="fa-solid fa-circle"></i>
-                    ) : item.status === 2 ? (
+                    ) : item.status === BookingStatus.COMPLETED ? (
                       <CheckCircleFilled className="icon-check-complete" />
-                    ) : (
+                    ) : item.status === BookingStatus.CANCELED ? (
                       <CloseCircleFilled className="icon-check-cancel" />
+                    ) : (
+                      <i className="fa-solid fa-wrench"></i>
                     )}
                     <PayCircleFilled
                       className="icon-pay"
