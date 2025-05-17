@@ -55,11 +55,11 @@ const CalendarAdminPage = () => {
     }
   };
 
-  const renderBookedCalendar = (bookingData: BookingData) => {
-    const { bookTime, guarantees, carType, carModel } = bookingData;
-    const status = guarantees?.map((item) => {
-      return item.status;
-    });
+  const renderBookedCalendar = (payload: {
+    status: BookingStatus;
+    label: string;
+  }) => {
+    const { status, label } = payload;
 
     return (
       <div
@@ -72,22 +72,56 @@ const CalendarAdminPage = () => {
       >
         <Badge status={getStatus(status)} />
         <Typography className="text-c" style={{ textWrap: "nowrap" }}>
-          {bookTime} {carType} {carModel}
+          {label}
         </Typography>
       </div>
     );
   };
 
-  const cellRender: CalendarProps<Dayjs>["cellRender"] = (current) => {
-    const bookings = bookingData.filter((data) =>
-      data.guarantees?.some((item) =>
-        dayjs(item.serviceDate).isSame(current, "date")
-      )
+  // reduce ข้อมูล
+  const generateCellDict = (current: dayjs.Dayjs) => {
+    const cellDict = bookingData.reduce(
+      (
+        prev: {
+          status: BookingStatus;
+          label: string;
+        }[],
+        item: BookingData
+      ) => {
+        if (item.guarantees?.length) {
+          item.guarantees?.map((guarantee) => {
+            const { status, serviceDate } = guarantee;
+            const serviceTime = item.bookTime;
+
+            const label = `${serviceTime} ${item.carType} ${item.carModel}`;
+
+            if (dayjs(serviceDate).isSame(current, "date")) {
+              prev.push({ status, label });
+            }
+          });
+        } else {
+          const { status, bookTime, carType, carModel } = item;
+          const label = `${bookTime} ${carType} ${carModel}`;
+
+          if (dayjs(item.bookDate).isSame(current, "date")) {
+            prev.push({ status, label });
+          }
+        }
+
+        return prev;
+      },
+      []
     );
+
+    return cellDict;
+  };
+
+  const cellRender: CalendarProps<Dayjs>["cellRender"] = (current) => {
+    const cellDict = generateCellDict(current);
 
     return (
       <div className="booking">
-        {bookings.map((data, index) => {
+        {cellDict.map((data, index) => {
           return <div key={index}>{renderBookedCalendar(data)}</div>;
         })}
       </div>
