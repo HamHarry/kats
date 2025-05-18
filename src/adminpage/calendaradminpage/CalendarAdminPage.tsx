@@ -136,11 +136,11 @@ const CalendarAdminPage = () => {
       <div className="guid">
         <div className="guid-yellow">
           <div className="box-yellow"></div>
-          <p>กำลังรอการชำระ</p>
+          <p>กำลังรอการชำระ & ตรวจสภาพรถ</p>
         </div>
         <div className="guid-blue">
           <div className="box-blue"></div>
-          <p>จ่ายสำเร็จ & ตรวจสภาพรถ</p>
+          <p>จ่ายสำเร็จ</p>
         </div>
         <div className="guid-green">
           <div className="box-green"></div>

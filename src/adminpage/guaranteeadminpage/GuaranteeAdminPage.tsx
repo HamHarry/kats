@@ -94,7 +94,9 @@ const GuaranteeAdminPage = () => {
       await dispath(updateGuaranteeByBookingId(body)).unwrap();
 
       setOpenDialogProfile(false);
-      navigate("/admin/booking");
+      setSelectBookingId(undefined);
+      setBooking(undefined);
+      fetchAllBooking();
     } catch (error) {
       console.log(error);
     } finally {
@@ -458,14 +460,7 @@ const GuaranteeAdminPage = () => {
     >
       <form onSubmit={handleSubmit(submit)}>
         <div className="container-Edit-Profile-Navbar">
-          <button
-            type="submit"
-            onClick={() => {
-              setOpenDialogProfile(false);
-              setSelectBookingId(undefined);
-              setBooking(undefined);
-            }}
-          >
+          <button type="submit">
             <h3>บันทึก</h3>
           </button>
           <i
