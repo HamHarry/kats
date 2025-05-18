@@ -18,6 +18,7 @@ import {
 } from "../../stores/slices/bookingSlice";
 import CircleLoading from "../../shared/circleLoading";
 import { DeleteStatus } from "../../model/delete.type";
+import { StyledSelect } from "../../AppStyle";
 
 export interface BookingForm
   extends Omit<BookingData, "product" | "price" | "bookDate"> {
@@ -222,7 +223,10 @@ const EditGuaranteeAdminPage = () => {
               render={({ field }) => {
                 return (
                   <div className="inputNumber">
-                    <h2>เลขที่</h2>
+                    <div style={{ width: "120px" }}>
+                      <h2>เลขที่</h2>
+                    </div>
+
                     <input {...field} type="text" />
                   </div>
                 );
@@ -235,7 +239,10 @@ const EditGuaranteeAdminPage = () => {
               render={({ field }) => {
                 return (
                   <div className="inputVolume">
-                    <h2>เล่มที่</h2>
+                    <div style={{ width: "120px" }}>
+                      <h2>เล่มที่</h2>
+                    </div>
+
                     <input {...field} type="text" />
                   </div>
                 );
@@ -249,7 +256,10 @@ const EditGuaranteeAdminPage = () => {
               render={({ field }) => {
                 return (
                   <div className="inputDate">
-                    <h2>วันที่</h2>
+                    <div style={{ width: "120px" }}>
+                      <h2>วันที่</h2>
+                    </div>
+
                     <DatePicker {...field} />
                   </div>
                 );
@@ -262,7 +272,10 @@ const EditGuaranteeAdminPage = () => {
               render={({ field }) => {
                 return (
                   <div className="inputTime">
-                    <h2>เวลา</h2>
+                    <div style={{ width: "120px" }}>
+                      <h2>เวลา</h2>
+                    </div>
+
                     <Select
                       {...field}
                       className="select-product"
@@ -285,7 +298,10 @@ const EditGuaranteeAdminPage = () => {
               render={({ field }) => {
                 return (
                   <div className="inputName">
-                    <h2>ชื่อ</h2>
+                    <div style={{ width: "120px" }}>
+                      <h2>ชื่อ</h2>
+                    </div>
+
                     <input {...field} type="text" />
                   </div>
                 );
@@ -298,7 +314,10 @@ const EditGuaranteeAdminPage = () => {
               render={({ field }) => {
                 return (
                   <div className="inputTel">
-                    <h2>เบอร์</h2>
+                    <div style={{ width: "120px" }}>
+                      <h2>เบอร์</h2>
+                    </div>
+
                     <input {...field} type="tel" />
                   </div>
                 );
@@ -312,7 +331,10 @@ const EditGuaranteeAdminPage = () => {
               render={({ field }) => {
                 return (
                   <div className="inputCarType">
-                    <h2>ประเภทรถ</h2>
+                    <div style={{ width: "120px" }}>
+                      <h2>ประเภทรถ</h2>
+                    </div>
+
                     <input {...field} type="text" />
                   </div>
                 );
@@ -324,7 +346,10 @@ const EditGuaranteeAdminPage = () => {
               render={({ field }) => {
                 return (
                   <div className="inputCarModel">
-                    <h2>รุ่นรถ</h2>
+                    <div style={{ width: "120px" }}>
+                      <h2>รุ่นรถ</h2>
+                    </div>
+
                     <input {...field} type="text" />
                   </div>
                 );
@@ -338,7 +363,10 @@ const EditGuaranteeAdminPage = () => {
               render={({ field }) => {
                 return (
                   <div className="inputRegister">
-                    <h2>ทะเบียน</h2>
+                    <div style={{ width: "120px" }}>
+                      <h2>ทะเบียน</h2>
+                    </div>
+
                     <input {...field} type="text" />
                   </div>
                 );
@@ -351,7 +379,10 @@ const EditGuaranteeAdminPage = () => {
               render={({ field }) => {
                 return (
                   <div className="inputProvince">
-                    <h2>จังหวัด</h2>
+                    <div style={{ width: "120px" }}>
+                      <h2>จังหวัด</h2>
+                    </div>
+
                     <input {...field} type="text" />
                   </div>
                 );
@@ -366,8 +397,11 @@ const EditGuaranteeAdminPage = () => {
               render={({ field }) => {
                 return (
                   <div className="inputTypeProduct">
-                    <h2>สินค้า</h2>
-                    <Select
+                    <div style={{ width: "120px" }}>
+                      <h2>สินค้า</h2>
+                    </div>
+
+                    <StyledSelect
                       {...field}
                       placeholder="เลือกสินค้า"
                       className="select-product"
@@ -389,7 +423,7 @@ const EditGuaranteeAdminPage = () => {
                           {item.name}
                         </Select.Option>
                       ))}
-                    </Select>
+                    </StyledSelect>
                   </div>
                 );
               }}
@@ -400,7 +434,10 @@ const EditGuaranteeAdminPage = () => {
               render={({ field }) => {
                 return (
                   <div className="inputProduct">
-                    <h2>ราคา</h2>
+                    <div style={{ width: "120px" }}>
+                      <h2>ราคา</h2>
+                    </div>
+
                     <Select
                       {...field}
                       className="select-product"

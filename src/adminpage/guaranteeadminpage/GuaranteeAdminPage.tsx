@@ -14,11 +14,11 @@ import {
   updateGuaranteeByBookingId,
 } from "../../stores/slices/bookingSlice";
 import dayjs from "dayjs";
-import { Modal } from "antd";
+import { Modal, Select } from "antd";
 import { useNavigate } from "react-router-dom";
 import { cloneDeep, debounce } from "lodash";
 import { Controller, useFieldArray, useForm } from "react-hook-form";
-import { DatePickerStyle } from "../../AppStyle";
+import { DatePickerStyle, StyledSelect } from "../../AppStyle";
 import {
   CheckCircleFilled,
   ClockCircleFilled,
@@ -32,9 +32,22 @@ const defaultValues: GuaranteeForm = {
   guarantees: [],
 };
 
+const bookingTimeList = [
+  { time: "08:00" },
+  { time: "09:00" },
+  { time: "10:00" },
+  { time: "11:00" },
+  { time: "13:00" },
+  { time: "14:00" },
+  { time: "15:00" },
+  { time: "16:00" },
+  { time: "17:00" },
+];
+
 const GuaranteeAdminPage = () => {
   const dispath = useAppDispatch();
   const navigate = useNavigate();
+  const [timeData] = useState(bookingTimeList);
   const [isGuaranteeLoading, setIsGuaranteeLoading] = useState<boolean>(false);
 
   const [booking, setBooking] = useState<BookingData>();
@@ -81,6 +94,7 @@ const GuaranteeAdminPage = () => {
       await dispath(updateGuaranteeByBookingId(body)).unwrap();
 
       setOpenDialogProfile(false);
+      navigate("/admin/booking");
     } catch (error) {
       console.log(error);
     } finally {
@@ -148,6 +162,7 @@ const GuaranteeAdminPage = () => {
           isControlArm: false,
           isChassis: false,
           isUnderbody: false,
+          serviceTime: "",
         };
 
         clonedGuarantees.push(guarantee);
@@ -264,9 +279,33 @@ const GuaranteeAdminPage = () => {
         <tr key={index}>
           <td>{item.serviceNo}</td>
           <td>
-            <div style={{ display: "flex", gap: "10px" }}>
+            <div
+              style={{ display: "flex", justifyContent: "center", gap: "10px" }}
+            >
               <Controller
-                control={control} // Replace with your control object
+                name={`guarantees.${index}.serviceTime`}
+                control={control}
+                render={({ field }) => {
+                  return (
+                    <div className="input-time">
+                      <StyledSelect
+                        {...field}
+                        className="select-product"
+                        placeholder="เลือกเวลา"
+                        disabled={disable}
+                        value={field.value || undefined}
+                        options={timeData.map((item) => ({
+                          label: `${item.time} น.`,
+                          value: item.time,
+                        }))}
+                      />
+                    </div>
+                  );
+                }}
+              />
+
+              <Controller
+                control={control}
                 name={`guarantees.${index}.serviceDate`}
                 render={({ field }) => (
                   <DatePickerStyle
@@ -425,7 +464,6 @@ const GuaranteeAdminPage = () => {
               setOpenDialogProfile(false);
               setSelectBookingId(undefined);
               setBooking(undefined);
-              fetchAllBooking();
             }}
           >
             <h3>บันทึก</h3>
@@ -466,22 +504,40 @@ const GuaranteeAdminPage = () => {
               <div className="text-all">
                 <div className="text-column-number">
                   <div className="text-number">
-                    <h4>เลขที่</h4>
-                    <p>{booking?.number}</p>
+                    <div style={{ width: "100px" }}>
+                      <h4>เลขที่</h4>
+                    </div>
+
+                    <div style={{ width: "250px" }}>
+                      <p>{booking?.number}</p>
+                    </div>
                   </div>
                   <div className="text-branch">
-                    <h4>สาขา</h4>
-                    <p>ลาดกระบัง</p>
+                    <div style={{ width: "180px" }}>
+                      <h4>สาขา</h4>
+                    </div>
+
+                    <div style={{ width: "250px" }}>
+                      <p>ลาดกระบัง</p>
+                    </div>
                   </div>
                 </div>
                 <div className="text-column-volume">
                   <div className="text-volume">
-                    <h4>เล่มที่</h4>
-                    <p>{booking?.receiptBookNo}</p>
+                    <div style={{ width: "100px" }}>
+                      <h4>เล่มที่</h4>
+                    </div>
+
+                    <div style={{ width: "250px" }}>
+                      <p>{booking?.receiptBookNo}</p>
+                    </div>
                   </div>
                   <div className="guadrantee">
                     <div className="text-guadrantee-typeProduct">
-                      <h4>ประกันสินค้า</h4>
+                      <div style={{ width: "180px" }}>
+                        <h4>ประกันสินค้า</h4>
+                      </div>
+
                       <p>{booking?.product.name}</p>
                     </div>
                     <div className="text-guadrantee">
@@ -491,11 +547,19 @@ const GuaranteeAdminPage = () => {
                 </div>
                 <div className="text-column-date">
                   <div className="text-date">
-                    <h4>วันที่</h4>
-                    <p>{dayjs(booking?.bookDate).format("DD/MM/YYYY")}</p>
+                    <div style={{ width: "100px" }}>
+                      <h4>วันที่</h4>
+                    </div>
+
+                    <div style={{ width: "250px" }}>
+                      <p>{dayjs(booking?.bookDate).format("DD/MM/YYYY")}</p>
+                    </div>
                   </div>
                   <div className="text-car">
-                    <h4>รถยนต์</h4>
+                    <div style={{ width: "180px" }}>
+                      <h4>รถยนต์</h4>
+                    </div>
+
                     <p>
                       {booking?.carType} {booking?.carModel}
                     </p>
@@ -503,18 +567,29 @@ const GuaranteeAdminPage = () => {
                 </div>
                 <div className="text-column-name">
                   <div className="text-name">
-                    <h4>ชื่อ</h4>
-                    <p>คุณ{booking?.name}</p>
+                    <div style={{ width: "100px" }}>
+                      <h4>ชื่อ</h4>
+                    </div>
+
+                    <div style={{ width: "250px" }}>
+                      <p>{booking?.name}</p>
+                    </div>
                   </div>
                   <div className="text-register">
-                    <h4>ทะเบียน</h4>
+                    <div style={{ width: "180px" }}>
+                      <h4>ทะเบียน</h4>
+                    </div>
+
                     <p>
                       {booking?.licensePlate} {booking?.province}
                     </p>
                   </div>
                 </div>
                 <div className="text-tel">
-                  <h4>เบอร์</h4>
+                  <div style={{ width: "100px" }}>
+                    <h4>เบอร์</h4>
+                  </div>
+
                   <p>{booking?.tel}</p>
                 </div>
               </div>
@@ -611,7 +686,7 @@ const GuaranteeAdminPage = () => {
                     ></i>
                   </div>
                 </div>
-                <p>ชื่อ: คุณ{item.name}</p>
+                <p>ชื่อ: {item.name}</p>
                 <p>เบอร์: {item.tel}</p>
                 <p>เลขที่: {item.number}</p>
                 <p>เล่มที่: {item.receiptBookNo}</p>

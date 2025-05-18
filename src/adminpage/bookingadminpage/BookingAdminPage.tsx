@@ -385,8 +385,7 @@ const BookingAdminPage = () => {
                   </div>
                 </div>
                 <p>
-                  {t("ชื่อ")}: {t("คุณ")}
-                  {item.name}
+                  {t("ชื่อ")}: {item.name}
                 </p>
                 <p>
                   {t("โทรศัพท์")}: {item.tel}

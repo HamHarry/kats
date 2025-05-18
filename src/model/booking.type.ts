@@ -12,6 +12,7 @@ export enum BookingStatus {
 export interface CarStructure {
   serviceNo: number; // ครั้งที่
   serviceDate: string; // วันที่เข้ารับบริการ
+  serviceTime: string; // เวลาเข้ารับบริการ
   status: BookingStatus; // วันที่เข้ารับบริการ
   isBeam: boolean; // คาน
   isWheelArch: boolean; // ซุ้มล้อ

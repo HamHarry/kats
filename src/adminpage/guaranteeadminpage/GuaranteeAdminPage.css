@@ -234,11 +234,10 @@
         .text-column-number {
           display: flex;
           align-items: center;
-          gap: 120px;
+          gap: 50px;
           .text-number {
             display: flex;
             align-items: center;
-            gap: 22px;
             h4 {
               font-size: 28px;
               color: #f3cd68;
@@ -251,7 +250,6 @@
           .text-branch {
             display: flex;
             align-items: center;
-            gap: 20px;
             h4 {
               font-size: 28px;
               color: #f3cd68;
@@ -265,11 +263,10 @@
         .text-column-volume {
           display: flex;
           align-items: center;
-          gap: 134px;
+          gap: 50px;
           .text-volume {
             display: flex;
             align-items: center;
-            gap: 20px;
             h4 {
               font-size: 28px;
               color: #f3cd68;
@@ -281,11 +278,10 @@
           }
           .guadrantee {
             display: flex;
-            gap: 20px;
+            gap: 10px;
             .text-guadrantee-typeProduct {
               display: flex;
               align-items: center;
-              gap: 20px;
               h4 {
                 font-size: 28px;
                 color: #f3cd68;
@@ -298,7 +294,6 @@
             .text-guadrantee {
               display: flex;
               align-items: center;
-              gap: 20px;
               h4 {
                 font-size: 28px;
                 color: #f3cd68;
@@ -314,11 +309,10 @@
       .text-column-date {
         display: flex;
         align-items: center;
-        gap: 48px;
+        gap: 50px;
         .text-date {
           display: flex;
           align-items: center;
-          gap: 32px;
           h4 {
             font-size: 28px;
             color: #f3cd68;
@@ -331,7 +325,6 @@
         .text-car {
           display: flex;
           align-items: center;
-          gap: 20px;
           h4 {
             font-size: 28px;
             color: #f3cd68;
@@ -345,11 +338,10 @@
       .text-column-name {
         display: flex;
         align-items: center;
-        gap: 105px;
+        gap: 50px;
         .text-name {
           display: flex;
           align-items: center;
-          gap: 47px;
           h4 {
             font-size: 28px;
             color: #f3cd68;
@@ -362,7 +354,6 @@
         .text-register {
           display: flex;
           align-items: center;
-          gap: 21px;
           h4 {
             font-size: 28px;
             color: #f3cd68;
@@ -376,7 +367,6 @@
       .text-tel {
         display: flex;
         align-items: center;
-        gap: 22px;
         h4 {
           font-size: 28px;
           color: #f3cd68;
@@ -413,14 +403,21 @@
               margin-bottom: -5px;
             }
           }
+          .input-time {
+            display: flex;
+            justify-content: center;
+            padding: 4px;
+            border-radius: 10px;
+            width: 100px;
+            border: none;
+            text-align: center;
+          }
           .input-date {
             display: flex;
             justify-content: center;
             padding: 4px;
             border-radius: 10px;
-            width: 300px;
-            margin-right: -120px;
-            margin-left: 50px;
+            width: 200px;
             border: none;
             text-align: center;
           }
@@ -561,11 +558,9 @@
         .text-column-number {
           display: flex;
           align-items: center;
-          gap: 120px;
           .text-number {
             display: flex;
             align-items: center;
-            gap: 22px;
             h4 {
               font-size: 28px;
               color: white;
@@ -578,7 +573,6 @@
           .text-branch {
             display: flex;
             align-items: center;
-            gap: 20px;
             h4 {
               font-size: 28px;
               color: white;
@@ -592,11 +586,9 @@
         .text-column-volume {
           display: flex;
           align-items: center;
-          gap: 134px;
           .text-volume {
             display: flex;
             align-items: center;
-            gap: 20px;
             h4 {
               font-size: 28px;
               color: white;
@@ -608,11 +600,9 @@
           }
           .guadrantee {
             display: flex;
-            gap: 20px;
             .text-guadrantee-typeProduct {
               display: flex;
               align-items: center;
-              gap: 20px;
               h4 {
                 font-size: 28px;
                 color: white;
@@ -625,7 +615,6 @@
             .text-guadrantee {
               display: flex;
               align-items: center;
-              gap: 20px;
               h4 {
                 font-size: 28px;
                 color: white;
@@ -641,11 +630,9 @@
       .text-column-date {
         display: flex;
         align-items: center;
-        gap: 48px;
         .text-date {
           display: flex;
           align-items: center;
-          gap: 32px;
           h4 {
             font-size: 28px;
             color: white;
@@ -658,7 +645,6 @@
         .text-car {
           display: flex;
           align-items: center;
-          gap: 20px;
           h4 {
             font-size: 28px;
             color: white;
@@ -672,11 +658,9 @@
       .text-column-name {
         display: flex;
         align-items: center;
-        gap: 105px;
         .text-name {
           display: flex;
           align-items: center;
-          gap: 47px;
           h4 {
             font-size: 28px;
             color: white;
@@ -689,7 +673,6 @@
         .text-register {
           display: flex;
           align-items: center;
-          gap: 21px;
           h4 {
             font-size: 28px;
             color: white;
@@ -703,7 +686,6 @@
       .text-tel {
         display: flex;
         align-items: center;
-        gap: 22px;
         h4 {
           font-size: 28px;
           color: white;
@@ -740,14 +722,21 @@
               margin-bottom: -5px;
             }
           }
+          .input-time {
+            display: flex;
+            justify-content: center;
+            padding: 4px;
+            border-radius: 10px;
+            width: 100px;
+            border: none;
+            text-align: center;
+          }
           .input-date {
             display: flex;
             justify-content: center;
             padding: 4px;
             border-radius: 10px;
-            width: 300px;
-            margin-right: -120px;
-            margin-left: 50px;
+            width: 200px;
             border: none;
             text-align: center;
           }

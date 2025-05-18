@@ -90,8 +90,7 @@ const CalendarAdminPage = () => {
       ) => {
         if (item.guarantees?.length) {
           item.guarantees?.map((guarantee) => {
-            const { status, serviceDate } = guarantee;
-            const serviceTime = item.bookTime;
+            const { status, serviceDate, serviceTime } = guarantee;
 
             const label = `${serviceTime} ${item.carType} ${item.carModel}`;
 
