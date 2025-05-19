@@ -13,7 +13,7 @@ import { DeleteStatus } from "../model/delete.type";
 
 const BookingPageKats = () => {
   const dispath = useAppDispatch();
-  const [bookings, setBookings] = useState<BookingData[]>([]);
+  const [bookingData, setBookingData] = useState<BookingData[]>([]);
   const [isBookingLoading, setIsBookingLoading] = useState<boolean>(false);
 
   const fetchAllBooking = useCallback(async () => {
@@ -27,7 +27,7 @@ const BookingPageKats = () => {
         return item.delete === DeleteStatus.ISNOTDELETE;
       });
 
-      setBookings(filteredBookings);
+      setBookingData(filteredBookings);
     } catch (error) {
       console.log(error);
     } finally {
@@ -43,6 +43,8 @@ const BookingPageKats = () => {
     switch (status) {
       case BookingStatus.PENDING:
         return "warning";
+      case BookingStatus.CHECKING:
+        return "warning";
       case BookingStatus.PAID:
         return "processing";
       case BookingStatus.COMPLETED:
@@ -55,8 +57,11 @@ const BookingPageKats = () => {
     }
   };
 
-  const renderBookedCalendar = (bookingData: BookingData) => {
-    const { bookTime, status, carType, carModel } = bookingData;
+  const renderBookedCalendar = (payload: {
+    status: BookingStatus;
+    label: string;
+  }) => {
+    const { status, label } = payload;
 
     return (
       <div
@@ -69,20 +74,55 @@ const BookingPageKats = () => {
       >
         <Badge status={getStatus(status)} />
         <Typography className="text-c" style={{ textWrap: "nowrap" }}>
-          {bookTime} {carType} {carModel}
+          {label}
         </Typography>
       </div>
     );
   };
 
-  const cellRender: CalendarProps<Dayjs>["cellRender"] = (current) => {
-    const bookingData = bookings.filter((data) =>
-      dayjs(data.bookDate).isSame(current, "date")
+  // reduce ข้อมูล
+  const generateCellDict = (current: dayjs.Dayjs) => {
+    const cellDict = bookingData.reduce(
+      (
+        prev: {
+          status: BookingStatus;
+          label: string;
+        }[],
+        item: BookingData
+      ) => {
+        if (item.guarantees?.length) {
+          item.guarantees?.map((guarantee) => {
+            const { status, serviceDate, serviceTime } = guarantee;
+
+            const label = `${serviceTime} ${item.carType} ${item.carModel}`;
+
+            if (dayjs(serviceDate).isSame(current, "date")) {
+              prev.push({ status, label });
+            }
+          });
+        } else {
+          const { status, bookTime, carType, carModel } = item;
+          const label = `${bookTime} ${carType} ${carModel}`;
+
+          if (dayjs(item.bookDate).isSame(current, "date")) {
+            prev.push({ status, label });
+          }
+        }
+
+        return prev;
+      },
+      []
     );
+
+    return cellDict;
+  };
+
+  const cellRender: CalendarProps<Dayjs>["cellRender"] = (current) => {
+    const cellDict = generateCellDict(current);
 
     return (
       <div className="booking">
-        {bookingData.map((data, index) => {
+        {cellDict.map((data, index) => {
           return <div key={index}>{renderBookedCalendar(data)}</div>;
         })}
       </div>

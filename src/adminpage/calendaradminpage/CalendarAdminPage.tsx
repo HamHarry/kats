@@ -42,7 +42,7 @@ const CalendarAdminPage = () => {
       case BookingStatus.PENDING:
         return "warning";
       case BookingStatus.CHECKING:
-        return "processing";
+        return "warning";
       case BookingStatus.PAID:
         return "processing";
       case BookingStatus.COMPLETED:
@@ -130,7 +130,7 @@ const CalendarAdminPage = () => {
   return (
     <div className="container-calendarAdmin">
       <div className="header-calendarAdmin">
-        <h1>Calendar</h1>
+        <h1>ปฏิทินการจอง</h1>
       </div>
 
       <div className="guid">
