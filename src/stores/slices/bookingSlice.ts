@@ -27,6 +27,14 @@ export const approveBookingById = createAsyncThunk(
   }
 );
 
+export const cancelBookingById = createAsyncThunk(
+  "booking/cencelById",
+  async (data: BookingData): Promise<any> => {
+    const response = await bookingServices.cancelBookingById(data);
+    return response;
+  }
+);
+
 export const getAllBookings = createAsyncThunk(
   "booking/get/all",
   async (): Promise<any> => {

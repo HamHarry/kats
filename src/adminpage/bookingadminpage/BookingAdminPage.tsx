@@ -11,6 +11,7 @@ import {
 import { useAppDispatch } from "../../stores/store";
 import {
   approveBookingById,
+  cancelBookingById,
   getAllBookingPaginations,
   isDeleteBookingById,
 } from "../../stores/slices/bookingSlice";
@@ -142,7 +143,7 @@ const BookingAdminPage = () => {
         status: BookingStatus.CANCELED,
       };
 
-      await dispath(approveBookingById(data)).unwrap();
+      await dispath(cancelBookingById(data)).unwrap();
     } catch (error) {
       console.log(error);
     } finally {

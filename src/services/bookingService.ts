@@ -19,6 +19,15 @@ export const approveBookingById = async (data: BookingData): Promise<any> => {
   return response;
 };
 
+export const cancelBookingById = async (data: BookingData): Promise<any> => {
+  const response = await axios.post(
+    `${import.meta.env.VITE_BASE_SERVER_URL}/bookings/cancel/${data._id}`,
+    data
+  );
+
+  return response;
+};
+
 export const getAllBookings = async (): Promise<any> => {
   const response = await axios.get(
     `${import.meta.env.VITE_BASE_SERVER_URL}/bookings`
