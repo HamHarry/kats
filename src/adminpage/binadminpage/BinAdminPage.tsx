@@ -9,28 +9,19 @@ import {
   isDeleteBookingById,
 } from "../../stores/slices/bookingSlice";
 import { useAppDispatch } from "../../stores/store";
-import { useNavigate } from "react-router-dom";
 import { DeleteStatus } from "../../model/delete.type";
-import { BookingData, BookingStatus } from "../../model/booking.type";
+import { BookingData } from "../../model/booking.type";
 import dayjs from "dayjs";
-
-const chooseProducts = [
-  {
-    key: "1",
-    label: "สินค้า",
-    children: <p>สินค้า</p>,
-  },
-  {
-    key: "2",
-    label: "หมวดหมู่",
-    children: <p>สินค้า</p>,
-  },
-  {
-    key: "3",
-    label: "แบรนด์สินค้า",
-    children: <p>สินค้า</p>,
-  },
-];
+import {
+  CatagoryData,
+  PRICE_TYPE,
+  ProductData,
+  ProductDetail,
+} from "../../model/product.type";
+import {
+  deleteProductById,
+  getAllProducts,
+} from "../../stores/slices/productSlice";
 
 const chooseExpenses = [
   {
@@ -46,15 +37,18 @@ const chooseExpenses = [
 ];
 
 const BinAdminPage = () => {
-  // const navigate = useNavigate();
   const dispath = useAppDispatch();
 
   const [bookingDatas, setBookingDatas] = useState<BookingData[]>([]);
+  const [productDatas, setProductDatas] = useState<ProductData[]>([]);
   const [selectedBookingData, setSelectedBookingData] = useState<BookingData>();
+  const [selectedProductData, setSelectedProductData] = useState<ProductData>();
 
   const [openDialogConfirmApproveBooking, setOpenDialogConfirmApproveBooking] =
     useState<boolean>(false);
-  const [openDialogConfirmDelete, setOpenDialogConfirmDelete] =
+  const [openDialogConfirmDeleteBooking, setOpenDialogConfirmDeleteBooking] =
+    useState<boolean>(false);
+  const [openDialogConfirmDeleteProduct, setOpenDialogConfirmDeleteProduct] =
     useState<boolean>(false);
   const [isBinLoading, setIsBinLoading] = useState<boolean>(false);
 
@@ -82,7 +76,31 @@ const BinAdminPage = () => {
     fetchAllBooking();
   }, [fetchAllBooking]);
 
-  const recover = async () => {
+  const fetchAllProduct = useCallback(async () => {
+    try {
+      setIsBinLoading(true);
+
+      const { data: productRes = [] } = await dispath(
+        getAllProducts()
+      ).unwrap();
+
+      const filteredProducts = productRes.filter((item: ProductData) => {
+        return item.delete === DeleteStatus.ISDELETE;
+      });
+
+      setProductDatas(filteredProducts);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsBinLoading(false);
+    }
+  }, [dispath]);
+
+  useEffect(() => {
+    fetchAllProduct();
+  }, [fetchAllProduct]);
+
+  const recoverBooking = async () => {
     try {
       setIsBinLoading(true);
 
@@ -112,18 +130,33 @@ const BinAdminPage = () => {
       console.log(error);
     } finally {
       setIsBinLoading(false);
-      setOpenDialogConfirmDelete(false);
+      setOpenDialogConfirmDeleteBooking(false);
       fetchAllBooking();
     }
   };
 
-  const rederDialogConfirmDelete = () => {
+  const deletedProduct = async () => {
+    try {
+      setIsBinLoading(true);
+      if (!selectedProductData?._id) return;
+
+      await dispath(deleteProductById(selectedProductData._id)).unwrap();
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsBinLoading(false);
+      setOpenDialogConfirmDeleteProduct(false);
+      fetchAllProduct();
+    }
+  };
+
+  const rederDialogConfirmDeleteBooking = () => {
     return (
       <Modal
         centered
         className="wrap-container-DialogDelete"
-        open={openDialogConfirmDelete}
-        onCancel={() => setOpenDialogConfirmDelete(false)}
+        open={openDialogConfirmDeleteBooking}
+        onCancel={() => setOpenDialogConfirmDeleteBooking(false)}
       >
         <h1>ยืนยันการลบ</h1>
 
@@ -132,14 +165,14 @@ const BinAdminPage = () => {
             type="button"
             onClick={() => {
               deletedBooking();
-              setOpenDialogConfirmDelete(false);
+              setOpenDialogConfirmDeleteBooking(false);
             }}
           >
             ยืนยัน
           </button>
           <button
             onClick={() => {
-              setOpenDialogConfirmDelete(false);
+              setOpenDialogConfirmDeleteBooking(false);
             }}
           >
             ยกเลิก
@@ -149,7 +182,39 @@ const BinAdminPage = () => {
     );
   };
 
-  const columns = [
+  const rederDialogConfirmDeleteProduct = () => {
+    return (
+      <Modal
+        centered
+        className="wrap-container-DialogDelete"
+        open={openDialogConfirmDeleteProduct}
+        onCancel={() => setOpenDialogConfirmDeleteProduct(false)}
+      >
+        <h1>ยืนยันการลบ</h1>
+
+        <div className="btn-DialogDelete-Navbar">
+          <button
+            type="button"
+            onClick={() => {
+              deletedProduct();
+              setOpenDialogConfirmDeleteProduct(false);
+            }}
+          >
+            ยืนยัน
+          </button>
+          <button
+            onClick={() => {
+              setOpenDialogConfirmDeleteProduct(false);
+            }}
+          >
+            ยกเลิก
+          </button>
+        </div>
+      </Modal>
+    );
+  };
+
+  const columnBookings = [
     { title: "CodeID", dataIndex: "codeId", key: "codeId" },
     { title: "เล่มที่", dataIndex: "receiptBookNo", key: "receiptBookNo" },
     {
@@ -179,7 +244,80 @@ const BinAdminPage = () => {
             onClick={(e) => {
               e.stopPropagation();
               setSelectedBookingData(item);
-              setOpenDialogConfirmDelete(true);
+              setOpenDialogConfirmDeleteBooking(true);
+            }}
+          >
+            ลบ
+          </a>
+        </Space>
+      ),
+    },
+  ];
+
+  const columnProducts = [
+    { title: "ชื่อสินค้า", dataIndex: "name", key: "name" },
+    {
+      title: "ชื่อหมวดหมู่",
+      dataIndex: "catagory",
+      key: "catagory",
+      render: (catagory: CatagoryData) => {
+        return <Typography>{catagory.name}</Typography>;
+      },
+    },
+    {
+      title: "ราคาสินค้า",
+      dataIndex: "productDetails",
+      key: "productDetails",
+      render: (productDetails: ProductDetail[]) => {
+        return (
+          <div
+            style={{
+              display: "flex",
+              gap: "5px",
+            }}
+          >
+            {productDetails.map((productDetail: ProductDetail, index) => {
+              // STANDARD = green , LUXURY = gold
+              const backgroundColor =
+                productDetail.type === PRICE_TYPE.LUXURY
+                  ? "#FFD700"
+                  : "#008B00";
+
+              return (
+                <div
+                  key={index}
+                  style={{
+                    backgroundColor,
+                    borderRadius: "10px",
+                    textAlign: "center",
+                    padding: "5px 10px",
+                  }}
+                >
+                  <Typography>{productDetail.amount}</Typography>
+                </div>
+              );
+            })}
+          </div>
+        );
+      },
+    },
+    {
+      title: "",
+      key: "action",
+      render: (item: ProductData) => (
+        <Space
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            fontSize: "14px",
+          }}
+        >
+          <a
+            onClick={(e) => {
+              e.stopPropagation();
+              setSelectedProductData(item);
+              setOpenDialogConfirmDeleteProduct(true);
             }}
           >
             ลบ
@@ -197,7 +335,7 @@ const BinAdminPage = () => {
         <div className="content-boolings" style={{ width: "100%" }}>
           <Table
             dataSource={bookingDatas}
-            columns={columns}
+            columns={columnBookings}
             onRow={(record) => {
               return {
                 onClick: () => {
@@ -209,6 +347,28 @@ const BinAdminPage = () => {
           />
         </div>
       ),
+    },
+  ];
+
+  const chooseProducts = [
+    {
+      key: "1",
+      label: "สินค้า",
+      children: (
+        <div className="content-products" style={{ width: "100%" }}>
+          <Table dataSource={productDatas} columns={columnProducts} />
+        </div>
+      ),
+    },
+    {
+      key: "2",
+      label: "หมวดหมู่",
+      children: <p>สินค้า</p>,
+    },
+    {
+      key: "3",
+      label: "แบรนด์สินค้า",
+      children: <p>สินค้า</p>,
     },
   ];
 
@@ -228,7 +388,7 @@ const BinAdminPage = () => {
             <button
               type="button"
               onClick={() => {
-                recover();
+                recoverBooking();
                 setOpenDialogConfirmApproveBooking(false);
               }}
             >
@@ -314,8 +474,9 @@ const BinAdminPage = () => {
         </div>
       </div>
 
+      {rederDialogConfirmDeleteProduct()}
       {rederDialogConfirmApproveBooking()}
-      {rederDialogConfirmDelete()}
+      {rederDialogConfirmDeleteBooking()}
       <CircleLoading open={isBinLoading} />
     </div>
   );

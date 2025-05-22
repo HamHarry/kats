@@ -8,7 +8,6 @@ import {
 import { useAppDispatch } from "../../stores/store";
 import CircleLoading from "../../shared/circleLoading";
 import {
-  deleteBookingById,
   getAllBookingPaginations,
   getBookingById,
   isDeleteBookingById,

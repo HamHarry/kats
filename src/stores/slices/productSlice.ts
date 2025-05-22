@@ -96,7 +96,7 @@ export const updateCatagoryById = createAsyncThunk(
 );
 
 export const isDeleteProductById = createAsyncThunk(
-  "product/delete/id",
+  "product/IsDelete/id",
   async (body: ProductData): Promise<any> => {
     const response = await productServices.isDeleteProductById(body);
     return response;
@@ -104,7 +104,7 @@ export const isDeleteProductById = createAsyncThunk(
 );
 
 export const isDeleteCatagoryById = createAsyncThunk(
-  "catagory/delete/id",
+  "catagory/IsDelete/id",
   async (body: CatagoryData): Promise<any> => {
     const response = await productServices.isDeleteCatagoryById(body);
     return response;
@@ -112,9 +112,17 @@ export const isDeleteCatagoryById = createAsyncThunk(
 );
 
 export const isDeleteTypeProductById = createAsyncThunk(
-  "typeProduct/delete/id",
+  "typeProduct/IsDelete/id",
   async (body: TypeProductData): Promise<any> => {
     const response = await productServices.isDeleteTypeProductById(body);
+    return response;
+  }
+);
+
+export const deleteProductById = createAsyncThunk(
+  "product/IsDelete/id",
+  async (productId: string): Promise<any> => {
+    const response = await productServices.deleteProductById(productId);
     return response;
   }
 );

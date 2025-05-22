@@ -122,3 +122,13 @@ export const isDeleteTypeProductById = async (
 
   return response;
 };
+
+export const deleteProductById = async (productId: string): Promise<any> => {
+  const response = await axios.delete(
+    `${
+      import.meta.env.VITE_BASE_SERVER_URL
+    }/products/DeleteProduct/${productId}`
+  );
+
+  return response;
+};
