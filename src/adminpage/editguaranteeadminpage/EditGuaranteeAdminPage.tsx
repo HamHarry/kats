@@ -172,7 +172,7 @@ const EditGuaranteeAdminPage = () => {
         open={openDialogConfirm}
         onCancel={() => setOpenDialogConfirm(false)}
       >
-        <h1>ยืนยันการจอง</h1>
+        <h1>ยืนยันการแก้ไข</h1>
 
         <div className="btn-DialogConfirm-Navbar">
           <button onClick={() => formRef.current?.requestSubmit()}>

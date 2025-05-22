@@ -1,5 +1,11 @@
 import styled from "styled-components";
-import { DatePicker, DatePickerProps, Select, SelectProps } from "antd";
+import {
+  DatePicker,
+  DatePickerProps,
+  Divider,
+  Select,
+  SelectProps,
+} from "antd";
 import { Dayjs } from "dayjs";
 
 export const DatePickerStyle = styled(DatePicker)<DatePickerProps<Dayjs>>`
@@ -24,5 +30,21 @@ export const StyledSelect = styled(Select)<SelectProps<any>>`
       background-color: #f0f0f0 !important;
       color: black !important;
     }
+  }
+`;
+
+export const StyledDivider = styled(Divider)`
+  &.ant-divider-horizontal {
+    &:before,
+    &:after {
+      border-top: 2px solid #2656a2;
+      border-radius: 20px;
+    }
+  }
+
+  &.ant-divider-with-text {
+    color: #2656a2; // สีข้อความใน Divider
+    font-weight: bold;
+    font-size: 20px;
   }
 `;
