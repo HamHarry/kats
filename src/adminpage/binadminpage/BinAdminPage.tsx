@@ -6,11 +6,12 @@ import CircleLoading from "../../shared/circleLoading";
 import {
   deleteBookingById,
   getAllBookings,
+  isDeleteBookingById,
 } from "../../stores/slices/bookingSlice";
 import { useAppDispatch } from "../../stores/store";
 import { useNavigate } from "react-router-dom";
 import { DeleteStatus } from "../../model/delete.type";
-import { BookingData } from "../../model/booking.type";
+import { BookingData, BookingStatus } from "../../model/booking.type";
 import dayjs from "dayjs";
 
 const chooseProducts = [
@@ -45,19 +46,63 @@ const chooseExpenses = [
 ];
 
 const BinAdminPage = () => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const dispath = useAppDispatch();
 
   const [bookingDatas, setBookingDatas] = useState<BookingData[]>([]);
   const [selectedBookingData, setSelectedBookingData] = useState<BookingData>();
 
-  const [openDialogConfirmApprove, setOpenDialogConfirmApprove] =
+  const [openDialogConfirmApproveBooking, setOpenDialogConfirmApproveBooking] =
     useState<boolean>(false);
   const [openDialogConfirmDelete, setOpenDialogConfirmDelete] =
     useState<boolean>(false);
   const [isBinLoading, setIsBinLoading] = useState<boolean>(false);
 
-  const deleted = async () => {
+  const fetchAllBooking = useCallback(async () => {
+    try {
+      setIsBinLoading(true);
+
+      const { data: bookingsRes = [] } = await dispath(
+        getAllBookings()
+      ).unwrap();
+
+      const filteredBookings = bookingsRes.filter((item: BookingData) => {
+        return item.delete === DeleteStatus.ISDELETE;
+      });
+
+      setBookingDatas(filteredBookings);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsBinLoading(false);
+    }
+  }, [dispath]);
+
+  useEffect(() => {
+    fetchAllBooking();
+  }, [fetchAllBooking]);
+
+  const recover = async () => {
+    try {
+      setIsBinLoading(true);
+
+      if (!selectedBookingData?._id) return;
+
+      const data = {
+        ...selectedBookingData,
+        delete: DeleteStatus.ISNOTDELETE,
+      };
+
+      await dispath(isDeleteBookingById(data)).unwrap();
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsBinLoading(false);
+      fetchAllBooking();
+    }
+  };
+
+  const deletedBooking = async () => {
     try {
       setIsBinLoading(true);
       if (!selectedBookingData?._id) return;
@@ -86,7 +131,7 @@ const BinAdminPage = () => {
           <button
             type="button"
             onClick={() => {
-              deleted();
+              deletedBooking();
               setOpenDialogConfirmDelete(false);
             }}
           >
@@ -103,30 +148,6 @@ const BinAdminPage = () => {
       </Modal>
     );
   };
-
-  const fetchAllBooking = useCallback(async () => {
-    try {
-      setIsBinLoading(true);
-
-      const { data: bookingsRes = [] } = await dispath(
-        getAllBookings()
-      ).unwrap();
-
-      const filteredBookings = bookingsRes.filter((item: BookingData) => {
-        return item.delete === DeleteStatus.ISDELETE;
-      });
-
-      setBookingDatas(filteredBookings);
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setIsBinLoading(false);
-    }
-  }, [dispath]);
-
-  useEffect(() => {
-    fetchAllBooking();
-  }, [fetchAllBooking]);
 
   const columns = [
     { title: "CodeID", dataIndex: "codeId", key: "codeId" },
@@ -181,7 +202,7 @@ const BinAdminPage = () => {
               return {
                 onClick: () => {
                   setSelectedBookingData(record);
-                  setOpenDialogConfirmApprove(true);
+                  setOpenDialogConfirmApproveBooking(true);
                 },
               };
             }}
@@ -191,7 +212,7 @@ const BinAdminPage = () => {
     },
   ];
 
-  const rederDialogConfirmApprove = () => {
+  const rederDialogConfirmApproveBooking = () => {
     const formattedDate = selectedBookingData
       ? dayjs(selectedBookingData.bookDate).format("DD/MM/YYYY")
       : "";
@@ -200,15 +221,15 @@ const BinAdminPage = () => {
       <Modal
         centered
         className="container-DialogApprove"
-        open={openDialogConfirmApprove}
-        onCancel={() => setOpenDialogConfirmApprove(false)}
+        open={openDialogConfirmApproveBooking}
+        onCancel={() => setOpenDialogConfirmApproveBooking(false)}
         footer={
           <div className="btn-DialogApprove-Navbar">
             <button
               type="button"
               onClick={() => {
-                // approved();
-                setOpenDialogConfirmApprove(false);
+                recover();
+                setOpenDialogConfirmApproveBooking(false);
               }}
             >
               กู้คืน
@@ -222,25 +243,50 @@ const BinAdminPage = () => {
           <i
             className="fa-solid fa-circle-xmark"
             onClick={() => {
-              setOpenDialogConfirmApprove(false);
+              setOpenDialogConfirmApproveBooking(false);
             }}
           ></i>
         </div>
 
         <div className="container-DialogApprove-content">
           <div className="text-all">
-            <p>วันที่จอง: {formattedDate}</p>
-            <p>เลขที่: {selectedBookingData?.number}</p>
-            <p>เล่มที่: {selectedBookingData?.receiptBookNo}</p>
-            <p>ชื่อ: {selectedBookingData?.name}</p>
-            <p>โทรศัพท์: {selectedBookingData?.tel}</p>
-            <p>
-              สินค้า: {selectedBookingData?.product.name}{" "}
-              {selectedBookingData?.price.amount} บาท
-            </p>
-            <p>
-              รถ: {selectedBookingData?.carType} {selectedBookingData?.carModel}
-            </p>
+            <div style={{ display: "flex", gap: "20px" }}>
+              <div style={{ width: "150px" }}>
+                <p>วันที่จอง: {formattedDate}</p>
+              </div>
+
+              <p>เวลา: {selectedBookingData?.bookTime} น.</p>
+            </div>
+
+            <div style={{ display: "flex", gap: "20px" }}>
+              <div style={{ width: "150px" }}>
+                <p>เลขที่: {selectedBookingData?.number}</p>
+              </div>
+
+              <p>เล่มที่: {selectedBookingData?.receiptBookNo}</p>
+            </div>
+
+            <div style={{ display: "flex", gap: "20px" }}>
+              <div style={{ width: "150px" }}>
+                <p>ชื่อ: {selectedBookingData?.name}</p>
+              </div>
+
+              <p>โทรศัพท์: {selectedBookingData?.tel}</p>
+            </div>
+
+            <div style={{ display: "flex", gap: "20px" }}>
+              <div style={{ width: "150px" }}>
+                <p>
+                  รถ: {selectedBookingData?.carType}{" "}
+                  {selectedBookingData?.carModel}
+                </p>
+              </div>
+
+              <p>
+                สินค้า: {selectedBookingData?.product.name}{" "}
+                {selectedBookingData?.price.amount} บาท
+              </p>
+            </div>
           </div>
         </div>
       </Modal>
@@ -268,7 +314,7 @@ const BinAdminPage = () => {
         </div>
       </div>
 
-      {rederDialogConfirmApprove()}
+      {rederDialogConfirmApproveBooking()}
       {rederDialogConfirmDelete()}
       <CircleLoading open={isBinLoading} />
     </div>

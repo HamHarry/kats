@@ -11,10 +11,11 @@ import {
   deleteBookingById,
   getAllBookingPaginations,
   getBookingById,
+  isDeleteBookingById,
   updateGuaranteeByBookingId,
 } from "../../stores/slices/bookingSlice";
 import dayjs from "dayjs";
-import { Modal, Select } from "antd";
+import { Modal } from "antd";
 import { useNavigate } from "react-router-dom";
 import { cloneDeep, debounce } from "lodash";
 import { Controller, useFieldArray, useForm } from "react-hook-form";
@@ -24,6 +25,7 @@ import {
   ClockCircleFilled,
   CloseCircleFilled,
 } from "@ant-design/icons";
+import { DeleteStatus } from "../../model/delete.type";
 export interface GuaranteeForm {
   guarantees: CarStructure[];
 }
@@ -54,6 +56,7 @@ const GuaranteeAdminPage = () => {
   const [selectBookingId, setSelectBookingId] = useState<string>();
 
   const [bookingDatas, setBookingDatas] = useState<BookingData[]>([]);
+  const [selectbookingData, setSelectBookingData] = useState<BookingData>();
   const [bookingDataLites, setBookingDataLites] = useState<BookingData[]>([]);
   const [baseImage, setBaseImage] = useState("");
   const [openDialogProfile, setOpenDialogProfile] = useState<boolean>(false);
@@ -94,8 +97,6 @@ const GuaranteeAdminPage = () => {
       await dispath(updateGuaranteeByBookingId(body)).unwrap();
 
       setOpenDialogProfile(false);
-      setSelectBookingId(undefined);
-      setBooking(undefined);
       fetchAllBooking();
     } catch (error) {
       console.log(error);
@@ -118,9 +119,11 @@ const GuaranteeAdminPage = () => {
         getAllBookingPaginations(query)
       ).unwrap();
 
-      const finedData = bookingsRes.filter((item: any) => {
+      const finedData = bookingsRes.filter((item: BookingData) => {
         return (
-          item.status === BookingStatus.COMPLETED || BookingStatus.CHECKING
+          (item.status === BookingStatus.COMPLETED ||
+            item.status === BookingStatus.CHECKING) &&
+          item.delete === DeleteStatus.ISNOTDELETE
         );
       });
 
@@ -258,10 +261,16 @@ const GuaranteeAdminPage = () => {
 
   const deleted = async () => {
     try {
-      if (!selectBookingId) return;
-
       setIsGuaranteeLoading(true);
-      await dispath(deleteBookingById(selectBookingId)).unwrap();
+
+      if (!selectbookingData?._id) return;
+
+      const data: BookingData = {
+        ...selectbookingData,
+        delete: DeleteStatus.ISDELETE,
+      };
+
+      await dispath(isDeleteBookingById(data)).unwrap();
 
       setOpenDialogDelete(false);
     } catch (error) {
@@ -467,8 +476,6 @@ const GuaranteeAdminPage = () => {
             className="fa-solid fa-circle-xmark"
             onClick={() => {
               setOpenDialogProfile(false);
-              setSelectBookingId(undefined);
-              setBooking(undefined);
             }}
           ></i>
         </div>
@@ -676,7 +683,7 @@ const GuaranteeAdminPage = () => {
                       className="fa-solid fa-trash-can"
                       onClick={() => {
                         setOpenDialogDelete(true);
-                        setSelectBookingId(item._id);
+                        setSelectBookingData(item);
                       }}
                     ></i>
                   </div>
