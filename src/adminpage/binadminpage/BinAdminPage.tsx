@@ -203,19 +203,17 @@ const BinAdminPage = () => {
         open={openDialogConfirmApprove}
         onCancel={() => setOpenDialogConfirmApprove(false)}
         footer={
-          selectedBookingData?.status === 0 && (
-            <div className="btn-DialogApprove-Navbar">
-              <button
-                type="button"
-                onClick={() => {
-                  // approved();
-                  setOpenDialogConfirmApprove(false);
-                }}
-              >
-                กู้คืน
-              </button>
-            </div>
-          )
+          <div className="btn-DialogApprove-Navbar">
+            <button
+              type="button"
+              onClick={() => {
+                // approved();
+                setOpenDialogConfirmApprove(false);
+              }}
+            >
+              กู้คืน
+            </button>
+          </div>
         }
       >
         <div className="container-DialogApprove-navbar">
@@ -229,7 +227,22 @@ const BinAdminPage = () => {
           ></i>
         </div>
 
-        <div className="container-DialogApprove"></div>
+        <div className="container-DialogApprove-content">
+          <div className="text-all">
+            <p>วันที่จอง: {formattedDate}</p>
+            <p>เลขที่: {selectedBookingData?.number}</p>
+            <p>เล่มที่: {selectedBookingData?.receiptBookNo}</p>
+            <p>ชื่อ: {selectedBookingData?.name}</p>
+            <p>โทรศัพท์: {selectedBookingData?.tel}</p>
+            <p>
+              สินค้า: {selectedBookingData?.product.name}{" "}
+              {selectedBookingData?.price.amount} บาท
+            </p>
+            <p>
+              รถ: {selectedBookingData?.carType} {selectedBookingData?.carModel}
+            </p>
+          </div>
+        </div>
       </Modal>
     );
   };
