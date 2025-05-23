@@ -132,3 +132,25 @@ export const deleteProductById = async (productId: string): Promise<any> => {
 
   return response;
 };
+
+export const deleteCatagoryById = async (productId: string): Promise<any> => {
+  const response = await axios.delete(
+    `${
+      import.meta.env.VITE_BASE_SERVER_URL
+    }/products/DeleteCatagory/${productId}`
+  );
+
+  return response;
+};
+
+export const deleteTypeProductById = async (
+  productId: string
+): Promise<any> => {
+  const response = await axios.delete(
+    `${
+      import.meta.env.VITE_BASE_SERVER_URL
+    }/products/DeleteTypeProduct/${productId}`
+  );
+
+  return response;
+};

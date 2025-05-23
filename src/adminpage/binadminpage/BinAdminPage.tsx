@@ -17,10 +17,18 @@ import {
   PRICE_TYPE,
   ProductData,
   ProductDetail,
+  TypeProductData,
 } from "../../model/product.type";
 import {
+  deleteCatagoryById,
   deleteProductById,
+  deleteTypeProductById,
+  getAllCatagories,
   getAllProducts,
+  getAllTypeProduct,
+  isDeleteCatagoryById,
+  isDeleteProductById,
+  isDeleteTypeProductById,
 } from "../../stores/slices/productSlice";
 
 const chooseExpenses = [
@@ -41,8 +49,16 @@ const BinAdminPage = () => {
 
   const [bookingDatas, setBookingDatas] = useState<BookingData[]>([]);
   const [productDatas, setProductDatas] = useState<ProductData[]>([]);
+  const [catagoryDatas, setCatagoryDatas] = useState<CatagoryData[]>([]);
+  const [typeProductDatas, setTypeProductDatas] = useState<TypeProductData[]>(
+    []
+  );
   const [selectedBookingData, setSelectedBookingData] = useState<BookingData>();
   const [selectedProductData, setSelectedProductData] = useState<ProductData>();
+  const [selectedCatagoryData, setSelectedCatagoryData] =
+    useState<CatagoryData>();
+  const [selectedTypeProductData, setSelectedTypeProductData] =
+    useState<TypeProductData>();
 
   const [openDialogConfirmApproveBooking, setOpenDialogConfirmApproveBooking] =
     useState<boolean>(false);
@@ -50,6 +66,22 @@ const BinAdminPage = () => {
     useState<boolean>(false);
   const [openDialogConfirmDeleteProduct, setOpenDialogConfirmDeleteProduct] =
     useState<boolean>(false);
+  const [openDialogConfirmApproveProduct, setOpenDialogConfirmApproveProduct] =
+    useState<boolean>(false);
+  const [openDialogConfirmDeleteCatagory, setOpenDialogConfirmDeleteCatagory] =
+    useState<boolean>(false);
+  const [
+    openDialogConfirmApproveCatagory,
+    setOpenDialogConfirmApproveCatagory,
+  ] = useState<boolean>(false);
+  const [
+    openDialogConfirmDeleteTypeProduct,
+    setOpenDialogConfirmDeleteTypeProduct,
+  ] = useState<boolean>(false);
+  const [
+    openDialogConfirmApproveTypeProduct,
+    setOpenDialogConfirmApproveTypeProduct,
+  ] = useState<boolean>(false);
   const [isBinLoading, setIsBinLoading] = useState<boolean>(false);
 
   const fetchAllBooking = useCallback(async () => {
@@ -100,6 +132,56 @@ const BinAdminPage = () => {
     fetchAllProduct();
   }, [fetchAllProduct]);
 
+  const fetchAllCatagory = useCallback(async () => {
+    try {
+      setIsBinLoading(true);
+
+      const { data: catagoryRes = [] } = await dispath(
+        getAllCatagories()
+      ).unwrap();
+
+      const filteredCatagorys = catagoryRes.filter((item: CatagoryData) => {
+        return item.delete === DeleteStatus.ISDELETE;
+      });
+
+      setCatagoryDatas(filteredCatagorys);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsBinLoading(false);
+    }
+  }, [dispath]);
+
+  useEffect(() => {
+    fetchAllCatagory();
+  }, [fetchAllCatagory]);
+
+  const fetchAlltypeProduct = useCallback(async () => {
+    try {
+      setIsBinLoading(true);
+
+      const { data: typeProductRes = [] } = await dispath(
+        getAllTypeProduct()
+      ).unwrap();
+
+      const filteredTypeProducts = typeProductRes.filter(
+        (item: TypeProductData) => {
+          return item.delete === DeleteStatus.ISDELETE;
+        }
+      );
+
+      setTypeProductDatas(filteredTypeProducts);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsBinLoading(false);
+    }
+  }, [dispath]);
+
+  useEffect(() => {
+    fetchAlltypeProduct();
+  }, [fetchAlltypeProduct]);
+
   const recoverBooking = async () => {
     try {
       setIsBinLoading(true);
@@ -117,6 +199,66 @@ const BinAdminPage = () => {
     } finally {
       setIsBinLoading(false);
       fetchAllBooking();
+    }
+  };
+
+  const recoverProduct = async () => {
+    try {
+      setIsBinLoading(true);
+
+      if (!selectedProductData?._id) return;
+
+      const data = {
+        ...selectedProductData,
+        delete: DeleteStatus.ISNOTDELETE,
+      };
+
+      await dispath(isDeleteProductById(data)).unwrap();
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsBinLoading(false);
+      fetchAllProduct();
+    }
+  };
+
+  const recoverCatagory = async () => {
+    try {
+      setIsBinLoading(true);
+
+      if (!selectedCatagoryData?._id) return;
+
+      const data = {
+        ...selectedCatagoryData,
+        delete: DeleteStatus.ISNOTDELETE,
+      };
+
+      await dispath(isDeleteCatagoryById(data)).unwrap();
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsBinLoading(false);
+      fetchAllCatagory();
+    }
+  };
+
+  const recoverTypeProduct = async () => {
+    try {
+      setIsBinLoading(true);
+
+      if (!selectedTypeProductData?._id) return;
+
+      const data = {
+        ...selectedTypeProductData,
+        delete: DeleteStatus.ISNOTDELETE,
+      };
+
+      await dispath(isDeleteTypeProductById(data)).unwrap();
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsBinLoading(false);
+      fetchAlltypeProduct();
     }
   };
 
@@ -147,6 +289,38 @@ const BinAdminPage = () => {
       setIsBinLoading(false);
       setOpenDialogConfirmDeleteProduct(false);
       fetchAllProduct();
+    }
+  };
+
+  const deletedCatagory = async () => {
+    try {
+      setIsBinLoading(true);
+      if (!selectedCatagoryData?._id) return;
+
+      await dispath(deleteCatagoryById(selectedCatagoryData._id)).unwrap();
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsBinLoading(false);
+      setOpenDialogConfirmDeleteCatagory(false);
+      fetchAllCatagory();
+    }
+  };
+
+  const deletedTypeProduct = async () => {
+    try {
+      setIsBinLoading(true);
+      if (!selectedTypeProductData?._id) return;
+
+      await dispath(
+        deleteTypeProductById(selectedTypeProductData._id)
+      ).unwrap();
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsBinLoading(false);
+      setOpenDialogConfirmDeleteTypeProduct(false);
+      fetchAlltypeProduct();
     }
   };
 
@@ -205,6 +379,70 @@ const BinAdminPage = () => {
           <button
             onClick={() => {
               setOpenDialogConfirmDeleteProduct(false);
+            }}
+          >
+            ยกเลิก
+          </button>
+        </div>
+      </Modal>
+    );
+  };
+
+  const rederDialogConfirmDeleteCatagory = () => {
+    return (
+      <Modal
+        centered
+        className="wrap-container-DialogDelete"
+        open={openDialogConfirmDeleteCatagory}
+        onCancel={() => setOpenDialogConfirmDeleteCatagory(false)}
+      >
+        <h1>ยืนยันการลบ</h1>
+
+        <div className="btn-DialogDelete-Navbar">
+          <button
+            type="button"
+            onClick={() => {
+              deletedCatagory();
+              setOpenDialogConfirmDeleteCatagory(false);
+            }}
+          >
+            ยืนยัน
+          </button>
+          <button
+            onClick={() => {
+              setOpenDialogConfirmDeleteCatagory(false);
+            }}
+          >
+            ยกเลิก
+          </button>
+        </div>
+      </Modal>
+    );
+  };
+
+  const rederDialogConfirmDeleteTypeProduct = () => {
+    return (
+      <Modal
+        centered
+        className="wrap-container-DialogDelete"
+        open={openDialogConfirmDeleteTypeProduct}
+        onCancel={() => setOpenDialogConfirmDeleteTypeProduct(false)}
+      >
+        <h1>ยืนยันการลบ</h1>
+
+        <div className="btn-DialogDelete-Navbar">
+          <button
+            type="button"
+            onClick={() => {
+              deletedTypeProduct();
+              setOpenDialogConfirmDeleteTypeProduct(false);
+            }}
+          >
+            ยืนยัน
+          </button>
+          <button
+            onClick={() => {
+              setOpenDialogConfirmDeleteTypeProduct(false);
             }}
           >
             ยกเลิก
@@ -308,7 +546,7 @@ const BinAdminPage = () => {
         <Space
           style={{
             display: "flex",
-            justifyContent: "center",
+            justifyContent: "end",
             alignItems: "center",
             fontSize: "14px",
           }}
@@ -317,7 +555,92 @@ const BinAdminPage = () => {
             onClick={(e) => {
               e.stopPropagation();
               setSelectedProductData(item);
+              setOpenDialogConfirmApproveProduct(true);
+            }}
+          >
+            กู้คืน
+          </a>
+          <a
+            onClick={(e) => {
+              e.stopPropagation();
+              setSelectedProductData(item);
               setOpenDialogConfirmDeleteProduct(true);
+            }}
+          >
+            ลบ
+          </a>
+        </Space>
+      ),
+    },
+  ];
+
+  const columnCatagorys = [
+    { title: "ชื่อสินค้า", dataIndex: "name", key: "name" },
+    { title: "รหัสสินค้า", dataIndex: "code", key: "code" },
+    {
+      title: "",
+      key: "action",
+      render: (item: CatagoryData) => (
+        <Space
+          style={{
+            display: "flex",
+            justifyContent: "end",
+            alignItems: "center",
+            fontSize: "14px",
+          }}
+        >
+          <a
+            onClick={(e) => {
+              e.stopPropagation();
+              setSelectedCatagoryData(item);
+              setOpenDialogConfirmApproveCatagory(true);
+            }}
+          >
+            กู้คืน
+          </a>
+          <a
+            onClick={(e) => {
+              e.stopPropagation();
+              setSelectedCatagoryData(item);
+              setOpenDialogConfirmDeleteCatagory(true);
+            }}
+          >
+            ลบ
+          </a>
+        </Space>
+      ),
+    },
+  ];
+
+  const columnTypeProducts = [
+    { title: "ชื่อสินค้า", dataIndex: "name", key: "name" },
+    { title: "รหัสสินค้า", dataIndex: "code", key: "code" },
+    {
+      title: "",
+      key: "action",
+      render: (item: TypeProductData) => (
+        <Space
+          style={{
+            display: "flex",
+            justifyContent: "end",
+            alignItems: "center",
+            fontSize: "14px",
+          }}
+        >
+          <a
+            onClick={(e) => {
+              e.stopPropagation();
+              setSelectedTypeProductData(item);
+              setOpenDialogConfirmApproveTypeProduct(true);
+            }}
+          >
+            กู้คืน
+          </a>
+          <a
+            onClick={(e) => {
+              e.stopPropagation();
+              setSelectedTypeProductData(item);
+              setOpenDialogConfirmDeleteTypeProduct(true);
             }}
           >
             ลบ
@@ -363,12 +686,20 @@ const BinAdminPage = () => {
     {
       key: "2",
       label: "หมวดหมู่",
-      children: <p>สินค้า</p>,
+      children: (
+        <div className="content-catagorys" style={{ width: "100%" }}>
+          <Table dataSource={catagoryDatas} columns={columnCatagorys} />
+        </div>
+      ),
     },
     {
       key: "3",
       label: "แบรนด์สินค้า",
-      children: <p>สินค้า</p>,
+      children: (
+        <div className="content-typeProduct" style={{ width: "100%" }}>
+          <Table dataSource={typeProductDatas} columns={columnTypeProducts} />
+        </div>
+      ),
     },
   ];
 
@@ -453,6 +784,138 @@ const BinAdminPage = () => {
     );
   };
 
+  const rederDialogConfirmApproveProduct = () => {
+    return (
+      <Modal
+        centered
+        className="container-DialogApprove"
+        open={openDialogConfirmApproveProduct}
+        onCancel={() => setOpenDialogConfirmApproveProduct(false)}
+        footer={
+          <div className="btn-DialogApprove-Navbar">
+            <button
+              type="button"
+              onClick={() => {
+                recoverProduct();
+                setOpenDialogConfirmApproveProduct(false);
+              }}
+            >
+              กู้คืน
+            </button>
+
+            <button
+              type="button"
+              onClick={() => {
+                setOpenDialogConfirmApproveProduct(false);
+              }}
+            >
+              ยกเลิก
+            </button>
+          </div>
+        }
+      >
+        <div className="container-DialogApprove-navbar">
+          <h1>ยืนยันการกู้สินค้า</h1>
+
+          <i
+            className="fa-solid fa-circle-xmark"
+            onClick={() => {
+              setOpenDialogConfirmApproveProduct(false);
+            }}
+          ></i>
+        </div>
+      </Modal>
+    );
+  };
+
+  const rederDialogConfirmApproveCatagory = () => {
+    return (
+      <Modal
+        centered
+        className="container-DialogApprove"
+        open={openDialogConfirmApproveCatagory}
+        onCancel={() => setOpenDialogConfirmApproveCatagory(false)}
+        footer={
+          <div className="btn-DialogApprove-Navbar">
+            <button
+              type="button"
+              onClick={() => {
+                recoverCatagory();
+                setOpenDialogConfirmApproveCatagory(false);
+              }}
+            >
+              กู้คืน
+            </button>
+
+            <button
+              type="button"
+              onClick={() => {
+                setOpenDialogConfirmApproveCatagory(false);
+              }}
+            >
+              ยกเลิก
+            </button>
+          </div>
+        }
+      >
+        <div className="container-DialogApprove-navbar">
+          <h1>ยืนยันการกู้หมวดหมู่สินค้า</h1>
+
+          <i
+            className="fa-solid fa-circle-xmark"
+            onClick={() => {
+              setOpenDialogConfirmApproveCatagory(false);
+            }}
+          ></i>
+        </div>
+      </Modal>
+    );
+  };
+
+  const rederDialogConfirmApproveTypeProduct = () => {
+    return (
+      <Modal
+        centered
+        className="container-DialogApprove"
+        open={openDialogConfirmApproveTypeProduct}
+        onCancel={() => setOpenDialogConfirmApproveTypeProduct(false)}
+        footer={
+          <div className="btn-DialogApprove-Navbar">
+            <button
+              type="button"
+              onClick={() => {
+                recoverTypeProduct();
+                setOpenDialogConfirmApproveTypeProduct(false);
+              }}
+            >
+              กู้คืน
+            </button>
+
+            <button
+              type="button"
+              onClick={() => {
+                setOpenDialogConfirmApproveTypeProduct(false);
+              }}
+            >
+              ยกเลิก
+            </button>
+          </div>
+        }
+      >
+        <div className="container-DialogApprove-navbar">
+          <h1>ยืนยันการกู้แบรนด์สินค้า</h1>
+
+          <i
+            className="fa-solid fa-circle-xmark"
+            onClick={() => {
+              setOpenDialogConfirmApproveTypeProduct(false);
+            }}
+          ></i>
+        </div>
+      </Modal>
+    );
+  };
+
   return (
     <div className="container-binAdmin">
       <div className="header-binAdmin">
@@ -474,6 +937,11 @@ const BinAdminPage = () => {
         </div>
       </div>
 
+      {rederDialogConfirmApproveTypeProduct()}
+      {rederDialogConfirmDeleteTypeProduct()}
+      {rederDialogConfirmApproveCatagory()}
+      {rederDialogConfirmDeleteCatagory()}
+      {rederDialogConfirmApproveProduct()}
       {rederDialogConfirmDeleteProduct()}
       {rederDialogConfirmApproveBooking()}
       {rederDialogConfirmDeleteBooking()}

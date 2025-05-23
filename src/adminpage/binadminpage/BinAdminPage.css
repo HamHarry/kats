@@ -78,6 +78,7 @@
   .btn-DialogApprove-Navbar {
     display: flex;
     justify-content: end;
+    gap: 20px;
     button {
       padding: 5px 10px;
       border-radius: 10px;
