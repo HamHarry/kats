@@ -937,12 +937,15 @@ const BinAdminPage = () => {
         </div>
       </div>
 
+      {/* renderAllProduct */}
       {rederDialogConfirmApproveTypeProduct()}
       {rederDialogConfirmDeleteTypeProduct()}
       {rederDialogConfirmApproveCatagory()}
       {rederDialogConfirmDeleteCatagory()}
       {rederDialogConfirmApproveProduct()}
       {rederDialogConfirmDeleteProduct()}
+
+      {/* renderBooking */}
       {rederDialogConfirmApproveBooking()}
       {rederDialogConfirmDeleteBooking()}
       <CircleLoading open={isBinLoading} />
