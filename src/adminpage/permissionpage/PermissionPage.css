@@ -23,3 +23,11 @@
     color: white;
   }
 }
+
+.container-content-PermissionPage {
+  width: 100%;
+  .navbar-PermissionPage {
+    display: flex;
+    justify-content: start;
+  }
+}

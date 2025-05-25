@@ -1,6 +1,6 @@
 export enum EmployeeRole {
   CEO = 0, // หัวหน้า
-  AMIN = 1, // ผู้ดูแลระบบ
+  AMIN = 1, // ผู้ดูแลระบบ //todo: change to ADMIN
   WASHTECNICIAN = 2, // ช่างล้างรถ
   SPRAYER = 3, // ช่างพ่นสี
 }

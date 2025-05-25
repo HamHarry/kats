@@ -1,3 +1,5 @@
+import { EmployeeRole } from "../model/employee.type";
+
 export enum PermissionKey {
   EMPLOYEE = 0,
   BOOKING = 1,
@@ -21,13 +23,19 @@ export interface PermissionData {
   hasDelete: boolean;
 }
 
-export const permissionList = [
+export interface Role {
+  name: string;
+  type: EmployeeRole;
+  permissions: PermissionData[];
+}
+
+export const permissionList: PermissionData[] = [
   {
     name: "EMPLOYEE",
     key: PermissionKey.EMPLOYEE,
-    hasView: false,
+    hasView: true,
     hasEdit: false,
-    hasDelete: false,
+    hasDelete: true,
   },
   {
     name: "BOOKING",
@@ -79,13 +87,6 @@ export const permissionList = [
     hasDelete: false,
   },
   {
-    name: "SALARY",
-    key: PermissionKey.SALARY,
-    hasView: false,
-    hasEdit: false,
-    hasDelete: false,
-  },
-  {
     name: "FINANCE",
     key: PermissionKey.FINANCE,
     hasView: false,
@@ -112,5 +113,28 @@ export const permissionList = [
     hasView: false,
     hasEdit: false,
     hasDelete: false,
+  },
+];
+
+export const roleList: Role[] = [
+  {
+    name: "หัวหน้า",
+    type: EmployeeRole.CEO,
+    permissions: permissionList,
+  },
+  {
+    name: "ผู้ดูแลระบบ",
+    type: EmployeeRole.AMIN,
+    permissions: permissionList,
+  },
+  {
+    name: "ช่างล้างรถ",
+    type: EmployeeRole.WASHTECNICIAN,
+    permissions: permissionList,
+  },
+  {
+    name: "ช่างพ่นสี",
+    type: EmployeeRole.SPRAYER,
+    permissions: permissionList,
   },
 ];
