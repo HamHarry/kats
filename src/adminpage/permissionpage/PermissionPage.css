@@ -1,0 +1,25 @@
+.container-PermissionPage {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  padding: 20px 20px 0px 20px;
+  padding-left: 320px;
+}
+
+.header-PermissionPage {
+  display: flex;
+  justify-content: center;
+  height: 80px;
+  max-width: 1200px;
+  width: 100%;
+  border-radius: 20px;
+  background-color: #2656a2;
+  margin-bottom: 20px;
+  h1 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 42px;
+    color: white;
+  }
+}

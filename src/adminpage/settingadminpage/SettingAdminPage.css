@@ -76,12 +76,12 @@
       color: #2656a2;
     }
   }
-  .SettingAdminPage-content-banks {
+  .SettingAdminPage-content-permission {
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 20px;
-    .fa-building-columns {
+    .fa-user-shield {
       font-size: 40px;
       color: #2656a2;
     }

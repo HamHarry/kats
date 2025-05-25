@@ -13,6 +13,14 @@ export enum PermissionKey {
   ROLE = 11,
 }
 
+export interface PermissionData {
+  name: string;
+  key: PermissionKey;
+  hasView: boolean;
+  hasEdit: boolean;
+  hasDelete: boolean;
+}
+
 export const permissionList = [
   {
     name: "EMPLOYEE",

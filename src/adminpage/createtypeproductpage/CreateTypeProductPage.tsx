@@ -18,6 +18,7 @@ const initCatagoryForm: TypeProductData = {
   code: "",
   delete: DeleteStatus.ISNOTDELETE,
 };
+
 const CreateTypeProductPage = () => {
   const navigate = useNavigate();
   const dispath = useAppDispatch();
