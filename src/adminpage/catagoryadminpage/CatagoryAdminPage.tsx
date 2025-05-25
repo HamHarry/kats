@@ -157,6 +157,9 @@ const CatagoryAdminPage = () => {
         <Table
           dataSource={catagorys}
           columns={columns}
+          pagination={{
+            pageSize: 5,
+          }}
           style={{
             border: "2px solid #2656a2",
             borderRadius: "10px",

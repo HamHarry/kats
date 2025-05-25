@@ -594,6 +594,9 @@ const WithdrawAdminPage = () => {
         <Table
           dataSource={withdrawData}
           columns={columns}
+          pagination={{
+            pageSize: 10,
+          }}
           style={{
             border: "2px solid #2656a2",
             borderRadius: "10px",

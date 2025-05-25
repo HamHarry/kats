@@ -122,36 +122,9 @@ const SettingAdminPage = () => {
               cursor: "pointer",
             }}
           >
-            <h2>{t("ตำแหน่งพนักงาน")}</h2>
+            <h2>{t("บทบาท")}</h2>
 
             <p>{t("ตั้งค่า เพิ่ม-ลด และกำหนดข้อมูลตำแหน่งพนักงาน")}</p>
-          </div>
-        </div>
-
-        <div className="SettingAdminPage-content-banks">
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              height: "70px",
-              width: "70px",
-              border: "2px solid #2656a2",
-              borderRadius: "20px",
-            }}
-          >
-            <i className="fa-solid fa-building-columns"></i>
-          </div>
-
-          <div
-            className="content-company"
-            style={{
-              cursor: "pointer",
-            }}
-          >
-            <h2>{t("ธนาคาร")}</h2>
-
-            <p>{t("ตั้งค่า เพิ่ม-ลด และกำหนดข้อมูลธนาคาร")}</p>
           </div>
         </div>
 

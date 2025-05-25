@@ -659,6 +659,9 @@ const BinAdminPage = () => {
           <Table
             dataSource={bookingDatas}
             columns={columnBookings}
+            pagination={{
+              pageSize: 5,
+            }}
             onRow={(record) => {
               return {
                 onClick: () => {
@@ -679,7 +682,13 @@ const BinAdminPage = () => {
       label: "สินค้า",
       children: (
         <div className="content-products" style={{ width: "100%" }}>
-          <Table dataSource={productDatas} columns={columnProducts} />
+          <Table
+            dataSource={productDatas}
+            pagination={{
+              pageSize: 5,
+            }}
+            columns={columnProducts}
+          />
         </div>
       ),
     },
@@ -688,7 +697,13 @@ const BinAdminPage = () => {
       label: "หมวดหมู่",
       children: (
         <div className="content-catagorys" style={{ width: "100%" }}>
-          <Table dataSource={catagoryDatas} columns={columnCatagorys} />
+          <Table
+            dataSource={catagoryDatas}
+            pagination={{
+              pageSize: 5,
+            }}
+            columns={columnCatagorys}
+          />
         </div>
       ),
     },
