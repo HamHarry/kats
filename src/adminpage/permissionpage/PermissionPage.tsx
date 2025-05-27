@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import "./PermissionPage.css";
-import { Role, roleList } from "../../data/permissions";
+import { PermissionData, Role, roleList } from "../../data/permissions";
 import { Controller, useFieldArray, useForm } from "react-hook-form";
 import { Select, Table } from "antd";
 import { EmployeeRole } from "../../model/employee.type";
+import { ColumnsType } from "antd/es/table";
+import { useNavigate } from "react-router-dom";
 
 const inialRoleForm: Role = {
   name: "",
@@ -12,6 +14,8 @@ const inialRoleForm: Role = {
 };
 
 const PermissionPage = () => {
+  const navigate = useNavigate();
+
   const [roles] = useState<Role[]>(roleList); //todo สร้าง roleSchema
 
   const { control, handleSubmit, reset } = useForm<Role>({
@@ -39,7 +43,7 @@ const PermissionPage = () => {
     console.log(roleBody);
   };
 
-  const columns = [
+  const columns: ColumnsType<PermissionData> = [
     {
       title: "กำหนดสิทธิ์",
       dataIndex: "name",
@@ -49,6 +53,8 @@ const PermissionPage = () => {
       title: "ดู",
       dataIndex: "hasView",
       key: "hasView",
+      align: "center",
+      width: "5%",
       render: (hasView: any, permission: any) => {
         const realIndex = permissionsField.fields.findIndex(
           (item) => item.key === permission.key
@@ -65,7 +71,7 @@ const PermissionPage = () => {
               defaultValue={hasView}
               render={({ field }) => (
                 <input
-                  className="checkbox"
+                  className="checkbox-permission"
                   type="checkbox"
                   checked={field.value}
                   onChange={(e) => {
@@ -82,6 +88,8 @@ const PermissionPage = () => {
       title: "แก้ไข",
       dataIndex: "hasEdit",
       key: "hasEdit",
+      align: "center",
+      width: "5%",
       render: (hasEdit: any, permission: any) => {
         const realIndex = permissionsField.fields.findIndex(
           (item) => item.key === permission.key
@@ -98,7 +106,7 @@ const PermissionPage = () => {
               defaultValue={hasEdit}
               render={({ field }) => (
                 <input
-                  className="checkbox"
+                  className="checkbox-permission"
                   type="checkbox"
                   checked={field.value}
                   onChange={(e) => {
@@ -115,6 +123,8 @@ const PermissionPage = () => {
       title: "ลบ",
       dataIndex: "hasDelete",
       key: "hasDelete",
+      align: "center",
+      width: "5%",
       render: (hasDelete: any, permission: any) => {
         const realIndex = permissionsField.fields.findIndex(
           (item) => item.key === permission.key
@@ -131,7 +141,7 @@ const PermissionPage = () => {
               defaultValue={hasDelete}
               render={({ field }) => (
                 <input
-                  className="checkbox"
+                  className="checkbox-permission"
                   type="checkbox"
                   checked={field.value}
                   onChange={(e) => {
@@ -156,31 +166,44 @@ const PermissionPage = () => {
       <div className="container-content-PermissionPage">
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="navbar-PermissionPage">
-            <Controller
-              control={control}
-              name="type"
-              render={({ field }) => {
-                return (
-                  <Select
-                    {...field}
-                    placeholder="เลือกดำแหน่งพนักงาน"
-                    className="select-product"
-                    value={field.value ?? undefined}
-                    onChange={(value) => {
-                      field.onChange(value);
-                    }}
-                  >
-                    {roles.map((item, index) => {
-                      return (
-                        <Select.Option key={index} value={item.type}>
-                          {item.name}
-                        </Select.Option>
-                      );
-                    })}
-                  </Select>
-                );
-              }}
-            />
+            <div style={{ display: "flex", gap: "10px" }}>
+              <button
+                type="button"
+                onClick={() => {
+                  navigate("/admin/setting");
+                }}
+              >
+                ย้อนกลับ
+              </button>
+
+              <Controller
+                control={control}
+                name="type"
+                render={({ field }) => {
+                  return (
+                    <Select
+                      {...field}
+                      placeholder="เลือกดำแหน่งพนักงาน"
+                      className="select-product"
+                      value={field.value ?? undefined}
+                      onChange={(value) => {
+                        field.onChange(value);
+                      }}
+                    >
+                      {roles.map((item, index) => {
+                        return (
+                          <Select.Option key={index} value={item.type}>
+                            {item.name}
+                          </Select.Option>
+                        );
+                      })}
+                    </Select>
+                  );
+                }}
+              />
+            </div>
+
+            <button type="submit">ยืนยัน</button>
           </div>
 
           <Table
@@ -193,10 +216,9 @@ const PermissionPage = () => {
             style={{
               border: "2px solid #2656a2",
               borderRadius: "10px",
+              height: "600px",
             }}
           />
-
-          <button type="submit">ยืนยัน</button>
         </form>
       </div>
     </div>

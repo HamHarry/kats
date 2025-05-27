@@ -35,12 +35,12 @@ const chooseExpenses = [
   {
     key: "1",
     label: "ค่าใช้จ่าย",
-    children: <p>สินค้า</p>,
+    children: <p>coming soon</p>,
   },
   {
     key: "2",
     label: "การเบิกเงิน",
-    children: <p>สินค้า</p>,
+    children: <p>coming soon</p>,
   },
 ];
 

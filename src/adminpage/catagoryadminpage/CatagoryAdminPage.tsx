@@ -158,7 +158,7 @@ const CatagoryAdminPage = () => {
           dataSource={catagorys}
           columns={columns}
           pagination={{
-            pageSize: 5,
+            pageSize: 8,
           }}
           style={{
             border: "2px solid #2656a2",

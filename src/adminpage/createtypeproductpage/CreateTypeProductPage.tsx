@@ -205,7 +205,7 @@ const CreateTypeProductPage = () => {
             />
           </div>
 
-          <div className="product-content" style={{ width: "100%" }}>
+          <div className="typeProduct-content" style={{ width: "100%" }}>
             <Table
               dataSource={typeProducts}
               columns={columns}
