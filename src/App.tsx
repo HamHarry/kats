@@ -29,7 +29,8 @@ import Layoutkats from "./layouts/Layoutkats.tsx";
 import LayoutAdmin from "./layouts/LayoutAdmin.tsx";
 import CalendarPage from "./calendarpage/CalendarPage";
 import LayoutCalendar from "./layouts/LayoutCalendar.tsx";
-import PermissionPage from "./adminpage/permissionpage/permissionPage.tsx";
+import PermissionPage from "./adminpage/permissionpage/PermissionPage.tsx";
+import CreateRoleAdminPage from "./adminpage/createroleadminpae/CreateRoleAdminPage.tsx";
 
 function App() {
   return (
@@ -104,6 +105,7 @@ function App() {
           <Route path="finance" element={<FinanceAdminPage />} />
           <Route path="bin" element={<BinAdminPage />} />
           <Route path="setting" element={<SettingAdminPage />} />
+          <Route path="setting/role" element={<CreateRoleAdminPage />} />
           <Route path="setting/permission" element={<PermissionPage />} />
           {/* สร้าง type */}
           <Route

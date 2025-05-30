@@ -159,14 +159,8 @@ const UserAdminPage = () => {
                         <Select.Option value={EmployeeRole.CEO}>
                           หัวหน้า
                         </Select.Option>
-                        <Select.Option value={EmployeeRole.AMIN}>
+                        <Select.Option value={EmployeeRole.ADMIN}>
                           ผู้ดูแลระบบ
-                        </Select.Option>
-                        <Select.Option value={EmployeeRole.SPRAYER}>
-                          ช่างพ่นกันสนิม
-                        </Select.Option>
-                        <Select.Option value={EmployeeRole.WASHTECNICIAN}>
-                          ช่างล้างรถ
                         </Select.Option>
                       </Select>
                     );

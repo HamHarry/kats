@@ -1,78 +1,48 @@
 import { useNavigate } from "react-router-dom";
-import "./CreateTypeProductPage.css";
-import { TypeProductData } from "../../model/product.type";
+import { RoleData, roleList } from "../../data/permissions";
+import { EmployeeRole } from "../../model/employee.type";
 import { Controller, useForm } from "react-hook-form";
-import { DeleteStatus } from "../../model/delete.type";
 import { Modal, Space, Table } from "antd";
-import { useAppDispatch } from "../../stores/store";
-import {
-  createTypeProduct,
-  getAllTypeProduct,
-  isDeleteTypeProductById,
-} from "../../stores/slices/productSlice";
-import { useCallback, useEffect, useState } from "react";
+import { useState } from "react";
 import CircleLoading from "../../shared/circleLoading";
+import "./CreateRoleAdminPage.css";
 
-const initCatagoryForm: TypeProductData = {
+const initRoleForm: RoleData = {
   name: "",
-  code: "",
-  delete: DeleteStatus.ISNOTDELETE,
+  type: EmployeeRole.CEO,
+  permissions: [],
 };
 
-const CreateTypeProductPage = () => {
+const CreateRoleAdminPage = () => {
   const navigate = useNavigate();
-  const dispath = useAppDispatch();
+  // const dispath = useAppDispatch();
 
-  const [isTypeProductLoading, setIsTypeProductLoading] =
-    useState<boolean>(false);
-  const [typeProducts, setTypeProducts] = useState<TypeProductData[]>([]);
-  const [selectedTypeProductData, setSelectedTypeProductData] =
-    useState<TypeProductData>();
+  const [isRoleLoading, setIsRoleLoading] = useState<boolean>(false);
   const [openDialogConfirmDelete, setOpenDialogConfirmDelete] =
     useState<boolean>(false);
 
-  const fetchAllTypeProduct = useCallback(async () => {
-    try {
-      setIsTypeProductLoading(true);
-      const { data: typeProductRes = [] } = await dispath(
-        getAllTypeProduct()
-      ).unwrap();
+  const [roleDatas] = useState<RoleData[]>(roleList);
+  const [selectRole, setSelectRole] = useState<RoleData>();
 
-      const filteredTypeProducts = typeProductRes.filter(
-        (item: TypeProductData) => {
-          return item.delete === DeleteStatus.ISNOTDELETE;
-        }
-      );
-
-      setTypeProducts(filteredTypeProducts);
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setIsTypeProductLoading(false);
-    }
-  }, [dispath]);
-
-  useEffect(() => {
-    fetchAllTypeProduct();
-  }, [fetchAllTypeProduct]);
+  const { control, handleSubmit } = useForm({
+    defaultValues: initRoleForm,
+  });
 
   const deleted = async () => {
     try {
-      setIsTypeProductLoading(true);
-      if (!selectedTypeProductData?._id) return;
+      setIsRoleLoading(true);
+      if (!selectRole?._id) return;
 
-      const body: TypeProductData = {
-        ...selectedTypeProductData,
-        delete: DeleteStatus.ISDELETE,
+      const body: RoleData = {
+        ...selectRole,
       };
 
-      await dispath(isDeleteTypeProductById(body)).unwrap();
+      console.log(body);
     } catch (error) {
       console.log(error);
     } finally {
-      setIsTypeProductLoading(false);
+      setIsRoleLoading(false);
       setOpenDialogConfirmDelete(false);
-      fetchAllTypeProduct();
     }
   };
 
@@ -109,12 +79,12 @@ const CreateTypeProductPage = () => {
   };
 
   const columns = [
-    { title: "ชื่อสินค้า", dataIndex: "name", key: "name" },
-    { title: "รหัสสินค้า", dataIndex: "code", key: "code" },
+    { title: "ชื่อ", dataIndex: "name", key: "name" },
+    { title: "ตำแหน่ง", dataIndex: "type", key: "type" },
     {
       title: "",
       key: "action",
-      render: (item: TypeProductData) => (
+      render: (item: RoleData) => (
         <Space
           style={{
             display: "flex",
@@ -126,7 +96,7 @@ const CreateTypeProductPage = () => {
           <a
             onClick={(e) => {
               e.stopPropagation();
-              setSelectedTypeProductData(item);
+              setSelectRole(item);
               setOpenDialogConfirmDelete(true);
             }}
           >
@@ -137,27 +107,22 @@ const CreateTypeProductPage = () => {
     },
   ];
 
-  const { control, handleSubmit } = useForm({
-    defaultValues: initCatagoryForm,
-  });
-
-  const onSubmit = async (value: TypeProductData) => {
+  const onSubmit = async (value: RoleData) => {
     const item = {
       ...value,
     };
 
-    await dispath(createTypeProduct(item)).unwrap();
-    fetchAllTypeProduct();
+    console.log(item);
   };
 
   return (
-    <div className="container-TypeProduct">
-      <div className="header-TypeProduct">
-        <h1>สร้างแบรนด์สินค้า</h1>
+    <div className="container-Role">
+      <div className="header-Role">
+        <h1>สร้างบทบาท</h1>
       </div>
 
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="btn-createproductAdmin">
+        <div className="btn-createroleAdmin">
           <button
             type="button"
             onClick={() => {
@@ -169,14 +134,14 @@ const CreateTypeProductPage = () => {
           <button type="submit">เพิ่ม</button>
         </div>
 
-        <div className="wrap-container-createproductTypeProduct">
-          <div className="inputNameTypeProduct">
+        <div className="wrap-container-createRole">
+          <div className="inputNameRole">
             <div
               style={{
                 width: "200px",
               }}
             >
-              <h2>ชื่อแบรนด์สินค้า</h2>
+              <h2>ชื่อ</h2>
             </div>
 
             <Controller
@@ -188,27 +153,27 @@ const CreateTypeProductPage = () => {
             />
           </div>
 
-          <div className="inputCodeProduct">
+          <div className="inputCodeRole">
             <div
               style={{
                 width: "200px",
               }}
             >
-              <h2>Code แบรนด์สินค้า</h2>
+              <h2>ตำแหน่ง</h2>
             </div>
 
             <Controller
               control={control}
-              name="code"
+              name="type"
               render={({ field }) => {
                 return <input {...field} type="text" />;
               }}
             />
           </div>
 
-          <div className="typeProduct-content" style={{ width: "100%" }}>
+          <div className="Role-content" style={{ width: "100%" }}>
             <Table
-              dataSource={typeProducts}
+              dataSource={roleDatas}
               columns={columns}
               style={{
                 border: "2px solid #2656a2",
@@ -220,9 +185,9 @@ const CreateTypeProductPage = () => {
       </form>
 
       {rederDialogConfirmDelete()}
-      <CircleLoading open={isTypeProductLoading} />
+      <CircleLoading open={isRoleLoading} />
     </div>
   );
 };
 
-export default CreateTypeProductPage;
+export default CreateRoleAdminPage;

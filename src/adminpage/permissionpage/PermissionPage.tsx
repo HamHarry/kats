@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 import "./PermissionPage.css";
-import { PermissionData, Role, roleList } from "../../data/permissions";
+import { PermissionData, RoleData, roleList } from "../../data/permissions";
 import { Controller, useFieldArray, useForm } from "react-hook-form";
 import { Select, Table } from "antd";
 import { EmployeeRole } from "../../model/employee.type";
 import { ColumnsType } from "antd/es/table";
 import { useNavigate } from "react-router-dom";
 
-const inialRoleForm: Role = {
+const inialRoleForm: RoleData = {
   name: "",
   type: EmployeeRole.CEO,
   permissions: [],
@@ -16,9 +16,9 @@ const inialRoleForm: Role = {
 const PermissionPage = () => {
   const navigate = useNavigate();
 
-  const [roles] = useState<Role[]>(roleList); //todo สร้าง roleSchema
+  const [roles] = useState<RoleData[]>(roleList); //todo สร้าง roleSchema
 
-  const { control, handleSubmit, reset } = useForm<Role>({
+  const { control, handleSubmit, reset } = useForm<RoleData>({
     defaultValues: inialRoleForm,
   });
 
@@ -31,7 +31,7 @@ const PermissionPage = () => {
     reset(role);
   }, [reset]);
 
-  const onSubmit = async (value: Role) => {
+  const onSubmit = async (value: RoleData) => {
     const selectedRole = roles.find((role) => role.type === value.type);
 
     const roleBody = {

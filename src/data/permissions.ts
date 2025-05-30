@@ -16,6 +16,7 @@ export enum PermissionKey {
 }
 
 export interface PermissionData {
+  _id?: string;
   name: string;
   key: PermissionKey;
   hasView: boolean;
@@ -23,7 +24,8 @@ export interface PermissionData {
   hasDelete: boolean;
 }
 
-export interface Role {
+export interface RoleData {
+  _id?: string;
   name: string;
   type: EmployeeRole;
   permissions: PermissionData[];
@@ -116,7 +118,7 @@ export const permissionList: PermissionData[] = [
   },
 ];
 
-export const roleList: Role[] = [
+export const roleList: RoleData[] = [
   {
     name: "หัวหน้า",
     type: EmployeeRole.CEO,
@@ -124,17 +126,17 @@ export const roleList: Role[] = [
   },
   {
     name: "ผู้ดูแลระบบ",
-    type: EmployeeRole.AMIN,
+    type: EmployeeRole.ADMIN,
     permissions: permissionList,
   },
   {
     name: "ช่างล้างรถ",
-    type: EmployeeRole.WASHTECNICIAN,
+    type: EmployeeRole.EMPLOYEE,
     permissions: permissionList,
   },
   {
     name: "ช่างพ่นสี",
-    type: EmployeeRole.SPRAYER,
+    type: EmployeeRole.EMPLOYEE,
     permissions: permissionList,
   },
 ];

@@ -62,9 +62,9 @@ const SettingAdminPage = () => {
             style={{
               cursor: "pointer",
             }}
-            // onClick={() => {
-            //   navigate("/admin/");
-            // }}
+            onClick={() => {
+              navigate("/admin/setting/role");
+            }}
           >
             <h2>{t("บทบาท")}</h2>
 

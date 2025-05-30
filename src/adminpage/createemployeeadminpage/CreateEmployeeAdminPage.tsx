@@ -187,14 +187,8 @@ const CreateEmployeeAdminPage = () => {
                       <Select.Option value={EmployeeRole.CEO}>
                         {t("หัวหน้า")}
                       </Select.Option>
-                      <Select.Option value={EmployeeRole.AMIN}>
+                      <Select.Option value={EmployeeRole.ADMIN}>
                         {t("ผู้ดูแลระบบ")}
-                      </Select.Option>
-                      <Select.Option value={EmployeeRole.SPRAYER}>
-                        {t("ช่างพ่นกันสนิม")}
-                      </Select.Option>
-                      <Select.Option value={EmployeeRole.WASHTECNICIAN}>
-                        {t("ช่างล้างรถ")}
                       </Select.Option>
                     </Select>
                   );
