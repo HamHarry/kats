@@ -1,43 +1,12 @@
-import { Select } from "antd";
 import "./SettingAdminPage.css";
 import { useTranslation } from "react-i18next";
 import { useNavigate, useParams } from "react-router-dom";
-import i18next from "i18next";
 
 const SettingAdminPage = () => {
   const navigate = useNavigate();
   const { t, i18n } = useTranslation();
   const { lang } = useParams();
   i18n.changeLanguage(lang);
-
-  const languageOptions = [
-    {
-      label: "ภาษาไทย",
-      key: "th",
-    },
-    {
-      label: "English",
-      key: "en",
-    },
-  ];
-
-  console.log(i18next.language.toString());
-
-  const handleMenuClick = (item: any) => {
-    if (!item) return;
-
-    if (item.key === "th") {
-      return (window.location.href = "/admin/setting/" + "th");
-    } else {
-      return (window.location.href = "/admin/setting/" + "en");
-    }
-  };
-
-  // const menuProps: MenuProps = {
-  //   items: languageOptions,
-  //   onClick: handleMenuClick,
-  //   defaultValue: "th",
-  // };
 
   return (
     <div className="container-SettingAdminPage">
@@ -46,34 +15,6 @@ const SettingAdminPage = () => {
       </div>
 
       <div className="wrap-container-SettingAdminPage-content">
-        <div className="SettingAdminPage-content-translate">
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              height: "70px",
-              width: "70px",
-              border: "2px solid #2656a2",
-              borderRadius: "20px",
-            }}
-          >
-            <i className="fa-solid fa-globe"></i>
-          </div>
-
-          <Select
-            placeholder="เลือกพนักงาน"
-            className="select-language"
-            defaultValue={"th"}
-          >
-            {languageOptions.map((item) => (
-              <Select.Option key={item.key} value={item.key}>
-                {item.label}
-              </Select.Option>
-            ))}
-          </Select>
-        </div>
-
         <div className="SettingAdminPage-content-company">
           <div
             style={{

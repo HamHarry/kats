@@ -17,16 +17,23 @@ const NavbarAdmin = () => {
       <hr />
 
       <div className={selected === "user" ? "usered" : "user"}>
-        <i
-          className="fa-regular fa-circle-user"
-          onClick={() => {
-            navigate(`/admin/user/`);
-            setSelected("user");
-          }}
-        ></i>
-        <div className="username">
-          <h3>Admin</h3>
-          <p>ผู้ดูแล</p>
+        <div className="content-left">
+          <i
+            className="fa-regular fa-circle-user"
+            onClick={() => {
+              navigate(`/admin/user/`);
+              setSelected("user");
+            }}
+          ></i>
+
+          <div className="username">
+            <h3>Admin</h3>
+            <p>ผู้ดูแล</p>
+          </div>
+        </div>
+
+        <div className="content-right">
+          <img src="/assets/TH.jpg" alt="" />
         </div>
       </div>
 
