@@ -55,7 +55,7 @@
   }
   .usered {
     display: flex;
-    align-items: center;
+    justify-content: space-between;
     height: 80px;
     .fa-circle-user {
       font-size: 42px;
@@ -65,16 +65,38 @@
       text-shadow: 0 0 10px rgba(255, 255, 255, 0.8),
         0 0 20px rgba(255, 255, 255, 0.6), 0 0 30px rgba(255, 255, 255, 0.4);
     }
-    .username {
+    .content-left {
       display: flex;
-      flex-direction: column;
-      h3 {
-        font-size: 24px;
+      align-items: center;
+      .fa-circle-user {
+        font-size: 42px;
+        margin: 0 20px 0 10px;
         color: white;
+        cursor: pointer;
       }
-      p {
-        font-size: 16px;
-        color: white;
+      .username {
+        display: flex;
+        flex-direction: column;
+        h3 {
+          font-size: 24px;
+          color: white;
+        }
+        p {
+          font-size: 16px;
+          color: white;
+        }
+      }
+    }
+    .content-right {
+      display: flex;
+      align-items: center;
+      margin: 0 20px 0 0px;
+      img {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        border: 2px solid #ffffff;
+        cursor: pointer;
       }
     }
   }
