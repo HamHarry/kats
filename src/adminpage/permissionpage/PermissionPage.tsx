@@ -5,7 +5,10 @@ import { Controller, useFieldArray, useForm } from "react-hook-form";
 import { Select, Table } from "antd";
 import { ColumnsType } from "antd/es/table";
 import { useNavigate } from "react-router-dom";
-import { getAllRoles } from "../../stores/slices/roleSlice";
+import {
+  getAllRoles,
+  updatePermissionById,
+} from "../../stores/slices/roleSlice";
 import { useAppDispatch } from "../../stores/store";
 import { DeleteStatus } from "../../model/delete.type";
 import CircleLoading from "../../shared/circleLoading";
@@ -59,12 +62,22 @@ const PermissionPage = () => {
   }, [fetchRoles]);
 
   const onSubmit = async (value: RoleData) => {
-    const roleBody = {
-      _id: value._id,
-      data: value.permissions,
-    };
+    try {
+      const item = {
+        ...value,
+      };
 
-    console.log(roleBody);
+      const roleBody = {
+        data: item,
+        roleId: item._id,
+      };
+
+      await dispath(updatePermissionById(roleBody)).unwrap();
+    } catch (error) {
+      console.log(error);
+    } finally {
+      fetchRoles();
+    }
   };
 
   const columns: ColumnsType<PermissionData> = [

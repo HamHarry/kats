@@ -18,6 +18,15 @@ export const getAllRoles = async (): Promise<any> => {
   return response;
 };
 
+export const updatePermissionById = async (body: any): Promise<any> => {
+  const response = await axios.put(
+    `${import.meta.env.VITE_BASE_SERVER_URL}/permissions/update/${body.roleId}`,
+    body.data
+  );
+
+  return response;
+};
+
 export const isDeleteRoleById = async (body: RoleData): Promise<any> => {
   const response = await axios.post(
     `${import.meta.env.VITE_BASE_SERVER_URL}/permissions/role/selectDelete/${

@@ -27,6 +27,14 @@ export const getAllRoles = createAsyncThunk(
   }
 );
 
+export const updatePermissionById = createAsyncThunk(
+  "permission/update/id",
+  async (body: any): Promise<any> => {
+    const response = await roleService.updatePermissionById(body);
+    return response;
+  }
+);
+
 export const isDeleteRoleById = createAsyncThunk(
   "role/IsDelete/id",
   async (body: RoleData): Promise<any> => {
