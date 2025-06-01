@@ -137,17 +137,23 @@ const CreateTypeProductPage = () => {
     },
   ];
 
-  const { control, handleSubmit } = useForm({
+  const { control, handleSubmit, reset } = useForm({
     defaultValues: initCatagoryForm,
   });
 
   const onSubmit = async (value: TypeProductData) => {
-    const item = {
-      ...value,
-    };
+    try {
+      const item = {
+        ...value,
+      };
 
-    await dispath(createTypeProduct(item)).unwrap();
-    fetchAllTypeProduct();
+      await dispath(createTypeProduct(item)).unwrap();
+    } catch (error) {
+      console.log(error);
+    } finally {
+      fetchAllTypeProduct();
+      reset(initCatagoryForm);
+    }
   };
 
   return (

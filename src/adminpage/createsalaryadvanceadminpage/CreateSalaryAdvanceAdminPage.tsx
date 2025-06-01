@@ -169,17 +169,7 @@ const CreateSalaryAdvanceAdminPage = () => {
                   >
                     {employeeData.map((item) => (
                       <Select.Option key={item._id} value={item._id}>
-                        {item.name} (
-                        {`${
-                          item.staffRole === 0
-                            ? "หัวหน้า"
-                            : item.staffRole === 1
-                            ? "ผู้ดูแลระบบ"
-                            : item.staffRole === 2
-                            ? "ช่างล้างรถ"
-                            : "ช่างพ่นสี"
-                        }`}
-                        )
+                        {item.name} ( //todo Role )
                       </Select.Option>
                     ))}
                   </Select>

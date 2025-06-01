@@ -1,43 +1,67 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import "./PermissionPage.css";
-import { PermissionData, RoleData, roleList } from "../../data/permissions";
+import { PermissionData, RoleData } from "../../data/permissions";
 import { Controller, useFieldArray, useForm } from "react-hook-form";
 import { Select, Table } from "antd";
-import { EmployeeRole } from "../../model/employee.type";
 import { ColumnsType } from "antd/es/table";
 import { useNavigate } from "react-router-dom";
+import { getAllRoles } from "../../stores/slices/roleSlice";
+import { useAppDispatch } from "../../stores/store";
+import { DeleteStatus } from "../../model/delete.type";
+import CircleLoading from "../../shared/circleLoading";
 
 const inialRoleForm: RoleData = {
   name: "",
-  type: EmployeeRole.CEO,
+  type: "",
   permissions: [],
+  delete: DeleteStatus.ISNOTDELETE,
 };
 
 const PermissionPage = () => {
   const navigate = useNavigate();
+  const dispath = useAppDispatch();
 
-  const [roles] = useState<RoleData[]>(roleList); //todo สร้าง roleSchema
+  const [roleDatas, setRoleDatas] = useState<RoleData[]>([]);
 
-  const { control, handleSubmit, reset } = useForm<RoleData>({
+  const [isRoleLoading, setIsRoleLoading] = useState<boolean>(false);
+
+  const { control, handleSubmit, reset, watch } = useForm<RoleData>({
     defaultValues: inialRoleForm,
   });
 
   const permissionsField = useFieldArray({ control, name: "permissions" });
+  const watchRoleType = watch("type");
 
-  //todo : fetch ข้อมูล role จาก api และทำ initialForm
+  const fetchRoles = useCallback(async () => {
+    try {
+      setIsRoleLoading(true);
+
+      const { data: roleRes = [] } = await dispath(getAllRoles()).unwrap();
+
+      const filteredRoles = roleRes.filter((item: RoleData) => {
+        return item.delete === DeleteStatus.ISNOTDELETE;
+      });
+
+      setRoleDatas(filteredRoles);
+
+      if (filteredRoles.length) {
+        reset(filteredRoles[0]);
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsRoleLoading(false);
+    }
+  }, [dispath, reset]);
+
   useEffect(() => {
-    const role = roleList[0];
-
-    reset(role);
-  }, [reset]);
+    fetchRoles();
+  }, [fetchRoles]);
 
   const onSubmit = async (value: RoleData) => {
-    const selectedRole = roles.find((role) => role.type === value.type);
-
     const roleBody = {
-      name: selectedRole?.name,
-      type: value?.type,
-      permissions: value.permissions,
+      _id: value._id,
+      data: value.permissions,
     };
 
     console.log(roleBody);
@@ -176,31 +200,25 @@ const PermissionPage = () => {
                 ย้อนกลับ
               </button>
 
-              <Controller
-                control={control}
-                name="type"
-                render={({ field }) => {
-                  return (
-                    <Select
-                      {...field}
-                      placeholder="เลือกดำแหน่งพนักงาน"
-                      className="select-product"
-                      value={field.value ?? undefined}
-                      onChange={(value) => {
-                        field.onChange(value);
-                      }}
-                    >
-                      {roles.map((item, index) => {
-                        return (
-                          <Select.Option key={index} value={item.type}>
-                            {item.name}
-                          </Select.Option>
-                        );
-                      })}
-                    </Select>
+              <Select
+                placeholder="เลือกดำแหน่งพนักงาน"
+                className="select-employee"
+                value={watchRoleType ?? undefined}
+                onChange={(value) => {
+                  const findedRole = roleDatas.find(
+                    (role) => role.type === value
                   );
+                  reset(findedRole);
                 }}
-              />
+              >
+                {roleDatas.map((item, index) => {
+                  return (
+                    <Select.Option key={index} value={item.type}>
+                      {item.name}
+                    </Select.Option>
+                  );
+                })}
+              </Select>
             </div>
 
             <button type="submit">ยืนยัน</button>
@@ -221,6 +239,8 @@ const PermissionPage = () => {
           />
         </form>
       </div>
+
+      <CircleLoading open={isRoleLoading} />
     </div>
   );
 };

@@ -1,7 +1,6 @@
 import "./CreateEmployeeAdminPage.css";
 import { Controller, useForm } from "react-hook-form";
 import {
-  EmployeeRole,
   EmployeeData,
   PaymentStatus,
   PaymentType,
@@ -23,7 +22,6 @@ import { useTranslation } from "react-i18next";
 const initEmployeeForm: EmployeeData = {
   name: "",
   tel: "",
-  staffRole: EmployeeRole.CEO,
   image: "",
   salary: {
     paymentStatus: PaymentStatus.BANK,
@@ -31,6 +29,11 @@ const initEmployeeForm: EmployeeData = {
     bankName: BankType.BANK_OF_AYUDHYA,
     accountNumber: "",
     amount: 0,
+  },
+  role: {
+    name: "",
+    type: "",
+    permissions: [],
   },
 };
 
@@ -59,7 +62,7 @@ const CreateEmployeeAdminPage = () => {
       const initEmployeeForm: EmployeeData = {
         name: employeeRes.name ?? "",
         tel: employeeRes.tel ?? "",
-        staffRole: employeeRes.staffRole ?? EmployeeRole.CEO,
+        role: employeeRes.role ?? {},
         image: employeeRes.image ?? "",
         salary: {
           paymentStatus:
@@ -175,7 +178,7 @@ const CreateEmployeeAdminPage = () => {
               <h2>{t("ตำแหน่ง")}</h2>
               <Controller
                 control={control}
-                name="staffRole"
+                name="role.type"
                 render={({ field }) => {
                   return (
                     <Select
@@ -184,10 +187,8 @@ const CreateEmployeeAdminPage = () => {
                       className="select-product"
                       value={field.value ?? undefined}
                     >
-                      <Select.Option value={EmployeeRole.CEO}>
-                        {t("หัวหน้า")}
-                      </Select.Option>
-                      <Select.Option value={EmployeeRole.ADMIN}>
+                      <Select.Option value={""}>{t("หัวหน้า")}</Select.Option>
+                      <Select.Option value={""}>
                         {t("ผู้ดูแลระบบ")}
                       </Select.Option>
                     </Select>

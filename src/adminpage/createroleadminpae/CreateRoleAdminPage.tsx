@@ -1,32 +1,61 @@
 import { useNavigate } from "react-router-dom";
-import { RoleData, roleList } from "../../data/permissions";
-import { EmployeeRole } from "../../model/employee.type";
+import { RoleData } from "../../data/permissions";
 import { Controller, useForm } from "react-hook-form";
 import { Modal, Space, Table } from "antd";
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import CircleLoading from "../../shared/circleLoading";
 import "./CreateRoleAdminPage.css";
+import { useAppDispatch } from "../../stores/store";
+import {
+  createRole,
+  getAllRoles,
+  isDeleteRoleById,
+} from "../../stores/slices/roleSlice";
+import { DeleteStatus } from "../../model/delete.type";
 
 const initRoleForm: RoleData = {
   name: "",
-  type: EmployeeRole.CEO,
+  type: "",
   permissions: [],
+  delete: DeleteStatus.ISNOTDELETE,
 };
 
 const CreateRoleAdminPage = () => {
   const navigate = useNavigate();
-  // const dispath = useAppDispatch();
+  const dispath = useAppDispatch();
 
   const [isRoleLoading, setIsRoleLoading] = useState<boolean>(false);
   const [openDialogConfirmDelete, setOpenDialogConfirmDelete] =
     useState<boolean>(false);
 
-  const [roleDatas] = useState<RoleData[]>(roleList);
+  const [roleDatas, setRoleDatas] = useState<RoleData[]>([]);
   const [selectRole, setSelectRole] = useState<RoleData>();
 
-  const { control, handleSubmit } = useForm({
+  const { control, handleSubmit, reset } = useForm({
     defaultValues: initRoleForm,
   });
+
+  const fetchRoles = useCallback(async () => {
+    try {
+      setIsRoleLoading(true);
+
+      const { data: roleRes = [] } = await dispath(getAllRoles()).unwrap();
+
+      const filteredRoles = roleRes.filter((item: RoleData) => {
+        return item.delete === DeleteStatus.ISNOTDELETE;
+      });
+
+      setRoleDatas(filteredRoles);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsRoleLoading(false);
+    }
+  }, [dispath]);
+
+  useEffect(() => {
+    fetchRoles();
+  }, [fetchRoles]);
 
   const deleted = async () => {
     try {
@@ -35,9 +64,10 @@ const CreateRoleAdminPage = () => {
 
       const body: RoleData = {
         ...selectRole,
+        delete: DeleteStatus.ISDELETE,
       };
 
-      console.log(body);
+      await dispath(isDeleteRoleById(body)).unwrap();
     } catch (error) {
       console.log(error);
     } finally {
@@ -80,7 +110,11 @@ const CreateRoleAdminPage = () => {
 
   const columns = [
     { title: "ชื่อ", dataIndex: "name", key: "name" },
-    { title: "ตำแหน่ง", dataIndex: "type", key: "type" },
+    {
+      title: "ตำแหน่ง",
+      dataIndex: "type",
+      key: "type",
+    },
     {
       title: "",
       key: "action",
@@ -108,11 +142,18 @@ const CreateRoleAdminPage = () => {
   ];
 
   const onSubmit = async (value: RoleData) => {
-    const item = {
-      ...value,
-    };
+    try {
+      const item = {
+        ...value,
+      };
 
-    console.log(item);
+      await dispath(createRole(item)).unwrap();
+    } catch (error) {
+      console.log(error);
+    } finally {
+      fetchRoles();
+      reset(initRoleForm);
+    }
   };
 
   return (

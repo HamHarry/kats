@@ -1,4 +1,4 @@
-import { EmployeeRole } from "../model/employee.type";
+import { DeleteStatus } from "../model/delete.type";
 
 export enum PermissionKey {
   EMPLOYEE = 0,
@@ -27,8 +27,9 @@ export interface PermissionData {
 export interface RoleData {
   _id?: string;
   name: string;
-  type: EmployeeRole;
+  type: string;
   permissions: PermissionData[];
+  delete: DeleteStatus;
 }
 
 export const permissionList: PermissionData[] = [
@@ -115,28 +116,5 @@ export const permissionList: PermissionData[] = [
     hasView: false,
     hasEdit: false,
     hasDelete: false,
-  },
-];
-
-export const roleList: RoleData[] = [
-  {
-    name: "หัวหน้า",
-    type: EmployeeRole.CEO,
-    permissions: permissionList,
-  },
-  {
-    name: "ผู้ดูแลระบบ",
-    type: EmployeeRole.ADMIN,
-    permissions: permissionList,
-  },
-  {
-    name: "ช่างล้างรถ",
-    type: EmployeeRole.EMPLOYEE,
-    permissions: permissionList,
-  },
-  {
-    name: "ช่างพ่นสี",
-    type: EmployeeRole.EMPLOYEE,
-    permissions: permissionList,
   },
 ];

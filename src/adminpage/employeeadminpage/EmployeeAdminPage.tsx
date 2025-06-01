@@ -130,18 +130,7 @@ const EmployeeAdminPage = () => {
                 <img src={item.image} alt="profile" />
                 <div className="wrap-employee-content">
                   <div className="text-p">
-                    <p>
-                      {t("ตำแหน่ง")}{" "}
-                      {`${
-                        item.staffRole === 0
-                          ? "หัวหน้า"
-                          : item.staffRole === 1
-                          ? "ผู้ดูแลระบบ"
-                          : item.staffRole === 2
-                          ? "ช่างล้างรถ"
-                          : "ช่างพ่นสี"
-                      }`}
-                    </p>
+                    <p>{t("ตำแหน่ง")} ( //todo )</p>
                     <div className="icon">
                       <i
                         className="fa-solid fa-pen-to-square"

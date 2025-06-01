@@ -325,15 +325,6 @@ const WithdrawAdminPage = () => {
       return item._id === selectedExpenseData?.employeeId;
     });
 
-    const employeeRole =
-      employeeName?.staffRole === 0
-        ? "หัวหน้า"
-        : employeeName?.staffRole === 1
-        ? "ผู้ดูแลระบบ"
-        : employeeName?.staffRole === 2
-        ? "ช่างล้างรถ"
-        : "ช่างพ่นสี";
-
     const section =
       selectedExpenseData?.section === 0 ? "ค่าใช้จ่าย" : "เบิกเงินเดือน";
 
@@ -401,7 +392,7 @@ const WithdrawAdminPage = () => {
                     <i className="fa-solid fa-user"></i>
                   </div>
 
-                  <p>{employeeRole}</p>
+                  <p>Role</p>
                 </div>
               </div>
             </div>

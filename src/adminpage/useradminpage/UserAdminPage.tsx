@@ -3,7 +3,6 @@ import "./UserAdminPage.css";
 import {
   BankType,
   EmployeeData,
-  EmployeeRole,
   PaymentStatus,
   PaymentType,
 } from "../../model/employee.type";
@@ -15,7 +14,11 @@ import { BankDatas } from "../../data/BankData";
 const initUserForm: EmployeeData = {
   name: "",
   tel: "",
-  staffRole: EmployeeRole.CEO,
+  role: {
+    name: "",
+    type: "",
+    permissions: [],
+  },
   image: "",
   salary: {
     paymentStatus: PaymentStatus.BANK,
@@ -147,7 +150,7 @@ const UserAdminPage = () => {
                 <h2>ตำแหน่ง</h2>
                 <Controller
                   control={control}
-                  name="staffRole"
+                  name="role.type"
                   render={({ field }) => {
                     return (
                       <Select
@@ -156,12 +159,8 @@ const UserAdminPage = () => {
                         className="select-product"
                         value={field.value ?? undefined}
                       >
-                        <Select.Option value={EmployeeRole.CEO}>
-                          หัวหน้า
-                        </Select.Option>
-                        <Select.Option value={EmployeeRole.ADMIN}>
-                          ผู้ดูแลระบบ
-                        </Select.Option>
+                        <Select.Option value={""}>หัวหน้า</Select.Option>
+                        <Select.Option value={""}>ผู้ดูแลระบบ</Select.Option>
                       </Select>
                     );
                   }}

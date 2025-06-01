@@ -53,6 +53,12 @@
     justify-content: space-between;
     padding: 0px 20px 20px 20px;
   }
+  .select-employee {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 5px;
+  }
 }
 
 .checkbox-permission {

@@ -1,8 +1,4 @@
-export enum EmployeeRole {
-  CEO = 0, // หัวหน้า
-  ADMIN = 1, // ผู้ดูแลระบบ
-  EMPLOYEE = 2, // พนักงาน
-}
+import { RoleData } from "../data/permissions";
 
 export enum PaymentStatus {
   BANK = 0, // เงินสด
@@ -28,7 +24,7 @@ export interface EmployeeData {
   _id?: string;
   name: string;
   tel: string;
-  staffRole: EmployeeRole;
+  role: RoleData;
   image: string;
   salary?: SalaryData;
 }
