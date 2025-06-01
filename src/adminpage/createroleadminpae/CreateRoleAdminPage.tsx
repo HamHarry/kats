@@ -28,6 +28,9 @@ const CreateRoleAdminPage = () => {
   const [openDialogConfirmDelete, setOpenDialogConfirmDelete] =
     useState<boolean>(false);
 
+  const [selectedRoleData, setSelectedRoleData] = useState<RoleData>();
+  const [openDialogEditRole, setOpenDialogEditRole] = useState<boolean>(false);
+
   const [roleDatas, setRoleDatas] = useState<RoleData[]>([]);
   const [selectRole, setSelectRole] = useState<RoleData>();
 
@@ -73,6 +76,7 @@ const CreateRoleAdminPage = () => {
     } finally {
       setIsRoleLoading(false);
       setOpenDialogConfirmDelete(false);
+      fetchRoles();
     }
   };
 
@@ -141,6 +145,45 @@ const CreateRoleAdminPage = () => {
     },
   ];
 
+  const renderDialogEditRole = () => {
+    return (
+      <Modal
+        centered
+        className="container-DialogApprove"
+        open={openDialogEditRole}
+        onCancel={() => setOpenDialogEditRole(false)}
+        footer={
+          <div className="btn-DialogApprove-Navbar">
+            <button
+              type="button"
+              onClick={() => {
+                // recoverBooking();
+                setOpenDialogEditRole(false);
+              }}
+            >
+              แก้ไข
+            </button>
+          </div>
+        }
+      >
+        <div className="container-DialogApprove-navbar">
+          <h1>แก้ไขข้อมูล</h1>
+
+          <i
+            className="fa-solid fa-circle-xmark"
+            onClick={() => {
+              setOpenDialogEditRole(false);
+            }}
+          ></i>
+        </div>
+
+        <div className="container-DialogApprove-content">
+          <div className="container-EditRole"></div>
+        </div>
+      </Modal>
+    );
+  };
+
   const onSubmit = async (value: RoleData) => {
     try {
       const item = {
@@ -161,7 +204,6 @@ const CreateRoleAdminPage = () => {
       <div className="header-Role">
         <h1>สร้างบทบาท</h1>
       </div>
-
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="btn-createroleAdmin">
           <button
@@ -220,11 +262,23 @@ const CreateRoleAdminPage = () => {
                 border: "2px solid #2656a2",
                 borderRadius: "10px",
               }}
+              pagination={{
+                pageSize: 4,
+              }}
+              onRow={(record) => {
+                return {
+                  onClick: () => {
+                    setSelectedRoleData(record);
+                    setOpenDialogEditRole(true);
+                  },
+                };
+              }}
             />
           </div>
         </div>
       </form>
 
+      {renderDialogEditRole()}
       {rederDialogConfirmDelete()}
       <CircleLoading open={isRoleLoading} />
     </div>
