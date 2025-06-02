@@ -9,6 +9,7 @@ import { useAppDispatch } from "../../stores/store";
 import {
   createRole,
   getAllRoles,
+  getRoleById,
   isDeleteRoleById,
 } from "../../stores/slices/roleSlice";
 import { DeleteStatus } from "../../model/delete.type";
@@ -59,6 +60,32 @@ const CreateRoleAdminPage = () => {
   useEffect(() => {
     fetchRoles();
   }, [fetchRoles]);
+
+  const initailForm = useCallback(async () => {
+    try {
+      if (!selectedRoleData?._id) return;
+
+      const { data } = await dispath(
+        getRoleById(selectedRoleData._id)
+      ).unwrap();
+      const RoleRes = data as RoleData;
+
+      const initForm: RoleData = {
+        name: RoleRes.name ?? "",
+        type: RoleRes.type ?? "",
+        permissions: RoleRes.permissions ?? [],
+        delete: RoleRes.delete ?? DeleteStatus.ISNOTDELETE,
+      };
+
+      reset(initForm);
+    } catch (error) {
+      console.log(error);
+    }
+  }, [dispath, reset, selectedRoleData?._id]);
+
+  useEffect(() => {
+    initailForm();
+  }, [initailForm]);
 
   const deleted = async () => {
     try {
@@ -155,9 +182,8 @@ const CreateRoleAdminPage = () => {
         footer={
           <div className="btn-DialogApprove-Navbar">
             <button
-              type="button"
+              type="submit"
               onClick={() => {
-                // recoverBooking();
                 setOpenDialogEditRole(false);
               }}
             >
@@ -276,9 +302,9 @@ const CreateRoleAdminPage = () => {
             />
           </div>
         </div>
+        {renderDialogEditRole()}
       </form>
 
-      {renderDialogEditRole()}
       {rederDialogConfirmDelete()}
       <CircleLoading open={isRoleLoading} />
     </div>

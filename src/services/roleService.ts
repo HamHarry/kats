@@ -18,9 +18,19 @@ export const getAllRoles = async (): Promise<any> => {
   return response;
 };
 
-export const updatePermissionById = async (body: any): Promise<any> => {
+export const getRoleById = async (roleId: string): Promise<any> => {
+  const response = await axios.get(
+    `${import.meta.env.VITE_BASE_SERVER_URL}/permissions/role/${roleId}`
+  );
+
+  return response;
+};
+
+export const updateRoleById = async (body: any): Promise<any> => {
   const response = await axios.put(
-    `${import.meta.env.VITE_BASE_SERVER_URL}/permissions/update/${body.roleId}`,
+    `${import.meta.env.VITE_BASE_SERVER_URL}/permissions/role/update/${
+      body.roleId
+    }`,
     body.data
   );
 

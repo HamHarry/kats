@@ -5,10 +5,7 @@ import { Controller, useFieldArray, useForm } from "react-hook-form";
 import { Select, Table } from "antd";
 import { ColumnsType } from "antd/es/table";
 import { useNavigate } from "react-router-dom";
-import {
-  getAllRoles,
-  updatePermissionById,
-} from "../../stores/slices/roleSlice";
+import { getAllRoles, updateRoleById } from "../../stores/slices/roleSlice";
 import { useAppDispatch } from "../../stores/store";
 import { DeleteStatus } from "../../model/delete.type";
 import CircleLoading from "../../shared/circleLoading";
@@ -72,7 +69,7 @@ const PermissionPage = () => {
         roleId: item._id,
       };
 
-      await dispath(updatePermissionById(roleBody)).unwrap();
+      await dispath(updateRoleById(roleBody)).unwrap();
     } catch (error) {
       console.log(error);
     } finally {

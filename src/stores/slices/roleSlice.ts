@@ -27,10 +27,18 @@ export const getAllRoles = createAsyncThunk(
   }
 );
 
-export const updatePermissionById = createAsyncThunk(
+export const getRoleById = createAsyncThunk(
+  "role/getById",
+  async (roleId: string): Promise<any> => {
+    const response = await roleService.getRoleById(roleId);
+    return response;
+  }
+);
+
+export const updateRoleById = createAsyncThunk(
   "permission/update/id",
   async (body: any): Promise<any> => {
-    const response = await roleService.updatePermissionById(body);
+    const response = await roleService.updateRoleById(body);
     return response;
   }
 );
