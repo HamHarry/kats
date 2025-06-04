@@ -79,6 +79,14 @@ export const getCatagoryById = createAsyncThunk(
   }
 );
 
+export const getTypeProductById = createAsyncThunk(
+  "typeProduct/get/id",
+  async (typeProductId: string): Promise<any> => {
+    const response = await productServices.getTypeProductById(typeProductId);
+    return response;
+  }
+);
+
 export const updateProductById = createAsyncThunk(
   "product/update/id",
   async (body: any): Promise<any> => {
@@ -91,6 +99,14 @@ export const updateCatagoryById = createAsyncThunk(
   "catagory/update/id",
   async (body: any): Promise<any> => {
     const response = await productServices.updateCatagoryById(body);
+    return response;
+  }
+);
+
+export const updateTypeProductById = createAsyncThunk(
+  "typeProduct/update/id",
+  async (body: any): Promise<any> => {
+    const response = await productServices.updateTypeProductById(body);
     return response;
   }
 );

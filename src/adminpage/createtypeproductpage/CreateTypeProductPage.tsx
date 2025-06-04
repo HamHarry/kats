@@ -8,7 +8,9 @@ import { useAppDispatch } from "../../stores/store";
 import {
   createTypeProduct,
   getAllTypeProduct,
+  getTypeProductById,
   isDeleteTypeProductById,
+  updateTypeProductById,
 } from "../../stores/slices/productSlice";
 import { useCallback, useEffect, useState } from "react";
 import CircleLoading from "../../shared/circleLoading";
@@ -28,8 +30,39 @@ const CreateTypeProductPage = () => {
   const [typeProducts, setTypeProducts] = useState<TypeProductData[]>([]);
   const [selectedTypeProductData, setSelectedTypeProductData] =
     useState<TypeProductData>();
+  const [openDialogTypeProduct, setOpenDialogTypeProduct] =
+    useState<boolean>(false);
   const [openDialogConfirmDelete, setOpenDialogConfirmDelete] =
     useState<boolean>(false);
+
+  const { control, handleSubmit, reset } = useForm({
+    defaultValues: initCatagoryForm,
+  });
+
+  const initailForm = useCallback(async () => {
+    try {
+      if (!selectedTypeProductData?._id) return;
+
+      const { data } = await dispath(
+        getTypeProductById(selectedTypeProductData._id)
+      ).unwrap();
+      const typeProductRes = data as TypeProductData;
+
+      const initForm: TypeProductData = {
+        name: typeProductRes.name ?? "",
+        code: typeProductRes.code ?? "",
+        delete: typeProductRes.delete ?? DeleteStatus.ISNOTDELETE,
+      };
+
+      reset(initForm);
+    } catch (error) {
+      console.log(error);
+    }
+  }, [dispath, reset, selectedTypeProductData?._id]);
+
+  useEffect(() => {
+    initailForm();
+  }, [initailForm]);
 
   const fetchAllTypeProduct = useCallback(async () => {
     try {
@@ -74,6 +107,86 @@ const CreateTypeProductPage = () => {
       setOpenDialogConfirmDelete(false);
       fetchAllTypeProduct();
     }
+  };
+
+  const renderDialogTypeProduct = () => {
+    return (
+      <Modal
+        centered
+        className="container-DialogTypeProduct"
+        open={openDialogTypeProduct}
+        onCancel={() => setOpenDialogTypeProduct(false)}
+        footer={
+          <div className="btn-DialogTypeProduct-Navbar">
+            <button
+              type="submit"
+              onClick={handleSubmit((value: TypeProductData) => {
+                onSubmit(value); // modal ไม่พาไป Func onSubmit
+                setOpenDialogTypeProduct(false);
+              })}
+            >
+              ยืนยัน
+            </button>
+
+            <button
+              type="button"
+              onClick={() => {
+                setOpenDialogTypeProduct(false);
+              }}
+            >
+              ยกเลิก
+            </button>
+          </div>
+        }
+      >
+        <div className="container-DialogTypeProduct-navbar">
+          <i
+            className="fa-solid fa-circle-xmark"
+            onClick={() => {
+              setOpenDialogTypeProduct(false);
+            }}
+          ></i>
+        </div>
+
+        <div className="container-DialogTypeProduct-content">
+          <div className="inputNameTypeProduct">
+            <div
+              style={{
+                width: "100px",
+              }}
+            >
+              <h2>ชื่อ</h2>
+            </div>
+
+            <Controller
+              control={control}
+              name="name"
+              render={({ field }) => {
+                return <input {...field} type="text" />;
+              }}
+            />
+          </div>
+
+          <div className="inputCodeTypeProduct">
+            <div
+              style={{
+                width: "100px",
+              }}
+            >
+              <h2>รหัสสินค้า</h2>
+            </div>
+
+            <Controller
+              control={control}
+              name="code"
+              render={({ field }) => {
+                return <input {...field} type="text" />;
+              }}
+            />
+          </div>
+        </div>
+      </Modal>
+    );
   };
 
   const rederDialogConfirmDelete = () => {
@@ -137,22 +250,27 @@ const CreateTypeProductPage = () => {
     },
   ];
 
-  const { control, handleSubmit, reset } = useForm({
-    defaultValues: initCatagoryForm,
-  });
-
   const onSubmit = async (value: TypeProductData) => {
     try {
       const item = {
         ...value,
       };
 
-      await dispath(createTypeProduct(item)).unwrap();
+      // กรณีเช็คการแก้ไข
+      if (selectedTypeProductData && selectedTypeProductData._id) {
+        const body = {
+          ...item,
+          typeProductId: selectedTypeProductData._id,
+        };
+
+        await dispath(updateTypeProductById(body)).unwrap();
+      } else {
+        await dispath(createTypeProduct(item)).unwrap();
+      }
     } catch (error) {
       console.log(error);
     } finally {
       fetchAllTypeProduct();
-      reset(initCatagoryForm);
     }
   };
 
@@ -172,57 +290,38 @@ const CreateTypeProductPage = () => {
           >
             ย้อนกลับ
           </button>
-          <button type="submit">เพิ่ม</button>
+          <button
+            type="button"
+            onClick={() => {
+              setSelectedTypeProductData(undefined); // เคลียร์ข้อมูลให้ว่าง
+              reset(initCatagoryForm);
+              setOpenDialogTypeProduct(true);
+            }}
+          >
+            เพิ่ม
+          </button>
         </div>
 
-        <div className="wrap-container-createproductTypeProduct">
-          <div className="inputNameTypeProduct">
-            <div
-              style={{
-                width: "200px",
-              }}
-            >
-              <h2>ชื่อแบรนด์สินค้า</h2>
-            </div>
-
-            <Controller
-              control={control}
-              name="name"
-              render={({ field }) => {
-                return <input {...field} type="text" />;
-              }}
-            />
-          </div>
-
-          <div className="inputCodeProduct">
-            <div
-              style={{
-                width: "200px",
-              }}
-            >
-              <h2>Code แบรนด์สินค้า</h2>
-            </div>
-
-            <Controller
-              control={control}
-              name="code"
-              render={({ field }) => {
-                return <input {...field} type="text" />;
-              }}
-            />
-          </div>
-
-          <div className="typeProduct-content" style={{ width: "100%" }}>
-            <Table
-              dataSource={typeProducts}
-              columns={columns}
-              style={{
-                border: "2px solid #2656a2",
-                borderRadius: "10px",
-              }}
-            />
-          </div>
+        <div className="typeProduct-content" style={{ width: "100%" }}>
+          <Table
+            dataSource={typeProducts}
+            columns={columns}
+            style={{
+              border: "2px solid #2656a2",
+              borderRadius: "10px",
+            }}
+            onRow={(record) => {
+              return {
+                onClick: () => {
+                  setSelectedTypeProductData(record);
+                  setOpenDialogTypeProduct(true);
+                },
+              };
+            }}
+          />
         </div>
+
+        {renderDialogTypeProduct()}
       </form>
 
       {rederDialogConfirmDelete()}

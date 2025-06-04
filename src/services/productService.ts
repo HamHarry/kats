@@ -68,10 +68,22 @@ export const getCatagoryById = async (catagoryId: string): Promise<any> => {
   return response;
 };
 
+export const getTypeProductById = async (
+  typeProductId: string
+): Promise<any> => {
+  const response = await axios.get(
+    `${
+      import.meta.env.VITE_BASE_SERVER_URL
+    }/products/typeProduct/${typeProductId}`
+  );
+
+  return response;
+};
+
 export const updateProductById = async (body: any): Promise<any> => {
   const response = await axios.put(
     `${import.meta.env.VITE_BASE_SERVER_URL}/products/update/${body.productId}`,
-    body.data
+    body
   );
 
   return response;
@@ -83,6 +95,17 @@ export const updateCatagoryById = async (body: any): Promise<any> => {
       body.catagoryId
     }`,
     body.data
+  );
+
+  return response;
+};
+
+export const updateTypeProductById = async (body: any): Promise<any> => {
+  const response = await axios.put(
+    `${import.meta.env.VITE_BASE_SERVER_URL}/products/typeProduct/update/${
+      body.typeProductId
+    }`,
+    body
   );
 
   return response;
