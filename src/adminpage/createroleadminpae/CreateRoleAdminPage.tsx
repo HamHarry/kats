@@ -11,6 +11,7 @@ import {
   getAllRoles,
   getRoleById,
   isDeleteRoleById,
+  updateRoleById,
 } from "../../stores/slices/roleSlice";
 import { DeleteStatus } from "../../model/delete.type";
 
@@ -176,25 +177,33 @@ const CreateRoleAdminPage = () => {
     return (
       <Modal
         centered
-        className="container-DialogApprove"
+        className="container-DialogEditRole"
         open={openDialogEditRole}
         onCancel={() => setOpenDialogEditRole(false)}
         footer={
-          <div className="btn-DialogApprove-Navbar">
+          <div className="btn-DialogEditRole-Navbar">
             <button
               type="submit"
+              onClick={handleSubmit((value: RoleData) => {
+                onSubmit(value); // modal ไม่พาไป Func onSubmit
+                setOpenDialogEditRole(false);
+              })}
+            >
+              ยืนยัน
+            </button>
+
+            <button
+              type="button"
               onClick={() => {
                 setOpenDialogEditRole(false);
               }}
             >
-              แก้ไข
+              ยกเลิก
             </button>
           </div>
         }
       >
-        <div className="container-DialogApprove-navbar">
-          <h1>แก้ไขข้อมูล</h1>
-
+        <div className="container-DialogEditRole-navbar">
           <i
             className="fa-solid fa-circle-xmark"
             onClick={() => {
@@ -203,51 +212,11 @@ const CreateRoleAdminPage = () => {
           ></i>
         </div>
 
-        <div className="container-DialogApprove-content">
-          <div className="container-EditRole"></div>
-        </div>
-      </Modal>
-    );
-  };
-
-  const onSubmit = async (value: RoleData) => {
-    try {
-      const item = {
-        ...value,
-      };
-
-      await dispath(createRole(item)).unwrap();
-    } catch (error) {
-      console.log(error);
-    } finally {
-      fetchRoles();
-      reset(initRoleForm);
-    }
-  };
-
-  return (
-    <div className="container-Role">
-      <div className="header-Role">
-        <h1>สร้างบทบาท</h1>
-      </div>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="btn-createroleAdmin">
-          <button
-            type="button"
-            onClick={() => {
-              navigate("/admin/setting");
-            }}
-          >
-            ย้อนกลับ
-          </button>
-          <button type="submit">เพิ่ม</button>
-        </div>
-
-        <div className="wrap-container-createRole">
+        <div className="container-DialogEditRole-content">
           <div className="inputNameRole">
             <div
               style={{
-                width: "200px",
+                width: "100px",
               }}
             >
               <h2>ชื่อ</h2>
@@ -265,7 +234,7 @@ const CreateRoleAdminPage = () => {
           <div className="inputCodeRole">
             <div
               style={{
-                width: "200px",
+                width: "100px",
               }}
             >
               <h2>ตำแหน่ง</h2>
@@ -279,28 +248,83 @@ const CreateRoleAdminPage = () => {
               }}
             />
           </div>
+        </div>
+      </Modal>
+    );
+  };
 
-          <div className="Role-content" style={{ width: "100%" }}>
-            <Table
-              dataSource={roleDatas}
-              columns={columns}
-              style={{
-                border: "2px solid #2656a2",
-                borderRadius: "10px",
-              }}
-              pagination={{
-                pageSize: 4,
-              }}
-              onRow={(record) => {
-                return {
-                  onClick: () => {
-                    setSelectedRoleData(record);
-                    setOpenDialogEditRole(true);
-                  },
-                };
-              }}
-            />
-          </div>
+  const onSubmit = async (value: RoleData) => {
+    try {
+      const item = {
+        ...value,
+      };
+
+      // กรณีเช็คการแก้ไข
+      if (selectedRoleData && selectedRoleData._id) {
+        const body = {
+          ...item,
+          roleId: selectedRoleData._id,
+        };
+
+        await dispath(updateRoleById(body)).unwrap();
+      } else {
+        await dispath(createRole(item)).unwrap();
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      fetchRoles();
+    }
+  };
+
+  return (
+    <div className="container-Role">
+      <div className="header-Role">
+        <h1>สร้างบทบาท</h1>
+      </div>
+
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <div className="btn-createroleAdmin">
+          <button
+            type="button"
+            onClick={() => {
+              navigate("/admin/setting");
+            }}
+          >
+            ย้อนกลับ
+          </button>
+          <button
+            type="button"
+            onClick={() => {
+              setSelectedRoleData(undefined); // เคลียร์ข้อมูลให้ว่าง
+              reset(initRoleForm);
+              setOpenDialogEditRole(true);
+            }}
+          >
+            เพิ่ม
+          </button>
+        </div>
+
+        <div className="role-content" style={{ width: "100%" }}>
+          <Table
+            dataSource={roleDatas}
+            columns={columns}
+            style={{
+              border: "2px solid #2656a2",
+              borderRadius: "10px",
+            }}
+            pagination={{
+              pageSize: 8,
+            }}
+            onRow={(record) => {
+              return {
+                onClick: () => {
+                  setSelectedRoleData(record);
+                  setOpenDialogEditRole(true);
+                },
+              };
+            }}
+          />
         </div>
         {renderDialogEditRole()}
       </form>

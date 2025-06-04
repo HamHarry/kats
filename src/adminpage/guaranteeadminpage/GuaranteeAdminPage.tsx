@@ -463,7 +463,6 @@ const GuaranteeAdminPage = () => {
       open={openDialogProfile}
       onCancel={() => {
         setOpenDialogProfile(false);
-        setSelectBookingId(undefined);
       }}
     >
       <form onSubmit={handleSubmit(submit)}>

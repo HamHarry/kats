@@ -28,6 +28,10 @@
   button:hover {
     background-color: #1a4f8a;
   }
+
+  form {
+    width: 100%;
+  }
 }
 
 .header-Role {
@@ -47,37 +51,84 @@
   }
 }
 
-.Role-content {
+.role-content {
   .ant-table {
-    height: 350px;
+    height: 550px;
   }
 }
 
 .btn-createroleAdmin {
   display: flex;
   justify-content: space-between;
-  padding: 0px 20px 20px 20px;
+  padding: 0px 0px 20px 0px;
+  width: 100%;
 }
 
-.wrap-container-createRole {
+.container-DialogEditRole {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  border: 5px solid #2656a2;
-  border-radius: 20px;
-  padding: 0px 20px 50px 20px;
-  min-width: 900px;
-  .inputNameRole {
-    display: flex;
-    align-items: center;
-    margin-top: 40px;
-    gap: 20px;
+  .ant-modal-content {
+    background-color: #2656a2;
   }
-  .inputCodeRole {
+  .container-DialogEditRole-navbar {
     display: flex;
+    justify-content: end;
     align-items: center;
+    .fa-circle-xmark {
+      font-size: 30px;
+      cursor: pointer;
+      color: #ffffff;
+      transition: all 0.5s;
+    }
+    .fa-circle-xmark:hover {
+      color: red;
+      transition: all 0.5s;
+    }
+  }
+
+  .container-DialogEditRole-content {
+    h2 {
+      color: #ffffff;
+    }
+    input {
+      padding: 5px;
+      width: 250px;
+      height: 30px;
+      border-radius: 20px;
+      border: 2px solid #2656a2;
+    }
+    .inputNameRole {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+    .inputCodeRole {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      margin-top: 20px;
+      padding-bottom: 40px;
+    }
+  }
+
+  .btn-DialogEditRole-Navbar {
+    display: flex;
+    justify-content: space-between;
     gap: 20px;
-    margin-top: 20px;
-    padding-bottom: 40px;
+    button {
+      padding: 5px 10px;
+      border-radius: 10px;
+      background-color: white;
+      color: #2656a2;
+      font-size: 20px;
+      font-weight: bold;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #e6efff;
+      box-shadow: 0 0 10px rgba(38, 86, 162, 0.4),
+        0 4px 10px rgba(38, 86, 162, 0.3);
+      transition: all 0.3s ease;
+    }
   }
 }
