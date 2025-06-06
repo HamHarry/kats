@@ -61,3 +61,11 @@ export const isDeleteExpenseById = async (body: FinanceData): Promise<any> => {
 
   return response;
 };
+
+export const deleteExpenseById = async (expenseId: string): Promise<any> => {
+  const response = await axios.delete(
+    `${import.meta.env.VITE_BASE_SERVER_URL}/expenses/${expenseId}`
+  );
+
+  return response;
+};

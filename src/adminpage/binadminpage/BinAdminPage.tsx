@@ -33,7 +33,11 @@ import {
 import { CatagoryDetail, FinanceData } from "../../model/finance.type";
 import { EmployeeData } from "../../model/employee.type";
 import FormItem from "antd/es/form/FormItem";
-import { getAllExpenses } from "../../stores/slices/expenseSlice";
+import {
+  deleteExpenseById,
+  getAllExpenses,
+  isDeleteExpenseById,
+} from "../../stores/slices/expenseSlice";
 import { getAllEmployees } from "../../stores/slices/employeeSlice";
 
 const choosePermission = [
@@ -75,6 +79,7 @@ const BinAdminPage = () => {
     useState<boolean>(false);
   const [openDialogConfirmDeleteBooking, setOpenDialogConfirmDeleteBooking] =
     useState<boolean>(false);
+
   const [openDialogConfirmDeleteProduct, setOpenDialogConfirmDeleteProduct] =
     useState<boolean>(false);
   const [openDialogConfirmApproveProduct, setOpenDialogConfirmApproveProduct] =
@@ -93,6 +98,12 @@ const BinAdminPage = () => {
     openDialogConfirmApproveTypeProduct,
     setOpenDialogConfirmApproveTypeProduct,
   ] = useState<boolean>(false);
+
+  const [openDialogConfirmDeleteExpense, setOpenDialogConfirmDeleteExpense] =
+    useState<boolean>(false);
+  const [openDialogConfirmApproveExpense, setOpenDialogConfirmApproveExpense] =
+    useState<boolean>(false);
+
   const [isBinLoading, setIsBinLoading] = useState<boolean>(false);
 
   const fetchAllBooking = useCallback(async () => {
@@ -235,6 +246,7 @@ const BinAdminPage = () => {
     fetchEmployeeData();
   }, [fetchEmployeeData]);
 
+  // Recover All
   const recoverBooking = async () => {
     try {
       setIsBinLoading(true);
@@ -315,6 +327,27 @@ const BinAdminPage = () => {
     }
   };
 
+  const recoverExpense = async () => {
+    try {
+      setIsBinLoading(true);
+
+      if (!selectedExpenseData?._id) return;
+
+      const data = {
+        ...selectedExpenseData,
+        delete: DeleteStatus.ISNOTDELETE,
+      };
+
+      await dispath(isDeleteExpenseById(data)).unwrap();
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsBinLoading(false);
+      fetchAllExpense();
+    }
+  };
+
+  // Deleted All
   const deletedBooking = async () => {
     try {
       setIsBinLoading(true);
@@ -377,6 +410,21 @@ const BinAdminPage = () => {
     }
   };
 
+  const deletedExpense = async () => {
+    try {
+      setIsBinLoading(true);
+      if (!selectedExpenseData?._id) return;
+
+      await dispath(deleteExpenseById(selectedExpenseData._id)).unwrap();
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsBinLoading(false);
+      fetchAllExpense();
+    }
+  };
+
+  // Render All
   const rederDialogConfirmDeleteBooking = () => {
     return (
       <Modal
@@ -496,6 +544,38 @@ const BinAdminPage = () => {
           <button
             onClick={() => {
               setOpenDialogConfirmDeleteTypeProduct(false);
+            }}
+          >
+            ยกเลิก
+          </button>
+        </div>
+      </Modal>
+    );
+  };
+
+  const rederDialogConfirmDeleteExpense = () => {
+    return (
+      <Modal
+        centered
+        className="wrap-container-DialogDelete"
+        open={openDialogConfirmDeleteExpense}
+        onCancel={() => setOpenDialogConfirmDeleteExpense(false)}
+      >
+        <h1>ยืนยันการลบ</h1>
+
+        <div className="btn-DialogDelete-Navbar">
+          <button
+            type="button"
+            onClick={() => {
+              deletedExpense();
+              setOpenDialogConfirmDeleteExpense(false);
+            }}
+          >
+            ยืนยัน
+          </button>
+          <button
+            onClick={() => {
+              setOpenDialogConfirmDeleteExpense(false);
             }}
           >
             ยกเลิก
@@ -790,7 +870,8 @@ const BinAdminPage = () => {
           <a
             onClick={(e) => {
               e.stopPropagation();
-              console.log(item); //todo
+              setSelectedExpenseData(item);
+              setOpenDialogConfirmApproveExpense(true);
             }}
           >
             กู้คืน
@@ -798,7 +879,8 @@ const BinAdminPage = () => {
           <a
             onClick={(e) => {
               e.stopPropagation();
-              console.log(item); //todo
+              setSelectedExpenseData(item);
+              setOpenDialogConfirmDeleteExpense(true);
             }}
           >
             ลบ
@@ -1107,12 +1189,55 @@ const BinAdminPage = () => {
     );
   };
 
+  const rederDialogConfirmApproveExpense = () => {
+    return (
+      <Modal
+        centered
+        className="container-DialogApprove"
+        open={openDialogConfirmApproveExpense}
+        onCancel={() => setOpenDialogConfirmApproveExpense(false)}
+        footer={
+          <div className="btn-DialogApprove-Navbar">
+            <button
+              type="button"
+              onClick={() => {
+                recoverExpense();
+                setOpenDialogConfirmApproveExpense(false);
+              }}
+            >
+              กู้คืน
+            </button>
+
+            <button
+              type="button"
+              onClick={() => {
+                setOpenDialogConfirmApproveExpense(false);
+              }}
+            >
+              ยกเลิก
+            </button>
+          </div>
+        }
+      >
+        <div className="container-DialogApprove-navbar">
+          <h1>ยืนยันการกู้แบรนด์สินค้า</h1>
+
+          <i
+            className="fa-solid fa-circle-xmark"
+            onClick={() => {
+              setOpenDialogConfirmApproveExpense(false);
+            }}
+          ></i>
+        </div>
+      </Modal>
+    );
+  };
+
   return (
     <div className="container-binAdmin">
       <div className="header-binAdmin">
         <h1>ถังขยะ</h1>
       </div>
-
       <div className="wrap-bin-content-teble">
         <div className="bin-content-teble">
           <StyledDivider orientation="left">ข้อมูลการจองคิว</StyledDivider>
@@ -1130,6 +1255,10 @@ const BinAdminPage = () => {
         </div>
       </div>
 
+      {/* renderAllExpense */}
+      {rederDialogConfirmDeleteExpense()}
+      {rederDialogConfirmApproveExpense()}
+
       {/* renderAllProduct */}
       {rederDialogConfirmApproveTypeProduct()}
       {rederDialogConfirmDeleteTypeProduct()}
@@ -1137,7 +1266,6 @@ const BinAdminPage = () => {
       {rederDialogConfirmDeleteCatagory()}
       {rederDialogConfirmApproveProduct()}
       {rederDialogConfirmDeleteProduct()}
-
       {/* renderBooking */}
       {rederDialogConfirmApproveBooking()}
       {rederDialogConfirmDeleteBooking()}

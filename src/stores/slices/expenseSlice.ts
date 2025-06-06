@@ -66,4 +66,12 @@ export const isDeleteExpenseById = createAsyncThunk(
   }
 );
 
+export const deleteExpenseById = createAsyncThunk(
+  "expense/delete/id",
+  async (expenseId: string): Promise<any> => {
+    const response = await expenseServices.deleteExpenseById(expenseId);
+    return response;
+  }
+);
+
 export default expenseSlice.reducer;
