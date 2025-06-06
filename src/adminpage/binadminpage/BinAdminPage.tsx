@@ -30,16 +30,21 @@ import {
   isDeleteProductById,
   isDeleteTypeProductById,
 } from "../../stores/slices/productSlice";
+import { CatagoryDetail, FinanceData } from "../../model/finance.type";
+import { EmployeeData } from "../../model/employee.type";
+import FormItem from "antd/es/form/FormItem";
+import { getAllExpenses } from "../../stores/slices/expenseSlice";
+import { getAllEmployees } from "../../stores/slices/employeeSlice";
 
-const chooseExpenses = [
+const choosePermission = [
   {
     key: "1",
-    label: "ค่าใช้จ่าย",
+    label: "พนักงาน",
     children: <p>coming soon</p>,
   },
   {
     key: "2",
-    label: "การเบิกเงิน",
+    label: "บทบาท",
     children: <p>coming soon</p>,
   },
 ];
@@ -53,12 +58,18 @@ const BinAdminPage = () => {
   const [typeProductDatas, setTypeProductDatas] = useState<TypeProductData[]>(
     []
   );
+  const [expenseDatas, setExpenseDatas] = useState<FinanceData[]>([]);
+  const [employeeDatas, setEmployeeDatas] = useState<EmployeeData[]>([]);
+
   const [selectedBookingData, setSelectedBookingData] = useState<BookingData>();
   const [selectedProductData, setSelectedProductData] = useState<ProductData>();
   const [selectedCatagoryData, setSelectedCatagoryData] =
     useState<CatagoryData>();
   const [selectedTypeProductData, setSelectedTypeProductData] =
     useState<TypeProductData>();
+  const [selectedExpenseData, setSelectedExpenseData] = useState<FinanceData>();
+  const [selectedEmployeeData, setSelectedEmployeeData] =
+    useState<EmployeeData>();
 
   const [openDialogConfirmApproveBooking, setOpenDialogConfirmApproveBooking] =
     useState<boolean>(false);
@@ -181,6 +192,48 @@ const BinAdminPage = () => {
   useEffect(() => {
     fetchAlltypeProduct();
   }, [fetchAlltypeProduct]);
+
+  const fetchAllExpense = useCallback(async () => {
+    try {
+      setIsBinLoading(true);
+      const { data: ExpensesRes = [] } = await dispath(
+        getAllExpenses()
+      ).unwrap();
+
+      const filteredExpenses = ExpensesRes.filter((item: FinanceData) => {
+        return item.delete === DeleteStatus.ISDELETE;
+      });
+
+      setExpenseDatas(filteredExpenses);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsBinLoading(false);
+    }
+  }, [dispath]);
+
+  useEffect(() => {
+    fetchAllExpense();
+  }, [fetchAllExpense]);
+
+  const fetchEmployeeData = useCallback(async () => {
+    try {
+      setIsBinLoading(true);
+      const { data: EmployeesRes = [] } = await dispath(
+        getAllEmployees()
+      ).unwrap();
+
+      setEmployeeDatas(EmployeesRes);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsBinLoading(false);
+    }
+  }, [dispath]);
+
+  useEffect(() => {
+    fetchEmployeeData();
+  }, [fetchEmployeeData]);
 
   const recoverBooking = async () => {
     try {
@@ -650,6 +703,111 @@ const BinAdminPage = () => {
     },
   ];
 
+  const columnExpenses = [
+    { title: "เลขที่", dataIndex: "codeId", key: "codeId" },
+    {
+      title: "ผู้สร้างเอกสาร",
+      dataIndex: "employee",
+      key: "employee",
+      render: (employee: EmployeeData) => {
+        return <Typography>{employee.name}</Typography>;
+      },
+    },
+    { title: "หัวข้อ", dataIndex: "ownerName", key: "ownerName" },
+    {
+      title: "หมวดหมู่",
+      dataIndex: "section",
+      key: "section",
+      render: (section: number) => {
+        return (
+          <Typography>
+            {section === 0 ? "ค่าใช้จ่าย" : "เบิกเงินเดือน"}
+          </Typography>
+        );
+      },
+    },
+    {
+      title: "วันที่สร้าง",
+      dataIndex: "date",
+      key: "date",
+      render: (date: string) => {
+        const formattedDate = date ? dayjs(date).format("DD/MM/YYYY") : "-";
+        return <Typography>{formattedDate}</Typography>;
+      },
+    },
+    {
+      title: "วันที่ชำระเงิน",
+      dataIndex: "datePrice",
+      key: "datePrice",
+      render: (datePrice: string) => {
+        const formattedDate = datePrice
+          ? dayjs(datePrice).format("DD/MM/YYYY")
+          : "";
+        return <Typography>{formattedDate}</Typography>;
+      },
+    },
+    {
+      title: "รวมยอดค่าใช้จ่าย",
+      dataIndex: "categorys",
+      key: "categorys",
+      render: (categorys: CatagoryDetail[]) => {
+        const total = categorys.reduce((prev, item) => {
+          return prev + item.amount;
+        }, 0);
+
+        return <Typography>{total}</Typography>;
+      },
+    },
+    {
+      title: "สถานะ",
+      dataIndex: "status",
+      key: "status",
+      render: (status: number) => {
+        const statusText =
+          status === 0
+            ? "รออนุมัติ"
+            : status === 1
+            ? "อนุมัติแล้ว"
+            : "ยกเลิกเอกสาร";
+
+        const color =
+          status === 0 ? "#FFD700" : status === 1 ? "#008B00" : "#FF0000";
+        return <Typography style={{ color }}>{statusText}</Typography>;
+      },
+    },
+    {
+      title: "",
+      key: "action",
+      render: (item: FinanceData) => (
+        <Space
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            fontSize: "14px",
+          }}
+        >
+          <a
+            onClick={(e) => {
+              e.stopPropagation();
+              console.log(item); //todo
+            }}
+          >
+            กู้คืน
+          </a>
+          <a
+            onClick={(e) => {
+              e.stopPropagation();
+              console.log(item); //todo
+            }}
+          >
+            ลบ
+          </a>
+        </Space>
+      ),
+    },
+  ];
+
   const chooseBookings = [
     {
       key: "1",
@@ -713,6 +871,24 @@ const BinAdminPage = () => {
       children: (
         <div className="content-typeProduct" style={{ width: "100%" }}>
           <Table dataSource={typeProductDatas} columns={columnTypeProducts} />
+        </div>
+      ),
+    },
+  ];
+
+  const chooseExpenses = [
+    {
+      key: "1",
+      label: "ค่าใช้จ่าย & เงินเดือน",
+      children: (
+        <div className="content-Expense" style={{ width: "100%" }}>
+          <Table
+            dataSource={expenseDatas}
+            pagination={{
+              pageSize: 5,
+            }}
+            columns={columnExpenses}
+          />
         </div>
       ),
     },
@@ -949,6 +1125,8 @@ const BinAdminPage = () => {
             ข้อมูลค่าใช้จ่าย & เบิกเงิน
           </StyledDivider>
           <Collapse items={chooseExpenses} />
+          <StyledDivider orientation="left">พนักงาน & บทบาท</StyledDivider>
+          <Collapse items={choosePermission} />
         </div>
       </div>
 
