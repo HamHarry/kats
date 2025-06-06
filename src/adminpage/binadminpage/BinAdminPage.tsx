@@ -32,26 +32,18 @@ import {
 } from "../../stores/slices/productSlice";
 import { CatagoryDetail, FinanceData } from "../../model/finance.type";
 import { EmployeeData } from "../../model/employee.type";
-import FormItem from "antd/es/form/FormItem";
 import {
   deleteExpenseById,
   getAllExpenses,
   isDeleteExpenseById,
 } from "../../stores/slices/expenseSlice";
 import { getAllEmployees } from "../../stores/slices/employeeSlice";
-
-const choosePermission = [
-  {
-    key: "1",
-    label: "พนักงาน",
-    children: <p>coming soon</p>,
-  },
-  {
-    key: "2",
-    label: "บทบาท",
-    children: <p>coming soon</p>,
-  },
-];
+import {
+  DeleteRoleById,
+  getAllRoles,
+  isDeleteRoleById,
+} from "../../stores/slices/roleSlice";
+import { RoleData } from "../../data/permissions";
 
 const BinAdminPage = () => {
   const dispath = useAppDispatch();
@@ -64,6 +56,7 @@ const BinAdminPage = () => {
   );
   const [expenseDatas, setExpenseDatas] = useState<FinanceData[]>([]);
   const [employeeDatas, setEmployeeDatas] = useState<EmployeeData[]>([]);
+  const [permissionDatas, setPermissionDatas] = useState<RoleData[]>([]);
 
   const [selectedBookingData, setSelectedBookingData] = useState<BookingData>();
   const [selectedProductData, setSelectedProductData] = useState<ProductData>();
@@ -74,6 +67,8 @@ const BinAdminPage = () => {
   const [selectedExpenseData, setSelectedExpenseData] = useState<FinanceData>();
   const [selectedEmployeeData, setSelectedEmployeeData] =
     useState<EmployeeData>();
+  const [selectedPermissionData, setSelectedPermissionData] =
+    useState<RoleData>();
 
   const [openDialogConfirmApproveBooking, setOpenDialogConfirmApproveBooking] =
     useState<boolean>(false);
@@ -103,6 +98,15 @@ const BinAdminPage = () => {
     useState<boolean>(false);
   const [openDialogConfirmApproveExpense, setOpenDialogConfirmApproveExpense] =
     useState<boolean>(false);
+
+  const [
+    openDialogConfirmDeletePermission,
+    setOpenDialogConfirmDeletePermission,
+  ] = useState<boolean>(false);
+  const [
+    openDialogConfirmApprovePermission,
+    setOpenDialogConfirmApprovePermission,
+  ] = useState<boolean>(false);
 
   const [isBinLoading, setIsBinLoading] = useState<boolean>(false);
 
@@ -246,6 +250,28 @@ const BinAdminPage = () => {
     fetchEmployeeData();
   }, [fetchEmployeeData]);
 
+  const fetchRoleData = useCallback(async () => {
+    try {
+      setIsBinLoading(true);
+
+      const { data: roleRes = [] } = await dispath(getAllRoles()).unwrap();
+
+      const filteredRoles = roleRes.filter((item: RoleData) => {
+        return item.delete === DeleteStatus.ISDELETE;
+      });
+
+      setPermissionDatas(filteredRoles);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsBinLoading(false);
+    }
+  }, [dispath]);
+
+  useEffect(() => {
+    fetchRoleData();
+  }, [fetchRoleData]);
+
   // Recover All
   const recoverBooking = async () => {
     try {
@@ -347,6 +373,26 @@ const BinAdminPage = () => {
     }
   };
 
+  const recoverPermission = async () => {
+    try {
+      setIsBinLoading(true);
+
+      if (!selectedPermissionData?._id) return;
+
+      const data = {
+        ...selectedPermissionData,
+        delete: DeleteStatus.ISNOTDELETE,
+      };
+
+      await dispath(isDeleteRoleById(data)).unwrap();
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsBinLoading(false);
+      fetchRoleData();
+    }
+  };
+
   // Deleted All
   const deletedBooking = async () => {
     try {
@@ -424,7 +470,21 @@ const BinAdminPage = () => {
     }
   };
 
-  // Render All
+  const deletedPermission = async () => {
+    try {
+      setIsBinLoading(true);
+      if (!selectedPermissionData?._id) return;
+
+      await dispath(DeleteRoleById(selectedPermissionData._id)).unwrap();
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsBinLoading(false);
+      fetchRoleData();
+    }
+  };
+
+  // RenderDialogConfirmDelete All
   const rederDialogConfirmDeleteBooking = () => {
     return (
       <Modal
@@ -585,6 +645,39 @@ const BinAdminPage = () => {
     );
   };
 
+  const rederDialogConfirmDeletePermission = () => {
+    return (
+      <Modal
+        centered
+        className="wrap-container-DialogDelete"
+        open={openDialogConfirmDeletePermission}
+        onCancel={() => setOpenDialogConfirmDeletePermission(false)}
+      >
+        <h1>ยืนยันการลบ</h1>
+
+        <div className="btn-DialogDelete-Navbar">
+          <button
+            type="button"
+            onClick={() => {
+              deletedPermission();
+              setOpenDialogConfirmDeletePermission(false);
+            }}
+          >
+            ยืนยัน
+          </button>
+          <button
+            onClick={() => {
+              setOpenDialogConfirmDeletePermission(false);
+            }}
+          >
+            ยกเลิก
+          </button>
+        </div>
+      </Modal>
+    );
+  };
+
+  // Column All
   const columnBookings = [
     { title: "CodeID", dataIndex: "codeId", key: "codeId" },
     { title: "เล่มที่", dataIndex: "receiptBookNo", key: "receiptBookNo" },
@@ -890,6 +983,45 @@ const BinAdminPage = () => {
     },
   ];
 
+  const columnPermissions = [
+    { title: "ชื่อ", dataIndex: "name", key: "name" },
+    { title: "ตำแหน่ง", dataIndex: "type", key: "type" },
+    {
+      title: "",
+      key: "action",
+      render: (item: RoleData) => (
+        <Space
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            fontSize: "14px",
+          }}
+        >
+          <a
+            onClick={(e) => {
+              e.stopPropagation();
+              setSelectedPermissionData(item);
+              setOpenDialogConfirmApprovePermission(true);
+            }}
+          >
+            กู้คืน
+          </a>
+          <a
+            onClick={(e) => {
+              e.stopPropagation();
+              setSelectedPermissionData(item);
+              setOpenDialogConfirmDeletePermission(true);
+            }}
+          >
+            ลบ
+          </a>
+        </Space>
+      ),
+    },
+  ];
+
+  // Choose All
   const chooseBookings = [
     {
       key: "1",
@@ -976,6 +1108,30 @@ const BinAdminPage = () => {
     },
   ];
 
+  const choosePermission = [
+    {
+      key: "1",
+      label: "พนักงาน",
+      children: <p>coming soon</p>,
+    },
+    {
+      key: "2",
+      label: "บทบาท",
+      children: (
+        <div className="content-Expense" style={{ width: "100%" }}>
+          <Table
+            dataSource={permissionDatas}
+            pagination={{
+              pageSize: 5,
+            }}
+            columns={columnPermissions}
+          />
+        </div>
+      ),
+    },
+  ];
+
+  // RederDialogConfirmApprove All
   const rederDialogConfirmApproveBooking = () => {
     const formattedDate = selectedBookingData
       ? dayjs(selectedBookingData.bookDate).format("DD/MM/YYYY")
@@ -1233,6 +1389,50 @@ const BinAdminPage = () => {
     );
   };
 
+  const rederDialogConfirmApprovePermission = () => {
+    return (
+      <Modal
+        centered
+        className="container-DialogApprove"
+        open={openDialogConfirmApprovePermission}
+        onCancel={() => setOpenDialogConfirmApprovePermission(false)}
+        footer={
+          <div className="btn-DialogApprove-Navbar">
+            <button
+              type="button"
+              onClick={() => {
+                recoverPermission();
+                setOpenDialogConfirmApprovePermission(false);
+              }}
+            >
+              กู้คืน
+            </button>
+
+            <button
+              type="button"
+              onClick={() => {
+                setOpenDialogConfirmApprovePermission(false);
+              }}
+            >
+              ยกเลิก
+            </button>
+          </div>
+        }
+      >
+        <div className="container-DialogApprove-navbar">
+          <h1>ยืนยันการกู้แบรนด์สินค้า</h1>
+
+          <i
+            className="fa-solid fa-circle-xmark"
+            onClick={() => {
+              setOpenDialogConfirmApproveExpense(false);
+            }}
+          ></i>
+        </div>
+      </Modal>
+    );
+  };
+
   return (
     <div className="container-binAdmin">
       <div className="header-binAdmin">
@@ -1254,6 +1454,10 @@ const BinAdminPage = () => {
           <Collapse items={choosePermission} />
         </div>
       </div>
+
+      {/* renderAllPermission */}
+      {rederDialogConfirmDeletePermission()}
+      {rederDialogConfirmApprovePermission()}
 
       {/* renderAllExpense */}
       {rederDialogConfirmDeleteExpense()}

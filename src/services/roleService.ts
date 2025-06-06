@@ -47,3 +47,11 @@ export const isDeleteRoleById = async (body: RoleData): Promise<any> => {
 
   return response;
 };
+
+export const DeleteRoleById = async (roleId: string): Promise<any> => {
+  const response = await axios.delete(
+    `${import.meta.env.VITE_BASE_SERVER_URL}/permissions/role/delete/${roleId}`
+  );
+
+  return response;
+};

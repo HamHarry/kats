@@ -51,4 +51,12 @@ export const isDeleteRoleById = createAsyncThunk(
   }
 );
 
+export const DeleteRoleById = createAsyncThunk(
+  "role/delete/getById",
+  async (roleId: string): Promise<any> => {
+    const response = await roleService.DeleteRoleById(roleId);
+    return response;
+  }
+);
+
 export default roleSlice.reducer;
