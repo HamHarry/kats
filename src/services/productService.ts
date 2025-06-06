@@ -83,7 +83,7 @@ export const getTypeProductById = async (
 export const updateProductById = async (body: any): Promise<any> => {
   const response = await axios.put(
     `${import.meta.env.VITE_BASE_SERVER_URL}/products/update/${body.productId}`,
-    body
+    body.data
   );
 
   return response;

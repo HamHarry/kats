@@ -64,12 +64,12 @@ const PermissionPage = () => {
         ...value,
       };
 
-      const roleBody = {
+      const body = {
         data: item,
         roleId: item._id,
       };
 
-      await dispath(updateRoleById(roleBody)).unwrap();
+      await dispath(updateRoleById(body)).unwrap();
     } catch (error) {
       console.log(error);
     } finally {
@@ -179,7 +179,6 @@ const PermissionPage = () => {
                   type="checkbox"
                   checked={field.value}
                   onChange={(e) => {
-                    console.log(hasDelete);
                     field.onChange(e.target.checked);
                   }}
                 />

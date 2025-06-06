@@ -31,7 +31,7 @@ export const updateRoleById = async (body: any): Promise<any> => {
     `${import.meta.env.VITE_BASE_SERVER_URL}/permissions/role/update/${
       body.roleId
     }`,
-    body
+    body.data
   );
 
   return response;
