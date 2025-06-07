@@ -1,10 +1,10 @@
 import "./CreateEmployeeAdminPage.css";
 import { Controller, useForm } from "react-hook-form";
 import {
-  EmployeeData,
   PaymentStatus,
   PaymentType,
   BankType,
+  EmployeeDataForm,
 } from "../../model/employee.type";
 import { Select, Typography } from "antd";
 import { FileAddFilled } from "@ant-design/icons";
@@ -18,8 +18,12 @@ import { useCallback, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { BankDatas } from "../../data/BankData";
 import { useTranslation } from "react-i18next";
+import { DeleteStatus } from "../../model/delete.type";
+import { RoleData } from "../../data/permissions";
+import CircleLoading from "../../shared/circleLoading";
+import { getAllRoles } from "../../stores/slices/roleSlice";
 
-const initEmployeeForm: EmployeeData = {
+const initEmployeeForm: EmployeeDataForm = {
   name: "",
   tel: "",
   image: "",
@@ -30,11 +34,7 @@ const initEmployeeForm: EmployeeData = {
     accountNumber: "",
     amount: 0,
   },
-  role: {
-    name: "",
-    type: "",
-    permissions: [],
-  },
+  roleId: "",
 };
 
 const CreateEmployeeAdminPage = () => {
@@ -46,6 +46,10 @@ const CreateEmployeeAdminPage = () => {
   i18n.changeLanguage(lang);
 
   const [baseImage, setBaseImage] = useState("");
+  const [roleDatas, setRoleDatas] = useState<RoleData[]>([]);
+
+  const [isCreateEmployeeLoading, setIsCreateEmployeeLoading] =
+    useState<boolean>(false);
 
   const { control, handleSubmit, reset, watch } = useForm({
     defaultValues: initEmployeeForm,
@@ -57,12 +61,11 @@ const CreateEmployeeAdminPage = () => {
     try {
       if (!employeeId) return;
       const { data } = await dispath(getEmployeeById(employeeId)).unwrap();
-      const employeeRes = data as EmployeeData;
+      const employeeRes = data as EmployeeDataForm;
 
-      const initEmployeeForm: EmployeeData = {
+      const initEmployeeForm: EmployeeDataForm = {
         name: employeeRes.name ?? "",
         tel: employeeRes.tel ?? "",
-        role: employeeRes.role ?? {},
         image: employeeRes.image ?? "",
         salary: {
           paymentStatus:
@@ -72,6 +75,7 @@ const CreateEmployeeAdminPage = () => {
           accountNumber: employeeRes.salary?.accountNumber ?? "",
           amount: employeeRes.salary?.amount ?? 0,
         },
+        roleId: employeeRes.roleId ?? "",
       };
 
       reset(initEmployeeForm);
@@ -84,7 +88,29 @@ const CreateEmployeeAdminPage = () => {
     initailForm();
   }, [initailForm]);
 
-  const onSubmit = async (value: EmployeeData) => {
+  const fetchRoleData = useCallback(async () => {
+    try {
+      setIsCreateEmployeeLoading(true);
+
+      const { data: roleRes = [] } = await dispath(getAllRoles()).unwrap();
+
+      const filteredRoles = roleRes.filter((item: RoleData) => {
+        return item.delete === DeleteStatus.ISNOTDELETE;
+      });
+
+      setRoleDatas(filteredRoles);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsCreateEmployeeLoading(false);
+    }
+  }, [dispath]);
+
+  useEffect(() => {
+    fetchRoleData();
+  }, [fetchRoleData]);
+
+  const onSubmit = async (value: EmployeeDataForm) => {
     try {
       const newEmployee = {
         ...value,
@@ -136,7 +162,6 @@ const CreateEmployeeAdminPage = () => {
       <div className="header-CreateEmployeeAdminPage">
         <h1>{t("สร้างข้อมูลพนักงาน")}</h1>
       </div>
-
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="btn-createproductAdmin">
           <button
@@ -178,7 +203,7 @@ const CreateEmployeeAdminPage = () => {
               <h2>{t("ตำแหน่ง")}</h2>
               <Controller
                 control={control}
-                name="role.type"
+                name="roleId"
                 render={({ field }) => {
                   return (
                     <Select
@@ -187,10 +212,13 @@ const CreateEmployeeAdminPage = () => {
                       className="select-product"
                       value={field.value ?? undefined}
                     >
-                      <Select.Option value={""}>{t("หัวหน้า")}</Select.Option>
-                      <Select.Option value={""}>
-                        {t("ผู้ดูแลระบบ")}
-                      </Select.Option>
+                      {roleDatas.map((item, index) => {
+                        return (
+                          <Select.Option key={index} value={item._id}>
+                            {item.name}
+                          </Select.Option>
+                        );
+                      })}
                     </Select>
                   );
                 }}
@@ -378,6 +406,8 @@ const CreateEmployeeAdminPage = () => {
           </div>
         </div>
       </form>
+
+      <CircleLoading open={isCreateEmployeeLoading} />
     </div>
   );
 };

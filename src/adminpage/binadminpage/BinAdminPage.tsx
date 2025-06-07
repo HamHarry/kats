@@ -55,7 +55,7 @@ const BinAdminPage = () => {
     []
   );
   const [expenseDatas, setExpenseDatas] = useState<FinanceData[]>([]);
-  const [employeeDatas, setEmployeeDatas] = useState<EmployeeData[]>([]);
+  // const [employeeDatas, setEmployeeDatas] = useState<EmployeeData[]>([]);
   const [permissionDatas, setPermissionDatas] = useState<RoleData[]>([]);
 
   const [selectedBookingData, setSelectedBookingData] = useState<BookingData>();
@@ -65,8 +65,8 @@ const BinAdminPage = () => {
   const [selectedTypeProductData, setSelectedTypeProductData] =
     useState<TypeProductData>();
   const [selectedExpenseData, setSelectedExpenseData] = useState<FinanceData>();
-  const [selectedEmployeeData, setSelectedEmployeeData] =
-    useState<EmployeeData>();
+  // const [selectedEmployeeData, setSelectedEmployeeData] =
+  //   useState<EmployeeData>();
   const [selectedPermissionData, setSelectedPermissionData] =
     useState<RoleData>();
 
@@ -238,7 +238,8 @@ const BinAdminPage = () => {
         getAllEmployees()
       ).unwrap();
 
-      setEmployeeDatas(EmployeesRes);
+      // setEmployeeDatas(EmployeesRes);
+      console.log(EmployeesRes);
     } catch (error) {
       console.log(error);
     } finally {
@@ -254,7 +255,9 @@ const BinAdminPage = () => {
     try {
       setIsBinLoading(true);
 
-      const { data: roleRes = [] } = await dispath(getAllRoles()).unwrap();
+      const { data: roleRes = [] } = await dispath(
+        getAllRoles(DeleteStatus.ISDELETE)
+      ).unwrap();
 
       const filteredRoles = roleRes.filter((item: RoleData) => {
         return item.delete === DeleteStatus.ISDELETE;

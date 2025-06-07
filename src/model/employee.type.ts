@@ -1,4 +1,5 @@
 import { RoleData } from "../data/permissions";
+import { DeleteStatus } from "./delete.type";
 
 export enum PaymentStatus {
   BANK = 0, // เงินสด
@@ -25,9 +26,14 @@ export interface EmployeeData {
   name: string;
   tel: string;
   role: RoleData;
+  roleId: string;
   image: string;
   salary?: SalaryData;
+  delete: DeleteStatus;
 }
+
+export interface EmployeeDataForm
+  extends Omit<EmployeeData, "role" | "delete"> {}
 
 export interface SalaryData {
   paymentStatus?: PaymentStatus;

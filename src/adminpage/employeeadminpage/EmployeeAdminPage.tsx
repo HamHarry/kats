@@ -130,7 +130,9 @@ const EmployeeAdminPage = () => {
                 <img src={item.image} alt="profile" />
                 <div className="wrap-employee-content">
                   <div className="text-p">
-                    <p>{t("ตำแหน่ง")} ( //todo )</p>
+                    <p>
+                      {t("ตำแหน่ง")} {item.role.name}
+                    </p>
                     <div className="icon">
                       <i
                         className="fa-solid fa-pen-to-square"

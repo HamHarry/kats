@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import * as roleService from "../../services/roleService";
 import { RoleData } from "../../data/permissions";
+import { DeleteStatus } from "../../model/delete.type";
 
 const initialState: any = {};
 
@@ -21,8 +22,8 @@ export const createRole = createAsyncThunk(
 
 export const getAllRoles = createAsyncThunk(
   "role/getAll",
-  async (): Promise<any> => {
-    const response = await roleService.getAllRoles();
+  async (delet?: DeleteStatus): Promise<any> => {
+    const response = await roleService.getAllRoles(delet);
     return response;
   }
 );

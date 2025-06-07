@@ -14,6 +14,7 @@ const NavbarAdmin = () => {
       <div className="logo-admin">
         <img src="/assets/logokats.jpg" alt="logo" />
       </div>
+
       <hr />
 
       <div className={selected === "user" ? "usered" : "user"}>
@@ -101,7 +102,7 @@ const NavbarAdmin = () => {
             <i className="fa-solid fa-wallet"></i>
             <p>{t("ค่าใช้จ่าย & เบิกเงิน")}</p>
           </li>
-          <li
+          {/* <li
             className={selected === "salary" ? "selected" : "select"}
             onClick={() => {
               navigate("/admin/salary");
@@ -120,7 +121,7 @@ const NavbarAdmin = () => {
           >
             <i className="fa-solid fa-file-invoice-dollar"></i>
             <p>{t("การเงิน")}</p>
-          </li>
+          </li> */}
           <li
             className={selected === "bin" ? "selected" : "select"}
             onClick={() => {
@@ -143,7 +144,6 @@ const NavbarAdmin = () => {
           </li>
         </ul>
       </div>
-      <hr />
       <div
         className="logout"
         onClick={() => {
@@ -152,6 +152,9 @@ const NavbarAdmin = () => {
       >
         <i className="fa-solid fa-arrow-right-from-bracket"></i>
         <p>{t("ออกจากระบบ")}</p>
+        <div className="version">
+          <p>v.1.0.0</p>
+        </div>
       </div>
     </div>
   );

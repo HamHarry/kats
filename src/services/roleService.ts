@@ -1,5 +1,6 @@
 import axios from "axios";
 import { RoleData } from "../data/permissions";
+import { DeleteStatus } from "../model/delete.type";
 
 export const createRole = async (payload: any): Promise<any> => {
   const response = await axios.post(
@@ -10,9 +11,11 @@ export const createRole = async (payload: any): Promise<any> => {
   return response;
 };
 
-export const getAllRoles = async (): Promise<any> => {
+export const getAllRoles = async (
+  delet = DeleteStatus.ISNOTDELETE
+): Promise<any> => {
   const response = await axios.get(
-    `${import.meta.env.VITE_BASE_SERVER_URL}/permissions/role`
+    `${import.meta.env.VITE_BASE_SERVER_URL}/permissions/role?delete=${delet}`
   );
 
   return response;
