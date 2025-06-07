@@ -10,6 +10,7 @@ import { Controller, useForm } from "react-hook-form";
 import { useRef, useState } from "react";
 import { FileAddFilled } from "@ant-design/icons";
 import { BankDatas } from "../../data/BankData";
+import { DeleteStatus } from "../../model/delete.type";
 
 const initUserForm: EmployeeData = {
   name: "",
@@ -18,6 +19,7 @@ const initUserForm: EmployeeData = {
     name: "",
     type: "",
     permissions: [],
+    delete: DeleteStatus.ISNOTDELETE,
   },
   image: "",
   salary: {
@@ -27,6 +29,8 @@ const initUserForm: EmployeeData = {
     accountNumber: "",
     amount: 0,
   },
+  roleId: "",
+  delete: DeleteStatus.ISNOTDELETE,
 };
 
 const UserAdminPage = () => {
