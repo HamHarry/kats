@@ -184,7 +184,7 @@ const CreateWithdrawAdminPage = () => {
                   >
                     {employeeData.map((item) => (
                       <Select.Option key={item._id} value={item._id}>
-                        {item.name} ( //todo )
+                        {item.name} ({item.role.name})
                       </Select.Option>
                     ))}
                   </Select>
