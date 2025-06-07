@@ -243,16 +243,18 @@ const CreateProductAdminPage = () => {
           </div>
 
           <div className="inputDetailProduct">
-            <button
-              type="button"
-              onClick={() => {
-                if (productDetailFields?.fields.length === 6) return;
+            <div>
+              <button
+                type="button"
+                onClick={() => {
+                  if (productDetailFields?.fields.length === 6) return;
 
-                productDetailFields.append(initProductDetail);
-              }}
-            >
-              เพิ่มราคา
-            </button>
+                  productDetailFields.append(initProductDetail);
+                }}
+              >
+                เพิ่มราคา
+              </button>
+            </div>
 
             {productDetailFields.fields.map((detail, index) => {
               return (

@@ -537,11 +537,11 @@ const GuaranteeAdminPage = () => {
                       <div style={{ width: "180px" }}>
                         <h4>ประกันสินค้า</h4>
                       </div>
-
-                      <p>{booking?.product.name}</p>
                     </div>
                     <div className="text-guadrantee">
-                      <p>{booking?.price.amount} บาท</p>
+                      <p>
+                        {booking?.product.name} {booking?.price.amount} บาท
+                      </p>
                     </div>
                   </div>
                 </div>

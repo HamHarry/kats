@@ -55,7 +55,6 @@
   border-radius: 20px;
   padding: 0px 20px 0px 20px;
   height: 700px;
-  width: 900px;
   gap: 20px;
   .container-top-userAdmin {
     display: flex;
@@ -207,6 +206,69 @@
 @media (max-width: 1280px) {
   .container-userAdmin {
     padding-left: 270px;
+  }
+
+  .wrap-container-userAdmin {
+    height: 600px;
+    .container-top-userAdmin {
+      .input-left {
+        .inputNameuserAdmin {
+          margin-top: 10px;
+          h2 {
+            width: 220px;
+            font-size: 20px;
+          }
+        }
+        .inputTeluserAdmin {
+          h2 {
+            width: 220px;
+            font-size: 20px;
+          }
+        }
+        .inputPositionuserAdmin {
+          h2 {
+            width: 210px;
+            font-size: 20px;
+          }
+        }
+        .inputImageuserAdmin {
+          h2 {
+            width: 210px;
+            font-size: 20px;
+          }
+        }
+        .inputPaymentStatus {
+          h2 {
+            width: 210px;
+            font-size: 20px;
+          }
+        }
+        .inputPaymentType {
+          h2 {
+            width: 210px;
+            font-size: 20px;
+          }
+        }
+        .inputAccountNumber {
+          h2 {
+            width: 220px;
+            font-size: 20px;
+          }
+        }
+        .inputBankName {
+          h2 {
+            width: 210px;
+            font-size: 20px;
+          }
+        }
+        .inputAmount {
+          h2 {
+            width: 220px;
+            font-size: 20px;
+          }
+        }
+      }
+    }
   }
 }
 @media (max-width: 1080px) {

@@ -278,7 +278,6 @@
           }
           .guadrantee {
             display: flex;
-            gap: 10px;
             .text-guadrantee-typeProduct {
               display: flex;
               align-items: center;
@@ -796,6 +795,300 @@
 @media (max-width: 1280px) {
   .container-guaranteeAdmin {
     padding-left: 270px;
+  }
+
+  .wrap-container-Edit-Profile-gun {
+    .ant-modal-content {
+      min-width: 800px;
+      min-height: 700px;
+    }
+    .content-Profile {
+      height: 500px;
+      .card-profile {
+        .wrap-card-profile {
+          .ImageProfile {
+            min-width: 250px;
+            height: 150px;
+            .IsImageProfile {
+              min-width: 250px;
+              height: 150px;
+            }
+            .IsNotImageProfile {
+              min-width: 250px;
+              height: 150px;
+            }
+            .fa-camera {
+              left: 83%;
+              bottom: 5%;
+              font-size: 25px;
+            }
+          }
+          .text-column-number {
+            gap: 0px;
+            .text-number {
+              h4 {
+                font-size: 20px;
+              }
+              p {
+                font-size: 16px;
+              }
+            }
+            .text-branch {
+              h4 {
+                font-size: 20px;
+              }
+              p {
+                font-size: 16px;
+              }
+            }
+          }
+          .text-column-volume {
+            gap: 0px;
+            .text-volume {
+              h4 {
+                font-size: 20px;
+              }
+              p {
+                font-size: 16px;
+              }
+            }
+            .guadrantee {
+              display: flex;
+              .text-guadrantee-typeProduct {
+                h4 {
+                  font-size: 20px;
+                }
+                p {
+                  font-size: 16px;
+                }
+              }
+              .text-guadrantee {
+                h4 {
+                  font-size: 20px;
+                }
+                p {
+                  font-size: 16px;
+                }
+              }
+            }
+          }
+        }
+        .text-column-date {
+          gap: 0px;
+          .text-date {
+            h4 {
+              font-size: 20px;
+            }
+            p {
+              font-size: 16px;
+            }
+          }
+          .text-car {
+            h4 {
+              font-size: 20px;
+            }
+            p {
+              font-size: 16px;
+            }
+          }
+        }
+        .text-column-name {
+          gap: 0px;
+          .text-name {
+            h4 {
+              font-size: 20px;
+            }
+            p {
+              font-size: 16px;
+            }
+          }
+          .text-register {
+            h4 {
+              font-size: 20px;
+            }
+            p {
+              font-size: 16px;
+            }
+          }
+        }
+        .text-tel {
+          gap: 0px;
+          h4 {
+            font-size: 20px;
+          }
+          p {
+            font-size: 16px;
+          }
+        }
+        hr {
+          padding: 1px;
+        }
+        .guarante-date {
+          gap: 0px;
+          table {
+            th {
+              font-size: 20px;
+            }
+            td {
+              font-size: 14px;
+            }
+            .input-time {
+              padding: 1px;
+            }
+            .input-date {
+              padding: 4px;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .wrap-container-Edit-Profile-kats {
+    .ant-modal-content {
+      min-width: 800px;
+      min-height: 700px;
+    }
+    .content-Profile {
+      height: 500px;
+      .card-profile {
+        .wrap-card-profile {
+          .ImageProfile {
+            min-width: 250px;
+            height: 150px;
+            .IsImageProfile {
+              min-width: 250px;
+              height: 150px;
+            }
+            .IsNotImageProfile {
+              min-width: 250px;
+              height: 150px;
+            }
+            .fa-camera {
+              left: 83%;
+              bottom: 5%;
+              font-size: 25px;
+            }
+          }
+          .text-column-number {
+            gap: 0px;
+            .text-number {
+              h4 {
+                font-size: 20px;
+              }
+              p {
+                font-size: 16px;
+              }
+            }
+            .text-branch {
+              h4 {
+                font-size: 20px;
+              }
+              p {
+                font-size: 16px;
+              }
+            }
+          }
+          .text-column-volume {
+            gap: 0px;
+            .text-volume {
+              h4 {
+                font-size: 20px;
+              }
+              p {
+                font-size: 16px;
+              }
+            }
+            .guadrantee {
+              display: flex;
+              .text-guadrantee-typeProduct {
+                h4 {
+                  font-size: 20px;
+                }
+                p {
+                  font-size: 16px;
+                }
+              }
+              .text-guadrantee {
+                h4 {
+                  font-size: 20px;
+                }
+                p {
+                  font-size: 16px;
+                }
+              }
+            }
+          }
+        }
+        .text-column-date {
+          gap: 0px;
+          .text-date {
+            h4 {
+              font-size: 20px;
+            }
+            p {
+              font-size: 16px;
+            }
+          }
+          .text-car {
+            h4 {
+              font-size: 20px;
+            }
+            p {
+              font-size: 16px;
+            }
+          }
+        }
+        .text-column-name {
+          gap: 0px;
+          .text-name {
+            h4 {
+              font-size: 20px;
+            }
+            p {
+              font-size: 16px;
+            }
+          }
+          .text-register {
+            h4 {
+              font-size: 20px;
+            }
+            p {
+              font-size: 16px;
+            }
+          }
+        }
+        .text-tel {
+          gap: 0px;
+          h4 {
+            font-size: 20px;
+          }
+          p {
+            font-size: 16px;
+          }
+        }
+        hr {
+          padding: 1px;
+        }
+        .guarante-date {
+          gap: 0px;
+          table {
+            th {
+              font-size: 20px;
+            }
+            td {
+              font-size: 14px;
+            }
+            .input-time {
+              padding: 1px;
+            }
+            .input-date {
+              padding: 4px;
+            }
+          }
+        }
+      }
+    }
   }
 }
 

@@ -236,20 +236,23 @@ const CreateWithdrawAdminPage = () => {
             />
           </div>
 
-          <div className="wrap-inputList">
-            <h2>รายการ</h2>
-            <div className="inputList">
-              <button
-                className="btn-append"
-                type="button"
-                onClick={() => {
-                  if (categoryDetailFields?.fields.length === 4) return;
+          <h2>รายการ</h2>
 
-                  categoryDetailFields.append(initCategoryDetail);
-                }}
-              >
-                เพิ่มหมวดหมู่
-              </button>
+          <div className="wrap-inputList">
+            <div className="inputList">
+              <div>
+                <button
+                  className="btn-append"
+                  type="button"
+                  onClick={() => {
+                    if (categoryDetailFields?.fields.length === 4) return;
+
+                    categoryDetailFields.append(initCategoryDetail);
+                  }}
+                >
+                  เพิ่มหมวดหมู่
+                </button>
+              </div>
 
               {categoryDetailFields.fields.map((detail, index) => {
                 return (

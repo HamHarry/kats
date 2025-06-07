@@ -54,7 +54,6 @@
   border-radius: 20px;
   padding: 0px 20px 0px 20px;
   height: 700px;
-  width: 900px;
   gap: 20px;
   .input-left {
     display: flex;
@@ -203,6 +202,29 @@
 @media (max-width: 1280px) {
   .container-CreateEmployeeAdminPage {
     padding-left: 270px;
+  }
+
+  .wrap-container-CreateEmployeeAdminPage {
+    height: 600px;
+    .input-left {
+      input {
+        width: 251px;
+        height: 26px;
+        border-radius: 20px;
+      }
+      h2 {
+        font-size: 20px;
+      }
+      .select-product {
+        height: 40px;
+      }
+      .inputImage {
+        .text-image {
+          width: 212px;
+          height: 15px;
+        }
+      }
+    }
   }
 }
 

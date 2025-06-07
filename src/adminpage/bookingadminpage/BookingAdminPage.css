@@ -634,6 +634,11 @@
   .container-BookingAdmin {
     padding-left: 270px;
   }
+
+  .wrap-container-DialogPay {
+    min-width: 700px;
+    height: 750px;
+  }
 }
 
 @media (max-width: 1080px) {

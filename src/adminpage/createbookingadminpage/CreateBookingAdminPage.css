@@ -51,7 +51,6 @@
   border-radius: 20px;
   padding: 0px 20px 0px 20px;
   height: 700px;
-  width: 900px;
   .inputNumber {
     display: flex;
     align-items: center;
@@ -339,6 +338,16 @@
 @media (max-width: 1280px) {
   .container-CreateAdmin {
     padding-left: 270px;
+  }
+
+  .wrap-container-CreateAdmin {
+    height: 600px;
+    .inputImage {
+      .text-image {
+        height: 100px;
+        width: 300px;
+      }
+    }
   }
 }
 

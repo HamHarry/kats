@@ -126,3 +126,9 @@
     }
   }
 }
+
+@media (max-width: 1280px) {
+  .container-TypeProduct {
+    padding-left: 270px;
+  }
+}

@@ -135,6 +135,46 @@
   .container-createproductAdmin {
     padding-left: 270px;
   }
+
+  .wrap-container-createproductAdmin {
+    height: 600px;
+    width: 700px;
+    h2 {
+      font-size: 20px;
+    }
+    .inputNameProduct {
+      gap: 119px;
+    }
+    .inputCatagory {
+      gap: 69px;
+    }
+    .inputTypeProduct {
+      font-size: 20px;
+      gap: 69px;
+    }
+    .inputPriceProduct {
+      gap: 105px;
+    }
+    .inputDetailProduct {
+      margin-left: 0px;
+      overflow-y: auto;
+      margin-bottom: 20px;
+      button {
+        width: 100px;
+        height: 45px;
+        border: none;
+        border-radius: 20px;
+        background-color: #2656a2;
+        color: white;
+        font-size: 20px;
+        cursor: pointer;
+        transition: all 0.5s;
+      }
+      button:hover {
+        background-color: #1a4f8a;
+      }
+    }
+  }
 }
 
 @media (max-width: 1080px) {
