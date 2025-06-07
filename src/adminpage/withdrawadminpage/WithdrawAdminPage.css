@@ -310,6 +310,12 @@
   .container-WithdrawAdminPage {
     padding-left: 270px;
   }
+
+  .withdraw-content {
+    .ant-table {
+      height: 500px;
+    }
+  }
 }
 
 @media (max-width: 1080px) {

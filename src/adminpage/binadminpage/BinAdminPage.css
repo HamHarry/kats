@@ -102,6 +102,19 @@
   .container-binAdmin {
     padding-left: 270px;
   }
+
+  .wrap-bin-content-teble {
+    display: flex;
+    flex-direction: column;
+    height: 600px;
+    gap: 20px;
+    width: 100%;
+    padding: 20px 20px 0px 20px;
+    overflow: hidden;
+    .bin-content-teble {
+      overflow-x: auto;
+    }
+  }
 }
 
 @media (max-width: 1080px) {

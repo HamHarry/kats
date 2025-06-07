@@ -21,6 +21,14 @@ export const getAllRoles = async (
   return response;
 };
 
+export const getAllRolesForPermission = async (): Promise<any> => {
+  const response = await axios.get(
+    `${import.meta.env.VITE_BASE_SERVER_URL}/permissions/role/authz`
+  );
+
+  return response;
+};
+
 export const getRoleById = async (roleId: string): Promise<any> => {
   const response = await axios.get(
     `${import.meta.env.VITE_BASE_SERVER_URL}/permissions/role/${roleId}`

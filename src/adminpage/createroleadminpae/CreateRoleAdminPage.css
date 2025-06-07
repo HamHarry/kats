@@ -132,3 +132,15 @@
     }
   }
 }
+
+@media (max-width: 1280px) {
+  .container-Role {
+    padding-left: 270px;
+  }
+
+  .role-content {
+    .ant-table {
+      height: 500px;
+    }
+  }
+}

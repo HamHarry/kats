@@ -97,3 +97,14 @@
     }
   }
 }
+
+@media (max-width: 1280px) {
+  .container-SettingAdminPage {
+    padding-left: 270px;
+  }
+
+  .wrap-container-SettingAdminPage-content {
+    width: 60%;
+    min-height: 600px;
+  }
+}

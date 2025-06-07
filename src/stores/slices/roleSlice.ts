@@ -28,6 +28,14 @@ export const getAllRoles = createAsyncThunk(
   }
 );
 
+export const getAllRolesForPermission = createAsyncThunk(
+  "role/getAllForPermission",
+  async (): Promise<any> => {
+    const response = await roleService.getAllRolesForPermission();
+    return response;
+  }
+);
+
 export const getRoleById = createAsyncThunk(
   "role/getById",
   async (roleId: string): Promise<any> => {

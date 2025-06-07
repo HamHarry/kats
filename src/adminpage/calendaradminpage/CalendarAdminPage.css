@@ -104,6 +104,11 @@
   .container-calendarAdmin {
     padding-left: 270px;
   }
+  .wrap-calendarAdmin {
+    .ant-picker-cell-inner {
+      height: 80px !important;
+    }
+  }
 }
 
 @media (max-width: 1080px) {
