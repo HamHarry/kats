@@ -314,6 +314,7 @@
   .withdraw-content {
     .ant-table {
       height: 500px;
+      font-size: 12px;
     }
   }
 }

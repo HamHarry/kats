@@ -1121,7 +1121,7 @@ const BinAdminPage = () => {
       key: "2",
       label: "บทบาท",
       children: (
-        <div className="content-Expense" style={{ width: "100%" }}>
+        <div className="content-Permission" style={{ width: "100%" }}>
           <Table
             dataSource={permissionDatas}
             pagination={{

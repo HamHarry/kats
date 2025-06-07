@@ -113,6 +113,36 @@
     overflow: hidden;
     .bin-content-teble {
       overflow-x: auto;
+      .content-boolings {
+        Table {
+          font-size: 12px;
+        }
+      }
+      .content-products {
+        Table {
+          font-size: 12px;
+        }
+      }
+      .content-catagorys {
+        Table {
+          font-size: 12px;
+        }
+      }
+      .content-typeProduct {
+        Table {
+          font-size: 12px;
+        }
+      }
+      .content-Expense {
+        Table {
+          font-size: 12px;
+        }
+      }
+      .content-Permission {
+        Table {
+          font-size: 12px;
+        }
+      }
     }
   }
 }
