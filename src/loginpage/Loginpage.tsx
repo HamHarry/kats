@@ -6,23 +6,26 @@ import { useState } from "react";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup/src/yup.js";
 import "./Loginpage.css";
+import { useAppDispatch } from "../stores/store";
+import { login } from "../stores/slices/authSlice";
 
 const schema = yup.object({
-  username: yup.string().required("Username or Email is required"),
+  email: yup.string().required("email or Email is required"),
   password: yup.string().required("Password is required"),
 });
 
 export interface LoginForm {
-  username: string;
+  email: string;
   password: string;
 }
 const defaultValues: LoginForm = {
-  username: "",
+  email: "",
   password: "",
 };
 
 const LoginPage = () => {
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
   const {
     handleSubmit,
@@ -38,7 +41,7 @@ const LoginPage = () => {
   const hideLoading = () => setIsLoading(false);
 
   //เมื่อกดปุ่ม login จะพาเข้าไปสู้หน้า Admin ===================================================================
-  const submit = (value: LoginForm) => {
+  const submit = async (value: LoginForm) => {
     try {
       const item = {
         ...value,
@@ -46,20 +49,15 @@ const LoginPage = () => {
       showLoading();
 
       console.log(item);
-      navigate("/admin/employee");
+      // navigate("/admin/employee");
 
-      // const { data: loginedData } = await dispatch(login(item)).unwrap();
-      // const decodedToken = jwtDecode(loginedData.accessToken);
-      // const cookies = new Cookies(null, {
-      //   path: "/",
-      //   expires: new Date(Number(decodedToken.exp) * 1000),
-      // });
-      // cookies.set("token", loginedData.accessToken);
-      // localStorage.setItem("token", loginedData.accessToken);
+      const { data: loginResponse } = await dispatch(login(item)).unwrap();
+
+      localStorage.setItem("token", loginResponse.accessToken);
 
       // navigate(`/core/home`);
     } catch (error) {
-      alert("Username and password is wrong");
+      alert("email and password is wrong");
       console.log(error);
     } finally {
       hideLoading();
@@ -74,18 +72,14 @@ const LoginPage = () => {
           <h1>เข้าสู่ระบบ</h1>
           <form onSubmit={handleSubmit(submit)}>
             <Controller
-              name="username"
+              name="email"
               control={control}
               render={({ field }) => {
                 return (
                   <>
-                    <h2>Username</h2>
-                    <input
-                      {...field}
-                      type="text"
-                      placeholder="Username & email..."
-                    />
-                    <p className="error">{errors.username?.message}</p>
+                    <h2>Email</h2>
+                    <input {...field} type="text" placeholder="Email..." />
+                    <p className="error">{errors.email?.message}</p>
                   </>
                 );
               }}
