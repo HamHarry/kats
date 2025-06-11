@@ -23,7 +23,8 @@ export enum BankType {
 
 export interface EmployeeData {
   _id?: string;
-  name: string;
+  firstName: string;
+  lastName: string;
   tel: string;
   role: RoleData;
   roleId: string;

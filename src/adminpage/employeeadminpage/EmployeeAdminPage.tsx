@@ -152,7 +152,7 @@ const EmployeeAdminPage = () => {
                     </div>
                   </div>
                   <p>
-                    {t("ชื่อ")}: {item.name}
+                    {t("ชื่อ")}: {item.firstName} {item.lastName}
                   </p>
                   <p>
                     {t("โทรศัพท์")}: {item.tel}

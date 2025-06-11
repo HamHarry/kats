@@ -49,11 +49,11 @@ const LoginPage = () => {
       showLoading();
 
       console.log(item);
-      // navigate("/admin/employee");
+      navigate("/admin/employee");
 
-      const { data: loginResponse } = await dispatch(login(item)).unwrap();
+      // const { data: loginResponse } = await dispatch(login(item)).unwrap();
 
-      localStorage.setItem("token", loginResponse.accessToken);
+      // localStorage.setItem("token", loginResponse.accessToken);
 
       // navigate(`/core/home`);
     } catch (error) {

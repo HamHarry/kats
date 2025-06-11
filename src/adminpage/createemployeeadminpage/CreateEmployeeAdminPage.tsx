@@ -24,7 +24,6 @@ import CircleLoading from "../../shared/circleLoading";
 import { getAllRoles } from "../../stores/slices/roleSlice";
 
 const initEmployeeForm: EmployeeDataForm = {
-  name: "",
   tel: "",
   image: "",
   salary: {
@@ -35,6 +34,8 @@ const initEmployeeForm: EmployeeDataForm = {
     amount: 0,
   },
   roleId: "",
+  firstName: "",
+  lastName: "",
 };
 
 const CreateEmployeeAdminPage = () => {
@@ -64,7 +65,8 @@ const CreateEmployeeAdminPage = () => {
       const employeeRes = data as EmployeeDataForm;
 
       const initEmployeeForm: EmployeeDataForm = {
-        name: employeeRes.name ?? "",
+        firstName: employeeRes.firstName ?? "",
+        lastName: employeeRes.lastName ?? "",
         tel: employeeRes.tel ?? "",
         image: employeeRes.image ?? "",
         salary: {
@@ -162,6 +164,7 @@ const CreateEmployeeAdminPage = () => {
       <div className="header-CreateEmployeeAdminPage">
         <h1>{t("สร้างข้อมูลพนักงาน")}</h1>
       </div>
+
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="btn-createproductAdmin">
           <button
@@ -178,10 +181,21 @@ const CreateEmployeeAdminPage = () => {
         <div className="wrap-container-CreateEmployeeAdminPage">
           <div className="input-left">
             <div className="inputNameEmployee">
-              <h2>{t("ชื่อพนักงาน")}</h2>
+              <h2>{t("ชื่อ")}</h2>
               <Controller
                 control={control}
-                name="name"
+                name="firstName"
+                render={({ field }) => {
+                  return <input {...field} type="text" />;
+                }}
+              />
+            </div>
+
+            <div className="inputNameEmployee">
+              <h2>{t("นามสกุล")}</h2>
+              <Controller
+                control={control}
+                name="lastName"
                 render={({ field }) => {
                   return <input {...field} type="text" />;
                 }}

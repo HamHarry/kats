@@ -54,16 +54,17 @@
   border-radius: 20px;
   padding: 0px 20px 0px 20px;
   height: 700px;
-  gap: 20px;
+  gap: 50px;
   .input-left {
     display: flex;
     flex-direction: column;
     .inputNameEmployee {
       display: flex;
       align-items: center;
-      margin-top: 40px;
+      margin-top: 20px;
       h2 {
         width: 220px;
+        font-size: 20px;
       }
     }
     .inputTelEmployee {
@@ -72,6 +73,7 @@
       margin-top: 20px;
       h2 {
         width: 220px;
+        font-size: 20px;
       }
     }
     .inputPositionEmployee {
@@ -80,6 +82,7 @@
       margin-top: 20px;
       h2 {
         width: 210px;
+        font-size: 20px;
       }
     }
     .select-product {
@@ -97,6 +100,7 @@
       margin-top: 20px;
       h2 {
         width: 210px;
+        font-size: 20px;
       }
     }
     .inputPaymentStatus {
@@ -105,6 +109,7 @@
       margin-top: 20px;
       h2 {
         width: 210px;
+        font-size: 20px;
       }
     }
     .inputPaymentType {
@@ -113,6 +118,7 @@
       margin-top: 20px;
       h2 {
         width: 210px;
+        font-size: 20px;
       }
     }
     .inputAccountNumber {
@@ -121,6 +127,7 @@
       margin-top: 20px;
       h2 {
         width: 220px;
+        font-size: 20px;
       }
     }
     .inputBankName {
@@ -129,6 +136,7 @@
       margin-top: 20px;
       h2 {
         width: 210px;
+        font-size: 20px;
       }
     }
     .inputAmount {
@@ -137,6 +145,7 @@
       margin-top: 20px;
       h2 {
         width: 220px;
+        font-size: 20px;
       }
     }
     .inputImage {
@@ -145,7 +154,7 @@
       justify-content: center;
       .text-image {
         width: 265px;
-        height: 45px;
+        height: 30px;
         display: flex;
         flex-direction: column;
         align-items: space-between;
@@ -170,11 +179,10 @@
     display: flex;
     flex-direction: column;
     width: 100%;
-    max-width: 300px;
     align-items: center;
     h2 {
       margin-top: 45px;
-      font-size: 24px;
+      font-size: 20px;
     }
     img {
       margin-top: 20px;
@@ -209,11 +217,44 @@
     .input-left {
       input {
         width: 251px;
-        height: 26px;
+        height: 25px;
         border-radius: 20px;
       }
-      h2 {
-        font-size: 20px;
+      .inputNameEmployee {
+        margin-top: 10px;
+      }
+      .inputTelEmployee {
+        margin-top: 10px;
+      }
+      .inputPositionEmployee {
+        margin-top: 10px;
+      }
+      .select-product {
+        width: 265px;
+        height: 45px;
+        border-radius: 20px;
+      }
+      .ant-select-single .ant-select-selector {
+        border-radius: 20px !important;
+        border: 2px solid #2656a2;
+      }
+      .inputImageEmployee {
+        margin-top: 10px;
+      }
+      .inputPaymentStatus {
+        margin-top: 10px;
+      }
+      .inputPaymentType {
+        margin-top: 10px;
+      }
+      .inputAccountNumber {
+        margin-top: 10px;
+      }
+      .inputBankName {
+        margin-top: 10px;
+      }
+      .inputAmount {
+        margin-top: 10px;
       }
       .select-product {
         height: 40px;
