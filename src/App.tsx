@@ -32,6 +32,7 @@ import LayoutCalendar from "./layouts/LayoutCalendar.tsx";
 import PermissionPage from "./adminpage/permissionpage/PermissionPage.tsx";
 import CreateRoleAdminPage from "./adminpage/createroleadminpae/CreateRoleAdminPage.tsx";
 import NotFoundPage from "./notfoundpage/NotFoundPage.tsx";
+import DocumentCountPage from "./adminpage/documentcountpage/DocumentCountPage.tsx";
 
 function App() {
   return (
@@ -113,6 +114,10 @@ function App() {
             path="setting/createTypeProduct"
             element={<CreateTypeProductPage />}
           />
+          <Route
+            path="setting/document-count"
+            element={<DocumentCountPage />}
+          ></Route>
         </Route>
         <Route path="*" element={<NotFoundPage />}></Route>
       </Routes>

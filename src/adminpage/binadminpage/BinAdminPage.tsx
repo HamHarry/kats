@@ -886,7 +886,11 @@ const BinAdminPage = () => {
       dataIndex: "employee",
       key: "employee",
       render: (employee: EmployeeData) => {
-        return <Typography>{employee.name}</Typography>;
+        return (
+          <Typography>
+            {employee.firstName} {employee.lastName}
+          </Typography>
+        );
       },
     },
     { title: "หัวข้อ", dataIndex: "ownerName", key: "ownerName" },

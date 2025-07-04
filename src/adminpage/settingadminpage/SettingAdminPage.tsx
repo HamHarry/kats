@@ -131,6 +131,36 @@ const SettingAdminPage = () => {
             <p>{t("ตั้งค่า เพิ่ม-ลด และกำหนดข้อมูลแบรนด์สินค้า")}</p>
           </div>
         </div>
+
+        <div className="SettingAdminPage-content-trakNumber">
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              height: "70px",
+              width: "70px",
+              border: "2px solid #2656a2",
+              borderRadius: "20px",
+            }}
+          >
+            <i className="fa-solid fa-list-ol"></i>
+          </div>
+
+          <div
+            className="content-trakNumber"
+            style={{
+              cursor: "pointer",
+            }}
+            onClick={() => {
+              navigate("/admin/setting/document-count");
+            }}
+          >
+            <h2>เลขที่เอกสาร</h2>
+
+            <p>ตั้งค่าเลขที่เอกสาร</p>
+          </div>
+        </div>
       </div>
     </div>
   );

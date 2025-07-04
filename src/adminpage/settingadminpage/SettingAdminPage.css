@@ -96,6 +96,16 @@
       color: #2656a2;
     }
   }
+  .SettingAdminPage-content-trakNumber {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    .fa-list-ol {
+      font-size: 40px;
+      color: #2656a2;
+    }
+  }
 }
 
 @media (max-width: 1280px) {
