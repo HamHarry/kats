@@ -7,7 +7,7 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup/src/yup.js";
 import "./Loginpage.css";
 import { useAppDispatch } from "../stores/store";
-import { login } from "../stores/slices/authSlice";
+import { login, restoreProfile } from "../stores/slices/authSlice";
 
 const schema = yup.object({
   email: yup.string().required("email or Email is required"),
@@ -48,14 +48,10 @@ const LoginPage = () => {
       };
       showLoading();
 
-      console.log(item);
+      await dispatch(login(item)).unwrap();
+      await dispatch(restoreProfile())
+
       navigate("/admin/employee");
-
-      // const { data: loginResponse } = await dispatch(login(item)).unwrap();
-
-      // localStorage.setItem("token", loginResponse.accessToken);
-
-      // navigate(`/core/home`);
     } catch (error) {
       alert("email and password is wrong");
       console.log(error);

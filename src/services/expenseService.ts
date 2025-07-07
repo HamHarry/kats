@@ -1,9 +1,9 @@
-import axios from "axios";
 import { FinanceData } from "../model/finance.type";
+import { HttpClient } from "../shared/utils/HttpClient";
 
 export const createExpense = async (payload: any): Promise<any> => {
-  const response = await axios.post(
-    `${import.meta.env.VITE_BASE_SERVER_URL}/expenses`,
+  const response = await HttpClient.post(
+    `/expenses`,
     payload
   );
 
@@ -11,24 +11,22 @@ export const createExpense = async (payload: any): Promise<any> => {
 };
 
 export const getAllExpenses = async (): Promise<any> => {
-  const response = await axios.get(
-    `${import.meta.env.VITE_BASE_SERVER_URL}/expenses`
-  );
+  const response = await HttpClient.get(`/expenses`);
 
   return response;
 };
 
 export const getExpenseById = async (expenseId: string): Promise<any> => {
-  const response = await axios.get(
-    `${import.meta.env.VITE_BASE_SERVER_URL}/expenses/${expenseId}`
+  const response = await HttpClient.get(
+    `/expenses/${expenseId}`
   );
 
   return response;
 };
 
 export const updateExpenseById = async (body: any): Promise<any> => {
-  const response = await axios.put(
-    `${import.meta.env.VITE_BASE_SERVER_URL}/expenses/${body.expenseId}`,
+  const response = await HttpClient.put(
+    `/expenses/${body.expenseId}`,
     body.data
   );
 
@@ -36,8 +34,8 @@ export const updateExpenseById = async (body: any): Promise<any> => {
 };
 
 export const approveExpenseById = async (body: FinanceData): Promise<any> => {
-  const response = await axios.post(
-    `${import.meta.env.VITE_BASE_SERVER_URL}/expenses/approve/${body._id}`,
+  const response = await HttpClient.post(
+    `/expenses/approve/${body._id}`,
     body
   );
 
@@ -45,8 +43,8 @@ export const approveExpenseById = async (body: FinanceData): Promise<any> => {
 };
 
 export const cencelExpenseById = async (body: FinanceData): Promise<any> => {
-  const response = await axios.post(
-    `${import.meta.env.VITE_BASE_SERVER_URL}/expenses/cencel/${body._id}`,
+  const response = await HttpClient.post(
+    `/expenses/cencel/${body._id}`,
     body
   );
 
@@ -54,8 +52,8 @@ export const cencelExpenseById = async (body: FinanceData): Promise<any> => {
 };
 
 export const isDeleteExpenseById = async (body: FinanceData): Promise<any> => {
-  const response = await axios.post(
-    `${import.meta.env.VITE_BASE_SERVER_URL}/expenses/selectDelete/${body._id}`,
+  const response = await HttpClient.post(
+    `/expenses/selectDelete/${body._id}`,
     body
   );
 
@@ -63,8 +61,8 @@ export const isDeleteExpenseById = async (body: FinanceData): Promise<any> => {
 };
 
 export const deleteExpenseById = async (expenseId: string): Promise<any> => {
-  const response = await axios.delete(
-    `${import.meta.env.VITE_BASE_SERVER_URL}/expenses/${expenseId}`
+  const response = await HttpClient.delete(
+    `/expenses/${expenseId}`
   );
 
   return response;

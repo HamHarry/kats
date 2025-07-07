@@ -1,9 +1,7 @@
-import axios from "axios";
+import { HttpClient } from "../shared/utils/HttpClient";
 
 export const getAllDocumentCounts = async (): Promise<any> => {
-  const response = await axios.get(
-    `${import.meta.env.VITE_BASE_SERVER_URL}/document-count`
-  );
+  const response = await HttpClient.get(`/document-count`);
 
   return response;
 };

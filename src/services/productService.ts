@@ -1,9 +1,9 @@
-import axios from "axios";
 import { CatagoryData, ProductData } from "../model/product.type";
+import { HttpClient } from "../shared/utils/HttpClient";
 
 export const createProduct = async (payload: any): Promise<any> => {
-  const response = await axios.post(
-    `${import.meta.env.VITE_BASE_SERVER_URL}/products`,
+  const response = await HttpClient.post(
+    `/products`,
     payload
   );
 
@@ -11,16 +11,14 @@ export const createProduct = async (payload: any): Promise<any> => {
 };
 
 export const getAllProducts = async (): Promise<any> => {
-  const response = await axios.get(
-    `${import.meta.env.VITE_BASE_SERVER_URL}/products`
-  );
+  const response = await HttpClient.get(`/products`);
 
   return response;
 };
 
 export const createCatagory = async (payload: any): Promise<any> => {
-  const response = await axios.post(
-    `${import.meta.env.VITE_BASE_SERVER_URL}/products/catagory`,
+  const response = await HttpClient.post(
+    `/products/catagory`,
     payload
   );
 
@@ -28,16 +26,16 @@ export const createCatagory = async (payload: any): Promise<any> => {
 };
 
 export const getAllCatagories = async (): Promise<any> => {
-  const response = await axios.get(
-    `${import.meta.env.VITE_BASE_SERVER_URL}/products/catagories`
+  const response = await HttpClient.get(
+    `/products/catagories`
   );
 
   return response;
 };
 
 export const createTypeProduct = async (payload: any): Promise<any> => {
-  const response = await axios.post(
-    `${import.meta.env.VITE_BASE_SERVER_URL}/products/typeProduct`,
+  const response = await HttpClient.post(
+    `/products/typeProduct`,
     payload
   );
 
@@ -45,44 +43,40 @@ export const createTypeProduct = async (payload: any): Promise<any> => {
 };
 
 export const getAllTypeProduct = async (): Promise<any> => {
-  const response = await axios.get(
-    `${import.meta.env.VITE_BASE_SERVER_URL}/products/typeProduct`
+  const response = await HttpClient.get(
+    `/products/typeProduct`
   );
 
   return response;
 };
 
 export const getProductById = async (productId: string): Promise<any> => {
-  const response = await axios.get(
-    `${import.meta.env.VITE_BASE_SERVER_URL}/products/${productId}`
+  const response = await HttpClient.get(
+    `/products/${productId}`
   );
 
   return response;
 };
 
 export const getCatagoryById = async (catagoryId: string): Promise<any> => {
-  const response = await axios.get(
-    `${import.meta.env.VITE_BASE_SERVER_URL}/products/catagories/${catagoryId}`
+  const response = await HttpClient.get(
+    `/products/catagories/${catagoryId}`
   );
 
   return response;
 };
 
-export const getTypeProductById = async (
-  typeProductId: string
-): Promise<any> => {
-  const response = await axios.get(
-    `${
-      import.meta.env.VITE_BASE_SERVER_URL
-    }/products/typeProduct/${typeProductId}`
+export const getTypeProductById = async (typeProductId: string): Promise<any> => {
+  const response = await HttpClient.get(
+    `/products/typeProduct/${typeProductId}`
   );
 
   return response;
 };
 
 export const updateProductById = async (body: any): Promise<any> => {
-  const response = await axios.put(
-    `${import.meta.env.VITE_BASE_SERVER_URL}/products/update/${body.productId}`,
+  const response = await HttpClient.put(
+    `/products/update/${body.productId}`,
     body.data
   );
 
@@ -90,10 +84,8 @@ export const updateProductById = async (body: any): Promise<any> => {
 };
 
 export const updateCatagoryById = async (body: any): Promise<any> => {
-  const response = await axios.put(
-    `${import.meta.env.VITE_BASE_SERVER_URL}/products/catagories/update/${
-      body.catagoryId
-    }`,
+  const response = await HttpClient.put(
+    `/products/catagories/update/${body.catagoryId}`,
     body.data
   );
 
@@ -101,10 +93,8 @@ export const updateCatagoryById = async (body: any): Promise<any> => {
 };
 
 export const updateTypeProductById = async (body: any): Promise<any> => {
-  const response = await axios.put(
-    `${import.meta.env.VITE_BASE_SERVER_URL}/products/typeProduct/update/${
-      body.typeProductId
-    }`,
+  const response = await HttpClient.put(
+    `/products/typeProduct/update/${body.typeProductId}`,
     body
   );
 
@@ -112,34 +102,26 @@ export const updateTypeProductById = async (body: any): Promise<any> => {
 };
 
 export const isDeleteProductById = async (body: ProductData): Promise<any> => {
-  const response = await axios.post(
-    `${import.meta.env.VITE_BASE_SERVER_URL}/products/selectDelete/${body._id}`,
+  const response = await HttpClient.post(
+    `/products/selectDelete/${body._id}`,
     body
   );
 
   return response;
 };
 
-export const isDeleteCatagoryById = async (
-  body: CatagoryData
-): Promise<any> => {
-  const response = await axios.post(
-    `${import.meta.env.VITE_BASE_SERVER_URL}/products/catagories/selectDelete/${
-      body._id
-    }`,
+export const isDeleteCatagoryById = async (body: CatagoryData): Promise<any> => {
+  const response = await HttpClient.post(
+    `/products/catagories/selectDelete/${body._id}`,
     body
   );
 
   return response;
 };
 
-export const isDeleteTypeProductById = async (
-  body: CatagoryData
-): Promise<any> => {
-  const response = await axios.post(
-    `${
-      import.meta.env.VITE_BASE_SERVER_URL
-    }/products/typeProduct/selectDelete/${body._id}`,
+export const isDeleteTypeProductById = async (body: CatagoryData): Promise<any> => {
+  const response = await HttpClient.post(
+    `/products/typeProduct/selectDelete/${body._id}`,
     body
   );
 
@@ -147,32 +129,24 @@ export const isDeleteTypeProductById = async (
 };
 
 export const deleteProductById = async (productId: string): Promise<any> => {
-  const response = await axios.delete(
-    `${
-      import.meta.env.VITE_BASE_SERVER_URL
-    }/products/DeleteProduct/${productId}`
+  const response = await HttpClient.delete(
+    `/products/DeleteProduct/${productId}`
   );
 
   return response;
 };
 
 export const deleteCatagoryById = async (productId: string): Promise<any> => {
-  const response = await axios.delete(
-    `${
-      import.meta.env.VITE_BASE_SERVER_URL
-    }/products/DeleteCatagory/${productId}`
+  const response = await HttpClient.delete(
+    `/products/DeleteCatagory/${productId}`
   );
 
   return response;
 };
 
-export const deleteTypeProductById = async (
-  productId: string
-): Promise<any> => {
-  const response = await axios.delete(
-    `${
-      import.meta.env.VITE_BASE_SERVER_URL
-    }/products/DeleteTypeProduct/${productId}`
+export const deleteTypeProductById = async (productId: string): Promise<any> => {
+  const response = await HttpClient.delete(
+    `/products/DeleteTypeProduct/${productId}`
   );
 
   return response;

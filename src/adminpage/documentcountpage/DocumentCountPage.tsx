@@ -1,13 +1,11 @@
 import { useCallback, useEffect, useState } from "react";
 import "./DocumentCount.css";
-import { useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../../stores/store";
 import { DocumentCountNumber } from "../../model/docmentCount.type";
 import CircleLoading from "../../shared/circleLoading";
 import { getAllDocumentCounts } from "../../stores/slices/documentCountSlice";
 
 const DocumentCountPage = () => {
-  const navigate = useNavigate();
   const dispath = useAppDispatch();
   const [isCountLoading, setIsCountLoading] = useState<boolean>(false);
 
@@ -18,9 +16,10 @@ const DocumentCountPage = () => {
     try {
       setIsCountLoading(true);
 
-      const DocumentCountRes = await dispath(getAllDocumentCounts()).unwrap();
-
-      setDocumentCountData(DocumentCountRes.data);
+      const { data = [] } = await dispath(getAllDocumentCounts()).unwrap();
+      if (data.length > 0) {
+        setDocumentCountData(data[0]);
+      }
     } catch (error) {
       console.log(error);
     } finally {
@@ -41,16 +40,14 @@ const DocumentCountPage = () => {
       </div>
 
       <div className="wrap-container-DocumentCountPage">
-        <div className="grid-DocumentCountPage">
-          <div className="documentCountPage-content">
-            <div className="bookingCount-content">
-              <p>{documentCountData?.bookingCount}</p>
-            </div>
+        <div className="bookingCount-content">
+          <h2>เลขที่เอกสารการจอง</h2>
+          <p>{documentCountData?.bookingCount}</p>
+        </div>
 
-            <div className="bookingCount-content">
-              <p>{documentCountData?.expenseCount}</p>
-            </div>
-          </div>
+        <div className="bookingCount-content">
+          <h2>เลขที่เอกสารการเบิกเงิน</h2>
+          <p>{documentCountData?.expenseCount}</p>
         </div>
       </div>
       <CircleLoading open={isCountLoading} />

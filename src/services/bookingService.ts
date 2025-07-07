@@ -1,9 +1,9 @@
-import axios from "axios";
 import { BookingData } from "../model/booking.type";
+import { HttpClient } from "../shared/utils/HttpClient";
 
 export const createBooking = async (payload: any): Promise<any> => {
-  const response = await axios.post(
-    `${import.meta.env.VITE_BASE_SERVER_URL}/bookings`,
+  const response = await HttpClient.post(
+    `/bookings`,
     payload
   );
 
@@ -11,8 +11,8 @@ export const createBooking = async (payload: any): Promise<any> => {
 };
 
 export const approveBookingById = async (data: BookingData): Promise<any> => {
-  const response = await axios.post(
-    `${import.meta.env.VITE_BASE_SERVER_URL}/bookings/approve/${data._id}`,
+  const response = await HttpClient.post(
+    `/bookings/approve/${data._id}`,
     data
   );
 
@@ -20,8 +20,8 @@ export const approveBookingById = async (data: BookingData): Promise<any> => {
 };
 
 export const cancelBookingById = async (data: BookingData): Promise<any> => {
-  const response = await axios.post(
-    `${import.meta.env.VITE_BASE_SERVER_URL}/bookings/cancel/${data._id}`,
+  const response = await HttpClient.post(
+    `/bookings/cancel/${data._id}`,
     data
   );
 
@@ -29,16 +29,16 @@ export const cancelBookingById = async (data: BookingData): Promise<any> => {
 };
 
 export const getAllBookings = async (): Promise<any> => {
-  const response = await axios.get(
-    `${import.meta.env.VITE_BASE_SERVER_URL}/bookings`
+  const response = await HttpClient.get(
+    `/bookings`
   );
 
   return response;
 };
 
 export const getAllBookingPaginations = async (query: any): Promise<any> => {
-  const response = await axios.get(
-    `${import.meta.env.VITE_BASE_SERVER_URL}/bookings/pagination`,
+  const response = await HttpClient.get(
+    `/bookings/pagination`,
     { params: query }
   );
 
@@ -46,16 +46,16 @@ export const getAllBookingPaginations = async (query: any): Promise<any> => {
 };
 
 export const getBookingById = async (bookingId: string): Promise<any> => {
-  const response = await axios.get(
-    `${import.meta.env.VITE_BASE_SERVER_URL}/bookings/${bookingId}`
+  const response = await HttpClient.get(
+    `/bookings/${bookingId}`
   );
 
   return response;
 };
 
 export const updateBookingById = async (body: any): Promise<any> => {
-  const response = await axios.put(
-    `${import.meta.env.VITE_BASE_SERVER_URL}/bookings/${body.bookingId}`,
+  const response = await HttpClient.put(
+    `/bookings/${body.bookingId}`,
     body.data
   );
 
@@ -63,8 +63,8 @@ export const updateBookingById = async (body: any): Promise<any> => {
 };
 
 export const updateGuaranteeByBookingId = async (body: any): Promise<any> => {
-  const response = await axios.put(
-    `${import.meta.env.VITE_BASE_SERVER_URL}/bookings/updateGuarantee/${
+  const response = await HttpClient.put(
+    `/bookings/updateGuarantee/${
       body.bookingId
     }`,
     body.data
@@ -74,8 +74,8 @@ export const updateGuaranteeByBookingId = async (body: any): Promise<any> => {
 };
 
 export const isDeleteBookingById = async (body: any): Promise<any> => {
-  const response = await axios.post(
-    `${import.meta.env.VITE_BASE_SERVER_URL}/bookings/selectDelete/${body._id}`,
+  const response = await HttpClient.post(
+    `/bookings/selectDelete/${body._id}`,
     body
   );
 
@@ -83,8 +83,8 @@ export const isDeleteBookingById = async (body: any): Promise<any> => {
 };
 
 export const deleteBookingById = async (bookingId: string): Promise<any> => {
-  const response = await axios.delete(
-    `${import.meta.env.VITE_BASE_SERVER_URL}/bookings/${bookingId}`
+  const response = await HttpClient.delete(
+    `/bookings/${bookingId}`
   );
 
   return response;

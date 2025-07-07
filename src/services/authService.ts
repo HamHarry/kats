@@ -1,10 +1,13 @@
-import axios from "axios";
+import { HttpClient } from "../shared/utils/HttpClient";
 
 export const login = async (payload: any): Promise<any> => {
-  const response = await axios.post(
-    `${import.meta.env.VITE_BASE_SERVER_URL}/auth/login`,
-    payload
-  );
+  const response = await HttpClient.post(`/auth/login`, payload);
+
+  return response;
+};
+
+export const getUserProfile = async (): Promise<any> => {
+  const response = await HttpClient.get(`/users/profile`);
 
   return response;
 };

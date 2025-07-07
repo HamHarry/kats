@@ -1,5 +1,5 @@
 import { Route, Routes } from "react-router-dom";
-import { Suspense } from "react";
+import { Suspense, useCallback, useEffect } from "react";
 import "./App.css";
 import HomePageGun from "./homepagegun/HomePageGun";
 import LoginPage from "./loginpage/Loginpage";
@@ -33,8 +33,23 @@ import PermissionPage from "./adminpage/permissionpage/PermissionPage.tsx";
 import CreateRoleAdminPage from "./adminpage/createroleadminpae/CreateRoleAdminPage.tsx";
 import NotFoundPage from "./notfoundpage/NotFoundPage.tsx";
 import DocumentCountPage from "./adminpage/documentcountpage/DocumentCountPage.tsx";
+import { restoreProfile } from "./stores/slices/authSlice.ts";
+import { useAppDispatch } from "./stores/store.ts";
 
 function App() {
+  const dispatch = useAppDispatch()
+  
+  const initailPage = useCallback(
+    () => {
+      dispatch(restoreProfile())
+    },
+    [dispatch],
+  )
+
+  useEffect(() => {
+    initailPage()
+  }, [initailPage])
+  
   return (
     <Suspense>
       <Routes>

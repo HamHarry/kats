@@ -26,7 +26,18 @@
 
 .wrap-container-DocumentCountPage {
   display: flex;
-  flex-direction: column;
   width: 100%;
-  height: 500px;
+  height: 350px;
+  padding-top: 40px;
+  gap: 20px;
+  .bookingCount-content {
+    display: flex;
+    margin-bottom: 20px;
+    width: 50%;
+    gap: 20px;
+    padding: 25px;
+    border-radius: 10px;
+    background-color: #2656a2;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  }
 }
