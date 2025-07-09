@@ -14,14 +14,27 @@ export interface AuthState {
 }
 
 const initialState: AuthState = {
-  checkedAuthenticated:false,
-  isAuthented: false
+  checkedAuthenticated: false,
+  isAuthented: false,
+};
+
+export const clearAuthState = () => {
+  Cookies.remove(cookieConstants.TOKEN_KEY);
+  Cookies.remove(cookieConstants.TOKEN_EXPIRES_IN);
+  Cookies.remove(cookieConstants.REFRESH_TOKEN_KEY);
+  Cookies.remove(cookieConstants.REFRESH_TOKEN_EXPIRES_IN);
 };
 
 const authSlice = createSlice({
   name: "documentInfoSlice",
   initialState,
-  reducers: {},
+  reducers: {
+    logOut: (state: AuthState) => {
+      clearAuthState();
+
+      state.isAuthented = false;
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(restoreProfile.pending, (state) => {
       state.isAuthented = false;
@@ -90,5 +103,7 @@ export const userInfoSelector = (store: RootState) => store.authReducer.userInfo
 export const isAuthentedSelector = (store: RootState) => store.authReducer.isAuthented;
 export const checkedAuthenticatedSelector = (store: RootState): boolean =>
   store.authReducer.checkedAuthenticated;
+
+export const { logOut } = authSlice.actions;
 
 export default authSlice.reducer;
