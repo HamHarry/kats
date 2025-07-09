@@ -31,7 +31,11 @@ import PermissionPage from "./adminpage/permissionpage/PermissionPage.tsx";
 import CreateRoleAdminPage from "./adminpage/createroleadminpae/CreateRoleAdminPage.tsx";
 import NotFoundPage from "./notfoundpage/NotFoundPage.tsx";
 import DocumentCountPage from "./adminpage/documentcountpage/DocumentCountPage.tsx";
-import { checkedAuthenticatedSelector, isAuthentedSelector, restoreProfile } from "./stores/slices/authSlice.ts";
+import {
+  checkedAuthenticatedSelector,
+  isAuthentedSelector,
+  restoreProfile,
+} from "./stores/slices/authSlice.ts";
 import { useAppDispatch } from "./stores/store.ts";
 import PrivateRoutes from "./routes/PrivateRoutes.tsx";
 import { useSelector } from "react-redux";
@@ -59,10 +63,11 @@ function App() {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route path="" element={<HomePageGun />} />
-          <Route path="/kats" element={<Layoutkats />}>
-            <Route path="" element={<HomePageKats />} />
-            <Route path="login" element={<LoginPage />} />
-          </Route>
+        </Route>
+
+        <Route path="/kats" element={<Layoutkats />}>
+          <Route path="" element={<HomePageKats />} />
+          <Route path="login" element={<LoginPage />} />
         </Route>
 
         <Route path="/admin" element={<PrivateRoutes isAuthented={isAuthented} />}>
