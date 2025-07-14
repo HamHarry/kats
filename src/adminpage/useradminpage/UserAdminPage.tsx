@@ -11,9 +11,12 @@ import { useRef, useState } from "react";
 import { FileAddFilled } from "@ant-design/icons";
 import { BankDatas } from "../../data/BankData";
 import { DeleteStatus } from "../../model/delete.type";
+import { useSelector } from "react-redux";
+import { employeeDataSelector } from "../../stores/slices/authSlice";
 
 const initUserForm: EmployeeData = {
-  name: "",
+  firstName: "",
+  lastName: "",
   tel: "",
   role: {
     name: "",
@@ -31,11 +34,12 @@ const initUserForm: EmployeeData = {
   },
   roleId: "",
   delete: DeleteStatus.ISNOTDELETE,
+  email: ""
 };
 
 const UserAdminPage = () => {
   const formRef = useRef<any>(null);
-  // const dispath = useAppDispatch();
+  const employeeData = useSelector(employeeDataSelector);
   const [baseImage, setBaseImage] = useState("");
   const [openDialogConfirm, setOpenDialogConfirm] = useState<boolean>(false);
 
@@ -132,7 +136,7 @@ const UserAdminPage = () => {
                 <h2>ชื่อพนักงาน</h2>
                 <Controller
                   control={control}
-                  name="name"
+                  name="firstName"
                   render={({ field }) => {
                     return <input {...field} type="text" />;
                   }}

@@ -1,11 +1,6 @@
 import "./CreateEmployeeAdminPage.css";
 import { Controller, useForm } from "react-hook-form";
-import {
-  PaymentStatus,
-  PaymentType,
-  BankType,
-  EmployeeDataForm,
-} from "../../model/employee.type";
+import { PaymentStatus, PaymentType, BankType, EmployeeDataForm } from "../../model/employee.type";
 import { Select, Typography } from "antd";
 import { FileAddFilled } from "@ant-design/icons";
 import { useAppDispatch } from "../../stores/store";
@@ -49,8 +44,7 @@ const CreateEmployeeAdminPage = () => {
   const [baseImage, setBaseImage] = useState("");
   const [roleDatas, setRoleDatas] = useState<RoleData[]>([]);
 
-  const [isCreateEmployeeLoading, setIsCreateEmployeeLoading] =
-    useState<boolean>(false);
+  const [isCreateEmployeeLoading, setIsCreateEmployeeLoading] = useState<boolean>(false);
 
   const { control, handleSubmit, reset, watch } = useForm({
     defaultValues: initEmployeeForm,
@@ -70,14 +64,14 @@ const CreateEmployeeAdminPage = () => {
         tel: employeeRes.tel ?? "",
         image: employeeRes.image ?? "",
         salary: {
-          paymentStatus:
-            employeeRes.salary?.paymentStatus ?? PaymentStatus.BANK,
+          paymentStatus: employeeRes.salary?.paymentStatus ?? PaymentStatus.BANK,
           paymentType: employeeRes.salary?.paymentType ?? PaymentType.MONTHLY,
           bankName: employeeRes.salary?.bankName ?? BankType.BANK_OF_AYUDHYA,
           accountNumber: employeeRes.salary?.accountNumber ?? "",
           amount: employeeRes.salary?.amount ?? 0,
         },
         roleId: employeeRes.roleId ?? "",
+        email: employeeRes.email ?? "",
       };
 
       reset(initEmployeeForm);
@@ -162,7 +156,7 @@ const CreateEmployeeAdminPage = () => {
   return (
     <div className="container-CreateEmployeeAdminPage">
       <div className="header-CreateEmployeeAdminPage">
-        <h1>{t("สร้างข้อมูลพนักงาน")}</h1>
+        <h1>{employeeId ? "ข้อมูลพนักงาน" : "สร้างพนักงาน"}</h1>
       </div>
 
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -281,12 +275,8 @@ const CreateEmployeeAdminPage = () => {
                         // setIsAccountNumber();
                       }}
                     >
-                      <Select.Option value={PaymentStatus.BANK}>
-                        {t("ธนาคาร")}
-                      </Select.Option>
-                      <Select.Option value={PaymentStatus.CASH}>
-                        {t("เงินสด")}
-                      </Select.Option>
+                      <Select.Option value={PaymentStatus.BANK}>{t("ธนาคาร")}</Select.Option>
+                      <Select.Option value={PaymentStatus.CASH}>{t("เงินสด")}</Select.Option>
                     </Select>
                   );
                 }}
@@ -306,12 +296,8 @@ const CreateEmployeeAdminPage = () => {
                       className="select-product"
                       value={field.value ?? undefined}
                     >
-                      <Select.Option value={PaymentType.MONTHLY}>
-                        {t("รายเดือน")}
-                      </Select.Option>
-                      <Select.Option value={PaymentType.DAILY}>
-                        {t("รายวัน")}
-                      </Select.Option>
+                      <Select.Option value={PaymentType.MONTHLY}>{t("รายเดือน")}</Select.Option>
+                      <Select.Option value={PaymentType.DAILY}>{t("รายวัน")}</Select.Option>
                     </Select>
                   );
                 }}
@@ -333,13 +319,8 @@ const CreateEmployeeAdminPage = () => {
                           type="text"
                           placeholder={t("กรอกเลขบัญชี")}
                           onChange={(event) => {
-                            const value = event.target.value.replace(
-                              /[^0-9.]/g,
-                              ""
-                            );
-                            const validated = value.match(
-                              /^(\d*\.{0,1}\d{0,2}$)/
-                            );
+                            const value = event.target.value.replace(/[^0-9.]/g, "");
+                            const validated = value.match(/^(\d*\.{0,1}\d{0,2}$)/);
                             if (validated) {
                               field.onChange(Number(value));
                             }
@@ -367,11 +348,7 @@ const CreateEmployeeAdminPage = () => {
                             return (
                               <Select.Option key={index} value={bank.type}>
                                 <div className="bank-select">
-                                  <img
-                                    className="bank-logo"
-                                    src={bank.img}
-                                    alt=""
-                                  />
+                                  <img className="bank-logo" src={bank.img} alt="" />
                                   <Typography>{bank.name}</Typography>
                                 </div>
                               </Select.Option>
@@ -398,10 +375,7 @@ const CreateEmployeeAdminPage = () => {
                       type="text"
                       placeholder="กรอกจำนวนเงิน"
                       onChange={(event) => {
-                        const value = event.target.value.replace(
-                          /[^0-9.]/g,
-                          ""
-                        );
+                        const value = event.target.value.replace(/[^0-9.]/g, "");
                         const validated = value.match(/^(\d*\.{0,1}\d{0,2}$)/);
                         if (validated) {
                           field.onChange(Number(value));

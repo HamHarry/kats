@@ -26,8 +26,7 @@ const initProductDetail: ProductDetail = {
   amount: 0,
 };
 
-interface ProductDataForm
-  extends Omit<ProductData, "catagory" | "typeProduct"> {}
+interface ProductDataForm extends Omit<ProductData, "catagory" | "typeProduct"> {}
 
 const initProductForm: ProductDataForm = {
   name: "",
@@ -89,11 +88,13 @@ const CreateProductAdminPage = () => {
     try {
       setIsProductLoading(true);
 
-      const { data: catagoriesRes = [] } = await dispath(
-        getAllCatagories()
-      ).unwrap();
+      const { data: catagoriesRes = [] } = await dispath(getAllCatagories()).unwrap();
 
-      setCategories(catagoriesRes);
+      const filteredCatagories = catagoriesRes.filter(
+        (item: CatagoryData) => item.delete === DeleteStatus.ISNOTDELETE
+      );
+
+      setCategories(filteredCatagories);
     } catch (error) {
       console.log(error);
     } finally {
@@ -109,9 +110,7 @@ const CreateProductAdminPage = () => {
     try {
       setIsProductLoading(true);
 
-      const { data: TypeProductRes = [] } = await dispath(
-        getAllTypeProduct()
-      ).unwrap();
+      const { data: TypeProductRes = [] } = await dispath(getAllTypeProduct()).unwrap();
 
       setTypeProduct(TypeProductRes);
     } catch (error) {
@@ -258,10 +257,7 @@ const CreateProductAdminPage = () => {
 
             {productDetailFields.fields.map((detail, index) => {
               return (
-                <div
-                  key={`${detail.id}_${index}`}
-                  className="inputDetailProduct-inside"
-                >
+                <div key={`${detail.id}_${index}`} className="inputDetailProduct-inside">
                   <Controller
                     control={control}
                     name={`productDetails.${index}.type`}
@@ -273,12 +269,8 @@ const CreateProductAdminPage = () => {
                           className="select-product"
                           value={field.value || undefined}
                         >
-                          <Select.Option value={PRICE_TYPE.STANDARD}>
-                            standard
-                          </Select.Option>
-                          <Select.Option value={PRICE_TYPE.LUXURY}>
-                            luxury
-                          </Select.Option>
+                          <Select.Option value={PRICE_TYPE.STANDARD}>standard</Select.Option>
+                          <Select.Option value={PRICE_TYPE.LUXURY}>luxury</Select.Option>
                         </Select>
                       );
                     }}
@@ -294,13 +286,8 @@ const CreateProductAdminPage = () => {
                           className="input-prices"
                           type="text"
                           onChange={(event) => {
-                            const value = event.target.value.replace(
-                              /[^0-9.]/g,
-                              ""
-                            );
-                            const validated = value.match(
-                              /^(\d*\.{0,1}\d{0,2}$)/
-                            );
+                            const value = event.target.value.replace(/[^0-9.]/g, "");
+                            const validated = value.match(/^(\d*\.{0,1}\d{0,2}$)/);
                             if (validated) {
                               field.onChange(Number(value));
                             }
@@ -311,10 +298,7 @@ const CreateProductAdminPage = () => {
                   />
 
                   {index !== 0 && (
-                    <button
-                      type="button"
-                      onClick={() => handleRemoveproductDetail(index)}
-                    >
+                    <button type="button" onClick={() => handleRemoveproductDetail(index)}>
                       ลบ
                     </button>
                   )}

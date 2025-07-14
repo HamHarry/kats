@@ -26,6 +26,7 @@ export interface EmployeeData {
   firstName: string;
   lastName: string;
   tel: string;
+  email?: string;
   role: RoleData;
   roleId: string;
   image: string;
@@ -33,8 +34,7 @@ export interface EmployeeData {
   delete: DeleteStatus;
 }
 
-export interface EmployeeDataForm
-  extends Omit<EmployeeData, "role" | "delete"> {}
+export interface EmployeeDataForm extends Omit<EmployeeData, "role" | "delete"> {}
 
 export interface SalaryData {
   paymentStatus?: PaymentStatus;

@@ -5,10 +5,7 @@ import { Controller, useFieldArray, useForm } from "react-hook-form";
 import { Select, Table } from "antd";
 import { ColumnsType } from "antd/es/table";
 import { useNavigate } from "react-router-dom";
-import {
-  getAllRolesForPermission,
-  updateRoleById,
-} from "../../stores/slices/roleSlice";
+import { getAllRolesForPermission, updateRoleById } from "../../stores/slices/roleSlice";
 import { useAppDispatch } from "../../stores/store";
 import { DeleteStatus } from "../../model/delete.type";
 import CircleLoading from "../../shared/circleLoading";
@@ -39,15 +36,14 @@ const PermissionPage = () => {
     try {
       setIsRoleLoading(true);
 
-      const { data: roleRes = [] } = await dispath(
-        getAllRolesForPermission()
-      ).unwrap();
+      const { data: roleRes = [] } = await dispath(getAllRolesForPermission()).unwrap();
 
       const filteredRoles = roleRes.filter((item: RoleData) => {
         return item.delete === DeleteStatus.ISNOTDELETE;
       });
 
       setRoleDatas(filteredRoles);
+      console.log(filteredRoles);
 
       if (filteredRoles.length) {
         reset(filteredRoles[0]);
@@ -95,9 +91,7 @@ const PermissionPage = () => {
       align: "center",
       width: "5%",
       render: (hasView: any, permission: any) => {
-        const realIndex = permissionsField.fields.findIndex(
-          (item) => item.key === permission.key
-        );
+        const realIndex = permissionsField.fields.findIndex((item) => item.key === permission.key);
         if (realIndex === -1) {
           return null;
         }
@@ -130,9 +124,7 @@ const PermissionPage = () => {
       align: "center",
       width: "5%",
       render: (hasEdit: any, permission: any) => {
-        const realIndex = permissionsField.fields.findIndex(
-          (item) => item.key === permission.key
-        );
+        const realIndex = permissionsField.fields.findIndex((item) => item.key === permission.key);
         if (realIndex === -1) {
           return null;
         }
@@ -165,9 +157,7 @@ const PermissionPage = () => {
       align: "center",
       width: "5%",
       render: (hasDelete: any, permission: any) => {
-        const realIndex = permissionsField.fields.findIndex(
-          (item) => item.key === permission.key
-        );
+        const realIndex = permissionsField.fields.findIndex((item) => item.key === permission.key);
         if (realIndex === -1) {
           return null;
         }
@@ -219,9 +209,7 @@ const PermissionPage = () => {
                 className="select-employee"
                 value={watchRoleType ?? undefined}
                 onChange={(value) => {
-                  const findedRole = roleDatas.find(
-                    (role) => role.type === value
-                  );
+                  const findedRole = roleDatas.find((role) => role.type === value);
                   reset(findedRole);
                 }}
               >

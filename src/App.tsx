@@ -4,7 +4,6 @@ import "./App.css";
 import HomePageGun from "./homepagegun/HomePageGun";
 import LoginPage from "./loginpage/Loginpage";
 import HomePageKats from "./homepagekats/HomePagekats";
-import UserAdminPage from "./adminpage/useradminpage/UserAdminPage";
 import EmployeeAdminPage from "./adminpage/employeeadminpage/EmployeeAdminPage";
 import CreateEmployeeAdminPage from "./adminpage/createemployeeadminpage/CreateEmployeeAdminPage";
 import BookingAdminPage from "./adminpage/bookingadminpage/BookingAdminPage";
@@ -73,7 +72,7 @@ function App() {
         <Route path="/admin" element={<PrivateRoutes isAuthented={isAuthented} />}>
           <Route path="/admin" element={<Navigate to="user" />} />
           <Route path="/admin" element={<LayoutAdmin />}>
-            <Route path="user" element={<UserAdminPage />} />
+            <Route path="user/:employeeId" element={<CreateEmployeeAdminPage />} />
             <Route path="employee" element={<EmployeeAdminPage />} />
             <Route path="employee/create" element={<CreateEmployeeAdminPage />} />
             <Route path="employee/edit/:employeeId" element={<CreateEmployeeAdminPage />} />

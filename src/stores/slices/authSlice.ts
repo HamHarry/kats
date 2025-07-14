@@ -4,11 +4,12 @@ import Cookies from "js-cookie";
 import { cookieConstants } from "../../constants";
 import { UserData } from "../../model/userInfo.type";
 import { RootState } from "../store";
+import { EmployeeData } from "../../model/employee.type";
 
 export interface AuthState {
   userInfo?: UserData;
   companyInfo?: any;
-  employeeData?: any;
+  employeeData?: EmployeeData;
   isAuthented: boolean;
   checkedAuthenticated: boolean;
 }
@@ -46,7 +47,7 @@ const authSlice = createSlice({
         state.isAuthented = true;
         state.companyInfo = action.payload.data.company;
         state.employeeData = action.payload.data.employee;
-        state.userInfo = action.payload.data.user;
+        state.userInfo = action.payload.data.userInfo;
       } else {
         state.isAuthented = false;
       }
