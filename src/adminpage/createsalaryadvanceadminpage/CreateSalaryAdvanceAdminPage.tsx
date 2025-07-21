@@ -15,11 +15,7 @@ import { useAppDispatch } from "../../stores/store";
 import { getAllEmployees } from "../../stores/slices/employeeSlice";
 import { InputNumber, Select } from "antd";
 import dayjs from "dayjs";
-import {
-  createExpense,
-  getExpenseById,
-  updateExpenseById,
-} from "../../stores/slices/expenseSlice";
+import { createExpense, getExpenseById, updateExpenseById } from "../../stores/slices/expenseSlice";
 import { DeleteStatus } from "../../model/delete.type";
 
 const initCategoryDetail: CatagoryDetail = {
@@ -49,8 +45,7 @@ const CreateSalaryAdvanceAdminPage = () => {
   const dispath = useAppDispatch();
   const navigate = useNavigate();
   const { expenseId } = useParams();
-  const [isSalaryAdvanceLoading, setIsSalaryAdvanceLoading] =
-    useState<boolean>(false);
+  const [isSalaryAdvanceLoading, setIsSalaryAdvanceLoading] = useState<boolean>(false);
   const [employeeData, setEmployeeData] = useState<EmployeeData[]>([]);
 
   const { control, handleSubmit, reset } = useForm({
@@ -91,9 +86,7 @@ const CreateSalaryAdvanceAdminPage = () => {
   const fetchEmployeeData = useCallback(async () => {
     try {
       setIsSalaryAdvanceLoading(true);
-      const { data: EmployeesRes = [] } = await dispath(
-        getAllEmployees()
-      ).unwrap();
+      const { data: EmployeesRes = [] } = await dispath(getAllEmployees()).unwrap();
 
       setEmployeeData(EmployeesRes);
     } catch (error) {
@@ -169,7 +162,7 @@ const CreateSalaryAdvanceAdminPage = () => {
                   >
                     {employeeData.map((item) => (
                       <Select.Option key={item._id} value={item._id}>
-                        {item.name} ({item.role.name})
+                        {item.firstName} {item.lastName} ({item.role.name})
                       </Select.Option>
                     ))}
                   </Select>

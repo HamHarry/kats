@@ -26,12 +26,9 @@ const WithdrawAdminPage = () => {
   const navigate = useNavigate();
   const [withdrawData, setWithdrawData] = useState([]);
   const [isExpenseLoading, setIsExpenseLoading] = useState<boolean>(false);
-  const [openDialogConfirmDelete, setOpenDialogConfirmDelete] =
-    useState<boolean>(false);
-  const [openDialogConfirmApprove, setOpenDialogConfirmApprove] =
-    useState<boolean>(false);
-  const [openDialogCancelApprove, setOpenDialogCancelApprove] =
-    useState<boolean>(false);
+  const [openDialogConfirmDelete, setOpenDialogConfirmDelete] = useState<boolean>(false);
+  const [openDialogConfirmApprove, setOpenDialogConfirmApprove] = useState<boolean>(false);
+  const [openDialogCancelApprove, setOpenDialogCancelApprove] = useState<boolean>(false);
   const [selectedExpenseData, setSelectedExpenseData] = useState<FinanceData>();
   const [baseImage, setBaseImage] = useState("");
   const [employeeData, setEmployeeData] = useState<EmployeeData[]>([]);
@@ -39,9 +36,7 @@ const WithdrawAdminPage = () => {
   const fetchAllExpense = useCallback(async () => {
     try {
       setIsExpenseLoading(true);
-      const { data: ExpensesRes = [] } = await dispath(
-        getAllExpenses()
-      ).unwrap();
+      const { data: ExpensesRes = [] } = await dispath(getAllExpenses()).unwrap();
 
       const filteredExpenses = ExpensesRes.filter((item: FinanceData) => {
         return item.delete === DeleteStatus.ISNOTDELETE;
@@ -62,9 +57,7 @@ const WithdrawAdminPage = () => {
   const fetchEmployeeData = useCallback(async () => {
     try {
       setIsExpenseLoading(true);
-      const { data: EmployeesRes = [] } = await dispath(
-        getAllEmployees()
-      ).unwrap();
+      const { data: EmployeesRes = [] } = await dispath(getAllEmployees()).unwrap();
 
       setEmployeeData(EmployeesRes);
     } catch (error) {
@@ -107,7 +100,11 @@ const WithdrawAdminPage = () => {
       dataIndex: "employee",
       key: "employee",
       render: (employee: EmployeeData) => {
-        return <Typography>{employee.name}</Typography>;
+        return (
+          <Typography>
+            {employee.firstName} {employee.lastName}
+          </Typography>
+        );
       },
     },
     { title: "หัวข้อ", dataIndex: "ownerName", key: "ownerName" },
@@ -116,11 +113,7 @@ const WithdrawAdminPage = () => {
       dataIndex: "section",
       key: "section",
       render: (section: number) => {
-        return (
-          <Typography>
-            {section === 0 ? "ค่าใช้จ่าย" : "เบิกเงินเดือน"}
-          </Typography>
-        );
+        return <Typography>{section === 0 ? "ค่าใช้จ่าย" : "เบิกเงินเดือน"}</Typography>;
       },
     },
     {
@@ -137,9 +130,7 @@ const WithdrawAdminPage = () => {
       dataIndex: "datePrice",
       key: "datePrice",
       render: (datePrice: string) => {
-        const formattedDate = datePrice
-          ? dayjs(datePrice).format("DD/MM/YYYY")
-          : "";
+        const formattedDate = datePrice ? dayjs(datePrice).format("DD/MM/YYYY") : "";
         return <Typography>{formattedDate}</Typography>;
       },
     },
@@ -161,14 +152,9 @@ const WithdrawAdminPage = () => {
       key: "status",
       render: (status: number) => {
         const statusText =
-          status === 0
-            ? "รออนุมัติ"
-            : status === 1
-            ? "อนุมัติแล้ว"
-            : "ยกเลิกเอกสาร";
+          status === 0 ? "รออนุมัติ" : status === 1 ? "อนุมัติแล้ว" : "ยกเลิกเอกสาร";
 
-        const color =
-          status === 0 ? "#FFD700" : status === 1 ? "#008B00" : "#FF0000";
+        const color = status === 0 ? "#FFD700" : status === 1 ? "#008B00" : "#FF0000";
         return <Typography style={{ color }}>{statusText}</Typography>;
       },
     },
@@ -185,21 +171,13 @@ const WithdrawAdminPage = () => {
           }}
         >
           <a
-            className={
-              item.status === 1
-                ? "linkIsNone"
-                : item.status === 2
-                ? "linkIsNone"
-                : ""
-            }
+            className={item.status === 1 ? "linkIsNone" : item.status === 2 ? "linkIsNone" : ""}
             onClick={(e) => {
               e.stopPropagation();
               if (item.section === PaymentCategory.WITHDRAW) {
                 return navigate(`/admin/withdraw/edit/withdraw/${item._id}`);
               } else {
-                return navigate(
-                  `/admin/withdraw/edit/salaryadvance/${item._id}`
-                );
+                return navigate(`/admin/withdraw/edit/salaryadvance/${item._id}`);
               }
             }}
           >
@@ -325,8 +303,7 @@ const WithdrawAdminPage = () => {
       return item._id === selectedExpenseData?.employeeId;
     });
 
-    const section =
-      selectedExpenseData?.section === 0 ? "ค่าใช้จ่าย" : "เบิกเงินเดือน";
+    const section = selectedExpenseData?.section === 0 ? "ค่าใช้จ่าย" : "เบิกเงินเดือน";
 
     return (
       <Modal
@@ -377,7 +354,9 @@ const WithdrawAdminPage = () => {
               </div>
 
               <div className="container-ExpenseUser-right">
-                <h4>{employeeName?.name}</h4>
+                <h4>
+                  {employeeName?.firstName} {employeeName?.lastName}
+                </h4>
 
                 <div className="previewTel">
                   <div className="width-40">
