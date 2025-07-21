@@ -43,8 +43,7 @@ const PermissionPage = () => {
       });
 
       setRoleDatas(filteredRoles);
-      console.log(filteredRoles);
-
+      
       if (filteredRoles.length) {
         reset(filteredRoles[0]);
       }

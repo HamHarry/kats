@@ -51,8 +51,6 @@ const EmployeeAdminPage = () => {
 
   const deleted = async () => {
     try {
-      console.log(selectEmployeeById);
-
       if (!selectEmployeeById) return;
 
       setIsEmployeeLoading(true);

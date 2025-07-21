@@ -31,8 +31,6 @@ const DocumentCountPage = () => {
     fetchAllDocumentCount();
   }, [fetchAllDocumentCount]);
 
-  console.log(documentCountData);
-
   return (
     <div className="container-DocumentCountPage">
       <div className="header-DocumentCountPage">

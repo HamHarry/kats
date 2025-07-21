@@ -194,7 +194,6 @@ i18n.use(initReactI18next).init({
 });
 
 const currentLang = localStorage.getItem("user_language");
-console.log(!currentLang);
 if (!currentLang) {
   i18next.changeLanguage("th");
   localStorage.setItem("user_language", "th");

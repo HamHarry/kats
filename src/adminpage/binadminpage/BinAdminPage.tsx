@@ -37,7 +37,6 @@ import {
   getAllExpenses,
   isDeleteExpenseById,
 } from "../../stores/slices/expenseSlice";
-import { getAllEmployees } from "../../stores/slices/employeeSlice";
 import {
   DeleteRoleById,
   getAllRoles,
@@ -231,25 +230,24 @@ const BinAdminPage = () => {
     fetchAllExpense();
   }, [fetchAllExpense]);
 
-  const fetchEmployeeData = useCallback(async () => {
-    try {
-      setIsBinLoading(true);
-      const { data: EmployeesRes = [] } = await dispath(
-        getAllEmployees()
-      ).unwrap();
+  // const fetchEmployeeData = useCallback(async () => {
+  //   try {
+  //     setIsBinLoading(true);
+  //     const { data: EmployeesRes = [] } = await dispath(
+  //       getAllEmployees()
+  //     ).unwrap();
 
-      // setEmployeeDatas(EmployeesRes);
-      console.log(EmployeesRes);
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setIsBinLoading(false);
-    }
-  }, [dispath]);
+  //     setEmployeeDatas(EmployeesRes);
+  //   } catch (error) {
+  //     console.log(error);
+  //   } finally {
+  //     setIsBinLoading(false);
+  //   }
+  // }, [dispath]);
 
-  useEffect(() => {
-    fetchEmployeeData();
-  }, [fetchEmployeeData]);
+  // useEffect(() => {
+  //   fetchEmployeeData();
+  // }, [fetchEmployeeData]);
 
   const fetchRoleData = useCallback(async () => {
     try {

@@ -319,7 +319,6 @@ const WithdrawAdminPage = () => {
                 onClick={() => {
                   approved();
                   setOpenDialogConfirmApprove(false);
-                  console.log("อนุมัติแล้ว");
                 }}
               >
                 ชำระเงิน
