@@ -6,6 +6,7 @@ import {
   PRICE_TYPE,
   ProductData,
   ProductDetail,
+  ProductSnapshotData,
 } from "../../model/product.type";
 import { BookingStatus, BookingData } from "../../model/booking.type";
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
@@ -71,7 +72,7 @@ const CreateBookingAdminPage = () => {
   const targetDate = searchParams.get("targetDate");
 
   const formRef = useRef<any>(null);
-  const [baseImage, setBaseImage] = useState("");
+  const [_baseImage, setBaseImage] = useState("");
 
   const [priceData, setPriceData] = useState<ProductDetail[]>([]);
   const [productDatas, setProductDatas] = useState<ProductData[]>([]);
@@ -82,8 +83,6 @@ const CreateBookingAdminPage = () => {
   const { handleSubmit, control, reset, setValue } = useForm<BookingForm>({
     defaultValues,
   });
-
-  console.log(baseImage);
 
   useEffect(() => {
     if (targetDate) {
@@ -156,11 +155,27 @@ const CreateBookingAdminPage = () => {
     try {
       setOpenDialogConfirm(false);
 
+      const findedProduct = productDatas?.find(
+        (item) => String(item._id) === String(value.productId)
+      );
+
+      if (!findedProduct) return;
+
+        const {
+        catagory: _catagory,
+        typeProduct: _typeProduct,
+        ...productSnapshot
+      }: ProductSnapshotData = {
+        ...findedProduct,
+        catagorySnapshot: findedProduct.catagory,
+        typeProductSnapshot: findedProduct.typeProduct,
+      }
+
       const item = {
         ...value,
         bookDate: value.bookDate ? dayjs(value.bookDate).toISOString() : "",
         price: priceData[value.price],
-        productId: value.productId,
+        product: productSnapshot,
         // slip: baseImage,
       };
 
