@@ -1,5 +1,5 @@
 import { DeleteStatus } from "./delete.type";
-import { ProductData, ProductDetail } from "./product.type";
+import { ProductDetail, ProductSnapshotData } from "./product.type";
 
 export enum BookingStatus {
   PENDING = 0, // รอจ่ายเงิน
@@ -34,7 +34,7 @@ export interface BookingData {
   licensePlate: string;
   province: string;
   status: BookingStatus;
-  product: ProductData;
+  product: ProductSnapshotData;
   guarantees?: CarStructure[];
   price: ProductDetail;
   tel: string;

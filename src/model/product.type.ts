@@ -35,3 +35,8 @@ export interface ProductData {
   typeProduct: TypeProductData;
   delete: DeleteStatus; // สถานะการลบ
 }
+
+export interface ProductSnapshotData extends Omit<ProductData, "catagory" | "typeProduct"> {
+  catagorySnapshot: CatagoryData;
+  typeProductSnapshot: TypeProductData;
+}

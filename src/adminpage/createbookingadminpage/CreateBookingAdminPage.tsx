@@ -164,8 +164,6 @@ const CreateBookingAdminPage = () => {
         // slip: baseImage,
       };
 
-      console.log(baseImage);
-
       if (bookingId) {
         // แก้ไข
         const body = {

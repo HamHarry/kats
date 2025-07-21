@@ -1,11 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
-import {
-  CatagoryData,
-  PRICE_TYPE,
-  ProductData,
-  ProductDetail,
-  TypeProductData,
-} from "../../model/product.type";
+import { CatagoryData, PRICE_TYPE, ProductData, ProductDetail, TypeProductData } from "../../model/product.type";
 import "./CreateProductAdminPage.css";
 import { useNavigate, useParams } from "react-router-dom";
 import { Controller, useFieldArray, useForm } from "react-hook-form";
@@ -84,17 +78,19 @@ const CreateProductAdminPage = () => {
     control,
   });
 
-  const fetchCategoriesData = useCallback(async () => {
+  const fetchInitailData = useCallback(async () => {
     try {
       setIsProductLoading(true);
 
-      const { data: catagoriesRes = [] } = await dispath(getAllCatagories()).unwrap();
+      const [{ data: catagoriesRes = [] }, { data: typeProductRes = [] }] = await Promise.all([
+        dispath(getAllCatagories()).unwrap(),
+        dispath(getAllTypeProduct()).unwrap(),
+      ]);
 
-      const filteredCatagories = catagoriesRes.filter(
-        (item: CatagoryData) => item.delete === DeleteStatus.ISNOTDELETE
-      );
-
+      const filteredCatagories = catagoriesRes.filter((item: CatagoryData) => item.delete === DeleteStatus.ISNOTDELETE);
       setCategories(filteredCatagories);
+
+      setTypeProduct(typeProductRes);
     } catch (error) {
       console.log(error);
     } finally {
@@ -103,29 +99,13 @@ const CreateProductAdminPage = () => {
   }, [dispath]);
 
   useEffect(() => {
-    fetchCategoriesData();
-  }, [fetchCategoriesData]);
-
-  const fetchTypeProductData = useCallback(async () => {
-    try {
-      setIsProductLoading(true);
-
-      const { data: TypeProductRes = [] } = await dispath(getAllTypeProduct()).unwrap();
-
-      setTypeProduct(TypeProductRes);
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setIsProductLoading(false);
-    }
-  }, [dispath]);
-
-  useEffect(() => {
-    fetchTypeProductData();
-  }, [fetchTypeProductData]);
+    fetchInitailData();
+  }, [fetchInitailData]);
 
   const onSubmit = async (value: ProductDataForm) => {
     try {
+      setIsProductLoading(true);
+
       const item = {
         ...value,
       };
@@ -147,6 +127,8 @@ const CreateProductAdminPage = () => {
       }
     } catch (error) {
       console.log(error);
+    } finally {
+      setIsProductLoading(false);
     }
   };
 

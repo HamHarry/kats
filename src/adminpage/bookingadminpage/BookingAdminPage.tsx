@@ -312,7 +312,7 @@ const BookingAdminPage = () => {
       </div>
       <div className="wrap-container-BookingAdmin">
         {bookingDatas.map((item, index) => {
-          const productType = item.product.typeProduct.name;
+          const productType = item.product.typeProductSnapshot.name;
 
           const completedGuarantees =
             item.guarantees?.filter(
