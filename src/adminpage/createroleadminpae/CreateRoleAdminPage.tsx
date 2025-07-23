@@ -27,8 +27,7 @@ const CreateRoleAdminPage = () => {
   const dispath = useAppDispatch();
 
   const [isRoleLoading, setIsRoleLoading] = useState<boolean>(false);
-  const [openDialogConfirmDelete, setOpenDialogConfirmDelete] =
-    useState<boolean>(false);
+  const [openDialogConfirmDelete, setOpenDialogConfirmDelete] = useState<boolean>(false);
 
   const [selectedRoleData, setSelectedRoleData] = useState<RoleData>();
   const [openDialogEditRole, setOpenDialogEditRole] = useState<boolean>(false);
@@ -66,9 +65,7 @@ const CreateRoleAdminPage = () => {
     try {
       if (!selectedRoleData?._id) return;
 
-      const { data } = await dispath(
-        getRoleById(selectedRoleData._id)
-      ).unwrap();
+      const { data } = await dispath(getRoleById(selectedRoleData._id)).unwrap();
       const RoleRes = data as RoleData;
 
       const initForm: RoleData = {
@@ -95,6 +92,7 @@ const CreateRoleAdminPage = () => {
 
       const body: RoleData = {
         ...selectRole,
+        permissions: selectRole.permissions,
         delete: DeleteStatus.ISDELETE,
       };
 

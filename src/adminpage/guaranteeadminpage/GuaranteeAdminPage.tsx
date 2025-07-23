@@ -1,10 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import "./GuaranteeAdminPage.css";
-import {
-  BookingStatus,
-  BookingData,
-  CarStructure,
-} from "../../model/booking.type";
+import { BookingStatus, BookingData, CarStructure } from "../../model/booking.type";
 import { useAppDispatch } from "../../stores/store";
 import CircleLoading from "../../shared/circleLoading";
 import {
@@ -14,16 +10,12 @@ import {
   updateGuaranteeByBookingId,
 } from "../../stores/slices/bookingSlice";
 import dayjs from "dayjs";
-import { Modal } from "antd";
+import { Modal, Tooltip } from "antd";
 import { useNavigate } from "react-router-dom";
 import { cloneDeep, debounce } from "lodash";
 import { Controller, useFieldArray, useForm } from "react-hook-form";
 import { DatePickerStyle, StyledSelect } from "../../AppStyle";
-import {
-  CheckCircleFilled,
-  ClockCircleFilled,
-  CloseCircleFilled,
-} from "@ant-design/icons";
+import { CheckCircleFilled, ClockCircleFilled, CloseCircleFilled } from "@ant-design/icons";
 import { DeleteStatus } from "../../model/delete.type";
 export interface GuaranteeForm {
   guarantees: CarStructure[];
@@ -61,8 +53,7 @@ const GuaranteeAdminPage = () => {
   const [openDialogProfile, setOpenDialogProfile] = useState<boolean>(false);
   const [openDialogDelete, setOpenDialogDelete] = useState<boolean>(false);
   const [searchTerm, setSearchTerm] = useState<string>("");
-  const [selectedReceiptBookNo, setSelectedReceiptBookNo] =
-    useState<string>("all");
+  const [selectedReceiptBookNo, setSelectedReceiptBookNo] = useState<string>("all");
   const [selectedProductName, setSelectedProductName] = useState<string>("all");
 
   const { control, reset, handleSubmit } = useForm<GuaranteeForm>({
@@ -114,14 +105,11 @@ const GuaranteeAdminPage = () => {
         productName: selectedProductName,
       };
 
-      const { data: bookingsRes = [] } = await dispath(
-        getAllBookingPaginations(query)
-      ).unwrap();
+      const { data: bookingsRes = [] } = await dispath(getAllBookingPaginations(query)).unwrap();
 
       const finedData = bookingsRes.filter((item: BookingData) => {
         return (
-          (item.status === BookingStatus.COMPLETED ||
-            item.status === BookingStatus.CHECKING) &&
+          (item.status === BookingStatus.COMPLETED || item.status === BookingStatus.CHECKING) &&
           item.delete === DeleteStatus.ISNOTDELETE
         );
       });
@@ -144,9 +132,7 @@ const GuaranteeAdminPage = () => {
 
       setIsGuaranteeLoading(true);
 
-      const { data: bookingRes } = await dispath(
-        getBookingById(selectBookingId)
-      ).unwrap();
+      const { data: bookingRes } = await dispath(getBookingById(selectBookingId)).unwrap();
 
       setBooking(bookingRes);
 
@@ -289,9 +275,7 @@ const GuaranteeAdminPage = () => {
         <tr key={index}>
           <td>{item.serviceNo}</td>
           <td>
-            <div
-              style={{ display: "flex", justifyContent: "center", gap: "10px" }}
-            >
+            <div style={{ display: "flex", justifyContent: "center", gap: "10px" }}>
               <Controller
                 name={`guarantees.${index}.serviceTime`}
                 control={control}
@@ -482,11 +466,7 @@ const GuaranteeAdminPage = () => {
             <div className="wrap-card-profile">
               <div className="ImageProfile">
                 <img
-                  className={
-                    booking?.image === ""
-                      ? "IsNotImageProfile "
-                      : "IsImageProfile"
-                  }
+                  className={booking?.image === "" ? "IsNotImageProfile " : "IsImageProfile"}
                   src={baseImage}
                   alt="profile"
                 />
@@ -635,9 +615,7 @@ const GuaranteeAdminPage = () => {
         {bookingDatas.map((item, index) => {
           const productType = item.product.typeProductSnapshot.name;
 
-          const formattedDate = item.bookDate
-            ? dayjs(item.bookDate).format("DD/MM/YYYY")
-            : "-";
+          const formattedDate = item.bookDate ? dayjs(item.bookDate).format("DD/MM/YYYY") : "-";
           return (
             <div
               key={index}
@@ -654,36 +632,55 @@ const GuaranteeAdminPage = () => {
                   <p>วันที่: {formattedDate}</p>
                   <div className="icon">
                     {item.status === BookingStatus.PENDING ? (
-                      <ClockCircleFilled className="icon-check-wait" />
+                      <Tooltip title="รอการชำระ">
+                        <ClockCircleFilled className="icon-check-wait" />
+                      </Tooltip>
                     ) : item.status === BookingStatus.PAID ? (
-                      <i className="fa-solid fa-circle"></i>
+                      <Tooltip title="จ่ายเงินแล้ว">
+                        <i className="fa-solid fa-circle"></i>
+                      </Tooltip>
                     ) : item.status === BookingStatus.COMPLETED ? (
-                      <CheckCircleFilled className="icon-check-complete" />
+                      <Tooltip title="สำเร็จ">
+                        <CheckCircleFilled className="icon-check-complete" />
+                      </Tooltip>
                     ) : item.status === BookingStatus.CANCELED ? (
-                      <CloseCircleFilled className="icon-check-cancel" />
+                      <Tooltip title="ยกเลิก">
+                        <CloseCircleFilled className="icon-check-cancel" />
+                      </Tooltip>
                     ) : (
-                      <i className="fa-solid fa-wrench"></i>
+                      <Tooltip title="ตรวจสภาพรถยนต์">
+                        <i className="fa-solid fa-wrench"></i>
+                      </Tooltip>
                     )}
-                    <i
-                      className="fa-solid fa-square-check"
-                      onClick={() => {
-                        setOpenDialogProfile(true);
-                        setSelectBookingId(item._id);
-                      }}
-                    ></i>
-                    <i
-                      className="fa-solid fa-pen-to-square"
-                      onClick={() => {
-                        navigate(`/admin/guarantee/edit/${item._id}`);
-                      }}
-                    ></i>
-                    <i
-                      className="fa-solid fa-trash-can"
-                      onClick={() => {
-                        setOpenDialogDelete(true);
-                        setSelectBookingData(item);
-                      }}
-                    ></i>
+
+                    <Tooltip title="ประวัติการรับประกัน">
+                      <i
+                        className="fa-solid fa-square-check"
+                        onClick={() => {
+                          setOpenDialogProfile(true);
+                          setSelectBookingId(item._id);
+                        }}
+                      ></i>
+                    </Tooltip>
+
+                    <Tooltip title="แก้ไขข้อมูล">
+                      <i
+                        className="fa-solid fa-pen-to-square"
+                        onClick={() => {
+                          navigate(`/admin/guarantee/edit/${item._id}`);
+                        }}
+                      ></i>
+                    </Tooltip>
+
+                    <Tooltip title="ลบข้อมูล">
+                      <i
+                        className="fa-solid fa-trash-can"
+                        onClick={() => {
+                          setOpenDialogDelete(true);
+                          setSelectBookingData(item);
+                        }}
+                      ></i>
+                    </Tooltip>
                   </div>
                 </div>
                 <p>ชื่อ: {item.name}</p>

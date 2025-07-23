@@ -3,20 +3,16 @@ import "./EmployeeAdminPage.css";
 import { useNavigate, useParams } from "react-router-dom";
 import { EmployeeData } from "../../model/employee.type";
 import { useAppDispatch } from "../../stores/store";
-import {
-  deleteEmployeeById,
-  getAllEmployeePaginations,
-} from "../../stores/slices/employeeSlice";
+import { deleteEmployeeById, getAllEmployeePaginations } from "../../stores/slices/employeeSlice";
 import CircleLoading from "../../shared/circleLoading";
-import { Modal } from "antd";
+import { Modal, Tooltip } from "antd";
 import { debounce } from "lodash";
 import { useTranslation } from "react-i18next";
 
 const EmployeeAdminPage = () => {
   const [employeeData, setEmployeeData] = useState<EmployeeData[]>([]);
   const [selectEmployeeById, setSelectEmployeeById] = useState<string>();
-  const [openDialogConfirmDelete, setOpenDialogConfirmDelete] =
-    useState<boolean>(false);
+  const [openDialogConfirmDelete, setOpenDialogConfirmDelete] = useState<boolean>(false);
   const [isEmployeeLoading, setIsEmployeeLoading] = useState<boolean>(false);
   const [searchTerm, setSearchTerm] = useState<string>("");
   const navigate = useNavigate();
@@ -33,9 +29,7 @@ const EmployeeAdminPage = () => {
         term: searchTerm,
       };
 
-      const { data: employeesRes = [] } = await dispath(
-        getAllEmployeePaginations(query)
-      ).unwrap();
+      const { data: employeesRes = [] } = await dispath(getAllEmployeePaginations(query)).unwrap();
 
       setEmployeeData(employeesRes);
     } catch (error) {
@@ -132,21 +126,26 @@ const EmployeeAdminPage = () => {
                       {t("ตำแหน่ง")} {item.role.name}
                     </p>
                     <div className="icon">
-                      <i
-                        className="fa-solid fa-pen-to-square"
-                        onClick={() => {
-                          if (item._id) {
-                            navigate(`/admin/employee/edit/${item._id}`);
-                          }
-                        }}
-                      ></i>
-                      <i
-                        className="fa-solid fa-trash-can"
-                        onClick={() => {
-                          setOpenDialogConfirmDelete(true);
-                          setSelectEmployeeById(item._id);
-                        }}
-                      ></i>
+                      <Tooltip title="แก้ไขข้อมูล">
+                        <i
+                          className="fa-solid fa-pen-to-square"
+                          onClick={() => {
+                            if (item._id) {
+                              navigate(`/admin/employee/edit/${item._id}`);
+                            }
+                          }}
+                        ></i>
+                      </Tooltip>
+
+                      <Tooltip title="ลบข้อมูล">
+                        <i
+                          className="fa-solid fa-trash-can"
+                          onClick={() => {
+                            setOpenDialogConfirmDelete(true);
+                            setSelectEmployeeById(item._id);
+                          }}
+                        ></i>
+                      </Tooltip>
                     </div>
                   </div>
                   <p>

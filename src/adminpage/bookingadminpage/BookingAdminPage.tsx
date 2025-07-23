@@ -16,7 +16,7 @@ import {
   isDeleteBookingById,
 } from "../../stores/slices/bookingSlice";
 import CircleLoading from "../../shared/circleLoading";
-import { Modal } from "antd";
+import { Modal, Tooltip } from "antd";
 import dayjs from "dayjs";
 import { debounce } from "lodash";
 import { DeleteStatus } from "../../model/delete.type";
@@ -34,16 +34,12 @@ const BookingAdminPage = () => {
   const [bookingDataLites, setBookingDataLites] = useState<BookingData[]>([]);
   const [selectDataBooking, setSelectDataBooking] = useState<BookingData>();
   const [selectImagePay, setSelectImagePay] = useState<string>();
-  const [openDialogConfirmDelete, setOpenDialogConfirmDelete] =
-    useState<boolean>(false);
-  const [openDialogConfirmApprove, setOpenDialogConfirmApprove] =
-    useState<boolean>(false);
-  const [openDialogCancelApprove, setOpenDialogCancelApprove] =
-    useState<boolean>(false);
+  const [openDialogConfirmDelete, setOpenDialogConfirmDelete] = useState<boolean>(false);
+  const [openDialogConfirmApprove, setOpenDialogConfirmApprove] = useState<boolean>(false);
+  const [openDialogCancelApprove, setOpenDialogCancelApprove] = useState<boolean>(false);
   const [openDialogPay, setOpenDialogPay] = useState<boolean>(false);
   const [searchTerm, setSearchTerm] = useState<string>("");
-  const [selectedReceiptBookNo, setSelectedReceiptBookNo] =
-    useState<string>("all");
+  const [selectedReceiptBookNo, setSelectedReceiptBookNo] = useState<string>("all");
 
   const fetchAllBooking = useCallback(async () => {
     try {
@@ -54,9 +50,7 @@ const BookingAdminPage = () => {
         receiptBookNo: selectedReceiptBookNo,
       };
 
-      const { data: bookingsRes = [] } = await dispath(
-        getAllBookingPaginations(query)
-      ).unwrap();
+      const { data: bookingsRes = [] } = await dispath(getAllBookingPaginations(query)).unwrap();
 
       const filteredBookings = bookingsRes.filter((item: BookingData) => {
         return item.delete === DeleteStatus.ISNOTDELETE;
@@ -315,12 +309,9 @@ const BookingAdminPage = () => {
           const productType = item.product.typeProductSnapshot.name;
 
           const completedGuarantees =
-            item.guarantees?.filter(
-              (g) => g.status === BookingStatus.COMPLETED
-            ) ?? [];
+            item.guarantees?.filter((g) => g.status === BookingStatus.COMPLETED) ?? [];
 
-          const currentGuarantee =
-            item.guarantees?.[completedGuarantees.length];
+          const currentGuarantee = item.guarantees?.[completedGuarantees.length];
 
           const bookDate = currentGuarantee?.serviceDate || item.bookDate;
 
@@ -351,38 +342,57 @@ const BookingAdminPage = () => {
                   </p>
                   <div className="icon">
                     {item.status === BookingStatus.PENDING ? (
-                      <ClockCircleFilled className="icon-check-wait" />
+                      <Tooltip title="รอการชำระ">
+                        <ClockCircleFilled className="icon-check-wait" />
+                      </Tooltip>
                     ) : item.status === BookingStatus.PAID ? (
-                      <i className="fa-solid fa-circle"></i>
+                      <Tooltip title="จ่ายเงินแล้ว">
+                        <i className="fa-solid fa-circle"></i>
+                      </Tooltip>
                     ) : item.status === BookingStatus.COMPLETED ? (
-                      <CheckCircleFilled className="icon-check-complete" />
+                      <Tooltip title="สำเร็จ">
+                        <CheckCircleFilled className="icon-check-complete" />
+                      </Tooltip>
                     ) : item.status === BookingStatus.CANCELED ? (
-                      <CloseCircleFilled className="icon-check-cancel" />
+                      <Tooltip title="ยกเลิก">
+                        <CloseCircleFilled className="icon-check-cancel" />
+                      </Tooltip>
                     ) : (
-                      <i className="fa-solid fa-wrench"></i>
+                      <Tooltip title="ตรวจสภาพรถยนต์">
+                        <i className="fa-solid fa-wrench"></i>
+                      </Tooltip>
                     )}
-                    <PayCircleFilled
-                      className="icon-pay"
-                      onClick={() => {
-                        setSelectImagePay(item.image);
-                        setOpenDialogPay(true);
-                      }}
-                    />
-                    <i
-                      className="fa-solid fa-pen-to-square"
-                      onClick={() => {
-                        if (item._id) {
-                          navigate(`/admin/booking/edit/${item._id}`);
-                        }
-                      }}
-                    ></i>
-                    <i
-                      className="fa-solid fa-trash-can"
-                      onClick={() => {
-                        setOpenDialogConfirmDelete(true);
-                        setSelectDataBooking(item);
-                      }}
-                    ></i>
+
+                    <Tooltip title="รูปภาพการชำระเงิน">
+                      <PayCircleFilled
+                        className="icon-pay"
+                        onClick={() => {
+                          setSelectImagePay(item.image);
+                          setOpenDialogPay(true);
+                        }}
+                      />
+                    </Tooltip>
+
+                    <Tooltip title="แก้ไขข้อมูล">
+                      <i
+                        className="fa-solid fa-pen-to-square"
+                        onClick={() => {
+                          if (item._id) {
+                            navigate(`/admin/booking/edit/${item._id}`);
+                          }
+                        }}
+                      ></i>
+                    </Tooltip>
+
+                    <Tooltip title="ลบข้อมูล">
+                      <i
+                        className="fa-solid fa-trash-can"
+                        onClick={() => {
+                          setOpenDialogConfirmDelete(true);
+                          setSelectDataBooking(item);
+                        }}
+                      ></i>
+                    </Tooltip>
                   </div>
                 </div>
                 <p>
@@ -398,8 +408,7 @@ const BookingAdminPage = () => {
                   {t("เล่มที่")}: {item.receiptBookNo}
                 </p>
                 <p>
-                  {t("สินค้า")}: {item.product.name} {item.price.amount}{" "}
-                  {t("บาท")}
+                  {t("สินค้า")}: {item.product.name} {item.price.amount} {t("บาท")}
                 </p>
                 <p>
                   {t("รถ")}: {item.carType} {item.carModel}
