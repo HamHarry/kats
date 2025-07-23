@@ -18,14 +18,10 @@ const CalendarAdminPage = () => {
     try {
       setIsCalendarLoading(true);
       const { data: bookingsRes = [] } = await dispath(
-        getAllBookings()
+        getAllBookings(DeleteStatus.ISNOTDELETE)
       ).unwrap();
 
-      const filteredBookings = bookingsRes.filter((item: BookingData) => {
-        return item.delete === DeleteStatus.ISNOTDELETE;
-      });
-
-      setBookingData(filteredBookings);
+      setBookingData(bookingsRes);
     } catch (error) {
       console.log(error);
     } finally {
@@ -55,10 +51,7 @@ const CalendarAdminPage = () => {
     }
   };
 
-  const renderBookedCalendar = (payload: {
-    status: BookingStatus;
-    label: string;
-  }) => {
+  const renderBookedCalendar = (payload: { status: BookingStatus; label: string }) => {
     const { status, label } = payload;
 
     return (
