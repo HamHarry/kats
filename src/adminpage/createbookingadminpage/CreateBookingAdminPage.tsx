@@ -14,17 +14,12 @@ import { FileAddFilled } from "@ant-design/icons";
 import { useAppDispatch } from "../../stores/store";
 import { getAllProducts } from "../../stores/slices/productSlice";
 import dayjs from "dayjs";
-import {
-  createBooking,
-  getBookingById,
-  updateBookingById,
-} from "../../stores/slices/bookingSlice";
+import { createBooking, getBookingById, updateBookingById } from "../../stores/slices/bookingSlice";
 import CircleLoading from "../../shared/circleLoading";
 import { DeleteStatus } from "../../model/delete.type";
 import { useTranslation } from "react-i18next";
 
-export interface BookingForm
-  extends Omit<BookingData, "product" | "price" | "bookDate"> {
+export interface BookingForm extends Omit<BookingData, "product" | "price" | "bookDate"> {
   productId: string;
   price: number;
   bookDate: dayjs.Dayjs;
@@ -135,9 +130,7 @@ const CreateBookingAdminPage = () => {
   const fetchAllProduct = useCallback(async () => {
     try {
       setIsBookingLoading(true);
-      const { data: productsRes = [] } = await dispath(
-        getAllProducts()
-      ).unwrap();
+      const { data: productsRes = [] } = await dispath(getAllProducts()).unwrap();
 
       setProductDatas(productsRes);
     } catch (error) {
@@ -161,7 +154,7 @@ const CreateBookingAdminPage = () => {
 
       if (!findedProduct) return;
 
-        const {
+      const {
         catagory: _catagory,
         typeProduct: _typeProduct,
         ...productSnapshot
@@ -169,7 +162,7 @@ const CreateBookingAdminPage = () => {
         ...findedProduct,
         catagorySnapshot: findedProduct.catagory,
         typeProductSnapshot: findedProduct.typeProduct,
-      }
+      };
 
       const item = {
         ...value,
@@ -233,9 +226,7 @@ const CreateBookingAdminPage = () => {
         <h1>{t("ยืนยันการจอง")}</h1>
 
         <div className="btn-DialogConfirm-Navbar">
-          <button onClick={() => formRef.current?.requestSubmit()}>
-            {t("ยืนยัน")}
-          </button>
+          <button onClick={() => formRef.current?.requestSubmit()}>{t("ยืนยัน")}</button>
           <button
             className="btn-edit-dialogConfirm"
             onClick={() => {
@@ -252,7 +243,7 @@ const CreateBookingAdminPage = () => {
   return (
     <div className="container-CreateAdmin">
       <div className="header-CreateAdmin">
-        <h1>{t("สร้างการจอง")}</h1>
+        <h1>{bookingId ? "แก้ไขการจอง" : "สร้างการจอง"}</h1>
       </div>
       <form onSubmit={handleSubmit(submit)} ref={formRef}>
         <div className="btn-back">
@@ -503,9 +494,9 @@ const CreateBookingAdminPage = () => {
                       value={field.value ?? undefined}
                       disabled={priceData.length === 0}
                       options={priceData.map((item, index) => ({
-                        label: `${
-                          item.type === PRICE_TYPE.LUXURY ? "luxury" : ""
-                        } ${item.amount} Baht`,
+                        label: `${item.type === PRICE_TYPE.LUXURY ? "luxury" : ""} ${
+                          item.amount
+                        } Baht`,
                         value: index,
                       }))}
                     />

@@ -15,11 +15,7 @@ import { useAppDispatch } from "../../stores/store";
 import { getAllEmployees } from "../../stores/slices/employeeSlice";
 import { DatePicker, InputNumber, Select } from "antd";
 import dayjs from "dayjs";
-import {
-  createExpense,
-  getExpenseById,
-  updateExpenseById,
-} from "../../stores/slices/expenseSlice";
+import { createExpense, getExpenseById, updateExpenseById } from "../../stores/slices/expenseSlice";
 import { DeleteStatus } from "../../model/delete.type";
 
 const initCategoryDetail: CatagoryDetail = {
@@ -49,9 +45,10 @@ const CreateWithdrawAdminPage = () => {
   const dispath = useAppDispatch();
   const navigate = useNavigate();
   const { expenseId } = useParams();
-  const [isCreateWithDrawLoading, setIsCreateWithDrawLoading] =
-    useState<boolean>(false);
+  const [isCreateWithDrawLoading, setIsCreateWithDrawLoading] = useState<boolean>(false);
   const [employeeData, setEmployeeData] = useState<EmployeeData[]>([]);
+
+  console.log(employeeData);
 
   const { control, handleSubmit, reset } = useForm({
     defaultValues: initFinanceForm,
@@ -96,9 +93,7 @@ const CreateWithdrawAdminPage = () => {
   const fetchEmployeeData = useCallback(async () => {
     try {
       setIsCreateWithDrawLoading(true);
-      const { data: EmployeesRes = [] } = await dispath(
-        getAllEmployees()
-      ).unwrap();
+      const { data: EmployeesRes = [] } = await dispath(getAllEmployees()).unwrap();
 
       setEmployeeData(EmployeesRes);
     } catch (error) {
@@ -200,9 +195,7 @@ const CreateWithdrawAdminPage = () => {
                 control={control}
                 name="ownerName"
                 render={({ field }) => {
-                  return (
-                    <input {...field} type="text" placeholder="หัวข้อ..." />
-                  );
+                  return <input {...field} type="text" placeholder="หัวข้อ..." />;
                 }}
               />
 
@@ -268,30 +261,18 @@ const CreateWithdrawAdminPage = () => {
                             className="select-category"
                             value={field.value ?? undefined}
                           >
-                            <Select.Option value={CategoryType.FUEL}>
-                              ค่าน้ำมัน
-                            </Select.Option>
-                            <Select.Option value={CategoryType.TRAVEL}>
-                              ค่าเดินทาง
-                            </Select.Option>
+                            <Select.Option value={CategoryType.FUEL}>ค่าน้ำมัน</Select.Option>
+                            <Select.Option value={CategoryType.TRAVEL}>ค่าเดินทาง</Select.Option>
                             <Select.Option value={CategoryType.ACCOMMODATION}>
                               ค่าที่พัก
                             </Select.Option>
                             <Select.Option value={CategoryType.ALLOWANCE}>
                               ค่าเบี้ยเลี้ยง
                             </Select.Option>
-                            <Select.Option value={CategoryType.TRANSPORT}>
-                              ค่าขนส่ง
-                            </Select.Option>
-                            <Select.Option value={CategoryType.TOOL}>
-                              ค่าอุปกรณ์
-                            </Select.Option>
-                            <Select.Option value={CategoryType.MEDICAL}>
-                              ค่ารักษา
-                            </Select.Option>
-                            <Select.Option value={CategoryType.OTHER}>
-                              ค่าอื่นๆ
-                            </Select.Option>
+                            <Select.Option value={CategoryType.TRANSPORT}>ค่าขนส่ง</Select.Option>
+                            <Select.Option value={CategoryType.TOOL}>ค่าอุปกรณ์</Select.Option>
+                            <Select.Option value={CategoryType.MEDICAL}>ค่ารักษา</Select.Option>
+                            <Select.Option value={CategoryType.OTHER}>ค่าอื่นๆ</Select.Option>
                           </Select>
                         );
                       }}
@@ -313,10 +294,7 @@ const CreateWithdrawAdminPage = () => {
                     />
 
                     {index !== 0 && (
-                      <button
-                        type="button"
-                        onClick={() => handleRemoveCatagoryDetail(index)}
-                      >
+                      <button type="button" onClick={() => handleRemoveCatagoryDetail(index)}>
                         ลบ
                       </button>
                     )}

@@ -12,11 +12,11 @@ const CalendarAdminPage = () => {
   const dispath = useAppDispatch();
 
   const [bookingData, setBookingData] = useState<BookingData[]>([]);
-  const [isBookingLoading, setIsBookingLoading] = useState<boolean>(false);
+  const [isCalendarLoading, setIsCalendarLoading] = useState<boolean>(false);
 
   const fetchAllBooking = useCallback(async () => {
     try {
-      setIsBookingLoading(true);
+      setIsCalendarLoading(true);
       const { data: bookingsRes = [] } = await dispath(
         getAllBookings()
       ).unwrap();
@@ -29,7 +29,7 @@ const CalendarAdminPage = () => {
     } catch (error) {
       console.log(error);
     } finally {
-      setIsBookingLoading(false);
+      setIsCalendarLoading(false);
     }
   }, [dispath]);
 
@@ -156,7 +156,7 @@ const CalendarAdminPage = () => {
         <Calendar cellRender={cellRender} />
       </div>
 
-      <CircleLoading open={isBookingLoading} />
+      <CircleLoading open={isCalendarLoading} />
     </div>
   );
 };

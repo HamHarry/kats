@@ -37,11 +37,7 @@ import {
   getAllExpenses,
   isDeleteExpenseById,
 } from "../../stores/slices/expenseSlice";
-import {
-  DeleteRoleById,
-  getAllRoles,
-  isDeleteRoleById,
-} from "../../stores/slices/roleSlice";
+import { DeleteRoleById, getAllRoles, isDeleteRoleById } from "../../stores/slices/roleSlice";
 import { RoleData } from "../../data/permissions";
 
 const BinAdminPage = () => {
@@ -50,24 +46,19 @@ const BinAdminPage = () => {
   const [bookingDatas, setBookingDatas] = useState<BookingData[]>([]);
   const [productDatas, setProductDatas] = useState<ProductData[]>([]);
   const [catagoryDatas, setCatagoryDatas] = useState<CatagoryData[]>([]);
-  const [typeProductDatas, setTypeProductDatas] = useState<TypeProductData[]>(
-    []
-  );
+  const [typeProductDatas, setTypeProductDatas] = useState<TypeProductData[]>([]);
   const [expenseDatas, setExpenseDatas] = useState<FinanceData[]>([]);
   // const [employeeDatas, setEmployeeDatas] = useState<EmployeeData[]>([]);
   const [permissionDatas, setPermissionDatas] = useState<RoleData[]>([]);
 
   const [selectedBookingData, setSelectedBookingData] = useState<BookingData>();
   const [selectedProductData, setSelectedProductData] = useState<ProductData>();
-  const [selectedCatagoryData, setSelectedCatagoryData] =
-    useState<CatagoryData>();
-  const [selectedTypeProductData, setSelectedTypeProductData] =
-    useState<TypeProductData>();
+  const [selectedCatagoryData, setSelectedCatagoryData] = useState<CatagoryData>();
+  const [selectedTypeProductData, setSelectedTypeProductData] = useState<TypeProductData>();
   const [selectedExpenseData, setSelectedExpenseData] = useState<FinanceData>();
   // const [selectedEmployeeData, setSelectedEmployeeData] =
   //   useState<EmployeeData>();
-  const [selectedPermissionData, setSelectedPermissionData] =
-    useState<RoleData>();
+  const [selectedPermissionData, setSelectedPermissionData] = useState<RoleData>();
 
   const [openDialogConfirmApproveBooking, setOpenDialogConfirmApproveBooking] =
     useState<boolean>(false);
@@ -80,32 +71,22 @@ const BinAdminPage = () => {
     useState<boolean>(false);
   const [openDialogConfirmDeleteCatagory, setOpenDialogConfirmDeleteCatagory] =
     useState<boolean>(false);
-  const [
-    openDialogConfirmApproveCatagory,
-    setOpenDialogConfirmApproveCatagory,
-  ] = useState<boolean>(false);
-  const [
-    openDialogConfirmDeleteTypeProduct,
-    setOpenDialogConfirmDeleteTypeProduct,
-  ] = useState<boolean>(false);
-  const [
-    openDialogConfirmApproveTypeProduct,
-    setOpenDialogConfirmApproveTypeProduct,
-  ] = useState<boolean>(false);
+  const [openDialogConfirmApproveCatagory, setOpenDialogConfirmApproveCatagory] =
+    useState<boolean>(false);
+  const [openDialogConfirmDeleteTypeProduct, setOpenDialogConfirmDeleteTypeProduct] =
+    useState<boolean>(false);
+  const [openDialogConfirmApproveTypeProduct, setOpenDialogConfirmApproveTypeProduct] =
+    useState<boolean>(false);
 
   const [openDialogConfirmDeleteExpense, setOpenDialogConfirmDeleteExpense] =
     useState<boolean>(false);
   const [openDialogConfirmApproveExpense, setOpenDialogConfirmApproveExpense] =
     useState<boolean>(false);
 
-  const [
-    openDialogConfirmDeletePermission,
-    setOpenDialogConfirmDeletePermission,
-  ] = useState<boolean>(false);
-  const [
-    openDialogConfirmApprovePermission,
-    setOpenDialogConfirmApprovePermission,
-  ] = useState<boolean>(false);
+  const [openDialogConfirmDeletePermission, setOpenDialogConfirmDeletePermission] =
+    useState<boolean>(false);
+  const [openDialogConfirmApprovePermission, setOpenDialogConfirmApprovePermission] =
+    useState<boolean>(false);
 
   const [isBinLoading, setIsBinLoading] = useState<boolean>(false);
 
@@ -114,14 +95,10 @@ const BinAdminPage = () => {
       setIsBinLoading(true);
 
       const { data: bookingsRes = [] } = await dispath(
-        getAllBookings()
+        getAllBookings(DeleteStatus.ISDELETE)
       ).unwrap();
 
-      const filteredBookings = bookingsRes.filter((item: BookingData) => {
-        return item.delete === DeleteStatus.ISDELETE;
-      });
-
-      setBookingDatas(filteredBookings);
+      setBookingDatas(bookingsRes);
     } catch (error) {
       console.log(error);
     } finally {
@@ -138,14 +115,10 @@ const BinAdminPage = () => {
       setIsBinLoading(true);
 
       const { data: productRes = [] } = await dispath(
-        getAllProducts()
+        getAllProducts(DeleteStatus.ISDELETE)
       ).unwrap();
 
-      const filteredProducts = productRes.filter((item: ProductData) => {
-        return item.delete === DeleteStatus.ISDELETE;
-      });
-
-      setProductDatas(filteredProducts);
+      setProductDatas(productRes);
     } catch (error) {
       console.log(error);
     } finally {
@@ -162,14 +135,10 @@ const BinAdminPage = () => {
       setIsBinLoading(true);
 
       const { data: catagoryRes = [] } = await dispath(
-        getAllCatagories()
+        getAllCatagories(DeleteStatus.ISDELETE)
       ).unwrap();
 
-      const filteredCatagorys = catagoryRes.filter((item: CatagoryData) => {
-        return item.delete === DeleteStatus.ISDELETE;
-      });
-
-      setCatagoryDatas(filteredCatagorys);
+      setCatagoryDatas(catagoryRes);
     } catch (error) {
       console.log(error);
     } finally {
@@ -186,16 +155,10 @@ const BinAdminPage = () => {
       setIsBinLoading(true);
 
       const { data: typeProductRes = [] } = await dispath(
-        getAllTypeProduct()
+        getAllTypeProduct(DeleteStatus.ISDELETE)
       ).unwrap();
 
-      const filteredTypeProducts = typeProductRes.filter(
-        (item: TypeProductData) => {
-          return item.delete === DeleteStatus.ISDELETE;
-        }
-      );
-
-      setTypeProductDatas(filteredTypeProducts);
+      setTypeProductDatas(typeProductRes);
     } catch (error) {
       console.log(error);
     } finally {
@@ -210,15 +173,9 @@ const BinAdminPage = () => {
   const fetchAllExpense = useCallback(async () => {
     try {
       setIsBinLoading(true);
-      const { data: ExpensesRes = [] } = await dispath(
-        getAllExpenses()
-      ).unwrap();
+      const { data: ExpensesRes = [] } = await dispath(getAllExpenses(DeleteStatus.ISDELETE)).unwrap();
 
-      const filteredExpenses = ExpensesRes.filter((item: FinanceData) => {
-        return item.delete === DeleteStatus.ISDELETE;
-      });
-
-      setExpenseDatas(filteredExpenses);
+      setExpenseDatas(ExpensesRes);
     } catch (error) {
       console.log(error);
     } finally {
@@ -253,15 +210,9 @@ const BinAdminPage = () => {
     try {
       setIsBinLoading(true);
 
-      const { data: roleRes = [] } = await dispath(
-        getAllRoles(DeleteStatus.ISDELETE)
-      ).unwrap();
+      const { data: roleRes = [] } = await dispath(getAllRoles(DeleteStatus.ISDELETE)).unwrap();
 
-      const filteredRoles = roleRes.filter((item: RoleData) => {
-        return item.delete === DeleteStatus.ISDELETE;
-      });
-
-      setPermissionDatas(filteredRoles);
+      setPermissionDatas(roleRes);
     } catch (error) {
       console.log(error);
     } finally {
@@ -445,9 +396,7 @@ const BinAdminPage = () => {
       setIsBinLoading(true);
       if (!selectedTypeProductData?._id) return;
 
-      await dispath(
-        deleteTypeProductById(selectedTypeProductData._id)
-      ).unwrap();
+      await dispath(deleteTypeProductById(selectedTypeProductData._id)).unwrap();
     } catch (error) {
       console.log(error);
     } finally {
@@ -744,9 +693,7 @@ const BinAdminPage = () => {
             {productDetails.map((productDetail: ProductDetail, index) => {
               // STANDARD = green , LUXURY = gold
               const backgroundColor =
-                productDetail.type === PRICE_TYPE.LUXURY
-                  ? "#FFD700"
-                  : "#008B00";
+                productDetail.type === PRICE_TYPE.LUXURY ? "#FFD700" : "#008B00";
 
               return (
                 <div
@@ -897,11 +844,7 @@ const BinAdminPage = () => {
       dataIndex: "section",
       key: "section",
       render: (section: number) => {
-        return (
-          <Typography>
-            {section === 0 ? "ค่าใช้จ่าย" : "เบิกเงินเดือน"}
-          </Typography>
-        );
+        return <Typography>{section === 0 ? "ค่าใช้จ่าย" : "เบิกเงินเดือน"}</Typography>;
       },
     },
     {
@@ -918,9 +861,7 @@ const BinAdminPage = () => {
       dataIndex: "datePrice",
       key: "datePrice",
       render: (datePrice: string) => {
-        const formattedDate = datePrice
-          ? dayjs(datePrice).format("DD/MM/YYYY")
-          : "";
+        const formattedDate = datePrice ? dayjs(datePrice).format("DD/MM/YYYY") : "";
         return <Typography>{formattedDate}</Typography>;
       },
     },
@@ -942,14 +883,9 @@ const BinAdminPage = () => {
       key: "status",
       render: (status: number) => {
         const statusText =
-          status === 0
-            ? "รออนุมัติ"
-            : status === 1
-            ? "อนุมัติแล้ว"
-            : "ยกเลิกเอกสาร";
+          status === 0 ? "รออนุมัติ" : status === 1 ? "อนุมัติแล้ว" : "ยกเลิกเอกสาร";
 
-        const color =
-          status === 0 ? "#FFD700" : status === 1 ? "#008B00" : "#FF0000";
+        const color = status === 0 ? "#FFD700" : status === 1 ? "#008B00" : "#FF0000";
         return <Typography style={{ color }}>{statusText}</Typography>;
       },
     },
@@ -1202,14 +1138,12 @@ const BinAdminPage = () => {
             <div style={{ display: "flex", gap: "20px" }}>
               <div style={{ width: "150px" }}>
                 <p>
-                  รถ: {selectedBookingData?.carType}{" "}
-                  {selectedBookingData?.carModel}
+                  รถ: {selectedBookingData?.carType} {selectedBookingData?.carModel}
                 </p>
               </div>
 
               <p>
-                สินค้า: {selectedBookingData?.product.name}{" "}
-                {selectedBookingData?.price.amount} บาท
+                สินค้า: {selectedBookingData?.product.name} {selectedBookingData?.price.amount} บาท
               </p>
             </div>
           </div>
@@ -1447,13 +1381,9 @@ const BinAdminPage = () => {
         <div className="bin-content-teble">
           <StyledDivider orientation="left">ข้อมูลการจองคิว</StyledDivider>
           <Collapse items={chooseBookings} />
-          <StyledDivider orientation="left">
-            ข้อมูลสินค้า & หมวดหมู่ & แบรนด์สินค้า
-          </StyledDivider>
+          <StyledDivider orientation="left">ข้อมูลสินค้า & หมวดหมู่ & แบรนด์สินค้า</StyledDivider>
           <Collapse items={chooseProducts} />
-          <StyledDivider orientation="left">
-            ข้อมูลค่าใช้จ่าย & เบิกเงิน
-          </StyledDivider>
+          <StyledDivider orientation="left">ข้อมูลค่าใช้จ่าย & เบิกเงิน</StyledDivider>
           <Collapse items={chooseExpenses} />
           <StyledDivider orientation="left">พนักงาน & บทบาท</StyledDivider>
           <Collapse items={choosePermission} />

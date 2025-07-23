@@ -1,10 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import * as productServices from "../../services/productService";
-import {
-  CatagoryData,
-  ProductData,
-  TypeProductData,
-} from "../../model/product.type";
+import { CatagoryData, ProductData, TypeProductData } from "../../model/product.type";
+import { DeleteStatus } from "../../model/delete.type";
 
 const initialState: any = {};
 
@@ -25,8 +22,8 @@ export const createProduct = createAsyncThunk(
 
 export const getAllProducts = createAsyncThunk(
   "product/get/all",
-  async (): Promise<any> => {
-    const response = await productServices.getAllProducts();
+  async (delet?: DeleteStatus): Promise<any> => {
+    const response = await productServices.getAllProducts(delet);
     return response;
   }
 );
@@ -41,8 +38,8 @@ export const createCatagory = createAsyncThunk(
 
 export const getAllCatagories = createAsyncThunk(
   "catagories/get/all",
-  async (): Promise<any> => {
-    const response = await productServices.getAllCatagories();
+  async (delet?: DeleteStatus): Promise<any> => {
+    const response = await productServices.getAllCatagories(delet);
     return response;
   }
 );
@@ -57,8 +54,8 @@ export const createTypeProduct = createAsyncThunk(
 
 export const getAllTypeProduct = createAsyncThunk(
   "typeProduct/get/all",
-  async (): Promise<any> => {
-    const response = await productServices.getAllTypeProduct();
+  async (delet?: DeleteStatus): Promise<any> => {
+    const response = await productServices.getAllTypeProduct(delet);
     return response;
   }
 );

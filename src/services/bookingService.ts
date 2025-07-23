@@ -1,91 +1,63 @@
 import { BookingData } from "../model/booking.type";
+import { DeleteStatus } from "../model/delete.type";
 import { HttpClient } from "../shared/utils/HttpClient";
 
 export const createBooking = async (payload: any): Promise<any> => {
-  const response = await HttpClient.post(
-    `/bookings`,
-    payload
-  );
+  const response = await HttpClient.post(`/bookings`, payload);
 
   return response;
 };
 
 export const approveBookingById = async (data: BookingData): Promise<any> => {
-  const response = await HttpClient.post(
-    `/bookings/approve/${data._id}`,
-    data
-  );
+  const response = await HttpClient.post(`/bookings/approve/${data._id}`, data);
 
   return response;
 };
 
 export const cancelBookingById = async (data: BookingData): Promise<any> => {
-  const response = await HttpClient.post(
-    `/bookings/cancel/${data._id}`,
-    data
-  );
+  const response = await HttpClient.post(`/bookings/cancel/${data._id}`, data);
 
   return response;
 };
 
-export const getAllBookings = async (): Promise<any> => {
-  const response = await HttpClient.get(
-    `/bookings`
-  );
+export const getAllBookings = async (delet = DeleteStatus.ISNOTDELETE): Promise<any> => {
+  const response = await HttpClient.get(`/bookings?delete=${delet}`);
 
   return response;
 };
 
 export const getAllBookingPaginations = async (query: any): Promise<any> => {
-  const response = await HttpClient.get(
-    `/bookings/pagination`,
-    { params: query }
-  );
+  const response = await HttpClient.get(`/bookings/pagination`, { params: query });
 
   return response;
 };
 
 export const getBookingById = async (bookingId: string): Promise<any> => {
-  const response = await HttpClient.get(
-    `/bookings/${bookingId}`
-  );
+  const response = await HttpClient.get(`/bookings/${bookingId}`);
 
   return response;
 };
 
 export const updateBookingById = async (body: any): Promise<any> => {
-  const response = await HttpClient.put(
-    `/bookings/${body.bookingId}`,
-    body.data
-  );
+  const response = await HttpClient.put(`/bookings/${body.bookingId}`, body.data);
 
   return response;
 };
 
 export const updateGuaranteeByBookingId = async (body: any): Promise<any> => {
-  const response = await HttpClient.put(
-    `/bookings/updateGuarantee/${
-      body.bookingId
-    }`,
-    body.data
-  );
+  const response = await HttpClient.put(`/bookings/updateGuarantee/${body.bookingId}`, body.data);
 
   return response;
 };
 
 export const isDeleteBookingById = async (body: any): Promise<any> => {
-  const response = await HttpClient.post(
-    `/bookings/selectDelete/${body._id}`,
-    body
-  );
+  const response = await HttpClient.post(`/bookings/selectDelete/${body._id}`, body);
 
   return response;
 };
 
 export const deleteBookingById = async (bookingId: string): Promise<any> => {
-  const response = await HttpClient.delete(
-    `/bookings/${bookingId}`
-  );
+  const response = await HttpClient.delete(`/bookings/${bookingId}`);
 
   return response;
 };

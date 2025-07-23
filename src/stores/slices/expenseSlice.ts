@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import * as expenseServices from "../../services/expenseService";
 import { FinanceData } from "../../model/finance.type";
+import { DeleteStatus } from "../../model/delete.type";
 const initialState: any = {};
 
 const expenseSlice = createSlice({
@@ -20,8 +21,8 @@ export const createExpense = createAsyncThunk(
 
 export const getAllExpenses = createAsyncThunk(
   "expense/get/all",
-  async (): Promise<any> => {
-    const response = await expenseServices.getAllExpenses();
+  async (delet?: DeleteStatus): Promise<any> => {
+    const response = await expenseServices.getAllExpenses(delet);
     return response;
   }
 );

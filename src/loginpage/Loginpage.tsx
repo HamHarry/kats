@@ -8,6 +8,7 @@ import { yupResolver } from "@hookform/resolvers/yup/src/yup.js";
 import "./Loginpage.css";
 import { useAppDispatch } from "../stores/store";
 import { login, restoreProfile } from "../stores/slices/authSlice";
+import CircleLoading from "../shared/circleLoading";
 
 const schema = yup.object({
   email: yup.string().required("email or Email is required"),
@@ -36,9 +37,7 @@ const LoginPage = () => {
     resolver: yupResolver(schema),
   });
 
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const showLoading = () => setIsLoading(true);
-  const hideLoading = () => setIsLoading(false);
+  const [isLoginLoading, setIsLoginLoading] = useState<boolean>(false);
 
   //เมื่อกดปุ่ม login จะพาเข้าไปสู้หน้า Admin ===================================================================
   const submit = async (value: LoginForm) => {
@@ -46,17 +45,17 @@ const LoginPage = () => {
       const item = {
         ...value,
       };
-      showLoading();
+      setIsLoginLoading(true);
 
       await dispatch(login(item)).unwrap();
-      await dispatch(restoreProfile())
+      await dispatch(restoreProfile());
 
       navigate("/admin/employee");
     } catch (error) {
       alert("email and password is wrong");
       console.log(error);
     } finally {
-      hideLoading();
+      setIsLoginLoading(false);
     }
   };
 
@@ -87,11 +86,7 @@ const LoginPage = () => {
                 return (
                   <>
                     <h2>Password</h2>
-                    <input
-                      {...field}
-                      type="password"
-                      placeholder="Password..."
-                    />
+                    <input {...field} type="password" placeholder="Password..." />
                     <p className="error">{errors.password?.message}</p>
                   </>
                 );
@@ -105,11 +100,7 @@ const LoginPage = () => {
           </form>
         </div>
       </div>
-      {isLoading && (
-        <div className="wrap-loding-login">
-          <div className="loding" />
-        </div>
-      )}
+      <CircleLoading open={isLoginLoading} />
     </>
   );
 };

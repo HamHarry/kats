@@ -25,7 +25,10 @@ const WithdrawAdminPage = () => {
   const dispath = useAppDispatch();
   const navigate = useNavigate();
   const [withdrawData, setWithdrawData] = useState([]);
+
   const [isExpenseLoading, setIsExpenseLoading] = useState<boolean>(false);
+  const [isEmployeeLoading, setIsEmployeeLoading] = useState<boolean>(false);
+
   const [openDialogConfirmDelete, setOpenDialogConfirmDelete] = useState<boolean>(false);
   const [openDialogConfirmApprove, setOpenDialogConfirmApprove] = useState<boolean>(false);
   const [openDialogCancelApprove, setOpenDialogCancelApprove] = useState<boolean>(false);
@@ -56,14 +59,14 @@ const WithdrawAdminPage = () => {
 
   const fetchEmployeeData = useCallback(async () => {
     try {
-      setIsExpenseLoading(true);
+      setIsEmployeeLoading(true);
       const { data: EmployeesRes = [] } = await dispath(getAllEmployees()).unwrap();
 
       setEmployeeData(EmployeesRes);
     } catch (error) {
       console.log(error);
     } finally {
-      setIsExpenseLoading(false);
+      setIsEmployeeLoading(false);
     }
   }, [dispath]);
 
@@ -584,7 +587,9 @@ const WithdrawAdminPage = () => {
       {rederDialogConfirmDelete()}
       {rederDialogConfirmApprove()}
       {rederDialogCancelDelete()}
+
       <CircleLoading open={isExpenseLoading} />
+      <CircleLoading open={isEmployeeLoading} />
     </div>
   );
 };

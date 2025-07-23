@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import * as bookingServices from "../../services/bookingService";
 import { BookingData } from "../../model/booking.type";
+import { DeleteStatus } from "../../model/delete.type";
 
 const initialState: any = {};
 
@@ -35,13 +36,10 @@ export const cancelBookingById = createAsyncThunk(
   }
 );
 
-export const getAllBookings = createAsyncThunk(
-  "booking/get/all",
-  async (): Promise<any> => {
-    const response = await bookingServices.getAllBookings();
-    return response;
-  }
-);
+export const getAllBookings = createAsyncThunk("booking/get/all", async (delet?: DeleteStatus): Promise<any> => {
+  const response = await bookingServices.getAllBookings(delet);
+  return response;
+});
 
 export const getAllBookingPaginations = createAsyncThunk(
   "booking/get/all/Pagination",

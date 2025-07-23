@@ -12,13 +12,10 @@ const roleSlice = createSlice({
   extraReducers() {},
 });
 
-export const createRole = createAsyncThunk(
-  "role/create",
-  async (payload: any): Promise<any> => {
-    const response = await roleService.createRole(payload);
-    return response;
-  }
-);
+export const createRole = createAsyncThunk("role/create", async (payload: any): Promise<any> => {
+  const response = await roleService.createRole(payload);
+  return response;
+});
 
 export const getAllRoles = createAsyncThunk(
   "role/getAll",
