@@ -32,15 +32,31 @@ const NavbarGun = () => {
               หน้าหลัก
             </Link>
           </li>
+
           <li>
             <Link to="coatingGun" smooth={true} duration={200}>
               Coating
             </Link>
           </li>
+
+          <li>
+            <Link to="bookingGun" smooth={true} duration={200}>
+              ตรวจสอบคิว
+            </Link>
+          </li>
+
           <li>
             <Link to="GunGuard" smooth={true} duration={200}>
               Guard
             </Link>
+          </li>
+
+          <li
+            onClick={() => {
+              navigate("login");
+            }}
+          >
+            เข้าสู่ระบบ
           </li>
         </ul>
       </div>
