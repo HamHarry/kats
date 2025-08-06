@@ -50,7 +50,7 @@ const LoginPageGun = () => {
       await dispatch(login(item)).unwrap();
       await dispatch(restoreProfile());
 
-      navigate("/admin/employee");
+      navigate("/admin/booking");
     } catch (error) {
       alert("email and password is wrong");
       console.log(error);

@@ -278,7 +278,7 @@ const CreateRoleAdminPage = () => {
   return (
     <div className="container-Role">
       <div className="header-Role">
-        <h1>สร้างบทบาท</h1>
+        <h1>บทบาท</h1>
       </div>
 
       <form onSubmit={handleSubmit(onSubmit)}>
