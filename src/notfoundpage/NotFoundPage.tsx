@@ -1,13 +1,26 @@
 import { Button, Result } from "antd";
+import { useNavigate } from "react-router-dom";
 
 const NotFoundPage = () => {
+  const navigate = useNavigate();
+
   return (
-    <div>
+    <div style={{ paddingTop: "100px", textAlign: "center" }}>
       <Result
         status="404"
-        title="404"
-        subTitle="Sorry, the page you visited does not exist."
-        extra={<Button type="primary">Back Home</Button>}
+        title={<span style={{ fontSize: 42 }}>404</span>}
+        subTitle={<span style={{ fontSize: 24 }}>ขออภัย หน้าที่คุณเยี่ยมชมไม่มีอยู่</span>}
+        extra={
+          <Button
+            style={{ fontSize: 24, padding: "20px " }}
+            type="primary"
+            onClick={() => {
+              navigate("/");
+            }}
+          >
+            ย้อนกลับไปยังหน้าหลัก
+          </Button>
+        }
       />
     </div>
   );
