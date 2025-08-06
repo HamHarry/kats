@@ -39,6 +39,7 @@ import { useAppDispatch } from "./stores/store.ts";
 import PrivateRoutes from "./routes/PrivateRoutes.tsx";
 import { useSelector } from "react-redux";
 import CircleLoading from "./shared/circleLoading.tsx";
+import LoginPageGun from "./loginpagegun/LoginPageGun.tsx";
 
 function App() {
   const dispatch = useAppDispatch();
@@ -62,6 +63,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route path="" element={<HomePageGun />} />
+          <Route path="login" element={<LoginPageGun />} />
         </Route>
 
         <Route path="/kats" element={<Layoutkats />}>

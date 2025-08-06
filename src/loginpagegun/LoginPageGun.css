@@ -1,0 +1,104 @@
+.container-login-gun {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  height: 600px;
+  width: 600px;
+  background-color: #103026;
+  border-radius: 20px;
+  .wrap-login-gun {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 400px;
+    width: 590px;
+    background-color: #1e4d3f;
+    margin-top: 100px;
+    margin-left: 5px;
+    border-radius: 10px;
+
+    h1 {
+      font-size: 64px;
+      color: #f3cd68;
+      margin-bottom: 20px;
+      text-align: center;
+      width: 300px;
+      margin-top: -99px;
+      margin-bottom: 50px;
+    }
+    h2 {
+      display: flex;
+      font-size: 32px;
+      color: #f3cd68;
+      width: 500px;
+      margin-top: 20px;
+    }
+    input {
+      width: 450px;
+      padding: 13px;
+      border-radius: 5px;
+      border: 1px solid #f3cd68;
+      background-color: #103026;
+    }
+    p {
+      color: red;
+    }
+    .btn-gun {
+      position: fixed;
+      bottom: 20px;
+      left: 34%;
+      margin-top: 200px;
+      .btn-login-gun {
+        background-color: #1e4d3f;
+        font-size: 32px;
+        font-weight: bold;
+        color: #f3cd68;
+        height: 60px;
+        width: 200px;
+        border-radius: 20px;
+        border: none;
+        cursor: pointer;
+        transition: all 0.5s;
+      }
+      .btn-login-gun:hover {
+        text-shadow: 0 0 10px rgba(243, 205, 104, 0.8), 0 0 20px rgba(243, 205, 104, 0.6),
+          0 0 30px rgba(243, 205, 104, 0.4);
+        transition: all 0.5s;
+      }
+    }
+  }
+}
+
+@media (max-width: 674px) {
+  .container-login-gun {
+    width: 500px;
+    .wrap-login-gun {
+      width: 490px;
+      img {
+        width: 120px;
+      }
+      h1 {
+        font-size: 48px;
+        width: 250px;
+        margin-top: -79px;
+        margin-bottom: 40px;
+      }
+      h2 {
+        font-size: 28px;
+        width: 450px;
+      }
+      input {
+        width: 400px;
+      }
+      .btn-gun {
+        left: 30%;
+        .btn-login-gun {
+          font-size: 24px;
+          height: 50px;
+          width: 200px;
+        }
+      }
+    }
+  }
+}
