@@ -3,7 +3,7 @@ import { CatagoryData, PRICE_TYPE, ProductData, ProductDetail, TypeProductData }
 import "./CreateProductAdminPage.css";
 import { useNavigate, useParams } from "react-router-dom";
 import { Controller, useFieldArray, useForm } from "react-hook-form";
-import { Select } from "antd";
+import { Select, Tag } from "antd";
 import {
   createProduct,
   getAllCatagories,
@@ -14,6 +14,7 @@ import {
 import { useAppDispatch } from "../../stores/store";
 import CircleLoading from "../../shared/circleLoading";
 import { DeleteStatus } from "../../model/delete.type";
+import { CrownOutlined, StarOutlined } from "@ant-design/icons";
 
 const initProductDetail: ProductDetail = {
   type: PRICE_TYPE.STANDARD,
@@ -249,10 +250,26 @@ const CreateProductAdminPage = () => {
                           {...field}
                           placeholder="เลือกเกรด"
                           className="select-product"
-                          value={field.value || undefined}
+                          value={field.value || detail.type}
+                          optionRender={({ label, value }) => (
+                            <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+                              {value === PRICE_TYPE.STANDARD && <StarOutlined style={{ color: "#1890ff" }} />}
+                              {value === PRICE_TYPE.LUXURY && <CrownOutlined style={{ color: "#faad14" }} />}
+                              <span style={{ fontWeight: "bold" }}>{label}</span>
+                              {value === PRICE_TYPE.LUXURY && <Tag color="gold">Premium</Tag>}
+                            </div>
+                          )}
+                          labelRender={({ label, value }) => (
+                            <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+                              {value === PRICE_TYPE.STANDARD && <StarOutlined style={{ color: "#1890ff" }} />}
+                              {value === PRICE_TYPE.LUXURY && <CrownOutlined style={{ color: "#faad14" }} />}
+                              <span style={{ fontWeight: "bold" }}>{label}</span>
+                              {value === PRICE_TYPE.LUXURY && <Tag color="gold">Premium</Tag>}
+                            </div>
+                          )}
                         >
-                          <Select.Option value={PRICE_TYPE.STANDARD}>standard</Select.Option>
-                          <Select.Option value={PRICE_TYPE.LUXURY}>luxury</Select.Option>
+                          <Select.Option value={PRICE_TYPE.STANDARD}>Standard</Select.Option>
+                          <Select.Option value={PRICE_TYPE.LUXURY}>Luxury</Select.Option>
                         </Select>
                       );
                     }}

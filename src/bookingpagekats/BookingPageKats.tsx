@@ -7,7 +7,7 @@ import dayjs, { Dayjs } from "dayjs";
 import { BookingStatus, BookingData } from "../model/booking.type";
 import { useCallback, useEffect, useState } from "react";
 import { useAppDispatch } from "../stores/store";
-import { getAllBookings } from "../stores/slices/bookingSlice";
+import { getAllBookingForPreview } from "../stores/slices/bookingSlice";
 import CircleLoading from "../shared/circleLoading";
 import { DeleteStatus } from "../model/delete.type";
 
@@ -19,11 +19,7 @@ const BookingPageKats = () => {
   const fetchAllBooking = useCallback(async () => {
     try {
       setIsBookingLoading(true);
-      const { data: bookingsRes = [] } = await dispath(
-        getAllBookings(DeleteStatus.ISNOTDELETE)
-      ).unwrap();
-
-      console.log(bookingsRes);
+      const { data: bookingsRes = [] } = await dispath(getAllBookingForPreview(DeleteStatus.ISNOTDELETE)).unwrap();
 
       setBookingData(bookingsRes);
     } catch (error) {

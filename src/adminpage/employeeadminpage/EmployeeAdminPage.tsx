@@ -8,8 +8,12 @@ import CircleLoading from "../../shared/circleLoading";
 import { Modal, Tooltip } from "antd";
 import { debounce } from "lodash";
 import { useTranslation } from "react-i18next";
+import { useSelector } from "react-redux";
+import { employeeDataSelector } from "../../stores/slices/authSlice";
 
 const EmployeeAdminPage = () => {
+  const myEmployeeData = useSelector(employeeDataSelector);
+
   const [employeeData, setEmployeeData] = useState<EmployeeData[]>([]);
   const [selectEmployeeById, setSelectEmployeeById] = useState<string>();
   const [openDialogConfirmDelete, setOpenDialogConfirmDelete] = useState<boolean>(false);
@@ -101,11 +105,7 @@ const EmployeeAdminPage = () => {
         <h1>{t("ข้อมูลพนักงาน")}</h1>
       </div>
       <div className="search-employee">
-        <input
-          type="text"
-          placeholder="Search..."
-          onChange={(e) => handleSetSearchTerm(e.target.value)}
-        />
+        <input type="text" placeholder="Search..." onChange={(e) => handleSetSearchTerm(e.target.value)} />
         <button
           onClick={() => {
             navigate("/admin/employee/create");
@@ -123,7 +123,7 @@ const EmployeeAdminPage = () => {
                 <div className="wrap-employee-content">
                   <div className="text-p">
                     <p>
-                      {t("ตำแหน่ง")} {item.role.name}
+                      {t("ตำแหน่ง")} {item.employmentInfo?.role?.name ?? ""}
                     </p>
                     <div className="icon">
                       <Tooltip title="แก้ไขข้อมูล">
@@ -137,15 +137,17 @@ const EmployeeAdminPage = () => {
                         ></i>
                       </Tooltip>
 
-                      <Tooltip title="ลบข้อมูล">
-                        <i
-                          className="fa-solid fa-trash-can"
-                          onClick={() => {
-                            setOpenDialogConfirmDelete(true);
-                            setSelectEmployeeById(item._id);
-                          }}
-                        ></i>
-                      </Tooltip>
+                      {myEmployeeData?._id !== item._id && (
+                        <Tooltip title="ลบข้อมูล">
+                          <i
+                            className="fa-solid fa-trash-can"
+                            onClick={() => {
+                              setOpenDialogConfirmDelete(true);
+                              setSelectEmployeeById(item._id);
+                            }}
+                          ></i>
+                        </Tooltip>
+                      )}
                     </div>
                   </div>
                   <p>

@@ -162,7 +162,7 @@ const CreateSalaryAdvanceAdminPage = () => {
                   >
                     {employeeData.map((item) => (
                       <Select.Option key={item._id} value={item._id}>
-                        {item.firstName} {item.lastName} ({item.role.name})
+                        {item.firstName} {item.lastName} ({item.employmentInfo.role.name})
                       </Select.Option>
                     ))}
                   </Select>

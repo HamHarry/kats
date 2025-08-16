@@ -17,9 +17,7 @@ const CalendarAdminPage = () => {
   const fetchAllBooking = useCallback(async () => {
     try {
       setIsCalendarLoading(true);
-      const { data: bookingsRes = [] } = await dispath(
-        getAllBookings(DeleteStatus.ISNOTDELETE)
-      ).unwrap();
+      const { data: bookingsRes = [] } = await dispath(getAllBookings(DeleteStatus.ISNOTDELETE)).unwrap();
 
       setBookingData(bookingsRes);
     } catch (error) {

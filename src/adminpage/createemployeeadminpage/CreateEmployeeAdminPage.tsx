@@ -4,11 +4,7 @@ import { PaymentStatus, PaymentType, BankType, EmployeeDataForm } from "../../mo
 import { Select, Typography } from "antd";
 import { FileAddFilled } from "@ant-design/icons";
 import { useAppDispatch } from "../../stores/store";
-import {
-  createEmployee,
-  getEmployeeById,
-  updateEmployeeById,
-} from "../../stores/slices/employeeSlice";
+import { createEmployee, getEmployeeById, updateEmployeeById } from "../../stores/slices/employeeSlice";
 import { useCallback, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { BankDatas } from "../../data/BankData";
@@ -21,14 +17,16 @@ import { getAllRoles } from "../../stores/slices/roleSlice";
 const initEmployeeForm: EmployeeDataForm = {
   tel: "",
   image: "",
-  salary: {
-    paymentStatus: PaymentStatus.BANK,
-    paymentType: PaymentType.MONTHLY,
-    bankName: BankType.BANK_OF_AYUDHYA,
-    accountNumber: "",
-    amount: 0,
+  employmentInfo: {
+    salaryInfo: {
+      paymentStatus: PaymentStatus.BANK,
+      paymentType: PaymentType.MONTHLY,
+      bankName: BankType.BANK_OF_AYUDHYA,
+      accountNumber: "",
+      amount: 0,
+    },
+    roleId: "",
   },
-  roleId: "",
   firstName: "",
   lastName: "",
 };
@@ -50,7 +48,7 @@ const CreateEmployeeAdminPage = () => {
     defaultValues: initEmployeeForm,
   });
 
-  const watchPaymentStatus = watch("salary.paymentStatus");
+  const watchPaymentStatus = watch("employmentInfo.salaryInfo.paymentStatus");
 
   const initailForm = useCallback(async () => {
     try {
@@ -63,14 +61,16 @@ const CreateEmployeeAdminPage = () => {
         lastName: employeeRes.lastName ?? "",
         tel: employeeRes.tel ?? "",
         image: employeeRes.image ?? "",
-        salary: {
-          paymentStatus: employeeRes.salary?.paymentStatus ?? PaymentStatus.BANK,
-          paymentType: employeeRes.salary?.paymentType ?? PaymentType.MONTHLY,
-          bankName: employeeRes.salary?.bankName ?? BankType.BANK_OF_AYUDHYA,
-          accountNumber: employeeRes.salary?.accountNumber ?? "",
-          amount: employeeRes.salary?.amount ?? 0,
+        employmentInfo: {
+          salaryInfo: {
+            paymentStatus: employeeRes.employmentInfo.salaryInfo?.paymentStatus ?? PaymentStatus.BANK,
+            paymentType: employeeRes.employmentInfo.salaryInfo?.paymentType ?? PaymentType.MONTHLY,
+            bankName: employeeRes.employmentInfo.salaryInfo?.bankName ?? BankType.BANK_OF_AYUDHYA,
+            accountNumber: employeeRes.employmentInfo.salaryInfo?.accountNumber ?? "",
+            amount: employeeRes.employmentInfo.salaryInfo?.amount ?? 0,
+          },
+          roleId: employeeRes.employmentInfo.roleId ?? "",
         },
-        roleId: employeeRes.roleId ?? "",
         email: employeeRes.email ?? "",
       };
 
@@ -211,7 +211,7 @@ const CreateEmployeeAdminPage = () => {
               <h2>{t("ตำแหน่ง")}</h2>
               <Controller
                 control={control}
-                name="roleId"
+                name="employmentInfo.roleId"
                 render={({ field }) => {
                   return (
                     <Select
@@ -263,7 +263,7 @@ const CreateEmployeeAdminPage = () => {
               <h2>{t("การชำระเงิน")}</h2>
               <Controller
                 control={control}
-                name="salary.paymentStatus"
+                name="employmentInfo.salaryInfo.paymentStatus"
                 render={({ field }) => {
                   return (
                     <Select
@@ -287,7 +287,7 @@ const CreateEmployeeAdminPage = () => {
               <h2>{t("ประเภทการชำระเงิน")}</h2>
               <Controller
                 control={control}
-                name="salary.paymentType"
+                name="employmentInfo.salaryInfo.paymentType"
                 render={({ field }) => {
                   return (
                     <Select
@@ -310,7 +310,7 @@ const CreateEmployeeAdminPage = () => {
                   <h2>{t("เลขบัญชี")}</h2>
                   <Controller
                     control={control}
-                    name="salary.accountNumber"
+                    name="employmentInfo.salaryInfo.accountNumber"
                     render={({ field }) => {
                       return (
                         <input
@@ -335,7 +335,7 @@ const CreateEmployeeAdminPage = () => {
                   <h2>{t("บัญชีธนาคาร")}</h2>
                   <Controller
                     control={control}
-                    name="salary.bankName"
+                    name="employmentInfo.salaryInfo.bankName"
                     render={({ field }) => {
                       return (
                         <Select
@@ -366,7 +366,7 @@ const CreateEmployeeAdminPage = () => {
               <h2>{t("จำนวนเงิน")}</h2>
               <Controller
                 control={control}
-                name="salary.amount"
+                name="employmentInfo.salaryInfo.amount"
                 render={({ field }) => {
                   return (
                     <input

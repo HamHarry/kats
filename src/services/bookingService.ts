@@ -26,6 +26,13 @@ export const getAllBookings = async (delet = DeleteStatus.ISNOTDELETE): Promise<
   return response;
 };
 
+// todo ถ้ามีหลายสาขาให้เพิ่ม body และส่ง companyName เช้ามาแทน
+export const getAllBookingForPreview = async (delet = DeleteStatus.ISNOTDELETE): Promise<any> => {
+  const response = await HttpClient.get(`/bookings/preview?delete=${delet}&companyName=${"KATS_LadKrabang"}`);
+
+  return response;
+};
+
 export const getAllBookingPaginations = async (query: any): Promise<any> => {
   const response = await HttpClient.get(`/bookings/pagination`, { params: query });
 

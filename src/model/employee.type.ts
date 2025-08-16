@@ -27,19 +27,27 @@ export interface EmployeeData {
   lastName: string;
   tel: string;
   email?: string;
-  role: RoleData;
-  roleId: string;
+  employmentInfo: EmploymentInfo;
   image: string;
-  salary?: SalaryData;
   delete: DeleteStatus;
 }
 
-export interface EmployeeDataForm extends Omit<EmployeeData, "role" | "delete"> {}
-
-export interface SalaryData {
+export interface SalaryInfoData {
   paymentStatus?: PaymentStatus;
   paymentType?: PaymentType;
   bankName?: BankType;
   accountNumber?: string;
   amount?: number;
 }
+
+export interface EmploymentInfo {
+  role: RoleData;
+  roleId: string;
+  salaryInfo?: SalaryInfoData;
+}
+
+export interface EmployeeDataForm extends Omit<EmployeeData, "employmentInfo" | "delete"> {
+  employmentInfo: EmploymentInfoForm;
+}
+
+export interface EmploymentInfoForm extends Omit<EmploymentInfo, "role"> {}

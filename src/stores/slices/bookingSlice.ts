@@ -41,6 +41,14 @@ export const getAllBookings = createAsyncThunk("booking/get/all", async (delet?:
   return response;
 });
 
+export const getAllBookingForPreview = createAsyncThunk(
+  "booking/get/all/preview",
+  async (delet?: DeleteStatus): Promise<any> => {
+    const response = await bookingServices.getAllBookingForPreview(delet);
+    return response;
+  }
+);
+
 export const getAllBookingPaginations = createAsyncThunk(
   "booking/get/all/Pagination",
   async (query: any): Promise<any> => {

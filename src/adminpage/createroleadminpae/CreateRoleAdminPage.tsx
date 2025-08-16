@@ -6,13 +6,7 @@ import { useCallback, useEffect, useState } from "react";
 import CircleLoading from "../../shared/circleLoading";
 import "./CreateRoleAdminPage.css";
 import { useAppDispatch } from "../../stores/store";
-import {
-  createRole,
-  getAllRoles,
-  getRoleById,
-  isDeleteRoleById,
-  updateRoleById,
-} from "../../stores/slices/roleSlice";
+import { createRole, getAllRoles, getRoleById, isDeleteRoleById, updateRoleById } from "../../stores/slices/roleSlice";
 import { DeleteStatus } from "../../model/delete.type";
 
 const initRoleForm: RoleData = {
@@ -253,20 +247,16 @@ const CreateRoleAdminPage = () => {
 
   const onSubmit = async (value: RoleData) => {
     try {
-      const item = {
-        ...value,
-      };
-
       // กรณีเช็คการแก้ไข
       if (selectedRoleData && selectedRoleData._id) {
         const body = {
-          ...item,
+          data: value,
           roleId: selectedRoleData._id,
         };
 
         await dispath(updateRoleById(body)).unwrap();
       } else {
-        await dispath(createRole(item)).unwrap();
+        await dispath(createRole(value)).unwrap();
       }
     } catch (error) {
       console.log(error);

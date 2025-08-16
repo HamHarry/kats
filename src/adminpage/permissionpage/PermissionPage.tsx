@@ -43,7 +43,7 @@ const PermissionPage = () => {
       });
 
       setRoleDatas(filteredRoles);
-      
+
       if (filteredRoles.length) {
         reset(filteredRoles[0]);
       }
@@ -60,13 +60,9 @@ const PermissionPage = () => {
 
   const onSubmit = async (value: RoleData) => {
     try {
-      const item = {
-        ...value,
-      };
-
       const body = {
-        data: item,
-        roleId: item._id,
+        data: value,
+        roleId: value._id,
       };
 
       await dispath(updateRoleById(body)).unwrap();
