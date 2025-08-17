@@ -352,7 +352,7 @@ const WithdrawAdminPage = () => {
           <div className="container-Expense-left">
             <div className="container-ExpenseUser">
               <div className="container-ExpenseUser-left">
-                <img src="/public/assets/logoGun.jpg" alt="" />
+                <img src={employeeName?.image} alt="" />
               </div>
 
               <div className="container-ExpenseUser-right">
@@ -373,7 +373,7 @@ const WithdrawAdminPage = () => {
                     <i className="fa-solid fa-user"></i>
                   </div>
 
-                  <p>Role</p>
+                  <p>{employeeName?.employmentInfo.role.name}</p>
                 </div>
               </div>
             </div>

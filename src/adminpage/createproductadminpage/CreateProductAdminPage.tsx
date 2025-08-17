@@ -1,5 +1,11 @@
 import { useCallback, useEffect, useState } from "react";
-import { CatagoryData, PRICE_TYPE, ProductData, ProductDetail, TypeProductData } from "../../model/product.type";
+import {
+  CatagoryData,
+  PRICE_TYPE,
+  ProductData,
+  ProductDetail,
+  TypeProductData,
+} from "../../model/product.type";
 import "./CreateProductAdminPage.css";
 import { useNavigate, useParams } from "react-router-dom";
 import { Controller, useFieldArray, useForm } from "react-hook-form";
@@ -88,7 +94,9 @@ const CreateProductAdminPage = () => {
         dispath(getAllTypeProduct()).unwrap(),
       ]);
 
-      const filteredCatagories = catagoriesRes.filter((item: CatagoryData) => item.delete === DeleteStatus.ISNOTDELETE);
+      const filteredCatagories = catagoriesRes.filter(
+        (item: CatagoryData) => item.delete === DeleteStatus.ISNOTDELETE
+      );
       setCategories(filteredCatagories);
 
       setTypeProduct(typeProductRes);
@@ -253,16 +261,24 @@ const CreateProductAdminPage = () => {
                           value={field.value || detail.type}
                           optionRender={({ label, value }) => (
                             <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
-                              {value === PRICE_TYPE.STANDARD && <StarOutlined style={{ color: "#1890ff" }} />}
-                              {value === PRICE_TYPE.LUXURY && <CrownOutlined style={{ color: "#faad14" }} />}
+                              {value === PRICE_TYPE.STANDARD && (
+                                <StarOutlined style={{ color: "#1890ff" }} />
+                              )}
+                              {value === PRICE_TYPE.LUXURY && (
+                                <CrownOutlined style={{ color: "#faad14" }} />
+                              )}
                               <span style={{ fontWeight: "bold" }}>{label}</span>
                               {value === PRICE_TYPE.LUXURY && <Tag color="gold">Premium</Tag>}
                             </div>
                           )}
                           labelRender={({ label, value }) => (
                             <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
-                              {value === PRICE_TYPE.STANDARD && <StarOutlined style={{ color: "#1890ff" }} />}
-                              {value === PRICE_TYPE.LUXURY && <CrownOutlined style={{ color: "#faad14" }} />}
+                              {value === PRICE_TYPE.STANDARD && (
+                                <StarOutlined style={{ color: "#1890ff" }} />
+                              )}
+                              {value === PRICE_TYPE.LUXURY && (
+                                <CrownOutlined style={{ color: "#faad14" }} />
+                              )}
                               <span style={{ fontWeight: "bold" }}>{label}</span>
                               {value === PRICE_TYPE.LUXURY && <Tag color="gold">Premium</Tag>}
                             </div>
