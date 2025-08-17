@@ -118,3 +118,15 @@
     }
   }
 }
+
+@media (max-width: 1280px) {
+  .container-DocumentCountPage {
+    padding-left: 270px;
+  }
+}
+
+@media (max-width: 1080px) {
+  .container-DocumentCountPage {
+    padding-left: 220px;
+  }
+}
