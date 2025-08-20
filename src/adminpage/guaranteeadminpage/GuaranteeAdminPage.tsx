@@ -7,6 +7,7 @@ import {
   getAllBookingPaginations,
   getBookingById,
   isDeleteBookingById,
+  setBookingUpdateImg,
   updateGuaranteeByBookingId,
 } from "../../stores/slices/bookingSlice";
 import dayjs from "dayjs";
@@ -17,6 +18,10 @@ import { Controller, useFieldArray, useForm } from "react-hook-form";
 import { DatePickerStyle, StyledSelect } from "../../AppStyle";
 import { CheckCircleFilled, ClockCircleFilled, CloseCircleFilled } from "@ant-design/icons";
 import { DeleteStatus } from "../../model/delete.type";
+import { getImagePath } from "../../shared/utils/common";
+import { useSelector } from "react-redux";
+import { userInfoSelector } from "../../stores/slices/authSlice";
+import { uploadFile } from "../../services/coreService";
 export interface GuaranteeForm {
   guarantees: CarStructure[];
 }
@@ -42,6 +47,7 @@ const GuaranteeAdminPage = () => {
   const navigate = useNavigate();
   const [timeData] = useState(bookingTimeList);
   const [isGuaranteeLoading, setIsGuaranteeLoading] = useState<boolean>(false);
+  const userInfo = useSelector(userInfoSelector);
 
   const [booking, setBooking] = useState<BookingData>();
   const [selectBookingId, setSelectBookingId] = useState<string>();
@@ -49,7 +55,8 @@ const GuaranteeAdminPage = () => {
   const [bookingDatas, setBookingDatas] = useState<BookingData[]>([]);
   const [selectbookingData, setSelectBookingData] = useState<BookingData>();
   const [bookingDataLites, setBookingDataLites] = useState<BookingData[]>([]);
-  const [baseImage, setBaseImage] = useState("");
+  const [imageFile, setImageFile] = useState<File | null>();
+  const [imageUrl, setImageUrl] = useState<string>();
   const [openDialogProfile, setOpenDialogProfile] = useState<boolean>(false);
   const [openDialogDelete, setOpenDialogDelete] = useState<boolean>(false);
   const [searchTerm, setSearchTerm] = useState<string>("");
@@ -73,9 +80,17 @@ const GuaranteeAdminPage = () => {
 
       if (!filterGuarantees.length) return;
 
+      let imageName = "";
+
+      if (imageFile) {
+        imageName = await uploadFile(imageFile);
+        dispath(setBookingUpdateImg({ imageName: imageName }));
+      }
+
       const newBooking = {
         ...booking,
         guarantees: filterGuarantees,
+        image: imageName,
       };
 
       const bookingId = newBooking._id;
@@ -187,23 +202,9 @@ const GuaranteeAdminPage = () => {
   // เก็บไฟล์รูปภาพเป็น Base64
   const uploadImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
-    const base64 = (await convertBase64(file)) as string;
-    setBaseImage(base64);
-  };
-
-  const convertBase64 = (file: any) => {
-    return new Promise((resolve, reject) => {
-      const fileReader = new FileReader();
-
-      fileReader.readAsDataURL(file);
-
-      fileReader.onload = () => {
-        resolve(fileReader.result);
-      };
-      fileReader.onerror = (e: any) => {
-        reject(e);
-      };
-    });
+    if (!file) return;
+    setImageUrl(URL.createObjectURL(file));
+    setImageFile(file);
   };
 
   const selectMenu = () => {
@@ -227,10 +228,7 @@ const GuaranteeAdminPage = () => {
           })}
         </select>
 
-        <select
-          className="btn-productName"
-          onChange={(e) => setSelectedProductName(e.target.value)}
-        >
+        <select className="btn-productName" onChange={(e) => setSelectedProductName(e.target.value)}>
           <option value={"all"}>All</option>
           {productName.map((item, index) => {
             return (
@@ -440,9 +438,7 @@ const GuaranteeAdminPage = () => {
     <Modal
       centered
       className={
-        booking?.product.name === "KATS Coating"
-          ? "wrap-container-Edit-Profile-kats"
-          : "wrap-container-Edit-Profile-gun"
+        booking?.product.name === "KATS Coating" ? "wrap-container-Edit-Profile-kats" : "wrap-container-Edit-Profile-gun"
       }
       open={openDialogProfile}
       onCancel={() => {
@@ -466,8 +462,13 @@ const GuaranteeAdminPage = () => {
             <div className="wrap-card-profile">
               <div className="ImageProfile">
                 <img
+                  style={{
+                    objectFit: "cover",
+                    width: "300px",
+                    height: "200px",
+                  }}
                   className={booking?.image === "" ? "IsNotImageProfile " : "IsImageProfile"}
-                  src={baseImage}
+                  src={imageUrl || getImagePath("booking", userInfo?.dbname, booking?.image)}
                   alt="profile"
                 />
                 <label htmlFor="file" className="text-image">
@@ -605,11 +606,7 @@ const GuaranteeAdminPage = () => {
       </div>
       <div className="search-guaranteeAdmin">
         <div>{selectMenu()}</div>
-        <input
-          type="text"
-          placeholder="Search...(Name,Phone,Number)"
-          onChange={(e) => handleSetSearchTerm(e.target.value)}
-        />
+        <input type="text" placeholder="Search...(Name,Phone,Number)" onChange={(e) => handleSetSearchTerm(e.target.value)} />
       </div>
       <div className="wrap-container-guaranteeAdmin">
         {bookingDatas.map((item, index) => {
@@ -625,7 +622,15 @@ const GuaranteeAdminPage = () => {
               }}
             >
               <div className="guaranteeAdmin-image">
-                <img src={item.image} alt="" />
+                <img
+                  style={{
+                    objectFit: "cover",
+                    width: "300px",
+                    height: "200px",
+                  }}
+                  src={getImagePath("booking", userInfo?.dbname, item?.image)}
+                  alt=""
+                />
               </div>
               <div className="guaranteeAdmin-content">
                 <div className="text-p">

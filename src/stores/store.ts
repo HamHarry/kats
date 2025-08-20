@@ -2,10 +2,12 @@ import { configureStore } from "@reduxjs/toolkit";
 import { useDispatch } from "react-redux";
 import productReducer from "./slices/productSlice";
 import authReducer from "./slices/authSlice";
+import employeeReducer from "./slices/employeeSlice";
 
 const reducer = {
   productReducer,
-  authReducer
+  authReducer,
+  employeeReducer,
 };
 
 export const store = configureStore({

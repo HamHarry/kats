@@ -290,8 +290,7 @@
   }
   button:hover {
     background-color: #1a3b7f;
-    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8),
-      0 0 20px rgba(255, 255, 255, 0.6), 0 0 30px rgba(255, 255, 255, 0.4);
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8), 0 0 20px rgba(255, 255, 255, 0.6), 0 0 30px rgba(255, 255, 255, 0.4);
     transition: all 0.5s;
   }
 }
@@ -325,8 +324,8 @@
     }
     button:hover {
       background-color: #1a3b7f;
-      text-shadow: 0 0 10px rgba(255, 255, 255, 0.8),
-        0 0 20px rgba(255, 255, 255, 0.6), 0 0 30px rgba(255, 255, 255, 0.4);
+      text-shadow: 0 0 10px rgba(255, 255, 255, 0.8), 0 0 20px rgba(255, 255, 255, 0.6),
+        0 0 30px rgba(255, 255, 255, 0.4);
       transition: all 0.5s;
     }
   }
@@ -335,13 +334,21 @@
   }
 }
 
+.close-icon {
+  background-color: #ffffff;
+  border-radius: 9999px;
+}
+.close-icon:hover {
+  background-color: #e1eeff; /* or whatever hover color you want */
+}
+
 @media (max-width: 1280px) {
   .container-CreateAdmin {
     padding-left: 270px;
   }
 
   .wrap-container-CreateAdmin {
-    height: 600px;
+    height: 700px;
     .inputImage {
       .text-image {
         height: 100px;

@@ -1,23 +1,22 @@
 import { Controller, useForm } from "react-hook-form";
 import "./CreateBookingAdminPage.css";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { DatePicker, Modal, Select } from "antd";
-import {
-  PRICE_TYPE,
-  ProductData,
-  ProductDetail,
-  ProductSnapshotData,
-} from "../../model/product.type";
+import { PRICE_TYPE, ProductData, ProductDetail, ProductSnapshotData } from "../../model/product.type";
 import { BookingStatus, BookingData } from "../../model/booking.type";
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
-import { FileAddFilled } from "@ant-design/icons";
+import { CloseCircleOutlined, FileAddFilled } from "@ant-design/icons";
 import { useAppDispatch } from "../../stores/store";
 import { getAllProducts } from "../../stores/slices/productSlice";
 import dayjs from "dayjs";
-import { createBooking, getBookingById, updateBookingById } from "../../stores/slices/bookingSlice";
+import { createBooking, getBookingById, setBookingUpdateImg, updateBookingById } from "../../stores/slices/bookingSlice";
 import CircleLoading from "../../shared/circleLoading";
 import { DeleteStatus } from "../../model/delete.type";
 import { useTranslation } from "react-i18next";
+import { uploadFile } from "../../services/coreService";
+import { getImagePath } from "../../shared/utils/common";
+import { useSelector } from "react-redux";
+import { userInfoSelector } from "../../stores/slices/authSlice";
 
 export interface BookingForm extends Omit<BookingData, "product" | "price" | "bookDate"> {
   productId: string;
@@ -49,6 +48,7 @@ const bookingTimeList = [
   { time: "09:00" },
   { time: "10:00" },
   { time: "11:00" },
+  { time: "12:00" },
   { time: "13:00" },
   { time: "14:00" },
   { time: "15:00" },
@@ -65,15 +65,18 @@ const CreateBookingAdminPage = () => {
   const { bookingId } = useParams();
   const [searchParams] = useSearchParams();
   const targetDate = searchParams.get("targetDate");
+  const userInfo = useSelector(userInfoSelector);
 
   const formRef = useRef<any>(null);
-  const [_baseImage, setBaseImage] = useState("");
 
   const [priceData, setPriceData] = useState<ProductDetail[]>([]);
   const [productDatas, setProductDatas] = useState<ProductData[]>([]);
   const [timeData] = useState(bookingTimeList);
   const [openDialogConfirm, setOpenDialogConfirm] = useState<boolean>(false);
   const [isBookingLoading, setIsBookingLoading] = useState<boolean>(false);
+  const [imageFile, setImageFile] = useState<File | null>();
+  const [imageUrl, setImageUrl] = useState<string>();
+  const [bookingData, setBookingData] = useState<BookingData>();
 
   const { handleSubmit, control, reset, setValue } = useForm<BookingForm>({
     defaultValues,
@@ -93,6 +96,7 @@ const CreateBookingAdminPage = () => {
 
       const { data } = await dispath(getBookingById(bookingId)).unwrap();
       const bookingRes = data as BookingData;
+      setBookingData(bookingRes);
       const priceIndex = bookingRes.product.productDetails.findIndex((item) => {
         return JSON.stringify(item) === JSON.stringify(bookingRes.price);
       });
@@ -144,13 +148,19 @@ const CreateBookingAdminPage = () => {
     fetchAllProduct();
   }, [fetchAllProduct]);
 
+  const getBookingSlipImage = useMemo(() => {
+    if (imageUrl) {
+      return imageUrl;
+    } else {
+      return getImagePath("booking", userInfo?.dbname, bookingData?.slip);
+    }
+  }, [bookingData, imageUrl, userInfo]);
+
   const submit = async (value: BookingForm) => {
     try {
       setOpenDialogConfirm(false);
 
-      const findedProduct = productDatas?.find(
-        (item) => String(item._id) === String(value.productId)
-      );
+      const findedProduct = productDatas?.find((item) => String(item._id) === String(value.productId));
 
       if (!findedProduct) return;
 
@@ -164,12 +174,19 @@ const CreateBookingAdminPage = () => {
         typeProductSnapshot: findedProduct.typeProduct,
       };
 
+      let slipImageName = "";
+
+      if (imageFile) {
+        slipImageName = await uploadFile(imageFile);
+        dispath(setBookingUpdateImg({ imageName: slipImageName }));
+      }
+
       const item = {
         ...value,
         bookDate: value.bookDate ? dayjs(value.bookDate).toISOString() : "",
         price: priceData[value.price],
         product: productSnapshot,
-        // slip: baseImage,
+        slip: slipImageName,
       };
 
       if (bookingId) {
@@ -196,23 +213,9 @@ const CreateBookingAdminPage = () => {
   // เก็บไฟล์รูปภาพเป็น Base64
   const uploadImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
-    const base64 = (await convertBase64(file)) as string;
-    setBaseImage(base64);
-  };
-
-  const convertBase64 = (file: any) => {
-    return new Promise((resolve, reject) => {
-      const fileReader = new FileReader();
-
-      fileReader.readAsDataURL(file);
-
-      fileReader.onload = () => {
-        resolve(fileReader.result);
-      };
-      fileReader.onerror = (e: any) => {
-        reject(e);
-      };
-    });
+    if (!file) return;
+    setImageUrl(URL.createObjectURL(file));
+    setImageFile(file);
   };
 
   const rederDialogConfirm = () => {
@@ -458,9 +461,7 @@ const CreateBookingAdminPage = () => {
                       onSelect={(value) => {
                         field.onChange(value);
 
-                        const findedProduct = productDatas?.find(
-                          (item) => String(item._id) === String(value)
-                        );
+                        const findedProduct = productDatas?.find((item) => String(item._id) === String(value));
 
                         if (findedProduct) {
                           setPriceData(findedProduct?.productDetails as any);
@@ -494,9 +495,7 @@ const CreateBookingAdminPage = () => {
                       value={field.value ?? undefined}
                       disabled={priceData.length === 0}
                       options={priceData.map((item, index) => ({
-                        label: `${item.type === PRICE_TYPE.LUXURY ? "luxury" : ""} ${
-                          item.amount
-                        } Baht`,
+                        label: `${item.type === PRICE_TYPE.LUXURY ? "luxury" : ""} ${item.amount} Baht`,
                         value: index,
                       }))}
                     />
@@ -512,18 +511,49 @@ const CreateBookingAdminPage = () => {
             render={({ field }) => {
               return (
                 <div className="inputImage">
-                  <label htmlFor="file" className="text-image">
-                    <FileAddFilled className="icon-file" />
-                    <span>{t("อัพโหลดภาพสลิปมัดจำ 1,000 บาท")}</span>
-                  </label>
-                  <input
-                    {...field}
-                    type="file"
-                    id="file"
-                    onChange={(e) => {
-                      uploadImage(e);
-                    }}
-                  />
+                  {getBookingSlipImage ? (
+                    <div style={{ position: "relative" }}>
+                      <img src={getBookingSlipImage} alt="" style={{ width: "auto", height: "250px" }} />
+                      <CloseCircleOutlined
+                        className="close-icon"
+                        style={{
+                          fontSize: "30px",
+                          top: "-10px",
+                          right: "-10px",
+                          zIndex: 1000,
+                          color: "#2656a2",
+                          cursor: "pointer",
+                          position: "absolute",
+                        }}
+                        onClick={() => {
+                          setImageUrl("");
+                          setImageFile(null);
+                          setBookingData((prev) => {
+                            if (!prev) return;
+                            return {
+                              ...prev,
+                              slip: "",
+                            };
+                          });
+                        }}
+                      />
+                    </div>
+                  ) : (
+                    <>
+                      <label htmlFor="file" className="text-image">
+                        <FileAddFilled className="icon-file" />
+                        <span>{t("อัพโหลดภาพสลิปมัดจำ 1,000 บาท")}</span>
+                      </label>
+                      <input
+                        {...field}
+                        type="file"
+                        id="file"
+                        onChange={(e) => {
+                          uploadImage(e);
+                        }}
+                      />
+                    </>
+                  )}
                 </div>
               );
             }}

@@ -28,7 +28,7 @@ export interface EmployeeData {
   tel: string;
   email?: string;
   employmentInfo: EmploymentInfo;
-  image: string;
+  image?: string;
   delete: DeleteStatus;
 }
 

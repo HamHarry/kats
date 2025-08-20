@@ -9,10 +9,12 @@ import { Modal, Tooltip } from "antd";
 import { debounce } from "lodash";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
-import { employeeDataSelector } from "../../stores/slices/authSlice";
+import { employeeDataSelector, userInfoSelector } from "../../stores/slices/authSlice";
+import { getImagePath } from "../../shared/utils/common";
 
 const EmployeeAdminPage = () => {
   const myEmployeeData = useSelector(employeeDataSelector);
+  const userInfo = useSelector(userInfoSelector);
 
   const [employeeData, setEmployeeData] = useState<EmployeeData[]>([]);
   const [selectEmployeeById, setSelectEmployeeById] = useState<string>();
@@ -69,12 +71,7 @@ const EmployeeAdminPage = () => {
 
   const rederDialogConfirmDelete = () => {
     return (
-      <Modal
-        centered
-        className="wrap-container-DialogDelete"
-        open={openDialogConfirmDelete}
-        onCancel={() => setOpenDialogConfirmDelete(false)}
-      >
+      <Modal centered className="wrap-container-DialogDelete" open={openDialogConfirmDelete} onCancel={() => setOpenDialogConfirmDelete(false)}>
         <h1>{t("ยืนยันการลบ")}</h1>
 
         <div className="btn-DialogDelete-Navbar">
@@ -119,7 +116,7 @@ const EmployeeAdminPage = () => {
           return (
             <div key={index} className="grid-employee">
               <div className="employee-content">
-                <img src={item.image} alt="profile" />
+                <img src={getImagePath("profile", userInfo?.dbname, item?.image)} alt="profile" />
                 <div className="wrap-employee-content">
                   <div className="text-p">
                     <p>

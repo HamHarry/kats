@@ -2,12 +2,16 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 import "./NavbarAdmin.css";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
-import { employeeDataSelector, logOut } from "../../stores/slices/authSlice";
+import { employeeDataSelector, logOut, userInfoSelector } from "../../stores/slices/authSlice";
+import { getImagePath } from "../../shared/utils/common";
+
 const NavbarAdmin = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const location = useLocation();
   const employeeData = useSelector(employeeDataSelector);
+  const userInfo = useSelector(userInfoSelector);
+
   const { t, i18n } = useTranslation();
   const { lang } = useParams();
   i18n.changeLanguage(lang);
@@ -15,22 +19,40 @@ const NavbarAdmin = () => {
   return (
     <div className="navbarAdmin">
       <div className="logo-admin">
-        <img src="/assets/logokats.jpg" alt="logo" />
+        <img src={"/assets/logokats.jpg"} alt="logo" />
       </div>
 
       <hr />
 
       <div className={location.pathname.includes("user") ? "usered" : "user"}>
         <div className="content-left">
-          <i
-            className="fa-regular fa-circle-user"
-            onClick={() => {
-              if (employeeData?._id) {
-                navigate(`/admin/user/${employeeData._id}`);
-              }
-            }}
-          ></i>
-
+          {getImagePath("profile", userInfo?.dbname, employeeData?.image) ? (
+            <img
+              onClick={() => {
+                if (employeeData?._id) {
+                  navigate(`/admin/user/${employeeData._id}`);
+                }
+              }}
+              src={getImagePath("profile", userInfo?.dbname, employeeData?.image)}
+              alt="logo"
+              style={{
+                width: "42px",
+                height: "42px",
+                borderRadius: "50%",
+                objectFit: "cover",
+                margin: '0 20px 0 10px',
+              }}
+            />
+          ) : (
+            <i
+              className="fa-regular fa-circle-user"
+              onClick={() => {
+                if (employeeData?._id) {
+                  navigate(`/admin/user/${employeeData._id}`);
+                }
+              }}
+            ></i>
+          )}
           <div className="username">
             <h3>Admin</h3>
             <p>ผู้ดูแล</p>

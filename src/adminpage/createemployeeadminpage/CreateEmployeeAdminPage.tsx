@@ -2,10 +2,10 @@ import "./CreateEmployeeAdminPage.css";
 import { Controller, useForm } from "react-hook-form";
 import { PaymentStatus, PaymentType, BankType, EmployeeDataForm } from "../../model/employee.type";
 import { Select, Typography } from "antd";
-import { FileAddFilled } from "@ant-design/icons";
+import { CloseCircleOutlined, FileAddFilled } from "@ant-design/icons";
 import { useAppDispatch } from "../../stores/store";
-import { createEmployee, getEmployeeById, updateEmployeeById } from "../../stores/slices/employeeSlice";
-import { useCallback, useEffect, useState } from "react";
+import { createEmployee, getEmployeeById, setProfileImage, updateEmployeeById } from "../../stores/slices/employeeSlice";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { BankDatas } from "../../data/BankData";
 import { useTranslation } from "react-i18next";
@@ -13,6 +13,10 @@ import { DeleteStatus } from "../../model/delete.type";
 import { RoleData } from "../../data/permissions";
 import CircleLoading from "../../shared/circleLoading";
 import { getAllRoles } from "../../stores/slices/roleSlice";
+import { getImagePath } from "../../shared/utils/common";
+import { useSelector } from "react-redux";
+import { userInfoSelector } from "../../stores/slices/authSlice";
+import { uploadFile } from "../../services/coreService";
 
 const initEmployeeForm: EmployeeDataForm = {
   tel: "",
@@ -34,13 +38,17 @@ const initEmployeeForm: EmployeeDataForm = {
 const CreateEmployeeAdminPage = () => {
   const navigate = useNavigate();
   const dispath = useAppDispatch();
+  const userInfo = useSelector(userInfoSelector);
+
   const { employeeId } = useParams();
   const { t, i18n } = useTranslation();
   const { lang } = useParams();
   i18n.changeLanguage(lang);
 
-  const [baseImage, setBaseImage] = useState("");
+  const [imageFile, setImageFile] = useState<File | null>();
+  const [imageUrl, setImageUrl] = useState<string>();
   const [roleDatas, setRoleDatas] = useState<RoleData[]>([]);
+  const [employeeData, setEmployeeData] = useState<EmployeeDataForm>();
 
   const [isCreateEmployeeLoading, setIsCreateEmployeeLoading] = useState<boolean>(false);
 
@@ -50,17 +58,26 @@ const CreateEmployeeAdminPage = () => {
 
   const watchPaymentStatus = watch("employmentInfo.salaryInfo.paymentStatus");
 
+  const getProfileImage = useMemo(() => {
+    if (imageUrl) {
+      return imageUrl;
+    } else {
+      return getImagePath("profile", userInfo?.dbname, employeeData?.image);
+    }
+  }, [employeeData, imageUrl, userInfo]);
+
   const initailForm = useCallback(async () => {
     try {
       if (!employeeId) return;
       const { data } = await dispath(getEmployeeById(employeeId)).unwrap();
       const employeeRes = data as EmployeeDataForm;
 
+      setEmployeeData(employeeRes);
+
       const initEmployeeForm: EmployeeDataForm = {
         firstName: employeeRes.firstName ?? "",
         lastName: employeeRes.lastName ?? "",
         tel: employeeRes.tel ?? "",
-        image: employeeRes.image ?? "",
         employmentInfo: {
           salaryInfo: {
             paymentStatus: employeeRes.employmentInfo.salaryInfo?.paymentStatus ?? PaymentStatus.BANK,
@@ -108,8 +125,16 @@ const CreateEmployeeAdminPage = () => {
 
   const onSubmit = async (value: EmployeeDataForm) => {
     try {
+      let imageName = "";
+
+      if (imageFile) {
+        imageName = await uploadFile(imageFile);
+        dispath(setProfileImage({ imageName: imageName }));
+      }
+
       const newEmployee = {
         ...value,
+        image: imageName,
       };
 
       if (employeeId) {
@@ -134,23 +159,9 @@ const CreateEmployeeAdminPage = () => {
   // เก็บไฟล์รูปภาพเป็น Base64
   const uploadImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
-    const base64 = (await convertBase64(file)) as string;
-    setBaseImage(base64);
-  };
-
-  const convertBase64 = (file: any) => {
-    return new Promise((resolve, reject) => {
-      const fileReader = new FileReader();
-
-      fileReader.readAsDataURL(file);
-
-      fileReader.onload = () => {
-        resolve(fileReader.result);
-      };
-      fileReader.onerror = (e: any) => {
-        reject(e);
-      };
-    });
+    if (!file) return;
+    setImageUrl(URL.createObjectURL(file));
+    setImageFile(file);
   };
 
   return (
@@ -214,12 +225,7 @@ const CreateEmployeeAdminPage = () => {
                 name="employmentInfo.roleId"
                 render={({ field }) => {
                   return (
-                    <Select
-                      {...field}
-                      placeholder="เลือกดำแหน่งพนักงาน"
-                      className="select-product"
-                      value={field.value ?? undefined}
-                    >
+                    <Select {...field} placeholder="เลือกดำแหน่งพนักงาน" className="select-product" value={field.value ?? undefined}>
                       {roleDatas.map((item, index) => {
                         return (
                           <Select.Option key={index} value={item._id}>
@@ -290,12 +296,7 @@ const CreateEmployeeAdminPage = () => {
                 name="employmentInfo.salaryInfo.paymentType"
                 render={({ field }) => {
                   return (
-                    <Select
-                      {...field}
-                      placeholder="เลือกประเภทการชำระเงิน"
-                      className="select-product"
-                      value={field.value ?? undefined}
-                    >
+                    <Select {...field} placeholder="เลือกประเภทการชำระเงิน" className="select-product" value={field.value ?? undefined}>
                       <Select.Option value={PaymentType.MONTHLY}>{t("รายเดือน")}</Select.Option>
                       <Select.Option value={PaymentType.DAILY}>{t("รายวัน")}</Select.Option>
                     </Select>
@@ -338,12 +339,7 @@ const CreateEmployeeAdminPage = () => {
                     name="employmentInfo.salaryInfo.bankName"
                     render={({ field }) => {
                       return (
-                        <Select
-                          {...field}
-                          placeholder="เลือกบัญชีธนาคาร"
-                          className="select-product"
-                          value={field.value ?? undefined}
-                        >
+                        <Select {...field} placeholder="เลือกบัญชีธนาคาร" className="select-product" value={field.value ?? undefined}>
                           {BankDatas.map((bank, index) => {
                             return (
                               <Select.Option key={index} value={bank.type}>
@@ -390,7 +386,36 @@ const CreateEmployeeAdminPage = () => {
 
           <div className="PreviewImage">
             <h2>{t("ตัวอย่างรูปภาพประจำตัว")}</h2>
-            {baseImage && <img src={baseImage} alt="image" />}
+            {getProfileImage && (
+              <>
+                <div style={{ position: "relative" }}>
+                  <img src={getProfileImage} alt="image" />
+                  <CloseCircleOutlined
+                    className="close-icon"
+                    style={{
+                      fontSize: "30px",
+                      top: "25px",
+                      right: "25px",
+                      zIndex: 1000,
+                      color: "#2656a2",
+                      cursor: "pointer",
+                      position: "absolute",
+                    }}
+                    onClick={() => {
+                      setImageUrl("");
+                      setImageFile(null);
+                      setEmployeeData((prev) => {
+                        if (!prev) return;
+                        return {
+                          ...prev,
+                          image: "",
+                        };
+                      });
+                    }}
+                  />
+                </div>
+              </>
+            )}
           </div>
         </div>
       </form>

@@ -2,12 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 import "./BookingAdminPage.css";
 import { useNavigate, useParams } from "react-router-dom";
 import { BookingData, BookingStatus } from "../../model/booking.type";
-import {
-  CheckCircleFilled,
-  ClockCircleFilled,
-  CloseCircleFilled,
-  PayCircleFilled,
-} from "@ant-design/icons";
+import { CheckCircleFilled, ClockCircleFilled, CloseCircleFilled, PayCircleFilled } from "@ant-design/icons";
 import { useAppDispatch } from "../../stores/store";
 import {
   approveBookingById,
@@ -21,13 +16,18 @@ import dayjs from "dayjs";
 import { debounce } from "lodash";
 import { DeleteStatus } from "../../model/delete.type";
 import { useTranslation } from "react-i18next";
+import { getImagePath } from "../../shared/utils/common";
+import { userInfoSelector } from "../../stores/slices/authSlice";
+import { useSelector } from "react-redux";
 
 const BookingAdminPage = () => {
   const navigate = useNavigate();
   const dispath = useAppDispatch();
   const { t, i18n } = useTranslation();
+  const userInfo = useSelector(userInfoSelector);
   const { lang } = useParams();
   i18n.changeLanguage(lang);
+
   const [isBookingLoading, setIsBookingLoading] = useState<boolean>(false);
 
   const [bookingDatas, setBookingDatas] = useState<BookingData[]>([]);
@@ -108,10 +108,7 @@ const BookingAdminPage = () => {
       setIsBookingLoading(true);
       if (!selectDataBooking?._id) return;
 
-      const status =
-        selectDataBooking.status === BookingStatus.CHECKING
-          ? selectDataBooking.status
-          : BookingStatus.COMPLETED;
+      const status = selectDataBooking.status === BookingStatus.CHECKING ? selectDataBooking.status : BookingStatus.COMPLETED;
 
       const data: BookingData = {
         ...selectDataBooking,
@@ -180,7 +177,7 @@ const BookingAdminPage = () => {
         onCancel={() => setOpenDialogPay(false)}
       >
         <div className="ImagePay">
-          <img src={selectImagePay} alt="" />
+          <img src={getImagePath('booking',userInfo?.dbname, selectImagePay)} alt="" />
         </div>
       </Modal>
     );
@@ -290,16 +287,8 @@ const BookingAdminPage = () => {
       <div className="search-BookingAdmin">
         <div>{selectMenu()}</div>
         <div className="search-content-right">
-          <input
-            type="text"
-            placeholder="Search...(Name,Phone,Number)"
-            onChange={(e) => handleSetSearchTerm(e.target.value)}
-          />
-          <button
-            className="btn-crate"
-            type="button"
-            onClick={() => navigate("/admin/booking/create")}
-          >
+          <input type="text" placeholder="Search...(Name,Phone,Number)" onChange={(e) => handleSetSearchTerm(e.target.value)} />
+          <button className="btn-crate" type="button" onClick={() => navigate("/admin/booking/create")}>
             {t("สร้าง")}
           </button>
         </div>
@@ -308,8 +297,7 @@ const BookingAdminPage = () => {
         {bookingDatas.map((item, index) => {
           const productType = item.product.typeProductSnapshot.name;
 
-          const completedGuarantees =
-            item.guarantees?.filter((g) => g.status === BookingStatus.COMPLETED) ?? [];
+          const completedGuarantees = item.guarantees?.filter((g) => g.status === BookingStatus.COMPLETED) ?? [];
 
           const currentGuarantee = item.guarantees?.[completedGuarantees.length];
 
@@ -326,14 +314,7 @@ const BookingAdminPage = () => {
               }}
             >
               <div className="BookingAdmin-image">
-                <img
-                  src={
-                    item.product.name === "KATS Coating"
-                      ? "/assets/logokats.jpg"
-                      : "/assets/logoGun.jpg"
-                  }
-                  alt="Image"
-                />
+                <img src={item.product.name === "KATS Coating" ? "/assets/logokats.jpg" : "/assets/logoGun.jpg"} alt="Image" />
               </div>
               <div className="BookingAdmin-content">
                 <div className="text-p">
@@ -367,7 +348,7 @@ const BookingAdminPage = () => {
                       <PayCircleFilled
                         className="icon-pay"
                         onClick={() => {
-                          setSelectImagePay(item.image);
+                          setSelectImagePay(item.slip);
                           setOpenDialogPay(true);
                         }}
                       />
@@ -420,8 +401,7 @@ const BookingAdminPage = () => {
 
                   <div
                     className={
-                      item.status === BookingStatus.COMPLETED ||
-                      item.status === BookingStatus.CANCELED
+                      item.status === BookingStatus.COMPLETED || item.status === BookingStatus.CANCELED
                         ? "btn-approve-none"
                         : "btn-approve"
                     }
