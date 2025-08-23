@@ -1,0 +1,116 @@
+.container-PermissionPage {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  padding: 20px 20px 0px 20px;
+  padding-left: 320px;
+
+  button {
+    width: 100px;
+    height: 45px;
+    border: none;
+    border-radius: 20px;
+    background-color: #2656a2;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+    transition: all 0.5s;
+  }
+  button:hover {
+    background-color: #1a4f8a;
+  }
+
+  .ant-select-single .ant-select-selector {
+    border: 2px solid #2656a2;
+    height: 45px;
+    width: 100%;
+    min-width: 150px;
+  }
+}
+
+.header-PermissionPage {
+  display: flex;
+  justify-content: center;
+  height: 80px;
+  max-width: 1200px;
+  width: 100%;
+  border-radius: 20px;
+  background-color: #2656a2;
+  margin-bottom: 20px;
+  h1 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 42px;
+    color: white;
+  }
+}
+
+.container-content-PermissionPage {
+  width: 100%;
+  .navbar-PermissionPage {
+    display: flex;
+    justify-content: space-between;
+    padding: 0px 20px 20px 20px;
+  }
+  .select-employee {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 5px;
+  }
+}
+
+.checkbox-permission {
+  appearance: none;
+  width: 25px;
+  aspect-ratio: 1;
+  border-radius: 8px;
+  border: 2px solid #2656a2;
+  position: relative;
+  transition: all 0.2s ease-in-out;
+}
+.checkbox-permission::before {
+  font-family: "Quicksand", sans-serif;
+  position: absolute;
+  bottom: -4px;
+  left: 1px;
+  content: "✔";
+  font-size: 30px;
+  color: rgb(255, 153, 0);
+  transform: scale(0);
+  transition: all 0.2s ease-in-out;
+}
+.checkbox-permission:checked::before {
+  animation: zoom 0.5s ease-in-out;
+  transform: scale(1);
+}
+@keyframes zoom {
+  0% {
+    transform: scale(0);
+  }
+  20% {
+    transform: scale(1.5);
+  }
+  40% {
+    transform: scale(0.5);
+  }
+  50% {
+    transform: scale(1);
+  }
+  70% {
+    transform: scale(1.2);
+  }
+  90% {
+    transform: scale(0.8);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@media (max-width: 1280px) {
+  .container-PermissionPage {
+    padding-left: 270px;
+  }
+}

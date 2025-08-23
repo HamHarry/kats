@@ -1,12 +1,7 @@
 import { Controller, useFieldArray, useForm } from "react-hook-form";
 import "./CreateWithdrawAdminPage.css";
-import { useNavigate } from "react-router-dom";
-import {
-  Category_Type,
-  CategoryDetail,
-  FinanceData,
-  PaymentCategory,
-} from "../../model/finance.type";
+import { useNavigate, useParams } from "react-router-dom";
+import { CategoryType, CatagoryDetail, FinanceData, PaymentCategory, ExpenseStatus } from "../../model/finance.type";
 import CircleLoading from "../../shared/circleLoading";
 import { useCallback, useEffect, useState } from "react";
 import { EmployeeData } from "../../model/employee.type";
@@ -14,34 +9,75 @@ import { useAppDispatch } from "../../stores/store";
 import { getAllEmployees } from "../../stores/slices/employeeSlice";
 import { DatePicker, InputNumber, Select } from "antd";
 import dayjs from "dayjs";
+import { createExpense, getExpenseById, updateExpenseById } from "../../stores/slices/expenseSlice";
+import { DeleteStatus } from "../../model/delete.type";
 
-const initCategoryDetail: CategoryDetail = {
-  type: Category_Type.FUEL,
+const initCategoryDetail: CatagoryDetail = {
+  type: CategoryType.FUEL,
   amount: 0,
 };
 
-const initFinanceForm: FinanceData = {
-  number: 0,
-  name: "",
+export interface FinanceForm extends Omit<FinanceData, "date"> {
+  date: dayjs.Dayjs;
+}
+
+const initFinanceForm: FinanceForm = {
+  codeId: 0,
+  employeeId: "",
   ownerName: "",
   section: PaymentCategory.WITHDRAW,
   categorys: [initCategoryDetail],
-  price: 0,
-  date: "",
+  date: dayjs(),
   datePrice: "",
   detel: "",
+  delete: DeleteStatus.ISNOTDELETE,
+  slip: "",
+  status: ExpenseStatus.PENDING,
 };
 
 const CreateWithdrawAdminPage = () => {
   const dispath = useAppDispatch();
   const navigate = useNavigate();
-  const [isCreateWithDrawLoading, setIsCreateWithDrawLoading] =
-    useState<boolean>(false);
+  const { expenseId } = useParams();
+  const [isCreateWithDrawLoading, setIsCreateWithDrawLoading] = useState<boolean>(false);
   const [employeeData, setEmployeeData] = useState<EmployeeData[]>([]);
 
-  const { control, handleSubmit } = useForm({
+  console.log(employeeData);
+
+  const { control, handleSubmit, reset } = useForm({
     defaultValues: initFinanceForm,
   });
+
+  const initailForm = useCallback(async () => {
+    try {
+      if (!expenseId) return;
+
+      const { data } = await dispath(getExpenseById(expenseId)).unwrap();
+      const expenseRes = data as FinanceData;
+
+      const initBookingForm: FinanceForm = {
+        codeId: expenseRes.codeId ?? 0,
+        employeeId: expenseRes.employeeId ?? "",
+        ownerName: expenseRes.ownerName ?? "",
+        section: expenseRes.section ?? PaymentCategory.WITHDRAW,
+        categorys: expenseRes.categorys ?? [],
+        date: dayjs(expenseRes.date),
+        datePrice: expenseRes.datePrice ?? "",
+        detel: expenseRes.detel ?? "",
+        delete: expenseRes.delete ?? DeleteStatus.ISNOTDELETE,
+        slip: expenseRes.slip ?? "",
+        status: expenseRes.status ?? ExpenseStatus.PENDING,
+      };
+
+      reset(initBookingForm);
+    } catch (error) {
+      console.log(error);
+    }
+  }, [dispath, expenseId, reset]);
+
+  useEffect(() => {
+    initailForm();
+  }, [initailForm]);
 
   const categoryDetailFields = useFieldArray({
     name: "categorys",
@@ -51,9 +87,7 @@ const CreateWithdrawAdminPage = () => {
   const fetchEmployeeData = useCallback(async () => {
     try {
       setIsCreateWithDrawLoading(true);
-      const { data: EmployeesRes = [] } = await dispath(
-        getAllEmployees()
-      ).unwrap();
+      const { data: EmployeesRes = [] } = await dispath(getAllEmployees()).unwrap();
 
       setEmployeeData(EmployeesRes);
     } catch (error) {
@@ -67,19 +101,35 @@ const CreateWithdrawAdminPage = () => {
     fetchEmployeeData();
   }, [fetchEmployeeData]);
 
-  const onSubmit = async (value: FinanceData) => {
-    const body = {
-      ...value,
-      date: value.date ? dayjs(value.date).toISOString() : "",
-    };
+  const onSubmit = async (value: FinanceForm) => {
+    try {
+      const item = {
+        ...value,
+        date: value.date ? dayjs(value.date).toISOString() : "",
+      };
 
-    console.log(body);
+      if (expenseId) {
+        const body = {
+          // แก้ไข
+          data: item,
+          expenseId,
+        };
+        await dispath(updateExpenseById(body)).unwrap();
+
+        navigate("/admin/withdraw");
+      } else {
+        // สร้าง
+        await dispath(createExpense(item)).unwrap();
+
+        navigate("/admin/withdraw");
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const handleRemoveCatagoryDetail = useCallback(
     (index: number) => {
-      console.log("Current Fields:", categoryDetailFields.fields);
-      console.log("Removing Index:", index);
       if (!categoryDetailFields?.fields?.length) return;
       if (categoryDetailFields.fields.length === 1) return;
 
@@ -104,14 +154,7 @@ const CreateWithdrawAdminPage = () => {
           >
             ย้อนกลับ
           </button>
-          <button
-            type="submit"
-            onClick={() => {
-              navigate("/admin/withdraw");
-            }}
-          >
-            ยืนยัน
-          </button>
+          <button type="submit">ยืนยัน</button>
         </div>
 
         <div className="wrap-container-CreateWithdrawAdminPage">
@@ -119,7 +162,7 @@ const CreateWithdrawAdminPage = () => {
             <h2>พนักงาน</h2>
             <Controller
               control={control}
-              name="name"
+              name="employeeId"
               render={({ field }) => {
                 return (
                   <Select
@@ -129,18 +172,8 @@ const CreateWithdrawAdminPage = () => {
                     value={field.value || undefined}
                   >
                     {employeeData.map((item) => (
-                      <Select.Option key={item._id} value={item.name}>
-                        {item.name} (
-                        {`${
-                          item.staffRole === 0
-                            ? "หัวหน้า"
-                            : item.staffRole === 1
-                            ? "ผู้ดูแลระบบ"
-                            : item.staffRole === 2
-                            ? "ช่างล้างรถ"
-                            : "ช่างพ่นสี"
-                        }`}
-                        )
+                      <Select.Option key={item._id} value={item._id}>
+                        {item.firstName} {item.lastName} ({item.employmentInfo?.role?.name || ""})
                       </Select.Option>
                     ))}
                   </Select>
@@ -156,9 +189,7 @@ const CreateWithdrawAdminPage = () => {
                 control={control}
                 name="ownerName"
                 render={({ field }) => {
-                  return (
-                    <input {...field} type="text" placeholder="หัวข้อ..." />
-                  );
+                  return <input {...field} type="text" placeholder="หัวข้อ..." />;
                 }}
               />
 
@@ -192,18 +223,23 @@ const CreateWithdrawAdminPage = () => {
             />
           </div>
 
+          <h2>รายการ</h2>
+
           <div className="wrap-inputList">
-            <h2>รายการ</h2>
             <div className="inputList">
-              <button
-                className="btn-append"
-                type="button"
-                onClick={() => {
-                  categoryDetailFields.append(initCategoryDetail);
-                }}
-              >
-                เพิ่มหมวดหมู่
-              </button>
+              <div>
+                <button
+                  className="btn-append"
+                  type="button"
+                  onClick={() => {
+                    if (categoryDetailFields?.fields.length === 4) return;
+
+                    categoryDetailFields.append(initCategoryDetail);
+                  }}
+                >
+                  เพิ่มหมวดหมู่
+                </button>
+              </div>
 
               {categoryDetailFields.fields.map((detail, index) => {
                 return (
@@ -217,32 +253,16 @@ const CreateWithdrawAdminPage = () => {
                             {...field}
                             placeholder="เลือกหมวดหมู่"
                             className="select-category"
-                            value={field.value || undefined}
+                            value={field.value ?? undefined}
                           >
-                            <Select.Option value={Category_Type.FUEL}>
-                              ค่าน้ำมัน
-                            </Select.Option>
-                            <Select.Option value={Category_Type.TRAVEL}>
-                              ค่าเดินทาง
-                            </Select.Option>
-                            <Select.Option value={Category_Type.ACCOMMODATION}>
-                              ค่าที่พัก
-                            </Select.Option>
-                            <Select.Option value={Category_Type.ALLOWANCE}>
-                              ค่าเบี้ยเลี้ยง
-                            </Select.Option>
-                            <Select.Option value={Category_Type.TRANSPORT}>
-                              ค่าขนส่ง
-                            </Select.Option>
-                            <Select.Option value={Category_Type.TOOL}>
-                              ค่าอุปกรณ์
-                            </Select.Option>
-                            <Select.Option value={Category_Type.MEDICAL}>
-                              ค่ารักษา
-                            </Select.Option>
-                            <Select.Option value={Category_Type.OTHER}>
-                              ค่าอื่นๆ
-                            </Select.Option>
+                            <Select.Option value={CategoryType.FUEL}>ค่าน้ำมัน</Select.Option>
+                            <Select.Option value={CategoryType.TRAVEL}>ค่าเดินทาง</Select.Option>
+                            <Select.Option value={CategoryType.ACCOMMODATION}>ค่าที่พัก</Select.Option>
+                            <Select.Option value={CategoryType.ALLOWANCE}>ค่าเบี้ยเลี้ยง</Select.Option>
+                            <Select.Option value={CategoryType.TRANSPORT}>ค่าขนส่ง</Select.Option>
+                            <Select.Option value={CategoryType.TOOL}>ค่าอุปกรณ์</Select.Option>
+                            <Select.Option value={CategoryType.MEDICAL}>ค่ารักษา</Select.Option>
+                            <Select.Option value={CategoryType.OTHER}>ค่าอื่นๆ</Select.Option>
                           </Select>
                         );
                       }}
@@ -253,21 +273,13 @@ const CreateWithdrawAdminPage = () => {
                       name={`categorys.${index}.amount`}
                       render={({ field }) => {
                         return (
-                          <InputNumber
-                            className="input-number"
-                            {...field}
-                            addonAfter="฿"
-                            placeholder="กรอกจำนวนเงิน"
-                          />
+                          <InputNumber className="input-number" {...field} addonAfter="฿" placeholder="กรอกจำนวนเงิน" />
                         );
                       }}
                     />
 
                     {index !== 0 && (
-                      <button
-                        type="button"
-                        onClick={() => handleRemoveCatagoryDetail(index)}
-                      >
+                      <button type="button" onClick={() => handleRemoveCatagoryDetail(index)}>
                         ลบ
                       </button>
                     )}

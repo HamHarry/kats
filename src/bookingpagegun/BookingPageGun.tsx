@@ -1,27 +1,27 @@
 import { Badge, Calendar, CalendarProps, Typography } from "antd";
+import "./BookingPageGun.css";
+
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import "react-datepicker/dist/react-datepicker.css";
 import dayjs, { Dayjs } from "dayjs";
 import { BookingStatus, BookingData } from "../model/booking.type";
 import { useCallback, useEffect, useState } from "react";
 import { useAppDispatch } from "../stores/store";
-import { getAllBookings } from "../stores/slices/bookingSlice";
+import { getAllBookingForPreview } from "../stores/slices/bookingSlice";
 import CircleLoading from "../shared/circleLoading";
-import "../bookingpagekats/BookingPageKats.css";
+import { DeleteStatus } from "../model/delete.type";
 
-const CalendarPage = () => {
+const BookingPageGun = () => {
   const dispath = useAppDispatch();
-  const [bookings, setBookings] = useState<BookingData[]>([]);
+  const [bookingData, setBookingData] = useState<BookingData[]>([]);
   const [isBookingLoading, setIsBookingLoading] = useState<boolean>(false);
 
   const fetchAllBooking = useCallback(async () => {
     try {
       setIsBookingLoading(true);
-      const { data: bookingsRes = [] } = await dispath(
-        getAllBookings()
-      ).unwrap();
+      const { data: bookingsRes = [] } = await dispath(getAllBookingForPreview(DeleteStatus.ISNOTDELETE)).unwrap();
 
-      setBookings(bookingsRes);
+      setBookingData(bookingsRes);
     } catch (error) {
       console.log(error);
     } finally {
@@ -37,6 +37,8 @@ const CalendarPage = () => {
     switch (status) {
       case BookingStatus.PENDING:
         return "warning";
+      case BookingStatus.CHECKING:
+        return "warning";
       case BookingStatus.PAID:
         return "processing";
       case BookingStatus.COMPLETED:
@@ -49,8 +51,8 @@ const CalendarPage = () => {
     }
   };
 
-  const renderBookedCalendar = (bookingData: BookingData) => {
-    const { bookTime, status, carType, carModel } = bookingData;
+  const renderBookedCalendar = (payload: { status: BookingStatus; label: string }) => {
+    const { status, label } = payload;
 
     return (
       <div
@@ -63,20 +65,55 @@ const CalendarPage = () => {
       >
         <Badge status={getStatus(status)} />
         <Typography className="text-c" style={{ textWrap: "nowrap" }}>
-          {bookTime} {carType} {carModel}
+          {label}
         </Typography>
       </div>
     );
   };
 
-  const cellRender: CalendarProps<Dayjs>["cellRender"] = (current) => {
-    const bookingData = bookings.filter((data) =>
-      dayjs(data.bookDate).isSame(current, "date")
+  // reduce ข้อมูล
+  const generateCellDict = (current: dayjs.Dayjs) => {
+    const cellDict = bookingData.reduce(
+      (
+        prev: {
+          status: BookingStatus;
+          label: string;
+        }[],
+        item: BookingData
+      ) => {
+        if (item.guarantees?.length) {
+          item.guarantees?.map((guarantee) => {
+            const { status, serviceDate, serviceTime } = guarantee;
+
+            const label = `${serviceTime} ${item.carType} ${item.carModel}`;
+
+            if (dayjs(serviceDate).isSame(current, "date")) {
+              prev.push({ status, label });
+            }
+          });
+        } else {
+          const { status, bookTime, carType, carModel } = item;
+          const label = `${bookTime} ${carType} ${carModel}`;
+
+          if (dayjs(item.bookDate).isSame(current, "date")) {
+            prev.push({ status, label });
+          }
+        }
+
+        return prev;
+      },
+      []
     );
+
+    return cellDict;
+  };
+
+  const cellRender: CalendarProps<Dayjs>["cellRender"] = (current) => {
+    const cellDict = generateCellDict(current);
 
     return (
       <div className="booking">
-        {bookingData.map((data, index) => {
+        {cellDict.map((data, index) => {
           return <div key={index}>{renderBookedCalendar(data)}</div>;
         })}
       </div>
@@ -84,13 +121,12 @@ const CalendarPage = () => {
   };
 
   return (
-    <div className="container-orderpage">
-      <div className="header-orderpage">
-        <img src="/assets/katoon.png" alt="katoon" />
+    <div className="container-orderpage-Gun" id="bookingGun">
+      <div className="header-orderpage-Gun">
         <Typography className="text-header">ตรวจสอบคิว</Typography>
       </div>
 
-      <div className="wrap-calendar">
+      <div className="wrap-calendar-Gun">
         <Calendar cellRender={cellRender} />
       </div>
 
@@ -99,4 +135,4 @@ const CalendarPage = () => {
   );
 };
 
-export default CalendarPage;
+export default BookingPageGun;

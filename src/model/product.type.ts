@@ -1,17 +1,22 @@
+import { DeleteStatus } from "./delete.type";
+
 export enum PRICE_TYPE {
   LUXURY = 1,
   STANDARD = 2,
 }
 
-export enum ProductType {
-  KATS = 1,
-  GUN = 2,
-}
-
-export interface Catagory {
+export interface CatagoryData {
   _id?: string;
   name: string;
   code: string;
+  delete: DeleteStatus; // สถานะการลบ
+}
+
+export interface TypeProductData {
+  _id?: string;
+  name: string;
+  code: string;
+  delete: DeleteStatus; // สถานะการลบ
 }
 
 export interface ProductDetail {
@@ -22,9 +27,16 @@ export interface ProductDetail {
 export interface ProductData {
   _id?: string;
   name: string;
-  catagory: Catagory;
+  catagory: CatagoryData;
   catagoryId: string;
   productDetails: ProductDetail[];
   detail: string;
-  productType: ProductType;
+  typeProductId: string;
+  typeProduct: TypeProductData;
+  delete: DeleteStatus; // สถานะการลบ
+}
+
+export interface ProductSnapshotData extends ProductData {
+  catagorySnapshot: CatagoryData;
+  typeProductSnapshot: TypeProductData;
 }

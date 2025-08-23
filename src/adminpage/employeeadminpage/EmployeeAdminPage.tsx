@@ -1,30 +1,41 @@
 import { useCallback, useEffect, useState } from "react";
 import "./EmployeeAdminPage.css";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { EmployeeData } from "../../model/employee.type";
 import { useAppDispatch } from "../../stores/store";
-import {
-  deleteEmployeeById,
-  getAllEmployees,
-} from "../../stores/slices/employeeSlice";
+import { deleteEmployeeById, getAllEmployeePaginations } from "../../stores/slices/employeeSlice";
 import CircleLoading from "../../shared/circleLoading";
-import { Modal } from "antd";
+import { Modal, Tooltip } from "antd";
+import { debounce } from "lodash";
+import { useTranslation } from "react-i18next";
+import { useSelector } from "react-redux";
+import { employeeDataSelector, userInfoSelector } from "../../stores/slices/authSlice";
+import { getImagePath } from "../../shared/utils/common";
 
 const EmployeeAdminPage = () => {
+  const myEmployeeData = useSelector(employeeDataSelector);
+  const userInfo = useSelector(userInfoSelector);
+
   const [employeeData, setEmployeeData] = useState<EmployeeData[]>([]);
   const [selectEmployeeById, setSelectEmployeeById] = useState<string>();
-  const [openDialogConfirmDelete, setOpenDialogConfirmDelete] =
-    useState<boolean>(false);
+  const [openDialogConfirmDelete, setOpenDialogConfirmDelete] = useState<boolean>(false);
   const [isEmployeeLoading, setIsEmployeeLoading] = useState<boolean>(false);
+  const [searchTerm, setSearchTerm] = useState<string>("");
   const navigate = useNavigate();
   const dispath = useAppDispatch();
+  const { t, i18n } = useTranslation();
+  const { lang } = useParams();
+  i18n.changeLanguage(lang);
 
   const fetchAllEmployee = useCallback(async () => {
     try {
       setIsEmployeeLoading(true);
-      const { data: employeesRes = [] } = await dispath(
-        getAllEmployees()
-      ).unwrap();
+
+      const query = {
+        term: searchTerm,
+      };
+
+      const { data: employeesRes = [] } = await dispath(getAllEmployeePaginations(query)).unwrap();
 
       setEmployeeData(employeesRes);
     } catch (error) {
@@ -32,7 +43,7 @@ const EmployeeAdminPage = () => {
     } finally {
       setIsEmployeeLoading(false);
     }
-  }, [dispath]);
+  }, [dispath, searchTerm]);
 
   useEffect(() => {
     fetchAllEmployee();
@@ -40,8 +51,6 @@ const EmployeeAdminPage = () => {
 
   const deleted = async () => {
     try {
-      console.log(selectEmployeeById);
-
       if (!selectEmployeeById) return;
 
       setIsEmployeeLoading(true);
@@ -56,15 +65,14 @@ const EmployeeAdminPage = () => {
     }
   };
 
+  const handleSetSearchTerm = debounce((value) => {
+    setSearchTerm(value);
+  }, 500);
+
   const rederDialogConfirmDelete = () => {
     return (
-      <Modal
-        centered
-        className="wrap-container-DialogDelete"
-        open={openDialogConfirmDelete}
-        onCancel={() => setOpenDialogConfirmDelete(false)}
-      >
-        <h1>ยืนยันการลบ</h1>
+      <Modal centered className="wrap-container-DialogDelete" open={openDialogConfirmDelete} onCancel={() => setOpenDialogConfirmDelete(false)}>
+        <h1>{t("ยืนยันการลบ")}</h1>
 
         <div className="btn-DialogDelete-Navbar">
           <button
@@ -74,14 +82,14 @@ const EmployeeAdminPage = () => {
               setOpenDialogConfirmDelete(false);
             }}
           >
-            ยืนยัน
+            {t("ยืนยัน")}
           </button>
           <button
             onClick={() => {
               setOpenDialogConfirmDelete(false);
             }}
           >
-            ยกเลิก
+            {t("ยกเลิก")}
           </button>
         </div>
       </Modal>
@@ -91,16 +99,16 @@ const EmployeeAdminPage = () => {
   return (
     <div className="container-employeeAdmin">
       <div className="header-employeeAdmin">
-        <h1>Employees</h1>
+        <h1>{t("ข้อมูลพนักงาน")}</h1>
       </div>
       <div className="search-employee">
-        <input type="text" placeholder="Search..." />
+        <input type="text" placeholder="Search..." onChange={(e) => handleSetSearchTerm(e.target.value)} />
         <button
           onClick={() => {
             navigate("/admin/employee/create");
           }}
         >
-          สร้าง
+          {t("สร้าง")}
         </button>
       </div>
       <div className="wrap-container-employeeAdmin">
@@ -108,41 +116,43 @@ const EmployeeAdminPage = () => {
           return (
             <div key={index} className="grid-employee">
               <div className="employee-content">
-                <img src={item.image} alt="profile" />
+                <img src={getImagePath("profile", userInfo?.dbname, item?.image)} alt="profile" />
                 <div className="wrap-employee-content">
                   <div className="text-p">
                     <p>
-                      ตำแหน่ง:{" "}
-                      {`${
-                        item.staffRole === 0
-                          ? "หัวหน้า"
-                          : item.staffRole === 1
-                          ? "ผู้ดูแลระบบ"
-                          : item.staffRole === 2
-                          ? "ช่างล้างรถ"
-                          : "ช่างพ่นสี"
-                      }`}
+                      {t("ตำแหน่ง")} {item.employmentInfo?.role?.name ?? ""}
                     </p>
                     <div className="icon">
-                      <i
-                        className="fa-solid fa-pen-to-square"
-                        onClick={() => {
-                          if (item._id) {
-                            navigate(`/admin/employee/edit/${item._id}`);
-                          }
-                        }}
-                      ></i>
-                      <i
-                        className="fa-solid fa-trash-can"
-                        onClick={() => {
-                          setOpenDialogConfirmDelete(true);
-                          setSelectEmployeeById(item._id);
-                        }}
-                      ></i>
+                      <Tooltip title="แก้ไขข้อมูล">
+                        <i
+                          className="fa-solid fa-pen-to-square"
+                          onClick={() => {
+                            if (item._id) {
+                              navigate(`/admin/employee/edit/${item._id}`);
+                            }
+                          }}
+                        ></i>
+                      </Tooltip>
+
+                      {myEmployeeData?._id !== item._id && (
+                        <Tooltip title="ลบข้อมูล">
+                          <i
+                            className="fa-solid fa-trash-can"
+                            onClick={() => {
+                              setOpenDialogConfirmDelete(true);
+                              setSelectEmployeeById(item._id);
+                            }}
+                          ></i>
+                        </Tooltip>
+                      )}
                     </div>
                   </div>
-                  <p>ชื่อ: {item.name}</p>
-                  <p>โทรศัพท์: {item.tel}</p>
+                  <p>
+                    {t("ชื่อ")}: {item.firstName} {item.lastName}
+                  </p>
+                  <p>
+                    {t("โทรศัพท์")}: {item.tel}
+                  </p>
                 </div>
               </div>
             </div>

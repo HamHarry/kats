@@ -128,6 +128,10 @@
   .container-CreateSalaryAdvanceAdminPage {
     padding-left: 270px;
   }
+
+  .wrap-container-CreateSalaryAdvanceAdminPage {
+    height: 500px;
+  }
 }
 
 @media (max-width: 1080px) {

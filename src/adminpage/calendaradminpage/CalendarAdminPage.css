@@ -104,6 +104,22 @@
   .container-calendarAdmin {
     padding-left: 270px;
   }
+
+  .wrap-calendarAdmin {
+    .ant-picker-cell-inner {
+      height: 80px !important;
+      .ant-picker-calendar-date-content {
+        height: 40px !important;
+        overflow-y: hidden;
+      }
+      .booking {
+        overflow: hidden;
+      }
+      .ant-picker-calendar-date-content:hover {
+        overflow-y: auto;
+      }
+    }
+  }
 }
 
 @media (max-width: 1080px) {

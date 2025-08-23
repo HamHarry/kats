@@ -24,9 +24,162 @@
   }
 }
 
+.wrap-bin-content-teble {
+  display: flex;
+  flex-direction: column;
+  height: 700px;
+  gap: 20px;
+  width: 100%;
+  padding: 20px 20px 0px 20px;
+  overflow: hidden;
+  .bin-content-teble {
+    overflow-x: auto;
+  }
+}
+
+.container-DialogApprove {
+  display: flex;
+  .ant-modal-content {
+    background-color: #2656a2;
+  }
+  .container-DialogApprove-navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    h1 {
+      font-size: 30px;
+      color: #ffffff;
+    }
+    .fa-circle-xmark {
+      font-size: 30px;
+      cursor: pointer;
+      color: #ffffff;
+      transition: all 0.5s;
+    }
+    .fa-circle-xmark:hover {
+      color: red;
+      transition: all 0.5s;
+    }
+  }
+
+  .container-DialogApprove-content {
+    display: flex;
+    margin-top: 20px;
+    .text-all {
+      display: flex;
+      flex-direction: column;
+      p {
+        font-size: 16px;
+        color: #ffffff;
+      }
+    }
+  }
+
+  .btn-DialogApprove-Navbar {
+    display: flex;
+    justify-content: end;
+    gap: 20px;
+    button {
+      padding: 5px 10px;
+      border-radius: 10px;
+      background-color: white;
+      color: #2656a2;
+      font-size: 20px;
+      font-weight: bold;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #e6efff;
+      box-shadow: 0 0 10px rgba(38, 86, 162, 0.4),
+        0 4px 10px rgba(38, 86, 162, 0.3);
+      transition: all 0.3s ease;
+    }
+  }
+}
+
 @media (max-width: 1280px) {
   .container-binAdmin {
     padding-left: 270px;
+  }
+
+  .wrap-bin-content-teble {
+    display: flex;
+    flex-direction: column;
+    height: 600px;
+    gap: 20px;
+    width: 100%;
+    padding: 20px 20px 0px 20px;
+    overflow: hidden;
+    .bin-content-teble {
+      overflow-x: auto;
+      .content-boolings {
+        Table {
+          font-size: 12px;
+          .ant-typography {
+            font-size: 12px;
+          }
+          a {
+            font-size: 12px;
+          }
+        }
+      }
+      .content-products {
+        Table {
+          font-size: 12px;
+          .ant-typography {
+            font-size: 12px;
+          }
+          a {
+            font-size: 12px;
+          }
+        }
+      }
+      .content-catagorys {
+        Table {
+          font-size: 12px;
+          .ant-typography {
+            font-size: 12px;
+          }
+          a {
+            font-size: 12px;
+          }
+        }
+      }
+      .content-typeProduct {
+        Table {
+          font-size: 12px;
+          .ant-typography {
+            font-size: 12px;
+          }
+          a {
+            font-size: 12px;
+          }
+        }
+      }
+      .content-Expense {
+        Table {
+          font-size: 12px;
+          .ant-typography {
+            font-size: 12px;
+          }
+          a {
+            font-size: 12px;
+          }
+        }
+      }
+      .content-Permission {
+        Table {
+          font-size: 12px;
+          .ant-typography {
+            font-size: 12px;
+          }
+          a {
+            font-size: 12px;
+          }
+        }
+      }
+    }
   }
 }
 

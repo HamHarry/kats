@@ -1,15 +1,19 @@
-import { ProductData, ProductDetail } from "./product.type";
+import { DeleteStatus } from "./delete.type";
+import { ProductDetail, ProductSnapshotData } from "./product.type";
 
 export enum BookingStatus {
   PENDING = 0, // รอจ่ายเงิน
   PAID = 1, // จ่ายเงินแล้ว
   COMPLETED = 2, // เสร็จสิ้น
   CANCELED = 3, // ยกเลิก
+  CHECKING = 4, // เช็คสภาพรถยนต์
 }
 
 export interface CarStructure {
   serviceNo: number; // ครั้งที่
   serviceDate: string; // วันที่เข้ารับบริการ
+  serviceTime: string; // เวลาเข้ารับบริการ
+  status: BookingStatus; // วันที่เข้ารับบริการ
   isBeam: boolean; // คาน
   isWheelArch: boolean; // ซุ้มล้อ
   isControlArm: boolean; // ปีกนก
@@ -19,6 +23,7 @@ export interface CarStructure {
 
 export interface BookingData {
   _id?: string;
+  codeId: number;
   number: string;
   receiptBookNo: string;
   bookDate: string;
@@ -29,10 +34,11 @@ export interface BookingData {
   licensePlate: string;
   province: string;
   status: BookingStatus;
-  product: ProductData;
+  product: ProductSnapshotData;
   guarantees?: CarStructure[];
   price: ProductDetail;
   tel: string;
   image?: string;
   slip?: string;
+  delete: DeleteStatus;
 }

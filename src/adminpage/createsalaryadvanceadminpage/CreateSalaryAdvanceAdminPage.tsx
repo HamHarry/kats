@@ -1,11 +1,12 @@
 import { Controller, useForm } from "react-hook-form";
 import "./CreateSalaryAdvanceAdminPage.css";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import {
-  Category_Type,
-  CategoryDetail,
+  CategoryType,
+  CatagoryDetail,
   FinanceData,
   PaymentCategory,
+  ExpenseStatus,
 } from "../../model/finance.type";
 import CircleLoading from "../../shared/circleLoading";
 import { useCallback, useEffect, useState } from "react";
@@ -14,42 +15,78 @@ import { useAppDispatch } from "../../stores/store";
 import { getAllEmployees } from "../../stores/slices/employeeSlice";
 import { InputNumber, Select } from "antd";
 import dayjs from "dayjs";
+import { createExpense, getExpenseById, updateExpenseById } from "../../stores/slices/expenseSlice";
+import { DeleteStatus } from "../../model/delete.type";
 
-const initCategoryDetail: CategoryDetail = {
-  type: Category_Type.FUEL,
+const initCategoryDetail: CatagoryDetail = {
+  type: CategoryType.SALARY_ADVANCE,
   amount: 0,
 };
 
-const initFinanceForm: FinanceData = {
-  number: 0,
-  name: "",
-  ownerName: "",
-  section: PaymentCategory.WITHDRAW,
+export interface FinanceForm extends Omit<FinanceData, "date"> {
+  date: dayjs.Dayjs;
+}
+
+const initFinanceForm: FinanceForm = {
+  codeId: 0,
+  employeeId: "",
+  ownerName: "เบิกเงินเดือน",
+  section: PaymentCategory.SALARY,
   categorys: [initCategoryDetail],
-  price: 0,
-  date: "",
+  date: dayjs(),
   datePrice: "",
   detel: "",
+  delete: DeleteStatus.ISNOTDELETE,
+  slip: "",
+  status: ExpenseStatus.PENDING,
 };
 
 const CreateSalaryAdvanceAdminPage = () => {
   const dispath = useAppDispatch();
   const navigate = useNavigate();
-  const [isSalaryAdvanceLoading, setIsSalaryAdvanceLoading] =
-    useState<boolean>(false);
-
+  const { expenseId } = useParams();
+  const [isSalaryAdvanceLoading, setIsSalaryAdvanceLoading] = useState<boolean>(false);
   const [employeeData, setEmployeeData] = useState<EmployeeData[]>([]);
 
-  const { control, handleSubmit } = useForm({
+  const { control, handleSubmit, reset } = useForm({
     defaultValues: initFinanceForm,
   });
+
+  const initailForm = useCallback(async () => {
+    try {
+      if (!expenseId) return;
+
+      const { data } = await dispath(getExpenseById(expenseId)).unwrap();
+      const expenseRes = data as FinanceData;
+
+      const initBookingForm: FinanceForm = {
+        codeId: expenseRes.codeId ?? 0,
+        employeeId: expenseRes.employeeId ?? "",
+        ownerName: expenseRes.ownerName ?? "",
+        section: expenseRes.section ?? PaymentCategory.WITHDRAW,
+        categorys: expenseRes.categorys ?? [],
+        date: dayjs(expenseRes.date),
+        datePrice: expenseRes.datePrice ?? "",
+        detel: expenseRes.detel ?? "",
+        delete: expenseRes.delete ?? DeleteStatus.ISNOTDELETE,
+        slip: expenseRes.slip ?? "",
+        status: expenseRes.status ?? ExpenseStatus.PENDING,
+      };
+
+      reset(initBookingForm);
+    } catch (error) {
+      console.log(error);
+    }
+  }, [dispath, expenseId, reset]);
+
+  useEffect(() => {
+    initailForm();
+  }, [initailForm]);
 
   const fetchEmployeeData = useCallback(async () => {
     try {
       setIsSalaryAdvanceLoading(true);
-      const { data: EmployeesRes = [] } = await dispath(
-        getAllEmployees()
-      ).unwrap();
+      const { data: EmployeesRes = [] } = await dispath(getAllEmployees()).unwrap();
 
       setEmployeeData(EmployeesRes);
     } catch (error) {
@@ -63,13 +100,31 @@ const CreateSalaryAdvanceAdminPage = () => {
     fetchEmployeeData();
   }, [fetchEmployeeData]);
 
-  const onSubmit = async (value: FinanceData) => {
-    const body = {
-      ...value,
-      date: value.date ? dayjs(value.date).toISOString() : "",
-    };
+  const onSubmit = async (value: FinanceForm) => {
+    try {
+      const item = {
+        ...value,
+        date: value.date ? dayjs(value.date).toISOString() : "",
+      };
 
-    console.log(body);
+      if (expenseId) {
+        const body = {
+          // แก้ไข
+          data: item,
+          expenseId,
+        };
+        await dispath(updateExpenseById(body)).unwrap();
+
+        navigate("/admin/withdraw");
+      } else {
+        // สร้าง
+        await dispath(createExpense(item)).unwrap();
+
+        navigate("/admin/withdraw");
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -88,14 +143,7 @@ const CreateSalaryAdvanceAdminPage = () => {
           >
             ย้อนกลับ
           </button>
-          <button
-            type="submit"
-            onClick={() => {
-              navigate("/admin/withdraw");
-            }}
-          >
-            ยืนยัน
-          </button>
+          <button type="submit">ยืนยัน</button>
         </div>
 
         <div className="wrap-container-CreateSalaryAdvanceAdminPage">
@@ -103,7 +151,7 @@ const CreateSalaryAdvanceAdminPage = () => {
             <h2>พนักงาน</h2>
             <Controller
               control={control}
-              name="name"
+              name="employeeId"
               render={({ field }) => {
                 return (
                   <Select
@@ -113,18 +161,8 @@ const CreateSalaryAdvanceAdminPage = () => {
                     value={field.value || undefined}
                   >
                     {employeeData.map((item) => (
-                      <Select.Option key={item._id} value={item.name}>
-                        {item.name} (
-                        {`${
-                          item.staffRole === 0
-                            ? "หัวหน้า"
-                            : item.staffRole === 1
-                            ? "ผู้ดูแลระบบ"
-                            : item.staffRole === 2
-                            ? "ช่างล้างรถ"
-                            : "ช่างพ่นสี"
-                        }`}
-                        )
+                      <Select.Option key={item._id} value={item._id}>
+                        {item.firstName} {item.lastName} ({item.employmentInfo.role.name})
                       </Select.Option>
                     ))}
                   </Select>
@@ -159,7 +197,7 @@ const CreateSalaryAdvanceAdminPage = () => {
             <h2>จำนวนเงิน</h2>
             <Controller
               control={control}
-              name="date"
+              name={`categorys.${0}.amount`}
               render={({ field }) => {
                 return (
                   <InputNumber

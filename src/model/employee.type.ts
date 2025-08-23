@@ -1,9 +1,5 @@
-export enum EmployeeRole {
-  CEO = 0, // หัวหน้า
-  AMIN = 1, // ผู้ดูแลระบบ
-  WASHTECNICIAN = 2, // ช่างล้างรถ
-  SPRAYER = 3, // ช่างพ่นสี
-}
+import { RoleData } from "../data/permissions";
+import { DeleteStatus } from "./delete.type";
 
 export enum PaymentStatus {
   BANK = 0, // เงินสด
@@ -27,17 +23,31 @@ export enum BankType {
 
 export interface EmployeeData {
   _id?: string;
-  name: string;
+  firstName: string;
+  lastName: string;
   tel: string;
-  staffRole: EmployeeRole;
-  image: string;
-  salary?: SalaryData;
+  email?: string;
+  employmentInfo: EmploymentInfo;
+  image?: string;
+  delete: DeleteStatus;
 }
 
-export interface SalaryData {
+export interface SalaryInfoData {
   paymentStatus?: PaymentStatus;
   paymentType?: PaymentType;
   bankName?: BankType;
   accountNumber?: string;
   amount?: number;
 }
+
+export interface EmploymentInfo {
+  role: RoleData;
+  roleId: string;
+  salaryInfo?: SalaryInfoData;
+}
+
+export interface EmployeeDataForm extends Omit<EmployeeData, "employmentInfo" | "delete"> {
+  employmentInfo: EmploymentInfoForm;
+}
+
+export interface EmploymentInfoForm extends Omit<EmploymentInfo, "role"> {}

@@ -1,25 +1,23 @@
 import { Controller, useForm } from "react-hook-form";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { DatePicker, Modal, Select } from "antd";
-import {
-  PRICE_TYPE,
-  ProductData,
-  ProductDetail,
-} from "../../model/product.type";
+import { PRICE_TYPE, ProductData, ProductDetail, ProductSnapshotData } from "../../model/product.type";
 import { BookingStatus, BookingData } from "../../model/booking.type";
 import { useNavigate, useParams } from "react-router-dom";
-import { FileAddFilled } from "@ant-design/icons";
+import { CloseCircleOutlined, FileAddFilled } from "@ant-design/icons";
 import { useAppDispatch } from "../../stores/store";
 import { getAllProducts } from "../../stores/slices/productSlice";
 import dayjs from "dayjs";
-import {
-  getBookingById,
-  updateBookingById,
-} from "../../stores/slices/bookingSlice";
+import { getBookingById, setBookingUpdateImg, updateBookingById } from "../../stores/slices/bookingSlice";
 import CircleLoading from "../../shared/circleLoading";
+import { DeleteStatus } from "../../model/delete.type";
+import { StyledSelect } from "../../AppStyle";
+import { getImagePath } from "../../shared/utils/common";
+import { useSelector } from "react-redux";
+import { userInfoSelector } from "../../stores/slices/authSlice";
+import { uploadFile } from "../../services/coreService";
 
-export interface BookingForm
-  extends Omit<BookingData, "product" | "price" | "bookDate"> {
+export interface BookingForm extends Omit<BookingData, "product" | "price" | "bookDate"> {
   productId: string;
   price: number;
   bookDate: dayjs.Dayjs;
@@ -40,6 +38,8 @@ const defaultValues: BookingForm = {
   price: 0,
   status: BookingStatus.PENDING,
   province: "",
+  delete: DeleteStatus.ISNOTDELETE,
+  codeId: 0,
 };
 
 const bookingTimeList = [
@@ -56,6 +56,7 @@ const EditGuaranteeAdminPage = () => {
   const dispath = useAppDispatch();
   const navigate = useNavigate();
   const { bookingId } = useParams();
+  const userInfo = useSelector(userInfoSelector);
 
   const formRef = useRef<any>(null);
 
@@ -64,6 +65,17 @@ const EditGuaranteeAdminPage = () => {
   const [timeData] = useState(bookingTimeList);
   const [openDialogConfirm, setOpenDialogConfirm] = useState<boolean>(false);
   const [isBookingLoading, setIsBookingLoading] = useState<boolean>(false);
+  const [imageFile, setImageFile] = useState<File | null>();
+  const [imageUrl, setImageUrl] = useState<string>();
+  const [bookingData, setBookingData] = useState<BookingData>();
+
+  const getBookingSlipImage = useMemo(() => {
+    if (imageUrl) {
+      return imageUrl;
+    } else {
+      return getImagePath("booking", userInfo?.dbname, bookingData?.image);
+    }
+  }, [bookingData, imageUrl, userInfo]);
 
   const { handleSubmit, control, reset } = useForm<BookingForm>({
     defaultValues,
@@ -75,6 +87,7 @@ const EditGuaranteeAdminPage = () => {
 
       const { data } = await dispath(getBookingById(bookingId)).unwrap();
       const bookingRes = data as BookingData;
+      setBookingData(bookingRes);
       const priceIndex = bookingRes.product.productDetails.findIndex((item) => {
         return JSON.stringify(item) === JSON.stringify(bookingRes.price);
       });
@@ -95,6 +108,8 @@ const EditGuaranteeAdminPage = () => {
         province: bookingRes.province ?? "",
         status: bookingRes.status ?? BookingStatus.PENDING,
         tel: bookingRes.tel ?? "",
+        delete: bookingRes.delete ?? DeleteStatus.ISNOTDELETE,
+        codeId: bookingRes.codeId ?? 0,
       };
 
       reset(initBookingForm);
@@ -110,9 +125,7 @@ const EditGuaranteeAdminPage = () => {
   const fetchAllProduct = useCallback(async () => {
     try {
       setIsBookingLoading(true);
-      const { data: productsRes = [] } = await dispath(
-        getAllProducts()
-      ).unwrap();
+      const { data: productsRes = [] } = await dispath(getAllProducts()).unwrap();
 
       setProductDatas(productsRes);
     } catch (error) {
@@ -129,14 +142,33 @@ const EditGuaranteeAdminPage = () => {
   const submit = async (value: BookingForm) => {
     try {
       setOpenDialogConfirm(false);
+      const findedProduct = productDatas?.find((item) => String(item._id) === String(value.productId));
 
-      console.log(value);
+      if (!findedProduct) return;
+
+      const {
+        catagory: _catagory,
+        typeProduct: _typeProduct,
+        ...productSnapshot
+      }: ProductSnapshotData = {
+        ...findedProduct,
+        catagorySnapshot: findedProduct.catagory,
+        typeProductSnapshot: findedProduct.typeProduct,
+      };
+
+      let imageName = "";
+
+      if (imageFile) {
+        imageName = await uploadFile(imageFile);
+        dispath(setBookingUpdateImg({ imageName: imageName }));
+      }
 
       const item = {
         ...value,
         bookDate: value.bookDate ? dayjs(value.bookDate).toISOString() : "",
         price: priceData[value.price],
-        productId: value.productId,
+        product: productSnapshot,
+        image: imageName,
       };
 
       if (bookingId) {
@@ -158,6 +190,14 @@ const EditGuaranteeAdminPage = () => {
     }
   };
 
+  // เก็บไฟล์รูปภาพเป็น Base64
+  const uploadImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setImageUrl(URL.createObjectURL(file));
+    setImageFile(file);
+  };
+
   const rederDialogConfirm = () => {
     return (
       <Modal
@@ -166,12 +206,10 @@ const EditGuaranteeAdminPage = () => {
         open={openDialogConfirm}
         onCancel={() => setOpenDialogConfirm(false)}
       >
-        <h1>ยืนยันการจอง</h1>
+        <h1>ยืนยันการแก้ไข</h1>
 
         <div className="btn-DialogConfirm-Navbar">
-          <button onClick={() => formRef.current?.requestSubmit()}>
-            ยืนยัน
-          </button>
+          <button onClick={() => formRef.current?.requestSubmit()}>ยืนยัน</button>
           <button
             className="btn-edit-dialogConfirm"
             onClick={() => {
@@ -217,7 +255,10 @@ const EditGuaranteeAdminPage = () => {
               render={({ field }) => {
                 return (
                   <div className="inputNumber">
-                    <h2>เลขที่</h2>
+                    <div style={{ width: "120px" }}>
+                      <h2>เลขที่</h2>
+                    </div>
+
                     <input {...field} type="text" />
                   </div>
                 );
@@ -230,7 +271,10 @@ const EditGuaranteeAdminPage = () => {
               render={({ field }) => {
                 return (
                   <div className="inputVolume">
-                    <h2>เล่มที่</h2>
+                    <div style={{ width: "120px" }}>
+                      <h2>เล่มที่</h2>
+                    </div>
+
                     <input {...field} type="text" />
                   </div>
                 );
@@ -244,7 +288,10 @@ const EditGuaranteeAdminPage = () => {
               render={({ field }) => {
                 return (
                   <div className="inputDate">
-                    <h2>วันที่</h2>
+                    <div style={{ width: "120px" }}>
+                      <h2>วันที่</h2>
+                    </div>
+
                     <DatePicker {...field} />
                   </div>
                 );
@@ -257,7 +304,10 @@ const EditGuaranteeAdminPage = () => {
               render={({ field }) => {
                 return (
                   <div className="inputTime">
-                    <h2>เวลา</h2>
+                    <div style={{ width: "120px" }}>
+                      <h2>เวลา</h2>
+                    </div>
+
                     <Select
                       {...field}
                       className="select-product"
@@ -280,7 +330,10 @@ const EditGuaranteeAdminPage = () => {
               render={({ field }) => {
                 return (
                   <div className="inputName">
-                    <h2>ชื่อ</h2>
+                    <div style={{ width: "120px" }}>
+                      <h2>ชื่อ</h2>
+                    </div>
+
                     <input {...field} type="text" />
                   </div>
                 );
@@ -293,7 +346,10 @@ const EditGuaranteeAdminPage = () => {
               render={({ field }) => {
                 return (
                   <div className="inputTel">
-                    <h2>เบอร์</h2>
+                    <div style={{ width: "120px" }}>
+                      <h2>เบอร์</h2>
+                    </div>
+
                     <input {...field} type="tel" />
                   </div>
                 );
@@ -307,7 +363,10 @@ const EditGuaranteeAdminPage = () => {
               render={({ field }) => {
                 return (
                   <div className="inputCarType">
-                    <h2>ประเภทรถ</h2>
+                    <div style={{ width: "120px" }}>
+                      <h2>ประเภทรถ</h2>
+                    </div>
+
                     <input {...field} type="text" />
                   </div>
                 );
@@ -319,7 +378,10 @@ const EditGuaranteeAdminPage = () => {
               render={({ field }) => {
                 return (
                   <div className="inputCarModel">
-                    <h2>รุ่นรถ</h2>
+                    <div style={{ width: "120px" }}>
+                      <h2>รุ่นรถ</h2>
+                    </div>
+
                     <input {...field} type="text" />
                   </div>
                 );
@@ -333,7 +395,10 @@ const EditGuaranteeAdminPage = () => {
               render={({ field }) => {
                 return (
                   <div className="inputRegister">
-                    <h2>ทะเบียน</h2>
+                    <div style={{ width: "120px" }}>
+                      <h2>ทะเบียน</h2>
+                    </div>
+
                     <input {...field} type="text" />
                   </div>
                 );
@@ -346,7 +411,10 @@ const EditGuaranteeAdminPage = () => {
               render={({ field }) => {
                 return (
                   <div className="inputProvince">
-                    <h2>จังหวัด</h2>
+                    <div style={{ width: "120px" }}>
+                      <h2>จังหวัด</h2>
+                    </div>
+
                     <input {...field} type="text" />
                   </div>
                 );
@@ -361,8 +429,11 @@ const EditGuaranteeAdminPage = () => {
               render={({ field }) => {
                 return (
                   <div className="inputTypeProduct">
-                    <h2>สินค้า</h2>
-                    <Select
+                    <div style={{ width: "120px" }}>
+                      <h2>สินค้า</h2>
+                    </div>
+
+                    <StyledSelect
                       {...field}
                       placeholder="เลือกสินค้า"
                       className="select-product"
@@ -370,9 +441,7 @@ const EditGuaranteeAdminPage = () => {
                       onSelect={(value) => {
                         field.onChange(value);
 
-                        const findedProduct = productDatas?.find(
-                          (item) => String(item._id) === String(value)
-                        );
+                        const findedProduct = productDatas?.find((item) => String(item._id) === String(value));
 
                         if (findedProduct) {
                           setPriceData(findedProduct?.productDetails as any);
@@ -384,7 +453,7 @@ const EditGuaranteeAdminPage = () => {
                           {item.name}
                         </Select.Option>
                       ))}
-                    </Select>
+                    </StyledSelect>
                   </div>
                 );
               }}
@@ -395,7 +464,10 @@ const EditGuaranteeAdminPage = () => {
               render={({ field }) => {
                 return (
                   <div className="inputProduct">
-                    <h2>ราคา</h2>
+                    <div style={{ width: "120px" }}>
+                      <h2>ราคา</h2>
+                    </div>
+
                     <Select
                       {...field}
                       className="select-product"
@@ -403,9 +475,7 @@ const EditGuaranteeAdminPage = () => {
                       value={field.value ?? undefined}
                       disabled={priceData.length === 0}
                       options={priceData.map((item, index) => ({
-                        label: `${
-                          item.type === PRICE_TYPE.LUXURY ? "luxury" : ""
-                        } ${item.amount} Baht`,
+                        label: `${item.type === PRICE_TYPE.LUXURY ? "luxury" : ""} ${item.amount} Baht`,
                         value: index,
                       }))}
                     />
@@ -421,11 +491,49 @@ const EditGuaranteeAdminPage = () => {
             render={({ field }) => {
               return (
                 <div className="inputImage">
-                  <label htmlFor="file" className="text-image">
-                    <FileAddFilled className="icon-file" />
-                    <span>อัพโหลดภาพรถยนต์</span>
-                  </label>
-                  <input {...field} type="file" id="file" />
+                  {getBookingSlipImage ? (
+                    <div style={{ position: "relative" }}>
+                      <img src={getBookingSlipImage} alt="" style={{ width: "auto", height: "250px" }} />
+                      <CloseCircleOutlined
+                        className="close-icon"
+                        style={{
+                          fontSize: "30px",
+                          top: "-10px",
+                          right: "-10px",
+                          zIndex: 1000,
+                          color: "#2656a2",
+                          cursor: "pointer",
+                          position: "absolute",
+                        }}
+                        onClick={() => {
+                          setImageUrl("");
+                          setImageFile(null);
+                          setBookingData((prev) => {
+                            if (!prev) return;
+                            return {
+                              ...prev,
+                              image: "",
+                            };
+                          });
+                        }}
+                      />
+                    </div>
+                  ) : (
+                    <>
+                      <label htmlFor="file" className="text-image">
+                        <FileAddFilled className="icon-file" />
+                        <span>อัพโหลดภาพรถยนต์</span>
+                      </label>
+                      <input
+                        {...field}
+                        type="file"
+                        id="file"
+                        onChange={(e) => {
+                          uploadImage(e);
+                        }}
+                      />
+                    </>
+                  )}
                 </div>
               );
             }}

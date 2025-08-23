@@ -29,6 +29,10 @@
   button:hover {
     background-color: #1a4f8a;
   }
+
+  form {
+    width: 100%;
+  }
 }
 
 .header-TypeProduct {
@@ -48,25 +52,83 @@
   }
 }
 
-.wrap-container-createproductTypeProduct {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  border: 5px solid #2656a2;
-  border-radius: 20px;
-  padding: 0px 20px 0px 20px;
-  height: 400px;
-  width: 900px;
-  .inputNameTypeProduct {
-    display: flex;
-    align-items: center;
-    margin-top: 40px;
-    gap: 86px;
+.typeProduct-content {
+  .ant-table {
+    height: 350px;
   }
-  .inputCodeProduct {
+}
+
+.container-DialogTypeProduct {
+  display: flex;
+  .ant-modal-content {
+    background-color: #2656a2;
+  }
+  .container-DialogTypeProduct-navbar {
     display: flex;
+    justify-content: end;
     align-items: center;
-    gap: 125px;
-    margin-top: 20px;
+    .fa-circle-xmark {
+      font-size: 30px;
+      cursor: pointer;
+      color: #ffffff;
+      transition: all 0.5s;
+    }
+    .fa-circle-xmark:hover {
+      color: red;
+      transition: all 0.5s;
+    }
+  }
+
+  .container-DialogTypeProduct-content {
+    h2 {
+      color: #ffffff;
+    }
+    input {
+      padding: 5px;
+      width: 250px;
+      height: 30px;
+      border-radius: 20px;
+      border: 2px solid #2656a2;
+    }
+    .inputNameTypeProduct {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+    .inputCodeTypeProduct {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      margin-top: 20px;
+      padding-bottom: 40px;
+    }
+  }
+
+  .btn-DialogTypeProduct-Navbar {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    button {
+      padding: 5px 10px;
+      border-radius: 10px;
+      background-color: white;
+      color: #2656a2;
+      font-size: 20px;
+      font-weight: bold;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #e6efff;
+      box-shadow: 0 0 10px rgba(38, 86, 162, 0.4),
+        0 4px 10px rgba(38, 86, 162, 0.3);
+      transition: all 0.3s ease;
+    }
+  }
+}
+
+@media (max-width: 1280px) {
+  .container-TypeProduct {
+    padding-left: 270px;
   }
 }

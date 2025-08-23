@@ -80,6 +80,7 @@
     img {
       height: 80px;
       width: 80px;
+      object-fit: cover;
       border-radius: 50%;
     }
     .wrap-employee-content {
@@ -119,6 +120,10 @@
 @media (max-width: 1280px) {
   .container-employeeAdmin {
     padding-left: 270px;
+  }
+
+  .wrap-container-employeeAdmin {
+    height: 500px;
   }
 }
 

@@ -1,24 +1,27 @@
 import { useCallback, useEffect, useState } from "react";
 import "./GuaranteeAdminPage.css";
-import {
-  BookingStatus,
-  BookingData,
-  CarStructure,
-} from "../../model/booking.type";
-import { ProductType } from "../../model/product.type";
+import { BookingStatus, BookingData, CarStructure } from "../../model/booking.type";
 import { useAppDispatch } from "../../stores/store";
 import CircleLoading from "../../shared/circleLoading";
 import {
-  deleteBookingById,
   getAllBookingPaginations,
   getBookingById,
-  updateBookingById,
+  isDeleteBookingById,
+  setBookingUpdateImg,
+  updateGuaranteeByBookingId,
 } from "../../stores/slices/bookingSlice";
 import dayjs from "dayjs";
-import { DatePicker, Modal } from "antd";
+import { Modal, Tooltip } from "antd";
 import { useNavigate } from "react-router-dom";
 import { cloneDeep, debounce } from "lodash";
 import { Controller, useFieldArray, useForm } from "react-hook-form";
+import { DatePickerStyle, StyledSelect } from "../../AppStyle";
+import { CheckCircleFilled, ClockCircleFilled, CloseCircleFilled } from "@ant-design/icons";
+import { DeleteStatus } from "../../model/delete.type";
+import { getImagePath } from "../../shared/utils/common";
+import { useSelector } from "react-redux";
+import { userInfoSelector } from "../../stores/slices/authSlice";
+import { uploadFile } from "../../services/coreService";
 export interface GuaranteeForm {
   guarantees: CarStructure[];
 }
@@ -27,22 +30,37 @@ const defaultValues: GuaranteeForm = {
   guarantees: [],
 };
 
+const bookingTimeList = [
+  { time: "08:00" },
+  { time: "09:00" },
+  { time: "10:00" },
+  { time: "11:00" },
+  { time: "13:00" },
+  { time: "14:00" },
+  { time: "15:00" },
+  { time: "16:00" },
+  { time: "17:00" },
+];
+
 const GuaranteeAdminPage = () => {
   const dispath = useAppDispatch();
   const navigate = useNavigate();
+  const [timeData] = useState(bookingTimeList);
   const [isGuaranteeLoading, setIsGuaranteeLoading] = useState<boolean>(false);
+  const userInfo = useSelector(userInfoSelector);
 
   const [booking, setBooking] = useState<BookingData>();
   const [selectBookingId, setSelectBookingId] = useState<string>();
 
   const [bookingDatas, setBookingDatas] = useState<BookingData[]>([]);
+  const [selectbookingData, setSelectBookingData] = useState<BookingData>();
   const [bookingDataLites, setBookingDataLites] = useState<BookingData[]>([]);
-  const [baseImage, setBaseImage] = useState("");
+  const [imageFile, setImageFile] = useState<File | null>();
+  const [imageUrl, setImageUrl] = useState<string>();
   const [openDialogProfile, setOpenDialogProfile] = useState<boolean>(false);
   const [openDialogDelete, setOpenDialogDelete] = useState<boolean>(false);
   const [searchTerm, setSearchTerm] = useState<string>("");
-  const [selectedReceiptBookNo, setSelectedReceiptBookNo] =
-    useState<string>("all");
+  const [selectedReceiptBookNo, setSelectedReceiptBookNo] = useState<string>("all");
   const [selectedProductName, setSelectedProductName] = useState<string>("all");
 
   const { control, reset, handleSubmit } = useForm<GuaranteeForm>({
@@ -62,9 +80,17 @@ const GuaranteeAdminPage = () => {
 
       if (!filterGuarantees.length) return;
 
+      let imageName = "";
+
+      if (imageFile) {
+        imageName = await uploadFile(imageFile);
+        dispath(setBookingUpdateImg({ imageName: imageName }));
+      }
+
       const newBooking = {
         ...booking,
         guarantees: filterGuarantees,
+        image: imageName,
       };
 
       const bookingId = newBooking._id;
@@ -73,9 +99,10 @@ const GuaranteeAdminPage = () => {
         data: newBooking,
       };
 
-      await dispath(updateBookingById(body)).unwrap();
+      await dispath(updateGuaranteeByBookingId(body)).unwrap();
 
       setOpenDialogProfile(false);
+      fetchAllBooking();
     } catch (error) {
       console.log(error);
     } finally {
@@ -93,12 +120,13 @@ const GuaranteeAdminPage = () => {
         productName: selectedProductName,
       };
 
-      const { data: bookingsRes = [] } = await dispath(
-        getAllBookingPaginations(query)
-      ).unwrap();
+      const { data: bookingsRes = [] } = await dispath(getAllBookingPaginations(query)).unwrap();
 
-      const finedData = bookingsRes.filter((item: any) => {
-        return item.status === BookingStatus.COMPLETED;
+      const finedData = bookingsRes.filter((item: BookingData) => {
+        return (
+          (item.status === BookingStatus.COMPLETED || item.status === BookingStatus.CHECKING) &&
+          item.delete === DeleteStatus.ISNOTDELETE
+        );
       });
 
       setBookingDatas(finedData);
@@ -119,9 +147,7 @@ const GuaranteeAdminPage = () => {
 
       setIsGuaranteeLoading(true);
 
-      const { data: bookingRes } = await dispath(
-        getBookingById(selectBookingId)
-      ).unwrap();
+      const { data: bookingRes } = await dispath(getBookingById(selectBookingId)).unwrap();
 
       setBooking(bookingRes);
 
@@ -133,13 +159,15 @@ const GuaranteeAdminPage = () => {
 
       Array.from({ length: remainingGuarantees }, (_, index) => {
         const guarantee: CarStructure = {
-          serviceNo: clonedGuarantees.length + index + 1,
+          serviceNo: guarantees.length + index + 1,
           serviceDate: "",
+          status: BookingStatus.PENDING,
           isBeam: false,
           isWheelArch: false,
           isControlArm: false,
           isChassis: false,
           isUnderbody: false,
+          serviceTime: "",
         };
 
         clonedGuarantees.push(guarantee);
@@ -174,23 +202,9 @@ const GuaranteeAdminPage = () => {
   // เก็บไฟล์รูปภาพเป็น Base64
   const uploadImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
-    const base64 = (await convertBase64(file)) as string;
-    setBaseImage(base64);
-  };
-
-  const convertBase64 = (file: any) => {
-    return new Promise((resolve, reject) => {
-      const fileReader = new FileReader();
-
-      fileReader.readAsDataURL(file);
-
-      fileReader.onload = () => {
-        resolve(fileReader.result);
-      };
-      fileReader.onerror = (e: any) => {
-        reject(e);
-      };
-    });
+    if (!file) return;
+    setImageUrl(URL.createObjectURL(file));
+    setImageFile(file);
   };
 
   const selectMenu = () => {
@@ -214,10 +228,7 @@ const GuaranteeAdminPage = () => {
           })}
         </select>
 
-        <select
-          className="btn-productName"
-          onChange={(e) => setSelectedProductName(e.target.value)}
-        >
+        <select className="btn-productName" onChange={(e) => setSelectedProductName(e.target.value)}>
           <option value={"all"}>All</option>
           {productName.map((item, index) => {
             return (
@@ -233,10 +244,16 @@ const GuaranteeAdminPage = () => {
 
   const deleted = async () => {
     try {
-      if (!selectBookingId) return;
-
       setIsGuaranteeLoading(true);
-      await dispath(deleteBookingById(selectBookingId)).unwrap();
+
+      if (!selectbookingData?._id) return;
+
+      const data: BookingData = {
+        ...selectbookingData,
+        delete: DeleteStatus.ISDELETE,
+      };
+
+      await dispath(isDeleteBookingById(data)).unwrap();
 
       setOpenDialogDelete(false);
     } catch (error) {
@@ -249,23 +266,51 @@ const GuaranteeAdminPage = () => {
 
   const renderGuarantee = () => {
     return guaranteeField.fields.map((item, index) => {
+      const isFirstGuarantee = index === 0;
+      const isCompleted = item.status === BookingStatus.COMPLETED;
+      const disable = isFirstGuarantee || isCompleted;
       return (
         <tr key={index}>
           <td>{item.serviceNo}</td>
           <td>
-            <Controller
-              control={control} // Replace with your control object
-              name={`guarantees.${index}.serviceDate`}
-              render={({ field }) => (
-                <DatePicker
-                  className="input-date"
-                  value={field.value ? dayjs(field.value) : null}
-                  onChange={(date) => {
-                    field.onChange(date?.toISOString() ?? "");
-                  }}
-                />
-              )}
-            />
+            <div style={{ display: "flex", justifyContent: "center", gap: "10px" }}>
+              <Controller
+                name={`guarantees.${index}.serviceTime`}
+                control={control}
+                render={({ field }) => {
+                  return (
+                    <div className="input-time">
+                      <StyledSelect
+                        {...field}
+                        className="select-product"
+                        placeholder="เลือกเวลา"
+                        disabled={disable}
+                        value={field.value || undefined}
+                        options={timeData.map((item) => ({
+                          label: `${item.time} น.`,
+                          value: item.time,
+                        }))}
+                      />
+                    </div>
+                  );
+                }}
+              />
+
+              <Controller
+                control={control}
+                name={`guarantees.${index}.serviceDate`}
+                render={({ field }) => (
+                  <DatePickerStyle
+                    className="input-date"
+                    disabled={disable}
+                    value={field.value ? dayjs(field.value) : null}
+                    onChange={(date) => {
+                      field.onChange(date?.toISOString() ?? "");
+                    }}
+                  />
+                )}
+              />
+            </div>
           </td>
           <td>
             <Controller
@@ -275,6 +320,7 @@ const GuaranteeAdminPage = () => {
                 <input
                   className="checkbox"
                   type="checkbox"
+                  disabled={disable}
                   checked={field.value}
                   onChange={(e) => {
                     field.onChange(e.target.checked);
@@ -291,6 +337,7 @@ const GuaranteeAdminPage = () => {
                 <input
                   className="checkbox"
                   type="checkbox"
+                  disabled={disable}
                   checked={field.value}
                   onChange={(e) => {
                     field.onChange(e.target.checked);
@@ -307,6 +354,7 @@ const GuaranteeAdminPage = () => {
                 <input
                   className="checkbox"
                   type="checkbox"
+                  disabled={disable}
                   checked={field.value}
                   onChange={(e) => {
                     field.onChange(e.target.checked);
@@ -323,6 +371,7 @@ const GuaranteeAdminPage = () => {
                 <input
                   className="checkbox"
                   type="checkbox"
+                  disabled={disable}
                   checked={field.value}
                   onChange={(e) => {
                     field.onChange(e.target.checked);
@@ -339,6 +388,7 @@ const GuaranteeAdminPage = () => {
                 <input
                   className="checkbox"
                   type="checkbox"
+                  disabled={disable}
                   checked={field.value}
                   onChange={(e) => {
                     field.onChange(e.target.checked);
@@ -388,34 +438,22 @@ const GuaranteeAdminPage = () => {
     <Modal
       centered
       className={
-        booking?.product.name === "KATS Coating"
-          ? "wrap-container-Edit-Profile-kats"
-          : "wrap-container-Edit-Profile-gun"
+        booking?.product.name === "KATS Coating" ? "wrap-container-Edit-Profile-kats" : "wrap-container-Edit-Profile-gun"
       }
       open={openDialogProfile}
       onCancel={() => {
         setOpenDialogProfile(false);
-        setSelectBookingId(undefined);
       }}
     >
       <form onSubmit={handleSubmit(submit)}>
         <div className="container-Edit-Profile-Navbar">
-          <button
-            type="submit"
-            onClick={() => {
-              setOpenDialogProfile(false);
-              setSelectBookingId(undefined);
-              setBooking(undefined);
-            }}
-          >
+          <button type="submit">
             <h3>บันทึก</h3>
           </button>
           <i
             className="fa-solid fa-circle-xmark"
             onClick={() => {
               setOpenDialogProfile(false);
-              setSelectBookingId(undefined);
-              setBooking(undefined);
             }}
           ></i>
         </div>
@@ -424,12 +462,13 @@ const GuaranteeAdminPage = () => {
             <div className="wrap-card-profile">
               <div className="ImageProfile">
                 <img
-                  className={
-                    booking?.image === ""
-                      ? "IsNotImageProfile "
-                      : "IsImageProfile"
-                  }
-                  src={baseImage}
+                  style={{
+                    objectFit: "cover",
+                    width: "300px",
+                    height: "200px",
+                  }}
+                  className={booking?.image === "" ? "IsNotImageProfile " : "IsImageProfile"}
+                  src={imageUrl || getImagePath("booking", userInfo?.dbname, booking?.image)}
                   alt="profile"
                 />
                 <label htmlFor="file" className="text-image">
@@ -446,36 +485,62 @@ const GuaranteeAdminPage = () => {
               <div className="text-all">
                 <div className="text-column-number">
                   <div className="text-number">
-                    <h4>เลขที่</h4>
-                    <p>{booking?.number}</p>
+                    <div style={{ width: "100px" }}>
+                      <h4>เลขที่</h4>
+                    </div>
+
+                    <div style={{ width: "250px" }}>
+                      <p>{booking?.number}</p>
+                    </div>
                   </div>
                   <div className="text-branch">
-                    <h4>สาขา</h4>
-                    <p>ลาดกระบัง</p>
+                    <div style={{ width: "180px" }}>
+                      <h4>สาขา</h4>
+                    </div>
+
+                    <div style={{ width: "250px" }}>
+                      <p>ลาดกระบัง</p>
+                    </div>
                   </div>
                 </div>
                 <div className="text-column-volume">
                   <div className="text-volume">
-                    <h4>เล่มที่</h4>
-                    <p>{booking?.receiptBookNo}</p>
+                    <div style={{ width: "100px" }}>
+                      <h4>เล่มที่</h4>
+                    </div>
+
+                    <div style={{ width: "250px" }}>
+                      <p>{booking?.receiptBookNo}</p>
+                    </div>
                   </div>
                   <div className="guadrantee">
                     <div className="text-guadrantee-typeProduct">
-                      <h4>ประกันสินค้า</h4>
-                      <p>{booking?.product.name}</p>
+                      <div style={{ width: "180px" }}>
+                        <h4>ประกันสินค้า</h4>
+                      </div>
                     </div>
                     <div className="text-guadrantee">
-                      <p>{booking?.price.amount} บาท</p>
+                      <p>
+                        {booking?.product.name} {booking?.price.amount} บาท
+                      </p>
                     </div>
                   </div>
                 </div>
                 <div className="text-column-date">
                   <div className="text-date">
-                    <h4>วันที่</h4>
-                    <p>{dayjs(booking?.bookDate).format("DD/MM/YYYY")}</p>
+                    <div style={{ width: "100px" }}>
+                      <h4>วันที่</h4>
+                    </div>
+
+                    <div style={{ width: "250px" }}>
+                      <p>{dayjs(booking?.bookDate).format("DD/MM/YYYY")}</p>
+                    </div>
                   </div>
                   <div className="text-car">
-                    <h4>รถยนต์</h4>
+                    <div style={{ width: "180px" }}>
+                      <h4>รถยนต์</h4>
+                    </div>
+
                     <p>
                       {booking?.carType} {booking?.carModel}
                     </p>
@@ -483,18 +548,29 @@ const GuaranteeAdminPage = () => {
                 </div>
                 <div className="text-column-name">
                   <div className="text-name">
-                    <h4>ชื่อ</h4>
-                    <p>คุณ{booking?.name}</p>
+                    <div style={{ width: "100px" }}>
+                      <h4>ชื่อ</h4>
+                    </div>
+
+                    <div style={{ width: "250px" }}>
+                      <p>{booking?.name}</p>
+                    </div>
                   </div>
                   <div className="text-register">
-                    <h4>ทะเบียน</h4>
+                    <div style={{ width: "180px" }}>
+                      <h4>ทะเบียน</h4>
+                    </div>
+
                     <p>
                       {booking?.licensePlate} {booking?.province}
                     </p>
                   </div>
                 </div>
                 <div className="text-tel">
-                  <h4>เบอร์</h4>
+                  <div style={{ width: "100px" }}>
+                    <h4>เบอร์</h4>
+                  </div>
+
                   <p>{booking?.tel}</p>
                 </div>
               </div>
@@ -530,58 +606,89 @@ const GuaranteeAdminPage = () => {
       </div>
       <div className="search-guaranteeAdmin">
         <div>{selectMenu()}</div>
-        <input
-          type="text"
-          placeholder="Search...(Name,Phone,Number)"
-          onChange={(e) => handleSetSearchTerm(e.target.value)}
-        />
+        <input type="text" placeholder="Search...(Name,Phone,Number)" onChange={(e) => handleSetSearchTerm(e.target.value)} />
       </div>
       <div className="wrap-container-guaranteeAdmin">
         {bookingDatas.map((item, index) => {
-          const productType = item.product.productType;
+          const productType = item.product.typeProductSnapshot.name;
 
-          const formattedDate = item.bookDate
-            ? dayjs(item.bookDate).format("DD/MM/YYYY")
-            : "-";
+          const formattedDate = item.bookDate ? dayjs(item.bookDate).format("DD/MM/YYYY") : "-";
           return (
             <div
               key={index}
               className="grid-guaranteeAdmin"
               style={{
-                backgroundColor:
-                  productType === ProductType.GUN ? "#043829" : "#2656A2",
+                backgroundColor: productType === "GUN" ? "#043829" : "#2656A2",
               }}
             >
               <div className="guaranteeAdmin-image">
-                <img src={item.image} alt="" />
+                <img
+                  style={{
+                    objectFit: "cover",
+                    width: "300px",
+                    height: "200px",
+                  }}
+                  src={getImagePath("booking", userInfo?.dbname, item?.image)}
+                  alt=""
+                />
               </div>
               <div className="guaranteeAdmin-content">
                 <div className="text-p">
                   <p>วันที่: {formattedDate}</p>
                   <div className="icon">
-                    <i
-                      className="fa-solid fa-square-check"
-                      onClick={() => {
-                        setOpenDialogProfile(true);
-                        setSelectBookingId(item._id);
-                      }}
-                    ></i>
-                    <i
-                      className="fa-solid fa-pen-to-square"
-                      onClick={() => {
-                        navigate(`/admin/guarantee/edit/${item._id}`);
-                      }}
-                    ></i>
-                    <i
-                      className="fa-solid fa-trash-can"
-                      onClick={() => {
-                        setOpenDialogDelete(true);
-                        setSelectBookingId(item._id);
-                      }}
-                    ></i>
+                    {item.status === BookingStatus.PENDING ? (
+                      <Tooltip title="รอการชำระ">
+                        <ClockCircleFilled className="icon-check-wait" />
+                      </Tooltip>
+                    ) : item.status === BookingStatus.PAID ? (
+                      <Tooltip title="จ่ายเงินแล้ว">
+                        <i className="fa-solid fa-circle"></i>
+                      </Tooltip>
+                    ) : item.status === BookingStatus.COMPLETED ? (
+                      <Tooltip title="สำเร็จ">
+                        <CheckCircleFilled className="icon-check-complete" />
+                      </Tooltip>
+                    ) : item.status === BookingStatus.CANCELED ? (
+                      <Tooltip title="ยกเลิก">
+                        <CloseCircleFilled className="icon-check-cancel" />
+                      </Tooltip>
+                    ) : (
+                      <Tooltip title="ตรวจสภาพรถยนต์">
+                        <i className="fa-solid fa-wrench"></i>
+                      </Tooltip>
+                    )}
+
+                    <Tooltip title="ประวัติการรับประกัน">
+                      <i
+                        className="fa-solid fa-square-check"
+                        onClick={() => {
+                          setOpenDialogProfile(true);
+                          setSelectBookingId(item._id);
+                        }}
+                      ></i>
+                    </Tooltip>
+
+                    <Tooltip title="แก้ไขข้อมูล">
+                      <i
+                        className="fa-solid fa-pen-to-square"
+                        onClick={() => {
+                          navigate(`/admin/guarantee/edit/${item._id}`);
+                        }}
+                      ></i>
+                    </Tooltip>
+
+                    <Tooltip title="ลบข้อมูล">
+                      <i
+                        className="fa-solid fa-trash-can"
+                        onClick={() => {
+                          setOpenDialogDelete(true);
+                          setSelectBookingData(item);
+                        }}
+                      ></i>
+                    </Tooltip>
                   </div>
                 </div>
-                <p>ชื่อ: คุณ{item.name}</p>
+                <p>ชื่อ: {item.name}</p>
                 <p>เบอร์: {item.tel}</p>
                 <p>เลขที่: {item.number}</p>
                 <p>เล่มที่: {item.receiptBookNo}</p>

@@ -3,6 +3,7 @@ import "./HomePageGun.css";
 import CoatingPageGun from "../productpageguncoating/CoatingPageGun";
 import { useNavigate } from "react-router-dom";
 import GunGuardPage from "../productpagegunguard/GunGuardPage";
+import BookingPageGun from "../bookingpagegun/BookingPageGun";
 
 const HomePageGun = () => {
   const navigate = useNavigate();
@@ -75,6 +76,8 @@ const HomePageGun = () => {
       </div>
 
       <CoatingPageGun />
+
+      <BookingPageGun />
 
       <GunGuardPage />
     </div>

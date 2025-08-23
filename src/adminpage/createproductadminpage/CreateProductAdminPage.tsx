@@ -1,63 +1,105 @@
 import { useCallback, useEffect, useState } from "react";
 import {
-  Catagory,
+  CatagoryData,
   PRICE_TYPE,
   ProductData,
   ProductDetail,
-  ProductType,
+  TypeProductData,
 } from "../../model/product.type";
 import "./CreateProductAdminPage.css";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Controller, useFieldArray, useForm } from "react-hook-form";
-import { Select } from "antd";
+import { Select, Tag } from "antd";
 import {
   createProduct,
   getAllCatagories,
+  getAllTypeProduct,
+  getProductById,
+  updateProductById,
 } from "../../stores/slices/productSlice";
 import { useAppDispatch } from "../../stores/store";
 import CircleLoading from "../../shared/circleLoading";
+import { DeleteStatus } from "../../model/delete.type";
+import { CrownOutlined, StarOutlined } from "@ant-design/icons";
 
 const initProductDetail: ProductDetail = {
   type: PRICE_TYPE.STANDARD,
   amount: 0,
 };
 
-interface ProductDataForm extends Omit<ProductData, "catagory"> {}
+interface ProductDataForm extends Omit<ProductData, "catagory" | "typeProduct"> {}
 
 const initProductForm: ProductDataForm = {
   name: "",
   productDetails: [initProductDetail],
   detail: "",
-  productType: ProductType.KATS,
   catagoryId: "",
+  delete: DeleteStatus.ISNOTDELETE,
+  typeProductId: "",
 };
 
 const CreateProductAdminPage = () => {
   const dispath = useAppDispatch();
   const navigate = useNavigate();
+  const { productId } = useParams();
 
-  const [categories, setCategories] = useState<Catagory[]>([]);
+  const [categories, setCategories] = useState<CatagoryData[]>([]);
+  const [typeProduct, setTypeProduct] = useState<TypeProductData[]>([]);
 
   const [isProductLoading, setIsProductLoading] = useState<boolean>(false);
 
-  const { control, handleSubmit } = useForm({
+  const { control, handleSubmit, reset } = useForm({
     defaultValues: initProductForm,
   });
+
+  const initailForm = useCallback(async () => {
+    try {
+      if (!productId) return;
+
+      const { data } = await dispath(getProductById(productId)).unwrap();
+      const productRes = data as ProductData;
+
+      const initBookingForm: ProductData = {
+        name: productRes.name ?? "",
+        catagory: productRes.catagory ?? [],
+        catagoryId: productRes.catagoryId ?? "",
+        productDetails: productRes.productDetails ?? [],
+        detail: productRes.detail ?? "",
+        typeProduct: productRes.typeProduct ?? [],
+        delete: productRes.delete ?? DeleteStatus.ISNOTDELETE,
+        typeProductId: productRes.typeProductId ?? "",
+      };
+
+      reset(initBookingForm);
+    } catch (error) {
+      console.log(error);
+    }
+  }, [dispath, productId, reset]);
+
+  useEffect(() => {
+    initailForm();
+  }, [initailForm]);
 
   const productDetailFields = useFieldArray({
     name: "productDetails",
     control,
   });
 
-  const fetchCategoriesData = useCallback(async () => {
+  const fetchInitailData = useCallback(async () => {
     try {
       setIsProductLoading(true);
 
-      const { data: catagoriesRes = [] } = await dispath(
-        getAllCatagories()
-      ).unwrap();
+      const [{ data: catagoriesRes = [] }, { data: typeProductRes = [] }] = await Promise.all([
+        dispath(getAllCatagories()).unwrap(),
+        dispath(getAllTypeProduct()).unwrap(),
+      ]);
 
-      setCategories(catagoriesRes);
+      const filteredCatagories = catagoriesRes.filter(
+        (item: CatagoryData) => item.delete === DeleteStatus.ISNOTDELETE
+      );
+      setCategories(filteredCatagories);
+
+      setTypeProduct(typeProductRes);
     } catch (error) {
       console.log(error);
     } finally {
@@ -66,21 +108,41 @@ const CreateProductAdminPage = () => {
   }, [dispath]);
 
   useEffect(() => {
-    fetchCategoriesData();
-  }, [fetchCategoriesData]);
+    fetchInitailData();
+  }, [fetchInitailData]);
 
   const onSubmit = async (value: ProductDataForm) => {
     try {
-      await dispath(createProduct(value));
+      setIsProductLoading(true);
+
+      const item = {
+        ...value,
+      };
+
+      if (productId) {
+        // แก้ไข
+        const body = {
+          data: item,
+          productId,
+        };
+        await dispath(updateProductById(body)).unwrap();
+
+        navigate("/admin/product");
+      } else {
+        // สร้าง
+        await dispath(createProduct(item)).unwrap();
+
+        navigate("/admin/product");
+      }
     } catch (error) {
       console.log(error);
+    } finally {
+      setIsProductLoading(false);
     }
   };
 
   const handleRemoveproductDetail = useCallback(
     (index: number) => {
-      console.log("Current Fields:", productDetailFields.fields);
-      console.log("Removing Index:", index);
       if (!productDetailFields?.fields?.length) return;
       if (productDetailFields.fields.length === 1) return;
 
@@ -105,14 +167,7 @@ const CreateProductAdminPage = () => {
           >
             ย้อนกลับ
           </button>
-          <button
-            type="submit"
-            onClick={() => {
-              navigate("/admin/product");
-            }}
-          >
-            ยืนยัน
-          </button>
+          <button type="submit">ยืนยัน</button>
         </div>
 
         <div className="wrap-container-createproductAdmin">
@@ -157,7 +212,7 @@ const CreateProductAdminPage = () => {
 
             <Controller
               control={control}
-              name="productType"
+              name="typeProductId"
               render={({ field }) => {
                 return (
                   <Select
@@ -166,8 +221,11 @@ const CreateProductAdminPage = () => {
                     className="select-product"
                     value={field.value || undefined}
                   >
-                    <Select.Option value={ProductType.KATS}>KATS</Select.Option>
-                    <Select.Option value={ProductType.GUN}>GUN</Select.Option>
+                    {typeProduct.map((item) => (
+                      <Select.Option key={item._id} value={item._id}>
+                        {item.name}
+                      </Select.Option>
+                    ))}
                   </Select>
                 );
               }}
@@ -175,21 +233,22 @@ const CreateProductAdminPage = () => {
           </div>
 
           <div className="inputDetailProduct">
-            <button
-              type="button"
-              onClick={() => {
-                productDetailFields.append(initProductDetail);
-              }}
-            >
-              เพิ่มราคา
-            </button>
+            <div>
+              <button
+                type="button"
+                onClick={() => {
+                  if (productDetailFields?.fields.length === 6) return;
+
+                  productDetailFields.append(initProductDetail);
+                }}
+              >
+                เพิ่มราคา
+              </button>
+            </div>
 
             {productDetailFields.fields.map((detail, index) => {
               return (
-                <div
-                  key={`${detail.id}_${index}`}
-                  className="inputDetailProduct-inside"
-                >
+                <div key={`${detail.id}_${index}`} className="inputDetailProduct-inside">
                   <Controller
                     control={control}
                     name={`productDetails.${index}.type`}
@@ -199,14 +258,34 @@ const CreateProductAdminPage = () => {
                           {...field}
                           placeholder="เลือกเกรด"
                           className="select-product"
-                          value={field.value || undefined}
+                          value={field.value || detail.type}
+                          optionRender={({ label, value }) => (
+                            <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+                              {value === PRICE_TYPE.STANDARD && (
+                                <StarOutlined style={{ color: "#1890ff" }} />
+                              )}
+                              {value === PRICE_TYPE.LUXURY && (
+                                <CrownOutlined style={{ color: "#faad14" }} />
+                              )}
+                              <span style={{ fontWeight: "bold" }}>{label}</span>
+                              {value === PRICE_TYPE.LUXURY && <Tag color="gold">Premium</Tag>}
+                            </div>
+                          )}
+                          labelRender={({ label, value }) => (
+                            <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+                              {value === PRICE_TYPE.STANDARD && (
+                                <StarOutlined style={{ color: "#1890ff" }} />
+                              )}
+                              {value === PRICE_TYPE.LUXURY && (
+                                <CrownOutlined style={{ color: "#faad14" }} />
+                              )}
+                              <span style={{ fontWeight: "bold" }}>{label}</span>
+                              {value === PRICE_TYPE.LUXURY && <Tag color="gold">Premium</Tag>}
+                            </div>
+                          )}
                         >
-                          <Select.Option value={PRICE_TYPE.STANDARD}>
-                            standard
-                          </Select.Option>
-                          <Select.Option value={PRICE_TYPE.LUXURY}>
-                            luxury
-                          </Select.Option>
+                          <Select.Option value={PRICE_TYPE.STANDARD}>Standard</Select.Option>
+                          <Select.Option value={PRICE_TYPE.LUXURY}>Luxury</Select.Option>
                         </Select>
                       );
                     }}
@@ -222,13 +301,8 @@ const CreateProductAdminPage = () => {
                           className="input-prices"
                           type="text"
                           onChange={(event) => {
-                            const value = event.target.value.replace(
-                              /[^0-9.]/g,
-                              ""
-                            );
-                            const validated = value.match(
-                              /^(\d*\.{0,1}\d{0,2}$)/
-                            );
+                            const value = event.target.value.replace(/[^0-9.]/g, "");
+                            const validated = value.match(/^(\d*\.{0,1}\d{0,2}$)/);
                             if (validated) {
                               field.onChange(Number(value));
                             }
@@ -239,10 +313,7 @@ const CreateProductAdminPage = () => {
                   />
 
                   {index !== 0 && (
-                    <button
-                      type="button"
-                      onClick={() => handleRemoveproductDetail(index)}
-                    >
+                    <button type="button" onClick={() => handleRemoveproductDetail(index)}>
                       ลบ
                     </button>
                   )}

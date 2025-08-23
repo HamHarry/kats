@@ -1,7 +1,7 @@
-import { Table, Typography } from "antd";
+import { Modal, Space, Table, Typography } from "antd";
 import "./ProductAdminPage.css";
 import {
-  Catagory,
+  CatagoryData,
   PRICE_TYPE,
   ProductData,
   ProductDetail,
@@ -9,14 +9,21 @@ import {
 import { useNavigate } from "react-router-dom";
 import { useCallback, useEffect, useState } from "react";
 import { useAppDispatch } from "../../stores/store";
-import { getAllProducts } from "../../stores/slices/productSlice";
+import {
+  getAllProducts,
+  isDeleteProductById,
+} from "../../stores/slices/productSlice";
 import CircleLoading from "../../shared/circleLoading";
+import { DeleteStatus } from "../../model/delete.type";
 
 const ProductAdminPage = () => {
   const dispath = useAppDispatch();
   const navigate = useNavigate();
   const [products, setProducts] = useState<ProductData[]>([]);
   const [isProductLoading, setIsProductLoading] = useState<boolean>(false);
+  const [openDialogConfirmDelete, setOpenDialogConfirmDelete] =
+    useState<boolean>(false);
+  const [selectedProductData, setSelectedProductData] = useState<ProductData>();
 
   const fetchAllProduct = useCallback(async () => {
     try {
@@ -25,7 +32,11 @@ const ProductAdminPage = () => {
         getAllProducts()
       ).unwrap();
 
-      setProducts(productsRes);
+      const filteredProducts = productsRes.filter((item: ProductData) => {
+        return item.delete === DeleteStatus.ISNOTDELETE;
+      });
+
+      setProducts(filteredProducts);
     } catch (error) {
       console.log(error);
     } finally {
@@ -37,13 +48,65 @@ const ProductAdminPage = () => {
     fetchAllProduct();
   }, [fetchAllProduct]);
 
+  const deleted = async () => {
+    try {
+      setIsProductLoading(true);
+      if (!selectedProductData?._id) return;
+
+      const body: ProductData = {
+        ...selectedProductData,
+        delete: DeleteStatus.ISDELETE,
+      };
+
+      await dispath(isDeleteProductById(body)).unwrap();
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsProductLoading(false);
+      setOpenDialogConfirmDelete(false);
+      fetchAllProduct();
+    }
+  };
+
+  const rederDialogConfirmDelete = () => {
+    return (
+      <Modal
+        centered
+        className="wrap-container-DialogDelete"
+        open={openDialogConfirmDelete}
+        onCancel={() => setOpenDialogConfirmDelete(false)}
+      >
+        <h1>ยืนยันการลบ</h1>
+
+        <div className="btn-DialogDelete-Navbar">
+          <button
+            type="button"
+            onClick={() => {
+              deleted();
+              setOpenDialogConfirmDelete(false);
+            }}
+          >
+            ยืนยัน
+          </button>
+          <button
+            onClick={() => {
+              setOpenDialogConfirmDelete(false);
+            }}
+          >
+            ยกเลิก
+          </button>
+        </div>
+      </Modal>
+    );
+  };
+
   const columns = [
     { title: "ชื่อสินค้า", dataIndex: "name", key: "name" },
     {
       title: "ลักษณะสินค้า",
       dataIndex: "catagory",
       key: "catagory",
-      render: (catagory: Catagory) => {
+      render: (catagory: CatagoryData) => {
         return <Typography>{catagory.name}</Typography>;
       },
     },
@@ -84,6 +147,30 @@ const ProductAdminPage = () => {
         );
       },
     },
+    {
+      title: "",
+      key: "action",
+      render: (item: ProductData) => (
+        <Space
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            fontSize: "14px",
+          }}
+        >
+          <a
+            onClick={(e) => {
+              e.stopPropagation();
+              setSelectedProductData(item);
+              setOpenDialogConfirmDelete(true);
+            }}
+          >
+            ลบ
+          </a>
+        </Space>
+      ),
+    },
   ];
 
   return (
@@ -115,12 +202,24 @@ const ProductAdminPage = () => {
         <Table
           dataSource={products}
           columns={columns}
+          pagination={{
+            pageSize: 8,
+          }}
           style={{
             border: "2px solid #2656a2",
             borderRadius: "10px",
           }}
+          onRow={(record) => {
+            return {
+              onClick: () => {
+                navigate(`/admin/product/edit/Product/${record._id}`);
+              },
+            };
+          }}
         />
       </div>
+
+      {rederDialogConfirmDelete()}
       <CircleLoading open={isProductLoading} />
     </div>
   );

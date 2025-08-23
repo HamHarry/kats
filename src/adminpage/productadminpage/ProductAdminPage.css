@@ -60,6 +60,12 @@
   .container-productAdmin {
     padding-left: 270px;
   }
+
+  .product-content {
+    .ant-table {
+      height: 550px;
+    }
+  }
 }
 
 @media (max-width: 1080px) {
