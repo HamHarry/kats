@@ -33,8 +33,11 @@ jobs:
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: dist
+          name: vite-build
           path: dist/
+
+      - name: Check build output
+        run: ls -R
 
   deploy:
     runs-on: ubuntu-latest
@@ -49,7 +52,7 @@ jobs:
       - name: Download build artifacts
         uses: actions/download-artifact@v4
         with:
-          name: dist
+          name: vite-build
 
       # 2) Deploy dist -> Plesk httpdocs
       - name: Deploy to Plesk via FTP
