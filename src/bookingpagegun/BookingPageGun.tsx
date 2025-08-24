@@ -123,7 +123,7 @@ const BookingPageGun = () => {
   return (
     <div className="container-orderpage-Gun" id="bookingGun">
       <div className="header-orderpage-Gun">
-        <Typography className="text-header">ตรวจสอบคิว Ham</Typography>
+        <Typography className="text-header">ตรวจสอบคิว ได้แล้วโว้ยยย!!!</Typography>
       </div>
 
       <div className="wrap-calendar-Gun">
