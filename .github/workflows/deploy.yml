@@ -28,13 +28,18 @@ jobs:
       # 4) Build Vite React
       - name: Build Vite React
         run: npm run build
+        env:
+          VITE_BASE_SERVER_URL: ${{ secrets.VITE_BASE_SERVER_URL }}
+          VITE_RESOURCE_URL: ${{ secrets.VITE_RESOURCE_URL }}
+          VITE_MODE: ${{ secrets.VITE_MODE }}
+          VITE_APP_MAX_SIZE_UPLOAD: ${{ secrets.VITE_APP_MAX_SIZE_UPLOAD }}
 
       # 5) Upload build artifacts
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4
         with:
           name: vite-build
-          path: dist/  # ถูกต้องแล้ว
+          path: dist/ # ถูกต้องแล้ว
 
       - name: Check build output
         run: ls -R
@@ -50,7 +55,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: vite-build
-          path: dist/  # กำหนด path ที่ download ไว้เป็น dist/
+          path: dist/ # กำหนด path ที่ download ไว้เป็น dist/
 
       - name: List files after download
         run: ls -R
