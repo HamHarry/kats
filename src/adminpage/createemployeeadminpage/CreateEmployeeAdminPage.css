@@ -184,13 +184,16 @@
       margin-top: 45px;
       font-size: 20px;
     }
-    img {
-      margin-top: 20px;
-      height: 200px;
-      width: 200px;
-      object-fit: cover;
+    .wrap-img {
       border-radius: 50%;
       border: 2px solid #2656a2;
+      margin-top: 20px;
+      img {
+        border-radius: 50%;
+        height: 200px;
+        width: 200px;
+        object-fit: cover;
+      }
     }
   }
 }

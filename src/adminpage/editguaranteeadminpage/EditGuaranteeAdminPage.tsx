@@ -110,6 +110,7 @@ const EditGuaranteeAdminPage = () => {
         tel: bookingRes.tel ?? "",
         delete: bookingRes.delete ?? DeleteStatus.ISNOTDELETE,
         codeId: bookingRes.codeId ?? 0,
+        slip: bookingRes.slip ?? "",
       };
 
       reset(initBookingForm);
@@ -168,7 +169,7 @@ const EditGuaranteeAdminPage = () => {
         bookDate: value.bookDate ? dayjs(value.bookDate).toISOString() : "",
         price: priceData[value.price],
         product: productSnapshot,
-        image: imageName,
+        image: imageName || value.image || "",
       };
 
       if (bookingId) {

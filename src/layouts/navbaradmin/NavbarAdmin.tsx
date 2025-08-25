@@ -54,8 +54,11 @@ const NavbarAdmin = () => {
             ></i>
           )}
           <div className="username">
-            <h3>{employeeData?.employmentInfo.role.type}</h3>
-            <p>{employeeData?.employmentInfo.role.name}</p>
+            <h3>{employeeData?.firstName || ""}</h3>
+            <p>
+              {employeeData?.employmentInfo?.role?.type || ""} (
+              {employeeData?.employmentInfo?.role?.name || ""})
+            </p>
           </div>
         </div>
 

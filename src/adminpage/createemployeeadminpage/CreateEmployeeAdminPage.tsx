@@ -4,7 +4,12 @@ import { PaymentStatus, PaymentType, BankType, EmployeeDataForm } from "../../mo
 import { Select, Typography } from "antd";
 import { CloseCircleOutlined, FileAddFilled } from "@ant-design/icons";
 import { useAppDispatch } from "../../stores/store";
-import { createEmployee, getEmployeeById, setProfileImage, updateEmployeeById } from "../../stores/slices/employeeSlice";
+import {
+  createEmployee,
+  getEmployeeById,
+  setProfileImage,
+  updateEmployeeById,
+} from "../../stores/slices/employeeSlice";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { BankDatas } from "../../data/BankData";
@@ -80,7 +85,8 @@ const CreateEmployeeAdminPage = () => {
         tel: employeeRes.tel ?? "",
         employmentInfo: {
           salaryInfo: {
-            paymentStatus: employeeRes.employmentInfo.salaryInfo?.paymentStatus ?? PaymentStatus.BANK,
+            paymentStatus:
+              employeeRes.employmentInfo.salaryInfo?.paymentStatus ?? PaymentStatus.BANK,
             paymentType: employeeRes.employmentInfo.salaryInfo?.paymentType ?? PaymentType.MONTHLY,
             bankName: employeeRes.employmentInfo.salaryInfo?.bankName ?? BankType.BANK_OF_AYUDHYA,
             accountNumber: employeeRes.employmentInfo.salaryInfo?.accountNumber ?? "",
@@ -225,7 +231,12 @@ const CreateEmployeeAdminPage = () => {
                 name="employmentInfo.roleId"
                 render={({ field }) => {
                   return (
-                    <Select {...field} placeholder="เลือกดำแหน่งพนักงาน" className="select-product" value={field.value ?? undefined}>
+                    <Select
+                      {...field}
+                      placeholder="เลือกดำแหน่งพนักงาน"
+                      className="select-product"
+                      value={field.value ?? undefined}
+                    >
                       {roleDatas.map((item, index) => {
                         return (
                           <Select.Option key={index} value={item._id}>
@@ -296,7 +307,12 @@ const CreateEmployeeAdminPage = () => {
                 name="employmentInfo.salaryInfo.paymentType"
                 render={({ field }) => {
                   return (
-                    <Select {...field} placeholder="เลือกประเภทการชำระเงิน" className="select-product" value={field.value ?? undefined}>
+                    <Select
+                      {...field}
+                      placeholder="เลือกประเภทการชำระเงิน"
+                      className="select-product"
+                      value={field.value ?? undefined}
+                    >
                       <Select.Option value={PaymentType.MONTHLY}>{t("รายเดือน")}</Select.Option>
                       <Select.Option value={PaymentType.DAILY}>{t("รายวัน")}</Select.Option>
                     </Select>
@@ -339,7 +355,12 @@ const CreateEmployeeAdminPage = () => {
                     name="employmentInfo.salaryInfo.bankName"
                     render={({ field }) => {
                       return (
-                        <Select {...field} placeholder="เลือกบัญชีธนาคาร" className="select-product" value={field.value ?? undefined}>
+                        <Select
+                          {...field}
+                          placeholder="เลือกบัญชีธนาคาร"
+                          className="select-product"
+                          value={field.value ?? undefined}
+                        >
                           {BankDatas.map((bank, index) => {
                             return (
                               <Select.Option key={index} value={bank.type}>
@@ -388,14 +409,14 @@ const CreateEmployeeAdminPage = () => {
             <h2>{t("ตัวอย่างรูปภาพประจำตัว")}</h2>
             {getProfileImage && (
               <>
-                <div style={{ position: "relative" }}>
+                <div className="wrap-img" style={{ position: "relative", height: 200, width: 200 }}>
                   <img src={getProfileImage} alt="image" />
                   <CloseCircleOutlined
                     className="close-icon"
                     style={{
                       fontSize: "30px",
-                      top: "25px",
-                      right: "25px",
+                      top: "15px",
+                      right: "15px",
                       zIndex: 1000,
                       color: "#2656a2",
                       cursor: "pointer",

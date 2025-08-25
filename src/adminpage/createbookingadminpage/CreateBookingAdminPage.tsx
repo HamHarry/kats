@@ -119,6 +119,7 @@ const CreateBookingAdminPage = () => {
         tel: bookingRes.tel ?? "",
         delete: bookingRes.delete ?? DeleteStatus.ISNOTDELETE,
         codeId: bookingRes.codeId ?? 0,
+        image: bookingRes.image ?? "",
       };
 
       reset(initBookingForm);
@@ -186,7 +187,7 @@ const CreateBookingAdminPage = () => {
         bookDate: value.bookDate ? dayjs(value.bookDate).toISOString() : "",
         price: priceData[value.price],
         product: productSnapshot,
-        slip: slipImageName,
+        slip: slipImageName || value.slip || "",
       };
 
       if (bookingId) {
