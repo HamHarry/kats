@@ -40,7 +40,7 @@ const NavbarAdmin = () => {
                 height: "42px",
                 borderRadius: "50%",
                 objectFit: "cover",
-                margin: '0 20px 0 10px',
+                margin: "0 20px 0 10px",
               }}
             />
           ) : (
@@ -54,8 +54,8 @@ const NavbarAdmin = () => {
             ></i>
           )}
           <div className="username">
-            <h3>Admin</h3>
-            <p>ผู้ดูแล</p>
+            <h3>{employeeData?.employmentInfo.role.type}</h3>
+            <p>{employeeData?.employmentInfo.role.name}</p>
           </div>
         </div>
 
