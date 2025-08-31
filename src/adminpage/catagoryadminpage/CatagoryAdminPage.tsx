@@ -4,10 +4,7 @@ import { Modal, Space, Table } from "antd";
 import { useAppDispatch } from "../../stores/store";
 import { CatagoryData } from "../../model/product.type";
 import { useCallback, useEffect, useState } from "react";
-import {
-  getAllCatagories,
-  isDeleteCatagoryById,
-} from "../../stores/slices/productSlice";
+import { getAllCatagories, isDeleteCatagoryById } from "../../stores/slices/productSlice";
 import CircleLoading from "../../shared/circleLoading";
 import { DeleteStatus } from "../../model/delete.type";
 const CatagoryAdminPage = () => {
@@ -15,17 +12,13 @@ const CatagoryAdminPage = () => {
   const navigate = useNavigate();
   const [catagorys, setCatagorys] = useState<CatagoryData[]>([]);
   const [isCatagoryLoading, setIsCatagoryLoading] = useState<boolean>(false);
-  const [openDialogConfirmDelete, setOpenDialogConfirmDelete] =
-    useState<boolean>(false);
-  const [selectedCatagoryData, setSelectedCatagoryData] =
-    useState<CatagoryData>();
+  const [openDialogConfirmDelete, setOpenDialogConfirmDelete] = useState<boolean>(false);
+  const [selectedCatagoryData, setSelectedCatagoryData] = useState<CatagoryData>();
 
   const fetchAllCatagory = useCallback(async () => {
     try {
       setIsCatagoryLoading(true);
-      const { data: catagorysRes = [] } = await dispath(
-        getAllCatagories()
-      ).unwrap();
+      const { data: catagorysRes = [] } = await dispath(getAllCatagories()).unwrap();
 
       const filteredCatagorys = catagorysRes.filter((item: CatagoryData) => {
         return item.delete === DeleteStatus.ISNOTDELETE;
@@ -161,7 +154,7 @@ const CatagoryAdminPage = () => {
             pageSize: 8,
           }}
           style={{
-            border: "2px solid #2656a2",
+            border: "2px solid #043929",
             borderRadius: "10px",
           }}
           onRow={(record) => {

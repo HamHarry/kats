@@ -12,7 +12,7 @@
     margin-left: -10px;
     height: 30px;
     border-radius: 20px;
-    border: 2px solid #2656a2;
+    border: 2px solid #043929;
   }
 
   button {
@@ -20,14 +20,14 @@
     height: 45px;
     border: none;
     border-radius: 20px;
-    background-color: #2656a2;
+    background-color: #043929;
     color: white;
     font-size: 20px;
     cursor: pointer;
     transition: all 0.5s;
   }
   button:hover {
-    background-color: #1a4f8a;
+    background-color: #05593d;
   }
 }
 
@@ -38,7 +38,7 @@
   max-width: 1200px;
   width: 100%;
   border-radius: 20px;
-  background-color: #2656a2;
+  background-color: #043929;
   h1 {
     display: flex;
     justify-content: center;
@@ -58,7 +58,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  border: 5px solid #2656a2;
+  border: 5px solid #043929;
   border-radius: 20px;
   padding: 0px 20px 0px 20px;
   height: 250px;

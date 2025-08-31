@@ -12,7 +12,7 @@
     margin-left: -10px;
     height: 30px;
     border-radius: 20px;
-    border: 2px solid #2656a2;
+    border: 2px solid #043929;
   }
 
   button {
@@ -20,14 +20,14 @@
     height: 45px;
     border: none;
     border-radius: 20px;
-    background-color: #2656a2;
+    background-color: #043929;
     color: white;
     font-size: 20px;
     cursor: pointer;
     transition: all 0.5s;
   }
   button:hover {
-    background-color: #1a4f8a;
+    background-color: #05593d;
   }
 }
 
@@ -38,7 +38,7 @@
   max-width: 1200px;
   width: 100%;
   border-radius: 20px;
-  background-color: #2656a2;
+  background-color: #043929;
   h1 {
     display: flex;
     justify-content: center;
@@ -50,7 +50,7 @@
 
 .wrap-container-CreateEmployeeAdminPage {
   display: flex;
-  border: 5px solid #2656a2;
+  border: 5px solid #043929;
   border-radius: 20px;
   padding: 0px 20px 0px 20px;
   height: 700px;
@@ -92,7 +92,7 @@
     }
     .ant-select-single .ant-select-selector {
       border-radius: 20px !important;
-      border: 2px solid #2656a2;
+      border: 2px solid #043929;
     }
     .inputImageEmployee {
       display: flex;
@@ -162,13 +162,13 @@
         cursor: pointer;
         align-items: center;
         justify-content: center;
-        border: 2px dashed #2656a2;
+        border: 2px dashed #043929;
         padding: 1.5rem;
         border-radius: 10px;
       }
       .icon-file {
         font-size: 20px;
-        color: #2656a2;
+        color: #043929;
       }
       input {
         display: none;
@@ -186,7 +186,7 @@
     }
     .wrap-img {
       border-radius: 50%;
-      border: 2px solid #2656a2;
+      border: 2px solid #043929;
       margin-top: 20px;
       img {
         border-radius: 50%;
@@ -202,7 +202,7 @@
   width: 10px;
   height: 10px;
   border-radius: 50px;
-  border: 2px solid #2656a2;
+  border: 2px solid #043929;
 }
 
 .bank-select {
@@ -240,7 +240,7 @@
       }
       .ant-select-single .ant-select-selector {
         border-radius: 20px !important;
-        border: 2px solid #2656a2;
+        border: 2px solid #043929;
       }
       .inputImageEmployee {
         margin-top: 10px;

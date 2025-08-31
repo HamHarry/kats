@@ -14,7 +14,7 @@
   max-width: 1200px;
   width: 100%;
   border-radius: 20px;
-  background-color: #2656a2;
+  background-color: #043929;
   h1 {
     display: flex;
     justify-content: center;
@@ -48,14 +48,14 @@
       height: 40px;
       min-width: 80px;
       border-radius: 5px;
-      background-color: #2656a2;
+      background-color: #043929;
       color: white;
       font-size: 16px;
       border: none;
       cursor: pointer;
     }
     button:hover {
-      background-color: #1a4f8a !important;
+      background-color: #05593d !important;
       color: white !important;
     }
   }
@@ -74,7 +74,7 @@
 .container-DialogApprove-Expense {
   .ant-modal-content {
     background-color: white;
-    border: 5px solid #2656a2;
+    border: 5px solid #043929;
     border-radius: 20px;
     top: 50%;
     left: 50%;
@@ -84,7 +84,7 @@
   h1 {
     text-align: center;
     font-size: 50px;
-    color: #2656a2;
+    color: #043929;
   }
   .btn-DialogApprove-Navbar {
     display: flex;
@@ -95,16 +95,16 @@
     button {
       padding: 10px 20px;
       border-radius: 20px;
-      background-color: #2656a2;
+      background-color: #043929;
       color: white;
       font-size: 20px;
       border: none;
       cursor: pointer;
     }
     button:hover {
-      background-color: #1a3b7f;
-      text-shadow: 0 0 10px rgba(255, 255, 255, 0.8),
-        0 0 20px rgba(255, 255, 255, 0.6), 0 0 30px rgba(255, 255, 255, 0.4);
+      background-color: #05593d;
+      text-shadow: 0 0 10px rgba(255, 255, 255, 0.8), 0 0 20px rgba(255, 255, 255, 0.6),
+        0 0 30px rgba(255, 255, 255, 0.4);
       transition: all 0.5s;
     }
     a {
@@ -125,13 +125,13 @@
     align-items: center;
     .fa-circle-xmark {
       font-size: 30px;
-      color: #2656a2;
+      color: #043929;
       cursor: pointer;
     }
     .fa-circle-xmark:hover {
-      color: #1a3b7f;
-      text-shadow: 0 0 10px rgba(255, 255, 255, 0.8),
-        0 0 20px rgba(255, 255, 255, 0.6), 0 0 30px rgba(255, 255, 255, 0.4);
+      color: #05593d;
+      text-shadow: 0 0 10px rgba(255, 255, 255, 0.8), 0 0 20px rgba(255, 255, 255, 0.6),
+        0 0 30px rgba(255, 255, 255, 0.4);
       transition: all 0.5s;
     }
   }
@@ -164,7 +164,7 @@
           justify-content: center;
           h4 {
             font-size: 20px;
-            color: #2656a2;
+            color: #043929;
           }
           .previewTel {
             display: flex;
@@ -172,7 +172,7 @@
             align-items: center;
             .fa-phone {
               font-size: 20px;
-              color: #2656a2;
+              color: #043929;
             }
             p {
               font-size: 18px;
@@ -184,7 +184,7 @@
             align-items: center;
             .fa-user {
               font-size: 20px;
-              color: #2656a2;
+              color: #043929;
             }
             p {
               font-size: 18px;
@@ -197,7 +197,7 @@
         flex-direction: column;
         h4 {
           font-size: 20px;
-          color: #2656a2;
+          color: #043929;
         }
         .container-ExpenseData {
           display: flex;
@@ -227,7 +227,7 @@
         flex-direction: column;
         h4 {
           font-size: 20px;
-          color: #2656a2;
+          color: #043929;
         }
         .container-ExpenseList {
           display: flex;
@@ -255,7 +255,7 @@
         flex-direction: column;
         h4 {
           font-size: 20px;
-          color: #2656a2;
+          color: #043929;
         }
         .inputImage {
           display: flex;
@@ -272,13 +272,13 @@
             cursor: pointer;
             align-items: center;
             justify-content: center;
-            border: 2px dashed #2656a2;
+            border: 2px dashed #043929;
             padding: 1.5rem;
             border-radius: 10px;
           }
           .icon-file {
             font-size: 20px;
-            color: #2656a2;
+            color: #043929;
           }
           input {
             display: none;

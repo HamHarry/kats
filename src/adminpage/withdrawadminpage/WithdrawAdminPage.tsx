@@ -570,7 +570,7 @@ const WithdrawAdminPage = () => {
             pageSize: 8,
           }}
           style={{
-            border: "2px solid #2656a2",
+            border: "2px solid #043929",
             borderRadius: "10px",
           }}
           onRow={(record) => {

@@ -1,18 +1,10 @@
 import { Modal, Space, Table, Typography } from "antd";
 import "./ProductAdminPage.css";
-import {
-  CatagoryData,
-  PRICE_TYPE,
-  ProductData,
-  ProductDetail,
-} from "../../model/product.type";
+import { CatagoryData, PRICE_TYPE, ProductData, ProductDetail } from "../../model/product.type";
 import { useNavigate } from "react-router-dom";
 import { useCallback, useEffect, useState } from "react";
 import { useAppDispatch } from "../../stores/store";
-import {
-  getAllProducts,
-  isDeleteProductById,
-} from "../../stores/slices/productSlice";
+import { getAllProducts, isDeleteProductById } from "../../stores/slices/productSlice";
 import CircleLoading from "../../shared/circleLoading";
 import { DeleteStatus } from "../../model/delete.type";
 
@@ -21,16 +13,13 @@ const ProductAdminPage = () => {
   const navigate = useNavigate();
   const [products, setProducts] = useState<ProductData[]>([]);
   const [isProductLoading, setIsProductLoading] = useState<boolean>(false);
-  const [openDialogConfirmDelete, setOpenDialogConfirmDelete] =
-    useState<boolean>(false);
+  const [openDialogConfirmDelete, setOpenDialogConfirmDelete] = useState<boolean>(false);
   const [selectedProductData, setSelectedProductData] = useState<ProductData>();
 
   const fetchAllProduct = useCallback(async () => {
     try {
       setIsProductLoading(true);
-      const { data: productsRes = [] } = await dispath(
-        getAllProducts()
-      ).unwrap();
+      const { data: productsRes = [] } = await dispath(getAllProducts()).unwrap();
 
       const filteredProducts = productsRes.filter((item: ProductData) => {
         return item.delete === DeleteStatus.ISNOTDELETE;
@@ -125,9 +114,7 @@ const ProductAdminPage = () => {
             {productDetails.map((productDetail: ProductDetail, index) => {
               // STANDARD = green , LUXURY = gold
               const backgroundColor =
-                productDetail.type === PRICE_TYPE.LUXURY
-                  ? "#FFD700"
-                  : "#008B00";
+                productDetail.type === PRICE_TYPE.LUXURY ? "#FFD700" : "#008B00";
 
               return (
                 <div
@@ -206,7 +193,7 @@ const ProductAdminPage = () => {
             pageSize: 8,
           }}
           style={{
-            border: "2px solid #2656a2",
+            border: "2px solid #043929",
             borderRadius: "10px",
           }}
           onRow={(record) => {

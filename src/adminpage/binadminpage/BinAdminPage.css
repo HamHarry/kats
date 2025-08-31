@@ -13,7 +13,7 @@
   max-width: 1200px;
   width: 100%;
   border-radius: 20px;
-  background-color: #2656a2;
+  background-color: #043929;
   margin-bottom: 20px;
   h1 {
     display: flex;
@@ -40,7 +40,7 @@
 .container-DialogApprove {
   display: flex;
   .ant-modal-content {
-    background-color: #2656a2;
+    background-color: #043929;
   }
   .container-DialogApprove-navbar {
     display: flex;
@@ -83,7 +83,7 @@
       padding: 5px 10px;
       border-radius: 10px;
       background-color: white;
-      color: #2656a2;
+      color: #043929;
       font-size: 20px;
       font-weight: bold;
       border: none;
@@ -91,8 +91,7 @@
     }
     button:hover {
       background-color: #e6efff;
-      box-shadow: 0 0 10px rgba(38, 86, 162, 0.4),
-        0 4px 10px rgba(38, 86, 162, 0.3);
+      box-shadow: 0 0 10px rgba(38, 86, 162, 0.4), 0 4px 10px rgba(38, 86, 162, 0.3);
       transition: all 0.3s ease;
     }
   }

@@ -10,7 +10,7 @@ const PrivateRoutes: React.FC<PrivateRoutesProps> = ({ isAuthented }) => {
     return <Outlet />;
   }
 
-  return <Navigate to="/kats/login" />;
+  return <Navigate to="/login" />;
 };
 
 export default PrivateRoutes;

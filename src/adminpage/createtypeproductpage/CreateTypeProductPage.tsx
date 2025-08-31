@@ -25,15 +25,11 @@ const CreateTypeProductPage = () => {
   const navigate = useNavigate();
   const dispath = useAppDispatch();
 
-  const [isTypeProductLoading, setIsTypeProductLoading] =
-    useState<boolean>(false);
+  const [isTypeProductLoading, setIsTypeProductLoading] = useState<boolean>(false);
   const [typeProducts, setTypeProducts] = useState<TypeProductData[]>([]);
-  const [selectedTypeProductData, setSelectedTypeProductData] =
-    useState<TypeProductData>();
-  const [openDialogTypeProduct, setOpenDialogTypeProduct] =
-    useState<boolean>(false);
-  const [openDialogConfirmDelete, setOpenDialogConfirmDelete] =
-    useState<boolean>(false);
+  const [selectedTypeProductData, setSelectedTypeProductData] = useState<TypeProductData>();
+  const [openDialogTypeProduct, setOpenDialogTypeProduct] = useState<boolean>(false);
+  const [openDialogConfirmDelete, setOpenDialogConfirmDelete] = useState<boolean>(false);
 
   const { control, handleSubmit, reset } = useForm({
     defaultValues: initCatagoryForm,
@@ -43,9 +39,7 @@ const CreateTypeProductPage = () => {
     try {
       if (!selectedTypeProductData?._id) return;
 
-      const { data } = await dispath(
-        getTypeProductById(selectedTypeProductData._id)
-      ).unwrap();
+      const { data } = await dispath(getTypeProductById(selectedTypeProductData._id)).unwrap();
       const typeProductRes = data as TypeProductData;
 
       const initForm: TypeProductData = {
@@ -67,15 +61,11 @@ const CreateTypeProductPage = () => {
   const fetchAllTypeProduct = useCallback(async () => {
     try {
       setIsTypeProductLoading(true);
-      const { data: typeProductRes = [] } = await dispath(
-        getAllTypeProduct()
-      ).unwrap();
+      const { data: typeProductRes = [] } = await dispath(getAllTypeProduct()).unwrap();
 
-      const filteredTypeProducts = typeProductRes.filter(
-        (item: TypeProductData) => {
-          return item.delete === DeleteStatus.ISNOTDELETE;
-        }
-      );
+      const filteredTypeProducts = typeProductRes.filter((item: TypeProductData) => {
+        return item.delete === DeleteStatus.ISNOTDELETE;
+      });
 
       setTypeProducts(filteredTypeProducts);
     } catch (error) {
@@ -307,7 +297,7 @@ const CreateTypeProductPage = () => {
             dataSource={typeProducts}
             columns={columns}
             style={{
-              border: "2px solid #2656a2",
+              border: "2px solid #05593d",
               borderRadius: "10px",
             }}
             onRow={(record) => {

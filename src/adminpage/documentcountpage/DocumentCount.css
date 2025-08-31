@@ -10,18 +10,18 @@
     height: 45px;
     border: none;
     border-radius: 20px;
-    background-color: #2656a2;
+    background-color: #043929;
     color: white;
     font-size: 20px;
     cursor: pointer;
     transition: all 0.5s;
   }
   button:hover {
-    background-color: #1a4f8a;
+    background-color: #05593d;
   }
 
   .ant-select-single .ant-select-selector {
-    border: 2px solid #2656a2;
+    border: 2px solid #043929;
     height: 45px;
     width: 100%;
     min-width: 150px;
@@ -35,7 +35,7 @@
   max-width: 1200px;
   width: 100%;
   border-radius: 20px;
-  background-color: #2656a2;
+  background-color: #043929;
   margin-bottom: 20px;
   h1 {
     display: flex;
@@ -66,7 +66,7 @@
     gap: 20px;
     padding: 25px;
     border-radius: 10px;
-    background-color: #2656a2;
+    background-color: #043929;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 
     h2 {
@@ -105,16 +105,14 @@
       border: none;
       border-radius: 20px;
       background-color: white;
-      color: #2656a2;
+      color: #043929;
       font-size: 20px;
       font-weight: bold;
       cursor: pointer;
-      transition: all 0.5s;
+      transition: all 0.2s;
     }
     .btn-submit:hover {
-      background-color: #e6efff;
-      box-shadow: 0 0 10px rgba(38, 86, 162, 0.4), 0 4px 10px rgba(38, 86, 162, 0.3);
-      transition: all 0.3s ease;
+      background-color: #05593d;
     }
   }
 }

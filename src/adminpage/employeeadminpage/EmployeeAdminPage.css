@@ -14,7 +14,7 @@
   max-width: 1200px;
   width: 100%;
   border-radius: 20px;
-  background-color: #2656a2;
+  background-color: #043929;
   margin-bottom: 20px;
   h1 {
     display: flex;
@@ -38,21 +38,20 @@
     padding: 5px;
     border-radius: 10px;
     font-size: 12px;
-    font-family: "Noto Sans Thai", serif;
-    border: 3px solid #2656a2;
+    border: 3px solid #043929;
   }
   button {
     min-width: 100px;
     height: 40px;
     border-radius: 5px;
-    background-color: #2656a2;
+    background-color: #043929;
     color: white;
     font-size: 16px;
     border: none;
     cursor: pointer;
   }
   button:hover {
-    background-color: #1a4f8a;
+    background-color: #05593d;
   }
 }
 
@@ -75,7 +74,7 @@
     gap: 20px;
     padding: 25px;
     border-radius: 10px;
-    background-color: #2656a2;
+    background-color: #043929;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     img {
       height: 80px;

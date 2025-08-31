@@ -19,7 +19,7 @@ const NavbarAdmin = () => {
   return (
     <div className="navbarAdmin">
       <div className="logo-admin">
-        <img src={"/assets/logokats.jpg"} alt="logo" />
+        <img src={"/public/assets/logoGun.jpg"} alt="logo" />
       </div>
 
       <hr />
@@ -167,7 +167,6 @@ const NavbarAdmin = () => {
         className="logout"
         onClick={() => {
           dispatch(logOut());
-          // navigate("/");
         }}
       >
         <i className="fa-solid fa-arrow-right-from-bracket"></i>

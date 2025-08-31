@@ -13,7 +13,7 @@
   max-width: 1200px;
   width: 100%;
   border-radius: 20px;
-  background-color: #2656a2;
+  background-color: #043929;
   margin-bottom: 20px;
   h1 {
     display: flex;
@@ -36,7 +36,7 @@
     height: 45px;
     margin-left: 50px;
     border-radius: 20px;
-    border: 2px solid #2656a2;
+    border: 2px solid #043929;
     font-family: "Noto Sans Thai", serif;
   }
   .search-content-right {
@@ -50,21 +50,21 @@
       border-radius: 10px;
       font-size: 12px;
       font-family: "Noto Sans Thai", serif;
-      border: 3px solid #2656a2;
+      border: 3px solid #043929;
     }
     .btn-crate {
       width: 100px;
       height: 45px;
       border: none;
       border-radius: 20px;
-      background-color: #2656a2;
+      background-color: #043929;
       color: white;
       font-size: 20px;
       cursor: pointer;
       transition: all 0.5s;
     }
     .btn-crate:hover {
-      background-color: #1a4f8a;
+      background-color: #05593d;
     }
   }
 }
@@ -182,7 +182,7 @@
   height: 800px;
   border-radius: 20px;
   .ant-modal-content {
-    background-color: #2656a2;
+    background-color: #043929;
   }
   .ImagePay {
     display: flex;
@@ -203,13 +203,13 @@
   height: 300px;
   .ant-modal-content {
     background-color: white;
-    border: 5px solid #2656a2;
+    border: 5px solid #043929;
     border-radius: 20px;
   }
   h1 {
     text-align: center;
     font-size: 50px;
-    color: #2656a2;
+    color: #043929;
   }
   .btn-DialogDelete-Navbar {
     display: flex;
@@ -219,16 +219,16 @@
     button {
       padding: 10px 20px;
       border-radius: 20px;
-      background-color: #2656a2;
+      background-color: #043929;
       color: white;
       font-size: 20px;
       border: none;
       cursor: pointer;
     }
     button:hover {
-      background-color: #1a3b7f;
-      text-shadow: 0 0 10px rgba(255, 255, 255, 0.8),
-        0 0 20px rgba(255, 255, 255, 0.6), 0 0 30px rgba(255, 255, 255, 0.4);
+      background-color: #05593d;
+      text-shadow: 0 0 10px rgba(255, 255, 255, 0.8), 0 0 20px rgba(255, 255, 255, 0.6),
+        0 0 30px rgba(255, 255, 255, 0.4);
       transition: all 0.5s;
     }
   }
@@ -266,8 +266,8 @@
     }
     button:hover {
       background-color: #1a3b7f;
-      text-shadow: 0 0 10px rgba(255, 255, 255, 0.8),
-        0 0 20px rgba(255, 255, 255, 0.6), 0 0 30px rgba(255, 255, 255, 0.4);
+      text-shadow: 0 0 10px rgba(255, 255, 255, 0.8), 0 0 20px rgba(255, 255, 255, 0.6),
+        0 0 30px rgba(255, 255, 255, 0.4);
       transition: all 0.5s;
     }
   }

@@ -6,7 +6,13 @@ import { useCallback, useEffect, useState } from "react";
 import CircleLoading from "../../shared/circleLoading";
 import "./CreateRoleAdminPage.css";
 import { useAppDispatch } from "../../stores/store";
-import { createRole, getAllRoles, getRoleById, isDeleteRoleById, updateRoleById } from "../../stores/slices/roleSlice";
+import {
+  createRole,
+  getAllRoles,
+  getRoleById,
+  isDeleteRoleById,
+  updateRoleById,
+} from "../../stores/slices/roleSlice";
 import { DeleteStatus } from "../../model/delete.type";
 
 const initRoleForm: RoleData = {
@@ -298,7 +304,7 @@ const CreateRoleAdminPage = () => {
             dataSource={roleDatas}
             columns={columns}
             style={{
-              border: "2px solid #2656a2",
+              border: "2px solid #043929",
               borderRadius: "10px",
             }}
             pagination={{

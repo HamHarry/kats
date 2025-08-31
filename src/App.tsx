@@ -2,8 +2,6 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import { Suspense, useCallback, useEffect } from "react";
 import "./App.css";
 import HomePageGun from "./homepagegun/HomePageGun";
-import LoginPage from "./loginpage/Loginpage";
-import HomePageKats from "./homepagekats/HomePagekats";
 import EmployeeAdminPage from "./adminpage/employeeadminpage/EmployeeAdminPage";
 import CreateEmployeeAdminPage from "./adminpage/createemployeeadminpage/CreateEmployeeAdminPage";
 import BookingAdminPage from "./adminpage/bookingadminpage/BookingAdminPage";
@@ -24,7 +22,6 @@ import FinanceAdminPage from "./adminpage/financeadminpage/FinanceAdminPage";
 import BinAdminPage from "./adminpage/binadminpage/BinAdminPage";
 import SettingAdminPage from "./adminpage/settingadminpage/SettingAdminPage";
 import Layout from "./layouts/Layout.tsx";
-import Layoutkats from "./layouts/Layoutkats.tsx";
 import LayoutAdmin from "./layouts/LayoutAdmin.tsx";
 import PermissionPage from "./adminpage/permissionpage/PermissionPage.tsx";
 import CreateRoleAdminPage from "./adminpage/createroleadminpae/CreateRoleAdminPage.tsx";
@@ -64,11 +61,6 @@ function App() {
         <Route path="/" element={<Layout />}>
           <Route path="" element={<HomePageGun />} />
           <Route path="login" element={<LoginPageGun />} />
-        </Route>
-
-        <Route path="/kats" element={<Layoutkats />}>
-          <Route path="" element={<HomePageKats />} />
-          <Route path="login" element={<LoginPage />} />
         </Route>
 
         <Route path="/admin" element={<PrivateRoutes isAuthented={isAuthented} />}>

@@ -12,7 +12,7 @@
   height: 80px;
   min-width: 1200px;
   border-radius: 20px;
-  background-color: #2656a2;
+  background-color: #043929;
   margin-bottom: 20px;
   h1 {
     display: flex;
@@ -74,7 +74,7 @@
 }
 
 .wrap-calendarAdmin {
-  border: 5px solid #2656a2;
+  border: 5px solid #043929;
   border-radius: 20px;
   padding: 20px;
   max-width: 1400px;

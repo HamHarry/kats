@@ -1,12 +1,10 @@
 import { Link } from "react-scroll";
 import "./HomePageGun.css";
 import CoatingPageGun from "../productpageguncoating/CoatingPageGun";
-import { useNavigate } from "react-router-dom";
 import GunGuardPage from "../productpagegunguard/GunGuardPage";
 import BookingPageGun from "../bookingpagegun/BookingPageGun";
 
 const HomePageGun = () => {
-  const navigate = useNavigate();
   return (
     <div className="container-HomePageGun">
       <div className="header-HomePageGun">
@@ -46,16 +44,9 @@ const HomePageGun = () => {
                 </Link>
               </button>
             </div>
-            <button className="btn-kats">
-              <Link
-                to="Home"
-                smooth={true}
-                duration={200}
-                onClick={() => {
-                  navigate("/kats");
-                }}
-              >
-                KATS Coatings
+            <button className="btn-booking">
+              <Link to="bookingGun" smooth={true} duration={200}>
+                ตรวจสอบคิว
               </Link>
             </button>
           </div>

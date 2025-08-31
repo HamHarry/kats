@@ -23,7 +23,7 @@ const SettingAdminPage = () => {
               alignItems: "center",
               height: "70px",
               width: "70px",
-              border: "2px solid #2656a2",
+              border: "2px solid #043929",
               borderRadius: "20px",
             }}
           >
@@ -50,7 +50,7 @@ const SettingAdminPage = () => {
               alignItems: "center",
               height: "70px",
               width: "70px",
-              border: "2px solid #2656a2",
+              border: "2px solid #043929",
               borderRadius: "20px",
             }}
           >
@@ -80,7 +80,7 @@ const SettingAdminPage = () => {
               alignItems: "center",
               height: "70px",
               width: "70px",
-              border: "2px solid #2656a2",
+              border: "2px solid #043929",
               borderRadius: "20px",
             }}
           >
@@ -110,7 +110,7 @@ const SettingAdminPage = () => {
               alignItems: "center",
               height: "70px",
               width: "70px",
-              border: "2px solid #2656a2",
+              border: "2px solid #043929",
               borderRadius: "20px",
             }}
           >
@@ -140,7 +140,7 @@ const SettingAdminPage = () => {
               alignItems: "center",
               height: "70px",
               width: "70px",
-              border: "2px solid #2656a2",
+              border: "2px solid #043929",
               borderRadius: "20px",
             }}
           >

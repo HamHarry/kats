@@ -1,14 +1,23 @@
 import { Controller, useForm } from "react-hook-form";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { DatePicker, Modal, Select } from "antd";
-import { PRICE_TYPE, ProductData, ProductDetail, ProductSnapshotData } from "../../model/product.type";
+import {
+  PRICE_TYPE,
+  ProductData,
+  ProductDetail,
+  ProductSnapshotData,
+} from "../../model/product.type";
 import { BookingStatus, BookingData } from "../../model/booking.type";
 import { useNavigate, useParams } from "react-router-dom";
 import { CloseCircleOutlined, FileAddFilled } from "@ant-design/icons";
 import { useAppDispatch } from "../../stores/store";
 import { getAllProducts } from "../../stores/slices/productSlice";
 import dayjs from "dayjs";
-import { getBookingById, setBookingUpdateImg, updateBookingById } from "../../stores/slices/bookingSlice";
+import {
+  getBookingById,
+  setBookingUpdateImg,
+  updateBookingById,
+} from "../../stores/slices/bookingSlice";
 import CircleLoading from "../../shared/circleLoading";
 import { DeleteStatus } from "../../model/delete.type";
 import { StyledSelect } from "../../AppStyle";
@@ -143,7 +152,9 @@ const EditGuaranteeAdminPage = () => {
   const submit = async (value: BookingForm) => {
     try {
       setOpenDialogConfirm(false);
-      const findedProduct = productDatas?.find((item) => String(item._id) === String(value.productId));
+      const findedProduct = productDatas?.find(
+        (item) => String(item._id) === String(value.productId)
+      );
 
       if (!findedProduct) return;
 
@@ -442,7 +453,9 @@ const EditGuaranteeAdminPage = () => {
                       onSelect={(value) => {
                         field.onChange(value);
 
-                        const findedProduct = productDatas?.find((item) => String(item._id) === String(value));
+                        const findedProduct = productDatas?.find(
+                          (item) => String(item._id) === String(value)
+                        );
 
                         if (findedProduct) {
                           setPriceData(findedProduct?.productDetails as any);
@@ -476,7 +489,9 @@ const EditGuaranteeAdminPage = () => {
                       value={field.value ?? undefined}
                       disabled={priceData.length === 0}
                       options={priceData.map((item, index) => ({
-                        label: `${item.type === PRICE_TYPE.LUXURY ? "luxury" : ""} ${item.amount} Baht`,
+                        label: `${item.type === PRICE_TYPE.LUXURY ? "luxury" : ""} ${
+                          item.amount
+                        } Baht`,
                         value: index,
                       }))}
                     />
@@ -494,7 +509,11 @@ const EditGuaranteeAdminPage = () => {
                 <div className="inputImage">
                   {getBookingSlipImage ? (
                     <div style={{ position: "relative" }}>
-                      <img src={getBookingSlipImage} alt="" style={{ width: "auto", height: "250px" }} />
+                      <img
+                        src={getBookingSlipImage}
+                        alt=""
+                        style={{ width: "auto", height: "250px" }}
+                      />
                       <CloseCircleOutlined
                         className="close-icon"
                         style={{
@@ -502,7 +521,7 @@ const EditGuaranteeAdminPage = () => {
                           top: "-10px",
                           right: "-10px",
                           zIndex: 1000,
-                          color: "#2656a2",
+                          color: "#043929",
                           cursor: "pointer",
                           position: "absolute",
                         }}

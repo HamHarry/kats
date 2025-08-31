@@ -418,7 +418,7 @@ const CreateEmployeeAdminPage = () => {
                       top: "15px",
                       right: "15px",
                       zIndex: 1000,
-                      color: "#2656a2",
+                      color: "#043929",
                       cursor: "pointer",
                       position: "absolute",
                     }}

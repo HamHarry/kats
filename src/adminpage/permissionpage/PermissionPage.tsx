@@ -229,7 +229,7 @@ const PermissionPage = () => {
               pageSize: 7,
             }}
             style={{
-              border: "2px solid #2656a2",
+              border: "2px solid #043929",
               borderRadius: "10px",
               height: "600px",
             }}

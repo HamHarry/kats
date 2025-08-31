@@ -10,18 +10,18 @@
     height: 45px;
     border: none;
     border-radius: 20px;
-    background-color: #2656a2;
+    background-color: #043929;
     color: white;
     font-size: 20px;
     cursor: pointer;
     transition: all 0.5s;
   }
   button:hover {
-    background-color: #1a4f8a;
+    background-color: #05593d;
   }
 
   .ant-select-single .ant-select-selector {
-    border: 2px solid #2656a2;
+    border: 2px solid #043929;
     height: 45px;
     width: 100%;
     min-width: 150px;
@@ -35,7 +35,7 @@
   max-width: 1200px;
   width: 100%;
   border-radius: 20px;
-  background-color: #2656a2;
+  background-color: #043929;
   margin-bottom: 20px;
   h1 {
     display: flex;
@@ -66,7 +66,7 @@
   width: 25px;
   aspect-ratio: 1;
   border-radius: 8px;
-  border: 2px solid #2656a2;
+  border: 2px solid #043929;
   position: relative;
   transition: all 0.2s ease-in-out;
 }

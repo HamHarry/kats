@@ -12,7 +12,7 @@
     margin-left: -10px;
     height: 30px;
     border-radius: 20px;
-    border: 2px solid #2656a2;
+    border: 2px solid #043929;
   }
 
   button {
@@ -20,14 +20,14 @@
     height: 45px;
     border: none;
     border-radius: 20px;
-    background-color: #2656a2;
+    background-color: #043929;
     color: white;
     font-size: 20px;
     cursor: pointer;
     transition: all 0.5s;
   }
   button:hover {
-    background-color: #1a4f8a;
+    background-color: #05593d;
   }
 }
 
@@ -38,7 +38,7 @@
   max-width: 1200px;
   width: 100%;
   border-radius: 20px;
-  background-color: #2656a2;
+  background-color: #043929;
   h1 {
     display: flex;
     justify-content: center;
@@ -57,7 +57,7 @@
 .wrap-container-CreateSalaryAdvanceAdminPage {
   display: flex;
   flex-direction: column;
-  border: 5px solid #2656a2;
+  border: 5px solid #043929;
   border-radius: 20px;
   padding: 20px;
   height: 650px;
@@ -73,7 +73,7 @@
     }
     .ant-select-single .ant-select-selector {
       border-radius: 20px !important;
-      border: 2px solid #2656a2;
+      border: 2px solid #043929;
     }
   }
   .inputDetel {
@@ -89,12 +89,12 @@
       gap: 10px;
       input {
         padding: 5px;
-        border: 2px solid #2656a2;
+        border: 2px solid #043929;
         margin-left: 0px;
       }
       textarea {
         padding: 5px;
-        border: 2px solid #2656a2;
+        border: 2px solid #043929;
         border-radius: 20px;
         max-height: 100px;
         resize: vertical;
@@ -111,14 +111,14 @@
       padding: 5px;
       border-top-left-radius: 20px;
       border-bottom-left-radius: 20px;
-      border: 2px solid #2656a2;
+      border: 2px solid #043929;
     }
     .ant-input-number-group-addon {
       border-top-right-radius: 20px;
       border-bottom-right-radius: 20px;
-      border-top: 2px solid #2656a2;
-      border-right: 2px solid #2656a2;
-      border-bottom: 2px solid #2656a2;
+      border-top: 2px solid #043929;
+      border-right: 2px solid #043929;
+      border-bottom: 2px solid #043929;
       font-size: 20px;
     }
   }

@@ -13,7 +13,7 @@
   max-width: 1200px;
   width: 100%;
   border-radius: 20px;
-  background-color: #2656a2;
+  background-color: #043929;
   margin-bottom: 20px;
   h1 {
     display: flex;
@@ -33,12 +33,12 @@
   width: 60%;
   min-height: 700px;
   border-radius: 20px;
-  border: 4px solid #2656a2;
+  border: 4px solid #043929;
   padding: 10px;
   gap: 10px;
   h2 {
     font-size: 32px;
-    color: #2656a2;
+    color: #043929;
   }
   .SettingAdminPage-content-translate {
     display: flex;
@@ -47,13 +47,13 @@
     gap: 20px;
     .fa-globe {
       font-size: 40px;
-      color: #2656a2;
+      color: #043929;
     }
     .select-language {
       height: 45px;
     }
     .ant-select-single .ant-select-selector {
-      border: 2px solid #2656a2;
+      border: 2px solid #043929;
     }
   }
   .SettingAdminPage-content-company {
@@ -63,7 +63,7 @@
     gap: 20px;
     .fa-building {
       font-size: 50px;
-      color: #2656a2;
+      color: #043929;
     }
   }
   .SettingAdminPage-content-users {
@@ -73,7 +73,7 @@
     gap: 20px;
     .fa-user-tie {
       font-size: 40px;
-      color: #2656a2;
+      color: #043929;
     }
   }
   .SettingAdminPage-content-permission {
@@ -83,7 +83,7 @@
     gap: 20px;
     .fa-user-shield {
       font-size: 40px;
-      color: #2656a2;
+      color: #043929;
     }
   }
   .SettingAdminPage-content-brand {
@@ -93,7 +93,7 @@
     gap: 20px;
     .fa-bookmark {
       font-size: 40px;
-      color: #2656a2;
+      color: #043929;
     }
   }
   .SettingAdminPage-content-trakNumber {
@@ -103,7 +103,7 @@
     gap: 20px;
     .fa-list-ol {
       font-size: 40px;
-      color: #2656a2;
+      color: #043929;
     }
   }
 }
