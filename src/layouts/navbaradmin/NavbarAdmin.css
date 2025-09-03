@@ -41,18 +41,6 @@
         }
       }
     }
-    .content-right {
-      display: flex;
-      align-items: center;
-      margin: 0 20px 0 0px;
-      img {
-        width: 30px;
-        height: 30px;
-        border-radius: 50%;
-        border: 2px solid #ffffff;
-        cursor: pointer;
-      }
-    }
   }
   .usered {
     display: flex;
@@ -218,17 +206,18 @@
     width: 200px;
     .logo-admin {
       img {
-        width: 160px;
+        width: 150px;
         height: auto;
+        padding-left: 10px;
       }
     }
     .user {
       .username {
         h3 {
-          font-size: 20px;
+          font-size: 16px !important;
         }
         p {
-          font-size: 14px;
+          font-size: 9px !important;
         }
       }
       .fa-circle-user {
@@ -238,10 +227,10 @@
     .usered {
       .username {
         h3 {
-          font-size: 20px;
+          font-size: 16px !important;
         }
         p {
-          font-size: 14px;
+          font-size: 9px !important;
         }
       }
       .fa-circle-user {
@@ -251,15 +240,48 @@
     .menu {
       ul {
         li {
+          .fa-image-portrait {
+            font-size: 24px;
+          }
+          .fa-book-bookmark {
+            font-size: 24px;
+          }
+          .fa-calendar-days {
+            font-size: 24px;
+          }
+          .fa-square-check {
+            font-size: 24px;
+          }
+          .fa-pen-to-square {
+            font-size: 24px;
+          }
+          .fa-wallet {
+            font-size: 24px;
+          }
+          .fa-hand-holding-dollar {
+            font-size: 24px;
+          }
+          .fa-file-invoice-dollar {
+            font-size: 24px;
+          }
+          .fa-trash-can {
+            font-size: 24px;
+          }
+          .fa-gear {
+            font-size: 24px;
+          }
           p {
-            font-size: 16px;
+            font-size: 14px;
           }
         }
       }
     }
     .logout {
+      .fa-arrow-right-from-bracket {
+        font-size: 20px;
+      }
       p {
-        font-size: 16px;
+        font-size: 12px;
       }
     }
   }

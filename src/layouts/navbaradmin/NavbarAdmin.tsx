@@ -61,10 +61,6 @@ const NavbarAdmin = () => {
             </p>
           </div>
         </div>
-
-        <div className="content-right">
-          <img src="/assets/TH.jpg" alt="" />
-        </div>
       </div>
 
       <hr />
