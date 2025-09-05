@@ -127,3 +127,37 @@
     padding-left: 220px;
   }
 }
+
+@media (max-width: 420px) {
+  .container-calendarAdmin {
+    padding-left: 20px;
+  }
+
+  .guid {
+    gap: 2px;
+    .guid-yellow {
+      gap: 2px;
+      p {
+        font-size: 10px;
+      }
+    }
+    .guid-blue {
+      gap: 2px;
+      p {
+        font-size: 10px;
+      }
+    }
+    .guid-green {
+      gap: 2px;
+      p {
+        font-size: 10px;
+      }
+    }
+    .guid-red {
+      gap: 2px;
+      p {
+        font-size: 10px;
+      }
+    }
+  }
+}
