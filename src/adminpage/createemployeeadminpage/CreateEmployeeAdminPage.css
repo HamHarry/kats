@@ -278,3 +278,129 @@
     padding-left: 220px;
   }
 }
+
+@media (max-width: 420px) {
+  .container-CreateEmployeeAdminPage {
+    padding-left: 20px;
+
+    input {
+      min-width: 200px;
+    }
+
+    button {
+      height: 40px;
+      border-radius: 10px;
+      font-size: 16px;
+    }
+  }
+
+  .header-CreateEmployeeAdminPage {
+    height: 50px;
+    border-radius: 10px;
+    h1 {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 22px;
+      color: white;
+    }
+  }
+
+  .wrap-container-CreateEmployeeAdminPage {
+    display: flex;
+    flex-direction: column;
+    height: 900px;
+    width: 100%;
+    max-width: 300px;
+    margin-bottom: 10px;
+    .input-left {
+      input {
+        width: 20px !important;
+        height: 25px;
+        border-radius: 20px;
+      }
+      .inputNameEmployee {
+        margin-top: 10px;
+        h2 {
+          width: 100px;
+          font-size: 12px;
+        }
+      }
+      .inputTelEmployee {
+        margin-top: 10px;
+        h2 {
+          width: 100px;
+          font-size: 12px;
+        }
+      }
+      .inputPositionEmployee {
+        margin-top: 10px;
+        h2 {
+          width: 100px;
+          font-size: 12px;
+        }
+      }
+      .select-product {
+        width: 215px;
+        height: 45px;
+        border-radius: 20px;
+        margin-left: -10px;
+      }
+      .inputImageEmployee {
+        margin-top: 10px;
+        h2 {
+          width: 100px;
+          font-size: 12px;
+        }
+      }
+      .inputPaymentStatus {
+        margin-top: 10px;
+        h2 {
+          width: 100px;
+          font-size: 12px;
+        }
+      }
+      .inputPaymentType {
+        margin-top: 10px;
+        h2 {
+          width: 100px;
+          font-size: 10px;
+        }
+      }
+      .inputAccountNumber {
+        margin-top: 10px;
+        h2 {
+          width: 100px;
+          font-size: 12px;
+        }
+      }
+      .inputBankName {
+        margin-top: 10px;
+        h2 {
+          width: 100px;
+          font-size: 12px;
+        }
+      }
+      .inputAmount {
+        margin-top: 10px;
+        h2 {
+          width: 100px;
+          font-size: 12px;
+        }
+      }
+      .select-product {
+        height: 40px;
+        h2 {
+          width: 100px;
+          font-size: 12px;
+        }
+      }
+      .inputImage {
+        .text-image {
+          width: 150px;
+          height: 15px;
+        }
+      }
+    }
+  }
+}

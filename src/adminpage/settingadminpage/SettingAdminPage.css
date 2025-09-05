@@ -118,3 +118,9 @@
     min-height: 600px;
   }
 }
+
+@media (max-width: 1080px) {
+  .container-SettingAdminPage {
+    padding-left: 220px;
+  }
+}

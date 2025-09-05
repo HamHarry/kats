@@ -75,9 +75,6 @@
     width: 500px;
     .wrap-login-gun {
       width: 490px;
-      img {
-        width: 120px;
-      }
       h1 {
         font-size: 48px;
         width: 250px;
@@ -95,6 +92,66 @@
         left: 30%;
         .btn-login-gun {
           font-size: 24px;
+          height: 50px;
+          width: 200px;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 540px) {
+  .container-login-gun {
+    width: 400px;
+    .wrap-login-gun {
+      width: 390px;
+      h1 {
+        font-size: 36px;
+        width: 250px;
+        margin-top: -79px;
+        margin-bottom: 40px;
+      }
+      h2 {
+        font-size: 22px;
+        width: 300px;
+      }
+      input {
+        width: 320px;
+      }
+      .btn-gun {
+        left: 25%;
+        .btn-login-gun {
+          font-size: 20px;
+          height: 50px;
+          width: 200px;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 420px) {
+  .container-login-gun {
+    width: 300px;
+    .wrap-login-gun {
+      width: 290px;
+      h1 {
+        font-size: 36px;
+        width: 250px;
+        margin-top: -79px;
+        margin-bottom: 40px;
+      }
+      h2 {
+        font-size: 20px;
+        width: 200px;
+      }
+      input {
+        width: 240px;
+      }
+      .btn-gun {
+        left: 17%;
+        .btn-login-gun {
+          font-size: 20px;
           height: 50px;
           width: 200px;
         }

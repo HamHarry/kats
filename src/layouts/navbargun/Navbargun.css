@@ -35,7 +35,7 @@
   }
 }
 
-@media (max-width: 642px) {
+@media (max-width: 656px) {
   .NavbarGun {
     .logo img {
       width: 100px;
@@ -47,6 +47,24 @@
       }
       li {
         font-size: 16px;
+      }
+    }
+  }
+}
+
+@media (max-width: 495px) {
+  .NavbarGun {
+    .logo img {
+      margin-left: -10px;
+      width: auto;
+      height: 50px;
+    }
+    .list-menu {
+      ul {
+        gap: 10px;
+      }
+      li {
+        font-size: 12px;
       }
     }
   }
