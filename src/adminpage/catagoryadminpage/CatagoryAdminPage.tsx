@@ -124,7 +124,7 @@ const CatagoryAdminPage = () => {
   return (
     <div className="container-catagoryAdmin">
       <div className="header-catagoryAdmin">
-        <h1>Catagorys</h1>
+        <h1>หมวดหมู่สินค้า</h1>
       </div>
 
       <div className="create-catagory">

@@ -261,7 +261,7 @@ const CreateBookingAdminPage = () => {
       <div className="header-CreateAdmin">
         <h1>{bookingId ? "แก้ไขการจอง" : "สร้างการจอง"}</h1>
       </div>
-      <form onSubmit={handleSubmit(submit)} ref={formRef}>
+      <form className="content-CreateAdmin" onSubmit={handleSubmit(submit)} ref={formRef}>
         <div className="btn-back">
           <button
             type="button"
@@ -454,7 +454,6 @@ const CreateBookingAdminPage = () => {
               }}
             />
           </div>
-
           <div className="input-product">
             <Controller
               name="productId"

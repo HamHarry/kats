@@ -330,3 +330,15 @@
     padding-left: 220px;
   }
 }
+
+@media (max-width: 420px) {
+  .container-WithdrawAdminPage {
+    padding-left: 20px;
+  }
+
+  .header-WithdrawAdminPage {
+    h1 {
+      font-size: 32px;
+    }
+  }
+}

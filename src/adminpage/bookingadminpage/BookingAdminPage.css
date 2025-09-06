@@ -242,13 +242,13 @@
   height: 300px;
   .ant-modal-content {
     background-color: white;
-    border: 5px solid #2656a2;
+    border: 5px solid #043929;
     border-radius: 20px;
   }
   h1 {
     text-align: center;
     font-size: 50px;
-    color: #2656a2;
+    color: #043929;
   }
   .btn-DialogApprove-Navbar {
     display: flex;
@@ -258,375 +258,20 @@
     button {
       padding: 10px 20px;
       border-radius: 20px;
-      background-color: #2656a2;
+      background-color: #043929;
       color: white;
       font-size: 20px;
       border: none;
       cursor: pointer;
     }
     button:hover {
-      background-color: #1a3b7f;
-      text-shadow: 0 0 10px rgba(255, 255, 255, 0.8), 0 0 20px rgba(255, 255, 255, 0.6),
-        0 0 30px rgba(255, 255, 255, 0.4);
+      background-color: #05593d;
+      text-shadow: 0 0 10px #e6fff5, 0 0 20px #b3ffe0, 0 0 30px #80ffcc;
       transition: all 0.5s;
     }
   }
   .ant-modal-footer {
     display: none;
-  }
-}
-
-.container-Edit-Profile {
-  background-color: rgba(0, 0, 0, 0.4);
-  position: fixed;
-  top: 0px;
-  left: 300px;
-  width: 100%;
-  height: 100%;
-  z-index: 200;
-  .wrap-container-Edit-Profile {
-    position: fixed;
-    top: 50%;
-    left: 57.85%;
-    transform: translate(-50%, -50%);
-    width: 1400px;
-    height: 800px;
-    background-color: #2656a2;
-    border-radius: 20px;
-    .container-Edit-Profile-Navbar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 20px;
-      background-color: #2656a2;
-      border-radius: 20px;
-      button {
-        padding: 5px 10px;
-        border-radius: 10px;
-        background-color: white;
-        font-size: 18px;
-        border: none;
-        cursor: pointer;
-        h3 {
-          font-size: 26px;
-          color: #2656a2;
-        }
-      }
-      .fa-circle-xmark {
-        font-size: 30px;
-        cursor: pointer;
-        color: #ffffff;
-        transition: all 0.5s;
-      }
-      .fa-circle-xmark:hover {
-        color: red;
-        transition: all 0.5s;
-      }
-    }
-    .content-Profile {
-      display: flex;
-      justify-content: center;
-      height: 650px;
-      .card-profile {
-        display: flex;
-        flex-direction: column;
-        img {
-          width: 350px;
-          height: 200px;
-          border-radius: 20px;
-          border: 5px solid #ffffff;
-          margin-right: 20px;
-        }
-        .wrap-card-profile {
-          display: flex;
-          width: 100%;
-          .text-column-number {
-            display: flex;
-            align-items: center;
-            gap: 50px;
-            .text-number {
-              display: flex;
-              align-items: center;
-              gap: 55px;
-              h4 {
-                font-family: "Noto Sans Thai", serif;
-                font-size: 28px;
-                color: white;
-              }
-              input {
-                font-family: "Noto Sans Thai", serif;
-                font-size: 18px;
-                border-radius: 10px;
-                border: none;
-                padding: 4px;
-              }
-            }
-            .text-branch {
-              display: flex;
-              align-items: center;
-              gap: 10px;
-              h4 {
-                font-family: "Noto Sans Thai", serif;
-                font-size: 28px;
-                color: white;
-              }
-              p {
-                font-family: "Noto Sans Thai", serif;
-                font-size: 24px;
-                color: white;
-              }
-            }
-          }
-          .text-column-volume {
-            display: flex;
-            align-items: center;
-            gap: 50px;
-            .text-volume {
-              display: flex;
-              align-items: center;
-              gap: 55px;
-              h4 {
-                font-family: "Noto Sans Thai", serif;
-                font-size: 28px;
-                color: white;
-              }
-              input {
-                font-family: "Noto Sans Thai", serif;
-                font-size: 18px;
-                border-radius: 10px;
-                border: none;
-                padding: 4px;
-              }
-            }
-            .guadrantee {
-              display: flex;
-              gap: 5px;
-              .text-guadrantee-typeProduct {
-                display: flex;
-                align-items: center;
-                gap: 10px;
-                h4 {
-                  font-family: "Noto Sans Thai", serif;
-                  font-size: 28px;
-                  color: white;
-                }
-                input {
-                  font-family: "Noto Sans Thai", serif;
-                  font-size: 18px;
-                  border-radius: 10px;
-                  border: none;
-                  padding: 4px;
-                  width: 200px;
-                }
-              }
-              .text-guadrantee {
-                display: flex;
-                align-items: center;
-                gap: 10px;
-                h4 {
-                  font-family: "Noto Sans Thai", serif;
-                  font-size: 28px;
-                  color: white;
-                }
-                input {
-                  font-family: "Noto Sans Thai", serif;
-                  font-size: 18px;
-                  border-radius: 10px;
-                  border: none;
-                  padding: 4px;
-                  width: 200px;
-                }
-              }
-            }
-          }
-        }
-        .text-column-date {
-          display: flex;
-          align-items: center;
-          gap: 50px;
-          .text-date {
-            display: flex;
-            align-items: center;
-            gap: 68px;
-            h4 {
-              font-family: "Noto Sans Thai", serif;
-              font-size: 28px;
-              color: white;
-            }
-            input {
-              font-family: "Noto Sans Thai", serif;
-              font-size: 18px;
-              border-radius: 10px;
-              border: none;
-              padding: 4px;
-              width: 215px;
-            }
-          }
-          .text-car {
-            display: flex;
-            align-items: center;
-            gap: 26px;
-            h4 {
-              font-family: "Noto Sans Thai", serif;
-              font-size: 28px;
-              color: white;
-            }
-            input {
-              font-family: "Noto Sans Thai", serif;
-              font-size: 18px;
-              border-radius: 10px;
-              border: none;
-              padding: 4px;
-              margin-right: -20px;
-              width: 200px;
-            }
-          }
-        }
-        .text-column-name {
-          display: flex;
-          align-items: center;
-          gap: 50px;
-          .text-name {
-            display: flex;
-            align-items: center;
-            gap: 85px;
-            h4 {
-              font-family: "Noto Sans Thai", serif;
-              font-size: 28px;
-              color: white;
-            }
-            input {
-              font-family: "Noto Sans Thai", serif;
-              font-size: 18px;
-              border-radius: 10px;
-              border: none;
-              padding: 4px;
-            }
-          }
-          .text-register {
-            display: flex;
-            align-items: center;
-            gap: 21px;
-            h4 {
-              font-family: "Noto Sans Thai", serif;
-              font-size: 28px;
-              color: white;
-            }
-            input {
-              font-family: "Noto Sans Thai", serif;
-              font-size: 18px;
-              border-radius: 10px;
-              border: none;
-              padding: 4px;
-            }
-          }
-        }
-        .text-tel {
-          display: flex;
-          align-items: center;
-          gap: 59px;
-          h4 {
-            font-family: "Noto Sans Thai", serif;
-            font-size: 28px;
-            color: white;
-          }
-          input {
-            font-family: "Noto Sans Thai", serif;
-            font-size: 18px;
-            border-radius: 10px;
-            border: none;
-            padding: 4px;
-          }
-        }
-        hr {
-          padding: 2px;
-          background-color: #ffffff;
-          border-radius: 20px;
-          margin-top: 10px;
-          margin-bottom: 10px;
-        }
-        .guarante-date {
-          display: flex;
-          table {
-            width: 100%;
-            th {
-              font-family: "Noto Sans Thai", serif;
-              font-size: 26px;
-              color: white;
-              background-color: #2656a2;
-              border-radius: 10px;
-              text-align: center;
-            }
-            td {
-              font-family: "Noto Sans Thai", serif;
-              font-size: 22px;
-              color: white;
-              border-radius: 10px;
-              text-align: center;
-            }
-            .input-date {
-              display: flex;
-              justify-content: center;
-              padding: 4px;
-              border-radius: 10px;
-              width: 300px;
-              margin-right: -150px;
-              margin-left: 50px;
-              font-family: "Noto Sans Thai", serif;
-              border: none;
-              text-align: center;
-            }
-            .checkbox {
-              appearance: none;
-              width: 25px;
-              aspect-ratio: 1;
-              border-radius: 8px;
-              border: 2px solid white;
-              position: relative;
-              transition: all 0.2s ease-in-out;
-            }
-            .checkbox::before {
-              font-family: "Quicksand", sans-serif;
-              position: absolute;
-              bottom: -4px;
-              left: 1px;
-              content: "✔";
-              font-size: 30px;
-              color: rgb(255, 153, 0);
-              transform: scale(0);
-              transition: all 0.2s ease-in-out;
-            }
-            .checkbox:checked::before {
-              animation: zoom 0.5s ease-in-out;
-              transform: scale(1);
-            }
-            @keyframes zoom {
-              0% {
-                transform: scale(0);
-              }
-              20% {
-                transform: scale(1.5);
-              }
-              40% {
-                transform: scale(0.5);
-              }
-              50% {
-                transform: scale(1);
-              }
-              70% {
-                transform: scale(1.2);
-              }
-              90% {
-                transform: scale(0.8);
-              }
-              100% {
-                transform: scale(1);
-              }
-            }
-          }
-        }
-      }
-    }
   }
 }
 
@@ -650,5 +295,113 @@
 @media (max-width: 420px) {
   .container-BookingAdmin {
     padding-left: 20px;
+  }
+
+  .search-BookingAdmin {
+    select {
+      margin-left: 0px;
+    }
+    .search-content-right {
+      align-items: center;
+      gap: 5px;
+      margin-right: 0px;
+      input {
+        width: 120px;
+      }
+    }
+  }
+
+  .wrap-container-BookingAdmin {
+    height: 650px;
+    .grid-BookingAdmin {
+      width: 100%;
+      max-width: 300px;
+      .BookingAdmin-image {
+        margin-right: 5px;
+        img {
+          display: none;
+        }
+      }
+      .BookingAdmin-content {
+        width: 100%;
+      }
+      .text-p {
+        .icon {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          .icon-check-wait {
+            font-size: 20px;
+          }
+          .fa-circle {
+            font-size: 20px;
+          }
+          .icon-check-complete {
+            font-size: 20px;
+          }
+          .icon-check-cancel {
+            font-size: 20px;
+          }
+          .fa-wrench {
+            font-size: 20px;
+          }
+          .fa-pen-to-square {
+            font-size: 20px;
+          }
+          .fa-trash-can {
+            font-size: 20px;
+          }
+          .icon-pay {
+            font-size: 20px;
+          }
+        }
+      }
+      p {
+        font-size: 12px;
+      }
+      .licensePlate-approve {
+        .btn-approve {
+          button {
+            font-size: 14px;
+          }
+        }
+      }
+    }
+  }
+
+  .wrap-container-DialogPay {
+    min-width: 200px;
+    height: 350px;
+    .ImagePay {
+      img {
+        height: 300px;
+      }
+    }
+  }
+
+  .wrap-container-DialogDelete {
+    width: 300px !important;
+    height: 200px;
+    h1 {
+      font-size: 30px;
+    }
+    .btn-DialogDelete-Navbar {
+      button {
+        font-size: 15px;
+      }
+    }
+  }
+
+  .wrap-container-DialogApprove {
+    width: 300px !important;
+    height: 200px;
+    h1 {
+      font-size: 24px;
+    }
+    .btn-DialogApprove-Navbar {
+      button {
+        font-size: 16px;
+      }
+    }
   }
 }

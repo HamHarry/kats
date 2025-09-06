@@ -10,7 +10,7 @@ const HomePageGun = () => {
       <div className="header-HomePageGun">
         <h1>
           ยินดีต้อนรับ <br />
-          ศูนย์พ่นกันสนิม Gun Protection
+          ศูนย์พ่นกันสนิม Gun Protection สาขาลาดกระบัง
         </h1>
       </div>
 

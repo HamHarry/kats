@@ -60,3 +60,9 @@
     padding-left: 220px;
   }
 }
+
+@media (max-width: 420px) {
+  .container-catagoryAdmin {
+    padding-left: 20px;
+  }
+}

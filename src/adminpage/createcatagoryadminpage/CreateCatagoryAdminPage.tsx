@@ -78,10 +78,10 @@ const CreateCatagoryAdminPage = () => {
   return (
     <div className="container-createcategoryAdmin">
       <div className="header-createcategoryAdmin">
-        <h1>Create Category</h1>
+        <h1>สร้างหมวดหมู่สินค้า</h1>
       </div>
 
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form className="content-CatagoryAdmin" onSubmit={handleSubmit(onSubmit)}>
         <div className="btn-createcategoryAdmin">
           <button
             type="button"
