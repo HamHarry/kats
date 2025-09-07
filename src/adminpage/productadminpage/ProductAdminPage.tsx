@@ -188,6 +188,7 @@ const ProductAdminPage = () => {
       <div className="product-content" style={{ width: "100%" }}>
         <Table
           dataSource={products}
+          scroll={{ x: 600 }}
           columns={columns}
           pagination={{
             pageSize: 8,

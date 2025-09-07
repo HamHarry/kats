@@ -77,6 +77,10 @@
 @media (max-width: 420px) {
   .container-productAdmin {
     padding-left: 20px;
+
+    .ant-table-content {
+      height: 600px !important;
+    }
   }
 
   .product-content {

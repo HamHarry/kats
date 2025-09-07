@@ -189,7 +189,14 @@ const PermissionPage = () => {
       <div className="container-content-PermissionPage">
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="navbar-PermissionPage">
-            <div style={{ display: "flex", gap: "10px" }}>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                gap: "10px",
+              }}
+            >
               <button
                 type="button"
                 onClick={() => {

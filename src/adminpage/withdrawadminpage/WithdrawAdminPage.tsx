@@ -566,6 +566,7 @@ const WithdrawAdminPage = () => {
         <Table
           dataSource={withdrawData}
           columns={columns}
+          scroll={{ x: 1500 }}
           pagination={{
             pageSize: 8,
           }}

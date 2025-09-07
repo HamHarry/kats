@@ -131,3 +131,44 @@
     padding-left: 270px;
   }
 }
+
+@media (max-width: 420px) {
+  .container-TypeProduct {
+    padding-left: 20px;
+
+    input {
+      min-width: 200px;
+    }
+  }
+
+  .container-DialogTypeProduct {
+    display: flex;
+    .ant-modal-content {
+      background-color: #043929;
+    }
+    .container-DialogTypeProduct-navbar {
+      display: flex;
+      justify-content: end;
+      align-items: center;
+      .fa-circle-xmark {
+        font-size: 30px;
+        cursor: pointer;
+        color: #ffffff;
+        transition: all 0.5s;
+      }
+      .fa-circle-xmark:hover {
+        color: red;
+        transition: all 0.5s;
+      }
+    }
+
+    .container-DialogTypeProduct-content {
+      h2 {
+        color: #ffffff;
+      }
+      input {
+        width: 180px;
+      }
+    }
+  }
+}

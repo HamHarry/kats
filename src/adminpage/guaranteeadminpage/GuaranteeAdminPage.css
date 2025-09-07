@@ -667,6 +667,7 @@
     height: 700px;
     .grid-guaranteeAdmin {
       width: 100%;
+      max-width: 300px;
       .guaranteeAdmin-image {
         img {
           display: none;

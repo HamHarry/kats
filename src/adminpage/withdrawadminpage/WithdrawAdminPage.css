@@ -328,6 +328,10 @@
 @media (max-width: 1080px) {
   .container-WithdrawAdminPage {
     padding-left: 220px;
+
+    .ant-table-content {
+      height: 500px !important;
+    }
   }
 }
 
