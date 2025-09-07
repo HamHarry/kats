@@ -18,19 +18,31 @@
 }
 .contact:hover {
   cursor: pointer;
-  text-shadow: 0 0 10px rgba(255, 255, 255, 0.8),
-    0 0 20px rgba(255, 255, 255, 0.6), 0 0 30px rgba(255, 255, 255, 0.4);
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.8), 0 0 20px rgba(255, 255, 255, 0.6),
+    0 0 30px rgba(255, 255, 255, 0.4);
   transition: all 0.5s;
 }
 
-@media (max-width: 642px) {
+@media (max-width: 724px) {
   .FooterGun {
     font-size: 12px;
   }
 }
 
-@media (max-width: 470px) {
+@media (max-width: 610px) {
   .FooterGun {
     font-size: 10px;
+  }
+}
+
+@media (max-width: 510px) {
+  .FooterGun {
+    font-size: 9px;
+  }
+}
+
+@media (max-width: 440px) {
+  .FooterGun {
+    font-size: 8px;
   }
 }

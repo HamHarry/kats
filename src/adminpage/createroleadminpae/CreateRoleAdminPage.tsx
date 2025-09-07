@@ -277,7 +277,7 @@ const CreateRoleAdminPage = () => {
         <h1>บทบาท</h1>
       </div>
 
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form className="content-CreateAdmin" onSubmit={handleSubmit(onSubmit)}>
         <div className="btn-createroleAdmin">
           <button
             type="button"

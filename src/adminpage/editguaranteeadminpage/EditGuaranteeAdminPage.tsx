@@ -238,9 +238,9 @@ const EditGuaranteeAdminPage = () => {
   return (
     <div className="container-CreateAdmin">
       <div className="header-CreateAdmin">
-        <h1>Edit Guarantee</h1>
+        <h1>แก้ไขข้อมูลรับประกัน</h1>
       </div>
-      <form onSubmit={handleSubmit(submit)} ref={formRef}>
+      <form className="content-CreateAdmin" onSubmit={handleSubmit(submit)} ref={formRef}>
         <div className="btn-back">
           <button
             type="button"

@@ -173,7 +173,9 @@ const BinAdminPage = () => {
   const fetchAllExpense = useCallback(async () => {
     try {
       setIsBinLoading(true);
-      const { data: ExpensesRes = [] } = await dispath(getAllExpenses(DeleteStatus.ISDELETE)).unwrap();
+      const { data: ExpensesRes = [] } = await dispath(
+        getAllExpenses(DeleteStatus.ISDELETE)
+      ).unwrap();
 
       setExpenseDatas(ExpensesRes);
     } catch (error) {
@@ -971,6 +973,7 @@ const BinAdminPage = () => {
         <div className="content-boolings" style={{ width: "100%" }}>
           <Table
             dataSource={bookingDatas}
+            scroll={{ x: 1000 }}
             columns={columnBookings}
             pagination={{
               pageSize: 5,
@@ -997,6 +1000,7 @@ const BinAdminPage = () => {
         <div className="content-products" style={{ width: "100%" }}>
           <Table
             dataSource={productDatas}
+            scroll={{ x: 1000 }}
             pagination={{
               pageSize: 5,
             }}
@@ -1012,6 +1016,7 @@ const BinAdminPage = () => {
         <div className="content-catagorys" style={{ width: "100%" }}>
           <Table
             dataSource={catagoryDatas}
+            scroll={{ x: 1000 }}
             pagination={{
               pageSize: 5,
             }}
@@ -1025,7 +1030,7 @@ const BinAdminPage = () => {
       label: "แบรนด์สินค้า",
       children: (
         <div className="content-typeProduct" style={{ width: "100%" }}>
-          <Table dataSource={typeProductDatas} columns={columnTypeProducts} />
+          <Table scroll={{ x: 1000 }} dataSource={typeProductDatas} columns={columnTypeProducts} />
         </div>
       ),
     },
@@ -1039,6 +1044,7 @@ const BinAdminPage = () => {
         <div className="content-Expense" style={{ width: "100%" }}>
           <Table
             dataSource={expenseDatas}
+            scroll={{ x: 1000 }}
             pagination={{
               pageSize: 5,
             }}
@@ -1062,6 +1068,7 @@ const BinAdminPage = () => {
         <div className="content-Permission" style={{ width: "100%" }}>
           <Table
             dataSource={permissionDatas}
+            scroll={{ x: 1000 }}
             pagination={{
               pageSize: 5,
             }}

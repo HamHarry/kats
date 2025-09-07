@@ -228,7 +228,10 @@ const GuaranteeAdminPage = () => {
           })}
         </select>
 
-        <select className="btn-productName" onChange={(e) => setSelectedProductName(e.target.value)}>
+        <select
+          className="btn-productName"
+          onChange={(e) => setSelectedProductName(e.target.value)}
+        >
           <option value={"all"}>All</option>
           {productName.map((item, index) => {
             return (
@@ -438,7 +441,9 @@ const GuaranteeAdminPage = () => {
     <Modal
       centered
       className={
-        booking?.product.name === "KATS Coating" ? "wrap-container-Edit-Profile-kats" : "wrap-container-Edit-Profile-gun"
+        booking?.product.name === "KATS Coating"
+          ? "wrap-container-Edit-Profile-kats"
+          : "wrap-container-Edit-Profile-gun"
       }
       open={openDialogProfile}
       onCancel={() => {
@@ -602,11 +607,15 @@ const GuaranteeAdminPage = () => {
   return (
     <div className="container-guaranteeAdmin">
       <div className="header-guaranteeAdmin">
-        <h1>Guarantees</h1>
+        <h1>ข้อมูลรับประกัน</h1>
       </div>
       <div className="search-guaranteeAdmin">
         <div>{selectMenu()}</div>
-        <input type="text" placeholder="Search...(Name,Phone,Number)" onChange={(e) => handleSetSearchTerm(e.target.value)} />
+        <input
+          type="text"
+          placeholder="Search...(Name,Phone,Number)"
+          onChange={(e) => handleSetSearchTerm(e.target.value)}
+        />
       </div>
       <div className="wrap-container-guaranteeAdmin">
         {bookingDatas.map((item, index) => {

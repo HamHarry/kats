@@ -130,10 +130,10 @@ const CreateSalaryAdvanceAdminPage = () => {
   return (
     <div className="container-CreateSalaryAdvanceAdminPage">
       <div className="header-CreateSalaryAdvanceAdminPage">
-        <h1>Create Salary Advance</h1>
+        <h1>สร้างเบิกเงินเดือน</h1>
       </div>
 
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form className="content-CreateAdmin" onSubmit={handleSubmit(onSubmit)}>
         <div className="btn-CreateSalaryAdvanceAdminPage">
           <button
             type="button"

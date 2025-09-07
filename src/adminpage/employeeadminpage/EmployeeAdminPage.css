@@ -131,3 +131,40 @@
     padding-left: 220px;
   }
 }
+
+@media (max-width: 420px) {
+  .container-employeeAdmin {
+    padding-left: 20px;
+  }
+
+  .wrap-container-employeeAdmin {
+    height: 640px;
+    .employee-content {
+      img {
+        height: 70px;
+        width: 80px;
+        object-fit: cover;
+        border-radius: 50%;
+      }
+      .wrap-employee-content {
+        .text-p {
+          .icon {
+            .fa-pen-to-square {
+              font-size: 20px;
+              cursor: pointer;
+              color: #ffffff;
+            }
+            .fa-trash-can {
+              font-size: 20px;
+              cursor: pointer;
+              color: #ffffff;
+            }
+          }
+        }
+        p {
+          font-size: 16px;
+        }
+      }
+    }
+  }
+}

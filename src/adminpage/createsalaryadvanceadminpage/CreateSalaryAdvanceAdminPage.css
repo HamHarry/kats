@@ -139,3 +139,14 @@
     padding-left: 220px;
   }
 }
+
+@media (max-width: 420px) {
+  .container-CreateSalaryAdvanceAdminPage {
+    padding-left: 20px;
+  }
+
+  .wrap-container-CreateSalaryAdvanceAdminPage {
+    height: 500px;
+    width: 330px;
+  }
+}

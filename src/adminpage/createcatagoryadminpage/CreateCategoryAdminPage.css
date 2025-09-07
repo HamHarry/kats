@@ -82,6 +82,10 @@
 @media (max-width: 1280px) {
   .container-createcategoryAdmin {
     padding-left: 270px;
+
+    input {
+      min-width: 100px;
+    }
   }
 
   .wrap-container-createcategoryAdmin {
@@ -98,5 +102,39 @@
 @media (max-width: 1080px) {
   .container-createcategoryAdmin {
     padding-left: 220px;
+  }
+}
+
+@media (max-width: 420px) {
+  .container-createcategoryAdmin {
+    padding-left: 20px;
+  }
+
+  .header-createcategoryAdmin {
+    h1 {
+      font-size: 32px;
+    }
+  }
+
+  .content-CatagoryAdmin {
+    width: 100%;
+  }
+
+  .btn-createcategoryAdmin {
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 20px;
+  }
+
+  .wrap-container-createcategoryAdmin {
+    min-width: 300px;
+    .inputNameCategory {
+      gap: 50px;
+      font-size: 9px;
+    }
+    .inputCodeCatagory {
+      gap: 30px;
+      font-size: 9px;
+    }
   }
 }

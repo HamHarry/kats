@@ -187,3 +187,9 @@
     padding-left: 220px;
   }
 }
+
+@media (max-width: 420px) {
+  .container-binAdmin {
+    padding-left: 20px;
+  }
+}

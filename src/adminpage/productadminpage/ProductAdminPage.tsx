@@ -108,7 +108,7 @@ const ProductAdminPage = () => {
           <div
             style={{
               display: "flex",
-              gap: "5px",
+              gap: "2px",
             }}
           >
             {productDetails.map((productDetail: ProductDetail, index) => {
@@ -163,7 +163,7 @@ const ProductAdminPage = () => {
   return (
     <div className="container-productAdmin">
       <div className="header-productAdmin">
-        <h1>Products</h1>
+        <h1>สินค้า</h1>
       </div>
 
       <div className="create-product">
@@ -188,6 +188,7 @@ const ProductAdminPage = () => {
       <div className="product-content" style={{ width: "100%" }}>
         <Table
           dataSource={products}
+          scroll={{ x: 600 }}
           columns={columns}
           pagination={{
             pageSize: 8,

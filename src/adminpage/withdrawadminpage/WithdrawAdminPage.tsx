@@ -546,7 +546,7 @@ const WithdrawAdminPage = () => {
   return (
     <div className="container-WithdrawAdminPage">
       <div className="header-WithdrawAdminPage">
-        <h1>Withdraw & Salary Advance</h1>
+        <h1>ค่าใช้จ่าย & เบิกเงิน</h1>
       </div>
 
       <div className="create-withdraw">
@@ -566,6 +566,7 @@ const WithdrawAdminPage = () => {
         <Table
           dataSource={withdrawData}
           columns={columns}
+          scroll={{ x: 1500 }}
           pagination={{
             pageSize: 8,
           }}

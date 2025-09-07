@@ -73,3 +73,27 @@
     padding-left: 220px;
   }
 }
+
+@media (max-width: 420px) {
+  .container-productAdmin {
+    padding-left: 20px;
+
+    .ant-table-content {
+      height: 600px !important;
+    }
+  }
+
+  .product-content {
+    .ant-table {
+      height: 600px;
+      font-size: 9px;
+    }
+    .ant-typography {
+      font-size: 9px;
+    }
+  }
+
+  .ant-space-item {
+    font-size: 14px;
+  }
+}

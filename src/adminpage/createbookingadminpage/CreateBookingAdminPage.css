@@ -51,19 +51,6 @@
   border-radius: 20px;
   padding: 0px 20px 0px 20px;
   height: 700px;
-  .inputNumber {
-    display: flex;
-    align-items: center;
-    margin-left: 20px;
-    margin-top: 20px;
-    input {
-      padding: 5px;
-      width: 250px;
-      height: 30px;
-      border-radius: 20px;
-      border: 2px solid #043929;
-    }
-  }
   .input-Number {
     display: flex;
     gap: 20px;
@@ -362,5 +349,115 @@
 @media (max-width: 1080px) {
   .container-CreateAdmin {
     padding-left: 220px;
+  }
+}
+
+@media (max-width: 420px) {
+  .container-CreateAdmin {
+    padding-left: 20px;
+  }
+
+  .header-CreateAdmin {
+    height: 60px;
+    h1 {
+      font-size: 32px;
+    }
+  }
+
+  .btn-back {
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 20px;
+    button {
+      font-size: 18px;
+    }
+  }
+
+  .content-CreateAdmin {
+    width: 100%;
+  }
+
+  .wrap-container-CreateAdmin {
+    height: 1000px;
+    h2 {
+      font-size: 20px;
+    }
+    .input-Number {
+      flex-direction: column;
+      gap: 0px;
+      .inputVolume {
+        input {
+          width: 200px;
+        }
+      }
+      .inputNumber {
+        input {
+          width: 200px;
+        }
+      }
+    }
+    .input-Date {
+      flex-direction: column;
+      gap: 0px;
+      .inputDate {
+        .ant-picker-outlined {
+          padding: 5px;
+          width: 215px;
+        }
+      }
+    }
+    .input-Name {
+      gap: 0px;
+      flex-direction: column;
+      .inputName {
+        input {
+          width: 200px;
+        }
+      }
+      .inputTel {
+        input {
+          width: 200px;
+        }
+      }
+    }
+    .input-car {
+      flex-direction: column;
+      gap: 0px;
+      .inputCarType {
+        input {
+          width: 200px;
+        }
+      }
+      .inputCarModel {
+        input {
+          width: 200px;
+        }
+      }
+    }
+
+    .input-licensePlate {
+      display: flex;
+      flex-direction: column;
+      gap: 0px;
+      .inputRegister {
+        input {
+          width: 200px;
+        }
+      }
+      .inputProvince {
+        input {
+          width: 200px;
+        }
+      }
+    }
+    .input-product {
+      display: flex;
+      flex-direction: column;
+      gap: 0px;
+    }
+
+    .select-product {
+      width: 215px;
+    }
   }
 }

@@ -71,6 +71,7 @@
 
     h2 {
       color: white;
+      font-size: 24px;
     }
 
     .header-bookingCount {
@@ -126,5 +127,40 @@
 @media (max-width: 1080px) {
   .container-DocumentCountPage {
     padding-left: 220px;
+  }
+}
+
+@media (max-width: 420px) {
+  .container-DocumentCountPage {
+    padding-left: 20px;
+  }
+
+  .wrap-container-DocumentCountPage {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    .bookingCount-content {
+      width: 100%;
+      max-width: 320px;
+      .header-bookingCount {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        gap: 20px;
+      }
+
+      h2 {
+        font-size: 18px;
+      }
+    }
+
+    .content-bookingCount {
+      p {
+        font-size: 18px;
+      }
+      input {
+        max-width: 100px;
+      }
+    }
   }
 }

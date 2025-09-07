@@ -1,7 +1,13 @@
 import { Controller, useFieldArray, useForm } from "react-hook-form";
 import "./CreateWithdrawAdminPage.css";
 import { useNavigate, useParams } from "react-router-dom";
-import { CategoryType, CatagoryDetail, FinanceData, PaymentCategory, ExpenseStatus } from "../../model/finance.type";
+import {
+  CategoryType,
+  CatagoryDetail,
+  FinanceData,
+  PaymentCategory,
+  ExpenseStatus,
+} from "../../model/finance.type";
 import CircleLoading from "../../shared/circleLoading";
 import { useCallback, useEffect, useState } from "react";
 import { EmployeeData } from "../../model/employee.type";
@@ -141,10 +147,10 @@ const CreateWithdrawAdminPage = () => {
   return (
     <div className="container-CreateWithdrawAdminPage">
       <div className="header-CreateWithdrawAdminPage">
-        <h1>Create Withdraw</h1>
+        <h1>สร้างค่าใช้จ่าย</h1>
       </div>
 
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form className="content-CreateAdmin" onSubmit={handleSubmit(onSubmit)}>
         <div className="btn-CreateWithdrawAdminPage">
           <button
             type="button"
@@ -257,8 +263,12 @@ const CreateWithdrawAdminPage = () => {
                           >
                             <Select.Option value={CategoryType.FUEL}>ค่าน้ำมัน</Select.Option>
                             <Select.Option value={CategoryType.TRAVEL}>ค่าเดินทาง</Select.Option>
-                            <Select.Option value={CategoryType.ACCOMMODATION}>ค่าที่พัก</Select.Option>
-                            <Select.Option value={CategoryType.ALLOWANCE}>ค่าเบี้ยเลี้ยง</Select.Option>
+                            <Select.Option value={CategoryType.ACCOMMODATION}>
+                              ค่าที่พัก
+                            </Select.Option>
+                            <Select.Option value={CategoryType.ALLOWANCE}>
+                              ค่าเบี้ยเลี้ยง
+                            </Select.Option>
                             <Select.Option value={CategoryType.TRANSPORT}>ค่าขนส่ง</Select.Option>
                             <Select.Option value={CategoryType.TOOL}>ค่าอุปกรณ์</Select.Option>
                             <Select.Option value={CategoryType.MEDICAL}>ค่ารักษา</Select.Option>
@@ -273,7 +283,12 @@ const CreateWithdrawAdminPage = () => {
                       name={`categorys.${index}.amount`}
                       render={({ field }) => {
                         return (
-                          <InputNumber className="input-number" {...field} addonAfter="฿" placeholder="กรอกจำนวนเงิน" />
+                          <InputNumber
+                            className="input-number"
+                            {...field}
+                            addonAfter="฿"
+                            placeholder="กรอกจำนวนเงิน"
+                          />
                         );
                       }}
                     />

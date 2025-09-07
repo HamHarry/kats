@@ -192,5 +192,33 @@
 @media (max-width: 1080px) {
   .container-CreateWithdrawAdminPage {
     padding-left: 220px;
+
+    input {
+      min-width: 60px;
+    }
+  }
+}
+
+@media (max-width: 420px) {
+  .container-CreateWithdrawAdminPage {
+    padding-left: 20px;
+  }
+
+  .wrap-container-CreateWithdrawAdminPage {
+    height: 700px;
+    width: 315px;
+    margin-bottom: 20px;
+    .wrap-inputList {
+      .inputList {
+        overflow-y: auto;
+        .list-category {
+          padding-bottom: 5px;
+          display: flex;
+          .select-category {
+            width: 100px;
+          }
+        }
+      }
+    }
   }
 }

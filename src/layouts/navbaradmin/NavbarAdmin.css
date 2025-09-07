@@ -1,3 +1,21 @@
+.ant-btn-variant-solid {
+  display: none !important;
+}
+
+.ant-drawer-close {
+  display: none !important;
+}
+
+.ant-drawer-content {
+  background-color: #043929 !important;
+  color: white !important;
+}
+
+.ant-btn-variant-solid {
+  background-color: #043929 !important;
+  color: white !important;
+}
+
 .navbarAdmin {
   position: fixed;
   width: 300px;
@@ -39,18 +57,6 @@
           font-size: 16px;
           color: white;
         }
-      }
-    }
-    .content-right {
-      display: flex;
-      align-items: center;
-      margin: 0 20px 0 0px;
-      img {
-        width: 30px;
-        height: 30px;
-        border-radius: 50%;
-        border: 2px solid #ffffff;
-        cursor: pointer;
       }
     }
   }
@@ -218,17 +224,18 @@
     width: 200px;
     .logo-admin {
       img {
-        width: 160px;
+        width: 150px;
         height: auto;
+        padding-left: 10px;
       }
     }
     .user {
       .username {
         h3 {
-          font-size: 20px;
+          font-size: 16px !important;
         }
         p {
-          font-size: 14px;
+          font-size: 9px !important;
         }
       }
       .fa-circle-user {
@@ -238,10 +245,10 @@
     .usered {
       .username {
         h3 {
-          font-size: 20px;
+          font-size: 16px !important;
         }
         p {
-          font-size: 14px;
+          font-size: 9px !important;
         }
       }
       .fa-circle-user {
@@ -251,16 +258,112 @@
     .menu {
       ul {
         li {
+          .fa-image-portrait {
+            font-size: 24px;
+          }
+          .fa-book-bookmark {
+            font-size: 24px;
+          }
+          .fa-calendar-days {
+            font-size: 24px;
+          }
+          .fa-square-check {
+            font-size: 24px;
+          }
+          .fa-pen-to-square {
+            font-size: 24px;
+          }
+          .fa-wallet {
+            font-size: 24px;
+          }
+          .fa-hand-holding-dollar {
+            font-size: 24px;
+          }
+          .fa-file-invoice-dollar {
+            font-size: 24px;
+          }
+          .fa-trash-can {
+            font-size: 24px;
+          }
+          .fa-gear {
+            font-size: 24px;
+          }
           p {
-            font-size: 16px;
+            font-size: 14px;
           }
         }
       }
     }
     .logout {
+      .fa-arrow-right-from-bracket {
+        font-size: 20px;
+      }
       p {
-        font-size: 16px;
+        font-size: 12px;
       }
     }
+  }
+}
+
+@media (max-width: 420px) {
+  .ant-btn-variant-solid {
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    z-index: 150;
+    border: 2px solid white !important;
+  }
+  .ant-drawer-body {
+    display: flex;
+    flex-direction: column;
+    .content-left {
+      display: flex;
+      img {
+        margin: 0px 10px 0px 10px !important;
+      }
+    }
+    hr {
+      margin-top: 20px !important;
+      margin-bottom: 20px !important;
+    }
+    ul {
+      li {
+        display: flex;
+        align-items: center;
+        padding: 10px;
+        font-size: 14px;
+        gap: 10px;
+        cursor: pointer;
+      }
+    }
+    .logout {
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      padding-bottom: 16px;
+      padding-top: 16px;
+      padding-left: 10px;
+      border-top: solid 1px #ffffff;
+      width: 95%;
+      .fa-arrow-right-from-bracket {
+        font-size: 14px;
+        color: white;
+      }
+      p {
+        font-size: 14px;
+        color: white;
+        margin-left: 10px;
+      }
+    }
+  }
+
+  .navbarAdmin {
+    display: none;
   }
 }

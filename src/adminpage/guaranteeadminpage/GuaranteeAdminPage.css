@@ -59,6 +59,10 @@
   }
 }
 
+.content-CreateAdmin {
+  width: 100%;
+}
+
 .wrap-container-guaranteeAdmin {
   display: flex;
   flex-direction: column;
@@ -477,325 +481,6 @@
   }
 }
 
-.wrap-container-Edit-Profile-kats {
-  .ant-modal-content {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    min-width: 1400px;
-    min-height: 800px;
-    border-radius: 20px;
-    background-color: #2656a2;
-  }
-  .ant-modal-footer {
-    display: none;
-  }
-  .container-Edit-Profile-Navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px;
-    background-color: #2656a2;
-    border-radius: 20px;
-    button {
-      padding: 5px 10px;
-      border-radius: 10px;
-      background-color: white;
-      font-size: 18px;
-      border: none;
-      cursor: pointer;
-      h3 {
-        font-size: 26px;
-        color: #2656a2;
-      }
-    }
-    .fa-circle-xmark {
-      font-size: 30px;
-      cursor: pointer;
-      color: #ffffff;
-      transition: all 0.5s;
-    }
-    .fa-circle-xmark:hover {
-      color: red;
-      transition: all 0.5s;
-    }
-  }
-  .content-Profile {
-    display: flex;
-    justify-content: center;
-    height: 700px;
-    .card-profile {
-      display: flex;
-      flex-direction: column;
-      .wrap-card-profile {
-        display: flex;
-        width: 100%;
-        .ImageProfile {
-          position: relative;
-          min-width: 350px;
-          height: 200px;
-          border-radius: 10px;
-          border: 5px solid #ffffff;
-          margin-right: 20px;
-          .IsImageProfile {
-            min-width: 350px;
-            height: 200px;
-          }
-          .IsNotImageProfile {
-            min-width: 350px;
-            height: 200px;
-          }
-          .fa-camera {
-            position: absolute;
-            left: 88%;
-            bottom: 5%;
-            font-size: 30px;
-            color: #ffffff;
-            cursor: pointer;
-          }
-          input {
-            display: none;
-          }
-        }
-        .text-column-number {
-          display: flex;
-          align-items: center;
-          .text-number {
-            display: flex;
-            align-items: center;
-            h4 {
-              font-size: 28px;
-              color: white;
-            }
-            p {
-              font-size: 24px;
-              color: white;
-            }
-          }
-          .text-branch {
-            display: flex;
-            align-items: center;
-            h4 {
-              font-size: 28px;
-              color: white;
-            }
-            p {
-              font-size: 24px;
-              color: white;
-            }
-          }
-        }
-        .text-column-volume {
-          display: flex;
-          align-items: center;
-          .text-volume {
-            display: flex;
-            align-items: center;
-            h4 {
-              font-size: 28px;
-              color: white;
-            }
-            p {
-              font-size: 24px;
-              color: white;
-            }
-          }
-          .guadrantee {
-            display: flex;
-            .text-guadrantee-typeProduct {
-              display: flex;
-              align-items: center;
-              h4 {
-                font-size: 28px;
-                color: white;
-              }
-              p {
-                font-size: 24px;
-                color: white;
-              }
-            }
-            .text-guadrantee {
-              display: flex;
-              align-items: center;
-              h4 {
-                font-size: 28px;
-                color: white;
-              }
-              p {
-                font-size: 24px;
-                color: white;
-              }
-            }
-          }
-        }
-      }
-      .text-column-date {
-        display: flex;
-        align-items: center;
-        .text-date {
-          display: flex;
-          align-items: center;
-          h4 {
-            font-size: 28px;
-            color: white;
-          }
-          p {
-            font-size: 24px;
-            color: white;
-          }
-        }
-        .text-car {
-          display: flex;
-          align-items: center;
-          h4 {
-            font-size: 28px;
-            color: white;
-          }
-          p {
-            font-size: 24px;
-            color: white;
-          }
-        }
-      }
-      .text-column-name {
-        display: flex;
-        align-items: center;
-        .text-name {
-          display: flex;
-          align-items: center;
-          h4 {
-            font-size: 28px;
-            color: white;
-          }
-          p {
-            font-size: 24px;
-            color: white;
-          }
-        }
-        .text-register {
-          display: flex;
-          align-items: center;
-          h4 {
-            font-size: 28px;
-            color: white;
-          }
-          p {
-            font-size: 24px;
-            color: white;
-          }
-        }
-      }
-      .text-tel {
-        display: flex;
-        align-items: center;
-        h4 {
-          font-size: 28px;
-          color: white;
-        }
-        p {
-          font-size: 24px;
-          color: white;
-        }
-      }
-      hr {
-        padding: 2px;
-        background-color: #ffffff;
-        border-radius: 20px;
-        margin-top: 10px;
-        margin-bottom: 10px;
-      }
-      .guarante-date {
-        display: flex;
-        table {
-          width: 100%;
-          th {
-            font-size: 26px;
-            color: white;
-            border-radius: 10px;
-            text-align: center;
-          }
-          td {
-            font-size: 22px;
-            color: white;
-            border-radius: 10px;
-            text-align: center;
-            .checkbox {
-              margin-top: 5px;
-              margin-bottom: -5px;
-            }
-          }
-          .input-time {
-            display: flex;
-            justify-content: center;
-            padding: 4px;
-            border-radius: 10px;
-            width: 100px;
-            border: none;
-            text-align: center;
-          }
-          .input-date {
-            display: flex;
-            justify-content: center;
-            padding: 4px;
-            border-radius: 10px;
-            width: 200px;
-            border: none;
-            text-align: center;
-          }
-          .checkbox {
-            appearance: none;
-            width: 25px;
-            aspect-ratio: 1;
-            border-radius: 8px;
-            border: 2px solid white;
-            position: relative;
-            transition: all 0.2s ease-in-out;
-          }
-          .checkbox::before {
-            font-family: "Quicksand", sans-serif;
-            position: absolute;
-            bottom: -4px;
-            left: 1px;
-            content: "✔";
-            font-size: 30px;
-            color: rgb(255, 153, 0);
-            transform: scale(0);
-            transition: all 0.2s ease-in-out;
-          }
-          .checkbox:checked::before {
-            animation: zoom 0.5s ease-in-out;
-            transform: scale(1);
-          }
-          @keyframes zoom {
-            0% {
-              transform: scale(0);
-            }
-            20% {
-              transform: scale(1.5);
-            }
-            40% {
-              transform: scale(0.5);
-            }
-            50% {
-              transform: scale(1);
-            }
-            70% {
-              transform: scale(1.2);
-            }
-            90% {
-              transform: scale(0.8);
-            }
-            100% {
-              transform: scale(1);
-            }
-          }
-        }
-      }
-    }
-  }
-}
-
 @media (max-width: 1280px) {
   .container-guaranteeAdmin {
     padding-left: 270px;
@@ -947,157 +632,84 @@
       }
     }
   }
-
-  .wrap-container-Edit-Profile-kats {
-    .ant-modal-content {
-      min-width: 800px;
-      min-height: 700px;
-    }
-    .content-Profile {
-      height: 500px;
-      .card-profile {
-        .wrap-card-profile {
-          .ImageProfile {
-            min-width: 250px;
-            height: 150px;
-            .IsImageProfile {
-              min-width: 250px;
-              height: 150px;
-            }
-            .IsNotImageProfile {
-              min-width: 250px;
-              height: 150px;
-            }
-            .fa-camera {
-              left: 83%;
-              bottom: 5%;
-              font-size: 25px;
-            }
-          }
-          .text-column-number {
-            gap: 0px;
-            .text-number {
-              h4 {
-                font-size: 20px;
-              }
-              p {
-                font-size: 16px;
-              }
-            }
-            .text-branch {
-              h4 {
-                font-size: 20px;
-              }
-              p {
-                font-size: 16px;
-              }
-            }
-          }
-          .text-column-volume {
-            gap: 0px;
-            .text-volume {
-              h4 {
-                font-size: 20px;
-              }
-              p {
-                font-size: 16px;
-              }
-            }
-            .guadrantee {
-              display: flex;
-              .text-guadrantee-typeProduct {
-                h4 {
-                  font-size: 20px;
-                }
-                p {
-                  font-size: 16px;
-                }
-              }
-              .text-guadrantee {
-                h4 {
-                  font-size: 20px;
-                }
-                p {
-                  font-size: 16px;
-                }
-              }
-            }
-          }
-        }
-        .text-column-date {
-          gap: 0px;
-          .text-date {
-            h4 {
-              font-size: 20px;
-            }
-            p {
-              font-size: 16px;
-            }
-          }
-          .text-car {
-            h4 {
-              font-size: 20px;
-            }
-            p {
-              font-size: 16px;
-            }
-          }
-        }
-        .text-column-name {
-          gap: 0px;
-          .text-name {
-            h4 {
-              font-size: 20px;
-            }
-            p {
-              font-size: 16px;
-            }
-          }
-          .text-register {
-            h4 {
-              font-size: 20px;
-            }
-            p {
-              font-size: 16px;
-            }
-          }
-        }
-        .text-tel {
-          gap: 0px;
-          h4 {
-            font-size: 20px;
-          }
-          p {
-            font-size: 16px;
-          }
-        }
-        hr {
-          padding: 1px;
-        }
-        .guarante-date {
-          gap: 0px;
-          table {
-            th {
-              font-size: 20px;
-            }
-            td {
-              font-size: 14px;
-            }
-            .input-time {
-              padding: 1px;
-            }
-            .input-date {
-              padding: 4px;
-            }
-          }
-        }
-      }
-    }
-  }
 }
 
 @media (max-width: 1080px) {
   .container-guaranteeAdmin {
     padding-left: 220px;
+  }
+}
+
+@media (max-width: 420px) {
+  .container-guaranteeAdmin {
+    padding-left: 20px;
+  }
+
+  .search-guaranteeAdmin {
+    input {
+      width: 100px;
+      height: 27px;
+      font-size: 12px;
+    }
+    select {
+      gap: 10px;
+      width: 50px;
+      height: 45px;
+    }
+
+    .btn-productName {
+      width: 80px;
+      height: 45px;
+    }
+  }
+
+  .wrap-container-guaranteeAdmin {
+    height: 700px;
+    .grid-guaranteeAdmin {
+      width: 100%;
+      max-width: 300px;
+      .guaranteeAdmin-image {
+        img {
+          display: none;
+        }
+      }
+      .guaranteeAdmin-content {
+        width: 90%;
+      }
+      .text-p {
+        .icon {
+          .icon-check-wait {
+            font-size: 20px;
+          }
+          .fa-circle {
+            font-size: 20px;
+          }
+          .icon-check-complete {
+            font-size: 20px;
+          }
+          .icon-check-cancel {
+            font-size: 20px;
+          }
+          .fa-wrench {
+            font-size: 25px;
+          }
+          .fa-square-check {
+            font-size: 20px;
+          }
+          .fa-pen-to-square {
+            font-size: 20px;
+          }
+          .fa-trash-can {
+            font-size: 20px;
+          }
+          .fa-square-check {
+            display: none;
+          }
+        }
+      }
+      p {
+        font-size: 14px;
+      }
+    }
   }
 }
