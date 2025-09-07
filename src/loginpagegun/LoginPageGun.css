@@ -72,8 +72,10 @@
 
 @media (max-width: 674px) {
   .container-login-gun {
+    height: 500px;
     width: 500px;
     .wrap-login-gun {
+      height: 300px;
       width: 490px;
       h1 {
         font-size: 48px;
@@ -103,7 +105,9 @@
 @media (max-width: 540px) {
   .container-login-gun {
     width: 400px;
+    height: 500px;
     .wrap-login-gun {
+      height: 300px;
       width: 390px;
       h1 {
         font-size: 36px;
@@ -132,8 +136,10 @@
 
 @media (max-width: 420px) {
   .container-login-gun {
+    height: 500px;
     width: 300px;
     .wrap-login-gun {
+      height: 300px;
       width: 290px;
       h1 {
         font-size: 36px;
