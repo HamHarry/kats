@@ -61,7 +61,6 @@
   border-radius: 20px;
   padding: 20px;
   height: 650px;
-  width: 700px;
   .inputEmployee {
     display: flex;
     flex-direction: column;
@@ -147,6 +146,5 @@
 
   .wrap-container-CreateSalaryAdvanceAdminPage {
     height: 500px;
-    width: 330px;
   }
 }
