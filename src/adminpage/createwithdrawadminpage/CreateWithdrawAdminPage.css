@@ -61,7 +61,6 @@
   border-radius: 20px;
   padding: 20px;
   height: 650px;
-  width: 700px;
   .inputEmployee {
     display: flex;
     flex-direction: column;
@@ -167,7 +166,6 @@
 
   .wrap-container-CreateWithdrawAdminPage {
     height: 500px;
-    width: 720px;
     .wrap-inputList {
       overflow-y: auto;
 
@@ -206,7 +204,6 @@
 
   .wrap-container-CreateWithdrawAdminPage {
     height: 700px;
-    width: 315px;
     margin-bottom: 20px;
     .wrap-inputList {
       .inputList {
