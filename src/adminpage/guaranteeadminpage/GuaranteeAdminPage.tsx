@@ -3,13 +3,7 @@ import "./GuaranteeAdminPage.css";
 import { BookingStatus, BookingData, CarStructure } from "../../model/booking.type";
 import { useAppDispatch } from "../../stores/store";
 import CircleLoading from "../../shared/circleLoading";
-import {
-  getAllBookingPaginations,
-  getBookingById,
-  isDeleteBookingById,
-  setBookingUpdateImg,
-  updateGuaranteeByBookingId,
-} from "../../stores/slices/bookingSlice";
+import { getAllBookingPaginations, getBookingById, isDeleteBookingById, setBookingUpdateImg, updateGuaranteeByBookingId } from "../../stores/slices/bookingSlice";
 import dayjs from "dayjs";
 import { Modal, Tooltip } from "antd";
 import { useNavigate } from "react-router-dom";
@@ -30,17 +24,7 @@ const defaultValues: GuaranteeForm = {
   guarantees: [],
 };
 
-const bookingTimeList = [
-  { time: "08:00" },
-  { time: "09:00" },
-  { time: "10:00" },
-  { time: "11:00" },
-  { time: "13:00" },
-  { time: "14:00" },
-  { time: "15:00" },
-  { time: "16:00" },
-  { time: "17:00" },
-];
+const bookingTimeList = [{ time: "08:00" }, { time: "09:00" }, { time: "10:00" }, { time: "11:00" }, { time: "13:00" }, { time: "14:00" }, { time: "15:00" }, { time: "16:00" }, { time: "17:00" }];
 
 const GuaranteeAdminPage = () => {
   const dispath = useAppDispatch();
@@ -123,10 +107,7 @@ const GuaranteeAdminPage = () => {
       const { data: bookingsRes = [] } = await dispath(getAllBookingPaginations(query)).unwrap();
 
       const finedData = bookingsRes.filter((item: BookingData) => {
-        return (
-          (item.status === BookingStatus.COMPLETED || item.status === BookingStatus.CHECKING) &&
-          item.delete === DeleteStatus.ISNOTDELETE
-        );
+        return (item.status === BookingStatus.COMPLETED || item.status === BookingStatus.CHECKING) && item.delete === DeleteStatus.ISNOTDELETE;
       });
 
       setBookingDatas(finedData);
@@ -208,12 +189,8 @@ const GuaranteeAdminPage = () => {
   };
 
   const selectMenu = () => {
-    const receiptBookNoList = bookingDataLites
-      .map((item) => item.receiptBookNo)
-      .filter((value, index, self) => self.indexOf(value) === index);
-    const productName = bookingDataLites
-      .map((item) => item.product.name)
-      .filter((value, index, self) => self.indexOf(value) === index);
+    const receiptBookNoList = bookingDataLites.map((item) => item.receiptBookNo).filter((value, index, self) => self.indexOf(value) === index);
+    const productName = bookingDataLites.map((item) => item.product.name).filter((value, index, self) => self.indexOf(value) === index);
 
     return (
       <div className="btn-menu">
@@ -228,10 +205,7 @@ const GuaranteeAdminPage = () => {
           })}
         </select>
 
-        <select
-          className="btn-productName"
-          onChange={(e) => setSelectedProductName(e.target.value)}
-        >
+        <select className="btn-productName" onChange={(e) => setSelectedProductName(e.target.value)}>
           <option value={"all"}>All</option>
           {productName.map((item, index) => {
             return (
@@ -407,12 +381,7 @@ const GuaranteeAdminPage = () => {
 
   const rederDialogDelete = () => {
     return (
-      <Modal
-        centered
-        className="wrap-container-DialogConfirm"
-        open={openDialogDelete}
-        onCancel={() => setOpenDialogDelete(false)}
-      >
+      <Modal centered className="wrap-container-DialogConfirm" open={openDialogDelete} onCancel={() => setOpenDialogDelete(false)}>
         <h1>ยืนยันการลบ</h1>
 
         <div className="btn-DialogConfirm-Navbar">
@@ -440,13 +409,12 @@ const GuaranteeAdminPage = () => {
   const rederBookingModal = () => (
     <Modal
       centered
-      className={
-        booking?.product.name === "KATS Coating"
-          ? "wrap-container-Edit-Profile-kats"
-          : "wrap-container-Edit-Profile-gun"
-      }
+      className={booking?.product.name === "KATS Coating" ? "wrap-container-Edit-Profile-kats" : "wrap-container-Edit-Profile-gun"}
       open={openDialogProfile}
       onCancel={() => {
+        setBooking(undefined);
+        setSelectBookingId(undefined);
+        setImageUrl(undefined);
         setOpenDialogProfile(false);
       }}
     >
@@ -458,6 +426,9 @@ const GuaranteeAdminPage = () => {
           <i
             className="fa-solid fa-circle-xmark"
             onClick={() => {
+              setBooking(undefined);
+              setSelectBookingId(undefined);
+              setImageUrl(undefined);
               setOpenDialogProfile(false);
             }}
           ></i>
@@ -469,12 +440,11 @@ const GuaranteeAdminPage = () => {
                 <img
                   style={{
                     objectFit: "cover",
-                    width: "300px",
+                    width: "350px",
                     height: "200px",
                   }}
-                  className={booking?.image === "" ? "IsNotImageProfile " : "IsImageProfile"}
                   src={imageUrl || getImagePath("booking", userInfo?.dbname, booking?.image)}
-                  alt="profile"
+                  alt={"Default"}
                 />
                 <label htmlFor="file" className="text-image">
                   <i className="fa-solid fa-camera"></i>
@@ -611,11 +581,7 @@ const GuaranteeAdminPage = () => {
       </div>
       <div className="search-guaranteeAdmin">
         <div>{selectMenu()}</div>
-        <input
-          type="text"
-          placeholder="Search...(Name,Phone,Number)"
-          onChange={(e) => handleSetSearchTerm(e.target.value)}
-        />
+        <input type="text" placeholder="Search...(Name,Phone,Number)" onChange={(e) => handleSetSearchTerm(e.target.value)} />
       </div>
       <div className="wrap-container-guaranteeAdmin">
         {bookingDatas.map((item, index) => {
@@ -671,8 +637,8 @@ const GuaranteeAdminPage = () => {
                       <i
                         className="fa-solid fa-square-check"
                         onClick={() => {
-                          setOpenDialogProfile(true);
                           setSelectBookingId(item._id);
+                          setOpenDialogProfile(true);
                         }}
                       ></i>
                     </Tooltip>
