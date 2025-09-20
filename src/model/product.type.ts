@@ -20,6 +20,7 @@ export interface TypeProductData {
 }
 
 export interface ProductDetail {
+  _id?: string;
   type: PRICE_TYPE;
   amount: number;
 }

@@ -2,24 +2,14 @@ import { Controller, useForm } from "react-hook-form";
 import "./CreateBookingAdminPage.css";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { DatePicker, Modal, Select } from "antd";
-import {
-  PRICE_TYPE,
-  ProductData,
-  ProductDetail,
-  ProductSnapshotData,
-} from "../../model/product.type";
+import { PRICE_TYPE, ProductData, ProductDetail, ProductSnapshotData } from "../../model/product.type";
 import { BookingStatus, BookingData } from "../../model/booking.type";
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { CloseCircleOutlined, FileAddFilled } from "@ant-design/icons";
 import { useAppDispatch } from "../../stores/store";
 import { getAllProducts } from "../../stores/slices/productSlice";
 import dayjs from "dayjs";
-import {
-  createBooking,
-  getBookingById,
-  setBookingUpdateImg,
-  updateBookingById,
-} from "../../stores/slices/bookingSlice";
+import { createBooking, getBookingById, setBookingUpdateImg, updateBookingById } from "../../stores/slices/bookingSlice";
 import CircleLoading from "../../shared/circleLoading";
 import { DeleteStatus } from "../../model/delete.type";
 import { useTranslation } from "react-i18next";
@@ -108,7 +98,7 @@ const CreateBookingAdminPage = () => {
       const bookingRes = data as BookingData;
       setBookingData(bookingRes);
       const priceIndex = bookingRes.product.productDetails.findIndex((item) => {
-        return JSON.stringify(item) === JSON.stringify(bookingRes.price);
+        return item._id === bookingRes.price._id;
       });
 
       setPriceData(bookingRes.product.productDetails ?? []);
@@ -171,9 +161,7 @@ const CreateBookingAdminPage = () => {
     try {
       setOpenDialogConfirm(false);
 
-      const findedProduct = productDatas?.find(
-        (item) => String(item._id) === String(value.productId)
-      );
+      const findedProduct = productDatas?.find((item) => String(item._id) === String(value.productId));
 
       if (!findedProduct) return;
 
@@ -233,12 +221,7 @@ const CreateBookingAdminPage = () => {
 
   const rederDialogConfirm = () => {
     return (
-      <Modal
-        centered
-        className="wrap-container-DialogConfirm"
-        open={openDialogConfirm}
-        onCancel={() => setOpenDialogConfirm(false)}
-      >
+      <Modal centered className="wrap-container-DialogConfirm" open={openDialogConfirm} onCancel={() => setOpenDialogConfirm(false)}>
         <h1>{t("ยืนยันการจอง")}</h1>
 
         <div className="btn-DialogConfirm-Navbar">
@@ -473,9 +456,7 @@ const CreateBookingAdminPage = () => {
                       onSelect={(value) => {
                         field.onChange(value);
 
-                        const findedProduct = productDatas?.find(
-                          (item) => String(item._id) === String(value)
-                        );
+                        const findedProduct = productDatas?.find((item) => String(item._id) === String(value));
 
                         if (findedProduct) {
                           setPriceData(findedProduct?.productDetails as any);
@@ -509,9 +490,7 @@ const CreateBookingAdminPage = () => {
                       value={field.value ?? undefined}
                       disabled={priceData.length === 0}
                       options={priceData.map((item, index) => ({
-                        label: `${item.type === PRICE_TYPE.LUXURY ? "luxury" : ""} ${
-                          item.amount
-                        } Baht`,
+                        label: `${item.type === PRICE_TYPE.LUXURY ? "luxury" : ""} ${item.amount} Baht`,
                         value: index,
                       }))}
                     />
@@ -529,11 +508,7 @@ const CreateBookingAdminPage = () => {
                 <div className="inputImage">
                   {getBookingSlipImage ? (
                     <div style={{ position: "relative" }}>
-                      <img
-                        src={getBookingSlipImage}
-                        alt=""
-                        style={{ width: "auto", height: "250px" }}
-                      />
+                      <img src={getBookingSlipImage} alt="" style={{ width: "auto", height: "250px" }} />
                       <CloseCircleOutlined
                         className="close-icon"
                         style={{
