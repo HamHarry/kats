@@ -79,6 +79,11 @@ export const deleteBookingById = createAsyncThunk("booking/deleteById", async (b
   return response;
 });
 
+export const getLastBookingNumber = createAsyncThunk("booking/getLastBookingNumber", async (): Promise<any> => {
+  const response = await bookingServices.getLastBookingNumber();
+  return response;
+});
+
 export const { setBookingUpdateImg } = bookingSlice.actions;
 
 export default bookingSlice.reducer;

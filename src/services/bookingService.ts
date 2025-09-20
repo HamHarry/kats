@@ -68,3 +68,9 @@ export const deleteBookingById = async (bookingId: string): Promise<any> => {
 
   return response;
 };
+
+export const getLastBookingNumber = async (): Promise<any> => {
+  const response = await HttpClient.get(`/bookings/last-booking-number`);
+
+  return response;
+};

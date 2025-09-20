@@ -9,7 +9,7 @@ import { CloseCircleOutlined, FileAddFilled } from "@ant-design/icons";
 import { useAppDispatch } from "../../stores/store";
 import { getAllProducts } from "../../stores/slices/productSlice";
 import dayjs from "dayjs";
-import { createBooking, getBookingById, setBookingUpdateImg, updateBookingById } from "../../stores/slices/bookingSlice";
+import { createBooking, getBookingById, getLastBookingNumber, setBookingUpdateImg, updateBookingById } from "../../stores/slices/bookingSlice";
 import CircleLoading from "../../shared/circleLoading";
 import { DeleteStatus } from "../../model/delete.type";
 import { useTranslation } from "react-i18next";
@@ -89,6 +89,18 @@ const CreateBookingAdminPage = () => {
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const initailBookingNumberForm = useCallback(async () => {
+    if (bookingId) return;
+
+    const { data } = await dispath(getLastBookingNumber()).unwrap();
+
+    reset({ ...defaultValues, number: data.number, receiptBookNo: data.receiptBookNo });
+  }, [bookingId, dispath, reset]);
+
+  useEffect(() => {
+    initailBookingNumberForm();
+  }, [initailBookingNumberForm]);
 
   const initailForm = useCallback(async () => {
     try {
