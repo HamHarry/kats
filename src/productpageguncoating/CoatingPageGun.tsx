@@ -2,13 +2,14 @@ import { useState } from "react";
 import "./CoatingPageGun.css";
 import { MockUpSlidesBlackImage } from "../data/MockUpSlideBlackImage";
 import { MockUpSlidesWhiteImage } from "../data/MockUpSlidesWhiteImage";
-import { MockUpTheparak } from "../data/MockUpTheparak";
+import { MockUpLatkrabang, MockUpTheparak } from "../data/MockUpTheparak";
 import { Carousel } from "antd";
 import { DampData } from "../data/MockUpSlideDamp";
 const CoatingPageGun = () => {
   const [dataImageBlack] = useState(MockUpSlidesBlackImage);
   const [dataImageWhite] = useState(MockUpSlidesWhiteImage);
   const [dataImageTheparak] = useState(MockUpTheparak);
+  const [dataImageLatkrabang] = useState(MockUpLatkrabang);
   const [dataImageDamp] = useState(DampData);
 
   return (
@@ -24,7 +25,7 @@ const CoatingPageGun = () => {
             <br />
             น้ำยาพ่นกันสนิมสีดำเงา สูตรน้ำ 100% ราคาและคุณภาพดีที่สุดในประเทศไทย
             <br />
-            นำเข้าจากมาเลเซียเมืองร้อยเกาะ ผู้เชี่ยวชาญด้านกรดเกลือที่มีทะเลล้อมรอบ
+            นำเข้าจากสหรัฐอเมริกา
             <br />- สำหรับพ่นกันสนิมใต้ท้องรถยนต์
             <br />- ไม่ลอกล่อน สูตรน้ำ100%
             <br />- ไม่กัดซีลยาง ไม่ติดไฟ ไม่มีสารระเหย ไม่มีสารก่อมะเร็ง
@@ -72,7 +73,7 @@ const CoatingPageGun = () => {
             <br />
             น้ำยาพ่นกันสนิมแบบเก็บเสียงพร้อมกันกระแทก
             <br />
-            นำเข้าจากมาเลเซียเมืองร้อยเกาะ ผู้เชี่ยวชาญด้านกรดเกลือที่มีทะเลล้อมรอบ
+            นำเข้าจากสหรัฐอเมริกา
             <br />- กันกระแทก กันเสียง กันสนิมในตัวเดียวกัน 3in1
             <br />- ไม่ลอกล่อน สูตรน้ำ100%
             <br />- ไม่กัดซีลยาง ไม่ติดไฟ ไม่มีสารระเหย ไม่มีสารก่อมะเร็ง
@@ -130,9 +131,9 @@ const CoatingPageGun = () => {
       <div className="branch-theparak">
         <div className="text-box-theparak">
           <p>
-            GUN Protection Coatings พ่นกันสนิมรถยนต์
+            ศูนย์พ่นกันสนิม GUN Protection
             <br />
-            สูตรน้ำ ไร้กลิ่น ปลอดภัย สาขาเทพารักษ์
+            สาขาเทพารักษ์
           </p>
 
           <img src="/assets/gun/theparak/theparak.jpg" alt="map" />
@@ -167,6 +168,55 @@ const CoatingPageGun = () => {
               })}
 
               {dataImageTheparak.map((item, index) => {
+                return (
+                  <div className="slide" key={index}>
+                    <img src={item.image} alt="image" />
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="branch-theparak">
+        <div className="text-box-theparak">
+          <p>
+            ศูนย์พ่นกันสนิม GUN Protection
+            <br />
+            สาขาลาดกระบัง
+          </p>
+
+          <img src="/assets/G_latkrabang.jpg" alt="map" />
+
+          <button
+            type="button"
+            onClick={() => {
+              window.open("https://maps.app.goo.gl/WHSbN9FzMSPNPqKU6");
+            }}
+          >
+            แผนที่
+          </button>
+        </div>
+        <div className="image-preview-theparak">
+          <img
+            src="/assets/gun/latkrabang/gunlatkrabangpage.jpg"
+            alt="page"
+            onClick={() => {
+              window.open("https://www.facebook.com/profile.php?id=100063764464833");
+            }}
+          />
+          <div className="content-preview-theparak">
+            <div className="slide-track-theparak">
+              {dataImageLatkrabang.map((item, index) => {
+                return (
+                  <div className="slide" key={index}>
+                    <img src={item.image} alt="image" />
+                  </div>
+                );
+              })}
+
+              {dataImageLatkrabang.map((item, index) => {
                 return (
                   <div className="slide" key={index}>
                     <img src={item.image} alt="image" />

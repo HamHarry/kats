@@ -18,3 +18,24 @@ export const MockUpTheparak = [
     image: "/assets/gun/theparak/theparak6.jpg",
   },
 ];
+
+export const MockUpLatkrabang = [
+  {
+    image: "/public/assets/gun/latkrabang/1.jpg",
+  },
+  {
+    image: "/public/assets/gun/latkrabang/2.jpg",
+  },
+  {
+    image: "/public/assets/gun/latkrabang/3.jpg",
+  },
+  {
+    image: "/public/assets/gun/latkrabang/4.jpg",
+  },
+  {
+    image: "/public/assets/gun/latkrabang/5.jpg",
+  },
+  {
+    image: "/public/assets/gun/latkrabang/6.jpg",
+  },
+];
