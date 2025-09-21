@@ -19,9 +19,17 @@ const BookingPageGun = () => {
   const fetchAllBooking = useCallback(async () => {
     try {
       setIsBookingLoading(true);
-      const { data: bookingsRes = [] } = await dispath(getAllBookingForPreview(DeleteStatus.ISNOTDELETE)).unwrap();
-
-      setBookingData(bookingsRes);
+      const { data: bookingsRes = [] } = await dispath(
+        getAllBookingForPreview(DeleteStatus.ISNOTDELETE)
+      ).unwrap();
+      
+      const sorted = [...bookingsRes].sort((a, b) => {
+        const na = parseInt(a.number ?? '0', 10);
+        const nb = parseInt(b.number ?? '0', 10);
+        return na - nb; // น้อย -> มาก
+      });
+  
+      setBookingData(sorted);
     } catch (error) {
       console.log(error);
     } finally {
