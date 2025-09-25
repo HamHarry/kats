@@ -22,9 +22,13 @@ const CalendarAdminPage = () => {
       ).unwrap();
 
       const sorted = [...bookingsRes].sort((a, b) => {
-        const na = parseInt(a.number ?? "0", 10);
-        const nb = parseInt(b.number ?? "0", 10);
-        return na - nb; // น้อย -> มาก
+        const [ah, am] = a.bookTime.split(":").map(Number);
+        const [bh, bm] = b.bookTime.split(":").map(Number);
+
+        const na = ah * 60 + am;
+        const nb = bh * 60 + bm;
+
+        return na - nb;
       });
 
       setBookingData(sorted);
