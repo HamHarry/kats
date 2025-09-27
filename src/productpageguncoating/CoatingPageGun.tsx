@@ -192,7 +192,7 @@ const CoatingPageGun = () => {
           <button
             type="button"
             onClick={() => {
-              window.open("https://maps.app.goo.gl/WHSbN9FzMSPNPqKU6");
+              window.open("https://maps.app.goo.gl/BovCTtAYmZAiPyd79?g_st=ipc");
             }}
           >
             แผนที่
