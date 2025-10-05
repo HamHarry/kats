@@ -82,6 +82,15 @@ const NavbarAdmin = () => {
         <div className="menu">
           <ul>
             <li
+              className={location.pathname.includes("dashboard") ? "selected" : "select"}
+              onClick={() => {
+                navigate("/admin/dashboard");
+              }}
+            >
+              <i className="fa-brands fa-trello"></i>
+              <p>{t("แดชบอร์ด")}</p>
+            </li>
+            <li
               className={location.pathname.includes("employee") ? "selected" : "select"}
               onClick={() => {
                 navigate("/admin/employee");

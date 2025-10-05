@@ -50,7 +50,7 @@ const LoginPage = () => {
       await dispatch(login(item)).unwrap();
       await dispatch(restoreProfile());
 
-      navigate("/admin/booking");
+      navigate("/admin/dashboard");
     } catch (error) {
       alert("email and password is wrong");
       console.log(error);

@@ -37,6 +37,7 @@ import PrivateRoutes from "./routes/PrivateRoutes.tsx";
 import { useSelector } from "react-redux";
 import CircleLoading from "./shared/circleLoading.tsx";
 import LoginPageGun from "./loginpagegun/LoginPageGun.tsx";
+import DashBoardPage from "./adminpage/dashboardpage/DashBoardPage.tsx";
 
 function App() {
   const dispatch = useAppDispatch();
@@ -66,6 +67,7 @@ function App() {
         <Route path="/admin" element={<PrivateRoutes isAuthented={isAuthented} />}>
           <Route path="/admin" element={<Navigate to="user" />} />
           <Route path="/admin" element={<LayoutAdmin />}>
+            <Route path="dashboard" element={<DashBoardPage />} />
             <Route path="user/:employeeId" element={<CreateEmployeeAdminPage />} />
             <Route path="employee" element={<EmployeeAdminPage />} />
             <Route path="employee/create" element={<CreateEmployeeAdminPage />} />
