@@ -139,6 +139,10 @@
           0 0 30px rgba(255, 255, 255, 0.4);
         transition: all 0.5s;
       }
+      .fa-trello {
+        font-size: 40px;
+        color: white;
+      }
       .fa-user {
         font-size: 40px;
         color: white;

@@ -17,12 +17,184 @@
   width: 100%;
   border-radius: 20px;
   background-color: #043929;
-  margin-bottom: 20px;
   h1 {
     display: flex;
     justify-content: center;
     align-items: center;
     font-size: 42px;
     color: white;
+  }
+}
+
+.wrap-container-dashBoradAdminPage {
+  display: flex;
+  .navbar-dashboard {
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    gap: 10px;
+    .grid-dashboard {
+      display: flex;
+      flex-direction: column;
+      min-width: 300px;
+      border: 2px solid #043929;
+      border-radius: 15px;
+      background-color: #043929;
+      padding: 10px;
+      h2 {
+        font-size: 20px;
+        color: white;
+      }
+    }
+  }
+}
+
+.wrap-grid-showBooking {
+  display: flex;
+  padding-top: 10px;
+  .grid-showBooking-left {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    img {
+      display: flex;
+      width: 100px;
+      justify-content: center;
+      align-items: center;
+      border-radius: 50%;
+      border: 2px solid white;
+    }
+  }
+
+  .grid-showBooking-right {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    padding-left: 20px;
+    p {
+      font-size: 14px;
+      color: white;
+    }
+  }
+}
+
+.wrap-grid-totalBooking {
+  display: flex;
+  justify-content: space-around;
+  padding-top: 10px;
+  .grid-totalBooking-left {
+    display: flex;
+    align-items: center;
+    .box {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #ffd86b;
+      padding: 0px 10px 0px 10px;
+      border-radius: 10px;
+      h2 {
+        margin-top: 3px;
+        margin-right: 3px;
+        font-size: 36px;
+        color: #043929;
+      }
+    }
+  }
+
+  .grid-totalBooking-right {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    p {
+      font-size: 14px;
+      color: white;
+    }
+  }
+}
+
+.wrap-grid-financial {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-top: 20px;
+  .grid-financial-top {
+    display: flex;
+    justify-content: space-around;
+    .grid-financial-left {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      p {
+        font-size: 14px;
+        color: white;
+      }
+      h2 {
+        color: #4aff88;
+      }
+    }
+
+    .grid-financial-right {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      p {
+        font-size: 14px;
+        color: white;
+      }
+      h2 {
+        color: #ff4d4f;
+      }
+    }
+  }
+
+  .grid-financial-bottom {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 10px;
+    color: white;
+  }
+}
+
+.wrap-grid-employee {
+  display: flex;
+  justify-content: space-around;
+  padding-top: 20px;
+  .grid-employee-left {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    p {
+      font-size: 14px;
+      color: #ffa726;
+      font-weight: bold;
+    }
+    .tap-employee {
+      display: flex;
+      h2 {
+        font-size: 32px;
+      }
+    }
+  }
+
+  .grid-employee-right {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    p {
+      font-size: 14px;
+      color: #ff4d4f;
+      font-weight: bold;
+    }
+    .tap-employee {
+      display: flex;
+      h2 {
+        font-size: 32px;
+      }
+    }
   }
 }
