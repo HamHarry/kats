@@ -1,6 +1,12 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import CircleLoading from "../../shared/circleLoading";
 import "./DashBoardPage.css";
+import { EmployeeData } from "../../model/employee.type";
+import { useAppDispatch } from "../../stores/store";
+import { getAllEmployees } from "../../stores/slices/employeeSlice";
+import { getImagePath } from "../../shared/utils/common";
+import { useSelector } from "react-redux";
+import { userInfoSelector } from "../../stores/slices/authSlice";
 
 const thaiMonths = [
   "มกราคม",
@@ -19,12 +25,35 @@ const thaiMonths = [
 const thaiDays = ["อา.", "จ.", "อ.", "พ.", "พฤ.", "ศ.", "ส."];
 
 const DashBoardPage = () => {
+  const dispath = useAppDispatch();
+  const userInfo = useSelector(userInfoSelector);
   const [isDashBoardLoading, setIsDashBoardLoading] = useState<boolean>(false);
+  const [employeeData, setEmployeeData] = useState<EmployeeData[]>([]);
   const [currentTime, setCurrentTime] = useState(new Date());
   const dayName = thaiDays[currentTime.getDay()];
   const date = currentTime.getDate();
   const month = thaiMonths[currentTime.getMonth()];
   const year = currentTime.getFullYear() + 543;
+
+  const fetchAllEmployee = useCallback(async () => {
+    try {
+      setIsDashBoardLoading(true);
+
+      const { data: employeesRes = [] } = await dispath(
+        getAllEmployees()
+      ).unwrap();
+
+      setEmployeeData(employeesRes);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsDashBoardLoading(false);
+    }
+  }, [dispath]);
+
+  useEffect(() => {
+    fetchAllEmployee();
+  }, [fetchAllEmployee]);
 
   useEffect(() => {
     const timerId = setInterval(() => {
@@ -137,7 +166,46 @@ const DashBoardPage = () => {
           </div>
         </div>
 
-        <div className="content-dashboard"></div>
+        <h1>ตารางการเข้า-ออกงาน ของพนักงาน</h1>
+
+        <div className="content-dashboard">
+          <div className="wrap-content-dashboard-left">
+            {employeeData.map((item, index) => {
+              return (
+                <div className="wrap-grid-employee-name">
+                  <div key={index} className="grid-employee-name">
+                    <img
+                      src={getImagePath(
+                        "profile",
+                        userInfo?.dbname,
+                        item?.image
+                      )}
+                      alt="profile"
+                    />
+                    <div className="employee-name">
+                      {item.firstName} {item.lastName}
+                      <p>สถานะ</p>
+                    </div>
+                  </div>
+
+                  <div className="checking">
+                    <td>
+                      <input className="checkbox" type="checkbox" />
+                    </td>
+                    <td>
+                      <input className="checkbox" type="checkbox" />
+                    </td>
+                    <td>
+                      <input className="checkbox" type="checkbox" />
+                    </td>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+
+          <div className="content-dashboard-right">s</div>
+        </div>
       </div>
       <CircleLoading open={isDashBoardLoading} />
     </div>

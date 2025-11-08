@@ -28,6 +28,7 @@
 
 .wrap-container-dashBoradAdminPage {
   display: flex;
+  flex-direction: column;
   .navbar-dashboard {
     display: grid;
     grid-template-columns: auto auto auto auto;
@@ -194,6 +195,39 @@
       display: flex;
       h2 {
         font-size: 32px;
+      }
+    }
+  }
+}
+
+.content-dashboard {
+  display: grid;
+  grid-template-columns: 3fr 1fr;
+  .wrap-content-dashboard-left {
+    display: flex;
+    flex-direction: column;
+    .wrap-grid-employee-name {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      .grid-employee-name {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 5px;
+        img {
+          display: flex;
+          width: 80px;
+          height: 80px;
+          justify-content: center;
+          align-items: center;
+          border-radius: 50%;
+        }
+
+        .employee-name {
+          display: flex;
+          flex-direction: column;
+        }
       }
     }
   }
