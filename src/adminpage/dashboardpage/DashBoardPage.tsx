@@ -30,6 +30,7 @@ const DashBoardPage = () => {
   const [isDashBoardLoading, setIsDashBoardLoading] = useState<boolean>(false);
   const [employeeData, setEmployeeData] = useState<EmployeeData[]>([]);
   const [currentTime, setCurrentTime] = useState(new Date());
+  const [selected, setSelected] = useState<string>("attend");
   const dayName = thaiDays[currentTime.getDay()];
   const date = currentTime.getDate();
   const month = thaiMonths[currentTime.getMonth()];
@@ -166,10 +167,13 @@ const DashBoardPage = () => {
           </div>
         </div>
 
-        <h1>ตารางการเข้า-ออกงาน ของพนักงาน</h1>
-
         <div className="content-dashboard">
           <div className="wrap-content-dashboard-left">
+            <div className="header-content-dashboard-left">
+              <i className="fa-solid fa-user"></i>
+              <h1>เข้า-ออกงาน ของพนักงาน</h1>
+            </div>
+
             {employeeData.map((item, index) => {
               return (
                 <div className="wrap-grid-employee-name">
@@ -189,15 +193,36 @@ const DashBoardPage = () => {
                   </div>
 
                   <div className="checking">
-                    <td>
-                      <input className="checkbox" type="checkbox" />
-                    </td>
-                    <td>
-                      <input className="checkbox" type="checkbox" />
-                    </td>
-                    <td>
-                      <input className="checkbox" type="checkbox" />
-                    </td>
+                    <div
+                      className={
+                        selected === "missing"
+                          ? "checkbox-Missing-work-selected"
+                          : "checkbox-Missing-work"
+                      }
+                      onClick={() => setSelected("missing")}
+                    >
+                      ขาดงาน
+                    </div>
+                    <div
+                      className={
+                        selected === "leave"
+                          ? "checkbox-Leave-work-selected"
+                          : "checkbox-Leave-work"
+                      }
+                      onClick={() => setSelected("leave")}
+                    >
+                      ลางาน
+                    </div>
+                    <div
+                      className={
+                        selected === "attend"
+                          ? "checkbox-Attend-work-selected"
+                          : "checkbox-Attend-work"
+                      }
+                      onClick={() => setSelected("attend")}
+                    >
+                      เข้างาน
+                    </div>
                   </div>
                 </div>
               );
