@@ -4,3 +4,9 @@ export const getImagePath = (mode: string, dbName?: string, image?: string): str
 
   return `${url}/${dbName}/${mode}/${image}`;
 };
+
+export const formatNumberWithComma = (num: number | string): string => {
+  const number = typeof num === "string" ? parseFloat(num) : num;
+  if (isNaN(number)) return "0";
+  return number.toLocaleString("th-TH");
+};
