@@ -11,7 +11,20 @@ import { getDashboardSummary } from "../../stores/slices/dashboardSlice";
 import { DashboardSummary } from "../../model/dashboard.type";
 import dayjs from "dayjs";
 
-const thaiMonths = ["มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม"];
+const thaiMonths = [
+  "มกราคม",
+  "กุมภาพันธ์",
+  "มีนาคม",
+  "เมษายน",
+  "พฤษภาคม",
+  "มิถุนายน",
+  "กรกฎาคม",
+  "สิงหาคม",
+  "กันยายน",
+  "ตุลาคม",
+  "พฤศจิกายน",
+  "ธันวาคม",
+];
 const thaiDays = ["อา.", "จ.", "อ.", "พ.", "พฤ.", "ศ.", "ส."];
 
 const DashBoardPage = () => {
@@ -22,8 +35,10 @@ const DashBoardPage = () => {
   const [employeeData, setEmployeeData] = useState<EmployeeData[]>([]);
   const [currentTime, setCurrentTime] = useState(new Date());
   const [selected, setSelected] = useState<string>("attend");
-  const [summaryDataForYear, setSummaryDataForYear] = useState<DashboardSummary>();
-  const [summaryDataForMonth, setSummaryDataForMonth] = useState<DashboardSummary>();
+  const [summaryDataForYear, setSummaryDataForYear] =
+    useState<DashboardSummary>();
+  const [summaryDataForMonth, setSummaryDataForMonth] =
+    useState<DashboardSummary>();
 
   const dayName = thaiDays[currentTime.getDay()];
   const date = currentTime.getDate();
@@ -34,7 +49,9 @@ const DashBoardPage = () => {
     try {
       setIsDashBoardLoading(true);
 
-      const { data: employeesRes = [] } = await dispath(getAllEmployees()).unwrap();
+      const { data: employeesRes = [] } = await dispath(
+        getAllEmployees()
+      ).unwrap();
 
       setEmployeeData(employeesRes);
     } catch (error) {
@@ -50,11 +67,15 @@ const DashBoardPage = () => {
 
   const fetchSummaryData = useCallback(async () => {
     try {
-      const { data: SummaryDataForYearRes } = await dispath(getDashboardSummary({ startDate: "", endDate: "" })).unwrap();
+      const { data: SummaryDataForYearRes } = await dispath(
+        getDashboardSummary({ startDate: "", endDate: "" })
+      ).unwrap();
 
       const startMonth = dayjs().startOf("month").format("YYYY-MM-DD");
       const endMonth = dayjs().endOf("month").format("YYYY-MM-DD");
-      const { data: SummaryDataForMonthRes } = await dispath(getDashboardSummary({ startDate: startMonth, endDate: endMonth })).unwrap();
+      const { data: SummaryDataForMonthRes } = await dispath(
+        getDashboardSummary({ startDate: startMonth, endDate: endMonth })
+      ).unwrap();
 
       setSummaryDataForYear(SummaryDataForYearRes);
       setSummaryDataForMonth(SummaryDataForMonthRes);
@@ -134,45 +155,71 @@ const DashBoardPage = () => {
           </div>
 
           <div className="grid-dashboard">
-            <h2>ข้อมูล รายรับ/รายจ่าย เดือนนี้</h2>
+            <h2>รายรับ/รายจ่าย เดือนปัจจุบัน</h2>
 
             <div className="wrap-grid-financial">
               <div className="grid-financial-top">
                 <div className="grid-financial-left">
                   <p>รายรับ</p>
-                  <h2>{formatNumberWithComma(summaryDataForMonth?.bookingsRevenue.totalRevenue || 0)} บาท</h2>
+                  <h2>
+                    {formatNumberWithComma(
+                      summaryDataForMonth?.bookingsRevenue.totalRevenue || 0
+                    )}{" "}
+                    บาท
+                  </h2>
                 </div>
 
                 <div className="grid-financial-right">
                   <p>รายจ่าย</p>
-                  <h2>{formatNumberWithComma(summaryDataForMonth?.expensesByCategory.total || 0)} บาท</h2>
+                  <h2>
+                    {formatNumberWithComma(
+                      summaryDataForMonth?.expensesByCategory.total || 0
+                    )}{" "}
+                    บาท
+                  </h2>
                 </div>
               </div>
 
               <div className="grid-financial-bottom">
-                <h1>{formatNumberWithComma(summaryDataForMonth?.netProfit || 0)} บาท</h1>
+                <h1>
+                  {formatNumberWithComma(summaryDataForMonth?.netProfit || 0)}{" "}
+                  บาท
+                </h1>
               </div>
             </div>
           </div>
 
           <div className="grid-dashboard">
-            <h2>ข้อมูล รายรับ/รายจ่าย ทั้งปี</h2>
+            <h2>รายรับ/รายจ่าย ทั้งปี</h2>
 
             <div className="wrap-grid-financial">
               <div className="grid-financial-top">
                 <div className="grid-financial-left">
                   <p>รายรับ</p>
-                  <h2>{formatNumberWithComma(summaryDataForYear?.bookingsRevenue.totalRevenue || 0)} บาท</h2>
+                  <h2>
+                    {formatNumberWithComma(
+                      summaryDataForYear?.bookingsRevenue.totalRevenue || 0
+                    )}{" "}
+                    บาท
+                  </h2>
                 </div>
 
                 <div className="grid-financial-right">
                   <p>รายจ่าย</p>
-                  <h2>{formatNumberWithComma(summaryDataForYear?.expensesByCategory.total || 0)} บาท</h2>
+                  <h2>
+                    {formatNumberWithComma(
+                      summaryDataForYear?.expensesByCategory.total || 0
+                    )}{" "}
+                    บาท
+                  </h2>
                 </div>
               </div>
 
               <div className="grid-financial-bottom">
-                <h1>{formatNumberWithComma(summaryDataForYear?.netProfit || 0)} บาท</h1>
+                <h1>
+                  {formatNumberWithComma(summaryDataForYear?.netProfit || 0)}{" "}
+                  บาท
+                </h1>
               </div>
             </div>
           </div>
@@ -189,7 +236,14 @@ const DashBoardPage = () => {
               return (
                 <div className="wrap-grid-employee-name">
                   <div key={index} className="grid-employee-name">
-                    <img src={getImagePath("profile", userInfo?.dbname, item?.image)} alt="profile" />
+                    <img
+                      src={getImagePath(
+                        "profile",
+                        userInfo?.dbname,
+                        item?.image
+                      )}
+                      alt="profile"
+                    />
                     <div className="employee-name">
                       {item.firstName} {item.lastName}
                       <p>สถานะ</p>
@@ -197,13 +251,34 @@ const DashBoardPage = () => {
                   </div>
 
                   <div className="checking">
-                    <div className={selected === "missing" ? "checkbox-Missing-work-selected" : "checkbox-Missing-work"} onClick={() => setSelected("missing")}>
+                    <div
+                      className={
+                        selected === "missing"
+                          ? "checkbox-Missing-work-selected"
+                          : "checkbox-Missing-work"
+                      }
+                      onClick={() => setSelected("missing")}
+                    >
                       ขาดงาน
                     </div>
-                    <div className={selected === "leave" ? "checkbox-Leave-work-selected" : "checkbox-Leave-work"} onClick={() => setSelected("leave")}>
+                    <div
+                      className={
+                        selected === "leave"
+                          ? "checkbox-Leave-work-selected"
+                          : "checkbox-Leave-work"
+                      }
+                      onClick={() => setSelected("leave")}
+                    >
                       ลางาน
                     </div>
-                    <div className={selected === "attend" ? "checkbox-Attend-work-selected" : "checkbox-Attend-work"} onClick={() => setSelected("attend")}>
+                    <div
+                      className={
+                        selected === "attend"
+                          ? "checkbox-Attend-work-selected"
+                          : "checkbox-Attend-work"
+                      }
+                      onClick={() => setSelected("attend")}
+                    >
                       เข้างาน
                     </div>
                   </div>
@@ -212,7 +287,7 @@ const DashBoardPage = () => {
             })}
           </div>
 
-          <div className="content-dashboard-right">s</div>
+          <div className="content-dashboard-right">coming soon</div>
         </div>
       </div>
       <CircleLoading open={isDashBoardLoading} />

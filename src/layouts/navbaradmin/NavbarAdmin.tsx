@@ -2,7 +2,11 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 import "./NavbarAdmin.css";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
-import { employeeDataSelector, logOut, userInfoSelector } from "../../stores/slices/authSlice";
+import {
+  employeeDataSelector,
+  logOut,
+  userInfoSelector,
+} from "../../stores/slices/authSlice";
 import { getImagePath } from "../../shared/utils/common";
 import { Button, Drawer } from "antd";
 import { useState } from "react";
@@ -47,7 +51,11 @@ const NavbarAdmin = () => {
                     navigate(`/admin/user/${employeeData._id}`);
                   }
                 }}
-                src={getImagePath("profile", userInfo?.dbname, employeeData?.image)}
+                src={getImagePath(
+                  "profile",
+                  userInfo?.dbname,
+                  employeeData?.image
+                )}
                 alt="logo"
                 style={{
                   width: "42px",
@@ -82,7 +90,9 @@ const NavbarAdmin = () => {
         <div className="menu">
           <ul>
             <li
-              className={location.pathname.includes("dashboard") ? "selected" : "select"}
+              className={
+                location.pathname.includes("dashboard") ? "selected" : "select"
+              }
               onClick={() => {
                 navigate("/admin/dashboard");
               }}
@@ -91,7 +101,9 @@ const NavbarAdmin = () => {
               <p>{t("แดชบอร์ด")}</p>
             </li>
             <li
-              className={location.pathname.includes("employee") ? "selected" : "select"}
+              className={
+                location.pathname.includes("employee") ? "selected" : "select"
+              }
               onClick={() => {
                 navigate("/admin/employee");
               }}
@@ -100,7 +112,9 @@ const NavbarAdmin = () => {
               <p>{t("ข้อมูลพนักงาน")}</p>
             </li>
             <li
-              className={location.pathname.includes("booking") ? "selected" : "select"}
+              className={
+                location.pathname.includes("booking") ? "selected" : "select"
+              }
               onClick={() => {
                 navigate("/admin/booking");
               }}
@@ -109,7 +123,9 @@ const NavbarAdmin = () => {
               <p>{t("จองคิว")}</p>
             </li>
             <li
-              className={location.pathname.includes("calendar") ? "selected" : "select"}
+              className={
+                location.pathname.includes("calendar") ? "selected" : "select"
+              }
               onClick={() => {
                 navigate("/admin/calendar");
               }}
@@ -118,7 +134,9 @@ const NavbarAdmin = () => {
               <p>{t("ปฏิทินการจอง")}</p>
             </li>
             <li
-              className={location.pathname.includes("guarantee") ? "selected" : "select"}
+              className={
+                location.pathname.includes("guarantee") ? "selected" : "select"
+              }
               onClick={() => {
                 navigate("/admin/guarantee");
               }}
@@ -127,7 +145,9 @@ const NavbarAdmin = () => {
               <p>{t("ข้อมูลรับประกัน")}</p>
             </li>
             <li
-              className={location.pathname.includes("product") ? "selected" : "select"}
+              className={
+                location.pathname.includes("product") ? "selected" : "select"
+              }
               onClick={() => {
                 navigate("/admin/product");
               }}
@@ -136,7 +156,9 @@ const NavbarAdmin = () => {
               <p>{t("สินค้า")}</p>
             </li>
             <li
-              className={location.pathname.includes("withdraw") ? "selected" : "select"}
+              className={
+                location.pathname.includes("withdraw") ? "selected" : "select"
+              }
               onClick={() => {
                 navigate("/admin/withdraw");
               }}
@@ -163,7 +185,9 @@ const NavbarAdmin = () => {
             <p>{t("การเงิน")}</p>
           </li> */}
             <li
-              className={location.pathname.includes("bin") ? "selected" : "select"}
+              className={
+                location.pathname.includes("bin") ? "selected" : "select"
+              }
               onClick={() => {
                 navigate("/admin/bin");
               }}
@@ -172,7 +196,9 @@ const NavbarAdmin = () => {
               <p>{t("คืนค่าข้อมูล")}</p>
             </li>
             <li
-              className={location.pathname.includes("setting") ? "selected" : "select"}
+              className={
+                location.pathname.includes("setting") ? "selected" : "select"
+              }
               onClick={() => {
                 navigate(`/admin/setting`);
               }}
@@ -191,7 +217,7 @@ const NavbarAdmin = () => {
           <i className="fa-solid fa-arrow-right-from-bracket"></i>
           <p>{t("ออกจากระบบ")}</p>
           <div className="version">
-            <p>v.1.0.1</p>
+            <p>v.1.1.0</p>
           </div>
         </div>
       </div>
@@ -219,7 +245,11 @@ const NavbarAdmin = () => {
                     setOpen(false);
                   }
                 }}
-                src={getImagePath("profile", userInfo?.dbname, employeeData?.image)}
+                src={getImagePath(
+                  "profile",
+                  userInfo?.dbname,
+                  employeeData?.image
+                )}
                 alt="logo"
                 style={{
                   width: "42px",
@@ -255,7 +285,20 @@ const NavbarAdmin = () => {
         <div className="mobile-menu">
           <ul>
             <li
-              className={location.pathname.includes("employee") ? "selected" : "select"}
+              className={
+                location.pathname.includes("dashboard") ? "selected" : "select"
+              }
+              onClick={() => {
+                navigate("/admin/dashboard");
+              }}
+            >
+              <i className="fa-brands fa-trello"></i>
+              <p>{t("แดชบอร์ด")}</p>
+            </li>
+            <li
+              className={
+                location.pathname.includes("employee") ? "selected" : "select"
+              }
               onClick={() => {
                 navigate("/admin/employee");
                 setOpen(false);
@@ -265,7 +308,9 @@ const NavbarAdmin = () => {
               <p>{t("ข้อมูลพนักงาน")}</p>
             </li>
             <li
-              className={location.pathname.includes("booking") ? "selected" : "select"}
+              className={
+                location.pathname.includes("booking") ? "selected" : "select"
+              }
               onClick={() => {
                 navigate("/admin/booking");
                 setOpen(false);
@@ -275,7 +320,9 @@ const NavbarAdmin = () => {
               <p>{t("จองคิว")}</p>
             </li>
             <li
-              className={location.pathname.includes("calendar") ? "selected" : "select"}
+              className={
+                location.pathname.includes("calendar") ? "selected" : "select"
+              }
               onClick={() => {
                 navigate("/admin/calendar");
                 setOpen(false);
@@ -285,7 +332,9 @@ const NavbarAdmin = () => {
               <p>{t("ปฏิทินการจอง")}</p>
             </li>
             <li
-              className={location.pathname.includes("guarantee") ? "selected" : "select"}
+              className={
+                location.pathname.includes("guarantee") ? "selected" : "select"
+              }
               onClick={() => {
                 navigate("/admin/guarantee");
                 setOpen(false);
@@ -295,7 +344,9 @@ const NavbarAdmin = () => {
               <p>{t("ข้อมูลรับประกัน")}</p>
             </li>
             <li
-              className={location.pathname.includes("product") ? "selected" : "select"}
+              className={
+                location.pathname.includes("product") ? "selected" : "select"
+              }
               onClick={() => {
                 navigate("/admin/product");
                 setOpen(false);
@@ -305,7 +356,9 @@ const NavbarAdmin = () => {
               <p>{t("สินค้า")}</p>
             </li>
             <li
-              className={location.pathname.includes("withdraw") ? "selected" : "select"}
+              className={
+                location.pathname.includes("withdraw") ? "selected" : "select"
+              }
               onClick={() => {
                 navigate("/admin/withdraw");
                 setOpen(false);
@@ -335,7 +388,9 @@ const NavbarAdmin = () => {
             <p>{t("การเงิน")}</p>
           </li> */}
             <li
-              className={location.pathname.includes("bin") ? "selected" : "select"}
+              className={
+                location.pathname.includes("bin") ? "selected" : "select"
+              }
               onClick={() => {
                 navigate("/admin/bin");
                 setOpen(false);
@@ -345,7 +400,9 @@ const NavbarAdmin = () => {
               <p>{t("คืนค่าข้อมูล")}</p>
             </li>
             <li
-              className={location.pathname.includes("setting") ? "selected" : "select"}
+              className={
+                location.pathname.includes("setting") ? "selected" : "select"
+              }
               onClick={() => {
                 navigate(`/admin/setting`);
                 setOpen(false);
@@ -366,7 +423,7 @@ const NavbarAdmin = () => {
           <i className="fa-solid fa-arrow-right-from-bracket"></i>
           <p>{t("ออกจากระบบ")}</p>
           <div className="version">
-            <p>v.1.0.1</p>
+            <p>v.1.1.0</p>
           </div>
         </div>
       </Drawer>

@@ -69,8 +69,8 @@
       margin: 0 20px 0 10px;
       color: white;
       cursor: pointer;
-      text-shadow: 0 0 10px rgba(255, 255, 255, 0.8), 0 0 20px rgba(255, 255, 255, 0.6),
-        0 0 30px rgba(255, 255, 255, 0.4);
+      text-shadow: 0 0 10px rgba(255, 255, 255, 0.8),
+        0 0 20px rgba(255, 255, 255, 0.6), 0 0 30px rgba(255, 255, 255, 0.4);
     }
     .content-left {
       display: flex;
@@ -126,8 +126,8 @@
         margin-left: 10px;
         margin-bottom: 20px;
         cursor: pointer;
-        text-shadow: 0 0 10px rgba(255, 255, 255, 0.8), 0 0 20px rgba(255, 255, 255, 0.6),
-          0 0 30px rgba(255, 255, 255, 0.4);
+        text-shadow: 0 0 10px rgba(255, 255, 255, 0.8),
+          0 0 20px rgba(255, 255, 255, 0.6), 0 0 30px rgba(255, 255, 255, 0.4);
       }
       p {
         font-size: 18px;
@@ -135,8 +135,8 @@
         margin-left: 20px;
       }
       li:hover {
-        text-shadow: 0 0 10px rgba(255, 255, 255, 0.8), 0 0 20px rgba(255, 255, 255, 0.6),
-          0 0 30px rgba(255, 255, 255, 0.4);
+        text-shadow: 0 0 10px rgba(255, 255, 255, 0.8),
+          0 0 20px rgba(255, 255, 255, 0.6), 0 0 30px rgba(255, 255, 255, 0.4);
         transition: all 0.5s;
       }
       .fa-trello {
@@ -211,8 +211,8 @@
     }
   }
   .logout:hover {
-    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8), 0 0 20px rgba(255, 255, 255, 0.6),
-      0 0 30px rgba(255, 255, 255, 0.4);
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8),
+      0 0 20px rgba(255, 255, 255, 0.6), 0 0 30px rgba(255, 255, 255, 0.4);
     transition: all 0.5s;
   }
 }
@@ -262,6 +262,9 @@
     .menu {
       ul {
         li {
+          .fa-trello {
+            font-size: 24px;
+          }
           .fa-image-portrait {
             font-size: 24px;
           }

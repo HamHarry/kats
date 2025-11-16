@@ -50,7 +50,7 @@ const LoginPageGun = () => {
       await dispatch(login(item)).unwrap();
       await dispatch(restoreProfile());
 
-      navigate("/admin/booking");
+      navigate("/admin/dashboard");
     } catch (error) {
       alert("email and password is wrong");
       console.log(error);
@@ -85,7 +85,11 @@ const LoginPageGun = () => {
                 return (
                   <>
                     <h2>Password</h2>
-                    <input {...field} type="password" placeholder="Password..." />
+                    <input
+                      {...field}
+                      type="password"
+                      placeholder="Password..."
+                    />
                     <p className="error">{errors.password?.message}</p>
                   </>
                 );
