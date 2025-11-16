@@ -35,10 +35,7 @@ const DashBoardPage = () => {
   const [employeeData, setEmployeeData] = useState<EmployeeData[]>([]);
   const [currentTime, setCurrentTime] = useState(new Date());
   const [selected, setSelected] = useState<string>("attend");
-  const [summaryDataForYear, setSummaryDataForYear] =
-    useState<DashboardSummary>();
-  const [summaryDataForMonth, setSummaryDataForMonth] =
-    useState<DashboardSummary>();
+  const [summaryData, setSummaryData] = useState<DashboardSummary>();
 
   const dayName = thaiDays[currentTime.getDay()];
   const date = currentTime.getDate();
@@ -67,18 +64,13 @@ const DashBoardPage = () => {
 
   const fetchSummaryData = useCallback(async () => {
     try {
-      const { data: SummaryDataForYearRes } = await dispath(
-        getDashboardSummary({ startDate: "", endDate: "" })
-      ).unwrap();
-
       const startMonth = dayjs().startOf("month").format("YYYY-MM-DD");
       const endMonth = dayjs().endOf("month").format("YYYY-MM-DD");
       const { data: SummaryDataForMonthRes } = await dispath(
         getDashboardSummary({ startDate: startMonth, endDate: endMonth })
       ).unwrap();
 
-      setSummaryDataForYear(SummaryDataForYearRes);
-      setSummaryDataForMonth(SummaryDataForMonthRes);
+      setSummaryData(SummaryDataForMonthRes);
     } catch (error) {
       console.log(error);
     }
@@ -141,15 +133,23 @@ const DashBoardPage = () => {
             <div className="wrap-grid-totalBooking">
               <div className="grid-totalBooking-left">
                 <div className="box">
-                  <h2>10</h2>
+                  <h2>
+                    {(summaryData?.month.bookingsRevenuePending.bookingCount ||
+                      0) +
+                      (summaryData?.month.bookingsRevenue.bookingCount || 0)}
+                  </h2>
                 </div>
               </div>
 
               <div className="grid-totalBooking-right">
                 <p>เสร็จแล้ว</p>
-                <h2 style={{ color: "#4AFF88" }}>7</h2>
+                <h2 style={{ color: "#4AFF88" }}>
+                  {summaryData?.month.bookingsRevenue.bookingCount || 0}
+                </h2>
                 <p>กำลังดำเนินการ</p>
-                <h2 style={{ color: "#FBFB00" }}>3</h2>
+                <h2 style={{ color: "#FBFB00" }}>
+                  {summaryData?.month.bookingsRevenuePending.bookingCount || 0}
+                </h2>
               </div>
             </div>
           </div>
@@ -163,7 +163,7 @@ const DashBoardPage = () => {
                   <p>รายรับ</p>
                   <h2>
                     {formatNumberWithComma(
-                      summaryDataForMonth?.bookingsRevenue.totalRevenue || 0
+                      summaryData?.month.bookingsRevenue.totalRevenue || 0
                     )}{" "}
                     บาท
                   </h2>
@@ -173,7 +173,7 @@ const DashBoardPage = () => {
                   <p>รายจ่าย</p>
                   <h2>
                     {formatNumberWithComma(
-                      summaryDataForMonth?.expensesByCategory.total || 0
+                      summaryData?.month.expensesByCategory.total || 0
                     )}{" "}
                     บาท
                   </h2>
@@ -182,8 +182,7 @@ const DashBoardPage = () => {
 
               <div className="grid-financial-bottom">
                 <h1>
-                  {formatNumberWithComma(summaryDataForMonth?.netProfit || 0)}{" "}
-                  บาท
+                  {formatNumberWithComma(summaryData?.month.netProfit || 0)} บาท
                 </h1>
               </div>
             </div>
@@ -198,7 +197,7 @@ const DashBoardPage = () => {
                   <p>รายรับ</p>
                   <h2>
                     {formatNumberWithComma(
-                      summaryDataForYear?.bookingsRevenue.totalRevenue || 0
+                      summaryData?.year.bookingsRevenue.totalRevenue || 0
                     )}{" "}
                     บาท
                   </h2>
@@ -208,7 +207,7 @@ const DashBoardPage = () => {
                   <p>รายจ่าย</p>
                   <h2>
                     {formatNumberWithComma(
-                      summaryDataForYear?.expensesByCategory.total || 0
+                      summaryData?.year.expensesByCategory.total || 0
                     )}{" "}
                     บาท
                   </h2>
@@ -217,8 +216,7 @@ const DashBoardPage = () => {
 
               <div className="grid-financial-bottom">
                 <h1>
-                  {formatNumberWithComma(summaryDataForYear?.netProfit || 0)}{" "}
-                  บาท
+                  {formatNumberWithComma(summaryData?.year.netProfit || 0)} บาท
                 </h1>
               </div>
             </div>

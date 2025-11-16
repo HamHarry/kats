@@ -1,7 +1,7 @@
 export interface BookingsRevenue {
   totalRevenue: number;
   bookingCount: number;
-  averageRevenue: number;
+  averageRevenue?: number;
 }
 
 export enum ExpenseCategory {
@@ -29,8 +29,14 @@ export interface ExpensesByCategory {
   total: number;
 }
 
-export interface DashboardSummary {
+export interface DashboardPeriod {
   bookingsRevenue: BookingsRevenue;
+  bookingsRevenuePending: BookingsRevenue;
   expensesByCategory: ExpensesByCategory;
   netProfit: number;
+}
+
+export interface DashboardSummary {
+  year: DashboardPeriod;
+  month: DashboardPeriod;
 }
