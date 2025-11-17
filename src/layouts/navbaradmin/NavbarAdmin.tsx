@@ -368,25 +368,29 @@ const NavbarAdmin = () => {
               <p>{t("ค่าใช้จ่าย & เบิกเงิน")}</p>
             </li>
             {/* <li
-            className={location.pathname.includes('salary')? "selected" : "select"}
-            onClick={() => {
-              navigate("/admin/salary");
-              setOpen(false);
-            }}
-          >
-            <i className="fa-solid fa-hand-holding-dollar"></i>
-            <p>{t("เงินเดือน")}</p>
-          </li>
-          <li
-            className={location.pathname.includes('finace') ? "selected" : "select"}
-            onClick={() => {
-              navigate("/admin/finance");
-              setOpen(false);
-            }}
-          >
-            <i className="fa-solid fa-file-invoice-dollar"></i>
-            <p>{t("การเงิน")}</p>
-          </li> */}
+              className={
+                location.pathname.includes("salary") ? "selected" : "select"
+              }
+              onClick={() => {
+                navigate("/admin/salary");
+                setOpen(false);
+              }}
+            >
+              <i className="fa-solid fa-hand-holding-dollar"></i>
+              <p>{t("เงินเดือน")}</p>
+            </li> */}
+            <li
+              className={
+                location.pathname.includes("finace") ? "selected" : "select"
+              }
+              onClick={() => {
+                navigate("/admin/finance");
+                setOpen(false);
+              }}
+            >
+              <i className="fa-solid fa-file-invoice-dollar"></i>
+              <p>{t("การเงิน")}</p>
+            </li>
             <li
               className={
                 location.pathname.includes("bin") ? "selected" : "select"
