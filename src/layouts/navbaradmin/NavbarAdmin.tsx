@@ -174,16 +174,18 @@ const NavbarAdmin = () => {
           >
             <i className="fa-solid fa-hand-holding-dollar"></i>
             <p>{t("เงินเดือน")}</p>
-          </li>
-          <li
-            className={location.pathname.includes('finace') ? "selected" : "select"}
-            onClick={() => {
-              navigate("/admin/finance");
-            }}
-          >
-            <i className="fa-solid fa-file-invoice-dollar"></i>
-            <p>{t("การเงิน")}</p>
           </li> */}
+            <li
+              className={
+                location.pathname.includes("finace") ? "selected" : "select"
+              }
+              onClick={() => {
+                navigate("/admin/finance");
+              }}
+            >
+              <i className="fa-solid fa-file-invoice-dollar"></i>
+              <p>{t("การเงิน")}</p>
+            </li>
             <li
               className={
                 location.pathname.includes("bin") ? "selected" : "select"

@@ -285,7 +285,10 @@ const DashBoardPage = () => {
             })}
           </div>
 
-          <div className="content-dashboard-right">coming soon</div>
+          <div className="content-dashboard-right">
+            <img src="/public/assets/LOGOWEB.jpg" alt="" />
+            Comming Soon...
+          </div>
         </div>
       </div>
       <CircleLoading open={isDashBoardLoading} />

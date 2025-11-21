@@ -143,12 +143,8 @@
         font-size: 36px;
         color: white;
       }
-      .fa-user {
-        font-size: 34px;
-        color: white;
-      }
       .fa-image-portrait {
-        font-size: 34px;
+        font-size: 38px;
         color: white;
       }
       .fa-book-bookmark {
@@ -168,7 +164,7 @@
         color: white;
       }
       .fa-wallet {
-        font-size: 34px;
+        font-size: 32px;
         color: white;
       }
       .fa-hand-holding-dollar {
@@ -176,7 +172,7 @@
         color: white;
       }
       .fa-file-invoice-dollar {
-        font-size: 34px;
+        font-size: 40px;
         color: white;
       }
       .fa-trash-can {
@@ -184,7 +180,7 @@
         color: white;
       }
       .fa-gear {
-        font-size: 34px;
+        font-size: 30px;
         color: white;
       }
     }
