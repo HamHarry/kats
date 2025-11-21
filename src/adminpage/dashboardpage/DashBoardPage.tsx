@@ -286,7 +286,7 @@ const DashBoardPage = () => {
           </div>
 
           <div className="content-dashboard-right">
-            <img src="/public/assets/LOGOWEB.jpg" alt="" />
+            <img src="/assets/LOGOWEB.jpg" alt="" />
             Comming Soon...
           </div>
         </div>
