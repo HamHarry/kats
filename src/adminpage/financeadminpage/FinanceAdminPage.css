@@ -6,6 +6,14 @@
   padding-left: 320px;
 }
 
+.container-finance {
+  display: flex;
+  flex-direction: column;
+  padding: 20px 20px 0px 20px;
+  width: 100%;
+}
+
+/* leoutFinacne */
 .header-financeAdmin {
   display: flex;
   justify-content: center;
@@ -24,37 +32,28 @@
   }
 }
 
-.navbar-dashboard-finance {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 20px;
-  justify-content: center;
+.navbarSelectDay {
+  display: flex;
+  justify-content: end;
   align-items: center;
-  .grid-dashboard {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 40px;
-    min-width: 200px;
+  gap: 10px;
+  button {
     background-color: #043929;
-    border-radius: 10px;
     color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 16px;
     cursor: pointer;
+  }
+
+  .ant-picker-outlined {
+    border-radius: 20px !important;
+    border: 2px solid #043929;
   }
 }
 
-.content-dashboard-right {
+.container-finance-content {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-  img {
-    width: 150px;
-    height: auto;
-    border-radius: 50%;
-  }
 }
 
 @media (max-width: 1280px) {
