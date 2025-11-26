@@ -1,6 +1,6 @@
 import { Suspense } from "react";
 import { Outlet } from "react-router-dom";
-import NavbarFinance from "./navbarfinance/navbarFinance";
+import NavbarFinance from "./navbarfinance/NavbarFinance";
 
 const LayoutFinance = () => {
   return (

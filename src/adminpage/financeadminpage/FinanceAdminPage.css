@@ -1,69 +1,21 @@
-.container-financeAdmin {
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  padding: 20px 20px 0px 20px;
-  padding-left: 320px;
-}
+/* Legacy styles - no longer needed with Tailwind CSS */
+/* All styling is now handled via Tailwind utility classes in the component */
 
-.container-finance {
-  display: flex;
-  flex-direction: column;
-  padding: 20px 20px 0px 20px;
+/* Only keep minimal overrides if absolutely necessary */
+table {
   width: 100%;
+  border-collapse: collapse;
 }
 
-/* leoutFinacne */
-.header-financeAdmin {
-  display: flex;
-  justify-content: center;
-  height: 80px;
-  max-width: 1200px;
-  width: 100%;
-  border-radius: 20px;
-  background-color: #043929;
-  margin-bottom: 20px;
-  h1 {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 42px;
-    color: white;
-  }
+table thead tr {
+  border-bottom: 2px solid #e5e7eb;
 }
 
-.navbarSelectDay {
-  display: flex;
-  justify-content: end;
-  align-items: center;
-  gap: 10px;
-  button {
-    background-color: #043929;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    padding: 8px 16px;
-    cursor: pointer;
-  }
-
-  .ant-picker-outlined {
-    border-radius: 20px !important;
-    border: 2px solid #043929;
-  }
+table tbody tr {
+  border-bottom: 1px solid #f3f4f6;
+  transition: background-color 0.2s ease;
 }
 
-.container-finance-content {
-  display: flex;
-}
-
-@media (max-width: 1280px) {
-  .container-financeAdmin {
-    padding-left: 270px;
-  }
-}
-
-@media (max-width: 1080px) {
-  .container-financeAdmin {
-    padding-left: 220px;
-  }
+table tbody tr:hover {
+  background-color: #f9fafb;
 }

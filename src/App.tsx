@@ -65,90 +65,46 @@ function App() {
           <Route path="login" element={<LoginPageGun />} />
         </Route>
 
-        <Route
-          path="/admin"
-          element={<PrivateRoutes isAuthented={isAuthented} />}
-        >
+        <Route path="/admin" element={<PrivateRoutes isAuthented={isAuthented} />}>
           <Route path="/admin" element={<Navigate to="user" />} />
           <Route path="/admin" element={<LayoutAdmin />}>
             <Route path="dashboard" element={<DashBoardPage />} />
-            <Route
-              path="user/:employeeId"
-              element={<CreateEmployeeAdminPage />}
-            />
+            <Route path="user/:employeeId" element={<CreateEmployeeAdminPage />} />
             <Route path="employee" element={<EmployeeAdminPage />} />
-            <Route
-              path="employee/create"
-              element={<CreateEmployeeAdminPage />}
-            />
-            <Route
-              path="employee/edit/:employeeId"
-              element={<CreateEmployeeAdminPage />}
-            />
+            <Route path="employee/create" element={<CreateEmployeeAdminPage />} />
+            <Route path="employee/edit/:employeeId" element={<CreateEmployeeAdminPage />} />
             <Route path="booking" element={<BookingAdminPage />} />
             <Route path="booking/create" element={<CreateBookingAdminPage />} />
-            <Route
-              path="booking/edit/:bookingId"
-              element={<CreateBookingAdminPage />}
-            />
+            <Route path="booking/edit/:bookingId" element={<CreateBookingAdminPage />} />
             <Route path="calendar" element={<CalendarAdminPage />} />
             <Route path="guarantee" element={<GuaranteeAdminPage />} />
-            <Route
-              path="guarantee/edit/:bookingId"
-              element={<EditGuaranteeAdminPage />}
-            />
+            <Route path="guarantee/edit/:bookingId" element={<EditGuaranteeAdminPage />} />
             <Route path="product" element={<ProductAdminPage />} />
-            <Route
-              path="product/createProduct"
-              element={<CreateProductAdminPage />}
-            />
-            <Route
-              path="product/edit/Product/:productId"
-              element={<CreateProductAdminPage />}
-            />
+            <Route path="product/createProduct" element={<CreateProductAdminPage />} />
+            <Route path="product/edit/Product/:productId" element={<CreateProductAdminPage />} />
             <Route path="catagory" element={<CatagoryAdminPage />} />
-            <Route
-              path="catagory/createCatagory"
-              element={<CreateCatagoryAdminPage />}
-            />
+            <Route path="catagory/createCatagory" element={<CreateCatagoryAdminPage />} />
             <Route
               path="catagory/edit/Catagory/:catagoryId"
               element={<CreateCatagoryAdminPage />}
             />
             <Route path="withdraw" element={<WithdrawAdminPage />} />
-            <Route
-              path="withdraw/createWithdraw"
-              element={<CreateWithdrawAdminPage />}
-            />
-            <Route
-              path="withdraw/createSalaryAdvance"
-              element={<CreateSalaryAdvanceAdminPage />}
-            />
-            <Route
-              path="withdraw/edit/withdraw/:expenseId"
-              element={<CreateWithdrawAdminPage />}
-            />
+            <Route path="withdraw/createWithdraw" element={<CreateWithdrawAdminPage />} />
+            <Route path="withdraw/createSalaryAdvance" element={<CreateSalaryAdvanceAdminPage />} />
+            <Route path="withdraw/edit/withdraw/:expenseId" element={<CreateWithdrawAdminPage />} />
             <Route
               path="withdraw/edit/salaryadvance/:expenseId"
               element={<CreateSalaryAdvanceAdminPage />}
             />
             <Route path="salary" element={<SalaryAdminPage />} />
-            <Route path="finance" element={<LayoutFinance />}>
-              <Route path="" element={<FinanceAdminPage />} />
-            </Route>
+            <Route path="finance" element={<FinanceAdminPage />} />
             <Route path="bin" element={<BinAdminPage />} />
             <Route path="setting" element={<SettingAdminPage />} />
             <Route path="setting/role" element={<CreateRoleAdminPage />} />
             <Route path="setting/permission" element={<PermissionPage />} />
             {/* สร้าง type */}
-            <Route
-              path="setting/createTypeProduct"
-              element={<CreateTypeProductPage />}
-            />
-            <Route
-              path="setting/document-count"
-              element={<DocumentCountPage />}
-            ></Route>
+            <Route path="setting/createTypeProduct" element={<CreateTypeProductPage />} />
+            <Route path="setting/document-count" element={<DocumentCountPage />}></Route>
           </Route>
         </Route>
 
