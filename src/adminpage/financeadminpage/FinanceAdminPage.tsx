@@ -262,6 +262,9 @@ const FinanceAdminPage = () => {
               {formatNumberWithComma(netProfit)}
               <span className="text-lg ml-1">฿</span>
             </div>
+            <div className="text-xs text-gray-500">
+              รอดำเนินการ: {formatNumberWithComma(pendingRevenue)} ฿
+            </div>
           </div>
 
           <div className="bg-white rounded-lg shadow-md p-6">
@@ -282,9 +285,6 @@ const FinanceAdminPage = () => {
             >
               {profitMargin}
               <span className="text-lg ml-1">%</span>
-            </div>
-            <div className="text-xs text-gray-500">
-              รอดำเนินการ: {formatNumberWithComma(pendingRevenue)} ฿
             </div>
           </div>
         </div>
