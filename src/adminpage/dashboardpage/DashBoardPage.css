@@ -22,6 +22,7 @@
     justify-content: center;
     align-items: center;
     font-size: 42px;
+    font-weight: bolder;
     color: white;
   }
 }
@@ -43,6 +44,7 @@
       padding: 10px;
       h2 {
         font-size: 20px;
+        font-weight: bolder;
         color: white;
       }
     }
@@ -96,6 +98,7 @@
         margin-top: 3px;
         margin-right: 3px;
         font-size: 36px;
+        font-weight: bolder;
         color: #043929;
       }
     }
@@ -108,6 +111,7 @@
     flex-direction: column;
     p {
       font-size: 14px;
+      font-weight: bolder;
       color: white;
     }
   }
@@ -128,9 +132,11 @@
       flex-direction: column;
       p {
         font-size: 14px;
+        font-weight: bolder;
         color: white;
       }
       h2 {
+        font-weight: bolder;
         color: #4aff88;
       }
     }
@@ -142,9 +148,11 @@
       flex-direction: column;
       p {
         font-size: 14px;
+        font-weight: bolder;
         color: white;
       }
       h2 {
+        font-weight: bolder;
         color: #ff4d4f;
       }
     }
@@ -156,6 +164,8 @@
     align-items: center;
     flex-direction: column;
     margin-top: 10px;
+    font-weight: bolder;
+    font-size: 22px;
     color: white;
   }
 }
@@ -171,12 +181,13 @@
     p {
       font-size: 14px;
       color: #ffa726;
-      font-weight: bold;
+      font-weight: bolder;
     }
     .tap-employee {
       display: flex;
       h2 {
         font-size: 32px;
+        font-weight: bolder;
       }
     }
   }
@@ -189,12 +200,13 @@
     p {
       font-size: 14px;
       color: #ff4d4f;
-      font-weight: bold;
+      font-weight: bolder;
     }
     .tap-employee {
       display: flex;
       h2 {
         font-size: 32px;
+        font-weight: bolder;
       }
     }
   }
@@ -223,6 +235,7 @@
       }
       h1 {
         font-size: 24px;
+        font-weight: bolder;
         color: white;
       }
     }
@@ -274,7 +287,7 @@
           justify-content: center;
           align-items: center;
           width: 100px;
-          height: 25px;
+          height: 30px;
           margin: 5px;
           background-color: #d32f2f;
           color: white;
@@ -299,7 +312,7 @@
           justify-content: center;
           align-items: center;
           width: 100px;
-          height: 25px;
+          height: 30px;
           margin: 5px;
           background-color: #e68900;
           color: white;
@@ -324,7 +337,7 @@
           justify-content: center;
           align-items: center;
           width: 100px;
-          height: 25px;
+          height: 30px;
           margin: 5px;
           background-color: #4caf50;
           color: white;
@@ -347,5 +360,369 @@
     width: 150px;
     height: auto;
     border-radius: 50%;
+  }
+}
+
+/* ============================================
+   TABLET (iPad) - 768px to 1024px
+   ============================================ */
+@media (max-width: 1024px) {
+  .container-dashBoradAdminPage {
+    padding-left: 250px;
+  }
+
+  .header-dashBoradAdminPage {
+    h1 {
+      font-size: 32px;
+    }
+  }
+
+  .wrap-container-dashBoradAdminPage {
+    .navbar-dashboard {
+      grid-template-columns: auto auto;
+      gap: 15px;
+      .grid-dashboard {
+        min-width: 280px;
+      }
+    }
+  }
+
+  .content-dashboard {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+
+  .content-dashboard-right {
+    img {
+      width: 120px;
+    }
+  }
+
+  .wrap-grid-employee-name {
+    flex-direction: column;
+    gap: 10px;
+    .checking {
+      width: 100%;
+      justify-content: space-around;
+      div {
+        width: auto;
+        padding: 5px 15px;
+        font-size: 12px;
+      }
+    }
+  }
+}
+
+/* ============================================
+   SMALL TABLET - 768px
+   ============================================ */
+@media (max-width: 768px) {
+  .container-dashBoradAdminPage {
+    padding-left: 220px;
+    gap: 15px;
+  }
+
+  .header-dashBoradAdminPage {
+    height: 120px;
+    h1 {
+      font-size: 22px;
+      padding: 10px;
+    }
+  }
+
+  .wrap-container-dashBoradAdminPage {
+    .navbar-dashboard {
+      grid-template-columns: 1fr;
+      gap: 12px;
+      .grid-dashboard {
+        min-width: 100%;
+        padding: 15px;
+        h2 {
+          font-size: 18px;
+          margin-bottom: 10px;
+        }
+      }
+    }
+  }
+
+  .wrap-grid-showBooking {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    .grid-showBooking-left {
+      img {
+        width: 80px;
+      }
+    }
+    .grid-showBooking-right {
+      p {
+        font-size: 13px;
+      }
+    }
+  }
+
+  .wrap-grid-totalBooking {
+    flex-direction: column;
+    gap: 15px;
+    .grid-totalBooking-left {
+      justify-content: center;
+      .box {
+        padding: 10px 20px;
+        h2 {
+          font-size: 28px;
+        }
+      }
+    }
+    .grid-totalBooking-right {
+      p {
+        font-size: 13px;
+      }
+    }
+  }
+
+  .wrap-grid-financial {
+    .grid-financial-top {
+      flex-direction: column;
+      gap: 15px;
+      .grid-financial-left,
+      .grid-financial-right {
+        p {
+          font-size: 13px;
+        }
+        h2 {
+          font-size: 20px;
+        }
+      }
+    }
+    .grid-financial-bottom {
+      font-size: 18px;
+      margin-top: 15px;
+    }
+  }
+
+  .wrap-grid-employee {
+    flex-direction: column;
+    gap: 15px;
+    .grid-employee-left,
+    .grid-employee-right {
+      width: 100%;
+      p {
+        font-size: 13px;
+      }
+      .tap-employee {
+        h2 {
+          font-size: 24px;
+        }
+      }
+    }
+  }
+
+  .content-dashboard {
+    grid-template-columns: 1fr;
+    gap: 15px;
+    padding-top: 15px;
+
+    .wrap-content-dashboard-left {
+      padding: 15px;
+      gap: 15px;
+
+      .header-content-dashboard-left {
+        .fa-user {
+          font-size: 20px;
+        }
+        h1 {
+          font-size: 20px;
+        }
+      }
+
+      .wrap-grid-employee-name {
+        flex-direction: column;
+        gap: 12px;
+        padding: 10px;
+        align-items: flex-start;
+
+        .grid-employee-name {
+          width: 100%;
+          gap: 15px;
+          img {
+            width: 70px;
+            height: 70px;
+          }
+          .employee-name {
+            font-size: 14px;
+          }
+        }
+
+        .checking {
+          width: 100%;
+          flex-direction: column;
+          gap: 8px;
+          div {
+            width: 100%;
+            height: 35px;
+            font-size: 13px;
+            border-radius: 8px;
+          }
+          .checkbox-Missing-work,
+          .checkbox-Missing-work-selected,
+          .checkbox-Leave-work,
+          .checkbox-Leave-work-selected,
+          .checkbox-Attend-work,
+          .checkbox-Attend-work-selected {
+            margin: 0;
+          }
+        }
+      }
+    }
+  }
+
+  .content-dashboard-right {
+    gap: 15px;
+    img {
+      width: 100px;
+    }
+  }
+}
+
+/* ============================================
+   MOBILE - Below 500px
+   ============================================ */
+@media (max-width: 600px) {
+  .container-dashBoradAdminPage {
+    padding: 10px;
+    gap: 10px;
+  }
+
+  .header-dashBoradAdminPage {
+    height: 100px;
+    h1 {
+      font-size: 18px;
+      padding: 5px;
+    }
+  }
+
+  .wrap-container-dashBoradAdminPage {
+    .navbar-dashboard {
+      grid-template-columns: 1fr;
+      gap: 10px;
+      .grid-dashboard {
+        min-width: 100%;
+        padding: 12px;
+        h2 {
+          font-size: 16px;
+          margin-bottom: 8px;
+        }
+      }
+    }
+  }
+
+  .wrap-grid-showBooking {
+    gap: 10px;
+    .grid-showBooking-left {
+      img {
+        width: 60px;
+      }
+    }
+    .grid-showBooking-right {
+      p {
+        font-size: 12px;
+      }
+    }
+  }
+
+  .wrap-grid-totalBooking {
+    .grid-totalBooking-left {
+      .box {
+        padding: 8px 15px;
+        h2 {
+          font-size: 24px;
+        }
+      }
+    }
+    .grid-totalBooking-right {
+      p {
+        font-size: 12px;
+      }
+    }
+  }
+
+  .wrap-grid-financial {
+    .grid-financial-top {
+      .grid-financial-left,
+      .grid-financial-right {
+        p {
+          font-size: 12px;
+        }
+        h2 {
+          font-size: 18px;
+        }
+      }
+    }
+    .grid-financial-bottom {
+      font-size: 16px;
+    }
+  }
+
+  .wrap-grid-employee {
+    flex-direction: column;
+    gap: 12px;
+    .grid-employee-left,
+    .grid-employee-right {
+      p {
+        font-size: 12px;
+      }
+      .tap-employee {
+        h2 {
+          font-size: 20px;
+        }
+      }
+    }
+  }
+
+  .content-dashboard {
+    .wrap-content-dashboard-left {
+      padding: 12px;
+      gap: 12px;
+
+      .header-content-dashboard-left {
+        .fa-user {
+          font-size: 18px;
+        }
+        h1 {
+          font-size: 18px;
+        }
+      }
+
+      .wrap-grid-employee-name {
+        gap: 10px;
+        padding: 8px;
+
+        .grid-employee-name {
+          img {
+            width: 60px;
+            height: 60px;
+          }
+          .employee-name {
+            font-size: 13px;
+          }
+        }
+
+        .checking {
+          width: 100%;
+          div {
+            font-size: 12px;
+            height: 32px;
+            border-radius: 6px;
+          }
+        }
+      }
+    }
+  }
+
+  .content-dashboard-right {
+    gap: 10px;
+    img {
+      width: 80px;
+    }
   }
 }

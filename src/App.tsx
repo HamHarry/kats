@@ -38,7 +38,6 @@ import { useSelector } from "react-redux";
 import CircleLoading from "./shared/circleLoading.tsx";
 import LoginPageGun from "./loginpagegun/LoginPageGun.tsx";
 import DashBoardPage from "./adminpage/dashboardpage/DashBoardPage.tsx";
-import LayoutFinance from "./layouts/LayoutFinance.tsx";
 
 function App() {
   const dispatch = useAppDispatch();

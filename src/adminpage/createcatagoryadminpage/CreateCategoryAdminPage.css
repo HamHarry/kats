@@ -8,9 +8,9 @@
 
   input {
     padding: 5px;
-    min-width: 250px;
+    min-width: 265px;
     margin-left: -10px;
-    height: 30px;
+    height: 45px;
     border-radius: 20px;
     border: 2px solid #043929;
   }
@@ -44,6 +44,7 @@
     justify-content: center;
     align-items: center;
     font-size: 42px;
+    font-weight: bolder;
     color: white;
   }
 }
@@ -69,6 +70,10 @@
     gap: 107px;
     margin-left: 20px;
     margin-top: 20px;
+    h2 {
+      font-weight: bolder;
+      font-size: 1.5em;
+    }
   }
   .inputCodeCatagory {
     display: flex;
@@ -76,6 +81,10 @@
     gap: 70px;
     margin-left: 20px;
     margin-top: 20px;
+    h2 {
+      font-weight: bolder;
+      font-size: 1.5em;
+    }
   }
 }
 

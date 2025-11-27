@@ -20,6 +20,7 @@
     justify-content: center;
     align-items: center;
     font-size: 42px;
+    font-weight: bolder;
     color: white;
   }
 }
@@ -103,8 +104,8 @@
     }
     button:hover {
       background-color: #05593d;
-      text-shadow: 0 0 10px rgba(255, 255, 255, 0.8), 0 0 20px rgba(255, 255, 255, 0.6),
-        0 0 30px rgba(255, 255, 255, 0.4);
+      text-shadow: 0 0 10px rgba(255, 255, 255, 0.8),
+        0 0 20px rgba(255, 255, 255, 0.6), 0 0 30px rgba(255, 255, 255, 0.4);
       transition: all 0.5s;
     }
     a {
@@ -130,8 +131,8 @@
     }
     .fa-circle-xmark:hover {
       color: #05593d;
-      text-shadow: 0 0 10px rgba(255, 255, 255, 0.8), 0 0 20px rgba(255, 255, 255, 0.6),
-        0 0 30px rgba(255, 255, 255, 0.4);
+      text-shadow: 0 0 10px rgba(255, 255, 255, 0.8),
+        0 0 20px rgba(255, 255, 255, 0.6), 0 0 30px rgba(255, 255, 255, 0.4);
       transition: all 0.5s;
     }
   }

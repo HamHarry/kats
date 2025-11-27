@@ -10,7 +10,7 @@
     padding: 5px;
     min-width: 250px;
     margin-left: -10px;
-    height: 30px;
+    height: 45px;
     border-radius: 20px;
     border: 2px solid #043929;
   }
@@ -44,6 +44,7 @@
     justify-content: center;
     align-items: center;
     font-size: 42px;
+    font-weight: bolder;
     color: white;
   }
 }
@@ -60,12 +61,17 @@
   border: 5px solid #043929;
   border-radius: 20px;
   padding: 20px;
-  height: 650px;
+  height: 700px;
+  h2 {
+    font-size: 1.5em;
+    font-weight: bolder;
+  }
   .inputEmployee {
     display: flex;
     flex-direction: column;
     h2 {
       font-size: 24px;
+      font-weight: bolder;
     }
     .select-employee {
       height: 45px;
@@ -81,6 +87,7 @@
     margin-bottom: 5px;
     h2 {
       font-size: 24px;
+      font-weight: bolder;
     }
     .input-owner-detel {
       display: flex;
@@ -105,6 +112,7 @@
     flex-direction: column;
     h2 {
       font-size: 24px;
+      font-weight: bolder;
     }
     .ant-picker-outlined {
       padding: 20px;
@@ -134,14 +142,13 @@
         padding-bottom: 5px;
         .select-category {
           width: 220px;
-          height: 45px;
+          height: 48px;
         }
         .ant-select-single .ant-select-selector {
           border-radius: 20px !important;
           border: 2px solid #043929;
         }
         .ant-input-number {
-          padding: 5px;
           border-top-left-radius: 20px;
           border-bottom-left-radius: 20px;
           border: 2px solid #043929;
@@ -165,7 +172,7 @@
   }
 
   .wrap-container-CreateWithdrawAdminPage {
-    height: 500px;
+    height: 700px;
     .wrap-inputList {
       overflow-y: auto;
 

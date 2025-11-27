@@ -20,6 +20,7 @@
     justify-content: center;
     align-items: center;
     font-size: 42px;
+    font-weight: bolder;
     color: white;
   }
 }
@@ -91,7 +92,8 @@
     }
     button:hover {
       background-color: #e6efff;
-      box-shadow: 0 0 10px rgba(38, 86, 162, 0.4), 0 4px 10px rgba(38, 86, 162, 0.3);
+      box-shadow: 0 0 10px rgba(38, 86, 162, 0.4),
+        0 4px 10px rgba(38, 86, 162, 0.3);
       transition: all 0.3s ease;
     }
   }
@@ -105,7 +107,7 @@
   .wrap-bin-content-teble {
     display: flex;
     flex-direction: column;
-    height: 600px;
+    height: 700px;
     gap: 20px;
     width: 100%;
     padding: 20px 20px 0px 20px;

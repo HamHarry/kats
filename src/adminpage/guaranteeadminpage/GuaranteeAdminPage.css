@@ -24,6 +24,7 @@
     justify-content: center;
     align-items: center;
     font-size: 42px;
+    font-weight: bolder;
     color: white;
   }
 }
@@ -36,7 +37,7 @@
   margin-bottom: 20px;
   input {
     width: 300px;
-    height: 27px;
+    height: 40px;
     padding: 5px;
     border-radius: 10px;
     margin-right: 20px;
@@ -48,6 +49,7 @@
     height: 45px;
     margin-left: 20px;
     border-radius: 20px;
+    font-size: 14px;
     border: 2px solid #043929;
   }
   .btn-productName {

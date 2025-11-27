@@ -20,6 +20,7 @@
     justify-content: center;
     align-items: center;
     font-size: 42px;
+    font-weight: bolder;
     color: white;
   }
 }
@@ -55,6 +56,10 @@
   border-radius: 20px;
   padding: 0px 20px 0px 20px;
   height: 700px;
+  h2 {
+    font-size: 1.5em;
+    font-weight: bolder;
+  }
   .input-Number {
     display: flex;
     justify-content: space-around;
@@ -65,8 +70,8 @@
       margin-top: 20px;
       input {
         padding: 5px;
-        width: 250px;
-        height: 30px;
+        width: 265px;
+        height: 45px;
         border-radius: 20px;
         border: 2px solid #043929;
       }
@@ -77,8 +82,8 @@
       margin-top: 20px;
       input {
         padding: 5px;
-        width: 250px;
-        height: 30px;
+        width: 265px;
+        height: 45px;
         border-radius: 20px;
         border: 2px solid #043929;
       }
@@ -124,8 +129,8 @@
       margin-top: 20px;
       input {
         padding: 5px;
-        width: 250px;
-        height: 30px;
+        width: 265px;
+        height: 45px;
         border-radius: 20px;
         border: 2px solid #043929;
       }
@@ -135,8 +140,8 @@
       margin-top: 20px;
       input {
         padding: 5px;
-        width: 250px;
-        height: 30px;
+        width: 265px;
+        height: 45px;
         border-radius: 20px;
         border: 2px solid #043929;
       }
@@ -153,8 +158,8 @@
       margin-top: 20px;
       input {
         padding: 5px;
-        width: 250px;
-        height: 30px;
+        width: 265px;
+        height: 45px;
         border-radius: 20px;
         border: 2px solid #043929;
       }
@@ -165,8 +170,8 @@
       margin-top: 20px;
       input {
         padding: 5px;
-        width: 250px;
-        height: 30px;
+        width: 265px;
+        height: 45px;
         border-radius: 20px;
         border: 2px solid #043929;
       }
@@ -183,8 +188,8 @@
       margin-top: 20px;
       input {
         padding: 5px;
-        width: 250px;
-        height: 30px;
+        width: 265px;
+        height: 45px;
         border-radius: 20px;
         border: 2px solid #043929;
       }
@@ -195,8 +200,8 @@
       margin-top: 20px;
       input {
         padding: 5px;
-        width: 250px;
-        height: 30px;
+        width: 265px;
+        height: 45px;
         border-radius: 20px;
         border: 2px solid #043929;
       }
@@ -223,9 +228,9 @@
     align-items: center;
     justify-content: center;
     text-align: center;
-    padding-top: 20px;
+    padding-top: 30px;
     .text-image {
-      height: 150px;
+      height: 200px;
       width: 300px;
       display: flex;
       flex-direction: column;
@@ -275,8 +280,8 @@
   }
   button:hover {
     background-color: #05593d;
-    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8), 0 0 20px rgba(255, 255, 255, 0.6),
-      0 0 30px rgba(255, 255, 255, 0.4);
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8),
+      0 0 20px rgba(255, 255, 255, 0.6), 0 0 30px rgba(255, 255, 255, 0.4);
     transition: all 0.5s;
   }
 }
@@ -292,6 +297,7 @@
   h1 {
     text-align: center;
     font-size: 50px;
+    font-weight: bolder;
     color: #043929;
   }
   .btn-DialogConfirm-Navbar {
@@ -310,8 +316,8 @@
     }
     button:hover {
       background-color: #05593d;
-      text-shadow: 0 0 10px rgba(255, 255, 255, 0.8), 0 0 20px rgba(255, 255, 255, 0.6),
-        0 0 30px rgba(255, 255, 255, 0.4);
+      text-shadow: 0 0 10px rgba(255, 255, 255, 0.8),
+        0 0 20px rgba(255, 255, 255, 0.6), 0 0 30px rgba(255, 255, 255, 0.4);
       transition: all 0.5s;
     }
   }
@@ -337,7 +343,7 @@
     height: 700px;
     .inputImage {
       .text-image {
-        height: 100px;
+        height: 200px;
         width: 300px;
       }
     }
@@ -372,7 +378,7 @@
       .inputDate {
         .ant-picker-outlined {
           padding: 5px;
-          width: 215px;
+          width: 200px;
         }
       }
     }
@@ -423,7 +429,7 @@
     }
 
     .select-product {
-      width: 215px;
+      width: 200px;
     }
   }
 }
@@ -462,7 +468,7 @@
       .inputDate {
         .ant-picker-outlined {
           padding: 5px;
-          width: 165px;
+          width: 150px;
         }
       }
     }
@@ -513,7 +519,7 @@
     }
 
     .select-product {
-      width: 165px;
+      width: 150px;
     }
   }
 }
@@ -563,7 +569,7 @@
       .inputDate {
         .ant-picker-outlined {
           padding: 5px;
-          width: 215px;
+          width: 200px;
         }
       }
     }
@@ -618,12 +624,12 @@
     }
 
     .select-product {
-      width: 215px;
+      width: 200px;
     }
 
     .inputImage {
       .text-image {
-        height: 100px;
+        height: 150px;
         width: 200px;
       }
       .icon-file {
@@ -678,7 +684,7 @@
       .inputDate {
         .ant-picker-outlined {
           padding: 5px;
-          width: 165px;
+          width: 150px;
         }
       }
     }
@@ -733,12 +739,12 @@
     }
 
     .select-product {
-      width: 165px;
+      width: 150px;
     }
 
     .inputImage {
       .text-image {
-        height: 100px;
+        height: 150px;
         width: 200px;
       }
       .icon-file {
@@ -798,7 +804,7 @@
       .inputDate {
         .ant-picker-outlined {
           padding: 5px;
-          width: 215px;
+          width: 200px;
         }
       }
     }
@@ -853,7 +859,7 @@
     }
 
     .select-product {
-      width: 215px;
+      width: 200px;
     }
   }
 }

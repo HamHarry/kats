@@ -47,6 +47,7 @@
     justify-content: center;
     align-items: center;
     font-size: 42px;
+    font-weight: bolder;
     color: white;
   }
 }
@@ -88,13 +89,16 @@
   .container-DialogEditRole-content {
     h2 {
       color: #ffffff;
+      font-weight: bolder;
+      font-size: 1.5em;
     }
     input {
       padding: 5px;
       width: 250px;
-      height: 30px;
+      height: 45px;
       border-radius: 20px;
       border: 2px solid #043929;
+      background-color: white;
     }
     .inputNameRole {
       display: flex;
@@ -126,7 +130,8 @@
     }
     button:hover {
       background-color: #e6efff;
-      box-shadow: 0 0 10px rgba(38, 86, 162, 0.4), 0 4px 10px rgba(38, 86, 162, 0.3);
+      box-shadow: 0 0 10px rgba(38, 86, 162, 0.4),
+        0 4px 10px rgba(38, 86, 162, 0.3);
       transition: all 0.3s ease;
     }
   }
