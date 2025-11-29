@@ -47,6 +47,7 @@
       p {
         color: #f3cd68;
         font-size: 22px;
+        font-weight: bolder;
         span {
           display: flex;
           justify-content: center;
