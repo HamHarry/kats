@@ -98,6 +98,8 @@
     justify-content: center;
     gap: 16px;
     .compare {
+      display: flex;
+      justify-content: center;
       text-align: center;
       img {
         height: 240px;
