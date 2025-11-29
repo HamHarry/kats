@@ -714,6 +714,24 @@
             height: 32px;
             border-radius: 6px;
           }
+          .checkbox-Missing-work {
+            width: 100%;
+          }
+          .checkbox-Missing-work-selected {
+            width: 100%;
+          }
+          .checkbox-Leave-work {
+            width: 100%;
+          }
+          .checkbox-Leave-work-selected {
+            width: 100%;
+          }
+          .checkbox-Attend-work {
+            width: 100%;
+          }
+          .checkbox-Attend-work-selected {
+            width: 100%;
+          }
         }
       }
     }
