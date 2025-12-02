@@ -405,7 +405,6 @@
           td {
             font-size: 22px;
             color: #f3cd68;
-            border-radius: 10px;
             text-align: center;
             .checkbox {
               margin-top: 5px;
@@ -424,7 +423,6 @@
           .input-date {
             display: flex;
             justify-content: center;
-            padding: 4px;
             border-radius: 10px;
             width: 200px;
             border: none;

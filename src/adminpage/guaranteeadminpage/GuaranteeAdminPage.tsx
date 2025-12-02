@@ -247,7 +247,7 @@ const GuaranteeAdminPage = () => {
       const isCompleted = item.status === BookingStatus.COMPLETED;
       const disable = isFirstGuarantee || isCompleted;
       return (
-        <tr key={index}>
+        <tr key={index} className="hover:bg-[#243832] cursor-pointer h-[50px]">
           <td>{item.serviceNo}</td>
           <td>
             <div style={{ display: "flex", justifyContent: "center", gap: "10px" }}>
@@ -551,9 +551,9 @@ const GuaranteeAdminPage = () => {
               </div>
             </div>
             <hr />
-            <div className="guarante-date">
-              <table>
-                <thead>
+            <div className="guarante-date max-h-96 overflow-y-auto">
+              <table className="w-full">
+                <thead className="sticky -top-1 bg-[#103026] z-10 h-[50px]">
                   <tr>
                     <th>ครั้งที่</th>
                     <th>วันที่เข้ารับบริการ</th>
@@ -565,7 +565,7 @@ const GuaranteeAdminPage = () => {
                   </tr>
                 </thead>
 
-                <tbody>{renderGuarantee()}</tbody>
+                <tbody className="w-full">{renderGuarantee()}</tbody>
               </table>
             </div>
           </div>
@@ -575,114 +575,117 @@ const GuaranteeAdminPage = () => {
   );
 
   return (
-    <div className="container-guaranteeAdmin">
-      <div className="header-guaranteeAdmin">
-        <h1>ข้อมูลรับประกัน</h1>
-      </div>
-      <div className="search-guaranteeAdmin">
-        <div>{selectMenu()}</div>
-        <input type="text" placeholder="Search...(Name,Phone,Number)" onChange={(e) => handleSetSearchTerm(e.target.value)} />
-      </div>
-      <div className="wrap-container-guaranteeAdmin">
-        {bookingDatas.map((item, index) => {
-          const productType = item.product.typeProductSnapshot.name;
+    <>
+      <div className="container-guaranteeAdmin">
+        <div className="header-guaranteeAdmin">
+          <h1>ข้อมูลรับประกัน</h1>
+        </div>
+        <div className="search-guaranteeAdmin">
+          <div>{selectMenu()}</div>
+          <input type="text" placeholder="Search...(Name,Phone,Number)" onChange={(e) => handleSetSearchTerm(e.target.value)} />
+        </div>
+        <div className="wrap-container-guaranteeAdmin">
+          {bookingDatas.map((item, index) => {
+            const productType = item.product.typeProductSnapshot.name;
 
-          const formattedDate = item.bookDate ? dayjs(item.bookDate).format("DD/MM/YYYY") : "-";
-          return (
-            <div
-              key={index}
-              className="grid-guaranteeAdmin"
-              style={{
-                backgroundColor: productType === "GUN" ? "#043829" : "#2656A2",
-              }}
-            >
-              <div className="guaranteeAdmin-image">
-                <img
-                  style={{
-                    objectFit: "cover",
-                    width: "300px",
-                    height: "200px",
-                  }}
-                  src={getImagePath("booking", userInfo?.dbname, item?.image)}
-                  alt=""
-                />
-              </div>
-              <div className="guaranteeAdmin-content">
-                <div className="text-p">
-                  <p>วันที่: {formattedDate}</p>
-                  <div className="icon">
-                    {item.status === BookingStatus.PENDING ? (
-                      <Tooltip title="รอการชำระ">
-                        <ClockCircleFilled className="icon-check-wait" />
-                      </Tooltip>
-                    ) : item.status === BookingStatus.PAID ? (
-                      <Tooltip title="จ่ายเงินแล้ว">
-                        <i className="fa-solid fa-circle"></i>
-                      </Tooltip>
-                    ) : item.status === BookingStatus.COMPLETED ? (
-                      <Tooltip title="สำเร็จ">
-                        <CheckCircleFilled className="icon-check-complete" />
-                      </Tooltip>
-                    ) : item.status === BookingStatus.CANCELED ? (
-                      <Tooltip title="ยกเลิก">
-                        <CloseCircleFilled className="icon-check-cancel" />
-                      </Tooltip>
-                    ) : (
-                      <Tooltip title="ตรวจสภาพรถยนต์">
-                        <i className="fa-solid fa-wrench"></i>
-                      </Tooltip>
-                    )}
-
-                    <Tooltip title="ประวัติการรับประกัน">
-                      <i
-                        className="fa-solid fa-square-check"
-                        onClick={() => {
-                          setSelectBookingId(item._id);
-                          setOpenDialogProfile(true);
-                        }}
-                      ></i>
-                    </Tooltip>
-
-                    <Tooltip title="แก้ไขข้อมูล">
-                      <i
-                        className="fa-solid fa-pen-to-square"
-                        onClick={() => {
-                          navigate(`/admin/guarantee/edit/${item._id}`);
-                        }}
-                      ></i>
-                    </Tooltip>
-
-                    <Tooltip title="ลบข้อมูล">
-                      <i
-                        className="fa-solid fa-trash-can"
-                        onClick={() => {
-                          setOpenDialogDelete(true);
-                          setSelectBookingData(item);
-                        }}
-                      ></i>
-                    </Tooltip>
-                  </div>
+            const formattedDate = item.bookDate ? dayjs(item.bookDate).format("DD/MM/YYYY") : "-";
+            return (
+              <div
+                key={index}
+                className="grid-guaranteeAdmin"
+                style={{
+                  backgroundColor: productType === "GUN" ? "#043829" : "#2656A2",
+                }}
+              >
+                <div className="guaranteeAdmin-image">
+                  <img
+                    style={{
+                      objectFit: "cover",
+                      width: "300px",
+                      height: "200px",
+                    }}
+                    src={getImagePath("booking", userInfo?.dbname, item?.image)}
+                    alt=""
+                  />
                 </div>
-                <p>ชื่อ: {item.name}</p>
-                <p>เบอร์: {item.tel}</p>
-                <p>เลขที่: {item.number}</p>
-                <p>เล่มที่: {item.receiptBookNo}</p>
-                <p>
-                  สินค้า: {item.product.name} {item.price.amount}
-                </p>
-                <p>
-                  รถ: {item.carType} {item.carModel}
-                </p>
-                <p>ทะเบียน: {item.licensePlate}</p>
+                <div className="guaranteeAdmin-content">
+                  <div className="text-p">
+                    <p>วันที่: {formattedDate}</p>
+                    <div className="icon">
+                      {item.status === BookingStatus.PENDING ? (
+                        <Tooltip title="รอการชำระ">
+                          <ClockCircleFilled className="icon-check-wait" />
+                        </Tooltip>
+                      ) : item.status === BookingStatus.PAID ? (
+                        <Tooltip title="จ่ายเงินแล้ว">
+                          <i className="fa-solid fa-circle"></i>
+                        </Tooltip>
+                      ) : item.status === BookingStatus.COMPLETED ? (
+                        <Tooltip title="สำเร็จ">
+                          <CheckCircleFilled className="icon-check-complete" />
+                        </Tooltip>
+                      ) : item.status === BookingStatus.CANCELED ? (
+                        <Tooltip title="ยกเลิก">
+                          <CloseCircleFilled className="icon-check-cancel" />
+                        </Tooltip>
+                      ) : (
+                        <Tooltip title="ตรวจสภาพรถยนต์">
+                          <i className="fa-solid fa-wrench"></i>
+                        </Tooltip>
+                      )}
+
+                      <Tooltip title="ประวัติการรับประกัน">
+                        <i
+                          className="fa-solid fa-square-check"
+                          onClick={() => {
+                            setSelectBookingId(item._id);
+                            setOpenDialogProfile(true);
+                          }}
+                        ></i>
+                      </Tooltip>
+
+                      <Tooltip title="แก้ไขข้อมูล">
+                        <i
+                          className="fa-solid fa-pen-to-square"
+                          onClick={() => {
+                            navigate(`/admin/guarantee/edit/${item._id}`);
+                          }}
+                        ></i>
+                      </Tooltip>
+
+                      <Tooltip title="ลบข้อมูล">
+                        <i
+                          className="fa-solid fa-trash-can"
+                          onClick={() => {
+                            setOpenDialogDelete(true);
+                            setSelectBookingData(item);
+                          }}
+                        ></i>
+                      </Tooltip>
+                    </div>
+                  </div>
+                  <p>ชื่อ: {item.name}</p>
+                  <p>เบอร์: {item.tel}</p>
+                  <p>เลขที่: {item.number}</p>
+                  <p>เล่มที่: {item.receiptBookNo}</p>
+                  <p>
+                    สินค้า: {item.product.name} {item.price.amount}
+                  </p>
+                  <p>
+                    รถ: {item.carType} {item.carModel}
+                  </p>
+                  <p>ทะเบียน: {item.licensePlate}</p>
+                </div>
               </div>
-            </div>
-          );
-        })}
+            );
+          })}
+        </div>
+        {rederBookingModal()}
+        {rederDialogDelete()}
       </div>
-      {rederBookingModal()}
-      {rederDialogDelete()}
+
       <CircleLoading open={isGuaranteeLoading} />
-    </div>
+    </>
   );
 };
 
