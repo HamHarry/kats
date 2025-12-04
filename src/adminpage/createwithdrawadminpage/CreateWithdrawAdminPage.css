@@ -124,6 +124,7 @@
   .wrap-inputList {
     display: flex;
     flex-direction: column;
+    height: 300px;
     h2 {
       font-size: 24px;
     }
@@ -132,6 +133,7 @@
       border: 2px dashed #043929;
       border-radius: 10px;
       padding: 15px;
+      overflow-y: auto;
       .btn-append {
         width: 150px;
         margin-bottom: 5px;

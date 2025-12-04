@@ -26,12 +26,14 @@
       width: 300px;
       margin-top: -99px;
       margin-bottom: 50px;
+      font-weight: bolder;
     }
     h2 {
       display: flex;
       font-size: 32px;
       color: #f3cd68;
       width: 500px;
+      font-weight: bolder;
       margin-top: 20px;
     }
     input {
@@ -40,6 +42,7 @@
       border-radius: 5px;
       border: 1px solid #f3cd68;
       background-color: #103026;
+      color: #ffffff;
     }
     p {
       color: red;
@@ -62,8 +65,8 @@
         transition: all 0.5s;
       }
       .btn-login-gun:hover {
-        text-shadow: 0 0 10px rgba(243, 205, 104, 0.8), 0 0 20px rgba(243, 205, 104, 0.6),
-          0 0 30px rgba(243, 205, 104, 0.4);
+        text-shadow: 0 0 10px rgba(243, 205, 104, 0.8),
+          0 0 20px rgba(243, 205, 104, 0.6), 0 0 30px rgba(243, 205, 104, 0.4);
         transition: all 0.5s;
       }
     }

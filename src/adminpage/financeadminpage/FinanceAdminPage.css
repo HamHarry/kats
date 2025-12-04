@@ -1,0 +1,183 @@
+/* ============================================
+   DESKTOP - Default
+   ============================================ */
+
+/* ============================================
+   MAX-WIDTH: 1280px
+   ============================================ */
+@media (max-width: 1280px) {
+  .min-h-screen {
+    padding-left: calc(270px + 32px) !important;
+  }
+}
+
+/* ============================================
+   MAX-WIDTH: 1080px
+   ============================================ */
+@media (max-width: 1080px) {
+  .min-h-screen {
+    padding-left: calc(220px + 32px) !important;
+  }
+}
+
+/* ============================================
+   MAX-WIDTH: 600px (Mobile)
+   ============================================ */
+@media (max-width: 600px) {
+  .min-h-screen {
+    padding-left: 20px !important;
+    padding-right: 20px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+
+  .max-w-7xl {
+    width: 100%;
+    margin: 0 auto;
+  }
+
+  /* Header adjustments */
+  .flex.justify-between.items-center {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+  }
+
+  .text-4xl {
+    text-align: center !important;
+    width: 100%;
+  }
+
+  /* Button group adjustments */
+  .flex.gap-4 {
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
+  .flex.gap-2 {
+    width: 100%;
+    flex-direction: column;
+  }
+
+  .px-4.py-2 {
+    width: 100%;
+    padding: 12px 16px;
+  }
+
+  /* Date input adjustments */
+  .flex.items-center.gap-2 {
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
+  .flex.items-center.gap-2 input {
+    flex: 1;
+    min-width: 120px;
+  }
+
+  /* Grid adjustments for cards */
+  .grid.grid-cols-1.sm\:grid-cols-2.lg\:grid-cols-4 {
+    grid-template-columns: 1fr !important;
+    gap: 12px;
+  }
+
+  .grid.grid-cols-1.sm\:grid-cols-3 {
+    grid-template-columns: 1fr !important;
+    gap: 12px;
+  }
+
+  /* Charts grid adjustments */
+  .grid.grid-cols-1.min\:\[1181px\]\:grid-cols-2 {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Card text adjustments */
+  .text-xl {
+    font-size: 18px !important;
+  }
+
+  .text-sm {
+    font-size: 12px !important;
+  }
+
+  .text-xs {
+    font-size: 10px !important;
+  }
+
+  /* Table adjustments */
+  .overflow-x-auto {
+    font-size: 12px;
+  }
+
+  table th,
+  table td {
+    padding: 8px 4px !important;
+  }
+
+  .px-3.py-1 {
+    padding: 4px 8px !important;
+  }
+
+  /* Padding adjustments */
+  .p-6 {
+    padding: 12px !important;
+  }
+
+  .p-8 {
+    padding: 16px !important;
+  }
+
+  .mb-8 {
+    margin-bottom: 20px !important;
+  }
+
+  .mb-6 {
+    margin-bottom: 16px !important;
+  }
+
+  .gap-6 {
+    gap: 12px !important;
+  }
+}
+
+/* ============================================
+   MAX-WIDTH: 500px (Small Mobile)
+   ============================================ */
+@media (max-width: 500px) {
+  .min-h-screen {
+    padding-left: 15px !important;
+    padding-right: 15px;
+  }
+
+  .text-3xl {
+    font-size: 20px !important;
+  }
+
+  .text-2xl {
+    font-size: 18px !important;
+  }
+
+  .text-xl {
+    font-size: 16px !important;
+  }
+
+  .grid.grid-cols-1.sm\:grid-cols-2.lg\:grid-cols-4 {
+    gap: 8px !important;
+  }
+
+  .p-6 {
+    padding: 10px !important;
+  }
+
+  .p-8 {
+    padding: 12px !important;
+  }
+
+  table {
+    font-size: 11px;
+  }
+
+  .border-b.border-gray-200 {
+    margin-bottom: 16px;
+  }
+}

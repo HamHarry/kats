@@ -446,9 +446,7 @@
   }
 
   .wrap-grid-showBooking {
-    flex-direction: column;
     align-items: center;
-    text-align: center;
     .grid-showBooking-left {
       img {
         width: 80px;
@@ -462,7 +460,6 @@
   }
 
   .wrap-grid-totalBooking {
-    flex-direction: column;
     gap: 15px;
     .grid-totalBooking-left {
       justify-content: center;
@@ -482,7 +479,6 @@
 
   .wrap-grid-financial {
     .grid-financial-top {
-      flex-direction: column;
       gap: 15px;
       .grid-financial-left,
       .grid-financial-right {
@@ -633,7 +629,7 @@
   .wrap-grid-totalBooking {
     .grid-totalBooking-left {
       .box {
-        padding: 8px 15px;
+        padding: 15px 15px 8px 15px;
         h2 {
           font-size: 24px;
         }

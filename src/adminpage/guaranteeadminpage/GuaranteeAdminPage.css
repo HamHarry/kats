@@ -186,6 +186,7 @@
       border-radius: 10px;
       background-color: #1e4d3f;
       font-size: 18px;
+      font-weight: bolder;
       border: none;
       cursor: pointer;
       h3 {
@@ -217,10 +218,15 @@
         .ImageProfile {
           position: relative;
           min-width: 350px;
-          height: 200px;
+          height: 210px;
           border-radius: 10px;
           border: 5px solid #ffffff;
           margin-right: 20px;
+          img {
+            object-fit: cover;
+            width: 350px;
+            height: 200px;
+          }
           .IsImageProfile {
             min-width: 350px;
             height: 200px;
@@ -498,6 +504,11 @@
           .ImageProfile {
             min-width: 250px;
             height: 150px;
+            img {
+              object-fit: cover;
+              width: 350px;
+              height: 140px;
+            }
             .IsImageProfile {
               min-width: 250px;
               height: 150px;
@@ -648,7 +659,7 @@
   .search-guaranteeAdmin {
     input {
       width: 100px;
-      height: 27px;
+      height: 40px;
       font-size: 12px;
     }
     select {

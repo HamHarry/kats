@@ -1,16 +1,30 @@
 import { useCallback, useEffect, useState } from "react";
 import "./GuaranteeAdminPage.css";
-import { BookingStatus, BookingData, CarStructure } from "../../model/booking.type";
+import {
+  BookingStatus,
+  BookingData,
+  CarStructure,
+} from "../../model/booking.type";
 import { useAppDispatch } from "../../stores/store";
 import CircleLoading from "../../shared/circleLoading";
-import { getAllBookingPaginations, getBookingById, isDeleteBookingById, setBookingUpdateImg, updateGuaranteeByBookingId } from "../../stores/slices/bookingSlice";
+import {
+  getAllBookingPaginations,
+  getBookingById,
+  isDeleteBookingById,
+  setBookingUpdateImg,
+  updateGuaranteeByBookingId,
+} from "../../stores/slices/bookingSlice";
 import dayjs from "dayjs";
 import { Modal, Tooltip } from "antd";
 import { useNavigate } from "react-router-dom";
 import { cloneDeep, debounce } from "lodash";
 import { Controller, useFieldArray, useForm } from "react-hook-form";
 import { DatePickerStyle, StyledSelect } from "../../AppStyle";
-import { CheckCircleFilled, ClockCircleFilled, CloseCircleFilled } from "@ant-design/icons";
+import {
+  CheckCircleFilled,
+  ClockCircleFilled,
+  CloseCircleFilled,
+} from "@ant-design/icons";
 import { DeleteStatus } from "../../model/delete.type";
 import { getImagePath } from "../../shared/utils/common";
 import { useSelector } from "react-redux";
@@ -24,7 +38,17 @@ const defaultValues: GuaranteeForm = {
   guarantees: [],
 };
 
-const bookingTimeList = [{ time: "08:00" }, { time: "09:00" }, { time: "10:00" }, { time: "11:00" }, { time: "13:00" }, { time: "14:00" }, { time: "15:00" }, { time: "16:00" }, { time: "17:00" }];
+const bookingTimeList = [
+  { time: "08:00" },
+  { time: "09:00" },
+  { time: "10:00" },
+  { time: "11:00" },
+  { time: "13:00" },
+  { time: "14:00" },
+  { time: "15:00" },
+  { time: "16:00" },
+  { time: "17:00" },
+];
 
 const GuaranteeAdminPage = () => {
   const dispath = useAppDispatch();
@@ -44,7 +68,8 @@ const GuaranteeAdminPage = () => {
   const [openDialogProfile, setOpenDialogProfile] = useState<boolean>(false);
   const [openDialogDelete, setOpenDialogDelete] = useState<boolean>(false);
   const [searchTerm, setSearchTerm] = useState<string>("");
-  const [selectedReceiptBookNo, setSelectedReceiptBookNo] = useState<string>("all");
+  const [selectedReceiptBookNo, setSelectedReceiptBookNo] =
+    useState<string>("all");
   const [selectedProductName, setSelectedProductName] = useState<string>("all");
 
   const { control, reset, handleSubmit } = useForm<GuaranteeForm>({
@@ -104,10 +129,16 @@ const GuaranteeAdminPage = () => {
         productName: selectedProductName,
       };
 
-      const { data: bookingsRes = [] } = await dispath(getAllBookingPaginations(query)).unwrap();
+      const { data: bookingsRes = [] } = await dispath(
+        getAllBookingPaginations(query)
+      ).unwrap();
 
       const finedData = bookingsRes.filter((item: BookingData) => {
-        return (item.status === BookingStatus.COMPLETED || item.status === BookingStatus.CHECKING) && item.delete === DeleteStatus.ISNOTDELETE;
+        return (
+          (item.status === BookingStatus.COMPLETED ||
+            item.status === BookingStatus.CHECKING) &&
+          item.delete === DeleteStatus.ISNOTDELETE
+        );
       });
 
       setBookingDatas(finedData);
@@ -128,7 +159,9 @@ const GuaranteeAdminPage = () => {
 
       setIsGuaranteeLoading(true);
 
-      const { data: bookingRes } = await dispath(getBookingById(selectBookingId)).unwrap();
+      const { data: bookingRes } = await dispath(
+        getBookingById(selectBookingId)
+      ).unwrap();
 
       setBooking(bookingRes);
 
@@ -189,8 +222,12 @@ const GuaranteeAdminPage = () => {
   };
 
   const selectMenu = () => {
-    const receiptBookNoList = bookingDataLites.map((item) => item.receiptBookNo).filter((value, index, self) => self.indexOf(value) === index);
-    const productName = bookingDataLites.map((item) => item.product.name).filter((value, index, self) => self.indexOf(value) === index);
+    const receiptBookNoList = bookingDataLites
+      .map((item) => item.receiptBookNo)
+      .filter((value, index, self) => self.indexOf(value) === index);
+    const productName = bookingDataLites
+      .map((item) => item.product.name)
+      .filter((value, index, self) => self.indexOf(value) === index);
 
     return (
       <div className="btn-menu">
@@ -205,7 +242,10 @@ const GuaranteeAdminPage = () => {
           })}
         </select>
 
-        <select className="btn-productName" onChange={(e) => setSelectedProductName(e.target.value)}>
+        <select
+          className="btn-productName"
+          onChange={(e) => setSelectedProductName(e.target.value)}
+        >
           <option value={"all"}>All</option>
           {productName.map((item, index) => {
             return (
@@ -250,7 +290,9 @@ const GuaranteeAdminPage = () => {
         <tr key={index} className="hover:bg-[#243832] cursor-pointer h-[50px]">
           <td>{item.serviceNo}</td>
           <td>
-            <div style={{ display: "flex", justifyContent: "center", gap: "10px" }}>
+            <div
+              style={{ display: "flex", justifyContent: "center", gap: "10px" }}
+            >
               <Controller
                 name={`guarantees.${index}.serviceTime`}
                 control={control}
@@ -381,7 +423,12 @@ const GuaranteeAdminPage = () => {
 
   const rederDialogDelete = () => {
     return (
-      <Modal centered className="wrap-container-DialogConfirm" open={openDialogDelete} onCancel={() => setOpenDialogDelete(false)}>
+      <Modal
+        centered
+        className="wrap-container-DialogConfirm"
+        open={openDialogDelete}
+        onCancel={() => setOpenDialogDelete(false)}
+      >
         <h1>ยืนยันการลบ</h1>
 
         <div className="btn-DialogConfirm-Navbar">
@@ -409,7 +456,11 @@ const GuaranteeAdminPage = () => {
   const rederBookingModal = () => (
     <Modal
       centered
-      className={booking?.product.name === "KATS Coating" ? "wrap-container-Edit-Profile-kats" : "wrap-container-Edit-Profile-gun"}
+      className={
+        booking?.product.name === "KATS Coating"
+          ? "wrap-container-Edit-Profile-kats"
+          : "wrap-container-Edit-Profile-gun"
+      }
       open={openDialogProfile}
       onCancel={() => {
         setBooking(undefined);
@@ -438,12 +489,10 @@ const GuaranteeAdminPage = () => {
             <div className="wrap-card-profile">
               <div className="ImageProfile">
                 <img
-                  style={{
-                    objectFit: "cover",
-                    width: "350px",
-                    height: "200px",
-                  }}
-                  src={imageUrl || getImagePath("booking", userInfo?.dbname, booking?.image)}
+                  src={
+                    imageUrl ||
+                    getImagePath("booking", userInfo?.dbname, booking?.image)
+                  }
                   alt={"Default"}
                 />
                 <label htmlFor="file" className="text-image">
@@ -582,19 +631,26 @@ const GuaranteeAdminPage = () => {
         </div>
         <div className="search-guaranteeAdmin">
           <div>{selectMenu()}</div>
-          <input type="text" placeholder="Search...(Name,Phone,Number)" onChange={(e) => handleSetSearchTerm(e.target.value)} />
+          <input
+            type="text"
+            placeholder="Search...(Name,Phone,Number)"
+            onChange={(e) => handleSetSearchTerm(e.target.value)}
+          />
         </div>
         <div className="wrap-container-guaranteeAdmin">
           {bookingDatas.map((item, index) => {
             const productType = item.product.typeProductSnapshot.name;
 
-            const formattedDate = item.bookDate ? dayjs(item.bookDate).format("DD/MM/YYYY") : "-";
+            const formattedDate = item.bookDate
+              ? dayjs(item.bookDate).format("DD/MM/YYYY")
+              : "-";
             return (
               <div
                 key={index}
                 className="grid-guaranteeAdmin"
                 style={{
-                  backgroundColor: productType === "GUN" ? "#043829" : "#2656A2",
+                  backgroundColor:
+                    productType === "GUN" ? "#043829" : "#2656A2",
                 }}
               >
                 <div className="guaranteeAdmin-image">
