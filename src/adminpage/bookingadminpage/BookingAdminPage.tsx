@@ -39,12 +39,16 @@ const BookingAdminPage = () => {
   const [bookingDataLites, setBookingDataLites] = useState<BookingData[]>([]);
   const [selectDataBooking, setSelectDataBooking] = useState<BookingData>();
   const [selectImagePay, setSelectImagePay] = useState<string>();
-  const [openDialogConfirmDelete, setOpenDialogConfirmDelete] = useState<boolean>(false);
-  const [openDialogConfirmApprove, setOpenDialogConfirmApprove] = useState<boolean>(false);
-  const [openDialogCancelApprove, setOpenDialogCancelApprove] = useState<boolean>(false);
+  const [openDialogConfirmDelete, setOpenDialogConfirmDelete] =
+    useState<boolean>(false);
+  const [openDialogConfirmApprove, setOpenDialogConfirmApprove] =
+    useState<boolean>(false);
+  const [openDialogCancelApprove, setOpenDialogCancelApprove] =
+    useState<boolean>(false);
   const [openDialogPay, setOpenDialogPay] = useState<boolean>(false);
   const [searchTerm, setSearchTerm] = useState<string>("");
-  const [selectedReceiptBookNo, setSelectedReceiptBookNo] = useState<string>("all");
+  const [selectedReceiptBookNo, setSelectedReceiptBookNo] =
+    useState<string>("all");
 
   const fetchAllBooking = useCallback(async () => {
     try {
@@ -55,7 +59,9 @@ const BookingAdminPage = () => {
         receiptBookNo: selectedReceiptBookNo,
       };
 
-      const { data: bookingsRes = [] } = await dispath(getAllBookingPaginations(query)).unwrap();
+      const { data: bookingsRes = [] } = await dispath(
+        getAllBookingPaginations(query)
+      ).unwrap();
 
       const filteredBookings = bookingsRes.filter((item: BookingData) => {
         return item.delete === DeleteStatus.ISNOTDELETE;
@@ -185,7 +191,10 @@ const BookingAdminPage = () => {
         onCancel={() => setOpenDialogPay(false)}
       >
         <div className="ImagePay">
-          <img src={getImagePath("booking", userInfo?.dbname, selectImagePay)} alt="" />
+          <img
+            src={getImagePath("booking", userInfo?.dbname, selectImagePay)}
+            alt=""
+          />
         </div>
       </Modal>
     );
@@ -314,9 +323,12 @@ const BookingAdminPage = () => {
           const productType = item.product.typeProductSnapshot.name;
 
           const completedGuarantees =
-            item.guarantees?.filter((g) => g.status === BookingStatus.COMPLETED) ?? [];
+            item.guarantees?.filter(
+              (g) => g.status === BookingStatus.COMPLETED
+            ) ?? [];
 
-          const currentGuarantee = item.guarantees?.[completedGuarantees.length];
+          const currentGuarantee =
+            item.guarantees?.[completedGuarantees.length];
 
           const bookDate = currentGuarantee?.serviceDate || item.bookDate;
 
@@ -400,6 +412,7 @@ const BookingAdminPage = () => {
                     </Tooltip>
                   </div>
                 </div>
+                <p>เวลา: {item.bookTime} น.</p>
                 <p>
                   {t("ชื่อ")}: {item.name}
                 </p>
@@ -413,7 +426,8 @@ const BookingAdminPage = () => {
                   {t("เล่มที่")}: {item.receiptBookNo}
                 </p>
                 <p>
-                  {t("สินค้า")}: {item.product.name} {item.price.amount} {t("บาท")}
+                  {t("สินค้า")}: {item.product.name} {item.price.amount}{" "}
+                  {t("บาท")}
                 </p>
                 <p>
                   {t("รถ")}: {item.carType} {item.carModel}
