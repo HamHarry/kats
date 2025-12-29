@@ -29,9 +29,9 @@ const expenseCategoryLabels: { [key: string]: string } = {
   TRAVEL: "ค่าเดินทาง",
   ACCOMMODATION: "ที่พัก",
   ALLOWANCE: "เบี้ยเลี้ยง",
-  TRANSPORT: "ค่าขนส่ง",
+  TRANSPORT: "ขนส่ง",
   TOOL: "เครื่องมือ",
-  MEDICAL: "ค่ารักษาพยาบาล",
+  MEDICAL: "ค่ารักษา",
   OTHER: "อื่นๆ",
   SALARY_ADVANCE: "เงินเดือนล่วงหน้า",
 };
@@ -449,7 +449,7 @@ const FinanceAdminPage = () => {
         </div>
 
         {/* Implicit Costs */}
-        <div className="bg-white rounded-lg shadow-md p-8 mb-8">
+        {/* <div className="bg-white rounded-lg shadow-md p-8 mb-8">
           <h2 className="text-xl font-bold text-gray-800 mb-6">
             💰 ต้นทุนแฝง (Implicit Costs)
           </h2>
@@ -493,7 +493,7 @@ const FinanceAdminPage = () => {
               <div className="text-xs text-gray-500 mt-1">(3% ของรายรับ)</div>
             </div>
           </div>
-        </div>
+        </div> */}
 
         {/* Table */}
         <div className="bg-white rounded-lg shadow-md p-8">
