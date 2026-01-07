@@ -29,10 +29,18 @@ export interface ExpensesByCategory {
   total: number;
 }
 
+export interface MonthlyChartData {
+  month: string;
+  Revenue?: number;
+  Expenses?: number;
+  NetProfit?: number;
+}
+
 export interface DashboardPeriod {
   bookingsRevenue: BookingsRevenue;
   bookingsRevenuePending: BookingsRevenue;
   expensesByCategory: ExpensesByCategory;
+  monthlyChartData: MonthlyChartData[];
   netProfit: number;
 }
 

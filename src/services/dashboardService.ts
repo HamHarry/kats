@@ -1,9 +1,5 @@
 import { HttpClient } from "../shared/utils/HttpClient";
-
-interface DashboardDateParams {
-  startDate?: string;
-  endDate?: string;
-}
+import { DashboardDateParams } from "../stores/slices/dashboardSlice";
 
 const buildQueryParams = (params: DashboardDateParams): string => {
   const queryParams = new URLSearchParams();
@@ -13,6 +9,9 @@ const buildQueryParams = (params: DashboardDateParams): string => {
   }
   if (params.endDate) {
     queryParams.append("endDate", params.endDate);
+  }
+  if (params.period) {
+    queryParams.append("period", params.period);
   }
 
   const queryString = queryParams.toString();

@@ -24,20 +24,19 @@ const expenseCategoryLabels: { [key: string]: string } = {
 const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042", "#8884D8", "#82CA9D", "#FFC658", "#FF6B6B", "#4ECDC4"];
 
 const monthlyChartDataMock = [
-  { month: "ม.ค.", รายรับ: 85000, รายจ่าย: 18000, กำไรสุทธิ: 67000 },
-  { month: "ก.พ.", รายรับ: 92000, รายจ่าย: 22000, กำไรสุทธิ: 70000 },
-  { month: "มี.ค.", รายรับ: 78000, รายจ่าย: 19500, กำไรสุทธิ: 58500 },
-  { month: "เม.ย.", รายรับ: 95000, รายจ่าย: 25000, กำไรสุทธิ: 70000 },
-  { month: "พ.ค.", รายรับ: 88000, รายจ่าย: 20000, กำไรสุทธิ: 68000 },
-  { month: "มิ.ย.", รายรับ: 105000, รายจ่าย: 28000, กำไรสุทธิ: 77000 },
-  { month: "ก.ค.", รายรับ: 98000, รายจ่าย: 24000, กำไรสุทธิ: 74000 },
-  { month: "ส.ค.", รายรับ: 110000, รายจ่าย: 30000, กำไรสุทธิ: 80000 },
-  { month: "ก.ย.", รายรับ: 102000, รายจ่าย: 26000, กำไรสุทธิ: 76000 },
-  { month: "ต.ค.", รายรับ: 115000, รายจ่าย: 32000, กำไรสุทธิ: 83000 },
-  { month: "พ.ย.", รายรับ: 100300, รายจ่าย: 13033, กำไรสุทธิ: 87267 },
-  { month: "ธ.ค.", รายรับ: 95000, รายจ่าย: 21000, กำไรสุทธิ: 74000 },
+  { month: "ม.ค." },
+  { month: "ก.พ." },
+  { month: "มี.ค." },
+  { month: "เม.ย." },
+  { month: "พ.ค." },
+  { month: "มิ.ย." },
+  { month: "ก.ค." },
+  { month: "ส.ค." },
+  { month: "ก.ย." },
+  { month: "ต.ค." },
+  { month: "พ.ย." },
+  { month: "ธ.ค." },
 ];
-
 const FinanceAdminPage = () => {
   const dispatch = useAppDispatch();
 
@@ -47,12 +46,13 @@ const FinanceAdminPage = () => {
   const [startDate, setStartDate] = useState<string>(dayjs().startOf("month").format("YYYY-MM-DD"));
   const [endDate, setEndDate] = useState<string>(dayjs().endOf("month").format("YYYY-MM-DD"));
   const [expenseDetails, setExpenseDetails] = useState<any[]>([]);
+  const [selectedYear, setSelectedYear] = useState<string>(dayjs().format("YYYY"));
 
   const fetchSummaryData = useCallback(
     async (start: string, end: string) => {
       try {
         setIsLoading(true);
-        const { data: SummaryDataRes } = await dispatch(getDashboardSummary({ startDate: start, endDate: end })).unwrap();
+        const { data: SummaryDataRes } = await dispatch(getDashboardSummary({ startDate: start, endDate: end, period: period })).unwrap();
 
         setSummaryData(SummaryDataRes);
         generateExpenseDetails(SummaryDataRes, period);
@@ -83,15 +83,31 @@ const FinanceAdminPage = () => {
     setExpenseDetails(details.filter((item) => item.amount > 0));
   };
 
+  // Handle month date range changes
   useEffect(() => {
-    fetchSummaryData(startDate, endDate);
-  }, [startDate, endDate, fetchSummaryData]);
+    if (period === "month") {
+      fetchSummaryData(startDate, endDate);
+    }
+  }, [startDate, endDate, period, fetchSummaryData]);
+
+  // Handle year selection - fetch only once when year changes
+  useEffect(() => {
+    if (period === "year" && selectedYear) {
+      const start = dayjs(`${selectedYear}-01-01`).format("YYYY-MM-DD");
+      const end = dayjs(`${selectedYear}-12-31`).format("YYYY-MM-DD");
+      fetchSummaryData(start, end);
+    }
+  }, [selectedYear, period, fetchSummaryData]);
 
   const handlePeriodChange = (newPeriod: "month" | "year") => {
     setPeriod(newPeriod);
     if (summaryData) {
       generateExpenseDetails(summaryData, newPeriod);
     }
+  };
+
+  const handleYearChange = (year: string) => {
+    setSelectedYear(year);
   };
 
   const currentData = period === "month" ? summaryData?.month : summaryData?.year;
@@ -135,7 +151,7 @@ const FinanceAdminPage = () => {
         <div className="flex justify-between items-center pb-6 flex-wrap gap-4 border-b border-gray-200">
           <h1 className="text-4xl font-bold text-gray-800">📊 การเงิน</h1>
           <div className="flex gap-4 flex-wrap">
-            <div className="flex gap-2">
+            <div className="flex gap-2 flex-wrap items-center">
               <button
                 onClick={() => handlePeriodChange("month")}
                 className={`px-4 py-2 rounded-lg font-medium transition-colors cursor-pointer ${period === "month" ? "bg-[#043929] text-white shadow-md" : "bg-white text-gray-700 hover:bg-gray-100"}`}
@@ -148,6 +164,19 @@ const FinanceAdminPage = () => {
               >
                 รายปี
               </button>
+              {period === "year" && (
+                <select
+                  value={selectedYear}
+                  onChange={(e) => handleYearChange(e.target.value)}
+                  className="px-4 py-2 rounded-lg font-medium border border-gray-300 bg-white text-gray-700 hover:bg-gray-50 cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#043929]"
+                >
+                  {Array.from({ length: dayjs().year() - 2025 + 1 }, (_, i) => 2025 + i).map((year) => (
+                    <option key={year} value={year}>
+                      {year}
+                    </option>
+                  ))}
+                </select>
+              )}
             </div>
             <div className="flex items-center gap-2 bg-white px-4 py-2 rounded-lg shadow">
               <Calendar className="w-4 h-4 text-gray-500" />
@@ -213,15 +242,15 @@ const FinanceAdminPage = () => {
             <h2 className="text-xl font-bold text-gray-800 mb-6">📈 {period === "year" ? "รายรับ-รายจ่ายรายเดือน" : "ภาพรวมรายรับ-รายจ่าย"}</h2>
             <ResponsiveContainer width="100%" height={450}>
               {period === "year" ? (
-                <LineChart data={monthlyChartDataMock}>
+                <LineChart data={summaryData?.year?.monthlyChartData || monthlyChartDataMock}>
                   <CartesianGrid strokeDasharray="3 3" />
                   <XAxis dataKey="month" />
                   <YAxis />
                   <Tooltip formatter={(value) => value.toLocaleString("th-TH") + " ฿"} />
-                  <Legend />
-                  <Line type="monotone" dataKey="รายรับ" stroke="#10b981" strokeWidth={2} />
-                  <Line type="monotone" dataKey="รายจ่าย" stroke="#ef4444" strokeWidth={2} />
-                  <Line type="monotone" dataKey="กำไรสุทธิ" stroke="#3b82f6" strokeWidth={2} />
+                  <Legend formatter={(value) => (value === "Revenue" ? "รายรับ" : value === "Expenses" ? "รายจ่าย" : "กำไรสุทธิ")} />
+                  <Line type="monotone" dataKey="revenue" stroke="#10b981" strokeWidth={2} name="รายรับ" />
+                  <Line type="monotone" dataKey="expenses" stroke="#ef4444" strokeWidth={2} name="รายจ่าย" />
+                  <Line type="monotone" dataKey="netProfit" stroke="#3b82f6" strokeWidth={2} name="กำไรสุทธิ" />
                 </LineChart>
               ) : (
                 <BarChart

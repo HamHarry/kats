@@ -1,9 +1,10 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import * as dashboardServices from "../../services/dashboardService";
 
-interface DashboardDateParams {
+export interface DashboardDateParams {
   startDate?: string;
   endDate?: string;
+  period?: string;
 }
 
 const initialState: any = {};
