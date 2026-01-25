@@ -98,9 +98,8 @@ const CreateWithdrawAdminPage = () => {
   const fetchEmployeeData = useCallback(async () => {
     try {
       setIsCreateWithDrawLoading(true);
-      const { data: EmployeesRes = [] } = await dispath(
-        getAllEmployees()
-      ).unwrap();
+      const { data: EmployeesRes = [] } =
+        await dispath(getAllEmployees()).unwrap();
 
       setEmployeeData(EmployeesRes);
     } catch (error) {
@@ -148,7 +147,7 @@ const CreateWithdrawAdminPage = () => {
 
       categoryDetailFields.remove(Number(index));
     },
-    [categoryDetailFields]
+    [categoryDetailFields],
   );
 
   return (
@@ -248,7 +247,7 @@ const CreateWithdrawAdminPage = () => {
                   className="btn-append"
                   type="button"
                   onClick={() => {
-                    if (categoryDetailFields?.fields.length === 7) return;
+                    if (categoryDetailFields?.fields.length === 8) return;
 
                     categoryDetailFields.append(initCategoryDetail);
                   }}
@@ -291,6 +290,9 @@ const CreateWithdrawAdminPage = () => {
                             </Select.Option>
                             <Select.Option value={CategoryType.MEDICAL}>
                               ค่ารักษา
+                            </Select.Option>
+                            <Select.Option value={CategoryType.SALARY_ADVANCE}>
+                              เบิกเงินเดือน
                             </Select.Option>
                             <Select.Option value={CategoryType.OTHER}>
                               ค่าอื่นๆ

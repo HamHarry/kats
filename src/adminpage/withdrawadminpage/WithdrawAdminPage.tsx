@@ -1,8 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import "./WithdrawAdminPage.css";
-import { Button, Dropdown, Modal, Space, Table, Typography } from "antd";
+import { Button, Modal, Space, Table, Typography } from "antd";
 import { useCallback, useEffect, useState } from "react";
-import { DownOutlined, FileAddFilled } from "@ant-design/icons";
+import { FileAddFilled } from "@ant-design/icons";
 import CircleLoading from "../../shared/circleLoading";
 import { useAppDispatch } from "../../stores/store";
 import {
@@ -29,9 +29,12 @@ const WithdrawAdminPage = () => {
   const [isExpenseLoading, setIsExpenseLoading] = useState<boolean>(false);
   const [isEmployeeLoading, setIsEmployeeLoading] = useState<boolean>(false);
 
-  const [openDialogConfirmDelete, setOpenDialogConfirmDelete] = useState<boolean>(false);
-  const [openDialogConfirmApprove, setOpenDialogConfirmApprove] = useState<boolean>(false);
-  const [openDialogCancelApprove, setOpenDialogCancelApprove] = useState<boolean>(false);
+  const [openDialogConfirmDelete, setOpenDialogConfirmDelete] =
+    useState<boolean>(false);
+  const [openDialogConfirmApprove, setOpenDialogConfirmApprove] =
+    useState<boolean>(false);
+  const [openDialogCancelApprove, setOpenDialogCancelApprove] =
+    useState<boolean>(false);
   const [selectedExpenseData, setSelectedExpenseData] = useState<FinanceData>();
   const [baseImage, setBaseImage] = useState("");
   const [employeeData, setEmployeeData] = useState<EmployeeData[]>([]);
@@ -39,7 +42,8 @@ const WithdrawAdminPage = () => {
   const fetchAllExpense = useCallback(async () => {
     try {
       setIsExpenseLoading(true);
-      const { data: ExpensesRes = [] } = await dispath(getAllExpenses()).unwrap();
+      const { data: ExpensesRes = [] } =
+        await dispath(getAllExpenses()).unwrap();
 
       const filteredExpenses = ExpensesRes.filter((item: FinanceData) => {
         return item.delete === DeleteStatus.ISNOTDELETE;
@@ -60,7 +64,8 @@ const WithdrawAdminPage = () => {
   const fetchEmployeeData = useCallback(async () => {
     try {
       setIsEmployeeLoading(true);
-      const { data: EmployeesRes = [] } = await dispath(getAllEmployees()).unwrap();
+      const { data: EmployeesRes = [] } =
+        await dispath(getAllEmployees()).unwrap();
 
       setEmployeeData(EmployeesRes);
     } catch (error) {
@@ -112,14 +117,6 @@ const WithdrawAdminPage = () => {
     },
     { title: "หัวข้อ", dataIndex: "ownerName", key: "ownerName" },
     {
-      title: "หมวดหมู่",
-      dataIndex: "section",
-      key: "section",
-      render: (section: number) => {
-        return <Typography>{section === 0 ? "ค่าใช้จ่าย" : "เบิกเงินเดือน"}</Typography>;
-      },
-    },
-    {
       title: "วันที่สร้าง",
       dataIndex: "date",
       key: "date",
@@ -133,7 +130,9 @@ const WithdrawAdminPage = () => {
       dataIndex: "datePrice",
       key: "datePrice",
       render: (datePrice: string) => {
-        const formattedDate = datePrice ? dayjs(datePrice).format("DD/MM/YYYY") : "";
+        const formattedDate = datePrice
+          ? dayjs(datePrice).format("DD/MM/YYYY")
+          : "";
         return <Typography>{formattedDate}</Typography>;
       },
     },
@@ -155,9 +154,14 @@ const WithdrawAdminPage = () => {
       key: "status",
       render: (status: number) => {
         const statusText =
-          status === 0 ? "รออนุมัติ" : status === 1 ? "อนุมัติแล้ว" : "ยกเลิกเอกสาร";
+          status === 0
+            ? "รออนุมัติ"
+            : status === 1
+              ? "อนุมัติแล้ว"
+              : "ยกเลิกเอกสาร";
 
-        const color = status === 0 ? "#FFD700" : status === 1 ? "#008B00" : "#FF0000";
+        const color =
+          status === 0 ? "#FFD700" : status === 1 ? "#008B00" : "#FF0000";
         return <Typography style={{ color }}>{statusText}</Typography>;
       },
     },
@@ -174,13 +178,21 @@ const WithdrawAdminPage = () => {
           }}
         >
           <a
-            className={item.status === 1 ? "linkIsNone" : item.status === 2 ? "linkIsNone" : ""}
+            className={
+              item.status === 1
+                ? "linkIsNone"
+                : item.status === 2
+                  ? "linkIsNone"
+                  : ""
+            }
             onClick={(e) => {
               e.stopPropagation();
               if (item.section === PaymentCategory.WITHDRAW) {
                 return navigate(`/admin/withdraw/edit/withdraw/${item._id}`);
               } else {
-                return navigate(`/admin/withdraw/edit/salaryadvance/${item._id}`);
+                return navigate(
+                  `/admin/withdraw/edit/salaryadvance/${item._id}`,
+                );
               }
             }}
           >
@@ -199,32 +211,6 @@ const WithdrawAdminPage = () => {
       ),
     },
   ];
-
-  const handleMenuClick = (item: any) => {
-    if (!item) return;
-
-    if (item.key === "createWithdraw") {
-      return navigate(`/admin/withdraw/${item.key}`);
-    } else {
-      navigate(`/admin/withdraw/${item.key}`);
-    }
-  };
-
-  const items = [
-    {
-      label: "สร้างค่าใช้จ่าย",
-      key: "createWithdraw",
-    },
-    {
-      label: "เบิกเงินเดือน",
-      key: "createSalaryAdvance",
-    },
-  ];
-
-  const menuProps = {
-    items,
-    onClick: handleMenuClick,
-  };
 
   const approved = async () => {
     try {
@@ -295,8 +281,8 @@ const WithdrawAdminPage = () => {
       selectedExpenseData?.status === 0
         ? "รออนุมัติ"
         : selectedExpenseData?.status === 1
-        ? "อนุมัติแล้ว"
-        : "ยกเลิกเอกสาร";
+          ? "อนุมัติแล้ว"
+          : "ยกเลิกเอกสาร";
 
     const total = selectedExpenseData?.categorys.reduce((prev, item) => {
       return prev + item.amount;
@@ -306,7 +292,8 @@ const WithdrawAdminPage = () => {
       return item._id === selectedExpenseData?.employeeId;
     });
 
-    const section = selectedExpenseData?.section === 0 ? "ค่าใช้จ่าย" : "เบิกเงินเดือน";
+    const section =
+      selectedExpenseData?.section === 0 ? "ค่าใช้จ่าย" : "เบิกเงินเดือน";
 
     return (
       <Modal
@@ -551,14 +538,13 @@ const WithdrawAdminPage = () => {
 
       <div className="create-withdraw">
         <div className="btn-create-withdraw">
-          <Dropdown menu={menuProps}>
-            <Button>
-              <Space>
-                สร้าง
-                <DownOutlined />
-              </Space>
-            </Button>
-          </Dropdown>
+          <Button
+            onClick={() => {
+              navigate("/admin/withdraw/createWithdraw");
+            }}
+          >
+            สร้าง
+          </Button>
         </div>
       </div>
 
