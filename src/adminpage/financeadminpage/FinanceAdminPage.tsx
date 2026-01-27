@@ -2,11 +2,26 @@ import { useCallback, useEffect, useState } from "react";
 import dayjs from "dayjs";
 import { useAppDispatch } from "../../stores/store";
 import { getDashboardSummary } from "../../stores/slices/dashboardSlice";
-import { DashboardSummary, ExpensesByCategory } from "../../model/dashboard.type";
+import {
+  DashboardSummary,
+  ExpensesByCategory,
+} from "../../model/dashboard.type";
 import CircleLoading from "../../shared/circleLoading";
 import { formatNumberWithComma } from "../../shared/utils/common";
 import "./FinanceAdminPage.css";
-import { Bar, BarChart, CartesianGrid, Cell, Legend, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
+import {
+  Bar,
+  BarChart,
+  CartesianGrid,
+  Cell,
+  Legend,
+  Line,
+  LineChart,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis,
+} from "recharts";
 import { Calendar, DollarSign, TrendingDown, TrendingUp } from "lucide-react";
 
 const expenseCategoryLabels: { [key: string]: string } = {
@@ -19,9 +34,20 @@ const expenseCategoryLabels: { [key: string]: string } = {
   MEDICAL: "ค่ารักษา",
   OTHER: "อื่นๆ",
   SALARY_ADVANCE: "เงินเดือนล่วงหน้า",
+  PAYROLL: "เงินเดือนพนักงาน",
 };
 
-const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042", "#8884D8", "#82CA9D", "#FFC658", "#FF6B6B", "#4ECDC4"];
+const COLORS = [
+  "#0088FE",
+  "#00C49F",
+  "#FFBB28",
+  "#FF8042",
+  "#8884D8",
+  "#82CA9D",
+  "#FFC658",
+  "#FF6B6B",
+  "#4ECDC4",
+];
 
 const monthlyChartDataMock = [
   { month: "ม.ค." },
@@ -43,16 +69,28 @@ const FinanceAdminPage = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [summaryData, setSummaryData] = useState<DashboardSummary>();
   const [period, setPeriod] = useState<"month" | "year">("month");
-  const [startDate, setStartDate] = useState<string>(dayjs().startOf("month").format("YYYY-MM-DD"));
-  const [endDate, setEndDate] = useState<string>(dayjs().endOf("month").format("YYYY-MM-DD"));
+  const [startDate, setStartDate] = useState<string>(
+    dayjs().startOf("month").format("YYYY-MM-DD"),
+  );
+  const [endDate, setEndDate] = useState<string>(
+    dayjs().endOf("month").format("YYYY-MM-DD"),
+  );
   const [expenseDetails, setExpenseDetails] = useState<any[]>([]);
-  const [selectedYear, setSelectedYear] = useState<string>(dayjs().format("YYYY"));
+  const [selectedYear, setSelectedYear] = useState<string>(
+    dayjs().format("YYYY"),
+  );
 
   const fetchSummaryData = useCallback(
     async (start: string, end: string) => {
       try {
         setIsLoading(true);
-        const { data: SummaryDataRes } = await dispatch(getDashboardSummary({ startDate: start, endDate: end, period: period })).unwrap();
+        const { data: SummaryDataRes } = await dispatch(
+          getDashboardSummary({
+            startDate: start,
+            endDate: end,
+            period: period,
+          }),
+        ).unwrap();
 
         setSummaryData(SummaryDataRes);
         generateExpenseDetails(SummaryDataRes, period);
@@ -62,23 +100,31 @@ const FinanceAdminPage = () => {
         setIsLoading(false);
       }
     },
-    [dispatch, period]
+    [dispatch, period],
   );
 
-  const generateExpenseDetails = (data: DashboardSummary, selectedPeriod: "month" | "year") => {
+  const generateExpenseDetails = (
+    data: DashboardSummary,
+    selectedPeriod: "month" | "year",
+  ) => {
     const periodData = selectedPeriod === "month" ? data?.month : data?.year;
     if (!periodData?.expensesByCategory) return;
 
     const expenses = periodData.expensesByCategory;
-    const details = Object.entries(expenseCategoryLabels).map(([key, label]) => {
-      const amount = expenses[key as keyof ExpensesByCategory] as number;
-      return {
-        key,
-        category: label,
-        amount: amount || 0,
-        percentage: expenses.total > 0 ? (((amount || 0) / expenses.total) * 100).toFixed(2) : "0.00",
-      };
-    });
+    const details = Object.entries(expenseCategoryLabels).map(
+      ([key, label]) => {
+        const amount = expenses[key as keyof ExpensesByCategory] as number;
+        return {
+          key,
+          category: label,
+          amount: amount || 0,
+          percentage:
+            expenses.total > 0
+              ? (((amount || 0) / expenses.total) * 100).toFixed(2)
+              : "0.00",
+        };
+      },
+    );
 
     setExpenseDetails(details.filter((item) => item.amount > 0));
   };
@@ -110,12 +156,14 @@ const FinanceAdminPage = () => {
     setSelectedYear(year);
   };
 
-  const currentData = period === "month" ? summaryData?.month : summaryData?.year;
+  const currentData =
+    period === "month" ? summaryData?.month : summaryData?.year;
   const totalRevenue = currentData?.bookingsRevenue.totalRevenue || 0;
   const pendingRevenue = currentData?.bookingsRevenuePending.totalRevenue || 0;
   const totalExpenses = currentData?.expensesByCategory.total || 0;
   const netProfit = currentData?.netProfit || 0;
-  const profitMargin = totalRevenue > 0 ? ((netProfit / totalRevenue) * 100).toFixed(2) : "0.00";
+  const profitMargin =
+    totalRevenue > 0 ? ((netProfit / totalRevenue) * 100).toFixed(2) : "0.00";
 
   // Data for Bar Chart
   const overviewData = [
@@ -145,7 +193,10 @@ const FinanceAdminPage = () => {
     }));
 
   return (
-    <div className="min-h-screen bg-gray-50 p-8" style={{ paddingLeft: "calc(320px + 32px)" }}>
+    <div
+      className="min-h-screen bg-gray-50 p-8"
+      style={{ paddingLeft: "calc(320px + 32px)" }}
+    >
       <div className="max-w-7xl mx-auto space-y-8">
         {/* Header */}
         <div className="flex justify-between items-center pb-6 flex-wrap gap-4 border-b border-gray-200">
@@ -170,7 +221,10 @@ const FinanceAdminPage = () => {
                   onChange={(e) => handleYearChange(e.target.value)}
                   className="px-4 py-2 rounded-lg font-medium border border-gray-300 bg-white text-gray-700 hover:bg-gray-50 cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#043929]"
                 >
-                  {Array.from({ length: dayjs().year() - 2025 + 1 }, (_, i) => 2025 + i).map((year) => (
+                  {Array.from(
+                    { length: dayjs().year() - 2025 + 1 },
+                    (_, i) => 2025 + i,
+                  ).map((year) => (
                     <option key={year} value={year}>
                       {year}
                     </option>
@@ -180,9 +234,19 @@ const FinanceAdminPage = () => {
             </div>
             <div className="flex items-center gap-2 bg-white px-4 py-2 rounded-lg shadow">
               <Calendar className="w-4 h-4 text-gray-500" />
-              <input type="date" value={startDate} onChange={(e) => setStartDate(e.target.value)} className="border-0 focus:outline-none text-sm" />
+              <input
+                type="date"
+                value={startDate}
+                onChange={(e) => setStartDate(e.target.value)}
+                className="border-0 focus:outline-none text-sm"
+              />
               <span className="text-gray-500">-</span>
-              <input type="date" value={endDate} onChange={(e) => setEndDate(e.target.value)} className="border-0 focus:outline-none text-sm" />
+              <input
+                type="date"
+                value={endDate}
+                onChange={(e) => setEndDate(e.target.value)}
+                className="border-0 focus:outline-none text-sm"
+              />
             </div>
           </div>
         </div>
@@ -191,19 +255,25 @@ const FinanceAdminPage = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
           <div className="bg-white rounded-lg shadow-md p-6">
             <div className="flex items-center justify-between mb-2">
-              <span className="text-gray-600 text-sm font-medium">รายรับทั้งหมด</span>
+              <span className="text-gray-600 text-sm font-medium">
+                รายรับทั้งหมด
+              </span>
               <TrendingUp className="w-5 h-5 text-green-500" />
             </div>
             <div className="text-3xl font-bold text-green-500 mb-1">
               {formatNumberWithComma(totalRevenue)}
               <span className="text-lg ml-1">฿</span>
             </div>
-            <div className="text-xs text-gray-500">จำนวน {currentData?.bookingsRevenue.bookingCount} รายการ</div>
+            <div className="text-xs text-gray-500">
+              จำนวน {currentData?.bookingsRevenue.bookingCount} รายการ
+            </div>
           </div>
 
           <div className="bg-white rounded-lg shadow-md p-6">
             <div className="flex items-center justify-between mb-2">
-              <span className="text-gray-600 text-sm font-medium">รายจ่ายทั้งหมด</span>
+              <span className="text-gray-600 text-sm font-medium">
+                รายจ่ายทั้งหมด
+              </span>
               <TrendingDown className="w-5 h-5 text-red-500" />
             </div>
             <div className="text-3xl font-bold text-red-500 mb-1">
@@ -214,22 +284,32 @@ const FinanceAdminPage = () => {
 
           <div className="bg-white rounded-lg shadow-md p-6">
             <div className="flex items-center justify-between mb-2">
-              <span className="text-gray-600 text-sm font-medium">กำไรสุทธิ</span>
+              <span className="text-gray-600 text-sm font-medium">
+                กำไรสุทธิ
+              </span>
               <DollarSign className="w-5 h-5 text-blue-500" />
             </div>
             <div className="text-3xl font-bold text-blue-500 mb-1">
               {formatNumberWithComma(netProfit)}
               <span className="text-lg ml-1">฿</span>
             </div>
-            <div className="text-xs text-gray-500">รอดำเนินการ: {formatNumberWithComma(pendingRevenue)} ฿</div>
+            <div className="text-xs text-gray-500">
+              รอดำเนินการ: {formatNumberWithComma(pendingRevenue)} ฿
+            </div>
           </div>
 
           <div className="bg-white rounded-lg shadow-md p-6">
             <div className="flex items-center justify-between mb-2">
               <span className="text-gray-600 text-sm font-medium">% กำไร</span>
-              <div className={`text-sm font-bold ${Number(profitMargin) >= 0 ? "text-green-500" : "text-red-500"}`}>{Number(profitMargin) >= 0 ? "▲" : "▼"}</div>
+              <div
+                className={`text-sm font-bold ${Number(profitMargin) >= 0 ? "text-green-500" : "text-red-500"}`}
+              >
+                {Number(profitMargin) >= 0 ? "▲" : "▼"}
+              </div>
             </div>
-            <div className={`text-3xl font-bold mb-1 ${Number(profitMargin) >= 0 ? "text-green-500" : "text-red-500"}`}>
+            <div
+              className={`text-3xl font-bold mb-1 ${Number(profitMargin) >= 0 ? "text-green-500" : "text-red-500"}`}
+            >
               {profitMargin}
               <span className="text-lg ml-1">%</span>
             </div>
@@ -239,18 +319,55 @@ const FinanceAdminPage = () => {
         {/* Charts */}
         <div className="grid grid-cols-1 min-[1181px]:grid-cols-2 gap-6 mb-8">
           <div className="bg-white rounded-lg shadow-md p-8">
-            <h2 className="text-xl font-bold text-gray-800 mb-6">📈 {period === "year" ? "รายรับ-รายจ่ายรายเดือน" : "ภาพรวมรายรับ-รายจ่าย"}</h2>
+            <h2 className="text-xl font-bold text-gray-800 mb-6">
+              📈{" "}
+              {period === "year"
+                ? "รายรับ-รายจ่ายรายเดือน"
+                : "ภาพรวมรายรับ-รายจ่าย"}
+            </h2>
             <ResponsiveContainer width="100%" height={450}>
               {period === "year" ? (
-                <LineChart data={summaryData?.year?.monthlyChartData || monthlyChartDataMock}>
+                <LineChart
+                  data={
+                    summaryData?.year?.monthlyChartData || monthlyChartDataMock
+                  }
+                >
                   <CartesianGrid strokeDasharray="3 3" />
                   <XAxis dataKey="month" />
                   <YAxis />
-                  <Tooltip formatter={(value) => value.toLocaleString("th-TH") + " ฿"} />
-                  <Legend formatter={(value) => (value === "Revenue" ? "รายรับ" : value === "Expenses" ? "รายจ่าย" : "กำไรสุทธิ")} />
-                  <Line type="monotone" dataKey="revenue" stroke="#10b981" strokeWidth={2} name="รายรับ" />
-                  <Line type="monotone" dataKey="expenses" stroke="#ef4444" strokeWidth={2} name="รายจ่าย" />
-                  <Line type="monotone" dataKey="netProfit" stroke="#3b82f6" strokeWidth={2} name="กำไรสุทธิ" />
+                  <Tooltip
+                    formatter={(value) => value.toLocaleString("th-TH") + " ฿"}
+                  />
+                  <Legend
+                    formatter={(value) =>
+                      value === "Revenue"
+                        ? "รายรับ"
+                        : value === "Expenses"
+                          ? "รายจ่าย"
+                          : "กำไรสุทธิ"
+                    }
+                  />
+                  <Line
+                    type="monotone"
+                    dataKey="revenue"
+                    stroke="#10b981"
+                    strokeWidth={2}
+                    name="รายรับ"
+                  />
+                  <Line
+                    type="monotone"
+                    dataKey="expenses"
+                    stroke="#ef4444"
+                    strokeWidth={2}
+                    name="รายจ่าย"
+                  />
+                  <Line
+                    type="monotone"
+                    dataKey="netProfit"
+                    stroke="#3b82f6"
+                    strokeWidth={2}
+                    name="กำไรสุทธิ"
+                  />
                 </LineChart>
               ) : (
                 <BarChart
@@ -264,16 +381,28 @@ const FinanceAdminPage = () => {
                 >
                   <CartesianGrid strokeDasharray="3 3" />
                   <XAxis dataKey="name" />
-                  <Tooltip formatter={(value) => value.toLocaleString("th-TH") + " ฿"} />
+                  <Tooltip
+                    formatter={(value) => value.toLocaleString("th-TH") + " ฿"}
+                  />
                   <Bar
                     dataKey="จำนวน"
                     radius={[8, 8, 0, 0]}
                     label={({ x, y, width, value }: any) => {
                       const val = value || 0;
-                      const xPos = typeof x === "number" && typeof width === "number" ? x + width / 2 : 0;
+                      const xPos =
+                        typeof x === "number" && typeof width === "number"
+                          ? x + width / 2
+                          : 0;
                       const yPos = typeof y === "number" ? y - 10 : 0;
                       return (
-                        <text x={xPos} y={yPos} fill="#333" textAnchor="middle" fontSize="12" fontWeight="bold">
+                        <text
+                          x={xPos}
+                          y={yPos}
+                          fill="#333"
+                          textAnchor="middle"
+                          fontSize="12"
+                          fontWeight="bold"
+                        >
                           {val?.toLocaleString("th-TH") ?? 0} ฿
                         </text>
                       );
@@ -289,7 +418,9 @@ const FinanceAdminPage = () => {
           </div>
 
           <div className="bg-white rounded-lg shadow-md p-8">
-            <h2 className="text-xl font-bold text-gray-800 mb-6">🥧 สัดส่วนค่าใช้จ่าย</h2>
+            <h2 className="text-xl font-bold text-gray-800 mb-6">
+              🥧 สัดส่วนค่าใช้จ่าย
+            </h2>
             <ResponsiveContainer width="100%" height={450}>
               <BarChart
                 data={expensesData}
@@ -302,7 +433,9 @@ const FinanceAdminPage = () => {
               >
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis dataKey="name" />
-                <Tooltip formatter={(value) => value.toLocaleString("th-TH") + " ฿"} />
+                <Tooltip
+                  formatter={(value) => value.toLocaleString("th-TH") + " ฿"}
+                />
                 <Bar
                   dataKey="value"
                   fill="#8884d8"
@@ -310,16 +443,35 @@ const FinanceAdminPage = () => {
                   label={({ x, y, width, value }: any) => {
                     const totalVal = totalExpenses || 1;
                     const val = value || 0;
-                    const percentage = totalVal > 0 ? ((val / totalVal) * 100).toFixed(2) : "0.00";
-                    const xPos = typeof x === "number" && typeof width === "number" ? x + width / 2 : 0;
+                    const percentage =
+                      totalVal > 0
+                        ? ((val / totalVal) * 100).toFixed(2)
+                        : "0.00";
+                    const xPos =
+                      typeof x === "number" && typeof width === "number"
+                        ? x + width / 2
+                        : 0;
                     const yPos = typeof y === "number" ? y - 25 : 0;
                     const yPos2 = typeof y === "number" ? y - 10 : 0;
                     return (
                       <g>
-                        <text x={xPos} y={yPos} fill="#333" textAnchor="middle" fontSize="12" fontWeight="bold">
+                        <text
+                          x={xPos}
+                          y={yPos}
+                          fill="#333"
+                          textAnchor="middle"
+                          fontSize="12"
+                          fontWeight="bold"
+                        >
                           {val?.toLocaleString("th-TH") ?? 0} ฿
                         </text>
-                        <text x={xPos} y={yPos2} fill="#666" textAnchor="middle" fontSize="11">
+                        <text
+                          x={xPos}
+                          y={yPos2}
+                          fill="#666"
+                          textAnchor="middle"
+                          fontSize="11"
+                        >
                           {percentage}%
                         </text>
                       </g>
@@ -327,7 +479,10 @@ const FinanceAdminPage = () => {
                   }}
                 >
                   {expensesData.map((_, index) => (
-                    <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                    <Cell
+                      key={`cell-${index}`}
+                      fill={COLORS[index % COLORS.length]}
+                    />
                   ))}
                 </Bar>
               </BarChart>
@@ -384,31 +539,54 @@ const FinanceAdminPage = () => {
 
         {/* Table */}
         <div className="bg-white rounded-lg shadow-md p-8">
-          <h2 className="text-xl font-bold text-gray-800 mb-6">📋 รายละเอียดค่าใช้จ่ายแยกตามหมวด</h2>
+          <h2 className="text-xl font-bold text-gray-800 mb-6">
+            📋 รายละเอียดค่าใช้จ่ายแยกตามหมวด
+          </h2>
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead>
                 <tr className="border-b-2 border-gray-200">
-                  <th className="text-left py-3 px-4 font-semibold text-gray-700">หมวดหมู่</th>
-                  <th className="text-right py-3 px-4 font-semibold text-gray-700">จำนวนเงิน (บาท)</th>
-                  <th className="text-center py-3 px-4 font-semibold text-gray-700">สัดส่วน (%)</th>
+                  <th className="text-left py-3 px-4 font-semibold text-gray-700">
+                    หมวดหมู่
+                  </th>
+                  <th className="text-right py-3 px-4 font-semibold text-gray-700">
+                    จำนวนเงิน (บาท)
+                  </th>
+                  <th className="text-center py-3 px-4 font-semibold text-gray-700">
+                    สัดส่วน (%)
+                  </th>
                 </tr>
               </thead>
               <tbody>
                 {expenseDetails.map((row, index) => (
-                  <tr key={index} className="border-b border-gray-100 hover:bg-gray-50">
-                    <td className="py-3 px-4 font-medium text-gray-800">{row.category}</td>
-                    <td className="py-3 px-4 text-right text-gray-700">{row.amount.toLocaleString("th-TH")}</td>
+                  <tr
+                    key={index}
+                    className="border-b border-gray-100 hover:bg-gray-50"
+                  >
+                    <td className="py-3 px-4 font-medium text-gray-800">
+                      {row.category}
+                    </td>
+                    <td className="py-3 px-4 text-right text-gray-700">
+                      {row.amount.toLocaleString("th-TH")}
+                    </td>
                     <td className="py-3 px-4 text-center">
-                      <span className="inline-block bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-sm font-medium">{row.percentage}%</span>
+                      <span className="inline-block bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-sm font-medium">
+                        {row.percentage}%
+                      </span>
                     </td>
                   </tr>
                 ))}
                 <tr className="bg-blue-50 border-t-2 border-blue-200">
-                  <td className="py-4 px-4 font-bold text-gray-800 text-lg">รวมทั้งหมด</td>
-                  <td className="py-4 px-4 text-right font-bold text-gray-800 text-lg">{totalExpenses.toLocaleString("th-TH")} ฿</td>
+                  <td className="py-4 px-4 font-bold text-gray-800 text-lg">
+                    รวมทั้งหมด
+                  </td>
+                  <td className="py-4 px-4 text-right font-bold text-gray-800 text-lg">
+                    {totalExpenses.toLocaleString("th-TH")} ฿
+                  </td>
                   <td className="py-4 px-4 text-center">
-                    <span className="inline-block bg-blue-500 text-white px-3 py-1 rounded-full text-sm font-bold">100.00%</span>
+                    <span className="inline-block bg-blue-500 text-white px-3 py-1 rounded-full text-sm font-bold">
+                      100.00%
+                    </span>
                   </td>
                 </tr>
               </tbody>
