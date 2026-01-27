@@ -247,7 +247,7 @@ const CreateWithdrawAdminPage = () => {
                   className="btn-append"
                   type="button"
                   onClick={() => {
-                    if (categoryDetailFields?.fields.length === 8) return;
+                    if (categoryDetailFields?.fields.length === 9) return;
 
                     categoryDetailFields.append(initCategoryDetail);
                   }}
@@ -293,6 +293,9 @@ const CreateWithdrawAdminPage = () => {
                             </Select.Option>
                             <Select.Option value={CategoryType.SALARY_ADVANCE}>
                               เบิกเงินเดือน
+                            </Select.Option>
+                            <Select.Option value={CategoryType.PAYROLL}>
+                              เงินเดือนพนักงาน
                             </Select.Option>
                             <Select.Option value={CategoryType.OTHER}>
                               ค่าอื่นๆ
