@@ -240,112 +240,120 @@
       }
     }
 
-    .wrap-grid-employee-name {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      .grid-employee-name {
+    .overflow {
+      overflow: hidden;
+      height: 400px;
+      .wrap-grid-employee-name {
         display: flex;
+        justify-content: space-between;
         align-items: center;
-        gap: 10px;
-        padding: 5px;
-
-        img {
+        overflow: hidden;
+        .grid-employee-name {
           display: flex;
-          width: 80px;
-          height: 80px;
-          justify-content: center;
           align-items: center;
-          border-radius: 50%;
-          border: 2px solid white;
+          gap: 10px;
+          padding: 5px;
+
+          img {
+            display: flex;
+            width: 80px;
+            height: 80px;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+            border: 2px solid white;
+          }
+
+          .employee-name {
+            display: flex;
+            flex-direction: column;
+            color: white;
+          }
         }
 
-        .employee-name {
+        .checking {
           display: flex;
-          flex-direction: column;
-          color: white;
+          justify-content: center;
+          .checkbox-Missing-work {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100px;
+            height: 30px;
+            margin: 5px;
+            background-color: #ff4d4f;
+            color: white;
+            border-radius: 10px;
+            cursor: pointer;
+          }
+          .checkbox-Missing-work-selected {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100px;
+            height: 30px;
+            margin: 5px;
+            background-color: #d32f2f;
+            color: white;
+            border-radius: 10px;
+            cursor: pointer;
+            border: 2px solid white;
+          }
+          .checkbox-Leave-work {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100px;
+            height: 30px;
+            margin: 5px;
+            background-color: #f9a825;
+            color: white;
+            border-radius: 10px;
+            cursor: pointer;
+          }
+          .checkbox-Leave-work-selected {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100px;
+            height: 30px;
+            margin: 5px;
+            background-color: #e68900;
+            color: white;
+            border-radius: 10px;
+            cursor: pointer;
+            border: 2px solid white;
+          }
+          .checkbox-Attend-work {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100px;
+            height: 30px;
+            margin: 5px;
+            background-color: #4aff88;
+            color: white;
+            border-radius: 10px;
+            cursor: pointer;
+          }
+          .checkbox-Attend-work-selected {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100px;
+            height: 30px;
+            margin: 5px;
+            background-color: #4caf50;
+            color: white;
+            border-radius: 10px;
+            cursor: pointer;
+            border: 2px solid white;
+          }
         }
       }
-
-      .checking {
-        display: flex;
-        justify-content: center;
-        .checkbox-Missing-work {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          width: 100px;
-          height: 30px;
-          margin: 5px;
-          background-color: #ff4d4f;
-          color: white;
-          border-radius: 10px;
-          cursor: pointer;
-        }
-        .checkbox-Missing-work-selected {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          width: 100px;
-          height: 30px;
-          margin: 5px;
-          background-color: #d32f2f;
-          color: white;
-          border-radius: 10px;
-          cursor: pointer;
-          border: 2px solid white;
-        }
-        .checkbox-Leave-work {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          width: 100px;
-          height: 30px;
-          margin: 5px;
-          background-color: #f9a825;
-          color: white;
-          border-radius: 10px;
-          cursor: pointer;
-        }
-        .checkbox-Leave-work-selected {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          width: 100px;
-          height: 30px;
-          margin: 5px;
-          background-color: #e68900;
-          color: white;
-          border-radius: 10px;
-          cursor: pointer;
-          border: 2px solid white;
-        }
-        .checkbox-Attend-work {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          width: 100px;
-          height: 30px;
-          margin: 5px;
-          background-color: #4aff88;
-          color: white;
-          border-radius: 10px;
-          cursor: pointer;
-        }
-        .checkbox-Attend-work-selected {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          width: 100px;
-          height: 30px;
-          margin: 5px;
-          background-color: #4caf50;
-          color: white;
-          border-radius: 10px;
-          cursor: pointer;
-          border: 2px solid white;
-        }
-      }
+    }
+    .overflow:hover {
+      overflow: auto;
     }
   }
 }
@@ -585,8 +593,7 @@
    ============================================ */
 @media (max-width: 600px) {
   .container-dashBoradAdminPage {
-    padding: 10px;
-    gap: 10px;
+    padding-left: 20px;
   }
 
   .header-dashBoradAdminPage {
@@ -711,22 +718,22 @@
             border-radius: 6px;
           }
           .checkbox-Missing-work {
-            width: 100%;
+            width: 100% !important;
           }
           .checkbox-Missing-work-selected {
-            width: 100%;
+            width: 100% !important;
           }
           .checkbox-Leave-work {
-            width: 100%;
+            width: 100% !important;
           }
           .checkbox-Leave-work-selected {
-            width: 100%;
+            width: 100% !important;
           }
           .checkbox-Attend-work {
-            width: 100%;
+            width: 100% !important;
           }
           .checkbox-Attend-work-selected {
-            width: 100%;
+            width: 100% !important;
           }
         }
       }

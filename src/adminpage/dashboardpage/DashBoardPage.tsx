@@ -46,9 +46,8 @@ const DashBoardPage = () => {
     try {
       setIsDashBoardLoading(true);
 
-      const { data: employeesRes = [] } = await dispath(
-        getAllEmployees()
-      ).unwrap();
+      const { data: employeesRes = [] } =
+        await dispath(getAllEmployees()).unwrap();
 
       setEmployeeData(employeesRes);
     } catch (error) {
@@ -67,7 +66,7 @@ const DashBoardPage = () => {
       const startMonth = dayjs().startOf("month").format("YYYY-MM-DD");
       const endMonth = dayjs().endOf("month").format("YYYY-MM-DD");
       const { data: SummaryDataForMonthRes } = await dispath(
-        getDashboardSummary({ startDate: startMonth, endDate: endMonth })
+        getDashboardSummary({ startDate: startMonth, endDate: endMonth }),
       ).unwrap();
 
       setSummaryData(SummaryDataForMonthRes);
@@ -163,7 +162,7 @@ const DashBoardPage = () => {
                   <p>รายรับ</p>
                   <h2>
                     {formatNumberWithComma(
-                      summaryData?.month.bookingsRevenue.totalRevenue || 0
+                      summaryData?.month.bookingsRevenue.totalRevenue || 0,
                     )}{" "}
                     บาท
                   </h2>
@@ -173,7 +172,7 @@ const DashBoardPage = () => {
                   <p>รายจ่าย</p>
                   <h2>
                     {formatNumberWithComma(
-                      summaryData?.month.expensesByCategory.total || 0
+                      summaryData?.month.expensesByCategory.total || 0,
                     )}{" "}
                     บาท
                   </h2>
@@ -197,7 +196,7 @@ const DashBoardPage = () => {
                   <p>รายรับ</p>
                   <h2>
                     {formatNumberWithComma(
-                      summaryData?.year.bookingsRevenue.totalRevenue || 0
+                      summaryData?.year.bookingsRevenue.totalRevenue || 0,
                     )}{" "}
                     บาท
                   </h2>
@@ -207,7 +206,7 @@ const DashBoardPage = () => {
                   <p>รายจ่าย</p>
                   <h2>
                     {formatNumberWithComma(
-                      summaryData?.year.expensesByCategory.total || 0
+                      summaryData?.year.expensesByCategory.total || 0,
                     )}{" "}
                     บาท
                   </h2>
@@ -230,59 +229,61 @@ const DashBoardPage = () => {
               <h1>เข้า-ออกงาน ของพนักงาน</h1>
             </div>
 
-            {employeeData.map((item, index) => {
-              return (
-                <div className="wrap-grid-employee-name">
-                  <div key={index} className="grid-employee-name">
-                    <img
-                      src={getImagePath(
-                        "profile",
-                        userInfo?.dbname,
-                        item?.image
-                      )}
-                      alt="profile"
-                    />
-                    <div className="employee-name">
-                      {item.firstName} {item.lastName}
-                      <p>สถานะ</p>
+            <div className="overflow">
+              {employeeData.map((item, index) => {
+                return (
+                  <div className="wrap-grid-employee-name">
+                    <div key={index} className="grid-employee-name">
+                      <img
+                        src={getImagePath(
+                          "profile",
+                          userInfo?.dbname,
+                          item?.image,
+                        )}
+                        alt="profile"
+                      />
+                      <div className="employee-name">
+                        {item.firstName} {item.lastName}
+                        <p>สถานะ</p>
+                      </div>
                     </div>
-                  </div>
 
-                  <div className="checking">
-                    <div
-                      className={
-                        selected === "missing"
-                          ? "checkbox-Missing-work-selected"
-                          : "checkbox-Missing-work"
-                      }
-                      onClick={() => setSelected("missing")}
-                    >
-                      ขาดงาน
-                    </div>
-                    <div
-                      className={
-                        selected === "leave"
-                          ? "checkbox-Leave-work-selected"
-                          : "checkbox-Leave-work"
-                      }
-                      onClick={() => setSelected("leave")}
-                    >
-                      ลางาน
-                    </div>
-                    <div
-                      className={
-                        selected === "attend"
-                          ? "checkbox-Attend-work-selected"
-                          : "checkbox-Attend-work"
-                      }
-                      onClick={() => setSelected("attend")}
-                    >
-                      เข้างาน
+                    <div className="checking">
+                      <div
+                        className={
+                          selected === "missing"
+                            ? "checkbox-Missing-work-selected"
+                            : "checkbox-Missing-work"
+                        }
+                        onClick={() => setSelected("missing")}
+                      >
+                        ขาดงาน
+                      </div>
+                      <div
+                        className={
+                          selected === "leave"
+                            ? "checkbox-Leave-work-selected"
+                            : "checkbox-Leave-work"
+                        }
+                        onClick={() => setSelected("leave")}
+                      >
+                        ลางาน
+                      </div>
+                      <div
+                        className={
+                          selected === "attend"
+                            ? "checkbox-Attend-work-selected"
+                            : "checkbox-Attend-work"
+                        }
+                        onClick={() => setSelected("attend")}
+                      >
+                        เข้างาน
+                      </div>
                     </div>
                   </div>
-                </div>
-              );
-            })}
+                );
+              })}
+            </div>
           </div>
 
           <div className="content-dashboard-right">

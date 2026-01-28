@@ -292,6 +292,7 @@ const NavbarAdmin = () => {
               }
               onClick={() => {
                 navigate("/admin/dashboard");
+                setOpen(false);
               }}
             >
               <i className="fa-brands fa-trello"></i>
