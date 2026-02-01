@@ -277,6 +277,10 @@ const WithdrawAdminPage = () => {
       ? dayjs(selectedExpenseData.date).format("DD/MM/YYYY")
       : "";
 
+    const formattedDatePrice = selectedExpenseData?.datePrice
+      ? dayjs(selectedExpenseData.datePrice).format("DD/MM/YYYY")
+      : "";
+
     const formattedStatus =
       selectedExpenseData?.status === 0
         ? "รออนุมัติ"
@@ -428,7 +432,7 @@ const WithdrawAdminPage = () => {
                     <p>วันที่ชำระเงิน</p>
                   </div>
 
-                  <p>{selectedExpenseData?.datePrice}</p>
+                  <p>{formattedDatePrice}</p>
                 </div>
               </div>
             </div>
