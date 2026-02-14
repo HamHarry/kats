@@ -3,22 +3,30 @@ import "./EmployeeAdminPage.css";
 import { useNavigate, useParams } from "react-router-dom";
 import { EmployeeData } from "../../model/employee.type";
 import { useAppDispatch } from "../../stores/store";
-import { deleteEmployeeById, getAllEmployeePaginations } from "../../stores/slices/employeeSlice";
+import {
+  getAllEmployeePaginations,
+  isDeleteEmployeeById,
+} from "../../stores/slices/employeeSlice";
 import CircleLoading from "../../shared/circleLoading";
 import { Modal, Tooltip } from "antd";
 import { debounce } from "lodash";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
-import { employeeDataSelector, userInfoSelector } from "../../stores/slices/authSlice";
+import {
+  employeeDataSelector,
+  userInfoSelector,
+} from "../../stores/slices/authSlice";
 import { getImagePath } from "../../shared/utils/common";
+import { DeleteStatus } from "../../model/delete.type";
 
 const EmployeeAdminPage = () => {
   const myEmployeeData = useSelector(employeeDataSelector);
   const userInfo = useSelector(userInfoSelector);
 
   const [employeeData, setEmployeeData] = useState<EmployeeData[]>([]);
-  const [selectEmployeeById, setSelectEmployeeById] = useState<string>();
-  const [openDialogConfirmDelete, setOpenDialogConfirmDelete] = useState<boolean>(false);
+  const [selectEmployeeById, setSelectEmployeeById] = useState<EmployeeData>();
+  const [openDialogConfirmDelete, setOpenDialogConfirmDelete] =
+    useState<boolean>(false);
   const [isEmployeeLoading, setIsEmployeeLoading] = useState<boolean>(false);
   const [searchTerm, setSearchTerm] = useState<string>("");
   const navigate = useNavigate();
@@ -35,9 +43,15 @@ const EmployeeAdminPage = () => {
         term: searchTerm,
       };
 
-      const { data: employeesRes = [] } = await dispath(getAllEmployeePaginations(query)).unwrap();
+      const { data: employeesRes = [] } = await dispath(
+        getAllEmployeePaginations(query),
+      ).unwrap();
 
-      setEmployeeData(employeesRes);
+      const filteredemployees = employeesRes.filter((item: EmployeeData) => {
+        return item.delete === DeleteStatus.ISNOTDELETE;
+      });
+
+      setEmployeeData(filteredemployees);
     } catch (error) {
       console.log(error);
     } finally {
@@ -51,10 +65,15 @@ const EmployeeAdminPage = () => {
 
   const deleted = async () => {
     try {
-      if (!selectEmployeeById) return;
-
       setIsEmployeeLoading(true);
-      await dispath(deleteEmployeeById(selectEmployeeById)).unwrap();
+      if (!selectEmployeeById?._id) return;
+
+      const data: EmployeeData = {
+        ...selectEmployeeById,
+        delete: DeleteStatus.ISDELETE,
+      };
+
+      await dispath(isDeleteEmployeeById(data)).unwrap();
 
       setOpenDialogConfirmDelete(false);
     } catch (error) {
@@ -71,7 +90,12 @@ const EmployeeAdminPage = () => {
 
   const rederDialogConfirmDelete = () => {
     return (
-      <Modal centered className="wrap-container-DialogDelete" open={openDialogConfirmDelete} onCancel={() => setOpenDialogConfirmDelete(false)}>
+      <Modal
+        centered
+        className="wrap-container-DialogDelete"
+        open={openDialogConfirmDelete}
+        onCancel={() => setOpenDialogConfirmDelete(false)}
+      >
         <h1>{t("ยืนยันการลบ")}</h1>
 
         <div className="btn-DialogDelete-Navbar">
@@ -102,7 +126,11 @@ const EmployeeAdminPage = () => {
         <h1>{t("ข้อมูลพนักงาน")}</h1>
       </div>
       <div className="search-employee">
-        <input type="text" placeholder="Search..." onChange={(e) => handleSetSearchTerm(e.target.value)} />
+        <input
+          type="text"
+          placeholder="Search..."
+          onChange={(e) => handleSetSearchTerm(e.target.value)}
+        />
         <button
           onClick={() => {
             navigate("/admin/employee/create");
@@ -116,7 +144,10 @@ const EmployeeAdminPage = () => {
           return (
             <div key={index} className="grid-employee">
               <div className="employee-content">
-                <img src={getImagePath("profile", userInfo?.dbname, item?.image)} alt="profile" />
+                <img
+                  src={getImagePath("profile", userInfo?.dbname, item?.image)}
+                  alt="profile"
+                />
                 <div className="wrap-employee-content">
                   <div className="text-p">
                     <p>
@@ -140,7 +171,7 @@ const EmployeeAdminPage = () => {
                             className="fa-solid fa-trash-can"
                             onClick={() => {
                               setOpenDialogConfirmDelete(true);
-                              setSelectEmployeeById(item._id);
+                              setSelectEmployeeById(item);
                             }}
                           ></i>
                         </Tooltip>

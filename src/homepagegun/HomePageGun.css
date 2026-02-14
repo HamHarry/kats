@@ -71,7 +71,10 @@
         padding: 10px;
       }
       .btn:hover {
-        text-shadow: 0 0 10px #ffcc66, 0 0 20px #ffcc66, 0 0 30px #ffcc66;
+        text-shadow:
+          0 0 10px #ffcc66,
+          0 0 20px #ffcc66,
+          0 0 30px #ffcc66;
         transition: all 0.5s;
       }
       .btn-booking {
@@ -87,7 +90,10 @@
         padding: 10px;
       }
       .btn-booking:hover {
-        text-shadow: 0 0 10px #ffcc66, 0 0 20px #ffcc66, 0 0 30px #ffcc66;
+        text-shadow:
+          0 0 10px #ffcc66,
+          0 0 20px #ffcc66,
+          0 0 30px #ffcc66;
         transition: all 0.5s;
       }
     }

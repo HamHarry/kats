@@ -242,7 +242,7 @@
 
     .overflow {
       overflow: hidden;
-      height: 400px;
+      height: 360px;
       .wrap-grid-employee-name {
         display: flex;
         justify-content: space-between;

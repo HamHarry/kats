@@ -45,11 +45,11 @@ const NavbarGun = () => {
             </Link>
           </li>
 
-          <li>
+          {/* <li>
             <Link to="GunGuard" smooth={true} duration={200}>
               Guard
             </Link>
-          </li>
+          </li> */}
 
           <li
             onClick={() => {

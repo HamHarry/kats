@@ -10,6 +10,7 @@ import { userInfoSelector } from "../../stores/slices/authSlice";
 import { getDashboardSummary } from "../../stores/slices/dashboardSlice";
 import { DashboardSummary } from "../../model/dashboard.type";
 import dayjs from "dayjs";
+import { DeleteStatus } from "../../model/delete.type";
 
 const thaiMonths = [
   "มกราคม",
@@ -49,7 +50,11 @@ const DashBoardPage = () => {
       const { data: employeesRes = [] } =
         await dispath(getAllEmployees()).unwrap();
 
-      setEmployeeData(employeesRes);
+      const filteredemployees = employeesRes.filter((item: EmployeeData) => {
+        return item.delete === DeleteStatus.ISNOTDELETE;
+      });
+
+      setEmployeeData(filteredemployees);
     } catch (error) {
       console.log(error);
     } finally {

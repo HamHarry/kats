@@ -37,7 +37,7 @@
       margin-top: 20px;
     }
     input {
-      width: 450px;
+      width: 500px;
       padding: 13px;
       border-radius: 5px;
       border: 1px solid #f3cd68;
@@ -65,8 +65,10 @@
         transition: all 0.5s;
       }
       .btn-login-gun:hover {
-        text-shadow: 0 0 10px rgba(243, 205, 104, 0.8),
-          0 0 20px rgba(243, 205, 104, 0.6), 0 0 30px rgba(243, 205, 104, 0.4);
+        text-shadow:
+          0 0 10px rgba(243, 205, 104, 0.8),
+          0 0 20px rgba(243, 205, 104, 0.6),
+          0 0 30px rgba(243, 205, 104, 0.4);
         transition: all 0.5s;
       }
     }
@@ -91,7 +93,7 @@
         width: 450px;
       }
       input {
-        width: 400px;
+        width: 450px;
       }
       .btn-gun {
         left: 30%;

@@ -134,7 +134,8 @@ const BookingAdminPage = () => {
       console.log(error);
     } finally {
       setIsBookingLoading(false);
-      fetchAllBooking();
+      navigate("/admin/guarantee");
+      // fetchAllBooking();
     }
   };
 

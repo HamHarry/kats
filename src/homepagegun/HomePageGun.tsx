@@ -1,7 +1,7 @@
 import { Link } from "react-scroll";
 import "./HomePageGun.css";
 import CoatingPageGun from "../productpageguncoating/CoatingPageGun";
-import GunGuardPage from "../productpagegunguard/GunGuardPage";
+// import GunGuardPage from "../productpagegunguard/GunGuardPage";
 import BookingPageGun from "../bookingpagegun/BookingPageGun";
 
 const HomePageGun = () => {
@@ -19,36 +19,38 @@ const HomePageGun = () => {
           <h3>
             <span>GUN PROTECTION</span>
             <br />
-            ผู้ผลิตและจำหน่าย สินค้าประเภทเคมีภัณฑ์และสินค้าอุตสาหกรรม
+            สถานบริการเฉพาะทางด้านการป้องกันและชะลอการเกิดสนิมใต้ท้องรถยนต์
             <br />
-            โดยเรามีทีมงานวิจัยและพัฒนาที่มากประสบการณ์ด้านเคมีอุตสาหกรรม
+            โดยเน้นการดูแลบริเวณใต้ท้องรถ โครงสร้างแชสซี ซอกมุม
             <br />
-            โดยตรงมากกว่า 30 ปี รวมทั้งมีโรงงานผลิตสินค้ารองรับการผลิตที่ได้
+            และชิ้นส่วนโลหะที่เสี่ยงต่อความชื้น น้ำ และคราบเกลือ
             <br />
-            มาตรฐานและมีศักยภาพในการผลิตซึ่งสามารถบริหารจัดการสินค้าใน
+            ซึ่งเป็นสาเหตุหลักของการเกิดสนิม
             <br />
-            ปริมาณมากในลูกค้าได้อย่างมีประสิทธิภาพ รวมทั้งสามารถพัฒนาสินค้า
+            เเละเป็นศูนย์บริการที่เลือกใช้น้ำยาสูตรน้ำ (Water-Based)
             <br />
-            ตามความต้องการของลูกค้าได้ในอนาคตอีกด้วย
+            โดยเน้นความปลอดภัยต่อผู้ใช้งาน เป็นมิตรต่อสิ่งแวดล้อม
+            <br />
+            และให้ประสิทธิภาพการป้องกันสนิมที่ดียิ่งขึ้น
           </h3>
           <div className="btn-content">
             <div className="btn-group-top">
               <button className="btn">
                 <Link to="coatingGun" smooth={true} duration={200}>
-                  Coatings
+                  Coating
                 </Link>
               </button>
               <button className="btn">
-                <Link to="GunGuard" smooth={true} duration={200}>
-                  Guard
+                <Link to="bookingGun" smooth={true} duration={200}>
+                  ตรวจสอบคิว
                 </Link>
               </button>
             </div>
-            <button className="btn-booking">
+            {/* <button className="btn-booking">
               <Link to="bookingGun" smooth={true} duration={200}>
                 ตรวจสอบคิว
               </Link>
-            </button>
+            </button> */}
           </div>
         </div>
 
@@ -70,7 +72,7 @@ const HomePageGun = () => {
 
       <BookingPageGun />
 
-      <GunGuardPage />
+      {/* <GunGuardPage /> */}
     </div>
   );
 };

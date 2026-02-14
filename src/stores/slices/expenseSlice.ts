@@ -16,7 +16,7 @@ export const createExpense = createAsyncThunk(
   async (payload: any): Promise<any> => {
     const response = await expenseServices.createExpense(payload);
     return response;
-  }
+  },
 );
 
 export const getAllExpenses = createAsyncThunk(
@@ -24,7 +24,7 @@ export const getAllExpenses = createAsyncThunk(
   async (delet?: DeleteStatus): Promise<any> => {
     const response = await expenseServices.getAllExpenses(delet);
     return response;
-  }
+  },
 );
 
 export const getExpenseById = createAsyncThunk(
@@ -32,7 +32,7 @@ export const getExpenseById = createAsyncThunk(
   async (expenseId: string): Promise<any> => {
     const response = await expenseServices.getExpenseById(expenseId);
     return response;
-  }
+  },
 );
 
 export const updateExpenseById = createAsyncThunk(
@@ -40,7 +40,7 @@ export const updateExpenseById = createAsyncThunk(
   async (body: any): Promise<any> => {
     const response = await expenseServices.updateExpenseById(body);
     return response;
-  }
+  },
 );
 
 export const approveExpenseById = createAsyncThunk(
@@ -48,7 +48,7 @@ export const approveExpenseById = createAsyncThunk(
   async (body: FinanceData): Promise<any> => {
     const response = await expenseServices.approveExpenseById(body);
     return response;
-  }
+  },
 );
 
 export const cencelExpenseById = createAsyncThunk(
@@ -56,7 +56,7 @@ export const cencelExpenseById = createAsyncThunk(
   async (body: FinanceData): Promise<any> => {
     const response = await expenseServices.cencelExpenseById(body);
     return response;
-  }
+  },
 );
 
 export const isDeleteExpenseById = createAsyncThunk(
@@ -64,7 +64,7 @@ export const isDeleteExpenseById = createAsyncThunk(
   async (body: FinanceData): Promise<any> => {
     const response = await expenseServices.isDeleteExpenseById(body);
     return response;
-  }
+  },
 );
 
 export const deleteExpenseById = createAsyncThunk(
@@ -72,7 +72,7 @@ export const deleteExpenseById = createAsyncThunk(
   async (expenseId: string): Promise<any> => {
     const response = await expenseServices.deleteExpenseById(expenseId);
     return response;
-  }
+  },
 );
 
 export default expenseSlice.reducer;
