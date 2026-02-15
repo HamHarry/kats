@@ -1,3 +1,4 @@
+import { DeleteStatus } from "../model/delete.type";
 import { HttpClient } from "../shared/utils/HttpClient";
 
 export const createEmployee = async (payload: any): Promise<any> => {
@@ -6,8 +7,10 @@ export const createEmployee = async (payload: any): Promise<any> => {
   return response;
 };
 
-export const getAllEmployees = async (): Promise<any> => {
-  const response = await HttpClient.get(`/employees`);
+export const getAllEmployees = async (
+  delet = DeleteStatus.ISNOTDELETE,
+): Promise<any> => {
+  const response = await HttpClient.get(`/employees?delete=${delet}`);
 
   return response;
 };

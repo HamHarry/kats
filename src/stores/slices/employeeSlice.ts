@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import * as employeeServices from "../../services/employeeSevice";
 import { RootState } from "../store";
+import { DeleteStatus } from "../../model/delete.type";
 
 export interface EmployeeImageUpdateForm {
   imageName?: string;
@@ -36,8 +37,8 @@ export const createEmployee = createAsyncThunk(
 
 export const getAllEmployees = createAsyncThunk(
   "employee/get/all",
-  async (): Promise<any> => {
-    const response = await employeeServices.getAllEmployees();
+  async (delet?: DeleteStatus): Promise<any> => {
+    const response = await employeeServices.getAllEmployees(delet);
     return response;
   },
 );

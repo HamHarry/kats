@@ -37,8 +37,17 @@ import {
   getAllExpenses,
   isDeleteExpenseById,
 } from "../../stores/slices/expenseSlice";
-import { DeleteRoleById, getAllRoles, isDeleteRoleById } from "../../stores/slices/roleSlice";
+import {
+  DeleteRoleById,
+  getAllRoles,
+  isDeleteRoleById,
+} from "../../stores/slices/roleSlice";
 import { RoleData } from "../../data/permissions";
+import {
+  deleteEmployeeById,
+  getAllEmployees,
+  isDeleteEmployeeById,
+} from "../../stores/slices/employeeSlice";
 
 const BinAdminPage = () => {
   const dispath = useAppDispatch();
@@ -46,19 +55,24 @@ const BinAdminPage = () => {
   const [bookingDatas, setBookingDatas] = useState<BookingData[]>([]);
   const [productDatas, setProductDatas] = useState<ProductData[]>([]);
   const [catagoryDatas, setCatagoryDatas] = useState<CatagoryData[]>([]);
-  const [typeProductDatas, setTypeProductDatas] = useState<TypeProductData[]>([]);
+  const [typeProductDatas, setTypeProductDatas] = useState<TypeProductData[]>(
+    [],
+  );
   const [expenseDatas, setExpenseDatas] = useState<FinanceData[]>([]);
-  // const [employeeDatas, setEmployeeDatas] = useState<EmployeeData[]>([]);
+  const [employeeDatas, setEmployeeDatas] = useState<EmployeeData[]>([]);
   const [permissionDatas, setPermissionDatas] = useState<RoleData[]>([]);
 
   const [selectedBookingData, setSelectedBookingData] = useState<BookingData>();
   const [selectedProductData, setSelectedProductData] = useState<ProductData>();
-  const [selectedCatagoryData, setSelectedCatagoryData] = useState<CatagoryData>();
-  const [selectedTypeProductData, setSelectedTypeProductData] = useState<TypeProductData>();
+  const [selectedCatagoryData, setSelectedCatagoryData] =
+    useState<CatagoryData>();
+  const [selectedTypeProductData, setSelectedTypeProductData] =
+    useState<TypeProductData>();
   const [selectedExpenseData, setSelectedExpenseData] = useState<FinanceData>();
-  // const [selectedEmployeeData, setSelectedEmployeeData] =
-  //   useState<EmployeeData>();
-  const [selectedPermissionData, setSelectedPermissionData] = useState<RoleData>();
+  const [selectedEmployeeData, setSelectedEmployeeData] =
+    useState<EmployeeData>();
+  const [selectedPermissionData, setSelectedPermissionData] =
+    useState<RoleData>();
 
   const [openDialogConfirmApproveBooking, setOpenDialogConfirmApproveBooking] =
     useState<boolean>(false);
@@ -71,22 +85,39 @@ const BinAdminPage = () => {
     useState<boolean>(false);
   const [openDialogConfirmDeleteCatagory, setOpenDialogConfirmDeleteCatagory] =
     useState<boolean>(false);
-  const [openDialogConfirmApproveCatagory, setOpenDialogConfirmApproveCatagory] =
-    useState<boolean>(false);
-  const [openDialogConfirmDeleteTypeProduct, setOpenDialogConfirmDeleteTypeProduct] =
-    useState<boolean>(false);
-  const [openDialogConfirmApproveTypeProduct, setOpenDialogConfirmApproveTypeProduct] =
-    useState<boolean>(false);
+  const [
+    openDialogConfirmApproveCatagory,
+    setOpenDialogConfirmApproveCatagory,
+  ] = useState<boolean>(false);
+  const [
+    openDialogConfirmDeleteTypeProduct,
+    setOpenDialogConfirmDeleteTypeProduct,
+  ] = useState<boolean>(false);
+  const [
+    openDialogConfirmApproveTypeProduct,
+    setOpenDialogConfirmApproveTypeProduct,
+  ] = useState<boolean>(false);
 
   const [openDialogConfirmDeleteExpense, setOpenDialogConfirmDeleteExpense] =
     useState<boolean>(false);
   const [openDialogConfirmApproveExpense, setOpenDialogConfirmApproveExpense] =
     useState<boolean>(false);
 
-  const [openDialogConfirmDeletePermission, setOpenDialogConfirmDeletePermission] =
+  const [
+    openDialogConfirmDeletePermission,
+    setOpenDialogConfirmDeletePermission,
+  ] = useState<boolean>(false);
+  const [
+    openDialogConfirmApprovePermission,
+    setOpenDialogConfirmApprovePermission,
+  ] = useState<boolean>(false);
+
+  const [openDialogConfirmDeleteEmployee, setOpenDialogConfirmDeleteEmployee] =
     useState<boolean>(false);
-  const [openDialogConfirmApprovePermission, setOpenDialogConfirmApprovePermission] =
-    useState<boolean>(false);
+  const [
+    openDialogConfirmApproveEmployee,
+    setOpenDialogConfirmApproveEmployee,
+  ] = useState<boolean>(false);
 
   const [isBinLoading, setIsBinLoading] = useState<boolean>(false);
 
@@ -95,7 +126,7 @@ const BinAdminPage = () => {
       setIsBinLoading(true);
 
       const { data: bookingsRes = [] } = await dispath(
-        getAllBookings(DeleteStatus.ISDELETE)
+        getAllBookings(DeleteStatus.ISDELETE),
       ).unwrap();
 
       setBookingDatas(bookingsRes);
@@ -115,7 +146,7 @@ const BinAdminPage = () => {
       setIsBinLoading(true);
 
       const { data: productRes = [] } = await dispath(
-        getAllProducts(DeleteStatus.ISDELETE)
+        getAllProducts(DeleteStatus.ISDELETE),
       ).unwrap();
 
       setProductDatas(productRes);
@@ -135,7 +166,7 @@ const BinAdminPage = () => {
       setIsBinLoading(true);
 
       const { data: catagoryRes = [] } = await dispath(
-        getAllCatagories(DeleteStatus.ISDELETE)
+        getAllCatagories(DeleteStatus.ISDELETE),
       ).unwrap();
 
       setCatagoryDatas(catagoryRes);
@@ -155,7 +186,7 @@ const BinAdminPage = () => {
       setIsBinLoading(true);
 
       const { data: typeProductRes = [] } = await dispath(
-        getAllTypeProduct(DeleteStatus.ISDELETE)
+        getAllTypeProduct(DeleteStatus.ISDELETE),
       ).unwrap();
 
       setTypeProductDatas(typeProductRes);
@@ -174,7 +205,7 @@ const BinAdminPage = () => {
     try {
       setIsBinLoading(true);
       const { data: ExpensesRes = [] } = await dispath(
-        getAllExpenses(DeleteStatus.ISDELETE)
+        getAllExpenses(DeleteStatus.ISDELETE),
       ).unwrap();
 
       setExpenseDatas(ExpensesRes);
@@ -189,30 +220,32 @@ const BinAdminPage = () => {
     fetchAllExpense();
   }, [fetchAllExpense]);
 
-  // const fetchEmployeeData = useCallback(async () => {
-  //   try {
-  //     setIsBinLoading(true);
-  //     const { data: EmployeesRes = [] } = await dispath(
-  //       getAllEmployees()
-  //     ).unwrap();
+  const fetchEmployeeData = useCallback(async () => {
+    try {
+      setIsBinLoading(true);
+      const { data: EmployeesRes = [] } = await dispath(
+        getAllEmployees(DeleteStatus.ISDELETE),
+      ).unwrap();
 
-  //     setEmployeeDatas(EmployeesRes);
-  //   } catch (error) {
-  //     console.log(error);
-  //   } finally {
-  //     setIsBinLoading(false);
-  //   }
-  // }, [dispath]);
+      setEmployeeDatas(EmployeesRes);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsBinLoading(false);
+    }
+  }, [dispath]);
 
-  // useEffect(() => {
-  //   fetchEmployeeData();
-  // }, [fetchEmployeeData]);
+  useEffect(() => {
+    fetchEmployeeData();
+  }, [fetchEmployeeData]);
 
   const fetchRoleData = useCallback(async () => {
     try {
       setIsBinLoading(true);
 
-      const { data: roleRes = [] } = await dispath(getAllRoles(DeleteStatus.ISDELETE)).unwrap();
+      const { data: roleRes = [] } = await dispath(
+        getAllRoles(DeleteStatus.ISDELETE),
+      ).unwrap();
 
       setPermissionDatas(roleRes);
     } catch (error) {
@@ -347,6 +380,26 @@ const BinAdminPage = () => {
     }
   };
 
+  const recoverEmployee = async () => {
+    try {
+      setIsBinLoading(true);
+
+      if (!selectedEmployeeData?._id) return;
+
+      const data = {
+        ...selectedEmployeeData,
+        delete: DeleteStatus.ISNOTDELETE,
+      };
+
+      await dispath(isDeleteEmployeeById(data)).unwrap();
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsBinLoading(false);
+      fetchEmployeeData();
+    }
+  };
+
   // Deleted All
   const deletedBooking = async () => {
     try {
@@ -398,7 +451,9 @@ const BinAdminPage = () => {
       setIsBinLoading(true);
       if (!selectedTypeProductData?._id) return;
 
-      await dispath(deleteTypeProductById(selectedTypeProductData._id)).unwrap();
+      await dispath(
+        deleteTypeProductById(selectedTypeProductData._id),
+      ).unwrap();
     } catch (error) {
       console.log(error);
     } finally {
@@ -433,6 +488,20 @@ const BinAdminPage = () => {
     } finally {
       setIsBinLoading(false);
       fetchRoleData();
+    }
+  };
+
+  const deletedEmployee = async () => {
+    try {
+      setIsBinLoading(true);
+      if (!selectedEmployeeData?._id) return;
+
+      await dispath(deleteEmployeeById(selectedEmployeeData._id)).unwrap();
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsBinLoading(false);
+      fetchEmployeeData();
     }
   };
 
@@ -629,6 +698,38 @@ const BinAdminPage = () => {
     );
   };
 
+  const rederDialogConfirmDeleteEmployee = () => {
+    return (
+      <Modal
+        centered
+        className="wrap-container-DialogDelete"
+        open={openDialogConfirmDeleteEmployee}
+        onCancel={() => setOpenDialogConfirmDeleteEmployee(false)}
+      >
+        <h1>ยืนยันการลบ</h1>
+
+        <div className="btn-DialogDelete-Navbar">
+          <button
+            type="button"
+            onClick={() => {
+              deletedEmployee();
+              setOpenDialogConfirmDeleteEmployee(false);
+            }}
+          >
+            ยืนยัน
+          </button>
+          <button
+            onClick={() => {
+              setOpenDialogConfirmDeleteEmployee(false);
+            }}
+          >
+            ยกเลิก
+          </button>
+        </div>
+      </Modal>
+    );
+  };
+
   // Column All
   const columnBookings = [
     { title: "CodeID", dataIndex: "codeId", key: "codeId" },
@@ -695,7 +796,9 @@ const BinAdminPage = () => {
             {productDetails.map((productDetail: ProductDetail, index) => {
               // STANDARD = green , LUXURY = gold
               const backgroundColor =
-                productDetail.type === PRICE_TYPE.LUXURY ? "#FFD700" : "#008B00";
+                productDetail.type === PRICE_TYPE.LUXURY
+                  ? "#FFD700"
+                  : "#008B00";
 
               return (
                 <div
@@ -846,7 +949,11 @@ const BinAdminPage = () => {
       dataIndex: "section",
       key: "section",
       render: (section: number) => {
-        return <Typography>{section === 0 ? "ค่าใช้จ่าย" : "เบิกเงินเดือน"}</Typography>;
+        return (
+          <Typography>
+            {section === 0 ? "ค่าใช้จ่าย" : "เบิกเงินเดือน"}
+          </Typography>
+        );
       },
     },
     {
@@ -863,7 +970,9 @@ const BinAdminPage = () => {
       dataIndex: "datePrice",
       key: "datePrice",
       render: (datePrice: string) => {
-        const formattedDate = datePrice ? dayjs(datePrice).format("DD/MM/YYYY") : "";
+        const formattedDate = datePrice
+          ? dayjs(datePrice).format("DD/MM/YYYY")
+          : "";
         return <Typography>{formattedDate}</Typography>;
       },
     },
@@ -885,9 +994,14 @@ const BinAdminPage = () => {
       key: "status",
       render: (status: number) => {
         const statusText =
-          status === 0 ? "รออนุมัติ" : status === 1 ? "อนุมัติแล้ว" : "ยกเลิกเอกสาร";
+          status === 0
+            ? "รออนุมัติ"
+            : status === 1
+              ? "อนุมัติแล้ว"
+              : "ยกเลิกเอกสาร";
 
-        const color = status === 0 ? "#FFD700" : status === 1 ? "#008B00" : "#FF0000";
+        const color =
+          status === 0 ? "#FFD700" : status === 1 ? "#008B00" : "#FF0000";
         return <Typography style={{ color }}>{statusText}</Typography>;
       },
     },
@@ -917,6 +1031,60 @@ const BinAdminPage = () => {
               e.stopPropagation();
               setSelectedExpenseData(item);
               setOpenDialogConfirmDeleteExpense(true);
+            }}
+          >
+            ลบ
+          </a>
+        </Space>
+      ),
+    },
+  ];
+
+  const columnEmployees = [
+    {
+      title: "ชื่อ-นามสกุล",
+      key: "name",
+      render: (employee: EmployeeData) => {
+        return (
+          <Typography>
+            {employee.firstName} {employee.lastName}
+          </Typography>
+        );
+      },
+    },
+    {
+      title: "ตำแหน่ง",
+      key: "employmentInfo",
+      render: (employee: EmployeeData) => {
+        return <Typography>{employee.employmentInfo?.role?.name}</Typography>;
+      },
+    },
+    {
+      title: "",
+      key: "action",
+      render: (item: EmployeeData) => (
+        <Space
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            fontSize: "14px",
+          }}
+        >
+          <a
+            onClick={(e) => {
+              e.stopPropagation();
+              setSelectedEmployeeData(item);
+              setOpenDialogConfirmApproveEmployee(true);
+            }}
+          >
+            กู้คืน
+          </a>
+          <a
+            onClick={(e) => {
+              e.stopPropagation();
+              setSelectedEmployeeData(item);
+              setOpenDialogConfirmDeleteEmployee(true);
             }}
           >
             ลบ
@@ -1030,7 +1198,11 @@ const BinAdminPage = () => {
       label: "แบรนด์สินค้า",
       children: (
         <div className="content-typeProduct" style={{ width: "100%" }}>
-          <Table scroll={{ x: 1000 }} dataSource={typeProductDatas} columns={columnTypeProducts} />
+          <Table
+            scroll={{ x: 1000 }}
+            dataSource={typeProductDatas}
+            columns={columnTypeProducts}
+          />
         </div>
       ),
     },
@@ -1059,7 +1231,18 @@ const BinAdminPage = () => {
     {
       key: "1",
       label: "พนักงาน",
-      children: <p>coming soon</p>,
+      children: (
+        <div className="content-Permission" style={{ width: "100%" }}>
+          <Table
+            dataSource={employeeDatas}
+            scroll={{ x: 1000 }}
+            pagination={{
+              pageSize: 5,
+            }}
+            columns={columnEmployees}
+          />
+        </div>
+      ),
     },
     {
       key: "2",
@@ -1145,12 +1328,14 @@ const BinAdminPage = () => {
             <div style={{ display: "flex", gap: "20px" }}>
               <div style={{ width: "150px" }}>
                 <p>
-                  รถ: {selectedBookingData?.carType} {selectedBookingData?.carModel}
+                  รถ: {selectedBookingData?.carType}{" "}
+                  {selectedBookingData?.carModel}
                 </p>
               </div>
 
               <p>
-                สินค้า: {selectedBookingData?.product.name} {selectedBookingData?.price.amount} บาท
+                สินค้า: {selectedBookingData?.product.name}{" "}
+                {selectedBookingData?.price.amount} บาท
               </p>
             </div>
           </div>
@@ -1379,6 +1564,50 @@ const BinAdminPage = () => {
     );
   };
 
+  const rederDialogConfirmApproveEmployee = () => {
+    return (
+      <Modal
+        centered
+        className="container-DialogApprove"
+        open={openDialogConfirmApproveEmployee}
+        onCancel={() => setOpenDialogConfirmApproveEmployee(false)}
+        footer={
+          <div className="btn-DialogApprove-Navbar">
+            <button
+              type="button"
+              onClick={() => {
+                recoverEmployee();
+                setOpenDialogConfirmApproveEmployee(false);
+              }}
+            >
+              กู้คืน
+            </button>
+
+            <button
+              type="button"
+              onClick={() => {
+                setOpenDialogConfirmApproveEmployee(false);
+              }}
+            >
+              ยกเลิก
+            </button>
+          </div>
+        }
+      >
+        <div className="container-DialogApprove-navbar">
+          <h1>ยืนยันการกู้คืนข้อมูลพนักงาน</h1>
+
+          <i
+            className="fa-solid fa-circle-xmark"
+            onClick={() => {
+              setOpenDialogConfirmApproveEmployee(false);
+            }}
+          ></i>
+        </div>
+      </Modal>
+    );
+  };
+
   return (
     <div className="container-binAdmin">
       <div className="header-binAdmin">
@@ -1388,9 +1617,13 @@ const BinAdminPage = () => {
         <div className="bin-content-teble">
           <StyledDivider orientation="left">ข้อมูลการจองคิว</StyledDivider>
           <Collapse items={chooseBookings} />
-          <StyledDivider orientation="left">ข้อมูลสินค้า & หมวดหมู่ & แบรนด์สินค้า</StyledDivider>
+          <StyledDivider orientation="left">
+            ข้อมูลสินค้า & หมวดหมู่ & แบรนด์สินค้า
+          </StyledDivider>
           <Collapse items={chooseProducts} />
-          <StyledDivider orientation="left">ข้อมูลค่าใช้จ่าย & เบิกเงิน</StyledDivider>
+          <StyledDivider orientation="left">
+            ข้อมูลค่าใช้จ่าย & เบิกเงิน
+          </StyledDivider>
           <Collapse items={chooseExpenses} />
           <StyledDivider orientation="left">พนักงาน & บทบาท</StyledDivider>
           <Collapse items={choosePermission} />
@@ -1400,6 +1633,10 @@ const BinAdminPage = () => {
       {/* renderAllPermission */}
       {rederDialogConfirmDeletePermission()}
       {rederDialogConfirmApprovePermission()}
+
+      {/* renderAllEmployee */}
+      {rederDialogConfirmDeleteEmployee()}
+      {rederDialogConfirmApproveEmployee()}
 
       {/* renderAllExpense */}
       {rederDialogConfirmDeleteExpense()}
