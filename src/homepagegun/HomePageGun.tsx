@@ -36,13 +36,13 @@ const HomePageGun = () => {
           <div className="btn-content">
             <div className="btn-group-top">
               <button className="btn">
-                <Link to="coatingGun" smooth={true} duration={200}>
-                  Coating
+                <Link to="bookingGun" smooth={true} duration={200}>
+                  ตรวจสอบคิว
                 </Link>
               </button>
               <button className="btn">
-                <Link to="bookingGun" smooth={true} duration={200}>
-                  ตรวจสอบคิว
+                <Link to="coatingGun" smooth={true} duration={200}>
+                  Coating
                 </Link>
               </button>
             </div>
@@ -68,9 +68,9 @@ const HomePageGun = () => {
         </div>
       </div>
 
-      <CoatingPageGun />
-
       <BookingPageGun />
+
+      <CoatingPageGun />
 
       {/* <GunGuardPage /> */}
     </div>

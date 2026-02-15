@@ -206,7 +206,9 @@ const CoatingPageGun = () => {
             src="/assets/gun/gunpage.jpg"
             alt="page"
             onClick={() => {
-              window.open("https://www.facebook.com/guncoatings");
+              window.open(
+                "https://www.facebook.com/profile.php?id=100088532146856",
+              );
             }}
           />
           <div className="content-preview-theparak">

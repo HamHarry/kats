@@ -34,14 +34,14 @@ const NavbarGun = () => {
           </li>
 
           <li>
-            <Link to="coatingGun" smooth={true} duration={200}>
-              Coating
+            <Link to="bookingGun" smooth={true} duration={200}>
+              ตรวจสอบคิว
             </Link>
           </li>
 
           <li>
-            <Link to="bookingGun" smooth={true} duration={200}>
-              ตรวจสอบคิว
+            <Link to="coatingGun" smooth={true} duration={200}>
+              Coating
             </Link>
           </li>
 
