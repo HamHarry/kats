@@ -104,8 +104,10 @@
     }
     button:hover {
       background-color: #05593d;
-      text-shadow: 0 0 10px rgba(255, 255, 255, 0.8),
-        0 0 20px rgba(255, 255, 255, 0.6), 0 0 30px rgba(255, 255, 255, 0.4);
+      text-shadow:
+        0 0 10px rgba(255, 255, 255, 0.8),
+        0 0 20px rgba(255, 255, 255, 0.6),
+        0 0 30px rgba(255, 255, 255, 0.4);
       transition: all 0.5s;
     }
     a {
@@ -131,8 +133,10 @@
     }
     .fa-circle-xmark:hover {
       color: #05593d;
-      text-shadow: 0 0 10px rgba(255, 255, 255, 0.8),
-        0 0 20px rgba(255, 255, 255, 0.6), 0 0 30px rgba(255, 255, 255, 0.4);
+      text-shadow:
+        0 0 10px rgba(255, 255, 255, 0.8),
+        0 0 20px rgba(255, 255, 255, 0.6),
+        0 0 30px rgba(255, 255, 255, 0.4);
       transition: all 0.5s;
     }
   }
@@ -336,6 +340,438 @@
   }
 }
 
+@media (max-width: 1024px) {
+  .container-DialogApprove-Expense {
+    .ant-modal-content {
+      min-width: 90vw;
+      max-width: 900px;
+      border-radius: 15px;
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+
+    h1 {
+      font-size: 36px;
+      margin-bottom: 20px;
+    }
+
+    .container-Expense-navbar {
+      padding: 0 0 15px 0;
+      border-bottom: 2px solid #f0f0f0;
+      margin-bottom: 15px;
+
+      .fa-circle-xmark {
+        font-size: 28px;
+        transition: all 0.3s ease;
+      }
+
+      .fa-circle-xmark:hover {
+        color: #05593d;
+        transform: rotate(90deg);
+      }
+    }
+
+    .btn-DialogApprove-Navbar {
+      flex-direction: row;
+      justify-content: center;
+      gap: 20px !important;
+      margin-top: 20px;
+      padding-top: 15px;
+      border-top: 1px solid #f0f0f0;
+
+      button {
+        flex: 0 1 auto;
+        font-size: 16px;
+        padding: 10px 30px;
+        transition: all 0.3s ease;
+      }
+
+      button:hover {
+        transform: translateY(-2px);
+      }
+
+      a {
+        text-align: center;
+        padding: 10px;
+        transition: all 0.3s ease;
+      }
+
+      a:hover {
+        transform: translateY(-2px);
+      }
+    }
+
+    .container-Expense {
+      gap: 30px;
+      flex-direction: column;
+      align-items: stretch;
+
+      .container-Expense-left {
+        padding-left: 20px;
+        padding-right: 20px;
+
+        .container-ExpenseUser {
+          display: flex;
+          gap: 20px;
+          padding-bottom: 15px;
+          border-bottom: 2px solid #f0f0f0;
+          margin-bottom: 20px;
+
+          .container-ExpenseUser-left {
+            flex-shrink: 0;
+
+            img {
+              width: 90px;
+              height: 90px;
+              object-fit: cover;
+              box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            }
+          }
+
+          .container-ExpenseUser-right {
+            justify-content: center;
+
+            h4 {
+              font-size: 18px;
+              margin-bottom: 10px;
+              color: #043929;
+            }
+
+            .previewTel,
+            .previewRol {
+              display: flex;
+              align-items: center;
+              gap: 12px;
+              margin-bottom: 6px;
+
+              i {
+                font-size: 16px;
+                color: #043929;
+              }
+
+              p {
+                font-size: 14px;
+                margin: 0;
+              }
+            }
+          }
+        }
+
+        .wrap-container-ExpenseData,
+        .wrap-container-ExpenseList {
+          margin-bottom: 20px;
+          padding-bottom: 15px;
+          border-bottom: 1px solid #f0f0f0;
+
+          h4 {
+            font-size: 17px;
+            margin: 0 0 12px 0;
+            color: #043929;
+            font-weight: 600;
+          }
+
+          .container-ExpenseData,
+          .container-ExpenseList {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+
+            .previewOnerName,
+            .previewDetel,
+            .previewDate,
+            .previewCatagory,
+            .previewTotal,
+            .previewStatus,
+            .previewPriceDate {
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              padding: 10px 0;
+
+              .width-100 {
+                width: auto;
+                font-size: 14px;
+                font-weight: 500;
+                color: #666;
+              }
+
+              p {
+                font-size: 14px;
+                margin: 0;
+                color: #043929;
+                font-weight: 500;
+              }
+            }
+          }
+        }
+
+        .wrap-inputImage {
+          margin-bottom: 20px;
+          padding-bottom: 15px;
+          border-bottom: 1px solid #f0f0f0;
+
+          h4 {
+            font-size: 17px;
+            margin: 0 0 12px 0;
+            color: #043929;
+            font-weight: 600;
+          }
+
+          .inputImage {
+            margin-top: 12px;
+
+            .text-image {
+              width: 100%;
+              height: auto;
+              padding: 1.2rem;
+              font-size: 14px;
+              border: 2px dashed #043929;
+              border-radius: 10px;
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              gap: 10px;
+              cursor: pointer;
+              transition: all 0.3s ease;
+              background-color: #fafafa;
+            }
+
+            .text-image:hover {
+              background-color: #f5f5f5;
+              border-color: #05593d;
+            }
+
+            .icon-file {
+              font-size: 22px;
+              color: #043929;
+            }
+
+            span {
+              color: #043929;
+            }
+          }
+        }
+      }
+
+      .container-Expense-right {
+        .PreviewImage {
+          max-width: 100%;
+          padding: 15px;
+          background-color: #f9f9f9;
+          border-radius: 10px;
+          border: 1px solid #e8e8e8;
+
+          h2 {
+            font-size: 17px;
+            margin: 0 0 15px 0;
+            text-align: center;
+            color: #043929;
+            font-weight: 600;
+          }
+
+          img {
+            width: 100%;
+            max-width: 280px;
+            border-radius: 8px;
+            display: block;
+            margin: 0 auto;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .container-DialogApprove-Expense {
+    .ant-modal-content {
+      min-width: 95vw;
+      max-width: 95vw;
+      border-radius: 12px;
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+
+    h1 {
+      font-size: 28px;
+      margin-bottom: 20px;
+    }
+
+    .container-Expense-navbar {
+      padding: 0 15px;
+      margin-bottom: 15px;
+
+      .fa-circle-xmark {
+        font-size: 26px;
+      }
+    }
+
+    .btn-DialogApprove-Navbar {
+      flex-direction: row;
+      justify-content: center;
+      gap: 15px !important;
+      margin-top: 20px;
+      padding: 0 15px;
+
+      button {
+        flex: 1;
+        max-width: 150px;
+        font-size: 15px;
+        padding: 10px 20px;
+      }
+
+      a {
+        max-width: 150px;
+        text-align: center;
+        padding: 10px;
+      }
+    }
+
+    .container-Expense {
+      gap: 30px;
+      flex-direction: column;
+      padding: 0 15px;
+      align-items: stretch;
+
+      .container-Expense-left {
+        padding-left: 0;
+        padding-right: 0;
+
+        .container-ExpenseUser {
+          gap: 15px;
+          margin-bottom: 20px;
+
+          .container-ExpenseUser-left {
+            img {
+              width: 90px;
+              height: 90px;
+            }
+          }
+
+          .container-ExpenseUser-right {
+            justify-content: flex-start;
+
+            h4 {
+              font-size: 18px;
+              margin-bottom: 8px;
+            }
+
+            .previewTel,
+            .previewRol {
+              gap: 10px;
+
+              p {
+                font-size: 14px;
+              }
+
+              i {
+                font-size: 16px;
+              }
+            }
+          }
+        }
+
+        .wrap-container-ExpenseData,
+        .wrap-container-ExpenseList {
+          margin-bottom: 20px;
+
+          h4 {
+            font-size: 16px;
+            margin-bottom: 12px;
+            color: #043929;
+          }
+
+          .container-ExpenseData,
+          .container-ExpenseList {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+
+            .previewOnerName,
+            .previewDetel,
+            .previewDate,
+            .previewCatagory,
+            .previewTotal,
+            .previewStatus,
+            .previewPriceDate {
+              display: flex;
+              justify-content: space-between;
+              padding: 8px 0;
+              border-bottom: 1px solid #f0f0f0;
+
+              .width-100 {
+                width: auto;
+                font-weight: 500;
+                color: #666;
+              }
+
+              p {
+                font-size: 14px;
+                text-align: right;
+              }
+            }
+          }
+        }
+
+        .wrap-inputImage {
+          margin-top: 20px;
+
+          h4 {
+            font-size: 16px;
+            margin-bottom: 12px;
+          }
+
+          .inputImage {
+            margin-top: 10px;
+
+            .text-image {
+              width: 100%;
+              height: auto;
+              padding: 1.2rem;
+              font-size: 13px;
+              border: 2px dashed #043929;
+              transition: all 0.3s ease;
+            }
+
+            .text-image:hover {
+              background-color: #f5f5f5;
+              border-color: #05593d;
+            }
+
+            .icon-file {
+              font-size: 20px;
+            }
+          }
+        }
+      }
+
+      .container-Expense-right {
+        .PreviewImage {
+          max-width: 100%;
+          padding: 15px;
+          background-color: #f9f9f9;
+          border-radius: 10px;
+
+          h2 {
+            font-size: 16px;
+            margin: 0 0 15px 0;
+            text-align: center;
+          }
+
+          img {
+            width: 100%;
+            max-width: 280px;
+            border-radius: 8px;
+            margin: 0 auto;
+            display: block;
+          }
+        }
+      }
+    }
+  }
+}
+
 @media (max-width: 600px) {
   .container-WithdrawAdminPage {
     padding-left: 20px;
@@ -344,6 +780,262 @@
   .header-WithdrawAdminPage {
     h1 {
       font-size: 32px;
+    }
+  }
+
+  .container-DialogApprove-Expense {
+    .ant-modal-content {
+      min-width: 95vw !important;
+      max-width: 95vw !important;
+      border-radius: 12px;
+      max-height: 85vh;
+      overflow-y: auto;
+      padding: 15px !important;
+    }
+
+    h1 {
+      font-size: 24px;
+      margin-bottom: 15px;
+      text-align: center;
+    }
+
+    .container-Expense-navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 0 15px 0;
+      border-bottom: 2px solid #f0f0f0;
+      margin-bottom: 15px;
+
+      h1 {
+        margin: 0;
+      }
+
+      .fa-circle-xmark {
+        font-size: 24px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .fa-circle-xmark:hover {
+        color: #05593d;
+        transform: rotate(90deg);
+      }
+    }
+
+    .btn-DialogApprove-Navbar {
+      display: flex;
+      flex-direction: column;
+      gap: 10px !important;
+      margin-top: 15px;
+      padding-top: 15px;
+      border-top: 1px solid #f0f0f0;
+
+      button {
+        width: 100%;
+        font-size: 14px;
+        padding: 12px;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+      }
+
+      button:active {
+        transform: scale(0.98);
+      }
+
+      a {
+        width: 100%;
+        text-align: center;
+        padding: 12px;
+        border-radius: 8px;
+        display: block;
+        transition: all 0.3s ease;
+      }
+
+      a:active {
+        opacity: 0.8;
+      }
+    }
+
+    .container-Expense {
+      gap: 15px;
+      flex-direction: column;
+      align-items: stretch;
+
+      .container-Expense-left {
+        padding-left: 0;
+        padding-right: 0;
+
+        .container-ExpenseUser {
+          display: flex;
+          gap: 12px;
+          padding-bottom: 15px;
+          border-bottom: 2px solid #f0f0f0;
+          margin-bottom: 15px;
+
+          .container-ExpenseUser-left {
+            flex-shrink: 0;
+
+            img {
+              width: 75px;
+              height: 75px;
+              object-fit: cover;
+            }
+          }
+
+          .container-ExpenseUser-right {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            flex: 1;
+
+            h4 {
+              font-size: 16px;
+              margin-bottom: 8px;
+              color: #043929;
+            }
+
+            .previewTel,
+            .previewRol {
+              display: flex;
+              align-items: center;
+              gap: 10px;
+              margin-bottom: 4px;
+
+              i {
+                font-size: 14px;
+                color: #043929;
+                min-width: 18px;
+              }
+
+              p {
+                font-size: 13px;
+                margin: 0;
+              }
+            }
+          }
+        }
+
+        .wrap-container-ExpenseData,
+        .wrap-container-ExpenseList {
+          margin-bottom: 15px;
+          padding-bottom: 15px;
+          border-bottom: 1px solid #f0f0f0;
+
+          h4 {
+            font-size: 15px;
+            margin: 0 0 10px 0;
+            color: #043929;
+            font-weight: 600;
+          }
+
+          .container-ExpenseData,
+          .container-ExpenseList {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+
+            .previewOnerName,
+            .previewDetel,
+            .previewDate,
+            .previewCatagory,
+            .previewTotal,
+            .previewStatus,
+            .previewPriceDate {
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              padding: 8px 0;
+
+              .width-100 {
+                width: auto;
+                font-size: 13px;
+                font-weight: 500;
+                color: #666;
+              }
+
+              p {
+                font-size: 13px;
+                margin: 0;
+                color: #043929;
+                font-weight: 500;
+              }
+            }
+          }
+        }
+
+        .wrap-inputImage {
+          margin-top: 15px;
+          padding-top: 15px;
+          border-top: 1px solid #f0f0f0;
+
+          h4 {
+            font-size: 15px;
+            margin: 0 0 10px 0;
+            color: #043929;
+            font-weight: 600;
+          }
+
+          .inputImage {
+            margin-top: 10px;
+
+            .text-image {
+              width: 100%;
+              height: auto;
+              padding: 1rem;
+              font-size: 12px;
+              border: 2px dashed #043929;
+              border-radius: 8px;
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              gap: 8px;
+              cursor: pointer;
+              transition: all 0.3s ease;
+              background-color: #fafafa;
+            }
+
+            .text-image:active {
+              background-color: #f0f0f0;
+            }
+
+            .icon-file {
+              font-size: 18px;
+              color: #043929;
+            }
+
+            span {
+              text-align: center;
+              color: #043929;
+            }
+          }
+        }
+      }
+
+      .container-Expense-right {
+        .PreviewImage {
+          max-width: 100%;
+          padding: 12px;
+          background-color: #f9f9f9;
+          border-radius: 8px;
+          border: 1px solid #e8e8e8;
+
+          h2 {
+            font-size: 14px;
+            margin: 0 0 12px 0;
+            text-align: center;
+            color: #043929;
+            font-weight: 600;
+          }
+
+          img {
+            width: 100%;
+            max-width: 100%;
+            border-radius: 6px;
+            display: block;
+          }
+        }
+      }
     }
   }
 }
