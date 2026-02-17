@@ -1,4 +1,5 @@
 import { DeleteStatus } from "./delete.type";
+import { EmployeeData } from "./employee.type";
 
 export enum PaymentCategory {
   WITHDRAW = 0,
@@ -32,6 +33,7 @@ export interface CatagoryDetail {
 export interface FinanceData {
   _id?: string;
   codeId: number;
+  employee?: EmployeeData; // ชื่อบุคคล
   employeeId: string; // ชื่อบุคคล
   ownerName: string; // หัวข้อ
   section: PaymentCategory; // หมวดหมู่

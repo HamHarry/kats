@@ -72,7 +72,7 @@ const CreateWithdrawAdminPage = () => {
         ownerName: expenseRes.ownerName ?? "",
         section: expenseRes.section ?? PaymentCategory.WITHDRAW,
         categorys: expenseRes.categorys ?? [],
-        date: dayjs(expenseRes.date),
+        date: expenseRes.date ? dayjs(expenseRes.date) : dayjs(),
         datePrice: expenseRes.datePrice ?? "",
         detel: expenseRes.detel ?? "",
         delete: expenseRes.delete ?? DeleteStatus.ISNOTDELETE,
