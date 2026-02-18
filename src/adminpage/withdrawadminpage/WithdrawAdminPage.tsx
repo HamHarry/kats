@@ -268,13 +268,7 @@ const WithdrawAdminPage = () => {
             }
             onClick={(e) => {
               e.stopPropagation();
-              if (item.section === PaymentCategory.WITHDRAW) {
-                return navigate(`/admin/withdraw/edit/withdraw/${item._id}`);
-              } else {
-                return navigate(
-                  `/admin/withdraw/edit/salaryadvance/${item._id}`,
-                );
-              }
+              navigate(`/admin/withdraw/edit/withdraw/${item._id}`);
             }}
           >
             แก้ไข
@@ -891,14 +885,7 @@ const WithdrawAdminPage = () => {
                     }}
                     onClick={(e) => {
                       e.stopPropagation();
-                      if (item.status === 1 || item.status === 2) return;
-                      if (item.section === PaymentCategory.WITHDRAW) {
-                        navigate(`/admin/withdraw/edit/withdraw/${item._id}`);
-                      } else {
-                        navigate(
-                          `/admin/withdraw/edit/salaryadvance/${item._id}`,
-                        );
-                      }
+                      navigate(`/admin/withdraw/edit/withdraw/${item._id}`);
                     }}
                   >
                     แก้ไข
