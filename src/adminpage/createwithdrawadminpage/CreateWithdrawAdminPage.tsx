@@ -70,7 +70,9 @@ const CreateWithdrawAdminPage = () => {
         codeId: expenseRes.codeId ?? 0,
         employeeId: expenseRes.employeeId ?? "",
         ownerName: expenseRes.ownerName ?? "",
-        section: expenseRes.section ?? PaymentCategory.WITHDRAW,
+        section: expenseRes.section
+          ? PaymentCategory.WITHDRAW
+          : PaymentCategory.SALARY,
         categorys: expenseRes.categorys ?? [],
         date: expenseRes.date ? dayjs(expenseRes.date) : dayjs(),
         datePrice: expenseRes.datePrice ?? "",
@@ -119,6 +121,13 @@ const CreateWithdrawAdminPage = () => {
         ...value,
         date: value.date ? dayjs(value.date).toISOString() : "",
       };
+
+      // Check if any category is SALARY_ADVANCE, if so set section to SALARY
+      if (
+        item.categorys.some((cat) => cat.type === CategoryType.SALARY_ADVANCE)
+      ) {
+        item.section = PaymentCategory.SALARY;
+      }
 
       if (expenseId) {
         const body = {

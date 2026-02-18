@@ -219,7 +219,7 @@ const NavbarAdmin = () => {
           <i className="fa-solid fa-arrow-right-from-bracket"></i>
           <p>{t("ออกจากระบบ")}</p>
           <div className="version">
-            <p>v.1.1.9</p>
+            <p>v.1.2.1</p>
           </div>
         </div>
       </div>
@@ -430,7 +430,7 @@ const NavbarAdmin = () => {
           <i className="fa-solid fa-arrow-right-from-bracket"></i>
           <p>{t("ออกจากระบบ")}</p>
           <div className="version">
-            <p>v.1.1.9</p>
+            <p>v.1.2.1</p>
           </div>
         </div>
       </Drawer>

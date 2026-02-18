@@ -1,13 +1,22 @@
 import { useNavigate } from "react-router-dom";
 import "./WithdrawAdminPage.css";
 import { Button, Modal, Space, Table, Typography } from "antd";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { FileAddFilled } from "@ant-design/icons";
 import CircleLoading from "../../shared/circleLoading";
 import { useAppDispatch } from "../../stores/store";
-import { approveExpenseById, getAllExpenses, isDeleteExpenseById } from "../../stores/slices/expenseSlice";
+import {
+  approveExpenseById,
+  getAllExpenses,
+  isDeleteExpenseById,
+} from "../../stores/slices/expenseSlice";
 import { EmployeeData } from "../../model/employee.type";
-import { CatagoryDetail, ExpenseStatus, FinanceData, PaymentCategory } from "../../model/finance.type";
+import {
+  CatagoryDetail,
+  ExpenseStatus,
+  FinanceData,
+  PaymentCategory,
+} from "../../model/finance.type";
 import dayjs from "dayjs";
 import { DeleteStatus } from "../../model/delete.type";
 import { getAllEmployees } from "../../stores/slices/employeeSlice";
@@ -21,22 +30,31 @@ const WithdrawAdminPage = () => {
   const [isExpenseLoading, setIsExpenseLoading] = useState<boolean>(false);
   const [isEmployeeLoading, setIsEmployeeLoading] = useState<boolean>(false);
 
-  const [openDialogConfirmDelete, setOpenDialogConfirmDelete] = useState<boolean>(false);
-  const [openDialogConfirmApprove, setOpenDialogConfirmApprove] = useState<boolean>(false);
-  const [openDialogCancelApprove, setOpenDialogCancelApprove] = useState<boolean>(false);
+  const [openDialogConfirmDelete, setOpenDialogConfirmDelete] =
+    useState<boolean>(false);
+  const [openDialogConfirmApprove, setOpenDialogConfirmApprove] =
+    useState<boolean>(false);
+  const [openDialogCancelApprove, setOpenDialogCancelApprove] =
+    useState<boolean>(false);
   const [selectedExpenseData, setSelectedExpenseData] = useState<FinanceData>();
   const [baseImage, setBaseImage] = useState("");
   const [employeeData, setEmployeeData] = useState<EmployeeData[]>([]);
+  const [currentMobilePage, setCurrentMobilePage] = useState<number>(1);
 
   const isMobile = useMobileMatch(640);
 
   const fetchAllExpense = useCallback(async () => {
     try {
       setIsExpenseLoading(true);
-      const { data: ExpensesRes = [] } = await dispath(getAllExpenses()).unwrap();
+      const { data: ExpensesRes = [] } =
+        await dispath(getAllExpenses()).unwrap();
 
       const filteredExpenses = ExpensesRes.filter((item: FinanceData) => {
         return item.delete === DeleteStatus.ISNOTDELETE;
+      }).sort((a: any, b: any) => {
+        const dateA = new Date(a.date || "").getTime();
+        const dateB = new Date(b.date || "").getTime();
+        return dateB - dateA; // เรียงจากวันที่สุดท้ายก่อน (ล่างสุด)
       });
 
       setWithdrawData(filteredExpenses);
@@ -54,7 +72,8 @@ const WithdrawAdminPage = () => {
   const fetchEmployeeData = useCallback(async () => {
     try {
       setIsEmployeeLoading(true);
-      const { data: EmployeesRes = [] } = await dispath(getAllEmployees()).unwrap();
+      const { data: EmployeesRes = [] } =
+        await dispath(getAllEmployees()).unwrap();
 
       setEmployeeData(EmployeesRes);
     } catch (error) {
@@ -164,7 +183,9 @@ const WithdrawAdminPage = () => {
       key: "datePrice",
       width: 80,
       render: (datePrice: string) => {
-        const formattedDate = datePrice ? dayjs(datePrice).format("DD/MM/YYYY") : "";
+        const formattedDate = datePrice
+          ? dayjs(datePrice).format("DD/MM/YYYY")
+          : "";
         return <Typography>{formattedDate}</Typography>;
       },
       sorter: (a: FinanceData, b: FinanceData) => {
@@ -186,8 +207,14 @@ const WithdrawAdminPage = () => {
         return <Typography>{total}</Typography>;
       },
       sorter: (a: FinanceData, b: FinanceData) => {
-        const totalA = (a.categorys || []).reduce((prev, item) => prev + item.amount, 0);
-        const totalB = (b.categorys || []).reduce((prev, item) => prev + item.amount, 0);
+        const totalA = (a.categorys || []).reduce(
+          (prev, item) => prev + item.amount,
+          0,
+        );
+        const totalB = (b.categorys || []).reduce(
+          (prev, item) => prev + item.amount,
+          0,
+        );
         return totalA - totalB;
       },
     },
@@ -198,9 +225,15 @@ const WithdrawAdminPage = () => {
       width: 65,
       fixed: "right" as const,
       render: (status: number) => {
-        const statusText = status === 0 ? "รออนุมัติ" : status === 1 ? "อนุมัติแล้ว" : "ยกเลิกเอกสาร";
+        const statusText =
+          status === 0
+            ? "รออนุมัติ"
+            : status === 1
+              ? "อนุมัติแล้ว"
+              : "ยกเลิกเอกสาร";
 
-        const color = status === 0 ? "#FFD700" : status === 1 ? "#008B00" : "#FF0000";
+        const color =
+          status === 0 ? "#FFD700" : status === 1 ? "#008B00" : "#FF0000";
         return <Typography style={{ color }}>{statusText}</Typography>;
       },
       sorter: (a: FinanceData, b: FinanceData) => {
@@ -222,13 +255,21 @@ const WithdrawAdminPage = () => {
           }}
         >
           <a
-            className={item.status === 1 ? "linkIsNone" : item.status === 2 ? "linkIsNone" : ""}
+            className={
+              item.status === 1
+                ? "linkIsNone"
+                : item.status === 2
+                  ? "linkIsNone"
+                  : ""
+            }
             onClick={(e) => {
               e.stopPropagation();
               if (item.section === PaymentCategory.WITHDRAW) {
                 return navigate(`/admin/withdraw/edit/withdraw/${item._id}`);
               } else {
-                return navigate(`/admin/withdraw/edit/salaryadvance/${item._id}`);
+                return navigate(
+                  `/admin/withdraw/edit/salaryadvance/${item._id}`,
+                );
               }
             }}
           >
@@ -309,11 +350,20 @@ const WithdrawAdminPage = () => {
   };
 
   const rederDialogConfirmApprove = () => {
-    const formattedDate = selectedExpenseData ? dayjs(selectedExpenseData.date).format("DD/MM/YYYY") : "";
+    const formattedDate = selectedExpenseData
+      ? dayjs(selectedExpenseData.date).format("DD/MM/YYYY")
+      : "";
 
-    const formattedDatePrice = selectedExpenseData?.datePrice ? dayjs(selectedExpenseData.datePrice).format("DD/MM/YYYY") : "";
+    const formattedDatePrice = selectedExpenseData?.datePrice
+      ? dayjs(selectedExpenseData.datePrice).format("DD/MM/YYYY")
+      : "";
 
-    const formattedStatus = selectedExpenseData?.status === 0 ? "รออนุมัติ" : selectedExpenseData?.status === 1 ? "อนุมัติแล้ว" : "ยกเลิกเอกสาร";
+    const formattedStatus =
+      selectedExpenseData?.status === 0
+        ? "รออนุมัติ"
+        : selectedExpenseData?.status === 1
+          ? "อนุมัติแล้ว"
+          : "ยกเลิกเอกสาร";
 
     const total = selectedExpenseData?.categorys.reduce((prev, item) => {
       return prev + item.amount;
@@ -323,7 +373,8 @@ const WithdrawAdminPage = () => {
       return item._id === selectedExpenseData?.employeeId;
     });
 
-    const section = selectedExpenseData?.section === 0 ? "ค่าใช้จ่าย" : "เบิกเงินเดือน";
+    const section =
+      selectedExpenseData?.section === 0 ? "ค่าใช้จ่าย" : "เบิกเงินเดือน";
 
     return (
       <Modal
@@ -497,7 +548,12 @@ const WithdrawAdminPage = () => {
 
   const rederDialogConfirmDelete = () => {
     return (
-      <Modal centered className="wrap-container-DialogDelete" open={openDialogConfirmDelete} onCancel={() => setOpenDialogConfirmDelete(false)}>
+      <Modal
+        centered
+        className="wrap-container-DialogDelete"
+        open={openDialogConfirmDelete}
+        onCancel={() => setOpenDialogConfirmDelete(false)}
+      >
         <h1>ยืนยันการลบ</h1>
 
         <div className="btn-DialogDelete-Navbar">
@@ -524,7 +580,12 @@ const WithdrawAdminPage = () => {
 
   const rederDialogCancelDelete = () => {
     return (
-      <Modal centered className="wrap-container-DialogDelete" open={openDialogCancelApprove} onCancel={() => setOpenDialogCancelApprove(false)}>
+      <Modal
+        centered
+        className="wrap-container-DialogDelete"
+        open={openDialogCancelApprove}
+        onCancel={() => setOpenDialogCancelApprove(false)}
+      >
         <h1>ยืนยันการลบเอกสาร</h1>
 
         <div className="btn-DialogDelete-Navbar">
@@ -551,9 +612,380 @@ const WithdrawAdminPage = () => {
   };
 
   // Todo : สร้าง table ของ mobile
-  const renderTableForMobile = useMemo(() => {
-    return <></>;
-  }, []);
+  const renderTableForMobile = () => {
+    const pageSize = 10;
+    const totalPages = Math.ceil(withdrawData.length / pageSize);
+    const startIndex = (currentMobilePage - 1) * pageSize;
+    const endIndex = startIndex + pageSize;
+    const paginatedData = withdrawData.slice(startIndex, endIndex);
+
+    return (
+      <>
+        <div
+          className="mobile-table-container"
+          style={{
+            maxHeight: "600px",
+            overflowY: "auto",
+            overflowX: "hidden",
+            paddingRight: "4px",
+          }}
+        >
+          {paginatedData.map((item: FinanceData, index: number) => {
+            const total = item.categorys.reduce(
+              (prev, cat) => prev + cat.amount,
+              0,
+            );
+            const statusText =
+              item.status === 0
+                ? "รออนุมัติ"
+                : item.status === 1
+                  ? "อนุมัติแล้ว"
+                  : "ยกเลิกเอกสาร";
+            const statusColor =
+              item.status === 0
+                ? "#FFD700"
+                : item.status === 1
+                  ? "#008B00"
+                  : "#FF0000";
+            const formattedDate = dayjs(item.date).format("DD/MM/YYYY");
+            const section = item.section === 0 ? "ค่าใช้จ่าย" : "เบิกเงินเดือน";
+
+            return (
+              <div
+                key={index}
+                className="mobile-card-item"
+                onClick={() => {
+                  setSelectedExpenseData(item);
+                  setOpenDialogConfirmApprove(true);
+                }}
+                style={{
+                  border: "1px solid #ddd",
+                  borderRadius: "8px",
+                  padding: "12px",
+                  marginBottom: "12px",
+                  backgroundColor: "#fff",
+                  boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
+                  cursor: "pointer",
+                }}
+              >
+                {/* Header with Code and Status */}
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                    marginBottom: "10px",
+                  }}
+                >
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "8px",
+                    }}
+                  >
+                    <span
+                      style={{
+                        fontWeight: "bold",
+                        fontSize: "14px",
+                        color: "#043929",
+                      }}
+                    >
+                      {item.codeId}
+                    </span>
+                    <span
+                      style={{
+                        fontSize: "12px",
+                        backgroundColor: "#f0f0f0",
+                        padding: "2px 8px",
+                        borderRadius: "4px",
+                      }}
+                    >
+                      {section}
+                    </span>
+                  </div>
+                  <span
+                    style={{
+                      color: statusColor,
+                      fontWeight: "bold",
+                      fontSize: "12px",
+                    }}
+                  >
+                    {statusText}
+                  </span>
+                </div>
+
+                {/* Employee Info */}
+                <div
+                  style={{
+                    marginBottom: "8px",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "8px",
+                  }}
+                >
+                  <img
+                    src={item.employee?.image}
+                    alt="employee"
+                    style={{
+                      width: "32px",
+                      height: "32px",
+                      borderRadius: "50%",
+                      objectFit: "cover",
+                    }}
+                  />
+                  <div>
+                    <p
+                      style={{
+                        margin: "0",
+                        fontSize: "13px",
+                        fontWeight: "500",
+                      }}
+                    >
+                      {item.employee?.firstName} {item.employee?.lastName}
+                    </p>
+                  </div>
+                </div>
+
+                {/* Owner Name */}
+                <div style={{ marginBottom: "8px" }}>
+                  <p
+                    style={{
+                      margin: "0 0 4px 0",
+                      fontSize: "11px",
+                      color: "#666",
+                    }}
+                  >
+                    หัวข้อ
+                  </p>
+                  <p
+                    style={{ margin: "0", fontSize: "13px", fontWeight: "500" }}
+                  >
+                    {item.ownerName}
+                  </p>
+                </div>
+
+                {/* Detail */}
+                <div style={{ marginBottom: "8px" }}>
+                  <p
+                    style={{
+                      margin: "0 0 4px 0",
+                      fontSize: "11px",
+                      color: "#666",
+                    }}
+                  >
+                    รายละเอียด
+                  </p>
+                  <p
+                    style={{
+                      margin: "0",
+                      fontSize: "12px",
+                      color: "#333",
+                      overflow: "hidden",
+                      textOverflow: "ellipsis",
+                      display: "-webkit-box",
+                      WebkitLineClamp: 2,
+                      WebkitBoxOrient: "vertical",
+                    }}
+                  >
+                    {item.detel}
+                  </p>
+                </div>
+
+                {/* Date and Amount Row */}
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    gap: "8px",
+                    marginBottom: "8px",
+                  }}
+                >
+                  <div style={{ flex: 1 }}>
+                    <p
+                      style={{
+                        margin: "0 0 4px 0",
+                        fontSize: "11px",
+                        color: "#666",
+                      }}
+                    >
+                      วันที่สร้าง
+                    </p>
+                    <p
+                      style={{
+                        margin: "0",
+                        fontSize: "12px",
+                        fontWeight: "500",
+                      }}
+                    >
+                      {formattedDate}
+                    </p>
+                  </div>
+                  <div style={{ flex: 1 }}>
+                    <p
+                      style={{
+                        margin: "0 0 4px 0",
+                        fontSize: "11px",
+                        color: "#666",
+                      }}
+                    >
+                      ยอดค่าใช้จ่าย
+                    </p>
+                    <p
+                      style={{
+                        margin: "0",
+                        fontSize: "13px",
+                        fontWeight: "bold",
+                        color: "#008B00",
+                      }}
+                    >
+                      {total} ฿
+                    </p>
+                  </div>
+                </div>
+
+                {/* Action Buttons */}
+                <div
+                  style={{
+                    display: "flex",
+                    gap: "8px",
+                    marginTop: "10px",
+                    paddingTop: "8px",
+                    borderTop: "1px solid #eee",
+                  }}
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  <a
+                    style={{
+                      flex: 1,
+                      padding: "6px",
+                      textAlign: "center",
+                      fontSize: "12px",
+                      color:
+                        item.status === 1 || item.status === 2
+                          ? "#ccc"
+                          : "#043929",
+                      textDecoration: "none",
+                      cursor:
+                        item.status === 1 || item.status === 2
+                          ? "not-allowed"
+                          : "pointer",
+                      borderRadius: "4px",
+                      backgroundColor: "#f5f5f5",
+                      opacity: item.status === 1 || item.status === 2 ? 0.5 : 1,
+                    }}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      if (item.status === 1 || item.status === 2) return;
+                      if (item.section === PaymentCategory.WITHDRAW) {
+                        navigate(`/admin/withdraw/edit/withdraw/${item._id}`);
+                      } else {
+                        navigate(
+                          `/admin/withdraw/edit/salaryadvance/${item._id}`,
+                        );
+                      }
+                    }}
+                  >
+                    แก้ไข
+                  </a>
+                  <a
+                    style={{
+                      flex: 1,
+                      padding: "6px",
+                      textAlign: "center",
+                      fontSize: "12px",
+                      color: "#d32f2f",
+                      textDecoration: "none",
+                      cursor: "pointer",
+                      borderRadius: "4px",
+                      backgroundColor: "#ffebee",
+                    }}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setSelectedExpenseData(item);
+                      setOpenDialogConfirmDelete(true);
+                    }}
+                  >
+                    ลบ
+                  </a>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+
+        {/* Pagination Controls */}
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            gap: "12px",
+            marginTop: "16px",
+            paddingTop: "12px",
+          }}
+        >
+          <button
+            onClick={() =>
+              setCurrentMobilePage((prev) => Math.max(prev - 1, 1))
+            }
+            disabled={currentMobilePage === 1}
+            style={{
+              width: "100px",
+              height: "36px",
+              fontSize: "12px",
+              fontWeight: "500",
+              borderRadius: "6px",
+              border: "1px solid #043929",
+              backgroundColor: currentMobilePage === 1 ? "#e8f5e9" : "#043929",
+              color: currentMobilePage === 1 ? "#043929" : "#fff",
+              cursor: currentMobilePage === 1 ? "not-allowed" : "pointer",
+              opacity: currentMobilePage === 1 ? 0.6 : 1,
+              transition: "all 0.3s ease",
+            }}
+          >
+            ← ก่อนหน้า
+          </button>
+
+          <span
+            style={{
+              fontSize: "13px",
+              fontWeight: "500",
+              color: "#043929",
+              minWidth: "80px",
+              textAlign: "center",
+            }}
+          >
+            หน้า {currentMobilePage} / {totalPages}
+          </span>
+
+          <button
+            onClick={() =>
+              setCurrentMobilePage((prev) => Math.min(prev + 1, totalPages))
+            }
+            disabled={currentMobilePage === totalPages}
+            style={{
+              width: "100px",
+              height: "36px",
+              fontSize: "12px",
+              fontWeight: "500",
+              borderRadius: "6px",
+              border: "1px solid #043929",
+              backgroundColor:
+                currentMobilePage === totalPages ? "#e8f5e9" : "#043929",
+              color: currentMobilePage === totalPages ? "#043929" : "#fff",
+              cursor:
+                currentMobilePage === totalPages ? "not-allowed" : "pointer",
+              opacity: currentMobilePage === totalPages ? 0.6 : 1,
+              transition: "all 0.3s ease",
+            }}
+          >
+            ถัดไป →
+          </button>
+        </div>
+      </>
+    );
+  };
 
   return (
     <div className="container-WithdrawAdminPage">
@@ -575,14 +1007,14 @@ const WithdrawAdminPage = () => {
 
       <div className="" style={{ width: "100%" }}>
         {isMobile ? (
-          <>{renderTableForMobile}</>
+          <>{renderTableForMobile()}</>
         ) : (
           <Table
             dataSource={withdrawData}
             columns={columns}
             scroll={{ x: 1500 }}
             pagination={{
-              pageSize: 8,
+              pageSize: 9,
             }}
             style={{
               border: "2px solid #043929",
