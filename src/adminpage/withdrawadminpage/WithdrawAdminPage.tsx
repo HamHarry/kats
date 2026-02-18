@@ -21,10 +21,14 @@ import dayjs from "dayjs";
 import { DeleteStatus } from "../../model/delete.type";
 import { getAllEmployees } from "../../stores/slices/employeeSlice";
 import { useMobileMatch } from "../../hooks";
+import { useSelector } from "react-redux";
+import { userInfoSelector } from "../../stores/slices/authSlice";
+import { getImagePath } from "../../shared/utils/common";
 
 const WithdrawAdminPage = () => {
   const dispath = useAppDispatch();
   const navigate = useNavigate();
+  const userInfo = useSelector(userInfoSelector);
   const [withdrawData, setWithdrawData] = useState([]);
 
   const [isExpenseLoading, setIsExpenseLoading] = useState<boolean>(false);
@@ -420,7 +424,14 @@ const WithdrawAdminPage = () => {
           <div className="container-Expense-left">
             <div className="container-ExpenseUser">
               <div className="container-ExpenseUser-left">
-                <img src={employeeName?.image} alt="" />
+                <img
+                  src={getImagePath(
+                    "profile",
+                    userInfo?.dbname,
+                    employeeName?.image,
+                  )}
+                  alt="profile"
+                />
               </div>
 
               <div className="container-ExpenseUser-right">
@@ -725,7 +736,11 @@ const WithdrawAdminPage = () => {
                   }}
                 >
                   <img
-                    src={item.employee?.image}
+                    src={getImagePath(
+                      "profile",
+                      userInfo?.dbname,
+                      item?.employee?.image,
+                    )}
                     alt="employee"
                     style={{
                       width: "32px",
