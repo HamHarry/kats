@@ -15,7 +15,6 @@ import {
   CatagoryDetail,
   ExpenseStatus,
   FinanceData,
-  PaymentCategory,
 } from "../../model/finance.type";
 import dayjs from "dayjs";
 import { DeleteStatus } from "../../model/delete.type";
