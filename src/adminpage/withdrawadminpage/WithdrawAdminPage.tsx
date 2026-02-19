@@ -1,21 +1,13 @@
 import { useNavigate } from "react-router-dom";
 import "./WithdrawAdminPage.css";
 import { Button, Modal, Space, Table, Typography } from "antd";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { FileAddFilled } from "@ant-design/icons";
 import CircleLoading from "../../shared/circleLoading";
 import { useAppDispatch } from "../../stores/store";
-import {
-  approveExpenseById,
-  getAllExpenses,
-  isDeleteExpenseById,
-} from "../../stores/slices/expenseSlice";
+import { approveExpenseById, getAllExpenses, isDeleteExpenseById } from "../../stores/slices/expenseSlice";
 import { EmployeeData } from "../../model/employee.type";
-import {
-  CatagoryDetail,
-  ExpenseStatus,
-  FinanceData,
-} from "../../model/finance.type";
+import { CatagoryDetail, ExpenseStatus, FinanceData } from "../../model/finance.type";
 import dayjs from "dayjs";
 import { DeleteStatus } from "../../model/delete.type";
 import { getAllEmployees } from "../../stores/slices/employeeSlice";
@@ -23,24 +15,23 @@ import { useMobileMatch } from "../../hooks";
 import { useSelector } from "react-redux";
 import { userInfoSelector } from "../../stores/slices/authSlice";
 import { getImagePath } from "../../shared/utils/common";
+import { uploadFile } from "../../services/coreService";
 
 const WithdrawAdminPage = () => {
   const dispath = useAppDispatch();
   const navigate = useNavigate();
   const userInfo = useSelector(userInfoSelector);
-  const [withdrawData, setWithdrawData] = useState([]);
+  const [withdrawData, setWithdrawData] = useState<FinanceData[]>([]);
 
   const [isExpenseLoading, setIsExpenseLoading] = useState<boolean>(false);
   const [isEmployeeLoading, setIsEmployeeLoading] = useState<boolean>(false);
 
-  const [openDialogConfirmDelete, setOpenDialogConfirmDelete] =
-    useState<boolean>(false);
-  const [openDialogConfirmApprove, setOpenDialogConfirmApprove] =
-    useState<boolean>(false);
-  const [openDialogCancelApprove, setOpenDialogCancelApprove] =
-    useState<boolean>(false);
+  const [openDialogConfirmDelete, setOpenDialogConfirmDelete] = useState<boolean>(false);
+  const [openDialogConfirmApprove, setOpenDialogConfirmApprove] = useState<boolean>(false);
+  const [openDialogCancelApprove, setOpenDialogCancelApprove] = useState<boolean>(false);
   const [selectedExpenseData, setSelectedExpenseData] = useState<FinanceData>();
-  const [baseImage, setBaseImage] = useState("");
+  const [baseImage, setBaseImage] = useState<File | null>();
+  const [imageUrl, setImageUrl] = useState<string>();
   const [employeeData, setEmployeeData] = useState<EmployeeData[]>([]);
   const [currentMobilePage, setCurrentMobilePage] = useState<number>(1);
 
@@ -49,8 +40,7 @@ const WithdrawAdminPage = () => {
   const fetchAllExpense = useCallback(async () => {
     try {
       setIsExpenseLoading(true);
-      const { data: ExpensesRes = [] } =
-        await dispath(getAllExpenses()).unwrap();
+      const { data: ExpensesRes = [] } = await dispath(getAllExpenses()).unwrap();
 
       const filteredExpenses = ExpensesRes.filter((item: FinanceData) => {
         return item.delete === DeleteStatus.ISNOTDELETE;
@@ -75,8 +65,7 @@ const WithdrawAdminPage = () => {
   const fetchEmployeeData = useCallback(async () => {
     try {
       setIsEmployeeLoading(true);
-      const { data: EmployeesRes = [] } =
-        await dispath(getAllEmployees()).unwrap();
+      const { data: EmployeesRes = [] } = await dispath(getAllEmployees()).unwrap();
 
       setEmployeeData(EmployeesRes);
     } catch (error) {
@@ -93,24 +82,19 @@ const WithdrawAdminPage = () => {
   // เก็บไฟล์รูปภาพเป็น Base64
   const uploadImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
-    const base64 = (await convertBase64(file)) as string;
-    setBaseImage(base64);
+    if (!file) return;
+    setImageUrl(URL.createObjectURL(file));
+    setBaseImage(file);
   };
 
-  const convertBase64 = (file: any) => {
-    return new Promise((resolve, reject) => {
-      const fileReader = new FileReader();
-
-      fileReader.readAsDataURL(file);
-
-      fileReader.onload = () => {
-        resolve(fileReader.result);
-      };
-      fileReader.onerror = (e: any) => {
-        reject(e);
-      };
-    });
-  };
+  const getExpenseSlipImage = useMemo(() => {
+    if (imageUrl) {
+      return imageUrl;
+    } else {
+      console.log(getImagePath("expenses", userInfo?.dbname, selectedExpenseData?.slip));
+      return getImagePath("expenses", userInfo?.dbname, selectedExpenseData?.slip);
+    }
+  }, [selectedExpenseData, imageUrl, userInfo]);
 
   const columns = [
     {
@@ -186,9 +170,7 @@ const WithdrawAdminPage = () => {
       key: "datePrice",
       width: 80,
       render: (datePrice: string) => {
-        const formattedDate = datePrice
-          ? dayjs(datePrice).format("DD/MM/YYYY")
-          : "";
+        const formattedDate = datePrice ? dayjs(datePrice).format("DD/MM/YYYY") : "";
         return <Typography>{formattedDate}</Typography>;
       },
       sorter: (a: FinanceData, b: FinanceData) => {
@@ -210,14 +192,8 @@ const WithdrawAdminPage = () => {
         return <Typography>{total}</Typography>;
       },
       sorter: (a: FinanceData, b: FinanceData) => {
-        const totalA = (a.categorys || []).reduce(
-          (prev, item) => prev + item.amount,
-          0,
-        );
-        const totalB = (b.categorys || []).reduce(
-          (prev, item) => prev + item.amount,
-          0,
-        );
+        const totalA = (a.categorys || []).reduce((prev, item) => prev + item.amount, 0);
+        const totalB = (b.categorys || []).reduce((prev, item) => prev + item.amount, 0);
         return totalA - totalB;
       },
     },
@@ -228,15 +204,9 @@ const WithdrawAdminPage = () => {
       width: 65,
       fixed: "right" as const,
       render: (status: number) => {
-        const statusText =
-          status === 0
-            ? "รออนุมัติ"
-            : status === 1
-              ? "อนุมัติแล้ว"
-              : "ยกเลิกเอกสาร";
+        const statusText = status === 0 ? "รออนุมัติ" : status === 1 ? "อนุมัติแล้ว" : "ยกเลิกเอกสาร";
 
-        const color =
-          status === 0 ? "#FFD700" : status === 1 ? "#008B00" : "#FF0000";
+        const color = status === 0 ? "#FFD700" : status === 1 ? "#008B00" : "#FF0000";
         return <Typography style={{ color }}>{statusText}</Typography>;
       },
       sorter: (a: FinanceData, b: FinanceData) => {
@@ -258,13 +228,7 @@ const WithdrawAdminPage = () => {
           }}
         >
           <a
-            className={
-              item.status === 1
-                ? "linkIsNone"
-                : item.status === 2
-                  ? "linkIsNone"
-                  : ""
-            }
+            className={item.status === 1 ? "linkIsNone" : item.status === 2 ? "linkIsNone" : ""}
             onClick={(e) => {
               e.stopPropagation();
               navigate(`/admin/withdraw/edit/withdraw/${item._id}`);
@@ -291,10 +255,16 @@ const WithdrawAdminPage = () => {
       setIsExpenseLoading(true);
       if (!selectedExpenseData?._id) return;
 
+      let slipImageName = "";
+      if (baseImage) {
+        slipImageName = await uploadFile(baseImage);
+      }
+
       const body: FinanceData = {
         ...selectedExpenseData,
         datePrice: dayjs().toISOString(),
         status: ExpenseStatus.APPROVE,
+        slip: slipImageName.trim(),
       };
 
       await dispath(approveExpenseById(body)).unwrap();
@@ -346,21 +316,19 @@ const WithdrawAdminPage = () => {
     }
   };
 
+  const onCLose = () => {
+    setImageUrl(undefined);
+    setBaseImage(undefined);
+    setSelectedExpenseData(undefined);
+    setCurrentMobilePage(1);
+  }
+
   const rederDialogConfirmApprove = () => {
-    const formattedDate = selectedExpenseData
-      ? dayjs(selectedExpenseData.date).format("DD/MM/YYYY")
-      : "";
+    const formattedDate = selectedExpenseData ? dayjs(selectedExpenseData.date).format("DD/MM/YYYY") : "";
 
-    const formattedDatePrice = selectedExpenseData?.datePrice
-      ? dayjs(selectedExpenseData.datePrice).format("DD/MM/YYYY")
-      : "";
+    const formattedDatePrice = selectedExpenseData?.datePrice ? dayjs(selectedExpenseData.datePrice).format("DD/MM/YYYY") : "";
 
-    const formattedStatus =
-      selectedExpenseData?.status === 0
-        ? "รออนุมัติ"
-        : selectedExpenseData?.status === 1
-          ? "อนุมัติแล้ว"
-          : "ยกเลิกเอกสาร";
+    const formattedStatus = selectedExpenseData?.status === 0 ? "รออนุมัติ" : selectedExpenseData?.status === 1 ? "อนุมัติแล้ว" : "ยกเลิกเอกสาร";
 
     const total = selectedExpenseData?.categorys.reduce((prev, item) => {
       return prev + item.amount;
@@ -370,15 +338,17 @@ const WithdrawAdminPage = () => {
       return item._id === selectedExpenseData?.employeeId;
     });
 
-    const section =
-      selectedExpenseData?.section === 0 ? "ค่าใช้จ่าย" : "เบิกเงินเดือน";
+    const section = selectedExpenseData?.section === 0 ? "ค่าใช้จ่าย" : "เบิกเงินเดือน";
 
     return (
       <Modal
         centered
         className="container-DialogApprove-Expense"
         open={openDialogConfirmApprove}
-        onCancel={() => setOpenDialogConfirmApprove(false)}
+        onCancel={() => {
+          setOpenDialogConfirmApprove(false);
+          onCLose()
+        }}
         footer={
           selectedExpenseData?.status === 0 && (
             <div className="btn-DialogApprove-Navbar">
@@ -386,6 +356,7 @@ const WithdrawAdminPage = () => {
                 type="button"
                 onClick={() => {
                   approved();
+                  onCLose()
                   setOpenDialogConfirmApprove(false);
                 }}
               >
@@ -417,14 +388,7 @@ const WithdrawAdminPage = () => {
           <div className="container-Expense-left">
             <div className="container-ExpenseUser">
               <div className="container-ExpenseUser-left">
-                <img
-                  src={getImagePath(
-                    "profile",
-                    userInfo?.dbname,
-                    employeeName?.image,
-                  )}
-                  alt="profile"
-                />
+                <img src={getImagePath("profile", userInfo?.dbname, employeeName?.image)} alt="profile" />
               </div>
 
               <div className="container-ExpenseUser-right">
@@ -518,30 +482,32 @@ const WithdrawAdminPage = () => {
               </div>
             </div>
 
-            <div className="wrap-inputImage">
-              <h4>หลักฐานการโอน</h4>
-              <div className="inputImage">
-                <label htmlFor="file" className="text-image">
-                  <FileAddFilled className="icon-file" />
-                  <span>อัพโหลดหลักฐานการชำระ</span>
-                </label>
-                <input
-                  // {...field}
-                  type="file"
-                  id="file"
-                  onChange={(e) => {
-                    uploadImage(e);
-                  }}
-                />
+            {selectedExpenseData?.status === 0 && (
+              <div className="wrap-inputImage">
+                <h4>หลักฐานการโอน</h4>
+                <div className="inputImage">
+                  <label htmlFor="file" className="text-image">
+                    <FileAddFilled className="icon-file" />
+                    <span>อัพโหลดหลักฐานการชำระ</span>
+                  </label>
+                  <input
+                    // {...field}
+                    type="file"
+                    id="file"
+                    onChange={(e) => {
+                      uploadImage(e);
+                    }}
+                  />
+                </div>
               </div>
-            </div>
+            )}
           </div>
 
           <div className="container-Expense-right">
-            {baseImage && (
+            {getExpenseSlipImage && (
               <div className="PreviewImage">
                 <h2>รูปภาพหลักฐานการชำระ</h2>
-                <img src={baseImage} alt="image" />
+                <img src={getExpenseSlipImage} alt="image" />
               </div>
             )}
           </div>
@@ -552,12 +518,7 @@ const WithdrawAdminPage = () => {
 
   const rederDialogConfirmDelete = () => {
     return (
-      <Modal
-        centered
-        className="wrap-container-DialogDelete"
-        open={openDialogConfirmDelete}
-        onCancel={() => setOpenDialogConfirmDelete(false)}
-      >
+      <Modal centered className="wrap-container-DialogDelete" open={openDialogConfirmDelete} onCancel={() => setOpenDialogConfirmDelete(false)}>
         <h1>ยืนยันการลบ</h1>
 
         <div className="btn-DialogDelete-Navbar">
@@ -584,12 +545,7 @@ const WithdrawAdminPage = () => {
 
   const rederDialogCancelDelete = () => {
     return (
-      <Modal
-        centered
-        className="wrap-container-DialogDelete"
-        open={openDialogCancelApprove}
-        onCancel={() => setOpenDialogCancelApprove(false)}
-      >
+      <Modal centered className="wrap-container-DialogDelete" open={openDialogCancelApprove} onCancel={() => setOpenDialogCancelApprove(false)}>
         <h1>ยืนยันการลบเอกสาร</h1>
 
         <div className="btn-DialogDelete-Navbar">
@@ -635,22 +591,9 @@ const WithdrawAdminPage = () => {
           }}
         >
           {paginatedData.map((item: FinanceData, index: number) => {
-            const total = item.categorys.reduce(
-              (prev, cat) => prev + cat.amount,
-              0,
-            );
-            const statusText =
-              item.status === 0
-                ? "รออนุมัติ"
-                : item.status === 1
-                  ? "อนุมัติแล้ว"
-                  : "ยกเลิกเอกสาร";
-            const statusColor =
-              item.status === 0
-                ? "#FFD700"
-                : item.status === 1
-                  ? "#008B00"
-                  : "#FF0000";
+            const total = item.categorys.reduce((prev, cat) => prev + cat.amount, 0);
+            const statusText = item.status === 0 ? "รออนุมัติ" : item.status === 1 ? "อนุมัติแล้ว" : "ยกเลิกเอกสาร";
+            const statusColor = item.status === 0 ? "#FFD700" : item.status === 1 ? "#008B00" : "#FF0000";
             const formattedDate = dayjs(item.date).format("DD/MM/YYYY");
             const section = item.section === 0 ? "ค่าใช้จ่าย" : "เบิกเงินเดือน";
 
@@ -729,11 +672,7 @@ const WithdrawAdminPage = () => {
                   }}
                 >
                   <img
-                    src={getImagePath(
-                      "profile",
-                      userInfo?.dbname,
-                      item?.employee?.image,
-                    )}
+                    src={getImagePath("profile", userInfo?.dbname, item?.employee?.image)}
                     alt="employee"
                     style={{
                       width: "32px",
@@ -766,11 +705,7 @@ const WithdrawAdminPage = () => {
                   >
                     หัวข้อ
                   </p>
-                  <p
-                    style={{ margin: "0", fontSize: "13px", fontWeight: "500" }}
-                  >
-                    {item.ownerName}
-                  </p>
+                  <p style={{ margin: "0", fontSize: "13px", fontWeight: "500" }}>{item.ownerName}</p>
                 </div>
 
                 {/* Detail */}
@@ -869,15 +804,9 @@ const WithdrawAdminPage = () => {
                       padding: "6px",
                       textAlign: "center",
                       fontSize: "12px",
-                      color:
-                        item.status === 1 || item.status === 2
-                          ? "#ccc"
-                          : "#043929",
+                      color: item.status === 1 || item.status === 2 ? "#ccc" : "#043929",
                       textDecoration: "none",
-                      cursor:
-                        item.status === 1 || item.status === 2
-                          ? "not-allowed"
-                          : "pointer",
+                      cursor: item.status === 1 || item.status === 2 ? "not-allowed" : "pointer",
                       borderRadius: "4px",
                       backgroundColor: "#f5f5f5",
                       opacity: item.status === 1 || item.status === 2 ? 0.5 : 1,
@@ -927,9 +856,7 @@ const WithdrawAdminPage = () => {
           }}
         >
           <button
-            onClick={() =>
-              setCurrentMobilePage((prev) => Math.max(prev - 1, 1))
-            }
+            onClick={() => setCurrentMobilePage((prev) => Math.max(prev - 1, 1))}
             disabled={currentMobilePage === 1}
             style={{
               width: "100px",
@@ -961,9 +888,7 @@ const WithdrawAdminPage = () => {
           </span>
 
           <button
-            onClick={() =>
-              setCurrentMobilePage((prev) => Math.min(prev + 1, totalPages))
-            }
+            onClick={() => setCurrentMobilePage((prev) => Math.min(prev + 1, totalPages))}
             disabled={currentMobilePage === totalPages}
             style={{
               width: "100px",
@@ -972,11 +897,9 @@ const WithdrawAdminPage = () => {
               fontWeight: "500",
               borderRadius: "6px",
               border: "1px solid #043929",
-              backgroundColor:
-                currentMobilePage === totalPages ? "#e8f5e9" : "#043929",
+              backgroundColor: currentMobilePage === totalPages ? "#e8f5e9" : "#043929",
               color: currentMobilePage === totalPages ? "#043929" : "#fff",
-              cursor:
-                currentMobilePage === totalPages ? "not-allowed" : "pointer",
+              cursor: currentMobilePage === totalPages ? "not-allowed" : "pointer",
               opacity: currentMobilePage === totalPages ? 0.6 : 1,
               transition: "all 0.3s ease",
             }}

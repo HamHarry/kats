@@ -86,7 +86,7 @@ export const uploadFile = async (file: File, options?: UploadFileRequestOptionDa
     const body: UploadFileRequestData = {
       session_id: uniqueKey,
       content: data.results[index],
-      original_name: data.name,
+      original_name: data.name.trim(),
       total: data.results.length,
       index,
       is_use_orginal_name: options?.isUseOrginalName,

@@ -165,6 +165,7 @@ const CreateBookingAdminPage = () => {
     if (imageUrl) {
       return imageUrl;
     } else {
+      console.log(getImagePath("booking", userInfo?.dbname, bookingData?.slip));
       return getImagePath("booking", userInfo?.dbname, bookingData?.slip);
     }
   }, [bookingData, imageUrl, userInfo]);
