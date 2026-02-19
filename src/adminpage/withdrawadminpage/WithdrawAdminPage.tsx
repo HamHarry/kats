@@ -123,6 +123,7 @@ const WithdrawAdminPage = () => {
         const codeB = String(b.codeId || "");
         return codeA.localeCompare(codeB);
       },
+      defaultSortOrder: "descend" as const,
     },
     {
       title: "ผู้สร้างเอกสาร",
@@ -178,7 +179,6 @@ const WithdrawAdminPage = () => {
         const dateB = new Date(b.date || "").getTime();
         return dateA - dateB;
       },
-      defaultSortOrder: "descend" as const,
     },
     {
       title: "วันที่ชำระเงิน",
