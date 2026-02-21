@@ -195,6 +195,8 @@ const CreateBookingAdminPage = () => {
         dispath(setBookingUpdateImg({ imageName: slipImageName }));
       }
 
+      console.log(slipImageName, value.slip);
+
       const item = {
         ...value,
         bookDate: value.bookDate ? dayjs(value.bookDate).toISOString() : "",
@@ -210,6 +212,7 @@ const CreateBookingAdminPage = () => {
           bookingId,
         };
 
+        console.log("body", body);
         await dispath(updateBookingById(body)).unwrap();
 
         navigate("/admin/booking");

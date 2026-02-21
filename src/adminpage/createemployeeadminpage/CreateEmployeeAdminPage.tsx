@@ -4,12 +4,7 @@ import { PaymentStatus, PaymentType, BankType, EmployeeDataForm } from "../../mo
 import { Select, Typography } from "antd";
 import { CloseCircleOutlined, FileAddFilled } from "@ant-design/icons";
 import { useAppDispatch } from "../../stores/store";
-import {
-  createEmployee,
-  getEmployeeById,
-  setProfileImage,
-  updateEmployeeById,
-} from "../../stores/slices/employeeSlice";
+import { createEmployee, getEmployeeById, setProfileImage, updateEmployeeById } from "../../stores/slices/employeeSlice";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { BankDatas } from "../../data/BankData";
@@ -85,8 +80,7 @@ const CreateEmployeeAdminPage = () => {
         tel: employeeRes.tel ?? "",
         employmentInfo: {
           salaryInfo: {
-            paymentStatus:
-              employeeRes.employmentInfo.salaryInfo?.paymentStatus ?? PaymentStatus.BANK,
+            paymentStatus: employeeRes.employmentInfo.salaryInfo?.paymentStatus ?? PaymentStatus.BANK,
             paymentType: employeeRes.employmentInfo.salaryInfo?.paymentType ?? PaymentType.MONTHLY,
             bankName: employeeRes.employmentInfo.salaryInfo?.bankName ?? BankType.BANK_OF_AYUDHYA,
             accountNumber: employeeRes.employmentInfo.salaryInfo?.accountNumber ?? "",
@@ -94,8 +88,11 @@ const CreateEmployeeAdminPage = () => {
           },
           roleId: employeeRes.employmentInfo.roleId ?? "",
         },
+        image: employeeRes.image ?? "",
         email: employeeRes.email ?? "",
       };
+
+      console.log("initEmployeeForm", initEmployeeForm);
 
       reset(initEmployeeForm);
     } catch (error) {
@@ -131,7 +128,9 @@ const CreateEmployeeAdminPage = () => {
 
   const onSubmit = async (value: EmployeeDataForm) => {
     try {
-      let imageName = "";
+      let imageName = value.image || "";
+
+      console.log(imageName, value);
 
       if (imageFile) {
         imageName = await uploadFile(imageFile);
@@ -142,6 +141,8 @@ const CreateEmployeeAdminPage = () => {
         ...value,
         image: imageName,
       };
+
+      console.log("newEmployee", newEmployee);
 
       if (employeeId) {
         const body = {
@@ -231,12 +232,7 @@ const CreateEmployeeAdminPage = () => {
                 name="employmentInfo.roleId"
                 render={({ field }) => {
                   return (
-                    <Select
-                      {...field}
-                      placeholder="เลือกดำแหน่งพนักงาน"
-                      className="select-product"
-                      value={field.value ?? undefined}
-                    >
+                    <Select {...field} placeholder="เลือกดำแหน่งพนักงาน" className="select-product" value={field.value ?? undefined}>
                       {roleDatas.map((item, index) => {
                         return (
                           <Select.Option key={index} value={item._id}>
@@ -252,28 +248,19 @@ const CreateEmployeeAdminPage = () => {
 
             <div className="inputImageEmployee">
               <h2>{t("รูปภาพประจำตัว")}</h2>
-              <Controller
-                name="image"
-                control={control}
-                render={({ field }) => {
-                  return (
-                    <div className="inputImage">
-                      <label htmlFor="file" className="text-image">
-                        <FileAddFilled className="icon-file" />
-                        <span>{t("อัพโหลดรูปภาพ")}</span>
-                      </label>
-                      <input
-                        {...field}
-                        type="file"
-                        id="file"
-                        onChange={(e) => {
-                          uploadImage(e);
-                        }}
-                      />
-                    </div>
-                  );
-                }}
-              />
+              <div className="inputImage">
+                <label htmlFor="file" className="text-image">
+                  <FileAddFilled className="icon-file" />
+                  <span>{t("อัพโหลดรูปภาพ")}</span>
+                </label>
+                <input
+                  type="file"
+                  id="file"
+                  onChange={(e) => {
+                    uploadImage(e);
+                  }}
+                />
+              </div>
             </div>
 
             <div className="inputPaymentStatus">
@@ -307,12 +294,7 @@ const CreateEmployeeAdminPage = () => {
                 name="employmentInfo.salaryInfo.paymentType"
                 render={({ field }) => {
                   return (
-                    <Select
-                      {...field}
-                      placeholder="เลือกประเภทการชำระเงิน"
-                      className="select-product"
-                      value={field.value ?? undefined}
-                    >
+                    <Select {...field} placeholder="เลือกประเภทการชำระเงิน" className="select-product" value={field.value ?? undefined}>
                       <Select.Option value={PaymentType.MONTHLY}>{t("รายเดือน")}</Select.Option>
                       <Select.Option value={PaymentType.DAILY}>{t("รายวัน")}</Select.Option>
                     </Select>
@@ -355,12 +337,7 @@ const CreateEmployeeAdminPage = () => {
                     name="employmentInfo.salaryInfo.bankName"
                     render={({ field }) => {
                       return (
-                        <Select
-                          {...field}
-                          placeholder="เลือกบัญชีธนาคาร"
-                          className="select-product"
-                          value={field.value ?? undefined}
-                        >
+                        <Select {...field} placeholder="เลือกบัญชีธนาคาร" className="select-product" value={field.value ?? undefined}>
                           {BankDatas.map((bank, index) => {
                             return (
                               <Select.Option key={index} value={bank.type}>

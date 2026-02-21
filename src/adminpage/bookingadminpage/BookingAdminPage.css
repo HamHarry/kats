@@ -1,454 +1,611 @@
-.container-BookingAdmin {
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  padding: 20px 20px 0px 20px;
-  padding-left: 320px;
+@import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Sarabun:wght@300;400;500;600&display=swap');
+
+/* ─── Root Variables ─────────────────────────────────── */
+:root {
+  --bg-base: #f2f6f4;
+  --bg-surface: #e8eeeb;
+  --bg-card: #ffffff;
+  --bg-card-hover: #f5fdf8;
+  --border: rgba(0, 150, 100, 0.18);
+  --border-active: rgba(0, 180, 120, 0.45);
+
+  --accent-gun: #00c896;
+  --accent-coat: #3b82f6;
+
+  --text-primary: #1a2e22;
+  --text-secondary: #4a7a5e;
+  --text-muted: #8ab5a0;
+
+  --status-pending: #f59e0b;
+  --status-paid: #3b82f6;
+  --status-completed: #10b981;
+  --status-canceled: #ef4444;
+  --status-checking: #a78bfa;
+
+  --shadow-card: 0 2px 12px rgba(0, 120, 80, 0.08), 0 0 0 1px var(--border);
+  --shadow-hover: 0 6px 28px rgba(0, 150, 100, 0.15), 0 0 0 1px var(--border-active);
+
+  --radius-card: 16px;
+  --radius-badge: 20px;
 }
 
+/* ─── Page Container ─────────────────────────────────── */
+.container-BookingAdmin {
+  padding: 28px 32px 48px;
+  font-family: 'Sarabun', sans-serif;
+  color: var(--text-primary);
+  padding-left: 332px;
+}
+
+/* ─── Header ─────────────────────────────────────────── */
 .header-BookingAdmin {
   display: flex;
-  justify-content: center;
-  height: 80px;
-  max-width: 1200px;
-  width: 100%;
-  border-radius: 20px;
-  background-color: #043929;
-  margin-bottom: 20px;
-  h1 {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 42px;
-    font-weight: bolder;
-    color: white;
-  }
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 32px;
+  position: relative;
+  z-index: 1;
 }
 
+.header-BookingAdmin h1 {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #1a3d28;
+  margin: 0;
+  line-height: 1;
+}
+
+.header-BookingAdmin::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(0,0,0,0.12), transparent);
+  margin-left: 24px;
+}
+
+/* ─── Search / Filter Bar ────────────────────────────── */
 .search-BookingAdmin {
   display: flex;
-  width: 100%;
-  justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
-
-  select {
-    width: 80px;
-    height: 45px;
-    margin-left: 50px;
-    border-radius: 20px;
-    border: 2px solid #043929;
-    font-size: 14px;
-    font-family: "Noto Sans Thai", serif;
-  }
-  .search-content-right {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 20px;
-    margin-right: 50px;
-    input {
-      width: 300px;
-      height: 40px;
-      padding: 5px;
-      border-radius: 10px;
-      font-size: 12px;
-      font-family: "Noto Sans Thai", serif;
-      border: 3px solid #043929;
-    }
-    .btn-crate {
-      width: 100px;
-      height: 45px;
-      border: none;
-      border-radius: 20px;
-      background-color: #043929;
-      color: white;
-      font-size: 20px;
-      cursor: pointer;
-      transition: all 0.5s;
-    }
-    .btn-crate:hover {
-      background-color: #05593d;
-    }
-  }
+  gap: 12px;
+  margin-bottom: 32px;
+  position: relative;
+  z-index: 1;
+  flex-wrap: wrap;
 }
 
+.btn-menu select {
+  appearance: none;
+  background: #ffffff;
+  border: 1px solid var(--border-active);
+  color: #1a2e22;
+  font-family: 'Sarabun', sans-serif;
+  font-size: 0.9rem;
+  padding: 10px 40px 10px 16px;
+  border-radius: 10px;
+  cursor: pointer;
+  outline: none;
+  transition: border-color 0.2s, background 0.2s;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%235a7a6a' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  min-width: 160px;
+}
+
+.btn-menu select:hover,
+.btn-menu select:focus {
+  border-color: var(--accent-gun);
+  background-color: #f5faf7;
+}
+
+.btn-menu select option {
+  background: #ffffff;
+  color: #1a2e22;
+}
+
+.search-content-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+}
+
+.search-content-right input {
+  flex: 1;
+  min-width: 240px;
+  background: #ffffff;
+  border: 1px solid var(--border-active);
+  color: #1a2e22;
+  font-family: 'Sarabun', sans-serif;
+  font-size: 0.9rem;
+  padding: 10px 16px 10px 40px;
+  border-radius: 10px;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%235a7a6a' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3Cpath d='m21 21-4.35-4.35'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: 14px center;
+}
+
+.search-content-right input:focus {
+  border-color: var(--accent-coat);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.12);
+}
+
+.search-content-right input::placeholder {
+  color: #9ab5a8;
+}
+
+.btn-crate {
+  padding: 10px 24px;
+  background: linear-gradient(135deg, var(--accent-gun), #00a07a);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-family: 'Sarabun', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  letter-spacing: 0.04em;
+  transition: opacity 0.2s, transform 0.15s, box-shadow 0.2s;
+  white-space: nowrap;
+  box-shadow: 0 4px 16px rgba(0, 200, 150, 0.25);
+}
+
+.btn-crate:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 22px rgba(0, 200, 150, 0.4);
+}
+
+.btn-crate:active {
+  transform: translateY(0);
+}
+
+/* ─── Card Grid ──────────────────────────────────────── */
 .wrap-container-BookingAdmin {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+  gap: 20px;
+  position: relative;
+  z-index: 1;
+}
+
+/* ─── Booking Card ───────────────────────────────────── */
+.grid-BookingAdmin {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
   display: flex;
   flex-direction: column;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+  animation: fadeSlideUp 0.4s ease both;
+  position: relative;
+}
+
+.grid-BookingAdmin::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--card-accent, var(--accent-gun));
+  opacity: 0;
+  transition: opacity 0.25s;
+}
+
+.grid-BookingAdmin:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-hover);
+  border-color: var(--border-active);
+}
+
+.grid-BookingAdmin:hover::before {
+  opacity: 1;
+}
+
+.grid-BookingAdmin.type-gun {
+  --card-accent: var(--accent-gun);
+}
+
+.grid-BookingAdmin.type-coat {
+  --card-accent: var(--accent-coat);
+}
+
+@keyframes fadeSlideUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ─── Card Header ────────────────────────────────────── */
+.BookingAdmin-card-header {
+  display: flex;
   align-items: center;
-  height: 670px;
+  gap: 14px;
+  padding: 18px 20px 14px;
+  border-bottom: 1px solid rgba(0, 150, 100, 0.15);
+  position: relative;
+}
+
+.BookingAdmin-image {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  overflow: hidden;
+  flex-shrink: 0;
+  border: 1px solid var(--border-active);
+}
+
+.BookingAdmin-image img {
   width: 100%;
-  overflow-y: hidden;
-  .grid-user {
-    display: flex;
-  }
-  .grid-BookingAdmin {
-    display: flex;
-    width: 90%;
-    margin-bottom: 20px;
-    padding: 25px;
-    border-radius: 10px;
-    background-color: #2656a2;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    .BookingAdmin-image {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin-right: 20px;
-      img {
-        width: 200px;
-        height: 100px;
-        border-radius: 20px;
-        border: 2px solid #ffffff;
-      }
-    }
-    .BookingAdmin-content {
-      width: 90%;
-    }
-    .text-p {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      .icon {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        .icon-check-wait {
-          font-size: 30px;
-          color: yellow;
-        }
-        .fa-circle {
-          font-size: 30px;
-          color: blue;
-        }
-        .icon-check-complete {
-          font-size: 30px;
-          color: green;
-        }
-        .icon-check-cancel {
-          font-size: 30px;
-          color: red;
-        }
-        .fa-wrench {
-          font-size: 25px;
-          color: yellow;
-        }
-        .fa-pen-to-square {
-          font-size: 30px;
-          cursor: pointer;
-          color: #ffffff;
-        }
-        .fa-trash-can {
-          font-size: 30px;
-          cursor: pointer;
-          color: #ffffff;
-        }
-        .icon-pay {
-          font-size: 30px;
-          cursor: pointer;
-          color: #ffffff;
-        }
-      }
-    }
-    p {
-      color: white;
-      font-size: 20px;
-    }
-    .licensePlate-approve {
-      display: flex;
-      justify-content: space-between;
-      .btn-approve {
-        display: flex;
-        gap: 10px;
-        button {
-          padding: 0px 10px;
-          border-radius: 10px;
-          background-color: white;
-          font-size: 18px;
-          border: none;
-          cursor: pointer;
-          color: black;
-        }
-      }
-      .btn-approve-none {
-        display: none;
-      }
-    }
-  }
-}
-.wrap-container-BookingAdmin:hover {
-  overflow-y: auto;
+  height: 100%;
+  object-fit: cover;
 }
 
-.wrap-container-DialogPay {
-  min-width: 800px;
-  height: 800px;
-  border-radius: 20px;
-  .ant-modal-content {
-    background-color: #043929;
-  }
-  .ImagePay {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    img {
-      height: 700px;
-      border-radius: 20px;
-    }
-  }
-  .ant-modal-footer {
-    display: none;
-  }
+.BookingAdmin-header-meta {
+  flex: 1;
+  min-width: 0;
 }
 
-.wrap-container-DialogDelete {
-  width: 350px;
-  height: 300px;
-  .ant-modal-content {
-    background-color: white;
-    border: 5px solid #043929;
-    border-radius: 20px;
-  }
-  h1 {
-    text-align: center;
-    font-size: 50px;
-    font-weight: bolder;
-    color: #043929;
-  }
-  .btn-DialogDelete-Navbar {
-    display: flex;
-    justify-content: center;
-    margin-top: 30px;
-    gap: 20px;
-    button {
-      padding: 10px 20px;
-      border-radius: 20px;
-      background-color: #043929;
-      color: white;
-      font-size: 20px;
-      border: none;
-      cursor: pointer;
-    }
-    button:hover {
-      background-color: #05593d;
-      text-shadow: 0 0 10px rgba(255, 255, 255, 0.8),
-        0 0 20px rgba(255, 255, 255, 0.6), 0 0 30px rgba(255, 255, 255, 0.4);
-      transition: all 0.5s;
-    }
-  }
-  .ant-modal-footer {
-    display: none;
-  }
+.BookingAdmin-product-name {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #1a3d28;
+  margin: 0 0 4px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-.wrap-container-DialogApprove {
-  width: 350px;
-  height: 300px;
-  .ant-modal-content {
-    background-color: white;
-    border: 5px solid #043929;
-    border-radius: 20px;
-  }
-  h1 {
-    text-align: center;
-    font-size: 50px;
-    font-weight: bolder;
-    color: #043929;
-  }
-  .btn-DialogApprove-Navbar {
-    display: flex;
-    justify-content: center;
-    margin-top: 30px;
-    gap: 20px;
-    button {
-      padding: 10px 20px;
-      border-radius: 20px;
-      background-color: #043929;
-      color: white;
-      font-size: 20px;
-      border: none;
-      cursor: pointer;
-    }
-    button:hover {
-      background-color: #05593d;
-      text-shadow: 0 0 10px #e6fff5, 0 0 20px #b3ffe0, 0 0 30px #80ffcc;
-      transition: all 0.5s;
-    }
-  }
-  .ant-modal-footer {
-    display: none;
-  }
+.BookingAdmin-date-time {
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
-@media (max-width: 1280px) {
+.BookingAdmin-date-time span {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* ─── Status Badge ───────────────────────────────────── */
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px;
+  border-radius: var(--radius-badge);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  flex-shrink: 0;
+}
+
+.status-badge.pending  { background: rgba(245, 158, 11, 0.15); color: var(--status-pending); border: 1px solid rgba(245,158,11,0.3); }
+.status-badge.paid     { background: rgba(59, 130, 246, 0.15); color: var(--status-paid); border: 1px solid rgba(59,130,246,0.3); }
+.status-badge.completed{ background: rgba(16, 185, 129, 0.15); color: var(--status-completed); border: 1px solid rgba(16,185,129,0.3); }
+.status-badge.canceled { background: rgba(239, 68, 68, 0.15);  color: var(--status-canceled); border: 1px solid rgba(239,68,68,0.3); }
+.status-badge.checking { background: rgba(167, 139, 250, 0.15);color: var(--status-checking); border: 1px solid rgba(167,139,250,0.3); }
+
+.status-badge-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+  animation: pulse 2s infinite;
+}
+
+.status-badge.completed .status-badge-dot,
+.status-badge.canceled  .status-badge-dot {
+  animation: none;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+/* ─── Card Body ──────────────────────────────────────── */
+.BookingAdmin-content {
+  padding: 16px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  flex: 1;
+}
+
+.info-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px 16px;
+  margin-bottom: 12px;
+}
+
+.info-item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.info-item.full {
+  grid-column: 1 / -1;
+}
+
+.info-label {
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.info-value {
+  font-size: 0.88rem;
+  color: var(--text-primary);
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.info-value.accent {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+
+.info-value.gun   { color: var(--accent-gun); }
+.info-value.coat  { color: var(--accent-coat); }
+
+.info-divider {
+  height: 1px;
+  background: var(--border);
+  margin: 10px 0;
+}
+
+/* ─── Card Footer ────────────────────────────────────── */
+.BookingAdmin-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 20px;
+  border-top: 1px solid rgba(0, 150, 100, 0.15);
+  gap: 10px;
+}
+
+.footer-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.icon-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  border: 1px solid rgba(0, 150, 100, 0.25);
+  background: #f5fdf8;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.18s ease;
+  font-size: 0.82rem;
+}
+
+.icon-btn:hover {
+  background: #eaf7f0;
+  color: var(--text-primary);
+  border-color: var(--border-active);
+}
+
+.icon-btn.pay:hover    { color: var(--accent-coat); border-color: rgba(59,130,246,0.5); background: rgba(59,130,246,0.08); }
+.icon-btn.edit:hover   { color: #f59e0b; border-color: rgba(245,158,11,0.5); background: rgba(245,158,11,0.08); }
+.icon-btn.delete:hover { color: var(--status-canceled); border-color: rgba(239,68,68,0.5); background: rgba(239,68,68,0.08); }
+
+.approve-btns {
+  display: flex;
+  gap: 8px;
+}
+
+.btn-approve-action {
+  padding: 6px 16px;
+  border-radius: 8px;
+  font-family: 'Sarabun', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: all 0.18s ease;
+  letter-spacing: 0.02em;
+}
+
+.btn-approve-action.success {
+  background: rgba(16, 185, 129, 0.12);
+  color: var(--status-completed);
+  border-color: rgba(16, 185, 129, 0.35);
+}
+
+.btn-approve-action.success:hover {
+  background: var(--status-completed);
+  color: #fff;
+  box-shadow: 0 4px 14px rgba(16,185,129,0.35);
+}
+
+.btn-approve-action.cancel {
+  background: rgba(239, 68, 68, 0.1);
+  color: var(--status-canceled);
+  border-color: rgba(239, 68, 68, 0.3);
+}
+
+.btn-approve-action.cancel:hover {
+  background: var(--status-canceled);
+  color: #fff;
+  box-shadow: 0 4px 14px rgba(239,68,68,0.3);
+}
+
+/* Hide when status is done */
+.approve-btns.hidden {
+  display: none;
+}
+
+/* ─── Modals ─────────────────────────────────────────── */
+.wrap-container-DialogDelete .ant-modal-content,
+.wrap-container-DialogApprove .ant-modal-content,
+.wrap-container-DialogPay .ant-modal-content {
+  background: var(--bg-card) !important;
+  border: 1px solid var(--border-active) !important;
+  border-radius: var(--radius-card) !important;
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.7) !important;
+  padding: 0 !important;
+}
+
+.wrap-container-DialogDelete .ant-modal-footer,
+.wrap-container-DialogApprove .ant-modal-footer {
+  display: none !important;
+}
+
+.wrap-container-DialogDelete h1,
+.wrap-container-DialogApprove h1 {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 1.4rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--text-primary);
+  text-align: center;
+  margin: 28px 0 24px;
+}
+
+.btn-DialogDelete-Navbar,
+.btn-DialogApprove-Navbar {
+  display: flex;
+  gap: 12px;
+  padding: 0 28px 28px;
+  justify-content: center;
+}
+
+.btn-DialogDelete-Navbar button,
+.btn-DialogApprove-Navbar button {
+  flex: 1;
+  max-width: 140px;
+  padding: 10px 0;
+  border-radius: 10px;
+  font-family: 'Sarabun', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.18s ease;
+  letter-spacing: 0.02em;
+}
+
+.btn-DialogDelete-Navbar button:first-child,
+.btn-DialogApprove-Navbar button:first-child {
+  background: linear-gradient(135deg, var(--status-completed), #0d9e6e);
+  color: #fff;
+  border: none;
+  box-shadow: 0 4px 14px rgba(16,185,129,0.3);
+}
+
+.btn-DialogDelete-Navbar button:first-child:hover,
+.btn-DialogApprove-Navbar button:first-child:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+.btn-DialogDelete-Navbar button:last-child,
+.btn-DialogApprove-Navbar button:last-child {
+  background: transparent;
+  color: var(--text-secondary);
+  border: 1px solid var(--border-active);
+}
+
+.btn-DialogDelete-Navbar button:last-child:hover,
+.btn-DialogApprove-Navbar button:last-child:hover {
+  background: var(--bg-card-hover);
+  color: var(--text-primary);
+}
+
+.ImagePay {
+  padding: 20px;
+}
+
+.ImagePay img {
+  width: 100%;
+  border-radius: 10px;
+  display: block;
+}
+
+.wrap-container-DialogPay .ant-modal-close {
+  color: var(--text-secondary) !important;
+}
+
+/* ─── Empty State ────────────────────────────────────── */
+.booking-empty {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 80px 20px;
+  color: var(--text-muted);
+}
+
+.booking-empty svg {
+  margin-bottom: 16px;
+  opacity: 0.3;
+}
+
+.booking-empty p {
+  font-size: 1rem;
+  margin: 0;
+}
+
+/* ─── Responsive ─────────────────────────────────────── */
+@media (max-width: 768px) {
   .container-BookingAdmin {
-    padding-left: 270px;
+    padding: 16px 12px 32px;
   }
 
-  .wrap-container-DialogPay {
-    min-width: 700px;
-    height: 750px;
-  }
-}
-
-@media (max-width: 1080px) {
-  .container-BookingAdmin {
-    padding-left: 220px;
-  }
-}
-
-@media (max-width: 900px) {
-  .container-BookingAdmin {
-    padding-left: 220px;
+  .header-BookingAdmin h1 {
+    font-size: 1.6rem;
   }
 
   .wrap-container-BookingAdmin {
-    height: 650px;
-    .grid-BookingAdmin {
-      .BookingAdmin-image {
-        margin-right: 5px;
-        img {
-          display: none;
-        }
-      }
-      .BookingAdmin-content {
-        width: 100%;
-      }
-    }
-  }
-}
-
-@media (max-width: 850px) {
-  .container-BookingAdmin {
-    padding-left: 220px;
+    grid-template-columns: 1fr;
   }
 
   .search-BookingAdmin {
-    select {
-      margin-left: 0px;
-    }
-    .search-content-right {
-      align-items: center;
-      gap: 5px;
-      margin-right: 0px;
-      input {
-        width: 200px;
-      }
-    }
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .search-content-right {
+    flex-wrap: wrap;
+  }
+
+  .btn-crate {
+    width: 100%;
+    text-align: center;
   }
 }
 
-@media (max-width: 600px) {
-  .container-BookingAdmin {
-    padding-left: 20px;
-  }
-
-  .search-BookingAdmin {
-    select {
-      margin-left: 0px;
-    }
-    .search-content-right {
-      align-items: center;
-      gap: 5px;
-      margin-right: 0px;
-      input {
-        width: 120px;
-      }
-    }
-  }
-
-  .wrap-container-BookingAdmin {
-    height: 700px;
-    .grid-BookingAdmin {
-      width: 100%;
-      max-width: 300px;
-      .BookingAdmin-image {
-        margin-right: 5px;
-        img {
-          display: none;
-        }
-      }
-      .BookingAdmin-content {
-        width: 100%;
-      }
-      .text-p {
-        .icon {
-          display: flex;
-          align-items: center;
-          gap: 10px;
-          .icon-check-wait {
-            font-size: 20px;
-          }
-          .fa-circle {
-            font-size: 20px;
-          }
-          .icon-check-complete {
-            font-size: 20px;
-          }
-          .icon-check-cancel {
-            font-size: 20px;
-          }
-          .fa-wrench {
-            font-size: 20px;
-          }
-          .fa-pen-to-square {
-            font-size: 20px;
-          }
-          .fa-trash-can {
-            font-size: 20px;
-          }
-          .icon-pay {
-            font-size: 20px;
-          }
-        }
-      }
-      p {
-        font-size: 12px;
-      }
-      .licensePlate-approve {
-        .btn-approve {
-          button {
-            font-size: 14px;
-          }
-        }
-      }
-    }
-  }
-
-  .wrap-container-DialogPay {
-    min-width: 200px;
-    height: 350px;
-    .ImagePay {
-      img {
-        height: 300px;
-      }
-    }
-  }
-
-  .wrap-container-DialogDelete {
-    width: 300px !important;
-    height: 200px;
-    h1 {
-      font-size: 30px;
-    }
-    .btn-DialogDelete-Navbar {
-      button {
-        font-size: 15px;
-      }
-    }
-  }
-
-  .wrap-container-DialogApprove {
-    width: 300px !important;
-    height: 200px;
-    h1 {
-      font-size: 24px;
-    }
-    .btn-DialogApprove-Navbar {
-      button {
-        font-size: 16px;
-      }
-    }
-  }
+/* ─── Tooltip override ───────────────────────────────── */
+.ant-tooltip .ant-tooltip-inner {
+  background: var(--bg-card-hover) !important;
+  font-family: 'Sarabun', sans-serif !important;
+  font-size: 0.78rem !important;
+  border-radius: 6px !important;
+  color: var(--text-primary) !important;
 }
