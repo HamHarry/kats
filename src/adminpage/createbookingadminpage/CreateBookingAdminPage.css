@@ -229,6 +229,11 @@
     justify-content: center;
     text-align: center;
     padding-top: 30px;
+    img {
+      height: 250px;
+      width: auto;
+      border-radius: 10px;
+    }
     .text-image {
       height: 200px;
       width: 300px;
@@ -280,8 +285,10 @@
   }
   button:hover {
     background-color: #05593d;
-    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8),
-      0 0 20px rgba(255, 255, 255, 0.6), 0 0 30px rgba(255, 255, 255, 0.4);
+    text-shadow:
+      0 0 10px rgba(255, 255, 255, 0.8),
+      0 0 20px rgba(255, 255, 255, 0.6),
+      0 0 30px rgba(255, 255, 255, 0.4);
     transition: all 0.5s;
   }
 }
@@ -316,8 +323,10 @@
     }
     button:hover {
       background-color: #05593d;
-      text-shadow: 0 0 10px rgba(255, 255, 255, 0.8),
-        0 0 20px rgba(255, 255, 255, 0.6), 0 0 30px rgba(255, 255, 255, 0.4);
+      text-shadow:
+        0 0 10px rgba(255, 255, 255, 0.8),
+        0 0 20px rgba(255, 255, 255, 0.6),
+        0 0 30px rgba(255, 255, 255, 0.4);
       transition: all 0.5s;
     }
   }
@@ -527,6 +536,10 @@
 @media (max-width: 920px) {
   .container-CreateAdmin {
     padding-left: 220px;
+
+    .wrap-container-CreateAdmin {
+      height: 1100px;
+    }
   }
 
   .btn-back {
