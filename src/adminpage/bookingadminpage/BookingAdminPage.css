@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Sarabun:wght@300;400;500;600&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Sarabun:wght@300;400;500;600&display=swap");
 
 /* ─── Root Variables ─────────────────────────────────── */
 :root {
@@ -32,9 +32,11 @@
 /* ─── Page Container ─────────────────────────────────── */
 .container-BookingAdmin {
   padding: 28px 32px 48px;
-  font-family: 'Sarabun', sans-serif;
+  font-family: "Sarabun", sans-serif;
   color: var(--text-primary);
   padding-left: 332px;
+  height: 100vh;
+  overflow: hidden;
 }
 
 /* ─── Header ─────────────────────────────────────────── */
@@ -48,7 +50,7 @@
 }
 
 .header-BookingAdmin h1 {
-  font-family: 'Rajdhani', sans-serif;
+  font-family: "Rajdhani", sans-serif;
   font-size: 2rem;
   font-weight: 700;
   letter-spacing: 0.04em;
@@ -59,10 +61,10 @@
 }
 
 .header-BookingAdmin::after {
-  content: '';
+  content: "";
   flex: 1;
   height: 1px;
-  background: linear-gradient(90deg, rgba(0,0,0,0.12), transparent);
+  background: linear-gradient(90deg, rgba(0, 0, 0, 0.12), transparent);
   margin-left: 24px;
 }
 
@@ -72,8 +74,6 @@
   align-items: center;
   gap: 12px;
   margin-bottom: 32px;
-  position: relative;
-  z-index: 1;
   flex-wrap: wrap;
 }
 
@@ -82,13 +82,15 @@
   background: #ffffff;
   border: 1px solid var(--border-active);
   color: #1a2e22;
-  font-family: 'Sarabun', sans-serif;
+  font-family: "Sarabun", sans-serif;
   font-size: 0.9rem;
   padding: 10px 40px 10px 16px;
   border-radius: 10px;
   cursor: pointer;
   outline: none;
-  transition: border-color 0.2s, background 0.2s;
+  transition:
+    border-color 0.2s,
+    background 0.2s;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%235a7a6a' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right 14px center;
@@ -119,12 +121,14 @@
   background: #ffffff;
   border: 1px solid var(--border-active);
   color: #1a2e22;
-  font-family: 'Sarabun', sans-serif;
+  font-family: "Sarabun", sans-serif;
   font-size: 0.9rem;
   padding: 10px 16px 10px 40px;
   border-radius: 10px;
   outline: none;
-  transition: border-color 0.2s, box-shadow 0.2s;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%235a7a6a' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3Cpath d='m21 21-4.35-4.35'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: 14px center;
@@ -145,12 +149,15 @@
   color: #fff;
   border: none;
   border-radius: 10px;
-  font-family: 'Sarabun', sans-serif;
+  font-family: "Sarabun", sans-serif;
   font-size: 0.9rem;
   font-weight: 600;
   cursor: pointer;
   letter-spacing: 0.04em;
-  transition: opacity 0.2s, transform 0.15s, box-shadow 0.2s;
+  transition:
+    opacity 0.2s,
+    transform 0.15s,
+    box-shadow 0.2s;
   white-space: nowrap;
   box-shadow: 0 4px 16px rgba(0, 200, 150, 0.25);
 }
@@ -170,8 +177,9 @@
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
   gap: 20px;
-  position: relative;
-  z-index: 1;
+  overflow-y: auto;
+  max-height: calc(100vh - 200px);
+  padding: 4px;
 }
 
 /* ─── Booking Card ───────────────────────────────────── */
@@ -183,13 +191,16 @@
   box-shadow: var(--shadow-card);
   display: flex;
   flex-direction: column;
-  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    border-color 0.25s ease;
   animation: fadeSlideUp 0.4s ease both;
   position: relative;
 }
 
 .grid-BookingAdmin::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
@@ -219,8 +230,14 @@
 }
 
 @keyframes fadeSlideUp {
-  from { opacity: 0; transform: translateY(16px); }
-  to   { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* ─── Card Header ────────────────────────────────────── */
@@ -254,7 +271,7 @@
 }
 
 .BookingAdmin-product-name {
-  font-family: 'Rajdhani', sans-serif;
+  font-family: "Rajdhani", sans-serif;
   font-size: 1rem;
   font-weight: 600;
   letter-spacing: 0.05em;
@@ -294,11 +311,31 @@
   flex-shrink: 0;
 }
 
-.status-badge.pending  { background: rgba(245, 158, 11, 0.15); color: var(--status-pending); border: 1px solid rgba(245,158,11,0.3); }
-.status-badge.paid     { background: rgba(59, 130, 246, 0.15); color: var(--status-paid); border: 1px solid rgba(59,130,246,0.3); }
-.status-badge.completed{ background: rgba(16, 185, 129, 0.15); color: var(--status-completed); border: 1px solid rgba(16,185,129,0.3); }
-.status-badge.canceled { background: rgba(239, 68, 68, 0.15);  color: var(--status-canceled); border: 1px solid rgba(239,68,68,0.3); }
-.status-badge.checking { background: rgba(167, 139, 250, 0.15);color: var(--status-checking); border: 1px solid rgba(167,139,250,0.3); }
+.status-badge.pending {
+  background: rgba(245, 158, 11, 0.15);
+  color: var(--status-pending);
+  border: 1px solid rgba(245, 158, 11, 0.3);
+}
+.status-badge.paid {
+  background: rgba(59, 130, 246, 0.15);
+  color: var(--status-paid);
+  border: 1px solid rgba(59, 130, 246, 0.3);
+}
+.status-badge.completed {
+  background: rgba(16, 185, 129, 0.15);
+  color: var(--status-completed);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+.status-badge.canceled {
+  background: rgba(239, 68, 68, 0.15);
+  color: var(--status-canceled);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+}
+.status-badge.checking {
+  background: rgba(167, 139, 250, 0.15);
+  color: var(--status-checking);
+  border: 1px solid rgba(167, 139, 250, 0.3);
+}
 
 .status-badge-dot {
   width: 6px;
@@ -309,13 +346,18 @@
 }
 
 .status-badge.completed .status-badge-dot,
-.status-badge.canceled  .status-badge-dot {
+.status-badge.canceled .status-badge-dot {
   animation: none;
 }
 
 @keyframes pulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.3; }
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.3;
+  }
 }
 
 /* ─── Card Body ──────────────────────────────────────── */
@@ -362,14 +404,18 @@
 }
 
 .info-value.accent {
-  font-family: 'Rajdhani', sans-serif;
+  font-family: "Rajdhani", sans-serif;
   font-size: 1rem;
   font-weight: 700;
   letter-spacing: 0.05em;
 }
 
-.info-value.gun   { color: var(--accent-gun); }
-.info-value.coat  { color: var(--accent-coat); }
+.info-value.gun {
+  color: var(--accent-gun);
+}
+.info-value.coat {
+  color: var(--accent-coat);
+}
 
 .info-divider {
   height: 1px;
@@ -414,9 +460,21 @@
   border-color: var(--border-active);
 }
 
-.icon-btn.pay:hover    { color: var(--accent-coat); border-color: rgba(59,130,246,0.5); background: rgba(59,130,246,0.08); }
-.icon-btn.edit:hover   { color: #f59e0b; border-color: rgba(245,158,11,0.5); background: rgba(245,158,11,0.08); }
-.icon-btn.delete:hover { color: var(--status-canceled); border-color: rgba(239,68,68,0.5); background: rgba(239,68,68,0.08); }
+.icon-btn.pay:hover {
+  color: var(--accent-coat);
+  border-color: rgba(59, 130, 246, 0.5);
+  background: rgba(59, 130, 246, 0.08);
+}
+.icon-btn.edit:hover {
+  color: #f59e0b;
+  border-color: rgba(245, 158, 11, 0.5);
+  background: rgba(245, 158, 11, 0.08);
+}
+.icon-btn.delete:hover {
+  color: var(--status-canceled);
+  border-color: rgba(239, 68, 68, 0.5);
+  background: rgba(239, 68, 68, 0.08);
+}
 
 .approve-btns {
   display: flex;
@@ -426,7 +484,7 @@
 .btn-approve-action {
   padding: 6px 16px;
   border-radius: 8px;
-  font-family: 'Sarabun', sans-serif;
+  font-family: "Sarabun", sans-serif;
   font-size: 0.8rem;
   font-weight: 600;
   cursor: pointer;
@@ -444,7 +502,7 @@
 .btn-approve-action.success:hover {
   background: var(--status-completed);
   color: #fff;
-  box-shadow: 0 4px 14px rgba(16,185,129,0.35);
+  box-shadow: 0 4px 14px rgba(16, 185, 129, 0.35);
 }
 
 .btn-approve-action.cancel {
@@ -456,7 +514,7 @@
 .btn-approve-action.cancel:hover {
   background: var(--status-canceled);
   color: #fff;
-  box-shadow: 0 4px 14px rgba(239,68,68,0.3);
+  box-shadow: 0 4px 14px rgba(239, 68, 68, 0.3);
 }
 
 /* Hide when status is done */
@@ -482,7 +540,7 @@
 
 .wrap-container-DialogDelete h1,
 .wrap-container-DialogApprove h1 {
-  font-family: 'Rajdhani', sans-serif;
+  font-family: "Rajdhani", sans-serif;
   font-size: 1.4rem;
   font-weight: 700;
   letter-spacing: 0.04em;
@@ -505,7 +563,7 @@
   max-width: 140px;
   padding: 10px 0;
   border-radius: 10px;
-  font-family: 'Sarabun', sans-serif;
+  font-family: "Sarabun", sans-serif;
   font-size: 0.9rem;
   font-weight: 600;
   cursor: pointer;
@@ -518,7 +576,7 @@
   background: linear-gradient(135deg, var(--status-completed), #0d9e6e);
   color: #fff;
   border: none;
-  box-shadow: 0 4px 14px rgba(16,185,129,0.3);
+  box-shadow: 0 4px 14px rgba(16, 185, 129, 0.3);
 }
 
 .btn-DialogDelete-Navbar button:first-child:hover,
@@ -573,13 +631,28 @@
 }
 
 /* ─── Responsive ─────────────────────────────────────── */
-@media (max-width: 768px) {
+@media (max-width: 1280px) {
+  .container-BookingAdmin {
+    padding-left: 282px;
+  }
+}
+
+@media (max-width: 1080px) {
+  .container-BookingAdmin {
+    padding-left: 232px;
+  }
+}
+
+@media (max-width: 600px) {
   .container-BookingAdmin {
     padding: 16px 12px 32px;
   }
 
-  .header-BookingAdmin h1 {
-    font-size: 1.6rem;
+  .header-BookingAdmin {
+    padding-left: 60px;
+    h1 {
+      font-size: 1.6rem;
+    }
   }
 
   .wrap-container-BookingAdmin {
@@ -604,7 +677,7 @@
 /* ─── Tooltip override ───────────────────────────────── */
 .ant-tooltip .ant-tooltip-inner {
   background: var(--bg-card-hover) !important;
-  font-family: 'Sarabun', sans-serif !important;
+  font-family: "Sarabun", sans-serif !important;
   font-size: 0.78rem !important;
   border-radius: 6px !important;
   color: var(--text-primary) !important;
