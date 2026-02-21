@@ -150,6 +150,7 @@ const CreateBookingAdminPage = () => {
         delete: bookingRes.delete ?? DeleteStatus.ISNOTDELETE,
         codeId: bookingRes.codeId ?? 0,
         image: bookingRes.image ?? "",
+        slip: bookingRes.slip ?? "",
       };
 
       reset(initBookingForm);
