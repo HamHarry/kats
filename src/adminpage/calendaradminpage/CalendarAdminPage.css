@@ -1,164 +1,370 @@
+@import url("https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Sarabun:wght@300;400;500;600&display=swap");
+
+/* ─── Page Container ─────────────────────────────────── */
 .container-calendarAdmin {
   display: flex;
-  align-items: center;
   flex-direction: column;
-  padding: 20px;
-  padding-left: 320px;
+  padding: 28px 32px 48px;
+  padding-left: 332px;
+  font-family: "Sarabun", sans-serif;
+  color: var(--text-primary);
+  min-height: 100vh;
+  background: var(--bg-base);
 }
 
+/* ─── Header ─────────────────────────────────────────── */
 .header-calendarAdmin {
   display: flex;
-  justify-content: center;
-  height: 80px;
-  min-width: 1200px;
-  border-radius: 20px;
-  background-color: #043929;
-  margin-bottom: 20px;
-  h1 {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 42px;
-    font-weight: bolder;
-    color: white;
-  }
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 28px;
+  position: relative;
 }
 
+.header-calendarAdmin h1 {
+  font-family: "Rajdhani", sans-serif;
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #1a3d28;
+  margin: 0;
+  line-height: 1;
+}
+
+.header-calendarAdmin::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(0, 0, 0, 0.12), transparent);
+  margin-left: 24px;
+}
+
+/* ─── Legend / Guide ─────────────────────────────────── */
 .guid {
   display: flex;
-  margin-bottom: 20px;
-  gap: 20px;
-  .guid-yellow {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    .box-yellow {
-      width: 20px;
-      height: 20px;
-      background-color: #faad14;
-      border-radius: 50%;
-    }
-  }
-  .guid-blue {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    .box-blue {
-      width: 20px;
-      height: 20px;
-      background-color: #1677ff;
-      border-radius: 50%;
-    }
-  }
-  .guid-green {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    .box-green {
-      width: 20px;
-      height: 20px;
-      background-color: #52c41a;
-      border-radius: 50%;
-    }
-  }
-  .guid-red {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    .box-red {
-      width: 20px;
-      height: 20px;
-      background-color: #ff4d4f;
-      border-radius: 50%;
-    }
-  }
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 24px;
+  background: var(--bg-card, #fff);
+  border: 1px solid var(--border, rgba(0, 150, 100, 0.18));
+  border-radius: 12px;
+  padding: 10px 20px;
+  width: 100%;
+  justify-content: center;
+  box-shadow: 0 1px 6px rgba(0, 120, 80, 0.06);
+  flex-wrap: wrap;
 }
 
-.wrap-calendarAdmin {
-  border: 5px solid #043929;
+.guid-yellow,
+.guid-blue,
+.guid-green,
+.guid-red {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 4px 12px;
   border-radius: 20px;
-  padding: 20px;
-  max-width: 1400px;
-  .ant-picker-cell-inner {
-    height: 95px !important;
-    .ant-picker-calendar-date-content {
-      height: 60px !important;
-      overflow-y: hidden;
-    }
-    .booking {
-      overflow: hidden;
-    }
-    .ant-picker-calendar-date-content:hover {
-      overflow-y: auto;
-    }
-  }
+  transition: background 0.18s;
 }
 
+.guid-yellow:hover {
+  background: rgba(250, 173, 20, 0.1);
+}
+.guid-blue:hover {
+  background: rgba(22, 119, 255, 0.1);
+}
+.guid-green:hover {
+  background: rgba(82, 196, 26, 0.1);
+}
+.guid-red:hover {
+  background: rgba(255, 77, 79, 0.1);
+}
+
+.guid-yellow p,
+.guid-blue p,
+.guid-green p,
+.guid-red p {
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--text-secondary, #4a7a5e);
+  margin: 0;
+  white-space: nowrap;
+}
+
+/* Dot indicators */
+.box-yellow,
+.box-blue,
+.box-green,
+.box-red {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.box-yellow {
+  background-color: #faad14;
+  box-shadow: 0 0 0 3px rgba(250, 173, 20, 0.2);
+}
+.box-blue {
+  background-color: #1677ff;
+  box-shadow: 0 0 0 3px rgba(22, 119, 255, 0.2);
+}
+.box-green {
+  background-color: #52c41a;
+  box-shadow: 0 0 0 3px rgba(82, 196, 26, 0.2);
+}
+.box-red {
+  background-color: #ff4d4f;
+  box-shadow: 0 0 0 3px rgba(255, 77, 79, 0.2);
+}
+
+/* Separator between legend items */
+.guid > *:not(:last-child) {
+  border-right: 1px solid var(--border, rgba(0, 150, 100, 0.18));
+}
+
+/* ─── Calendar Wrapper ───────────────────────────────── */
+.wrap-calendarAdmin {
+  background: var(--bg-card, #fff);
+  border: 1px solid var(--border, rgba(0, 150, 100, 0.18));
+  border-radius: 20px;
+  padding: 24px;
+  box-shadow:
+    0 2px 12px rgba(0, 120, 80, 0.08),
+    0 0 0 1px var(--border, rgba(0, 150, 100, 0.18));
+  overflow: hidden;
+}
+
+/* ─── Ant Design Calendar Overrides ─────────────────── */
+.wrap-calendarAdmin .ant-picker-calendar {
+  background: transparent;
+  font-family: "Sarabun", sans-serif;
+}
+
+.wrap-calendarAdmin .ant-picker-calendar-header {
+  padding: 0 0 16px;
+  border-bottom: 1px solid var(--border, rgba(0, 150, 100, 0.18));
+  margin-bottom: 8px;
+}
+
+.wrap-calendarAdmin .ant-picker-calendar-header .ant-radio-group {
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.wrap-calendarAdmin .ant-picker-content th {
+  font-family: "Rajdhani", sans-serif;
+  font-weight: 600;
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-muted, #8ab5a0);
+  padding: 8px 0;
+}
+
+.wrap-calendarAdmin .ant-picker-cell-inner {
+  height: 95px !important;
+  border-radius: 10px !important;
+  transition:
+    background 0.18s,
+    box-shadow 0.18s !important;
+  border: 1px solid transparent !important;
+}
+
+.wrap-calendarAdmin .ant-picker-cell-inner:hover {
+  background: var(--bg-card-hover, #f5fdf8) !important;
+  border-color: var(--border-active, rgba(0, 180, 120, 0.45)) !important;
+}
+
+.wrap-calendarAdmin .ant-picker-cell-selected .ant-picker-cell-inner,
+.wrap-calendarAdmin
+  .ant-picker-cell-in-view.ant-picker-cell-selected
+  .ant-picker-cell-inner {
+  background: rgba(4, 57, 41, 0.07) !important;
+  border-color: rgba(4, 57, 41, 0.35) !important;
+  color: #1a3d28 !important;
+}
+
+.wrap-calendarAdmin .ant-picker-cell-today .ant-picker-cell-inner::before {
+  border-color: #043929 !important;
+  border-radius: 10px !important;
+}
+
+.wrap-calendarAdmin .ant-picker-calendar-date-value {
+  font-family: "Rajdhani", sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-primary, #1a2e22);
+}
+
+/* ─── Booking Items in Cells ─────────────────────────── */
+.wrap-calendarAdmin .ant-picker-calendar-date-content {
+  height: 62px !important;
+  overflow-y: hidden;
+  transition: overflow 0.15s;
+}
+
+.wrap-calendarAdmin .ant-picker-calendar-date-content:hover {
+  overflow-y: auto;
+}
+
+.wrap-calendarAdmin .ant-picker-calendar-date-content::-webkit-scrollbar {
+  width: 3px;
+}
+
+.wrap-calendarAdmin .ant-picker-calendar-date-content::-webkit-scrollbar-thumb {
+  background: var(--border-active, rgba(0, 180, 120, 0.45));
+  border-radius: 10px;
+}
+
+.booking {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  overflow: hidden;
+}
+
+.booking .text-c {
+  font-size: 0.85rem;
+  font-family: "Sarabun", sans-serif;
+  color: var(--text-primary, #1a2e22);
+  line-height: 1.3;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 120px;
+}
+
+/* ─── Responsive ─────────────────────────────────────── */
 @media (max-width: 1550px) {
-  .header-calendarAdmin {
-    min-width: 0px;
-    width: 100%;
+  .container-calendarAdmin {
+    padding-left: 332px;
   }
 }
 
 @media (max-width: 1280px) {
   .container-calendarAdmin {
-    padding-left: 270px;
+    padding-left: 282px;
   }
 
-  .wrap-calendarAdmin {
-    .ant-picker-cell-inner {
-      height: 80px !important;
-      .ant-picker-calendar-date-content {
-        height: 40px !important;
-        overflow-y: hidden;
-      }
-      .booking {
-        overflow: hidden;
-      }
-      .ant-picker-calendar-date-content:hover {
-        overflow-y: auto;
-      }
-    }
+  .wrap-calendarAdmin .ant-picker-cell-inner {
+    height: 80px !important;
+  }
+
+  .wrap-calendarAdmin .ant-picker-calendar-date-content {
+    height: 46px !important;
   }
 }
 
 @media (max-width: 1080px) {
   .container-calendarAdmin {
-    padding-left: 220px;
+    padding-left: 232px;
+  }
+
+  /* Cell สูงลดลง แสดงแค่ dot ไม่มี label */
+  .wrap-calendarAdmin .ant-picker-cell-inner {
+    height: 54px !important;
+  }
+
+  .wrap-calendarAdmin .ant-picker-calendar-date-content {
+    height: 24px !important;
+    overflow: hidden;
+  }
+
+  /* ซ่อน label ข้อความ เหลือแต่ Badge dot */
+  .booking .text-c {
+    display: none;
+  }
+
+  /* จัด dot ให้อยู่แนวนอน */
+  .booking {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 3px;
+    align-items: center;
+    padding: 2px 2px 0;
+  }
+
+  .wrap-calendarAdmin .ant-picker-calendar-date-value {
+    font-size: 0.82rem;
+  }
+
+  .wrap-calendarAdmin .ant-picker-content th {
+    font-size: 0.7rem;
+    padding: 4px 0;
+  }
+
+  .wrap-calendarAdmin {
+    padding: 16px 12px;
   }
 }
 
 @media (max-width: 600px) {
   .container-calendarAdmin {
-    padding-left: 20px;
+    padding: 16px 12px 32px;
   }
 
+  .header-calendarAdmin {
+    padding-left: 60px;
+  }
+
+  .header-calendarAdmin h1 {
+    font-size: 1.6rem;
+  }
+
+  /* Legend: 2x2 grid แทน row */
   .guid {
-    gap: 2px;
-    .guid-yellow {
-      gap: 2px;
-      p {
-        font-size: 10px;
-      }
-    }
-    .guid-blue {
-      gap: 2px;
-      p {
-        font-size: 10px;
-      }
-    }
-    .guid-green {
-      gap: 2px;
-      p {
-        font-size: 10px;
-      }
-    }
-    .guid-red {
-      gap: 2px;
-      p {
-        font-size: 10px;
-      }
-    }
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 4px;
+    padding: 10px 12px;
+    justify-items: center;
+  }
+
+  .guid > *:not(:last-child) {
+    border-right: none;
+  }
+
+  .guid-yellow p,
+  .guid-blue p,
+  .guid-green p,
+  .guid-red p {
+    font-size: 0.72rem;
+    white-space: normal;
+  }
+
+  .guid-yellow,
+  .guid-blue,
+  .guid-green,
+  .guid-red {
+    gap: 6px;
+    padding: 4px 8px;
+  }
+
+  /* จัด dot ให้อยู่แนวนอน */
+  .booking {
+    height: 15px;
+    padding: 0;
+  }
+
+  /* Cell เล็กสุด แสดงแค่ dot */
+  .wrap-calendarAdmin .ant-picker-cell-inner {
+    height: 44px !important;
+  }
+
+  .wrap-calendarAdmin .ant-picker-calendar-date-content {
+    height: 16px !important;
+    overflow: hidden;
+  }
+
+  .wrap-calendarAdmin .ant-picker-calendar-date-value {
+    font-size: 0.75rem;
+  }
+
+  .wrap-calendarAdmin {
+    padding: 12px 8px;
+    border-radius: 14px;
   }
 }

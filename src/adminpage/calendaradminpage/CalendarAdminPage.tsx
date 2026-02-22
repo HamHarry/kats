@@ -18,7 +18,7 @@ const CalendarAdminPage = () => {
     try {
       setIsCalendarLoading(true);
       const { data: bookingsRes = [] } = await dispath(
-        getAllBookings(DeleteStatus.ISNOTDELETE)
+        getAllBookings(DeleteStatus.ISNOTDELETE),
       ).unwrap();
 
       const sorted = [...bookingsRes].sort((a, b) => {
@@ -55,13 +55,15 @@ const CalendarAdminPage = () => {
         return "success";
       case BookingStatus.CANCELED:
         return "error";
-
       default:
         return "default";
     }
   };
 
-  const renderBookedCalendar = (payload: { status: BookingStatus; label: string }) => {
+  const renderBookedCalendar = (payload: {
+    status: BookingStatus;
+    label: string;
+  }) => {
     const { status, label } = payload;
 
     return (
@@ -81,7 +83,6 @@ const CalendarAdminPage = () => {
     );
   };
 
-  // reduce ข้อมูล
   const generateCellDict = (current: dayjs.Dayjs) => {
     const cellDict = bookingData.reduce(
       (
@@ -89,7 +90,7 @@ const CalendarAdminPage = () => {
           status: BookingStatus;
           label: string;
         }[],
-        item: BookingData
+        item: BookingData,
       ) => {
         if (item.guarantees?.length) {
           item.guarantees?.map((guarantee) => {
@@ -112,7 +113,7 @@ const CalendarAdminPage = () => {
 
         return prev;
       },
-      []
+      [],
     );
 
     return cellDict;
@@ -132,29 +133,32 @@ const CalendarAdminPage = () => {
 
   return (
     <div className="container-calendarAdmin">
+      {/* Header */}
       <div className="header-calendarAdmin">
         <h1>ปฏิทินการจอง</h1>
       </div>
 
+      {/* Legend */}
       <div className="guid">
         <div className="guid-yellow">
-          <div className="box-yellow"></div>
+          <div className="box-yellow" />
           <p>กำลังรอการชำระ & ตรวจสภาพรถ</p>
         </div>
         <div className="guid-blue">
-          <div className="box-blue"></div>
+          <div className="box-blue" />
           <p>จ่ายสำเร็จ</p>
         </div>
         <div className="guid-green">
-          <div className="box-green"></div>
+          <div className="box-green" />
           <p>ใช้บริการสำเร็จ</p>
         </div>
         <div className="guid-red">
-          <div className="box-red"></div>
+          <div className="box-red" />
           <p>ยกเลิก</p>
         </div>
       </div>
 
+      {/* Calendar */}
       <div className="wrap-calendarAdmin">
         <Calendar cellRender={cellRender} />
       </div>
