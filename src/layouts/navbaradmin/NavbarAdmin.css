@@ -1,3 +1,6 @@
+@import url("https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Sarabun:wght@300;400;500;600&display=swap");
+
+/* ─── Ant Design Overrides ───────────────────────────── */
 .ant-btn-variant-solid {
   display: none !important;
 }
@@ -7,371 +10,530 @@
 }
 
 .ant-drawer-content {
-  background-color: #043929 !important;
+  background: linear-gradient(
+    180deg,
+    #032d1f 0%,
+    #043929 40%,
+    #032d1f 100%
+  ) !important;
   color: white !important;
 }
 
-.ant-btn-variant-solid {
-  background-color: #043929 !important;
-  color: white !important;
-}
-
-hr {
-  color: white;
-}
-
+/* ─── Sidebar Shell ──────────────────────────────────── */
 .navbarAdmin {
   position: fixed;
+  top: 0;
+  left: 0;
   width: 300px;
   height: 100vh;
-  background-color: #043929;
-  .logo-admin {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin-right: 15px;
-    height: 100px;
-    img {
-      height: 100px;
-      width: 200px;
-    }
+  background: #043c2b;
+  display: flex;
+  flex-direction: column;
+  z-index: 100;
+  font-family: "Sarabun", sans-serif;
+  overflow: hidden;
+
+  /* Subtle side border to separate from content */
+  border-right: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow: 4px 0 24px rgba(0, 0, 0, 0.25);
+}
+
+/* ─── Logo Area ──────────────────────────────────────── */
+.logo-admin {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 24px 20px 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+
+  img {
+    height: 72px;
+    width: auto;
+    object-fit: contain;
+    filter: brightness(1.05);
+    transition: transform 0.3s ease;
   }
-  .user {
-    display: flex;
-    justify-content: space-between;
-    height: 80px;
-    .content-left {
-      display: flex;
-      align-items: center;
-      .fa-circle-user {
-        font-size: 42px;
-        margin: 0 20px 0 10px;
-        color: white;
-        cursor: pointer;
-      }
-      .username {
-        display: flex;
-        flex-direction: column;
-        h3 {
-          font-size: 24px;
-          font-weight: bolder;
-          color: white;
-        }
-        p {
-          font-size: 16px;
-          color: white;
-        }
-      }
-    }
-  }
-  .usered {
-    display: flex;
-    justify-content: space-between;
-    height: 80px;
-    .fa-circle-user {
-      font-size: 42px;
-      margin: 0 20px 0 10px;
-      color: white;
-      cursor: pointer;
-      text-shadow: 0 0 10px rgba(255, 255, 255, 0.8),
-        0 0 20px rgba(255, 255, 255, 0.6), 0 0 30px rgba(255, 255, 255, 0.4);
-    }
-    .content-left {
-      display: flex;
-      align-items: center;
-      .fa-circle-user {
-        font-size: 42px;
-        margin: 0 20px 0 10px;
-        color: white;
-        cursor: pointer;
-      }
-      .username {
-        display: flex;
-        flex-direction: column;
-        h3 {
-          font-size: 24px;
-          color: white;
-        }
-        p {
-          font-size: 16px;
-          color: white;
-        }
-      }
-    }
-    .content-right {
-      display: flex;
-      align-items: center;
-      margin: 0 20px 0 0px;
-      img {
-        width: 30px;
-        height: 30px;
-        border-radius: 50%;
-        border: 2px solid #ffffff;
-        cursor: pointer;
-      }
-    }
-  }
-  .menu {
-    display: flex;
-    flex-direction: column;
-    height: 650px;
-    ul {
-      margin-top: 20px;
-      .select {
-        display: flex;
-        align-items: center;
-        margin-left: 10px;
-        margin-bottom: 20px;
-        cursor: pointer;
-      }
-      .selected {
-        display: flex;
-        align-items: center;
-        margin-left: 10px;
-        margin-bottom: 20px;
-        cursor: pointer;
-        text-shadow: 0 0 10px rgba(255, 255, 255, 0.8),
-          0 0 20px rgba(255, 255, 255, 0.6), 0 0 30px rgba(255, 255, 255, 0.4);
-      }
-      p {
-        font-size: 16px;
-        color: white;
-        margin-left: 20px;
-      }
-      li:hover {
-        text-shadow: 0 0 10px rgba(255, 255, 255, 0.8),
-          0 0 20px rgba(255, 255, 255, 0.6), 0 0 30px rgba(255, 255, 255, 0.4);
-        transition: all 0.5s;
-      }
-      .fa-trello {
-        font-size: 36px;
-        color: white;
-      }
-      .fa-image-portrait {
-        font-size: 38px;
-        color: white;
-      }
-      .fa-book-bookmark {
-        font-size: 34px;
-        color: white;
-      }
-      .fa-calendar-days {
-        font-size: 34px;
-        color: white;
-      }
-      .fa-square-check {
-        font-size: 34px;
-        color: white;
-      }
-      .fa-pen-to-square {
-        font-size: 34px;
-        color: white;
-      }
-      .fa-wallet {
-        font-size: 32px;
-        color: white;
-      }
-      .fa-hand-holding-dollar {
-        font-size: 34px;
-        color: white;
-      }
-      .fa-file-invoice-dollar {
-        font-size: 40px;
-        color: white;
-      }
-      .fa-trash-can {
-        font-size: 34px;
-        color: white;
-      }
-      .fa-gear {
-        font-size: 30px;
-        color: white;
-      }
-    }
-  }
-  .logout {
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-    position: absolute;
-    bottom: 0;
-    padding-bottom: 16px;
-    padding-top: 16px;
-    padding-left: 10px;
-    border-top: solid 1px #ffffff;
-    width: 100%;
-    .fa-arrow-right-from-bracket {
-      font-size: 40px;
-      color: white;
-    }
-    p {
-      font-size: 18px;
-      color: white;
-      margin-left: 20px;
-    }
-  }
-  .logout:hover {
-    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8),
-      0 0 20px rgba(255, 255, 255, 0.6), 0 0 30px rgba(255, 255, 255, 0.4);
-    transition: all 0.5s;
+
+  img:hover {
+    transform: scale(1.03);
   }
 }
 
+/* ─── User Profile Block ─────────────────────────────── */
+.user,
+.usered {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 20px;
+  margin: 12px 16px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: background 0.2s ease;
+  cursor: default;
+
+  .content-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex: 1;
+    min-width: 0;
+
+    .fa-circle-user {
+      font-size: 38px;
+      color: rgba(255, 255, 255, 0.75);
+      cursor: pointer;
+      flex-shrink: 0;
+      transition: color 0.2s;
+
+      &:hover {
+        color: #ffffff;
+      }
+    }
+
+    .username {
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+
+      h3 {
+        font-family: "Rajdhani", sans-serif;
+        font-size: 1.05rem;
+        font-weight: 600;
+        color: #ffffff;
+        letter-spacing: 0.04em;
+        margin: 0 0 2px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      p {
+        font-size: 0.72rem;
+        color: rgba(255, 255, 255, 0.5);
+        margin: 0;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        letter-spacing: 0.02em;
+      }
+    }
+  }
+
+  .content-right {
+    flex-shrink: 0;
+
+    img {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      cursor: pointer;
+      object-fit: cover;
+      transition:
+        border-color 0.2s,
+        transform 0.2s;
+
+      &:hover {
+        border-color: rgba(255, 255, 255, 0.7);
+        transform: scale(1.05);
+      }
+    }
+  }
+}
+
+.usered {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+/* ─── Navigation Menu ────────────────────────────────── */
+.menu {
+  flex: 1;
+  overflow-y: auto;
+  padding: 8px 12px;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+}
+
+/* ─── Section Label ──────────────────────────────────── */
+.menu-section-label {
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.3);
+  padding: 12px 12px 4px;
+  margin-top: 4px;
+}
+
+/* ─── Nav Item ───────────────────────────────────────── */
+.select,
+.selected {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 11px 14px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition:
+    background 0.18s ease,
+    transform 0.15s ease;
+  position: relative;
+  overflow: hidden;
+
+  /* Icon */
+  i {
+    font-size: 18px;
+    color: rgba(255, 255, 255, 0.55);
+    width: 22px;
+    text-align: center;
+    transition: color 0.18s;
+    flex-shrink: 0;
+  }
+
+  p {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.65);
+    margin: 0;
+    font-weight: 500;
+    transition: color 0.18s;
+    white-space: nowrap;
+  }
+}
+
+.select:hover {
+  background: rgba(255, 255, 255, 0.07);
+  transform: translateX(2px);
+
+  i {
+    color: rgba(255, 255, 255, 0.9);
+  }
+
+  p {
+    color: rgba(255, 255, 255, 0.9);
+  }
+}
+
+/* Active state */
+.selected {
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+
+  i {
+    color: #ffffff;
+  }
+
+  p {
+    color: #ffffff;
+    font-weight: 600;
+  }
+
+  /* Active indicator line */
+  &::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 25%;
+    height: 50%;
+    width: 3px;
+    background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.9),
+      rgba(255, 255, 255, 0.4)
+    );
+    border-radius: 0 4px 4px 0;
+  }
+}
+
+/* ─── Logout / Bottom Bar ────────────────────────────── */
+.logout {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 20px;
+  margin: 0 12px 12px;
+  border-radius: 12px;
+  cursor: pointer;
+  border-top: none;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  background: rgba(255, 255, 255, 0.04);
+  transition:
+    background 0.18s ease,
+    border-color 0.18s ease;
+
+  .fa-arrow-right-from-bracket {
+    font-size: 18px;
+    color: rgba(255, 255, 255, 0.5);
+    transition:
+      color 0.18s,
+      transform 0.2s;
+  }
+
+  p {
+    font-size: 0.88rem;
+    color: rgba(255, 255, 255, 0.55);
+    margin: 0;
+    font-weight: 500;
+    transition: color 0.18s;
+    flex: 1;
+  }
+
+  .version p {
+    font-size: 0.68rem;
+    color: rgba(255, 255, 255, 0.25);
+    margin: 0;
+    letter-spacing: 0.04em;
+  }
+}
+
+.logout:hover {
+  background: rgba(239, 68, 68, 0.12);
+  border-color: rgba(239, 68, 68, 0.25);
+
+  .fa-arrow-right-from-bracket {
+    color: #f87171;
+    transform: translateX(3px);
+  }
+
+  p {
+    color: #f87171;
+  }
+}
+
+/* ─── Divider ────────────────────────────────────────── */
+hr {
+  border: none;
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
+  margin: 0 16px;
+}
+
+/* ─── Responsive: 1280px ─────────────────────────────── */
 @media (max-width: 1280px) {
   .navbarAdmin {
     width: 250px;
+
+    .user,
+    .usered {
+      .content-left {
+        .username {
+          margin-left: -10px;
+        }
+      }
+    }
   }
 }
 
+/* ─── Responsive: 1080px ─────────────────────────────── */
 @media (max-width: 1080px) {
   .navbarAdmin {
     width: 200px;
-    .logo-admin {
-      img {
-        width: 150px;
-        height: auto;
-        padding-left: 10px;
-      }
+
+    .logo-admin img {
+      height: 56px;
     }
-    .user {
-      .username {
-        h3 {
-          font-size: 16px !important;
-        }
-        p {
-          font-size: 9px !important;
-        }
-      }
-      .fa-circle-user {
-        font-size: 36px;
-      }
-    }
+
+    .user,
     .usered {
-      .username {
-        h3 {
-          font-size: 16px !important;
+      padding: 12px 14px;
+      margin: 10px 10px;
+
+      .content-left {
+        .fa-circle-user {
+          font-size: 30px;
         }
-        p {
-          font-size: 9px !important;
-        }
-      }
-      .fa-circle-user {
-        font-size: 36px;
-      }
-    }
-    .menu {
-      ul {
-        li {
-          .fa-trello {
-            font-size: 24px;
+
+        .username {
+          h3 {
+            font-size: 0.88rem;
           }
-          .fa-image-portrait {
-            font-size: 24px;
-          }
-          .fa-book-bookmark {
-            font-size: 24px;
-          }
-          .fa-calendar-days {
-            font-size: 24px;
-          }
-          .fa-square-check {
-            font-size: 24px;
-          }
-          .fa-pen-to-square {
-            font-size: 24px;
-          }
-          .fa-wallet {
-            font-size: 24px;
-          }
-          .fa-hand-holding-dollar {
-            font-size: 24px;
-          }
-          .fa-file-invoice-dollar {
-            font-size: 24px;
-          }
-          .fa-trash-can {
-            font-size: 24px;
-          }
-          .fa-gear {
-            font-size: 24px;
-          }
+
           p {
-            font-size: 14px;
+            font-size: 0.65rem;
           }
         }
       }
     }
-    .logout {
-      .fa-arrow-right-from-bracket {
-        font-size: 20px;
+
+    .select,
+    .selected {
+      padding: 10px 12px;
+      gap: 10px;
+
+      i {
+        font-size: 16px;
       }
+
       p {
-        font-size: 12px;
+        font-size: 0.82rem;
+      }
+    }
+
+    .logout {
+      padding: 12px 14px;
+      gap: 10px;
+
+      .fa-arrow-right-from-bracket {
+        font-size: 16px;
+      }
+
+      p {
+        font-size: 0.7rem;
       }
     }
   }
 }
 
+/* ─── Responsive: Mobile ≤600px ─────────────────────── */
 @media (max-width: 600px) {
+  .navbarAdmin {
+    display: none;
+  }
+
+  /* Hamburger button */
   .ant-btn-variant-solid {
     display: flex !important;
     justify-content: center;
     align-items: center;
     position: fixed;
-    top: 10px;
-    left: 10px;
+    top: 12px;
+    left: 12px;
     z-index: 150;
-    border: 2px solid white !important;
+    width: 40px;
+    height: 30px;
+    border-radius: 10px !important;
+    background: #043929 !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3) !important;
+    color: white !important;
   }
+
+  /* Mobile Drawer body */
   .ant-drawer-body {
     display: flex;
     flex-direction: column;
-    .content-left {
-      display: flex;
-      img {
-        margin: 0px 10px 0px 10px !important;
+    padding: 16px !important;
+    gap: 6px;
+
+    .user,
+    .usered {
+      margin: 0 0 8px;
+      border-radius: 12px;
+
+      .content-left {
+        margin-left: -5px;
+        .fa-circle-user {
+          font-size: 30px;
+        }
+        img {
+          width: 30px !important;
+          height: 30px !important;
+        }
+
+        .username {
+          margin-left: -20px;
+          h3 {
+            font-size: 0.88rem;
+          }
+
+          p {
+            font-size: 0.65rem;
+          }
+        }
       }
     }
+
     hr {
-      margin-top: 20px !important;
-      margin-bottom: 20px !important;
+      margin: 4px 0 8px !important;
     }
+
     ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+
       li {
         display: flex;
         align-items: center;
-        padding: 10px;
-        font-size: 14px;
-        gap: 10px;
+        gap: 12px;
+        padding: 10px 12px;
+        border-radius: 10px;
         cursor: pointer;
+        transition: background 0.18s;
+
+        i {
+          font-size: 16px;
+          color: rgba(255, 255, 255, 0.6);
+          width: 20px;
+          text-align: center;
+        }
+
+        p {
+          font-size: 0.88rem;
+          color: rgba(255, 255, 255, 0.7);
+          margin: 0;
+        }
+
+        &:hover,
+        &.selected {
+          background: rgba(255, 255, 255, 0.1);
+
+          i,
+          p {
+            color: #ffffff;
+          }
+        }
       }
     }
+
     .logout {
       display: flex;
       align-items: center;
+      gap: 12px;
+      margin: 8px 0 0;
+      padding: 12px 14px;
+      border-radius: 10px;
       cursor: pointer;
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      padding-bottom: 16px;
-      padding-top: 16px;
-      padding-left: 10px;
-      border-top: solid 1px #ffffff;
-      width: 95%;
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      background: rgba(255, 255, 255, 0.04);
+      transition: background 0.18s;
+      margin-top: auto;
+
       .fa-arrow-right-from-bracket {
-        font-size: 14px;
-        color: white;
+        font-size: 16px;
+        color: rgba(255, 255, 255, 0.5);
       }
+
       p {
-        font-size: 14px;
-        color: white;
-        margin-left: 10px;
+        font-size: 0.7rem;
+        color: rgba(255, 255, 255, 0.55);
+        margin: 0;
+      }
+
+      &:hover {
+        background: rgba(239, 68, 68, 0.12);
+
+        .fa-arrow-right-from-bracket,
+        p {
+          color: #f87171;
+        }
       }
     }
-  }
-
-  .navbarAdmin {
-    display: none;
   }
 }
