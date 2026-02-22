@@ -313,297 +313,307 @@ const CreateBookingAdminPage = () => {
           </button>
         </div>
         <div className="wrap-container-CreateAdmin">
-          <div className="input-Number">
-            <Controller
-              name="number"
-              control={control}
-              render={({ field }) => {
-                return (
-                  <div className="inputNumber">
-                    <div style={{ width: "120px" }}>
-                      <h2>{t("เลขที่")}</h2>
+          <div className="booking-fields">
+            <div className="form-section-label">ข้อมูลการจอง</div>
+            <div className="input-Number">
+              <Controller
+                name="number"
+                control={control}
+                render={({ field }) => {
+                  return (
+                    <div className="inputNumber">
+                      <div style={{ width: "120px" }}>
+                        <h2>{t("เลขที่")}</h2>
+                      </div>
+
+                      <input {...field} type="text" />
                     </div>
+                  );
+                }}
+              />
 
-                    <input {...field} type="text" />
-                  </div>
-                );
-              }}
-            />
+              <Controller
+                name="receiptBookNo"
+                control={control}
+                render={({ field }) => {
+                  return (
+                    <div className="inputVolume">
+                      <div style={{ width: "120px" }}>
+                        <h2>{t("เล่มที่")}</h2>
+                      </div>
 
-            <Controller
-              name="receiptBookNo"
-              control={control}
-              render={({ field }) => {
-                return (
-                  <div className="inputVolume">
-                    <div style={{ width: "120px" }}>
-                      <h2>{t("เล่มที่")}</h2>
+                      <input {...field} type="text" />
                     </div>
+                  );
+                }}
+              />
+            </div>
+            <div className="input-Date">
+              <Controller
+                name="bookDate"
+                control={control}
+                render={({ field }) => {
+                  return (
+                    <div className="inputDate">
+                      <div style={{ width: "120px" }}>
+                        <h2>{t("วันที่")}</h2>
+                      </div>
 
-                    <input {...field} type="text" />
-                  </div>
-                );
-              }}
-            />
-          </div>
-          <div className="input-Date">
-            <Controller
-              name="bookDate"
-              control={control}
-              render={({ field }) => {
-                return (
-                  <div className="inputDate">
-                    <div style={{ width: "120px" }}>
-                      <h2>{t("วันที่")}</h2>
+                      <DatePicker {...field} />
                     </div>
+                  );
+                }}
+              />
 
-                    <DatePicker {...field} />
-                  </div>
-                );
-              }}
-            />
+              <Controller
+                name="bookTime"
+                control={control}
+                render={({ field }) => {
+                  return (
+                    <div className="inputTime">
+                      <div style={{ width: "120px" }}>
+                        <h2>{t("เวลา")}</h2>
+                      </div>
 
-            <Controller
-              name="bookTime"
-              control={control}
-              render={({ field }) => {
-                return (
-                  <div className="inputTime">
-                    <div style={{ width: "120px" }}>
-                      <h2>{t("เวลา")}</h2>
-                    </div>
-
-                    <Select
-                      {...field}
-                      className="select-product"
-                      placeholder="เลือกเวลา"
-                      value={field.value || undefined}
-                      options={timeData.map((item) => ({
-                        label: `${item.time} น.`,
-                        value: item.time,
-                      }))}
-                    />
-                  </div>
-                );
-              }}
-            />
-          </div>
-          <div className="input-Name">
-            <Controller
-              name="name"
-              control={control}
-              render={({ field }) => {
-                return (
-                  <div className="inputName">
-                    <div style={{ width: "120px" }}>
-                      <h2>{t("ชื่อ")}</h2>
-                    </div>
-
-                    <input {...field} type="text" />
-                  </div>
-                );
-              }}
-            />
-
-            <Controller
-              name="tel"
-              control={control}
-              render={({ field }) => {
-                return (
-                  <div className="inputTel">
-                    <div style={{ width: "120px" }}>
-                      <h2>{t("โทรศัพท์")}</h2>
-                    </div>
-
-                    <input {...field} type="tel" />
-                  </div>
-                );
-              }}
-            />
-          </div>
-          <div className="input-car">
-            <Controller
-              name="carType"
-              control={control}
-              render={({ field }) => {
-                return (
-                  <div className="inputCarType">
-                    <div style={{ width: "120px" }}>
-                      <h2>{t("ประเภทรถ")}</h2>
-                    </div>
-
-                    <input {...field} type="text" />
-                  </div>
-                );
-              }}
-            />
-            <Controller
-              name="carModel"
-              control={control}
-              render={({ field }) => {
-                return (
-                  <div className="inputCarModel">
-                    <div style={{ width: "120px" }}>
-                      <h2>{t("รุ่นรถ")}</h2>
-                    </div>
-
-                    <input {...field} type="text" />
-                  </div>
-                );
-              }}
-            />
-          </div>
-          <div className="input-licensePlate">
-            <Controller
-              name="licensePlate"
-              control={control}
-              render={({ field }) => {
-                return (
-                  <div className="inputRegister">
-                    <div style={{ width: "120px" }}>
-                      <h2>{t("ทะเบียน")}</h2>
-                    </div>
-
-                    <input {...field} type="text" />
-                  </div>
-                );
-              }}
-            />
-
-            <Controller
-              name="province"
-              control={control}
-              render={({ field }) => {
-                return (
-                  <div className="inputProvince">
-                    <div style={{ width: "120px" }}>
-                      <h2>{t("จังหวัด")}</h2>
-                    </div>
-
-                    <input {...field} type="text" />
-                  </div>
-                );
-              }}
-            />
-          </div>
-          <div className="input-product">
-            <Controller
-              name="productId"
-              control={control}
-              render={({ field }) => {
-                return (
-                  <div className="inputTypeProduct">
-                    <div style={{ width: "120px" }}>
-                      <h2>{t("สินค้า")}</h2>
-                    </div>
-
-                    <Select
-                      {...field}
-                      placeholder="เลือกสินค้า"
-                      className="select-product"
-                      value={field.value || undefined}
-                      onSelect={(value) => {
-                        field.onChange(value);
-
-                        const findedProduct = productDatas?.find(
-                          (item) => String(item._id) === String(value),
-                        );
-
-                        if (findedProduct) {
-                          setPriceData(findedProduct?.productDetails as any);
-                        }
-                      }}
-                    >
-                      {productDatas?.map((item) => (
-                        <Select.Option key={item._id} value={item._id}>
-                          {item.name}
-                        </Select.Option>
-                      ))}
-                    </Select>
-                  </div>
-                );
-              }}
-            />
-            <Controller
-              name="price"
-              control={control}
-              render={({ field }) => {
-                return (
-                  <div className="inputProduct">
-                    <div style={{ width: "120px" }}>
-                      <h2>{t("ราคา")}</h2>
-                    </div>
-
-                    <Select
-                      {...field}
-                      className="select-product"
-                      placeholder="เลือกราคา"
-                      value={field.value ?? undefined}
-                      disabled={priceData.length === 0}
-                      options={priceData.map((item, index) => ({
-                        label: `${item.type === PRICE_TYPE.LUXURY ? "luxury" : ""} ${item.amount} Baht`,
-                        value: index,
-                      }))}
-                    />
-                  </div>
-                );
-              }}
-            />
-          </div>
-
-          <Controller
-            name="slip"
-            control={control}
-            render={({ field }) => {
-              return (
-                <div className="inputImage">
-                  {getBookingSlipImage ? (
-                    <div style={{ position: "relative" }}>
-                      <img src={getBookingSlipImage} alt="" />
-                      <CloseCircleOutlined
-                        className="close-icon"
-                        style={{
-                          fontSize: "30px",
-                          top: "-10px",
-                          right: "-10px",
-                          zIndex: 1000,
-                          color: "#043929",
-                          cursor: "pointer",
-                          position: "absolute",
-                        }}
-                        onClick={() => {
-                          setImageUrl("");
-                          setImageFile(null);
-                          setBookingData((prev) => {
-                            if (!prev) return;
-                            return {
-                              ...prev,
-                              slip: "",
-                            };
-                          });
-                        }}
-                      />
-                    </div>
-                  ) : (
-                    <>
-                      <label htmlFor="file" className="text-image">
-                        <FileAddFilled className="icon-file" />
-                        <span>{t("อัพโหลดภาพสลิปมัดจำ 500 บาท")}</span>
-                      </label>
-                      <input
+                      <Select
                         {...field}
-                        type="file"
-                        id="file"
-                        onChange={(e) => {
-                          uploadImage(e);
-                        }}
+                        className="select-product"
+                        placeholder="เลือกเวลา"
+                        value={field.value || undefined}
+                        options={timeData.map((item) => ({
+                          label: `${item.time} น.`,
+                          value: item.time,
+                        }))}
                       />
-                    </>
-                  )}
-                </div>
-              );
-            }}
-          />
+                    </div>
+                  );
+                }}
+              />
+            </div>
+            <div className="input-Name">
+              <Controller
+                name="name"
+                control={control}
+                render={({ field }) => {
+                  return (
+                    <div className="inputName">
+                      <div style={{ width: "120px" }}>
+                        <h2>{t("ชื่อ")}</h2>
+                      </div>
+
+                      <input {...field} type="text" />
+                    </div>
+                  );
+                }}
+              />
+
+              <Controller
+                name="tel"
+                control={control}
+                render={({ field }) => {
+                  return (
+                    <div className="inputTel">
+                      <div style={{ width: "120px" }}>
+                        <h2>{t("โทรศัพท์")}</h2>
+                      </div>
+
+                      <input {...field} type="tel" />
+                    </div>
+                  );
+                }}
+              />
+            </div>
+            <div className="form-section-label">ข้อมูลรถยนต์</div>
+            <div className="input-car">
+              <Controller
+                name="carType"
+                control={control}
+                render={({ field }) => {
+                  return (
+                    <div className="inputCarType">
+                      <div style={{ width: "120px" }}>
+                        <h2>{t("ประเภทรถ")}</h2>
+                      </div>
+
+                      <input {...field} type="text" />
+                    </div>
+                  );
+                }}
+              />
+              <Controller
+                name="carModel"
+                control={control}
+                render={({ field }) => {
+                  return (
+                    <div className="inputCarModel">
+                      <div style={{ width: "120px" }}>
+                        <h2>{t("รุ่นรถ")}</h2>
+                      </div>
+
+                      <input {...field} type="text" />
+                    </div>
+                  );
+                }}
+              />
+            </div>
+            <div className="input-licensePlate">
+              <Controller
+                name="licensePlate"
+                control={control}
+                render={({ field }) => {
+                  return (
+                    <div className="inputRegister">
+                      <div style={{ width: "120px" }}>
+                        <h2>{t("ทะเบียน")}</h2>
+                      </div>
+
+                      <input {...field} type="text" />
+                    </div>
+                  );
+                }}
+              />
+
+              <Controller
+                name="province"
+                control={control}
+                render={({ field }) => {
+                  return (
+                    <div className="inputProvince">
+                      <div style={{ width: "120px" }}>
+                        <h2>{t("จังหวัด")}</h2>
+                      </div>
+
+                      <input {...field} type="text" />
+                    </div>
+                  );
+                }}
+              />
+            </div>
+            <div className="form-section-label">สินค้า & ราคา</div>
+            <div className="input-product">
+              <Controller
+                name="productId"
+                control={control}
+                render={({ field }) => {
+                  return (
+                    <div className="inputTypeProduct">
+                      <div style={{ width: "120px" }}>
+                        <h2>{t("สินค้า")}</h2>
+                      </div>
+
+                      <Select
+                        {...field}
+                        placeholder="เลือกสินค้า"
+                        className="select-product"
+                        value={field.value || undefined}
+                        onSelect={(value) => {
+                          field.onChange(value);
+
+                          const findedProduct = productDatas?.find(
+                            (item) => String(item._id) === String(value),
+                          );
+
+                          if (findedProduct) {
+                            setPriceData(findedProduct?.productDetails as any);
+                          }
+                        }}
+                      >
+                        {productDatas?.map((item) => (
+                          <Select.Option key={item._id} value={item._id}>
+                            {item.name}
+                          </Select.Option>
+                        ))}
+                      </Select>
+                    </div>
+                  );
+                }}
+              />
+              <Controller
+                name="price"
+                control={control}
+                render={({ field }) => {
+                  return (
+                    <div className="inputProduct">
+                      <div style={{ width: "120px" }}>
+                        <h2>{t("ราคา")}</h2>
+                      </div>
+
+                      <Select
+                        {...field}
+                        className="select-product"
+                        placeholder="เลือกราคา"
+                        value={field.value ?? undefined}
+                        disabled={priceData.length === 0}
+                        options={priceData.map((item, index) => ({
+                          label: `${item.type === PRICE_TYPE.LUXURY ? "luxury" : ""} ${item.amount} Baht`,
+                          value: index,
+                        }))}
+                      />
+                    </div>
+                  );
+                }}
+              />
+            </div>
+
+            <div className="form-section-label">สลิปมัดจำ</div>
+            <Controller
+              name="slip"
+              control={control}
+              render={({ field }) => {
+                return (
+                  <div className="inputImage">
+                    <label htmlFor="file" className="text-image">
+                      <FileAddFilled className="icon-file" />
+                      <span>{t("อัพโหลดภาพสลิปมัดจำ 500 บาท")}</span>
+                    </label>
+                    <input
+                      {...field}
+                      type="file"
+                      id="file"
+                      onChange={(e) => {
+                        uploadImage(e);
+                      }}
+                    />
+                  </div>
+                );
+              }}
+            />
+          </div>
+          {/* end booking-fields */}
+
+          {/* ── Right: Slip Preview Panel ── */}
+          <div className="slip-preview-panel">
+            <h2>ตัวอย่างสลิป</h2>
+            {getBookingSlipImage ? (
+              <div className="slip-img-wrap">
+                <img src={getBookingSlipImage} alt="slip" />
+                <CloseCircleOutlined
+                  className="close-icon"
+                  style={{
+                    fontSize: "28px",
+                    top: "-10px",
+                    right: "-10px",
+                    zIndex: 1000,
+                    color: "#043929",
+                    cursor: "pointer",
+                    position: "absolute",
+                  }}
+                  onClick={() => {
+                    setImageUrl("");
+                    setImageFile(null);
+                    setBookingData((prev) => {
+                      if (!prev) return;
+                      return { ...prev, slip: "" };
+                    });
+                  }}
+                />
+              </div>
+            ) : (
+              <div className="slip-placeholder">
+                <FileAddFilled />
+              </div>
+            )}
+          </div>
         </div>
         {rederDialogConfirm()}
       </form>

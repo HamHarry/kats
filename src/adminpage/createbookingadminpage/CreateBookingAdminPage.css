@@ -1,878 +1,547 @@
+@import url("https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Sarabun:wght@300;400;500;600&display=swap");
+
+/* ─── Root Variables (shared with EmployeeAdminPage) ─── */
+:root {
+  --bg-base: #f2f6f4;
+  --bg-surface: #e8eeeb;
+  --bg-card: #ffffff;
+  --bg-card-hover: #f5fdf8;
+  --border: rgba(0, 150, 100, 0.18);
+  --border-active: rgba(0, 180, 120, 0.45);
+
+  --accent-gun: #043929;
+  --accent-gun-light: #05593d;
+  --accent-coat: #3b82f6;
+
+  --text-primary: #1a2e22;
+  --text-secondary: #4a7a5e;
+  --text-muted: #8ab5a0;
+
+  --shadow-card: 0 2px 12px rgba(0, 120, 80, 0.08), 0 0 0 1px var(--border);
+  --shadow-hover:
+    0 6px 28px rgba(0, 150, 100, 0.15), 0 0 0 1px var(--border-active);
+
+  --radius-card: 16px;
+  --radius-input: 10px;
+  --radius-btn: 10px;
+}
+
+/* ─── Page Container ──────────────────────────────────── */
 .container-CreateAdmin {
   display: flex;
-  align-items: center;
   flex-direction: column;
-  padding: 20px 20px 0px 20px;
-  padding-left: 320px;
+  padding: 28px 32px 48px;
+  padding-left: 332px;
+  font-family: "Sarabun", sans-serif;
+  color: var(--text-primary);
+  min-height: 100vh;
+  background: var(--bg-base);
+  gap: 0;
 }
 
+/* ─── Header ──────────────────────────────────────────── */
 .header-CreateAdmin {
   display: flex;
-  justify-content: center;
-  height: 80px;
-  max-width: 1200px;
-  width: 100%;
-  border-radius: 20px;
-  background-color: #043929;
-  margin-bottom: 20px;
-  h1 {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 42px;
-    font-weight: bolder;
-    color: white;
-  }
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 28px;
+  position: relative;
+  z-index: 1;
+  background: none;
+  height: auto;
+  max-width: unset;
+  border-radius: 0;
 }
 
-.btn-back {
-  display: flex;
-  justify-content: space-between;
-  padding-bottom: 20px;
-  button {
-    width: 100px;
-    height: 45px;
-    border: none;
-    border-radius: 20px;
-    background-color: #043929;
-    color: white;
-    font-size: 20px;
-    cursor: pointer;
-    transition: all 0.5s;
-  }
-  button:hover {
-    background-color: #05593d;
-  }
+.header-CreateAdmin h1 {
+  font-family: "Rajdhani", sans-serif;
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text-primary);
+  margin: 0;
+  line-height: 1;
 }
 
+.header-CreateAdmin::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(0, 0, 0, 0.12), transparent);
+  margin-left: 24px;
+}
+
+/* ─── Form wrapper ────────────────────────────────────── */
 .content-CreateAdmin {
   width: 100%;
 }
 
+/* ─── Action Buttons Row ─────────────────────────────── */
+.btn-back {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.btn-back button {
+  padding: 10px 28px;
+  border-radius: var(--radius-btn);
+  font-family: "Sarabun", sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  letter-spacing: 0.04em;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+/* ย้อนกลับ — outlined */
+.btn-back button:first-child {
+  background: transparent;
+  color: var(--text-secondary);
+  border: 1px solid var(--border-active);
+}
+
+.btn-back button:first-child:hover {
+  background: var(--bg-card-hover);
+  color: var(--text-primary);
+  border-color: var(--accent-gun);
+}
+
+/* ยืนยัน — filled */
+.btn-back button:last-child {
+  background: linear-gradient(135deg, #043929, #032520);
+  color: #fff;
+  border: none;
+  box-shadow: 0 4px 16px rgba(4, 57, 41, 0.25);
+}
+
+.btn-back button:last-child:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 22px rgba(4, 57, 41, 0.4);
+}
+
+.btn-back button:last-child:active {
+  transform: translateY(0);
+}
+
+/* ─── Main Form Card ──────────────────────────────────── */
 .wrap-container-CreateAdmin {
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  gap: 28px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+  padding: 32px;
+  animation: fadeSlideUp 0.4s ease both;
+  height: auto;
+}
+
+@keyframes fadeSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ─── Left: Fields Grid ───────────────────────────────── */
+.booking-fields {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 28px;
+  align-content: start;
+}
+
+/* Section divider label */
+.form-section-label {
+  grid-column: 1 / -1;
+  font-family: "Rajdhani", sans-serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  padding: 18px 0 8px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 4px;
+}
+
+.form-section-label:first-child {
+  padding-top: 0;
+}
+
+/* ─── Row groups → map to grid cells ─────────────────── */
+.input-Number,
+.input-Date,
+.input-Name,
+.input-car,
+.input-licensePlate,
+.input-product {
+  display: contents; /* let children participate in the parent grid */
+}
+
+/* ─── Individual field wrappers ───────────────────────── */
+.inputNumber,
+.inputVolume,
+.inputDate,
+.inputTime,
+.inputName,
+.inputTel,
+.inputCarType,
+.inputCarModel,
+.inputRegister,
+.inputProvince,
+.inputTypeProduct,
+.inputProduct {
   display: flex;
   flex-direction: column;
-  border: 5px solid #043929;
-  border-radius: 20px;
-  padding: 0px 20px 0px 20px;
-  height: 700px;
-  h2 {
-    font-size: 1.5em;
-    font-weight: bolder;
-  }
-  .input-Number {
-    display: flex;
-    justify-content: space-around;
-    gap: 20px;
-    .inputVolume {
-      display: flex;
-      align-items: center;
-      margin-top: 20px;
-      input {
-        padding: 5px;
-        width: 265px;
-        height: 45px;
-        border-radius: 20px;
-        border: 2px solid #043929;
-      }
-    }
-    .inputNumber {
-      display: flex;
-      align-items: center;
-      margin-top: 20px;
-      input {
-        padding: 5px;
-        width: 265px;
-        height: 45px;
-        border-radius: 20px;
-        border: 2px solid #043929;
-      }
-    }
-  }
-  .input-Date {
-    display: flex;
-    justify-content: space-around;
-    gap: 20px;
-    .inputDate {
-      display: flex;
-      align-items: center;
-      margin-top: 20px;
-      .ant-picker-outlined {
-        padding: 5px;
-        width: 265px;
-        height: 45px;
-        border-radius: 20px;
-        border: 2px solid #043929;
-      }
-    }
-    .inputTime {
-      display: flex;
-      align-items: center;
-      margin-top: 20px;
-      select {
-        width: 265px;
-        height: 45px;
-        margin-left: -2px;
-        border-radius: 20px;
-        border: 2px solid #043929;
-      }
-    }
-  }
-  .input-Name {
-    display: flex;
-    justify-content: space-around;
-    gap: 20px;
-
-    .inputName {
-      display: flex;
-      align-items: center;
-      margin-top: 20px;
-      input {
-        padding: 5px;
-        width: 265px;
-        height: 45px;
-        border-radius: 20px;
-        border: 2px solid #043929;
-      }
-    }
-    .inputTel {
-      display: flex;
-      margin-top: 20px;
-      input {
-        padding: 5px;
-        width: 265px;
-        height: 45px;
-        border-radius: 20px;
-        border: 2px solid #043929;
-      }
-    }
-  }
-  .input-car {
-    display: flex;
-    gap: 20px;
-    justify-content: space-around;
-
-    .inputCarType {
-      display: flex;
-      align-items: center;
-      margin-top: 20px;
-      input {
-        padding: 5px;
-        width: 265px;
-        height: 45px;
-        border-radius: 20px;
-        border: 2px solid #043929;
-      }
-    }
-    .inputCarModel {
-      display: flex;
-      align-items: center;
-      margin-top: 20px;
-      input {
-        padding: 5px;
-        width: 265px;
-        height: 45px;
-        border-radius: 20px;
-        border: 2px solid #043929;
-      }
-    }
-  }
-
-  .input-licensePlate {
-    display: flex;
-    gap: 20px;
-    justify-content: space-around;
-    .inputRegister {
-      display: flex;
-      align-items: center;
-      margin-top: 20px;
-      input {
-        padding: 5px;
-        width: 265px;
-        height: 45px;
-        border-radius: 20px;
-        border: 2px solid #043929;
-      }
-    }
-    .inputProvince {
-      display: flex;
-      align-items: center;
-      margin-top: 20px;
-      input {
-        padding: 5px;
-        width: 265px;
-        height: 45px;
-        border-radius: 20px;
-        border: 2px solid #043929;
-      }
-    }
-  }
-  .input-product {
-    display: flex;
-    gap: 20px;
-    justify-content: space-around;
-    .inputTypeProduct {
-      display: flex;
-      align-items: center;
-      margin-top: 20px;
-    }
-    .inputProduct {
-      display: flex;
-      align-items: center;
-      margin-top: 20px;
-    }
-  }
-
-  .inputImage {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    padding-top: 30px;
-    img {
-      height: 250px;
-      width: auto;
-      border-radius: 10px;
-    }
-    .text-image {
-      height: 200px;
-      width: 300px;
-      display: flex;
-      flex-direction: column;
-      align-items: space-between;
-      cursor: pointer;
-      align-items: center;
-      justify-content: center;
-      border: 2px dashed #043929;
-      padding: 1.5rem;
-      border-radius: 10px;
-      gap: 20px;
-    }
-    .icon-file {
-      font-size: 80px;
-      color: #043929;
-    }
-    input {
-      display: none;
-    }
-  }
-
-  .select-product {
-    width: 265px;
-    height: 45px;
-    border-radius: 20px;
-  }
-
-  .ant-select-single .ant-select-selector {
-    border-radius: 20px !important;
-    border: 2px solid #043929;
-  }
+  gap: 6px;
+  margin-bottom: 16px;
 }
 
-.btn-CreateAdmin {
+/* Label */
+.inputNumber h2,
+.inputVolume h2,
+.inputDate h2,
+.inputTime h2,
+.inputName h2,
+.inputTel h2,
+.inputCarType h2,
+.inputCarModel h2,
+.inputRegister h2,
+.inputProvince h2,
+.inputTypeProduct h2,
+.inputProduct h2 {
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  margin: 0;
+  width: auto !important; /* override inline width:120px */
+}
+
+/* ─── Text Inputs ─────────────────────────────────────── */
+.wrap-container-CreateAdmin input[type="text"],
+.wrap-container-CreateAdmin input[type="tel"] {
+  width: 100%;
+  height: 42px;
+  padding: 0 14px;
+  background: #fff;
+  border: 1px solid var(--border-active);
+  border-radius: var(--radius-input);
+  font-family: "Sarabun", sans-serif;
+  font-size: 0.9rem;
+  color: var(--text-primary);
+  outline: none;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
+  box-sizing: border-box;
+}
+
+.wrap-container-CreateAdmin input[type="text"]:focus,
+.wrap-container-CreateAdmin input[type="tel"]:focus {
+  border-color: var(--accent-gun);
+  box-shadow: 0 0 0 3px rgba(4, 57, 41, 0.1);
+}
+
+.wrap-container-CreateAdmin input::placeholder {
+  color: #9ab5a8;
+}
+
+/* ─── Ant Design DatePicker ───────────────────────────── */
+.wrap-container-CreateAdmin .ant-picker-outlined,
+.wrap-container-CreateAdmin .ant-picker {
+  width: 100% !important;
+  height: 42px !important;
+  border-radius: var(--radius-input) !important;
+  border: 1px solid var(--border-active) !important;
+  font-family: "Sarabun", sans-serif !important;
+  font-size: 0.9rem !important;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s !important;
+}
+
+.wrap-container-CreateAdmin .ant-picker:hover,
+.wrap-container-CreateAdmin .ant-picker-focused {
+  border-color: var(--accent-gun) !important;
+  box-shadow: 0 0 0 3px rgba(4, 57, 41, 0.1) !important;
+}
+
+/* ─── Ant Design Select ───────────────────────────────── */
+.select-product {
+  width: 100% !important;
+}
+
+.select-product .ant-select-selector {
+  height: 42px !important;
+  padding: 0 14px !important;
+  border-radius: var(--radius-input) !important;
+  border: 1px solid var(--border-active) !important;
   display: flex;
+  align-items: center;
+  font-family: "Sarabun", sans-serif !important;
+  font-size: 0.9rem !important;
+  color: var(--text-primary) !important;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s !important;
+}
+
+.select-product.ant-select-focused .ant-select-selector,
+.select-product .ant-select-selector:hover {
+  border-color: var(--accent-gun) !important;
+  box-shadow: 0 0 0 3px rgba(4, 57, 41, 0.1) !important;
+}
+
+.select-product .ant-select-selection-item {
+  line-height: 40px !important;
+}
+
+/* ─── Slip Image Upload (full-width, spans both columns) ─ */
+.inputImage {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.inputImage img {
+  max-height: 200px;
+  width: auto;
+  border-radius: var(--radius-input);
+  border: 1px solid var(--border-active);
+  box-shadow: var(--shadow-card);
+}
+
+.text-image {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   justify-content: center;
-  margin-top: 20px;
-  gap: 20px;
-  button {
-    padding: 10px 20px;
-    border-radius: 20px;
-    background-color: #043929;
-    color: white;
-    font-size: 20px;
-    border: none;
-    cursor: pointer;
-  }
-  button:hover {
-    background-color: #05593d;
-    text-shadow:
-      0 0 10px rgba(255, 255, 255, 0.8),
-      0 0 20px rgba(255, 255, 255, 0.6),
-      0 0 30px rgba(255, 255, 255, 0.4);
-    transition: all 0.5s;
-  }
+  gap: 6px;
+  width: 100%;
+  height: 90px;
+  border: 1.5px dashed var(--border-active);
+  border-radius: var(--radius-input);
+  cursor: pointer;
+  background: var(--bg-base);
+  color: var(--text-secondary);
+  font-size: 0.82rem;
+  font-family: "Sarabun", sans-serif;
+  transition:
+    background 0.2s,
+    border-color 0.2s;
 }
 
-.wrap-container-DialogConfirm {
-  width: 350px;
-  height: 300px;
-  .ant-modal-content {
-    background-color: white;
-    border: 5px solid #043929;
-    border-radius: 20px;
-  }
-  h1 {
-    text-align: center;
-    font-size: 50px;
-    font-weight: bolder;
-    color: #043929;
-  }
-  .btn-DialogConfirm-Navbar {
-    display: flex;
-    justify-content: center;
-    margin-top: 30px;
-    gap: 20px;
-    button {
-      padding: 10px 20px;
-      border-radius: 20px;
-      background-color: #043929;
-      color: white;
-      font-size: 20px;
-      border: none;
-      cursor: pointer;
-    }
-    button:hover {
-      background-color: #05593d;
-      text-shadow:
-        0 0 10px rgba(255, 255, 255, 0.8),
-        0 0 20px rgba(255, 255, 255, 0.6),
-        0 0 30px rgba(255, 255, 255, 0.4);
-      transition: all 0.5s;
-    }
-  }
-  .ant-modal-footer {
-    display: none;
-  }
+.text-image:hover {
+  background: #eaf7f0;
+  border-color: var(--accent-gun);
+  color: var(--text-primary);
 }
 
+.icon-file {
+  font-size: 22px;
+  color: var(--accent-gun);
+}
+
+.inputImage input[type="file"] {
+  display: none;
+}
+
+/* ─── Right: Slip Preview Column ──────────────────────── */
+.slip-preview-panel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 8px;
+  border-left: 1px solid var(--border);
+  padding-left: 28px;
+  gap: 16px;
+}
+
+.slip-preview-panel h2 {
+  font-family: "Rajdhani", sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin: 0;
+  width: 100%;
+  text-align: center;
+}
+
+.slip-preview-panel .slip-img-wrap {
+  position: relative;
+  width: 100%;
+}
+
+.slip-preview-panel .slip-img-wrap img {
+  width: 100%;
+  max-height: 260px;
+  object-fit: contain;
+  border-radius: var(--radius-input);
+  border: 1px solid var(--border-active);
+  box-shadow: var(--shadow-card);
+  display: block;
+}
+
+.slip-placeholder {
+  width: 100%;
+  aspect-ratio: 3/4;
+  max-height: 260px;
+  border-radius: var(--radius-input);
+  background: var(--bg-surface);
+  border: 1.5px dashed var(--border-active);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-muted);
+  font-size: 2.5rem;
+}
+
+/* ─── Close icon (slip image remove) ─────────────────── */
 .close-icon {
   background-color: #ffffff;
   border-radius: 9999px;
-}
-.close-icon:hover {
-  background-color: #e1eeff; /* or whatever hover color you want */
+  transition: background 0.15s;
 }
 
+.close-icon:hover {
+  background-color: #e1eeff;
+}
+
+/* ─── Confirm Dialog Modal ────────────────────────────── */
+.wrap-container-DialogConfirm .ant-modal-content {
+  background-color: #fff;
+  border: 1px solid var(--border-active);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-hover);
+}
+
+.wrap-container-DialogConfirm h1 {
+  font-family: "Rajdhani", sans-serif;
+  text-align: center;
+  font-size: 1.8rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--accent-gun);
+  margin-bottom: 8px;
+}
+
+.btn-DialogConfirm-Navbar {
+  display: flex;
+  justify-content: center;
+  margin-top: 28px;
+  gap: 16px;
+}
+
+.btn-DialogConfirm-Navbar button {
+  padding: 10px 32px;
+  border-radius: var(--radius-btn);
+  font-family: "Sarabun", sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: none;
+}
+
+.btn-DialogConfirm-Navbar button:first-child {
+  background: linear-gradient(135deg, #043929, #032520);
+  color: #fff;
+  box-shadow: 0 4px 16px rgba(4, 57, 41, 0.25);
+}
+
+.btn-DialogConfirm-Navbar button:first-child:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 22px rgba(4, 57, 41, 0.4);
+}
+
+.btn-DialogConfirm-Navbar button.btn-edit-dialogConfirm {
+  background: transparent;
+  color: var(--text-secondary);
+  border: 1px solid var(--border-active);
+}
+
+.btn-DialogConfirm-Navbar button.btn-edit-dialogConfirm:hover {
+  background: var(--bg-card-hover);
+  color: var(--text-primary);
+  border-color: var(--accent-gun);
+}
+
+.wrap-container-DialogConfirm .ant-modal-footer {
+  display: none;
+}
+
+/* ─── Responsive ──────────────────────────────────────── */
 @media (max-width: 1280px) {
   .container-CreateAdmin {
-    padding-left: 270px;
-  }
-
-  .wrap-container-CreateAdmin {
-    height: 700px;
-    .inputImage {
-      .text-image {
-        height: 200px;
-        width: 300px;
-      }
-    }
-  }
-}
-
-@media (max-width: 1190px) {
-  .container-CreateAdmin {
-    padding-left: 270px;
-  }
-
-  .wrap-container-CreateAdmin {
-    margin-bottom: 20px;
-    h2 {
-      font-size: 20px;
-    }
-    .input-Number {
-      gap: 0px;
-      .inputVolume {
-        input {
-          width: 200px;
-        }
-      }
-      .inputNumber {
-        input {
-          width: 200px;
-        }
-      }
-    }
-    .input-Date {
-      gap: 0px;
-      .inputDate {
-        .ant-picker-outlined {
-          padding: 5px;
-          width: 200px;
-        }
-      }
-    }
-    .input-Name {
-      gap: 0px;
-      .inputName {
-        input {
-          width: 200px;
-        }
-      }
-      .inputTel {
-        input {
-          width: 200px;
-        }
-      }
-    }
-    .input-car {
-      gap: 0px;
-      .inputCarType {
-        input {
-          width: 200px;
-        }
-      }
-      .inputCarModel {
-        input {
-          width: 200px;
-        }
-      }
-    }
-
-    .input-licensePlate {
-      display: flex;
-      gap: 0px;
-      .inputRegister {
-        input {
-          width: 200px;
-        }
-      }
-      .inputProvince {
-        input {
-          width: 200px;
-        }
-      }
-    }
-    .input-product {
-      display: flex;
-      gap: 0px;
-    }
-
-    .select-product {
-      width: 200px;
-    }
+    padding-left: 282px;
   }
 }
 
 @media (max-width: 1080px) {
   .container-CreateAdmin {
-    padding-left: 220px;
-  }
-}
-
-@media (max-width: 1020px) {
-  .container-CreateAdmin {
-    padding-left: 220px;
+    padding-left: 232px;
   }
 
   .wrap-container-CreateAdmin {
-    margin-bottom: 20px;
-    h2 {
-      font-size: 20px;
-    }
-    .input-Number {
-      gap: 0px;
-      .inputVolume {
-        input {
-          width: 150px;
-        }
-      }
-      .inputNumber {
-        input {
-          width: 150px;
-        }
-      }
-    }
-    .input-Date {
-      gap: 0px;
-      .inputDate {
-        .ant-picker-outlined {
-          padding: 5px;
-          width: 150px;
-        }
-      }
-    }
-    .input-Name {
-      gap: 0px;
-      .inputName {
-        input {
-          width: 150px;
-        }
-      }
-      .inputTel {
-        input {
-          width: 150px;
-        }
-      }
-    }
-    .input-car {
-      gap: 0px;
-      .inputCarType {
-        input {
-          width: 150px;
-        }
-      }
-      .inputCarModel {
-        input {
-          width: 150px;
-        }
-      }
-    }
-
-    .input-licensePlate {
-      display: flex;
-      gap: 0px;
-      .inputRegister {
-        input {
-          width: 150px;
-        }
-      }
-      .inputProvince {
-        input {
-          width: 150px;
-        }
-      }
-    }
-    .input-product {
-      display: flex;
-      gap: 0px;
-    }
-
-    .select-product {
-      width: 150px;
-    }
+    grid-template-columns: 1fr 220px;
+    gap: 20px;
+    padding: 24px;
   }
 }
 
-@media (max-width: 920px) {
-  .container-CreateAdmin {
-    padding-left: 220px;
-
-    .wrap-container-CreateAdmin {
-      height: 1100px;
-    }
-  }
-
-  .btn-back {
-    display: flex;
-    justify-content: space-between;
-    padding-bottom: 20px;
-    button {
-      font-size: 18px;
-    }
-  }
-
-  .content-CreateAdmin {
-    width: 100%;
-  }
-
+@media (max-width: 860px) {
   .wrap-container-CreateAdmin {
-    display: flex;
-    align-items: center;
-    height: 1000px;
-    h2 {
-      font-size: 20px;
-    }
-    .input-Number {
-      flex-direction: column;
-      gap: 0px;
-      .inputVolume {
-        input {
-          width: 200px;
-        }
-      }
-      .inputNumber {
-        input {
-          width: 200px;
-        }
-      }
-    }
-    .input-Date {
-      flex-direction: column;
-      gap: 0px;
-      .inputDate {
-        .ant-picker-outlined {
-          padding: 5px;
-          width: 200px;
-        }
-      }
-    }
-    .input-Name {
-      gap: 0px;
-      flex-direction: column;
-      .inputName {
-        input {
-          width: 200px;
-        }
-      }
-      .inputTel {
-        input {
-          width: 200px;
-        }
-      }
-    }
-    .input-car {
-      flex-direction: column;
-      gap: 0px;
-      .inputCarType {
-        input {
-          width: 200px;
-        }
-      }
-      .inputCarModel {
-        input {
-          width: 200px;
-        }
-      }
-    }
+    grid-template-columns: 1fr;
+  }
 
-    .input-licensePlate {
-      display: flex;
-      flex-direction: column;
-      gap: 0px;
-      .inputRegister {
-        input {
-          width: 200px;
-        }
-      }
-      .inputProvince {
-        input {
-          width: 200px;
-        }
-      }
-    }
-    .input-product {
-      display: flex;
-      flex-direction: column;
-      gap: 0px;
-    }
-
-    .select-product {
-      width: 200px;
-    }
-
-    .inputImage {
-      .text-image {
-        height: 150px;
-        width: 200px;
-      }
-      .icon-file {
-        font-size: 50px;
-      }
-    }
+  .slip-preview-panel {
+    border-left: none;
+    border-top: 1px solid var(--border);
+    padding-left: 0;
+    padding-top: 24px;
   }
 }
 
-@media (max-width: 620px) {
-  .container-CreateAdmin {
-    padding-left: 220px;
-  }
-
-  .btn-back {
-    display: flex;
-    justify-content: space-between;
-    padding-bottom: 20px;
-    button {
-      font-size: 18px;
-    }
-  }
-
-  .content-CreateAdmin {
-    width: 100%;
-  }
-
-  .wrap-container-CreateAdmin {
-    display: flex;
-    align-items: center;
-    height: 1000px;
-    h2 {
-      font-size: 20px;
-    }
-    .input-Number {
-      flex-direction: column;
-      gap: 0px;
-      .inputVolume {
-        input {
-          width: 150px;
-        }
-      }
-      .inputNumber {
-        input {
-          width: 150px;
-        }
-      }
-    }
-    .input-Date {
-      flex-direction: column;
-      gap: 0px;
-      .inputDate {
-        .ant-picker-outlined {
-          padding: 5px;
-          width: 150px;
-        }
-      }
-    }
-    .input-Name {
-      gap: 0px;
-      flex-direction: column;
-      .inputName {
-        input {
-          width: 150px;
-        }
-      }
-      .inputTel {
-        input {
-          width: 150px;
-        }
-      }
-    }
-    .input-car {
-      flex-direction: column;
-      gap: 0px;
-      .inputCarType {
-        input {
-          width: 150px;
-        }
-      }
-      .inputCarModel {
-        input {
-          width: 150px;
-        }
-      }
-    }
-
-    .input-licensePlate {
-      display: flex;
-      flex-direction: column;
-      gap: 0px;
-      .inputRegister {
-        input {
-          width: 150px;
-        }
-      }
-      .inputProvince {
-        input {
-          width: 150px;
-        }
-      }
-    }
-    .input-product {
-      display: flex;
-      flex-direction: column;
-      gap: 0px;
-    }
-
-    .select-product {
-      width: 150px;
-    }
-
-    .inputImage {
-      .text-image {
-        height: 150px;
-        width: 200px;
-      }
-      .icon-file {
-        font-size: 50px;
-      }
-    }
+@media (max-width: 640px) {
+  .booking-fields {
+    grid-template-columns: 1fr;
   }
 }
 
 @media (max-width: 600px) {
   .container-CreateAdmin {
-    padding-left: 20px;
+    padding: 16px 12px 32px;
   }
 
   .header-CreateAdmin {
-    height: 60px;
-    h1 {
-      font-size: 32px;
-    }
+    padding-left: 60px;
   }
 
-  .btn-back {
-    display: flex;
-    justify-content: space-between;
-    padding-bottom: 20px;
-    button {
-      font-size: 18px;
-    }
-  }
-
-  .content-CreateAdmin {
-    width: 100%;
+  .header-CreateAdmin h1 {
+    font-size: 1.6rem;
   }
 
   .wrap-container-CreateAdmin {
-    height: 1000px;
-    h2 {
-      font-size: 20px;
-    }
-    .input-Number {
-      flex-direction: column;
-      gap: 0px;
-      .inputVolume {
-        input {
-          width: 200px;
-        }
-      }
-      .inputNumber {
-        input {
-          width: 200px;
-        }
-      }
-    }
-    .input-Date {
-      flex-direction: column;
-      gap: 0px;
-      .inputDate {
-        .ant-picker-outlined {
-          padding: 5px;
-          width: 200px;
-        }
-      }
-    }
-    .input-Name {
-      gap: 0px;
-      flex-direction: column;
-      .inputName {
-        input {
-          width: 200px;
-        }
-      }
-      .inputTel {
-        input {
-          width: 200px;
-        }
-      }
-    }
-    .input-car {
-      flex-direction: column;
-      gap: 0px;
-      .inputCarType {
-        input {
-          width: 200px;
-        }
-      }
-      .inputCarModel {
-        input {
-          width: 200px;
-        }
-      }
-    }
-
-    .input-licensePlate {
-      display: flex;
-      flex-direction: column;
-      gap: 0px;
-      .inputRegister {
-        input {
-          width: 200px;
-        }
-      }
-      .inputProvince {
-        input {
-          width: 200px;
-        }
-      }
-    }
-    .input-product {
-      display: flex;
-      flex-direction: column;
-      gap: 0px;
-    }
-
-    .select-product {
-      width: 200px;
-    }
+    padding: 16px;
   }
 }
