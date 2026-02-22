@@ -1,10 +1,20 @@
 import "./CreateEmployeeAdminPage.css";
 import { Controller, useForm } from "react-hook-form";
-import { PaymentStatus, PaymentType, BankType, EmployeeDataForm } from "../../model/employee.type";
+import {
+  PaymentStatus,
+  PaymentType,
+  BankType,
+  EmployeeDataForm,
+} from "../../model/employee.type";
 import { Select, Typography } from "antd";
 import { CloseCircleOutlined, FileAddFilled } from "@ant-design/icons";
 import { useAppDispatch } from "../../stores/store";
-import { createEmployee, getEmployeeById, setProfileImage, updateEmployeeById } from "../../stores/slices/employeeSlice";
+import {
+  createEmployee,
+  getEmployeeById,
+  setProfileImage,
+  updateEmployeeById,
+} from "../../stores/slices/employeeSlice";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { BankDatas } from "../../data/BankData";
@@ -50,7 +60,8 @@ const CreateEmployeeAdminPage = () => {
   const [roleDatas, setRoleDatas] = useState<RoleData[]>([]);
   const [employeeData, setEmployeeData] = useState<EmployeeDataForm>();
 
-  const [isCreateEmployeeLoading, setIsCreateEmployeeLoading] = useState<boolean>(false);
+  const [isCreateEmployeeLoading, setIsCreateEmployeeLoading] =
+    useState<boolean>(false);
 
   const { control, handleSubmit, reset, watch } = useForm({
     defaultValues: initEmployeeForm,
@@ -80,10 +91,17 @@ const CreateEmployeeAdminPage = () => {
         tel: employeeRes.tel ?? "",
         employmentInfo: {
           salaryInfo: {
-            paymentStatus: employeeRes.employmentInfo.salaryInfo?.paymentStatus ?? PaymentStatus.BANK,
-            paymentType: employeeRes.employmentInfo.salaryInfo?.paymentType ?? PaymentType.MONTHLY,
-            bankName: employeeRes.employmentInfo.salaryInfo?.bankName ?? BankType.BANK_OF_AYUDHYA,
-            accountNumber: employeeRes.employmentInfo.salaryInfo?.accountNumber ?? "",
+            paymentStatus:
+              employeeRes.employmentInfo.salaryInfo?.paymentStatus ??
+              PaymentStatus.BANK,
+            paymentType:
+              employeeRes.employmentInfo.salaryInfo?.paymentType ??
+              PaymentType.MONTHLY,
+            bankName:
+              employeeRes.employmentInfo.salaryInfo?.bankName ??
+              BankType.BANK_OF_AYUDHYA,
+            accountNumber:
+              employeeRes.employmentInfo.salaryInfo?.accountNumber ?? "",
             amount: employeeRes.employmentInfo.salaryInfo?.amount ?? 0,
           },
           roleId: employeeRes.employmentInfo.roleId ?? "",
@@ -232,7 +250,12 @@ const CreateEmployeeAdminPage = () => {
                 name="employmentInfo.roleId"
                 render={({ field }) => {
                   return (
-                    <Select {...field} placeholder="เลือกดำแหน่งพนักงาน" className="select-product" value={field.value ?? undefined}>
+                    <Select
+                      {...field}
+                      placeholder="เลือกดำแหน่งพนักงาน"
+                      className="select-product"
+                      value={field.value ?? undefined}
+                    >
                       {roleDatas.map((item, index) => {
                         return (
                           <Select.Option key={index} value={item._id}>
@@ -279,8 +302,12 @@ const CreateEmployeeAdminPage = () => {
                         // setIsAccountNumber();
                       }}
                     >
-                      <Select.Option value={PaymentStatus.BANK}>{t("ธนาคาร")}</Select.Option>
-                      <Select.Option value={PaymentStatus.CASH}>{t("เงินสด")}</Select.Option>
+                      <Select.Option value={PaymentStatus.BANK}>
+                        {t("ธนาคาร")}
+                      </Select.Option>
+                      <Select.Option value={PaymentStatus.CASH}>
+                        {t("เงินสด")}
+                      </Select.Option>
                     </Select>
                   );
                 }}
@@ -294,9 +321,18 @@ const CreateEmployeeAdminPage = () => {
                 name="employmentInfo.salaryInfo.paymentType"
                 render={({ field }) => {
                   return (
-                    <Select {...field} placeholder="เลือกประเภทการชำระเงิน" className="select-product" value={field.value ?? undefined}>
-                      <Select.Option value={PaymentType.MONTHLY}>{t("รายเดือน")}</Select.Option>
-                      <Select.Option value={PaymentType.DAILY}>{t("รายวัน")}</Select.Option>
+                    <Select
+                      {...field}
+                      placeholder="เลือกประเภทการชำระเงิน"
+                      className="select-product"
+                      value={field.value ?? undefined}
+                    >
+                      <Select.Option value={PaymentType.MONTHLY}>
+                        {t("รายเดือน")}
+                      </Select.Option>
+                      <Select.Option value={PaymentType.DAILY}>
+                        {t("รายวัน")}
+                      </Select.Option>
                     </Select>
                   );
                 }}
@@ -318,8 +354,13 @@ const CreateEmployeeAdminPage = () => {
                           type="text"
                           placeholder={t("กรอกเลขบัญชี")}
                           onChange={(event) => {
-                            const value = event.target.value.replace(/[^0-9.]/g, "");
-                            const validated = value.match(/^(\d*\.{0,1}\d{0,2}$)/);
+                            const value = event.target.value.replace(
+                              /[^0-9.]/g,
+                              "",
+                            );
+                            const validated = value.match(
+                              /^(\d*\.{0,1}\d{0,2}$)/,
+                            );
                             if (validated) {
                               field.onChange(Number(value));
                             }
@@ -337,12 +378,21 @@ const CreateEmployeeAdminPage = () => {
                     name="employmentInfo.salaryInfo.bankName"
                     render={({ field }) => {
                       return (
-                        <Select {...field} placeholder="เลือกบัญชีธนาคาร" className="select-product" value={field.value ?? undefined}>
+                        <Select
+                          {...field}
+                          placeholder="เลือกบัญชีธนาคาร"
+                          className="select-product"
+                          value={field.value ?? undefined}
+                        >
                           {BankDatas.map((bank, index) => {
                             return (
                               <Select.Option key={index} value={bank.type}>
                                 <div className="bank-select">
-                                  <img className="bank-logo" src={bank.img} alt="" />
+                                  <img
+                                    className="bank-logo"
+                                    src={bank.img}
+                                    alt=""
+                                  />
                                   <Typography>{bank.name}</Typography>
                                 </div>
                               </Select.Option>
@@ -369,7 +419,10 @@ const CreateEmployeeAdminPage = () => {
                       type="text"
                       placeholder="กรอกจำนวนเงิน"
                       onChange={(event) => {
-                        const value = event.target.value.replace(/[^0-9.]/g, "");
+                        const value = event.target.value.replace(
+                          /[^0-9.]/g,
+                          "",
+                        );
                         const validated = value.match(/^(\d*\.{0,1}\d{0,2}$)/);
                         if (validated) {
                           field.onChange(Number(value));
@@ -386,8 +439,10 @@ const CreateEmployeeAdminPage = () => {
             <h2>{t("ตัวอย่างรูปภาพประจำตัว")}</h2>
             {getProfileImage && (
               <>
-                <div className="wrap-img" style={{ position: "relative", height: 200, width: 200 }}>
-                  <img src={getProfileImage} alt="image" />
+                <div
+                  className="wrap-img"
+                  style={{ position: "relative", height: 200, width: 200 }}
+                >
                   <CloseCircleOutlined
                     className="close-icon"
                     style={{
@@ -411,6 +466,7 @@ const CreateEmployeeAdminPage = () => {
                       });
                     }}
                   />
+                  <img src={getProfileImage} alt="image" />
                 </div>
               </>
             )}

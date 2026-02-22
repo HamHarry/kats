@@ -1,417 +1,431 @@
+@import url("https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Sarabun:wght@300;400;500;600&display=swap");
+
+/* ─── Root Variables (shared with BookingAdminPage) ──── */
+:root {
+  --bg-base: #f2f6f4;
+  --bg-surface: #e8eeeb;
+  --bg-card: #ffffff;
+  --bg-card-hover: #f5fdf8;
+  --border: rgba(0, 150, 100, 0.18);
+  --border-active: rgba(0, 180, 120, 0.45);
+
+  --accent-gun: #043929;
+  --accent-gun-light: #05593d;
+  --accent-coat: #3b82f6;
+
+  --text-primary: #1a2e22;
+  --text-secondary: #4a7a5e;
+  --text-muted: #8ab5a0;
+
+  --shadow-card: 0 2px 12px rgba(0, 120, 80, 0.08), 0 0 0 1px var(--border);
+  --shadow-hover:
+    0 6px 28px rgba(0, 150, 100, 0.15), 0 0 0 1px var(--border-active);
+
+  --radius-card: 16px;
+  --radius-input: 10px;
+  --radius-btn: 10px;
+}
+
+/* ─── Page Container ──────────────────────────────────── */
 .container-CreateEmployeeAdminPage {
   display: flex;
-  align-items: center;
   flex-direction: column;
-  padding: 20px 20px 0px 20px;
-  padding-left: 320px;
-  gap: 20px;
-
-  input {
-    padding: 5px;
-    min-width: 265px;
-    margin-left: -10px;
-    height: 45px;
-    border-radius: 20px;
-    border: 2px solid #043929;
-  }
-
-  button {
-    width: 100px;
-    height: 45px;
-    border: none;
-    border-radius: 20px;
-    background-color: #043929;
-    color: white;
-    font-size: 20px;
-    cursor: pointer;
-    transition: all 0.5s;
-  }
-  button:hover {
-    background-color: #05593d;
-  }
+  padding: 28px 32px 48px;
+  padding-left: 332px;
+  font-family: "Sarabun", sans-serif;
+  color: var(--text-primary);
+  min-height: 100vh;
+  background: var(--bg-base);
+  gap: 0;
 }
 
+/* ─── Header ──────────────────────────────────────────── */
 .header-CreateEmployeeAdminPage {
   display: flex;
-  justify-content: center;
-  height: 80px;
-  max-width: 1200px;
-  width: 100%;
-  border-radius: 20px;
-  background-color: #043929;
-  h1 {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 42px;
-    font-weight: bolder;
-    color: white;
-  }
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 28px;
+  position: relative;
+  z-index: 1;
 }
 
-.wrap-container-CreateEmployeeAdminPage {
+.header-CreateEmployeeAdminPage h1 {
+  font-family: "Rajdhani", sans-serif;
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text-primary);
+  margin: 0;
+  line-height: 1;
+}
+
+.header-CreateEmployeeAdminPage::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(0, 0, 0, 0.12), transparent);
+  margin-left: 24px;
+}
+
+/* ─── Action Buttons Row ─────────────────────────────── */
+.btn-createproductAdmin {
   display: flex;
-  border: 5px solid #043929;
-  border-radius: 20px;
-  padding: 0px 20px 0px 20px;
-  height: 700px;
-  gap: 50px;
-  .input-left {
-    display: flex;
-    flex-direction: column;
-    .inputNameEmployee {
-      display: flex;
-      align-items: center;
-      margin-top: 20px;
-      h2 {
-        width: 220px;
-        font-size: 20px;
-        font-weight: bolder;
-      }
-    }
-    .inputTelEmployee {
-      display: flex;
-      align-items: center;
-      margin-top: 20px;
-      h2 {
-        width: 220px;
-        font-size: 20px;
-        font-weight: bolder;
-      }
-    }
-    .inputPositionEmployee {
-      display: flex;
-      align-items: center;
-      margin-top: 20px;
-      h2 {
-        width: 210px;
-        font-size: 20px;
-        font-weight: bolder;
-      }
-    }
-    .select-product {
-      width: 265px;
-      height: 45px;
-      border-radius: 20px;
-    }
-    .ant-select-single .ant-select-selector {
-      border-radius: 20px !important;
-      border: 2px solid #043929;
-    }
-    .inputImageEmployee {
-      display: flex;
-      align-items: center;
-      margin-top: 20px;
-      h2 {
-        width: 210px;
-        font-size: 20px;
-        font-weight: bolder;
-      }
-    }
-    .inputPaymentStatus {
-      display: flex;
-      align-items: center;
-      margin-top: 20px;
-      h2 {
-        width: 210px;
-        font-size: 20px;
-        font-weight: bolder;
-      }
-    }
-    .inputPaymentType {
-      display: flex;
-      align-items: center;
-      margin-top: 20px;
-      h2 {
-        width: 210px;
-        font-size: 20px;
-        font-weight: bolder;
-      }
-    }
-    .inputAccountNumber {
-      display: flex;
-      align-items: center;
-      margin-top: 20px;
-      h2 {
-        width: 220px;
-        font-size: 20px;
-        font-weight: bolder;
-      }
-    }
-    .inputBankName {
-      display: flex;
-      align-items: center;
-      margin-top: 20px;
-      h2 {
-        width: 210px;
-        font-size: 20px;
-        font-weight: bolder;
-      }
-    }
-    .inputAmount {
-      display: flex;
-      align-items: center;
-      margin-top: 20px;
-      h2 {
-        width: 220px;
-        font-size: 20px;
-        font-weight: bolder;
-      }
-    }
-    .inputImage {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      .text-image {
-        width: 265px;
-        height: 60px;
-        display: flex;
-        flex-direction: column;
-        align-items: space-between;
-        gap: 5px;
-        cursor: pointer;
-        align-items: center;
-        justify-content: center;
-        border: 2px dashed #043929;
-        padding: 1.5rem;
-        border-radius: 10px;
-      }
-      .icon-file {
-        font-size: 20px;
-        color: #043929;
-      }
-      input {
-        display: none;
-      }
-    }
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.btn-createproductAdmin button {
+  padding: 10px 28px;
+  border-radius: var(--radius-btn);
+  font-family: "Sarabun", sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  letter-spacing: 0.04em;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+/* Back button — outlined */
+.btn-createproductAdmin button[type="button"] {
+  background: transparent;
+  color: var(--text-secondary);
+  border: 1px solid var(--border-active);
+}
+
+.btn-createproductAdmin button[type="button"]:hover {
+  background: var(--bg-card-hover);
+  color: var(--text-primary);
+  border-color: var(--accent-gun);
+}
+
+/* Submit button — filled */
+.btn-createproductAdmin button[type="submit"] {
+  background: linear-gradient(135deg, #043929, #032520);
+  color: #fff;
+  border: none;
+  box-shadow: 0 4px 16px rgba(4, 57, 41, 0.25);
+}
+
+.btn-createproductAdmin button[type="submit"]:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 22px rgba(4, 57, 41, 0.4);
+}
+
+.btn-createproductAdmin button[type="submit"]:active {
+  transform: translateY(0);
+}
+
+/* ─── Main Form Card ──────────────────────────────────── */
+.wrap-container-CreateEmployeeAdminPage {
+  display: grid;
+  grid-template-columns: 1fr 280px;
+  gap: 28px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+  padding: 32px;
+  animation: fadeSlideUp 0.4s ease both;
+}
+
+@keyframes fadeSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
   }
-  .PreviewImage {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    align-items: center;
-    h2 {
-      margin-top: 45px;
-      font-size: 20px;
-      font-weight: bolder;
-    }
-    .wrap-img {
-      border-radius: 50%;
-      border: 2px solid #043929;
-      margin-top: 20px;
-      img {
-        border-radius: 50%;
-        height: 196px;
-        width: 200px;
-        object-fit: cover;
-      }
-    }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
-.bank-logo {
-  width: 10px;
-  height: 10px;
-  border-radius: 50px;
-  border: 2px solid #043929;
+/* ─── Left Input Column ───────────────────────────────── */
+.input-left {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 28px;
+  align-content: start;
 }
 
+/* Section divider label */
+.form-section-label {
+  grid-column: 1 / -1;
+  font-family: "Rajdhani", sans-serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  padding: 18px 0 8px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 4px;
+}
+
+.form-section-label:first-child {
+  padding-top: 0;
+}
+
+/* Each field wrapper */
+.inputNameEmployee,
+.inputTelEmployee,
+.inputPositionEmployee,
+.inputImageEmployee,
+.inputPaymentStatus,
+.inputPaymentType,
+.inputAccountNumber,
+.inputBankName,
+.inputAmount {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 16px;
+}
+
+.inputNameEmployee h2,
+.inputTelEmployee h2,
+.inputPositionEmployee h2,
+.inputImageEmployee h2,
+.inputPaymentStatus h2,
+.inputPaymentType h2,
+.inputAccountNumber h2,
+.inputBankName h2,
+.inputAmount h2 {
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  margin: 0;
+  width: auto;
+}
+
+/* ─── Inputs ─────────────────────────────────────────── */
+.input-left input {
+  width: 100%;
+  height: 42px;
+  padding: 0 14px;
+  background: #fff;
+  border: 1px solid var(--border-active);
+  border-radius: var(--radius-input);
+  font-family: "Sarabun", sans-serif;
+  font-size: 0.9rem;
+  color: var(--text-primary);
+  outline: none;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
+  box-sizing: border-box;
+  margin-left: 0;
+  min-width: unset;
+}
+
+.input-left input:focus {
+  border-color: var(--accent-gun);
+  box-shadow: 0 0 0 3px rgba(4, 57, 41, 0.1);
+}
+
+.input-left input::placeholder {
+  color: #9ab5a8;
+}
+
+/* ─── Ant Design Select Override ─────────────────────── */
+.select-product {
+  width: 100% !important;
+}
+
+.select-product .ant-select-selector {
+  height: 42px !important;
+  padding: 0 14px !important;
+  border-radius: var(--radius-input) !important;
+  border: 1px solid var(--border-active) !important;
+  display: flex;
+  align-items: center;
+  font-family: "Sarabun", sans-serif !important;
+  font-size: 0.9rem !important;
+  color: var(--text-primary) !important;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s !important;
+}
+
+.select-product.ant-select-focused .ant-select-selector,
+.select-product .ant-select-selector:hover {
+  border-color: var(--accent-gun) !important;
+  box-shadow: 0 0 0 3px rgba(4, 57, 41, 0.1) !important;
+}
+
+.select-product .ant-select-selection-item {
+  line-height: 40px !important;
+}
+
+/* ─── Upload Image Area ───────────────────────────────── */
+.inputImage {
+  width: 100%;
+}
+
+.text-image {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  width: 100%;
+  height: 70px;
+  border: 1.5px dashed var(--border-active);
+  border-radius: var(--radius-input);
+  cursor: pointer;
+  background: var(--bg-base);
+  color: var(--text-secondary);
+  font-size: 0.82rem;
+  font-family: "Sarabun", sans-serif;
+  transition:
+    background 0.2s,
+    border-color 0.2s;
+  padding: 0;
+}
+
+.text-image:hover {
+  background: #eaf7f0;
+  border-color: var(--accent-gun);
+  color: var(--text-primary);
+}
+
+.icon-file {
+  font-size: 20px;
+  color: var(--accent-gun);
+}
+
+.inputImage input[type="file"] {
+  display: none;
+}
+
+/* ─── Bank Select ─────────────────────────────────────── */
 .bank-select {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
 }
 
+.bank-logo {
+  width: 18px;
+  height: 18px;
+  border-radius: 4px;
+  object-fit: cover;
+  border: 1px solid var(--border);
+}
+
+/* ─── Right Preview Column ────────────────────────────── */
+.PreviewImage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 8px;
+  border-left: 1px solid var(--border);
+  padding-left: 28px;
+}
+
+.PreviewImage h2 {
+  font-family: "Rajdhani", sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin: 0 0 16px;
+  width: 100%;
+  text-align: center;
+}
+
+.wrap-img {
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  border: 2px solid var(--border-active);
+  box-shadow: 0 4px 20px rgba(4, 57, 41, 0.12);
+  position: relative;
+  transition: box-shadow 0.25s;
+}
+
+.wrap-img:hover {
+  box-shadow: var(--shadow-hover);
+}
+
+.wrap-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  border-radius: 50%;
+}
+
+/* avatar placeholder when no image */
+.PreviewImage .avatar-placeholder {
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  background: var(--bg-surface);
+  border: 2px dashed var(--border-active);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-muted);
+  font-size: 3rem;
+}
+
+/* ─── Responsive ──────────────────────────────────────── */
 @media (max-width: 1280px) {
   .container-CreateEmployeeAdminPage {
-    padding-left: 270px;
-  }
-
-  .wrap-container-CreateEmployeeAdminPage {
-    height: 600px;
-    .input-left {
-      input {
-        width: 251px;
-        height: 40px;
-        border-radius: 20px;
-      }
-      .inputNameEmployee {
-        margin-top: 10px;
-      }
-      .inputTelEmployee {
-        margin-top: 10px;
-      }
-      .inputPositionEmployee {
-        margin-top: 10px;
-      }
-      .select-product {
-        width: 265px;
-        height: 45px;
-        border-radius: 20px;
-      }
-      .ant-select-single .ant-select-selector {
-        border-radius: 20px !important;
-        border: 2px solid #043929;
-      }
-      .inputImageEmployee {
-        margin-top: 10px;
-      }
-      .inputPaymentStatus {
-        margin-top: 10px;
-      }
-      .inputPaymentType {
-        margin-top: 10px;
-      }
-      .inputAccountNumber {
-        margin-top: 10px;
-      }
-      .inputBankName {
-        margin-top: 10px;
-      }
-      .inputAmount {
-        margin-top: 10px;
-      }
-      .select-product {
-        height: 40px;
-      }
-      .inputImage {
-        .text-image {
-          width: 265px;
-          height: px;
-        }
-      }
-    }
+    padding-left: 282px;
   }
 }
 
 @media (max-width: 1080px) {
   .container-CreateEmployeeAdminPage {
-    padding-left: 220px;
+    padding-left: 232px;
+  }
+
+  .wrap-container-CreateEmployeeAdminPage {
+    grid-template-columns: 1fr 220px;
+    gap: 20px;
+    padding: 24px;
+  }
+}
+
+@media (max-width: 768px) {
+  .wrap-container-CreateEmployeeAdminPage {
+    grid-template-columns: 1fr;
+  }
+
+  .PreviewImage {
+    border-left: none;
+    border-top: 1px solid var(--border);
+    padding-left: 0;
+    padding-top: 24px;
   }
 }
 
 @media (max-width: 600px) {
   .container-CreateEmployeeAdminPage {
-    padding-left: 20px;
-
-    input {
-      min-width: 200px;
-    }
-
-    button {
-      height: 40px;
-      border-radius: 10px;
-      font-size: 16px;
-    }
+    padding: 16px 12px 32px;
   }
 
   .header-CreateEmployeeAdminPage {
-    height: 50px;
-    border-radius: 10px;
-    h1 {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-size: 22px;
-      color: white;
-    }
+    padding-left: 60px;
+  }
+
+  .header-CreateEmployeeAdminPage h1 {
+    font-size: 1.6rem;
   }
 
   .wrap-container-CreateEmployeeAdminPage {
-    display: flex;
-    flex-direction: column;
-    height: 900px;
-    width: 100%;
-    max-width: 350px;
-    margin-bottom: 10px;
-    .input-left {
-      input {
-        height: 40px;
-        border-radius: 20px;
-      }
-      .inputNameEmployee {
-        margin-top: 10px;
-        h2 {
-          width: 100px;
-          font-size: 12px;
-        }
-      }
-      .inputTelEmployee {
-        margin-top: 10px;
-        h2 {
-          width: 100px;
-          font-size: 12px;
-        }
-      }
-      .inputPositionEmployee {
-        margin-top: 10px;
-        h2 {
-          width: 100px;
-          font-size: 12px;
-        }
-      }
-      .select-product {
-        width: 215px;
-        height: 45px;
-        border-radius: 20px;
-        margin-left: -22px;
-      }
-      .inputImageEmployee {
-        margin-top: 10px;
-        h2 {
-          width: 100px;
-          font-size: 12px;
-        }
-      }
-      .inputPaymentStatus {
-        margin-top: 10px;
-        h2 {
-          width: 100px;
-          font-size: 12px;
-        }
-      }
-      .inputPaymentType {
-        margin-top: 10px;
-        h2 {
-          width: 100px;
-          font-size: 10px;
-        }
-      }
-      .inputAccountNumber {
-        margin-top: 10px;
-        h2 {
-          width: 100px;
-          font-size: 12px;
-        }
-      }
-      .inputBankName {
-        margin-top: 10px;
-        h2 {
-          width: 100px;
-          font-size: 12px;
-        }
-      }
-      .inputAmount {
-        margin-top: 10px;
-        h2 {
-          width: 100px;
-          font-size: 12px;
-        }
-      }
-      .select-product {
-        height: 40px;
-        width: 222px;
-        h2 {
-          width: 100px;
-          font-size: 12px;
-        }
-      }
-      .inputImage {
-        .text-image {
-          width: 210px;
-          max-height: 50px !important;
-        }
-      }
-    }
+    padding: 16px;
+  }
+
+  .input-left {
+    grid-template-columns: 1fr;
   }
 }
