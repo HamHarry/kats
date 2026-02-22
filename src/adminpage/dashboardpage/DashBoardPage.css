@@ -592,6 +592,14 @@
     padding-top: 30px;
   }
 
+  .employee-name {
+    font-size: 0.70rem;
+  }
+
+  .employee-name p {
+    font-size: 0.60rem;
+  }
+
   .navbar-dashboard {
     grid-template-columns: 1fr;
   }

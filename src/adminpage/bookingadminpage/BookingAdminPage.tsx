@@ -268,7 +268,14 @@ const BookingAdminPage = () => {
                         <line x1="8" y1="2" x2="8" y2="6" />
                         <line x1="3" y1="10" x2="21" y2="10" />
                       </svg>
-                      {formattedDate}
+                      <p
+                        style={{
+                          display: "flex",
+                          marginTop: "4px",
+                        }}
+                      >
+                        {formattedDate}
+                      </p>
                     </span>
                     <span>
                       <svg
@@ -282,7 +289,14 @@ const BookingAdminPage = () => {
                         <circle cx="12" cy="12" r="10" />
                         <polyline points="12 6 12 12 16 14" />
                       </svg>
-                      {item.bookTime} น.
+                      <p
+                        style={{
+                          display: "flex",
+                          marginTop: "4px",
+                        }}
+                      >
+                        {item.bookTime} น.
+                      </p>
                     </span>
                   </div>
                 </div>
@@ -448,9 +462,6 @@ const BookingAdminPage = () => {
         onCancel={() => setOpenDialogPay(false)}
       >
         <div className="ImagePay">
-          <div className="NavbarModel">
-            <button onClick={() => setOpenDialogPay(false)}>X</button>
-          </div>
           <img
             src={getImagePath("booking", userInfo?.dbname, selectImagePay)}
             alt="slip"

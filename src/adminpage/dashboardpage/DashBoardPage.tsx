@@ -11,6 +11,7 @@ import { getDashboardSummary } from "../../stores/slices/dashboardSlice";
 import { DashboardSummary } from "../../model/dashboard.type";
 import dayjs from "dayjs";
 import { DeleteStatus } from "../../model/delete.type";
+import { useNavigate } from "react-router-dom";
 
 const thaiMonths = [
   "มกราคม",
@@ -37,6 +38,7 @@ type AttendMap = Record<string, AttendStatus>;
 const DashBoardPage = () => {
   const dispath = useAppDispatch();
   const userInfo = useSelector(userInfoSelector);
+  const navigate = useNavigate();
 
   const [isDashBoardLoading, setIsDashBoardLoading] = useState<boolean>(false);
   const [employeeData, setEmployeeData] = useState<EmployeeData[]>([]);
@@ -172,7 +174,12 @@ const DashBoardPage = () => {
           </div>
 
           {/* Card 2 – Monthly booking count */}
-          <div className="grid-dashboard">
+          <div
+            className="grid-dashboard"
+            onClick={() => {
+              navigate("/admin/calendar");
+            }}
+          >
             <h2>สรุปยอดจองต่อเดือน</h2>
             <div className="wrap-grid-totalBooking">
               {/* Left – total */}
