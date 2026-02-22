@@ -1,749 +1,603 @@
-.container-dashBoradAdminPage {
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  padding: 20px 20px 0px 20px;
-  padding-left: 320px;
-  gap: 20px;
+@import url("https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Sarabun:wght@300;400;500;600&display=swap");
+
+/* ─── Root Variables (shared with BookingAdminPage) ──── */
+:root {
+  --bg-base: #f2f6f4;
+  --bg-surface: #e8eeeb;
+  --bg-card: #ffffff;
+  --bg-card-hover: #f5fdf8;
+  --border: rgba(0, 150, 100, 0.18);
+  --border-active: rgba(0, 180, 120, 0.45);
+
+  --accent-gun: #043929;
+  --accent-coat: #3b82f6;
+
+  --text-primary: #1a2e22;
+  --text-secondary: #4a7a5e;
+  --text-muted: #8ab5a0;
+
+  --status-completed: #10b981;
+  --status-pending: #f59e0b;
+  --status-canceled: #ef4444;
+
+  --shadow-card: 0 2px 12px rgba(0, 120, 80, 0.08), 0 0 0 1px var(--border);
+  --shadow-hover:
+    0 6px 28px rgba(0, 150, 100, 0.15), 0 0 0 1px var(--border-active);
+
+  --radius-card: 16px;
+  --radius-badge: 20px;
 }
 
+/* ─── Page Container ─────────────────────────────────── */
+.container-dashBoradAdminPage {
+  padding: 28px 32px 48px;
+  padding-left: 332px;
+  font-family: "Sarabun", sans-serif;
+  color: var(--text-primary);
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+/* ─── Header ─────────────────────────────────────────── */
 .header-dashBoradAdminPage {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
   align-items: center;
-  height: 160px;
-  max-width: 1200px;
-  width: 100%;
-  border-radius: 20px;
-  background-color: #043929;
-  h1 {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 42px;
-    font-weight: bolder;
-    color: white;
-  }
+  justify-content: space-between;
+  margin-bottom: 28px;
+  position: relative;
+  z-index: 1;
 }
 
+.header-dashBoradAdminPage h1 {
+  font-family: "Rajdhani", sans-serif;
+  font-size: 1.75rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #043929;
+  margin: 0;
+  line-height: 1;
+}
+
+.header-dashBoradAdminPage::after {
+  display: none;
+}
+
+.header-date-block {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.header-time-block {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-active);
+  border-radius: 12px;
+  padding: 10px 20px;
+  box-shadow: var(--shadow-card);
+}
+
+.header-time-block h1 {
+  font-family: "Rajdhani", sans-serif;
+  font-size: 1.5rem !important;
+  font-weight: 700;
+  color: var(--accent-gun) !important;
+  letter-spacing: 0.06em;
+  margin: 0;
+}
+
+/* ─── Main Scrollable Wrapper ────────────────────────── */
 .wrap-container-dashBoradAdminPage {
   display: flex;
   flex-direction: column;
-  .navbar-dashboard {
-    display: grid;
-    grid-template-columns: auto auto auto auto;
-    gap: 10px;
-    .grid-dashboard {
-      display: flex;
-      flex-direction: column;
-      min-width: 300px;
-      border: 2px solid #043929;
-      border-radius: 15px;
-      background-color: #043929;
-      padding: 10px;
-      h2 {
-        font-size: 20px;
-        font-weight: bolder;
-        color: white;
-      }
-    }
+  gap: 20px;
+  overflow-y: auto;
+  flex: 1;
+  padding: 4px 2px;
+}
+
+/* ─── Summary Card Row ───────────────────────────────── */
+.navbar-dashboard {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+/* ─── Summary Card ───────────────────────────────────── */
+.grid-dashboard {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  padding: 18px 20px;
+  box-shadow: var(--shadow-card);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    border-color 0.25s ease;
+  animation: fadeSlideUp 0.4s ease both;
+  position: relative;
+  overflow: hidden;
+}
+
+.grid-dashboard::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent-gun), #0a6644);
+  opacity: 0;
+  transition: opacity 0.25s;
+}
+
+.grid-dashboard:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-hover);
+  border-color: var(--border-active);
+}
+
+.grid-dashboard:hover::before {
+  opacity: 1;
+}
+
+.grid-dashboard h2 {
+  font-family: "Sarabun", sans-serif;
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: #4a7a5e;
+  margin: 0;
+}
+
+@keyframes fadeSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
+/* ─── Next Booking Card Content ──────────────────────── */
 .wrap-grid-showBooking {
   display: flex;
-  padding-top: 10px;
-  gap: 10px;
-  .grid-showBooking-left {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    img {
-      display: flex;
-      width: 100px;
-      justify-content: center;
-      align-items: center;
-      border-radius: 50%;
-      border: 2px solid white;
-    }
-  }
-
-  .grid-showBooking-right {
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    p {
-      font-size: 14px;
-      color: white;
-    }
-  }
+  align-items: center;
+  gap: 14px;
+  padding-top: 4px;
 }
 
-.wrap-grid-totalBooking {
+.grid-showBooking-left img {
+  width: 65px;
+  height: 65px;
+  border-radius: 10px;
+  object-fit: cover;
+  border: 1px solid var(--border-active);
+}
+
+.grid-showBooking-right {
   display: flex;
-  justify-content: space-around;
-  padding-top: 10px;
-  .grid-totalBooking-left {
-    display: flex;
-    align-items: center;
-    .box {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background-color: #ffd86b;
-      padding: 0px 10px 0px 10px;
-      border-radius: 10px;
-      h2 {
-        margin-top: 3px;
-        margin-right: 3px;
-        font-size: 36px;
-        font-weight: bolder;
-        color: #043929;
-      }
-    }
-  }
-
-  .grid-totalBooking-right {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    p {
-      font-size: 14px;
-      font-weight: bolder;
-      color: white;
-    }
-  }
+  flex-direction: column;
+  padding-left: 6px;
+  gap: 3px;
 }
 
+.grid-showBooking-right p {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+.grid-showBooking-right p strong {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+/* ─── Total Booking Card Content ─────────────────────── */
+.wrap-grid-totalBooking {
+  display: grid;
+  grid-template-columns: 1fr 1px 1fr;
+  align-items: center;
+  gap: 0;
+  padding-top: 4px;
+  flex: 1;
+}
+
+/* vertical divider */
+.totalBooking-divider {
+  width: 1px;
+  height: 56px;
+  background: var(--border);
+  margin: 0 auto;
+}
+
+.grid-totalBooking-left {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 8px 0;
+}
+
+.grid-totalBooking-left .total-number {
+  font-family: "Rajdhani", sans-serif;
+  font-size: 3.6rem;
+  font-weight: 700;
+  color: #043929;
+  line-height: 1;
+  margin: 0;
+}
+
+.grid-totalBooking-left .total-label {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  font-weight: 500;
+  letter-spacing: 0.03em;
+}
+
+.grid-totalBooking-right {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 8px 0;
+}
+
+.grid-totalBooking-right .stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0px;
+}
+
+.grid-totalBooking-right .stat-label {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.grid-totalBooking-right .stat-number {
+  font-family: "Rajdhani", sans-serif;
+  font-size: 2.2rem;
+  font-weight: 700;
+  line-height: 1.1;
+  margin: 0;
+}
+
+/* ─── Financial Card Content ─────────────────────────── */
 .wrap-grid-financial {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  padding-top: 20px;
-  .grid-financial-top {
-    display: flex;
-    justify-content: space-around;
-    .grid-financial-left {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-      p {
-        font-size: 14px;
-        font-weight: bolder;
-        color: white;
-      }
-      h2 {
-        font-weight: bolder;
-        color: #4aff88;
-      }
-    }
-
-    .grid-financial-right {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-      p {
-        font-size: 14px;
-        font-weight: bolder;
-        color: white;
-      }
-      h2 {
-        font-weight: bolder;
-        color: #ff4d4f;
-      }
-    }
-  }
-
-  .grid-financial-bottom {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    margin-top: 10px;
-    font-weight: bolder;
-    font-size: 32px;
-    color: white;
-  }
-}
-
-.wrap-grid-employee {
-  display: flex;
-  justify-content: space-around;
-  padding-top: 20px;
-  .grid-employee-left {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    p {
-      font-size: 14px;
-      color: #ffa726;
-      font-weight: bolder;
-    }
-    .tap-employee {
-      display: flex;
-      h2 {
-        font-size: 32px;
-        font-weight: bolder;
-      }
-    }
-  }
-
-  .grid-employee-right {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    p {
-      font-size: 14px;
-      color: #ff4d4f;
-      font-weight: bolder;
-    }
-    .tap-employee {
-      display: flex;
-      h2 {
-        font-size: 32px;
-        font-weight: bolder;
-      }
-    }
-  }
-}
-
-.content-dashboard {
-  display: grid;
-  grid-template-columns: 3fr 1fr;
   gap: 10px;
-  padding-top: 20px;
-  .wrap-content-dashboard-left {
-    display: flex;
-    flex-direction: column;
-    background-color: #043929;
-    border-radius: 20px;
-    padding: 20px;
-    gap: 20px;
-
-    .header-content-dashboard-left {
-      display: flex;
-      align-items: center;
-      .fa-user {
-        font-size: 24px;
-        color: white;
-        margin-right: 10px;
-      }
-      h1 {
-        font-size: 24px;
-        font-weight: bolder;
-        color: white;
-      }
-    }
-
-    .overflow {
-      overflow: hidden;
-      height: 360px;
-      .wrap-grid-employee-name {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        overflow: hidden;
-        .grid-employee-name {
-          display: flex;
-          align-items: center;
-          gap: 10px;
-          padding: 5px;
-
-          img {
-            display: flex;
-            width: 80px;
-            height: 80px;
-            justify-content: center;
-            align-items: center;
-            border-radius: 50%;
-            border: 2px solid white;
-          }
-
-          .employee-name {
-            display: flex;
-            flex-direction: column;
-            color: white;
-          }
-        }
-
-        .checking {
-          display: flex;
-          justify-content: center;
-          .checkbox-Missing-work {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 100px;
-            height: 30px;
-            margin: 5px;
-            background-color: #ff4d4f;
-            color: white;
-            border-radius: 10px;
-            cursor: pointer;
-          }
-          .checkbox-Missing-work-selected {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 100px;
-            height: 30px;
-            margin: 5px;
-            background-color: #d32f2f;
-            color: white;
-            border-radius: 10px;
-            cursor: pointer;
-            border: 2px solid white;
-          }
-          .checkbox-Leave-work {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 100px;
-            height: 30px;
-            margin: 5px;
-            background-color: #f9a825;
-            color: white;
-            border-radius: 10px;
-            cursor: pointer;
-          }
-          .checkbox-Leave-work-selected {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 100px;
-            height: 30px;
-            margin: 5px;
-            background-color: #e68900;
-            color: white;
-            border-radius: 10px;
-            cursor: pointer;
-            border: 2px solid white;
-          }
-          .checkbox-Attend-work {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 100px;
-            height: 30px;
-            margin: 5px;
-            background-color: #4aff88;
-            color: white;
-            border-radius: 10px;
-            cursor: pointer;
-          }
-          .checkbox-Attend-work-selected {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 100px;
-            height: 30px;
-            margin: 5px;
-            background-color: #4caf50;
-            color: white;
-            border-radius: 10px;
-            cursor: pointer;
-            border: 2px solid white;
-          }
-        }
-      }
-    }
-    .overflow:hover {
-      overflow: auto;
-    }
-  }
+  padding-top: 4px;
 }
 
-.content-dashboard-right {
+.grid-financial-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.grid-financial-left,
+.grid-financial-right {
+  flex: 1;
   display: flex;
   flex-direction: column;
+  gap: 2px;
+}
+
+.grid-financial-left p,
+.grid-financial-right p {
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--text-muted);
+  font-weight: 500;
+  margin: 0;
+}
+
+.grid-financial-left h2,
+.grid-financial-right h2 {
+  font-family: "Rajdhani", sans-serif;
+  font-size: 1.5rem !important;
+  font-weight: 700;
+  text-transform: none !important;
+  letter-spacing: 0 !important;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.grid-financial-divider {
+  height: 1px;
+  background: var(--border);
+}
+
+.grid-financial-bottom {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.grid-financial-bottom .net-label {
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.grid-financial-bottom h1 {
+  font-family: "Rajdhani", sans-serif;
+  display: flex;
   justify-content: center;
+  font-size: 1.9rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0;
+  letter-spacing: 0.02em;
+  line-height: 1.1;
+}
+
+/* ─── Content Row (Employee full width) ─────────────── */
+.content-dashboard {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+/* ─── Employee Panel ─────────────────────────────────── */
+.wrap-content-dashboard-left {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  flex: 1;
+}
+
+.header-content-dashboard-left {
+  display: flex;
   align-items: center;
   gap: 10px;
-  img {
-    width: 150px;
-    height: auto;
-    border-radius: 50%;
-  }
+  padding: 16px 20px;
+  border-bottom: 1px solid rgba(0, 150, 100, 0.15);
+  background: linear-gradient(
+    135deg,
+    rgba(4, 57, 41, 0.06),
+    rgba(4, 57, 41, 0.02)
+  );
+  flex-shrink: 0;
 }
 
-/* ============================================
-   TABLET (iPad) - 768px to 1024px
-   ============================================ */
-@media (max-width: 1024px) {
+.header-content-dashboard-left .fa-user {
+  font-size: 1rem;
+  color: #043929;
+}
+
+.header-content-dashboard-left h1 {
+  font-family: "Rajdhani", sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #043929;
+  margin: 0;
+}
+
+.overflow {
+  overflow: hidden;
+  flex: 1;
+}
+
+.overflow:hover {
+  overflow-y: auto;
+}
+
+/* ─── Employee Row ───────────────────────────────────── */
+.wrap-grid-employee-name {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  border-bottom: 1px solid var(--border);
+  transition: background 0.18s ease;
+}
+
+.wrap-grid-employee-name:last-child {
+  border-bottom: none;
+}
+
+.wrap-grid-employee-name:hover {
+  background: var(--bg-card-hover);
+}
+
+.grid-employee-name {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.grid-employee-name img {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  object-fit: cover;
+  border: 1px solid var(--border-active);
+  flex-shrink: 0;
+}
+
+.employee-name {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: #043929;
+}
+
+.employee-name p {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-secondary);
+  margin: 0;
+  font-weight: 400;
+}
+
+/* ─── Attendance Buttons ─────────────────────────────── */
+.checking {
+  display: flex;
+  gap: 6px;
+}
+
+.checking > div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px 14px;
+  border-radius: 8px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.18s ease;
+  border: 1px solid transparent;
+  letter-spacing: 0.02em;
+}
+
+/* Missing */
+.checkbox-Missing-work {
+  background: rgba(239, 68, 68, 0.1);
+  color: var(--status-canceled);
+  border-color: rgba(239, 68, 68, 0.3) !important;
+}
+
+.checkbox-Missing-work:hover,
+.checkbox-Missing-work-selected {
+  background: var(--status-canceled) !important;
+  color: #fff !important;
+  border-color: var(--status-canceled) !important;
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+}
+
+/* Leave */
+.checkbox-Leave-work {
+  background: rgba(245, 158, 11, 0.1);
+  color: var(--status-pending);
+  border-color: rgba(245, 158, 11, 0.3) !important;
+}
+
+.checkbox-Leave-work:hover,
+.checkbox-Leave-work-selected {
+  background: var(--status-pending) !important;
+  color: #fff !important;
+  border-color: var(--status-pending) !important;
+  box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
+}
+
+/* Attend */
+.checkbox-Attend-work {
+  background: rgba(16, 185, 129, 0.1);
+  color: var(--status-completed);
+  border-color: rgba(16, 185, 129, 0.3) !important;
+}
+
+.checkbox-Attend-work:hover,
+.checkbox-Attend-work-selected {
+  background: var(--status-completed) !important;
+  color: #fff !important;
+  border-color: var(--status-completed) !important;
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+}
+
+/* ─── Right Placeholder Panel ────────────────────────── */
+.content-dashboard-right {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  padding: 24px;
+  color: var(--text-muted);
+  font-size: 0.88rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+
+.content-dashboard-right img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  border: 1px solid var(--border-active);
+  object-fit: cover;
+  opacity: 0.6;
+}
+
+/* ─── Responsive ─────────────────────────────────────── */
+@media (max-width: 1280px) {
   .container-dashBoradAdminPage {
-    padding-left: 250px;
-  }
-
-  .header-dashBoradAdminPage {
-    h1 {
-      font-size: 32px;
-    }
-  }
-
-  .wrap-container-dashBoradAdminPage {
-    .navbar-dashboard {
-      grid-template-columns: auto auto;
-      gap: 15px;
-      .grid-dashboard {
-        min-width: 280px;
-      }
-    }
-  }
-
-  .content-dashboard {
-    grid-template-columns: 1fr;
-    gap: 15px;
-  }
-
-  .content-dashboard-right {
-    img {
-      width: 120px;
-    }
-  }
-
-  .wrap-grid-employee-name {
-    flex-direction: column;
-    gap: 10px;
-    .checking {
-      width: 100%;
-      justify-content: space-around;
-      div {
-        width: auto;
-        padding: 5px 15px;
-        font-size: 12px;
-      }
-    }
+    padding-left: 282px;
   }
 }
 
-/* ============================================
-   SMALL TABLET - 768px
-   ============================================ */
+@media (max-width: 1080px) {
+  .container-dashBoradAdminPage {
+    padding-left: 232px;
+  }
+
+  .navbar-dashboard {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
 @media (max-width: 768px) {
   .container-dashBoradAdminPage {
     padding-left: 220px;
-    gap: 15px;
+    padding: 20px 16px 32px 220px;
   }
 
-  .header-dashBoradAdminPage {
-    height: 120px;
-    h1 {
-      font-size: 22px;
-      padding: 10px;
-    }
-  }
-
-  .wrap-container-dashBoradAdminPage {
-    .navbar-dashboard {
-      grid-template-columns: 1fr;
-      gap: 12px;
-      .grid-dashboard {
-        min-width: 100%;
-        padding: 15px;
-        h2 {
-          font-size: 18px;
-          margin-bottom: 10px;
-        }
-      }
-    }
-  }
-
-  .wrap-grid-showBooking {
-    align-items: center;
-    .grid-showBooking-left {
-      img {
-        width: 80px;
-      }
-    }
-    .grid-showBooking-right {
-      p {
-        font-size: 13px;
-      }
-    }
-  }
-
-  .wrap-grid-totalBooking {
-    gap: 15px;
-    .grid-totalBooking-left {
-      justify-content: center;
-      .box {
-        padding: 10px 20px;
-        h2 {
-          font-size: 28px;
-        }
-      }
-    }
-    .grid-totalBooking-right {
-      p {
-        font-size: 13px;
-      }
-    }
-  }
-
-  .wrap-grid-financial {
-    .grid-financial-top {
-      gap: 15px;
-      .grid-financial-left,
-      .grid-financial-right {
-        p {
-          font-size: 13px;
-        }
-        h2 {
-          font-size: 20px;
-        }
-      }
-    }
-    .grid-financial-bottom {
-      font-size: 18px;
-      margin-top: 15px;
-    }
-  }
-
-  .wrap-grid-employee {
-    flex-direction: column;
-    gap: 15px;
-    .grid-employee-left,
-    .grid-employee-right {
-      width: 100%;
-      p {
-        font-size: 13px;
-      }
-      .tap-employee {
-        h2 {
-          font-size: 24px;
-        }
-      }
-    }
-  }
-
-  .content-dashboard {
+  .navbar-dashboard {
     grid-template-columns: 1fr;
-    gap: 15px;
-    padding-top: 15px;
-
-    .wrap-content-dashboard-left {
-      padding: 15px;
-      gap: 15px;
-
-      .header-content-dashboard-left {
-        .fa-user {
-          font-size: 20px;
-        }
-        h1 {
-          font-size: 20px;
-        }
-      }
-
-      .wrap-grid-employee-name {
-        flex-direction: column;
-        gap: 12px;
-        padding: 10px;
-        align-items: flex-start;
-
-        .grid-employee-name {
-          width: 100%;
-          gap: 15px;
-          img {
-            width: 70px;
-            height: 70px;
-          }
-          .employee-name {
-            font-size: 14px;
-          }
-        }
-
-        .checking {
-          width: 100%;
-          flex-direction: column;
-          gap: 8px;
-          div {
-            width: 100%;
-            height: 35px;
-            font-size: 13px;
-            border-radius: 8px;
-          }
-          .checkbox-Missing-work,
-          .checkbox-Missing-work-selected,
-          .checkbox-Leave-work,
-          .checkbox-Leave-work-selected,
-          .checkbox-Attend-work,
-          .checkbox-Attend-work-selected {
-            margin: 0;
-          }
-        }
-      }
-    }
-  }
-
-  .content-dashboard-right {
-    gap: 15px;
-    img {
-      width: 100px;
-    }
   }
 }
 
-/* ============================================
-   MOBILE - Below 500px
-   ============================================ */
 @media (max-width: 600px) {
   .container-dashBoradAdminPage {
-    padding-left: 20px;
+    padding: 16px 12px 32px;
   }
 
   .header-dashBoradAdminPage {
-    height: 100px;
-    h1 {
-      font-size: 18px;
-      padding: 5px;
-    }
-  }
-
-  .wrap-container-dashBoradAdminPage {
-    .navbar-dashboard {
-      grid-template-columns: 1fr;
-      gap: 10px;
-      .grid-dashboard {
-        min-width: 100%;
-        padding: 12px;
-        h2 {
-          font-size: 16px;
-          margin-bottom: 8px;
-        }
-      }
-    }
-  }
-
-  .wrap-grid-showBooking {
-    gap: 10px;
-    .grid-showBooking-left {
-      img {
-        width: 60px;
-      }
-    }
-    .grid-showBooking-right {
-      p {
-        font-size: 12px;
-      }
-    }
-  }
-
-  .wrap-grid-totalBooking {
-    .grid-totalBooking-left {
-      .box {
-        padding: 15px 15px 8px 15px;
-        h2 {
-          font-size: 24px;
-        }
-      }
-    }
-    .grid-totalBooking-right {
-      p {
-        font-size: 12px;
-      }
-    }
-  }
-
-  .wrap-grid-financial {
-    .grid-financial-top {
-      .grid-financial-left,
-      .grid-financial-right {
-        p {
-          font-size: 12px;
-        }
-        h2 {
-          font-size: 18px;
-        }
-      }
-    }
-    .grid-financial-bottom {
-      font-size: 16px;
-    }
-  }
-
-  .wrap-grid-employee {
     flex-direction: column;
-    gap: 12px;
-    .grid-employee-left,
-    .grid-employee-right {
-      p {
-        font-size: 12px;
-      }
-      .tap-employee {
-        h2 {
-          font-size: 20px;
-        }
-      }
-    }
-  }
-
-  .content-dashboard {
-    .wrap-content-dashboard-left {
-      padding: 12px;
-      gap: 12px;
-
-      .header-content-dashboard-left {
-        .fa-user {
-          font-size: 18px;
-        }
-        h1 {
-          font-size: 18px;
-        }
-      }
-
-      .wrap-grid-employee-name {
-        gap: 10px;
-        padding: 8px;
-
-        .grid-employee-name {
-          img {
-            width: 60px;
-            height: 60px;
-          }
-          .employee-name {
-            font-size: 13px;
-          }
-        }
-
-        .checking {
-          width: 100%;
-          div {
-            font-size: 12px;
-            height: 32px;
-            border-radius: 6px;
-          }
-          .checkbox-Missing-work {
-            width: 100% !important;
-          }
-          .checkbox-Missing-work-selected {
-            width: 100% !important;
-          }
-          .checkbox-Leave-work {
-            width: 100% !important;
-          }
-          .checkbox-Leave-work-selected {
-            width: 100% !important;
-          }
-          .checkbox-Attend-work {
-            width: 100% !important;
-          }
-          .checkbox-Attend-work-selected {
-            width: 100% !important;
-          }
-        }
-      }
-    }
-  }
-
-  .content-dashboard-right {
+    align-items: center;
     gap: 10px;
-    img {
-      width: 80px;
-    }
+    padding-top: 30px;
+  }
+
+  .navbar-dashboard {
+    grid-template-columns: 1fr;
+  }
+
+  .checking > div {
+    padding: 5px 8px;
+    font-size: 0.72rem;
   }
 }
