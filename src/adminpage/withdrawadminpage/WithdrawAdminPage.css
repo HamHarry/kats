@@ -917,13 +917,10 @@
     width: 100%;
   }
   .container-DialogApprove-Expense .btn-DialogApprove-Navbar {
-    flex-direction: column;
-    align-items: stretch;
     padding: 16px;
   }
   .container-DialogApprove-Expense .btn-DialogApprove-Navbar button,
   .container-DialogApprove-Expense .btn-DialogApprove-Navbar a {
-    width: 100%;
     text-align: center;
   }
 
