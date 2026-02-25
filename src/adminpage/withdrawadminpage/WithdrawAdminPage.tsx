@@ -1,13 +1,21 @@
 import { useNavigate } from "react-router-dom";
 import "./WithdrawAdminPage.css";
-import { Button, Modal, Space, Table, Typography } from "antd";
+import { Modal, Space, Table, Tooltip, Typography } from "antd";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { FileAddFilled } from "@ant-design/icons";
 import CircleLoading from "../../shared/circleLoading";
 import { useAppDispatch } from "../../stores/store";
-import { approveExpenseById, getAllExpenses, isDeleteExpenseById } from "../../stores/slices/expenseSlice";
+import {
+  approveExpenseById,
+  getAllExpenses,
+  isDeleteExpenseById,
+} from "../../stores/slices/expenseSlice";
 import { EmployeeData } from "../../model/employee.type";
-import { CatagoryDetail, ExpenseStatus, FinanceData } from "../../model/finance.type";
+import {
+  CatagoryDetail,
+  ExpenseStatus,
+  FinanceData,
+} from "../../model/finance.type";
 import dayjs from "dayjs";
 import { DeleteStatus } from "../../model/delete.type";
 import { getAllEmployees } from "../../stores/slices/employeeSlice";
@@ -17,40 +25,53 @@ import { userInfoSelector } from "../../stores/slices/authSlice";
 import { getImagePath } from "../../shared/utils/common";
 import { uploadFile } from "../../services/coreService";
 
+/* ── helpers ─────────────────────────────────────────── */
+const getStatusMeta = (status: number) => {
+  switch (status) {
+    case 0:
+      return { label: "รออนุมัติ", key: "pending" };
+    case 1:
+      return { label: "อนุมัติแล้ว", key: "approved" };
+    default:
+      return { label: "ยกเลิกเอกสาร", key: "cancelled" };
+  }
+};
+
+/* ── component ───────────────────────────────────────── */
 const WithdrawAdminPage = () => {
   const dispath = useAppDispatch();
   const navigate = useNavigate();
   const userInfo = useSelector(userInfoSelector);
+
   const [withdrawData, setWithdrawData] = useState<FinanceData[]>([]);
+  const [isExpenseLoading, setIsExpenseLoading] = useState(false);
+  const [isEmployeeLoading, setIsEmployeeLoading] = useState(false);
 
-  const [isExpenseLoading, setIsExpenseLoading] = useState<boolean>(false);
-  const [isEmployeeLoading, setIsEmployeeLoading] = useState<boolean>(false);
+  const [openDialogConfirmDelete, setOpenDialogConfirmDelete] = useState(false);
+  const [openDialogConfirmApprove, setOpenDialogConfirmApprove] =
+    useState(false);
+  const [openDialogCancelApprove, setOpenDialogCancelApprove] = useState(false);
 
-  const [openDialogConfirmDelete, setOpenDialogConfirmDelete] = useState<boolean>(false);
-  const [openDialogConfirmApprove, setOpenDialogConfirmApprove] = useState<boolean>(false);
-  const [openDialogCancelApprove, setOpenDialogCancelApprove] = useState<boolean>(false);
   const [selectedExpenseData, setSelectedExpenseData] = useState<FinanceData>();
   const [baseImage, setBaseImage] = useState<File | null>();
   const [imageUrl, setImageUrl] = useState<string>();
   const [employeeData, setEmployeeData] = useState<EmployeeData[]>([]);
-  const [currentMobilePage, setCurrentMobilePage] = useState<number>(1);
+  const [currentMobilePage, setCurrentMobilePage] = useState(1);
 
   const isMobile = useMobileMatch(640);
 
+  /* ── data fetching ──────────────────────────────────── */
   const fetchAllExpense = useCallback(async () => {
     try {
       setIsExpenseLoading(true);
-      const { data: ExpensesRes = [] } = await dispath(getAllExpenses()).unwrap();
-
-      const filteredExpenses = ExpensesRes.filter((item: FinanceData) => {
-        return item.delete === DeleteStatus.ISNOTDELETE;
-      }).sort((a: any, b: any) => {
-        const dateA = new Date(a.date || "").getTime();
-        const dateB = new Date(b.date || "").getTime();
-        return dateB - dateA; // เรียงจากวันที่สุดท้ายก่อน (ล่างสุด)
-      });
-
-      setWithdrawData(filteredExpenses);
+      const { data: ExpensesRes = [] } =
+        await dispath(getAllExpenses()).unwrap();
+      const filtered = ExpensesRes.filter(
+        (item: FinanceData) => item.delete === DeleteStatus.ISNOTDELETE,
+      ).sort((a: any, b: any) =>
+        b.codeId.localeCompare(a.codeId, undefined, { numeric: true }),
+      );
+      setWithdrawData(filtered);
     } catch (error) {
       console.log(error);
     } finally {
@@ -65,8 +86,8 @@ const WithdrawAdminPage = () => {
   const fetchEmployeeData = useCallback(async () => {
     try {
       setIsEmployeeLoading(true);
-      const { data: EmployeesRes = [] } = await dispath(getAllEmployees()).unwrap();
-
+      const { data: EmployeesRes = [] } =
+        await dispath(getAllEmployees()).unwrap();
       setEmployeeData(EmployeesRes);
     } catch (error) {
       console.log(error);
@@ -79,8 +100,8 @@ const WithdrawAdminPage = () => {
     fetchEmployeeData();
   }, [fetchEmployeeData]);
 
-  // เก็บไฟล์รูปภาพเป็น Base64
-  const uploadImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  /* ── image upload ───────────────────────────────────── */
+  const uploadImage = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
     setImageUrl(URL.createObjectURL(file));
@@ -88,186 +109,36 @@ const WithdrawAdminPage = () => {
   };
 
   const getExpenseSlipImage = useMemo(() => {
-    if (imageUrl) {
-      return imageUrl;
-    } else {
-      console.log(getImagePath("expenses", userInfo?.dbname, selectedExpenseData?.slip));
-      return getImagePath("expenses", userInfo?.dbname, selectedExpenseData?.slip);
-    }
+    if (imageUrl) return imageUrl;
+    return getImagePath(
+      "expenses",
+      userInfo?.dbname,
+      selectedExpenseData?.slip,
+    );
   }, [selectedExpenseData, imageUrl, userInfo]);
 
-  const columns = [
-    {
-      title: "เลขที่",
-      dataIndex: "codeId",
-      key: "codeId",
-      width: 55,
-      sorter: (a: FinanceData, b: FinanceData) => {
-        const codeA = String(a.codeId || "");
-        const codeB = String(b.codeId || "");
-        return codeA.localeCompare(codeB);
-      },
-      defaultSortOrder: "descend" as const,
-    },
-    {
-      title: "ผู้สร้างเอกสาร",
-      dataIndex: "employee",
-      key: "employee",
-      width: 120,
-      render: (employee: EmployeeData) => {
-        return (
-          <Typography>
-            {employee.firstName} {employee.lastName}
-          </Typography>
-        );
-      },
-      sorter: (a: FinanceData, b: FinanceData) => {
-        const nameA = `${a.employee?.firstName || ""} ${a.employee?.lastName || ""}`;
-        const nameB = `${b.employee?.firstName || ""} ${b.employee?.lastName || ""}`;
-        return nameA.localeCompare(nameB);
-      },
-    },
-    {
-      title: "หัวข้อ",
-      dataIndex: "ownerName",
-      key: "ownerName",
-      width: 130,
-      sorter: (a: FinanceData, b: FinanceData) => {
-        const nameA = String(a.ownerName || "");
-        const nameB = String(b.ownerName || "");
-        return nameA.localeCompare(nameB);
-      },
-    },
-    {
-      title: "รายละเอียด",
-      dataIndex: "detel",
-      key: "detel",
-      width: 200,
-      sorter: (a: FinanceData, b: FinanceData) => {
-        const detelA = String(a.detel || "");
-        const detelB = String(b.detel || "");
-        return detelA.localeCompare(detelB);
-      },
-    },
-    {
-      title: "วันที่สร้าง",
-      dataIndex: "date",
-      key: "date",
-      width: 80,
-      render: (date: string) => {
-        const formattedDate = date ? dayjs(date).format("DD/MM/YYYY") : "-";
-        return <Typography>{formattedDate}</Typography>;
-      },
-      sorter: (a: FinanceData, b: FinanceData) => {
-        const dateA = new Date(a.date || "").getTime();
-        const dateB = new Date(b.date || "").getTime();
-        return dateA - dateB;
-      },
-    },
-    {
-      title: "วันที่ชำระเงิน",
-      dataIndex: "datePrice",
-      key: "datePrice",
-      width: 80,
-      render: (datePrice: string) => {
-        const formattedDate = datePrice ? dayjs(datePrice).format("DD/MM/YYYY") : "";
-        return <Typography>{formattedDate}</Typography>;
-      },
-      sorter: (a: FinanceData, b: FinanceData) => {
-        const dateA = new Date(a.datePrice || "").getTime();
-        const dateB = new Date(b.datePrice || "").getTime();
-        return dateA - dateB;
-      },
-    },
-    {
-      title: "รวมยอดค่าใช้จ่าย",
-      dataIndex: "categorys",
-      key: "categorys",
-      width: 90,
-      render: (categorys: CatagoryDetail[]) => {
-        const total = categorys.reduce((prev, item) => {
-          return prev + item.amount;
-        }, 0);
-
-        return <Typography>{total}</Typography>;
-      },
-      sorter: (a: FinanceData, b: FinanceData) => {
-        const totalA = (a.categorys || []).reduce((prev, item) => prev + item.amount, 0);
-        const totalB = (b.categorys || []).reduce((prev, item) => prev + item.amount, 0);
-        return totalA - totalB;
-      },
-    },
-    {
-      title: "สถานะ",
-      dataIndex: "status",
-      key: "status",
-      width: 65,
-      fixed: "right" as const,
-      render: (status: number) => {
-        const statusText = status === 0 ? "รออนุมัติ" : status === 1 ? "อนุมัติแล้ว" : "ยกเลิกเอกสาร";
-
-        const color = status === 0 ? "#FFD700" : status === 1 ? "#008B00" : "#FF0000";
-        return <Typography style={{ color }}>{statusText}</Typography>;
-      },
-      sorter: (a: FinanceData, b: FinanceData) => {
-        return (a.status || 0) - (b.status || 0);
-      },
-    },
-    {
-      title: "",
-      key: "action",
-      width: 50,
-      fixed: "right" as const,
-      render: (item: FinanceData) => (
-        <Space
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            fontSize: "14px",
-          }}
-        >
-          <a
-            className={item.status === 1 ? "linkIsNone" : item.status === 2 ? "linkIsNone" : ""}
-            onClick={(e) => {
-              e.stopPropagation();
-              navigate(`/admin/withdraw/edit/withdraw/${item._id}`);
-            }}
-          >
-            แก้ไข
-          </a>
-          <a
-            onClick={(e) => {
-              e.stopPropagation();
-              setSelectedExpenseData(item);
-              setOpenDialogConfirmDelete(true);
-            }}
-          >
-            ลบ
-          </a>
-        </Space>
-      ),
-    },
-  ];
+  /* ── actions ────────────────────────────────────────── */
+  const onClose = () => {
+    setImageUrl(undefined);
+    setBaseImage(undefined);
+    setSelectedExpenseData(undefined);
+    setCurrentMobilePage(1);
+  };
 
   const approved = async () => {
     try {
       setIsExpenseLoading(true);
       if (!selectedExpenseData?._id) return;
-
       let slipImageName = "";
-      if (baseImage) {
-        slipImageName = await uploadFile(baseImage);
-      }
-
-      const body: FinanceData = {
-        ...selectedExpenseData,
-        datePrice: dayjs().toISOString(),
-        status: ExpenseStatus.APPROVE,
-        slip: slipImageName.trim(),
-      };
-
-      await dispath(approveExpenseById(body)).unwrap();
+      if (baseImage) slipImageName = await uploadFile(baseImage);
+      await dispath(
+        approveExpenseById({
+          ...selectedExpenseData,
+          datePrice: dayjs().toISOString(),
+          status: ExpenseStatus.APPROVE,
+          slip: slipImageName.trim(),
+        }),
+      ).unwrap();
     } catch (error) {
       console.log(error);
     } finally {
@@ -280,14 +151,13 @@ const WithdrawAdminPage = () => {
     try {
       setIsExpenseLoading(true);
       if (!selectedExpenseData?._id) return;
-
-      const body: FinanceData = {
-        ...selectedExpenseData,
-        datePrice: dayjs().toISOString(),
-        status: ExpenseStatus.CANCEL,
-      };
-
-      await dispath(approveExpenseById(body)).unwrap();
+      await dispath(
+        approveExpenseById({
+          ...selectedExpenseData,
+          datePrice: dayjs().toISOString(),
+          status: ExpenseStatus.CANCEL,
+        }),
+      ).unwrap();
     } catch (error) {
       console.log(error);
     } finally {
@@ -300,13 +170,12 @@ const WithdrawAdminPage = () => {
     try {
       setIsExpenseLoading(true);
       if (!selectedExpenseData?._id) return;
-
-      const body: FinanceData = {
-        ...selectedExpenseData,
-        delete: DeleteStatus.ISDELETE,
-      };
-
-      await dispath(isDeleteExpenseById(body)).unwrap();
+      await dispath(
+        isDeleteExpenseById({
+          ...selectedExpenseData,
+          delete: DeleteStatus.ISDELETE,
+        }),
+      ).unwrap();
     } catch (error) {
       console.log(error);
     } finally {
@@ -316,593 +185,437 @@ const WithdrawAdminPage = () => {
     }
   };
 
-  const onCLose = () => {
-    setImageUrl(undefined);
-    setBaseImage(undefined);
-    setSelectedExpenseData(undefined);
-    setCurrentMobilePage(1);
-  }
-
-  const rederDialogConfirmApprove = () => {
-    const formattedDate = selectedExpenseData ? dayjs(selectedExpenseData.date).format("DD/MM/YYYY") : "";
-
-    const formattedDatePrice = selectedExpenseData?.datePrice ? dayjs(selectedExpenseData.datePrice).format("DD/MM/YYYY") : "";
-
-    const formattedStatus = selectedExpenseData?.status === 0 ? "รออนุมัติ" : selectedExpenseData?.status === 1 ? "อนุมัติแล้ว" : "ยกเลิกเอกสาร";
-
-    const total = selectedExpenseData?.categorys.reduce((prev, item) => {
-      return prev + item.amount;
-    }, 0);
-
-    const employeeName = employeeData.find((item) => {
-      return item._id === selectedExpenseData?.employeeId;
-    });
-
-    const section = selectedExpenseData?.section === 0 ? "ค่าใช้จ่าย" : "เบิกเงินเดือน";
-
-    return (
-      <Modal
-        centered
-        className="container-DialogApprove-Expense"
-        open={openDialogConfirmApprove}
-        onCancel={() => {
-          setOpenDialogConfirmApprove(false);
-          onCLose()
-        }}
-        footer={
-          selectedExpenseData?.status === 0 && (
-            <div className="btn-DialogApprove-Navbar">
-              <button
-                type="button"
-                onClick={() => {
-                  approved();
-                  onCLose()
-                  setOpenDialogConfirmApprove(false);
-                }}
+  /* ── table columns ──────────────────────────────────── */
+  const columns = [
+    {
+      title: "เลขที่",
+      dataIndex: "codeId",
+      key: "codeId",
+      width: 55,
+      sorter: (a: FinanceData, b: FinanceData) =>
+        String(a.codeId || "").localeCompare(String(b.codeId || "")),
+      defaultSortOrder: "descend" as const,
+    },
+    {
+      title: "ผู้สร้างเอกสาร",
+      dataIndex: "employee",
+      key: "employee",
+      width: 120,
+      render: (employee: EmployeeData) => (
+        <Typography>
+          {employee.firstName} {employee.lastName}
+        </Typography>
+      ),
+      sorter: (a: FinanceData, b: FinanceData) => {
+        const nameA = `${a.employee?.firstName || ""} ${a.employee?.lastName || ""}`;
+        const nameB = `${b.employee?.firstName || ""} ${b.employee?.lastName || ""}`;
+        return nameA.localeCompare(nameB);
+      },
+    },
+    {
+      title: "หัวข้อ",
+      dataIndex: "ownerName",
+      key: "ownerName",
+      width: 130,
+      sorter: (a: FinanceData, b: FinanceData) =>
+        String(a.ownerName || "").localeCompare(String(b.ownerName || "")),
+    },
+    {
+      title: "รายละเอียด",
+      dataIndex: "detel",
+      key: "detel",
+      width: 200,
+      sorter: (a: FinanceData, b: FinanceData) =>
+        String(a.detel || "").localeCompare(String(b.detel || "")),
+    },
+    {
+      title: "วันที่สร้าง",
+      dataIndex: "date",
+      key: "date",
+      width: 80,
+      render: (date: string) => (
+        <Typography>{date ? dayjs(date).format("DD/MM/YYYY") : "-"}</Typography>
+      ),
+      sorter: (a: FinanceData, b: FinanceData) =>
+        new Date(a.date || "").getTime() - new Date(b.date || "").getTime(),
+    },
+    {
+      title: "วันที่ชำระเงิน",
+      dataIndex: "datePrice",
+      key: "datePrice",
+      width: 80,
+      render: (datePrice: string) => (
+        <Typography>
+          {datePrice ? dayjs(datePrice).format("DD/MM/YYYY") : ""}
+        </Typography>
+      ),
+      sorter: (a: FinanceData, b: FinanceData) =>
+        new Date(a.datePrice || "").getTime() -
+        new Date(b.datePrice || "").getTime(),
+    },
+    {
+      title: "รวมยอดค่าใช้จ่าย",
+      dataIndex: "categorys",
+      key: "categorys",
+      width: 90,
+      render: (categorys: CatagoryDetail[]) => (
+        <Typography>{categorys.reduce((p, i) => p + i.amount, 0)}</Typography>
+      ),
+      sorter: (a: FinanceData, b: FinanceData) => {
+        const tA = (a.categorys || []).reduce((p, i) => p + i.amount, 0);
+        const tB = (b.categorys || []).reduce((p, i) => p + i.amount, 0);
+        return tA - tB;
+      },
+    },
+    {
+      title: "สถานะ",
+      dataIndex: "status",
+      key: "status",
+      width: 65,
+      fixed: "right" as const,
+      render: (status: number) => {
+        const meta = getStatusMeta(status);
+        return (
+          <span className={`withdraw-status-badge ${meta.key}`}>
+            {meta.label}
+          </span>
+        );
+      },
+      sorter: (a: FinanceData, b: FinanceData) =>
+        (a.status || 0) - (b.status || 0),
+    },
+    {
+      title: "",
+      key: "action",
+      width: 50,
+      fixed: "right" as const,
+      render: (item: FinanceData) => (
+        <Space
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            fontSize: "14px",
+          }}
+        >
+          <Tooltip title="แก้ไขข้อมูล">
+            <a
+              className={
+                item.status === 1 || item.status === 2 ? "linkIsNone" : ""
+              }
+              onClick={(e) => {
+                e.stopPropagation();
+                navigate(`/admin/withdraw/edit/withdraw/${item._id}`);
+              }}
+            >
+              <svg
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
               >
-                ชำระเงิน
-              </button>
-              <a
-                onClick={() => {
-                  setOpenDialogCancelApprove(true);
-                }}
+                <path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7" />
+                <path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z" />
+              </svg>
+            </a>
+          </Tooltip>
+          <Tooltip title="ลบข้อมูล">
+            <a
+              onClick={(e) => {
+                e.stopPropagation();
+                setSelectedExpenseData(item);
+                setOpenDialogConfirmDelete(true);
+              }}
+            >
+              <svg
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
               >
-                ยกเลิกเอกสาร
-              </a>
-            </div>
-          )
-        }
-      >
-        <div className="container-Expense-navbar">
-          <h1>ค่าใช้จ่าย & เบิกเงิน</h1>
+                <polyline points="3 6 5 6 21 6" />
+                <path d="M19 6l-1 14H6L5 6" />
+                <path d="M10 11v6M14 11v6" />
+                <path d="M9 6V4h6v2" />
+              </svg>
+            </a>
+          </Tooltip>
+        </Space>
+      ),
+    },
+  ];
 
-          <i
-            className="fa-solid fa-circle-xmark"
-            onClick={() => {
-              setOpenDialogConfirmApprove(false);
-            }}
-          ></i>
-        </div>
-
-        <div className="container-Expense">
-          <div className="container-Expense-left">
-            <div className="container-ExpenseUser">
-              <div className="container-ExpenseUser-left">
-                <img src={getImagePath("profile", userInfo?.dbname, employeeName?.image)} alt="profile" />
-              </div>
-
-              <div className="container-ExpenseUser-right">
-                <h4>
-                  {employeeName?.firstName} {employeeName?.lastName}
-                </h4>
-
-                <div className="previewTel">
-                  <div className="width-40">
-                    <i className="fa-solid fa-phone"></i>
-                  </div>
-
-                  <p>{employeeName?.tel}</p>
-                </div>
-
-                <div className="previewRol">
-                  <div className="width-40">
-                    <i className="fa-solid fa-user"></i>
-                  </div>
-
-                  <p>{employeeName?.employmentInfo.role.name}</p>
-                </div>
-              </div>
-            </div>
-
-            <div className="wrap-container-ExpenseData">
-              <h4>ข้อมูล</h4>
-
-              <div className="container-ExpenseData">
-                <div className="previewOnerName">
-                  <div className="width-100">
-                    <p>หัวข้อ</p>
-                  </div>
-
-                  <p>{section}</p>
-                </div>
-
-                <div className="previewDetel">
-                  <div className="width-100">
-                    <p>รายละเอียด</p>
-                  </div>
-
-                  <p>{selectedExpenseData?.detel}</p>
-                </div>
-
-                <div className="previewDate">
-                  <div className="width-100">
-                    <p>วันที่สร้าง</p>
-                  </div>
-
-                  <p>{formattedDate}</p>
-                </div>
-              </div>
-            </div>
-
-            <div className="wrap-container-ExpenseList">
-              <h4>รายการ</h4>
-
-              <div className="container-ExpenseList">
-                <div className="previewCatagory">
-                  <div className="width-100">
-                    <p>หมวดหมู่</p>
-                  </div>
-
-                  <p>{selectedExpenseData?.ownerName}</p>
-                </div>
-
-                <div className="previewTotal">
-                  <div className="width-100">
-                    <p>ยอดค่าใช้จ่าย</p>
-                  </div>
-
-                  <p>{total} บาท</p>
-                </div>
-
-                <div className="previewStatus">
-                  <div className="width-100">
-                    <p>สถานะเอกสาร</p>
-                  </div>
-
-                  <p>{formattedStatus}</p>
-                </div>
-
-                <div className="previewPriceDate">
-                  <div className="width-100">
-                    <p>วันที่ชำระเงิน</p>
-                  </div>
-
-                  <p>{formattedDatePrice}</p>
-                </div>
-              </div>
-            </div>
-
-            {selectedExpenseData?.status === 0 && (
-              <div className="wrap-inputImage">
-                <h4>หลักฐานการโอน</h4>
-                <div className="inputImage">
-                  <label htmlFor="file" className="text-image">
-                    <FileAddFilled className="icon-file" />
-                    <span>อัพโหลดหลักฐานการชำระ</span>
-                  </label>
-                  <input
-                    // {...field}
-                    type="file"
-                    id="file"
-                    onChange={(e) => {
-                      uploadImage(e);
-                    }}
-                  />
-                </div>
-              </div>
-            )}
-          </div>
-
-          <div className="container-Expense-right">
-            {getExpenseSlipImage && (
-              <div className="PreviewImage">
-                <h2>รูปภาพหลักฐานการชำระ</h2>
-                <img src={getExpenseSlipImage} alt="image" />
-              </div>
-            )}
-          </div>
-        </div>
-      </Modal>
-    );
-  };
-
-  const rederDialogConfirmDelete = () => {
-    return (
-      <Modal centered className="wrap-container-DialogDelete" open={openDialogConfirmDelete} onCancel={() => setOpenDialogConfirmDelete(false)}>
-        <h1>ยืนยันการลบ</h1>
-
-        <div className="btn-DialogDelete-Navbar">
-          <button
-            type="button"
-            onClick={() => {
-              deleted();
-              setOpenDialogConfirmDelete(false);
-            }}
-          >
-            ยืนยัน
-          </button>
-          <button
-            onClick={() => {
-              setOpenDialogConfirmDelete(false);
-            }}
-          >
-            ยกเลิก
-          </button>
-        </div>
-      </Modal>
-    );
-  };
-
-  const rederDialogCancelDelete = () => {
-    return (
-      <Modal centered className="wrap-container-DialogDelete" open={openDialogCancelApprove} onCancel={() => setOpenDialogCancelApprove(false)}>
-        <h1>ยืนยันการลบเอกสาร</h1>
-
-        <div className="btn-DialogDelete-Navbar">
-          <button
-            type="button"
-            onClick={() => {
-              cencel();
-              setOpenDialogCancelApprove(false);
-              setOpenDialogConfirmApprove(false);
-            }}
-          >
-            ยืนยัน
-          </button>
-          <button
-            onClick={() => {
-              setOpenDialogCancelApprove(false);
-            }}
-          >
-            ยกเลิก
-          </button>
-        </div>
-      </Modal>
-    );
-  };
-
-  // Todo : สร้าง table ของ mobile
+  /* ── mobile view ────────────────────────────────────── */
   const renderTableForMobile = () => {
     const pageSize = 10;
     const totalPages = Math.ceil(withdrawData.length / pageSize);
     const startIndex = (currentMobilePage - 1) * pageSize;
-    const endIndex = startIndex + pageSize;
-    const paginatedData = withdrawData.slice(startIndex, endIndex);
+    const paginatedData = withdrawData.slice(startIndex, startIndex + pageSize);
 
     return (
       <>
         <div
-          className="mobile-table-container"
-          style={{
-            maxHeight: "600px",
-            overflowY: "auto",
-            overflowX: "hidden",
-            paddingRight: "4px",
-          }}
+          className="withdraw-mobile-list"
+          style={{ maxHeight: "600px", overflowY: "auto" }}
         >
           {paginatedData.map((item: FinanceData, index: number) => {
-            const total = item.categorys.reduce((prev, cat) => prev + cat.amount, 0);
-            const statusText = item.status === 0 ? "รออนุมัติ" : item.status === 1 ? "อนุมัติแล้ว" : "ยกเลิกเอกสาร";
-            const statusColor = item.status === 0 ? "#FFD700" : item.status === 1 ? "#008B00" : "#FF0000";
+            const total = item.categorys.reduce((p, c) => p + c.amount, 0);
+            const statusMeta = getStatusMeta(item.status ?? 0);
             const formattedDate = dayjs(item.date).format("DD/MM/YYYY");
             const section = item.section === 0 ? "ค่าใช้จ่าย" : "เบิกเงินเดือน";
 
             return (
               <div
                 key={index}
-                className="mobile-card-item"
+                className="withdraw-mobile-card"
                 onClick={() => {
                   setSelectedExpenseData(item);
                   setOpenDialogConfirmApprove(true);
                 }}
-                style={{
-                  border: "1px solid #ddd",
-                  borderRadius: "8px",
-                  padding: "12px",
-                  marginBottom: "12px",
-                  backgroundColor: "#fff",
-                  boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
-                  cursor: "pointer",
-                }}
               >
-                {/* Header with Code and Status */}
+                {/* Card Header */}
                 <div
                   style={{
                     display: "flex",
                     justifyContent: "space-between",
                     alignItems: "center",
-                    marginBottom: "10px",
+                    marginBottom: 10,
                   }}
                 >
                   <div
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      gap: "8px",
-                    }}
+                    style={{ display: "flex", alignItems: "center", gap: 8 }}
                   >
                     <span
                       style={{
-                        fontWeight: "bold",
-                        fontSize: "14px",
-                        color: "#043929",
+                        fontFamily: "'Rajdhani',sans-serif",
+                        fontWeight: 700,
+                        fontSize: 15,
+                        color: "var(--accent-primary)",
                       }}
                     >
                       {item.codeId}
                     </span>
                     <span
                       style={{
-                        fontSize: "12px",
-                        backgroundColor: "#f0f0f0",
+                        fontSize: 11,
+                        background: "var(--bg-surface)",
                         padding: "2px 8px",
-                        borderRadius: "4px",
+                        borderRadius: 6,
+                        color: "var(--text-secondary)",
+                        fontWeight: 500,
                       }}
                     >
                       {section}
                     </span>
                   </div>
-                  <span
-                    style={{
-                      color: statusColor,
-                      fontWeight: "bold",
-                      fontSize: "12px",
-                    }}
-                  >
-                    {statusText}
+                  <span className={`mobile-status-badge ${statusMeta.key}`}>
+                    {statusMeta.label}
                   </span>
                 </div>
 
-                {/* Employee Info */}
+                {/* Employee */}
                 <div
                   style={{
-                    marginBottom: "8px",
                     display: "flex",
                     alignItems: "center",
-                    gap: "8px",
+                    gap: 10,
+                    marginBottom: 10,
                   }}
                 >
                   <img
-                    src={getImagePath("profile", userInfo?.dbname, item?.employee?.image)}
+                    src={getImagePath(
+                      "profile",
+                      userInfo?.dbname,
+                      item?.employee?.image,
+                    )}
                     alt="employee"
                     style={{
-                      width: "32px",
-                      height: "32px",
+                      width: 34,
+                      height: 34,
                       borderRadius: "50%",
                       objectFit: "cover",
+                      border: "1px solid var(--border-active)",
                     }}
                   />
+                  <span style={{ fontSize: 13, fontWeight: 500 }}>
+                    {item.employee?.firstName} {item.employee?.lastName}
+                  </span>
+                </div>
+
+                {/* Info grid */}
+                <div
+                  style={{
+                    display: "grid",
+                    gridTemplateColumns: "1fr 1fr",
+                    gap: "6px 12px",
+                    marginBottom: 10,
+                  }}
+                >
                   <div>
                     <p
                       style={{
-                        margin: "0",
-                        fontSize: "13px",
-                        fontWeight: "500",
+                        margin: "0 0 2px",
+                        fontSize: 10,
+                        color: "var(--text-muted)",
+                        textTransform: "uppercase",
+                        letterSpacing: "0.06em",
                       }}
                     >
-                      {item.employee?.firstName} {item.employee?.lastName}
+                      หัวข้อ
+                    </p>
+                    <p style={{ margin: 0, fontSize: 12, fontWeight: 500 }}>
+                      {item.ownerName}
                     </p>
                   </div>
-                </div>
-
-                {/* Owner Name */}
-                <div style={{ marginBottom: "8px" }}>
-                  <p
-                    style={{
-                      margin: "0 0 4px 0",
-                      fontSize: "11px",
-                      color: "#666",
-                    }}
-                  >
-                    หัวข้อ
-                  </p>
-                  <p style={{ margin: "0", fontSize: "13px", fontWeight: "500" }}>{item.ownerName}</p>
-                </div>
-
-                {/* Detail */}
-                <div style={{ marginBottom: "8px" }}>
-                  <p
-                    style={{
-                      margin: "0 0 4px 0",
-                      fontSize: "11px",
-                      color: "#666",
-                    }}
-                  >
-                    รายละเอียด
-                  </p>
-                  <p
-                    style={{
-                      margin: "0",
-                      fontSize: "12px",
-                      color: "#333",
-                      overflow: "hidden",
-                      textOverflow: "ellipsis",
-                      display: "-webkit-box",
-                      WebkitLineClamp: 2,
-                      WebkitBoxOrient: "vertical",
-                    }}
-                  >
-                    {item.detel}
-                  </p>
-                </div>
-
-                {/* Date and Amount Row */}
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    gap: "8px",
-                    marginBottom: "8px",
-                  }}
-                >
-                  <div style={{ flex: 1 }}>
+                  <div>
                     <p
                       style={{
-                        margin: "0 0 4px 0",
-                        fontSize: "11px",
-                        color: "#666",
+                        margin: "0 0 2px",
+                        fontSize: 10,
+                        color: "var(--text-muted)",
+                        textTransform: "uppercase",
+                        letterSpacing: "0.06em",
                       }}
                     >
                       วันที่สร้าง
                     </p>
-                    <p
-                      style={{
-                        margin: "0",
-                        fontSize: "12px",
-                        fontWeight: "500",
-                      }}
-                    >
+                    <p style={{ margin: 0, fontSize: 12, fontWeight: 500 }}>
                       {formattedDate}
                     </p>
                   </div>
-                  <div style={{ flex: 1 }}>
+                  <div style={{ gridColumn: "1 / -1" }}>
                     <p
                       style={{
-                        margin: "0 0 4px 0",
-                        fontSize: "11px",
-                        color: "#666",
+                        margin: "0 0 2px",
+                        fontSize: 10,
+                        color: "var(--text-muted)",
+                        textTransform: "uppercase",
+                        letterSpacing: "0.06em",
                       }}
                     >
-                      ยอดค่าใช้จ่าย
+                      รายละเอียด
                     </p>
                     <p
                       style={{
-                        margin: "0",
-                        fontSize: "13px",
-                        fontWeight: "bold",
-                        color: "#008B00",
+                        margin: 0,
+                        fontSize: 12,
+                        color: "var(--text-primary)",
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                        display: "-webkit-box",
+                        WebkitLineClamp: 2,
+                        WebkitBoxOrient: "vertical",
                       }}
                     >
-                      {total} ฿
+                      {item.detel}
                     </p>
                   </div>
                 </div>
 
-                {/* Action Buttons */}
+                {/* Footer */}
                 <div
                   style={{
                     display: "flex",
-                    gap: "8px",
-                    marginTop: "10px",
-                    paddingTop: "8px",
-                    borderTop: "1px solid #eee",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                    borderTop: "1px solid var(--border)",
+                    paddingTop: 10,
                   }}
-                  onClick={(e) => e.stopPropagation()}
                 >
-                  <a
+                  <span
                     style={{
-                      flex: 1,
-                      padding: "6px",
-                      textAlign: "center",
-                      fontSize: "12px",
-                      color: item.status === 1 || item.status === 2 ? "#ccc" : "#043929",
-                      textDecoration: "none",
-                      cursor: item.status === 1 || item.status === 2 ? "not-allowed" : "pointer",
-                      borderRadius: "4px",
-                      backgroundColor: "#f5f5f5",
-                      opacity: item.status === 1 || item.status === 2 ? 0.5 : 1,
-                    }}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      navigate(`/admin/withdraw/edit/withdraw/${item._id}`);
+                      fontFamily: "'Rajdhani',sans-serif",
+                      fontWeight: 700,
+                      fontSize: 15,
+                      color: "var(--status-approved)",
                     }}
                   >
-                    แก้ไข
-                  </a>
-                  <a
-                    style={{
-                      flex: 1,
-                      padding: "6px",
-                      textAlign: "center",
-                      fontSize: "12px",
-                      color: "#d32f2f",
-                      textDecoration: "none",
-                      cursor: "pointer",
-                      borderRadius: "4px",
-                      backgroundColor: "#ffebee",
-                    }}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setSelectedExpenseData(item);
-                      setOpenDialogConfirmDelete(true);
-                    }}
+                    {total.toLocaleString()} ฿
+                  </span>
+                  <div
+                    style={{ display: "flex", gap: 8 }}
+                    onClick={(e) => e.stopPropagation()}
                   >
-                    ลบ
-                  </a>
+                    <a
+                      style={{
+                        padding: "5px 14px",
+                        fontSize: 12,
+                        borderRadius: 8,
+                        fontWeight: 600,
+                        textDecoration: "none",
+                        color:
+                          item.status === 1 || item.status === 2
+                            ? "var(--text-muted)"
+                            : "var(--accent-primary)",
+                        border: "1px solid",
+                        borderColor:
+                          item.status === 1 || item.status === 2
+                            ? "var(--border)"
+                            : "rgba(4,57,41,0.3)",
+                        background:
+                          item.status === 1 || item.status === 2
+                            ? "var(--bg-surface)"
+                            : "rgba(4,57,41,0.06)",
+                        cursor:
+                          item.status === 1 || item.status === 2
+                            ? "not-allowed"
+                            : "pointer",
+                        pointerEvents:
+                          item.status === 1 || item.status === 2
+                            ? "none"
+                            : "auto",
+                      }}
+                      onClick={() =>
+                        navigate(`/admin/withdraw/edit/withdraw/${item._id}`)
+                      }
+                    >
+                      แก้ไข
+                    </a>
+                    <a
+                      style={{
+                        padding: "5px 14px",
+                        fontSize: 12,
+                        borderRadius: 8,
+                        fontWeight: 600,
+                        textDecoration: "none",
+                        color: "var(--status-canceled)",
+                        border: "1px solid rgba(239,68,68,0.3)",
+                        background: "rgba(239,68,68,0.06)",
+                        cursor: "pointer",
+                      }}
+                      onClick={() => {
+                        setSelectedExpenseData(item);
+                        setOpenDialogConfirmDelete(true);
+                      }}
+                    >
+                      ลบ
+                    </a>
+                  </div>
                 </div>
               </div>
             );
           })}
         </div>
 
-        {/* Pagination Controls */}
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            gap: "12px",
-            marginTop: "16px",
-            paddingTop: "12px",
-          }}
-        >
+        {/* Pagination */}
+        <div className="withdraw-mobile-pagination">
           <button
-            onClick={() => setCurrentMobilePage((prev) => Math.max(prev - 1, 1))}
+            onClick={() => setCurrentMobilePage((p) => Math.max(p - 1, 1))}
             disabled={currentMobilePage === 1}
-            style={{
-              width: "100px",
-              height: "36px",
-              fontSize: "12px",
-              fontWeight: "500",
-              borderRadius: "6px",
-              border: "1px solid #043929",
-              backgroundColor: currentMobilePage === 1 ? "#e8f5e9" : "#043929",
-              color: currentMobilePage === 1 ? "#043929" : "#fff",
-              cursor: currentMobilePage === 1 ? "not-allowed" : "pointer",
-              opacity: currentMobilePage === 1 ? 0.6 : 1,
-              transition: "all 0.3s ease",
-            }}
           >
             ← ก่อนหน้า
           </button>
-
-          <span
-            style={{
-              fontSize: "13px",
-              fontWeight: "500",
-              color: "#043929",
-              minWidth: "80px",
-              textAlign: "center",
-            }}
-          >
+          <span>
             หน้า {currentMobilePage} / {totalPages}
           </span>
-
           <button
-            onClick={() => setCurrentMobilePage((prev) => Math.min(prev + 1, totalPages))}
+            onClick={() =>
+              setCurrentMobilePage((p) => Math.min(p + 1, totalPages))
+            }
             disabled={currentMobilePage === totalPages}
-            style={{
-              width: "100px",
-              height: "36px",
-              fontSize: "12px",
-              fontWeight: "500",
-              borderRadius: "6px",
-              border: "1px solid #043929",
-              backgroundColor: currentMobilePage === totalPages ? "#e8f5e9" : "#043929",
-              color: currentMobilePage === totalPages ? "#043929" : "#fff",
-              cursor: currentMobilePage === totalPages ? "not-allowed" : "pointer",
-              opacity: currentMobilePage === totalPages ? 0.6 : 1,
-              transition: "all 0.3s ease",
-            }}
           >
             ถัดไป →
           </button>
@@ -911,54 +624,286 @@ const WithdrawAdminPage = () => {
     );
   };
 
+  /* ── approve dialog ─────────────────────────────────── */
+  const renderDialogConfirmApprove = () => {
+    const formattedDate = selectedExpenseData
+      ? dayjs(selectedExpenseData.date).format("DD/MM/YYYY")
+      : "";
+    const formattedDatePrice = selectedExpenseData?.datePrice
+      ? dayjs(selectedExpenseData.datePrice).format("DD/MM/YYYY")
+      : "";
+    const statusMeta = getStatusMeta(selectedExpenseData?.status ?? 0);
+    const total = selectedExpenseData?.categorys.reduce(
+      (p, i) => p + i.amount,
+      0,
+    );
+    const employeeName = employeeData.find(
+      (e) => e._id === selectedExpenseData?.employeeId,
+    );
+    const section =
+      selectedExpenseData?.section === 0 ? "ค่าใช้จ่าย" : "เบิกเงินเดือน";
+
+    return (
+      <Modal
+        centered
+        className="container-DialogApprove-Expense"
+        open={openDialogConfirmApprove}
+        onCancel={() => {
+          setOpenDialogConfirmApprove(false);
+          onClose();
+        }}
+        footer={
+          selectedExpenseData?.status === 0 ? (
+            <div className="btn-DialogApprove-Navbar">
+              <button
+                type="button"
+                onClick={() => {
+                  approved();
+                  onClose();
+                  setOpenDialogConfirmApprove(false);
+                }}
+              >
+                ชำระเงิน
+              </button>
+              <a onClick={() => setOpenDialogCancelApprove(true)}>
+                ยกเลิกเอกสาร
+              </a>
+            </div>
+          ) : null
+        }
+      >
+        <div className="container-Expense-navbar">
+          <h1>ค่าใช้จ่าย &amp; เบิกเงิน</h1>
+          {/* <i
+            className="fa-solid fa-circle-xmark"
+            onClick={() => setOpenDialogConfirmApprove(false)}
+          /> */}
+        </div>
+
+        <div className="container-Expense">
+          {/* Left */}
+          <div className="container-Expense-left">
+            {/* Employee */}
+            <div className="container-ExpenseUser">
+              <div className="container-ExpenseUser-left">
+                <img
+                  src={getImagePath(
+                    "profile",
+                    userInfo?.dbname,
+                    employeeName?.image,
+                  )}
+                  alt="profile"
+                />
+              </div>
+              <div className="container-ExpenseUser-right">
+                <h4>
+                  {employeeName?.firstName} {employeeName?.lastName}
+                </h4>
+                <div className="previewTel">
+                  <div className="width-40">
+                    <i className="fa-solid fa-phone" />
+                  </div>
+                  <p>{employeeName?.tel}</p>
+                </div>
+                <div className="previewRol">
+                  <div className="width-40">
+                    <i className="fa-solid fa-user" />
+                  </div>
+                  <p>{employeeName?.employmentInfo.role.name}</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Data */}
+            <div className="wrap-container-ExpenseData">
+              <h4>ข้อมูล</h4>
+              <div className="container-ExpenseData">
+                <div className="previewOnerName">
+                  <div className="width-100">
+                    <p>หัวข้อ</p>
+                  </div>
+                  <p>{section}</p>
+                </div>
+                <div className="previewDetel">
+                  <div className="width-100">
+                    <p>รายละเอียด</p>
+                  </div>
+                  <p>{selectedExpenseData?.detel}</p>
+                </div>
+                <div className="previewDate">
+                  <div className="width-100">
+                    <p>วันที่สร้าง</p>
+                  </div>
+                  <p>{formattedDate}</p>
+                </div>
+              </div>
+            </div>
+
+            {/* List */}
+            <div className="wrap-container-ExpenseList">
+              <h4>รายการ</h4>
+              <div className="container-ExpenseList">
+                <div className="previewCatagory">
+                  <div className="width-100">
+                    <p>หมวดหมู่</p>
+                  </div>
+                  <p>{selectedExpenseData?.ownerName}</p>
+                </div>
+                <div className="previewTotal">
+                  <div className="width-100">
+                    <p>ยอดค่าใช้จ่าย</p>
+                  </div>
+                  <p>{total} บาท</p>
+                </div>
+                <div className="previewStatus">
+                  <div className="width-100">
+                    <p>สถานะเอกสาร</p>
+                  </div>
+                  <p>
+                    <span className={`withdraw-status-badge ${statusMeta.key}`}>
+                      {statusMeta.label}
+                    </span>
+                  </p>
+                </div>
+                <div className="previewPriceDate">
+                  <div className="width-100">
+                    <p>วันที่ชำระเงิน</p>
+                  </div>
+                  <p>{formattedDatePrice}</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Upload */}
+            {selectedExpenseData?.status === 0 && (
+              <div className="wrap-inputImage">
+                <h4>หลักฐานการโอน</h4>
+                <div className="inputImage">
+                  <label htmlFor="file" className="text-image">
+                    <FileAddFilled className="icon-file" />
+                    <span>อัพโหลดหลักฐานการชำระ</span>
+                  </label>
+                  <input type="file" id="file" onChange={uploadImage} />
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* Right */}
+          <div className="container-Expense-right">
+            {getExpenseSlipImage && (
+              <div className="PreviewImage">
+                <h2>รูปภาพหลักฐานการชำระ</h2>
+                <img src={getExpenseSlipImage} alt="slip" />
+              </div>
+            )}
+          </div>
+        </div>
+      </Modal>
+    );
+  };
+
+  /* ── delete dialog ──────────────────────────────────── */
+  const renderDialogConfirmDelete = () => (
+    <Modal
+      centered
+      className="wrap-container-DialogDelete"
+      open={openDialogConfirmDelete}
+      onCancel={() => setOpenDialogConfirmDelete(false)}
+      footer={null}
+    >
+      <h1>ยืนยันการลบ</h1>
+      <div className="btn-DialogDelete-Navbar">
+        <button
+          type="button"
+          onClick={() => {
+            deleted();
+            setOpenDialogConfirmDelete(false);
+          }}
+        >
+          ยืนยัน
+        </button>
+        <button onClick={() => setOpenDialogConfirmDelete(false)}>
+          ยกเลิก
+        </button>
+      </div>
+    </Modal>
+  );
+
+  /* ── cancel dialog ──────────────────────────────────── */
+  const renderDialogCancelDelete = () => (
+    <Modal
+      centered
+      className="wrap-container-DialogCancel"
+      open={openDialogCancelApprove}
+      onCancel={() => setOpenDialogCancelApprove(false)}
+      footer={null}
+    >
+      <h1>ยืนยันการยกเลิกเอกสาร</h1>
+      <div className="btn-DialogCancel-Navbar">
+        <button
+          type="button"
+          onClick={() => {
+            cencel();
+            setOpenDialogCancelApprove(false);
+            setOpenDialogConfirmApprove(false);
+          }}
+        >
+          ยืนยัน
+        </button>
+        <button onClick={() => setOpenDialogCancelApprove(false)}>
+          ยกเลิก
+        </button>
+      </div>
+    </Modal>
+  );
+
+  /* ── render ─────────────────────────────────────────── */
   return (
     <div className="container-WithdrawAdminPage">
+      {/* Header */}
       <div className="header-WithdrawAdminPage">
-        <h1>ค่าใช้จ่าย & เบิกเงิน</h1>
+        <h1>ค่าใช้จ่าย &amp; เบิกเงิน</h1>
       </div>
 
+      {/* Create button */}
       <div className="create-withdraw">
         <div className="btn-create-withdraw">
-          <Button
-            onClick={() => {
-              navigate("/admin/withdraw/createWithdraw");
-            }}
+          <button
+            type="button"
+            onClick={() => navigate("/admin/withdraw/createWithdraw")}
           >
-            สร้าง
-          </Button>
+            + สร้าง
+          </button>
         </div>
       </div>
 
-      <div className="" style={{ width: "100%" }}>
+      {/* Table / Mobile */}
+      <div style={{ width: "100%", overflow: "hidden" }}>
         {isMobile ? (
-          <>{renderTableForMobile()}</>
+          renderTableForMobile()
         ) : (
-          <Table
-            dataSource={withdrawData}
-            columns={columns}
-            scroll={{ x: 1500 }}
-            pagination={{
-              pageSize: 9,
-            }}
-            style={{
-              border: "2px solid #043929",
-              borderRadius: "10px",
-            }}
-            onRow={(record) => {
-              return {
+          <div className="withdraw-table-wrapper">
+            <Table
+              dataSource={withdrawData}
+              columns={columns}
+              scroll={{ x: 1500 }}
+              pagination={{ pageSize: 9 }}
+              onRow={(record) => ({
                 onClick: () => {
                   setSelectedExpenseData(record);
                   setOpenDialogConfirmApprove(true);
                 },
-              };
-            }}
-          />
+              })}
+            />
+          </div>
         )}
       </div>
 
-      {rederDialogConfirmDelete()}
-      {rederDialogConfirmApprove()}
-      {rederDialogCancelDelete()}
+      {/* Dialogs */}
+      {renderDialogConfirmApprove()}
+      {renderDialogConfirmDelete()}
+      {renderDialogCancelDelete()}
 
       <CircleLoading open={isExpenseLoading} />
       <CircleLoading open={isEmployeeLoading} />

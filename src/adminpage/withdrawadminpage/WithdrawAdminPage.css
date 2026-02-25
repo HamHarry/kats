@@ -1,6 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Sarabun:wght@300;400;500;600&display=swap");
 
-/* ─── Root Variables (shared with ProductAdminPage) ──── */
+/* ─── Root Variables ─────────────────────────────────── */
 :root {
   --bg-base: #f2f6f4;
   --bg-surface: #e8eeeb;
@@ -16,24 +16,26 @@
   --text-secondary: #4a7a5e;
   --text-muted: #8ab5a0;
 
+  --status-pending: #f59e0b;
+  --status-approved: #10b981;
+  --status-canceled: #ef4444;
+
   --shadow-card: 0 2px 12px rgba(0, 120, 80, 0.08), 0 0 0 1px var(--border);
   --shadow-hover:
     0 6px 28px rgba(0, 150, 100, 0.15), 0 0 0 1px var(--border-active);
 
   --radius-card: 16px;
+  --radius-badge: 20px;
 }
 
 /* ─── Page Container ─────────────────────────────────── */
 .container-WithdrawAdminPage {
-  display: flex;
-  align-items: center;
-  flex-direction: column;
   padding: 28px 32px 48px;
   padding-left: 332px;
-  gap: 24px;
   font-family: "Sarabun", sans-serif;
   color: var(--text-primary);
-  min-height: 100vh;
+  height: 100vh;
+  overflow: hidden;
   background: var(--bg-base);
 }
 
@@ -42,7 +44,7 @@
   display: flex;
   align-items: center;
   gap: 16px;
-  width: 100%;
+  margin-bottom: 32px;
   position: relative;
   z-index: 1;
 }
@@ -66,6 +68,43 @@
   margin-left: 24px;
 }
 
+/* ─── Toolbar (search + create) ──────────────────────── */
+.toolbar-WithdrawAdminPage {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 32px;
+  flex-wrap: wrap;
+}
+
+.toolbar-WithdrawAdminPage input[type="text"] {
+  flex: 1;
+  min-width: 240px;
+  background: #ffffff;
+  border: 1px solid var(--border-active);
+  color: #1a2e22;
+  font-family: "Sarabun", sans-serif;
+  font-size: 0.9rem;
+  padding: 10px 16px 10px 40px;
+  border-radius: 10px;
+  outline: none;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%235a7a6a' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3Cpath d='m21 21-4.35-4.35'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: 14px center;
+}
+
+.toolbar-WithdrawAdminPage input[type="text"]:focus {
+  border-color: var(--accent-secondary);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.12);
+}
+
+.toolbar-WithdrawAdminPage input[type="text"]::placeholder {
+  color: #9ab5a8;
+}
+
 /* ─── Action Bar ─────────────────────────────────────── */
 .create-withdraw {
   display: flex;
@@ -77,6 +116,7 @@
   display: flex;
   justify-content: flex-end;
   gap: 10px;
+  margin-bottom: 32px;
 }
 
 .btn-create-withdraw button,
@@ -115,8 +155,10 @@
 }
 
 /* ─── Table Wrapper ──────────────────────────────────── */
-.withdraw-content {
+.withdraw-table-wrapper {
   width: 100%;
+  overflow-y: auto;
+  max-height: calc(100vh - 200px);
   animation: fadeSlideUp 0.4s ease both;
 }
 
@@ -132,16 +174,7 @@
 }
 
 /* ─── Ant Design Table Overrides ─────────────────────── */
-.withdraw-content .ant-table-wrapper,
-div[style*="width: 100%"] > .ant-table-wrapper {
-  border: 1px solid var(--border-active);
-  border-radius: var(--radius-card);
-  overflow: hidden;
-  box-shadow: var(--shadow-card);
-}
-
-/* Target the table wrapper that sits outside .withdraw-content too */
-.container-WithdrawAdminPage > div[style] .ant-table-wrapper {
+.container-WithdrawAdminPage .ant-table-wrapper {
   border: 1px solid var(--border-active);
   border-radius: var(--radius-card);
   overflow: hidden;
@@ -187,7 +220,6 @@ div[style*="width: 100%"] > .ant-table-wrapper {
   border-bottom: none;
 }
 
-/* Sorter icons */
 .container-WithdrawAdminPage .ant-table-column-sorter {
   color: rgba(255, 255, 255, 0.6) !important;
 }
@@ -197,7 +229,6 @@ div[style*="width: 100%"] > .ant-table-wrapper {
   color: #ffffff !important;
 }
 
-/* Pagination */
 .container-WithdrawAdminPage .ant-pagination {
   padding: 12px 16px !important;
   margin: 0 !important;
@@ -214,37 +245,40 @@ div[style*="width: 100%"] > .ant-table-wrapper {
   color: #fff !important;
 }
 
-/* ─── Status Badges ──────────────────────────────────── */
-.status-badge {
+/* ─── Status Badges (table) ──────────────────────────── */
+.withdraw-status-badge {
   display: inline-flex;
   align-items: center;
+  gap: 5px;
   padding: 4px 12px;
-  border-radius: 20px;
+  border-radius: var(--radius-badge);
   font-family: "Rajdhani", sans-serif;
-  font-size: 0.82rem;
+  font-size: 0.78rem;
   font-weight: 700;
   letter-spacing: 0.04em;
+  text-transform: uppercase;
 }
 
-.status-badge.pending {
-  background: rgba(255, 215, 0, 0.18);
-  color: #b8860b;
-  border: 1px solid rgba(255, 215, 0, 0.4);
+.withdraw-status-badge.pending {
+  background: rgba(245, 158, 11, 0.15);
+  color: var(--status-pending);
+  border: 1px solid rgba(245, 158, 11, 0.3);
 }
 
-.status-badge.approved {
-  background: rgba(0, 139, 0, 0.12);
-  color: #006400;
-  border: 1px solid rgba(0, 139, 0, 0.3);
+.withdraw-status-badge.approved {
+  background: rgba(16, 185, 129, 0.15);
+  color: var(--status-approved);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  font-size: 0.7rem;
 }
 
-.status-badge.cancelled {
+.withdraw-status-badge.cancelled {
   background: rgba(239, 68, 68, 0.1);
-  color: #dc2626;
+  color: var(--status-canceled);
   border: 1px solid rgba(239, 68, 68, 0.3);
 }
 
-/* ─── Action Links ───────────────────────────────────── */
+/* ─── Action Links (table) ───────────────────────────── */
 .container-WithdrawAdminPage .ant-space-item a {
   display: flex;
   align-items: center;
@@ -259,7 +293,6 @@ div[style*="width: 100%"] > .ant-table-wrapper {
   transition: all 0.18s ease;
 }
 
-/* Edit button */
 .container-WithdrawAdminPage .ant-space-item a:first-child {
   border: 1px solid rgba(4, 57, 41, 0.25);
   background: rgba(4, 57, 41, 0.06);
@@ -273,7 +306,6 @@ div[style*="width: 100%"] > .ant-table-wrapper {
   box-shadow: 0 4px 14px rgba(4, 57, 41, 0.3);
 }
 
-/* Delete button */
 .container-WithdrawAdminPage .ant-space-item a:last-child {
   border: 1px solid rgba(239, 68, 68, 0.25);
   background: rgba(239, 68, 68, 0.06);
@@ -287,18 +319,70 @@ div[style*="width: 100%"] > .ant-table-wrapper {
   box-shadow: 0 4px 14px rgba(239, 68, 68, 0.3);
 }
 
-/* Hidden link (linkIsNone) */
 .linkIsNone {
   display: none !important;
 }
 
-/* ─── Approve Dialog ─────────────────────────────────── */
+/* ─── MODALS ─────────────────────────────────────────── */
+/* Style the modal box (v4 + v5 compatible) */
+.container-DialogApprove-Expense .ant-modal-content,
+.wrap-container-DialogDelete .ant-modal-content,
+.wrap-container-DialogCancel .ant-modal-content {
+  background: var(--bg-card) !important;
+  border: 1px solid var(--border-active) !important;
+  border-radius: var(--radius-card) !important;
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.18) !important;
+  padding: 0 !important;
+}
+
+/* v4: padding lives on .ant-modal-body */
+.container-DialogApprove-Expense .ant-modal-body,
+.wrap-container-DialogDelete .ant-modal-body,
+.wrap-container-DialogCancel .ant-modal-body {
+  padding: 0 !important;
+}
+
+/* Hide Ant footer & close button on small confirm dialogs */
+.wrap-container-DialogDelete .ant-modal-footer,
+.wrap-container-DialogCancel .ant-modal-footer,
+.wrap-container-DialogDelete .ant-modal-close,
+.wrap-container-DialogCancel .ant-modal-close {
+  display: none !important;
+}
+
+/* ── Force centering inside the confirm dialogs ──────── */
+/* Ant v5 wraps children in an extra div; target both cases */
+.wrap-container-DialogDelete .ant-modal-content,
+.wrap-container-DialogCancel .ant-modal-content {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+}
+
+/* In case Ant v5 renders a wrapper div inside content */
+.wrap-container-DialogDelete .ant-modal-content > div,
+.wrap-container-DialogCancel .ant-modal-content > div {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  width: 100% !important;
+  padding: 0 !important;
+}
+
+/* ── Approve Modal ───────────────────────────────────── */
 .container-DialogApprove-Expense .ant-modal-content {
-  background-color: #fff;
-  border: 2px solid var(--border-active);
-  border-radius: var(--radius-card);
-  box-shadow: var(--shadow-hover);
   min-width: 960px;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.container-DialogApprove-Expense .container-Expense-navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 28px 16px;
+  border-bottom: 1px solid var(--border);
 }
 
 .container-DialogApprove-Expense h1 {
@@ -309,15 +393,6 @@ div[style*="width: 100%"] > .ant-table-wrapper {
   text-transform: uppercase;
   color: var(--accent-primary);
   margin: 0;
-}
-
-.container-DialogApprove-Expense .container-Expense-navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 24px;
-  padding-bottom: 16px;
-  border-bottom: 1px solid var(--border);
 }
 
 .container-DialogApprove-Expense .container-Expense-navbar .fa-circle-xmark {
@@ -338,8 +413,8 @@ div[style*="width: 100%"] > .ant-table-wrapper {
 
 .container-DialogApprove-Expense .container-Expense {
   display: flex;
-  align-items: flex-start;
-  gap: 48px;
+  gap: 28px;
+  padding: 24px 28px;
 }
 
 /* Left column */
@@ -350,7 +425,7 @@ div[style*="width: 100%"] > .ant-table-wrapper {
   gap: 20px;
 }
 
-/* Employee Info */
+/* Employee card */
 .container-DialogApprove-Expense .container-ExpenseUser {
   display: flex;
   gap: 16px;
@@ -374,7 +449,7 @@ div[style*="width: 100%"] > .ant-table-wrapper {
   font-size: 1.1rem;
   font-weight: 700;
   color: var(--accent-primary);
-  margin: 0 0 6px 0;
+  margin: 0 0 6px;
   letter-spacing: 0.02em;
 }
 
@@ -417,7 +492,7 @@ div[style*="width: 100%"] > .ant-table-wrapper {
   letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--text-secondary);
-  margin: 0 0 12px 0;
+  margin: 0 0 12px;
 }
 
 .container-DialogApprove-Expense .previewOnerName,
@@ -480,7 +555,7 @@ div[style*="width: 100%"] > .ant-table-wrapper {
   letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--text-secondary);
-  margin: 0 0 12px 0;
+  margin: 0 0 12px;
 }
 
 .container-DialogApprove-Expense .inputImage {
@@ -542,7 +617,7 @@ div[style*="width: 100%"] > .ant-table-wrapper {
   text-transform: uppercase;
   letter-spacing: 0.04em;
   color: var(--accent-primary);
-  margin: 0 0 16px 0;
+  margin: 0 0 16px;
 }
 
 .container-DialogApprove-Expense .container-Expense-right .PreviewImage img {
@@ -554,14 +629,13 @@ div[style*="width: 100%"] > .ant-table-wrapper {
   object-fit: cover;
 }
 
-/* Footer buttons */
+/* Footer buttons – approve modal */
 .container-DialogApprove-Expense .btn-DialogApprove-Navbar {
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  gap: 16px;
-  margin-top: 24px;
-  padding-top: 16px;
+  gap: 12px;
+  padding: 16px 28px 24px;
   border-top: 1px solid var(--border);
 }
 
@@ -599,6 +673,7 @@ div[style*="width: 100%"] > .ant-table-wrapper {
   border: 1px solid rgba(239, 68, 68, 0.3);
   background: rgba(239, 68, 68, 0.06);
   transition: all 0.18s ease;
+  cursor: pointer;
 }
 
 .container-DialogApprove-Expense .btn-DialogApprove-Navbar a:hover {
@@ -608,66 +683,69 @@ div[style*="width: 100%"] > .ant-table-wrapper {
   box-shadow: 0 4px 14px rgba(239, 68, 68, 0.3);
 }
 
-/* ─── Delete / Cancel Confirm Dialog ────────────────────── */
-.wrap-container-DialogDelete .ant-modal-content {
-  background: #fff;
-  border: 2px solid var(--border-active);
-  border-radius: var(--radius-card);
-  box-shadow: var(--shadow-hover);
-}
-
-.wrap-container-DialogDelete h1 {
+/* ── Delete / Cancel Confirm Dialogs ─────────────────── */
+.wrap-container-DialogDelete h1,
+.wrap-container-DialogCancel h1 {
   font-family: "Rajdhani", sans-serif;
-  font-size: 1.6rem;
+  font-size: 1.4rem;
   font-weight: 700;
   letter-spacing: 0.04em;
+  color: var(--text-primary);
   text-align: center;
-  color: var(--accent-primary);
-  margin-bottom: 24px;
+  margin: 28px 28px 24px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
-.btn-DialogDelete-Navbar {
+.btn-DialogDelete-Navbar,
+.btn-DialogCancel-Navbar {
   display: flex;
-  justify-content: center;
   gap: 12px;
+  padding: 0 28px 28px;
+  justify-content: center;
+  width: 100%;
+  box-sizing: border-box;
 }
 
-.btn-DialogDelete-Navbar button {
-  padding: 10px 28px;
+.btn-DialogDelete-Navbar button,
+.btn-DialogCancel-Navbar button {
+  flex: 1;
+  max-width: 140px;
+  padding: 10px 0;
   border-radius: 10px;
   font-family: "Sarabun", sans-serif;
   font-size: 0.9rem;
   font-weight: 600;
   cursor: pointer;
-  border: none;
-  transition:
-    opacity 0.2s,
-    transform 0.15s,
-    box-shadow 0.2s;
+  transition: all 0.18s ease;
+  letter-spacing: 0.02em;
 }
 
-.btn-DialogDelete-Navbar button:first-child {
+.btn-DialogDelete-Navbar button:first-child,
+.btn-DialogCancel-Navbar button:first-child {
   background: linear-gradient(135deg, #043929, #032520);
   color: #fff;
-  box-shadow: 0 4px 16px rgba(4, 57, 41, 0.25);
+  border: none;
+  box-shadow: 0 4px 14px rgba(4, 57, 41, 0.3);
 }
 
-.btn-DialogDelete-Navbar button:first-child:hover {
+.btn-DialogDelete-Navbar button:first-child:hover,
+.btn-DialogCancel-Navbar button:first-child:hover {
   opacity: 0.9;
   transform: translateY(-1px);
-  box-shadow: 0 6px 22px rgba(4, 57, 41, 0.4);
 }
 
-.btn-DialogDelete-Navbar button:last-child {
-  background: rgba(239, 68, 68, 0.06);
-  color: #ef4444;
-  border: 1px solid rgba(239, 68, 68, 0.3);
+.btn-DialogDelete-Navbar button:last-child,
+.btn-DialogCancel-Navbar button:last-child {
+  background: transparent;
+  color: var(--text-secondary);
+  border: 1px solid var(--border-active);
 }
 
-.btn-DialogDelete-Navbar button:last-child:hover {
-  background: #ef4444;
-  color: #fff;
-  box-shadow: 0 4px 14px rgba(239, 68, 68, 0.3);
+.btn-DialogDelete-Navbar button:last-child:hover,
+.btn-DialogCancel-Navbar button:last-child:hover {
+  background: var(--bg-card-hover);
+  color: var(--text-primary);
 }
 
 /* ─── Mobile Card View ───────────────────────────────── */
@@ -688,11 +766,45 @@ div[style*="width: 100%"] > .ant-table-wrapper {
   transition:
     box-shadow 0.2s ease,
     transform 0.15s ease;
+  animation: fadeSlideUp 0.4s ease both;
 }
 
 .withdraw-mobile-card:hover {
   box-shadow: var(--shadow-hover);
   transform: translateY(-2px);
+  border-color: var(--border-active);
+}
+
+/* Mobile card status badge */
+.mobile-status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 10px;
+  border-radius: var(--radius-badge);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  font-family: "Rajdhani", sans-serif;
+}
+
+.mobile-status-badge.pending {
+  background: rgba(245, 158, 11, 0.15);
+  color: var(--status-pending);
+  border: 1px solid rgba(245, 158, 11, 0.3);
+}
+
+.mobile-status-badge.approved {
+  background: rgba(16, 185, 129, 0.15);
+  color: var(--status-approved);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.mobile-status-badge.cancelled {
+  background: rgba(239, 68, 68, 0.1);
+  color: var(--status-canceled);
+  border: 1px solid rgba(239, 68, 68, 0.3);
 }
 
 /* Mobile pagination */
@@ -745,7 +857,6 @@ div[style*="width: 100%"] > .ant-table-wrapper {
   .container-WithdrawAdminPage {
     padding-left: 282px;
   }
-
   .container-DialogApprove-Expense .ant-modal-content {
     min-width: 800px;
   }
@@ -755,16 +866,13 @@ div[style*="width: 100%"] > .ant-table-wrapper {
   .container-WithdrawAdminPage {
     padding-left: 232px;
   }
-
   .container-DialogApprove-Expense .ant-modal-content {
     min-width: 90vw;
   }
-
   .container-DialogApprove-Expense .container-Expense {
     flex-direction: column;
     gap: 20px;
   }
-
   .container-DialogApprove-Expense .container-Expense-right .PreviewImage {
     width: 100%;
   }
@@ -778,15 +886,13 @@ div[style*="width: 100%"] > .ant-table-wrapper {
   .header-WithdrawAdminPage {
     padding-left: 60px;
   }
-
   .header-WithdrawAdminPage h1 {
-    font-size: 1.4rem;
+    font-size: 1.6rem;
   }
 
   .btn-create-withdraw {
     flex-wrap: wrap;
   }
-
   .btn-create-withdraw button,
   .btn-create-withdraw .ant-btn {
     width: 100% !important;
@@ -796,50 +902,46 @@ div[style*="width: 100%"] > .ant-table-wrapper {
   .container-DialogApprove-Expense .ant-modal-content {
     min-width: 95vw !important;
     max-width: 95vw !important;
-    border-radius: 12px;
     max-height: 90vh;
     overflow-y: auto;
-    padding: 16px !important;
   }
-
   .container-DialogApprove-Expense h1 {
     font-size: 1.3rem;
   }
-
   .container-DialogApprove-Expense .container-Expense {
     flex-direction: column;
     gap: 16px;
+    padding: 16px;
   }
-
   .container-DialogApprove-Expense .container-Expense-right .PreviewImage {
     width: 100%;
   }
-
   .container-DialogApprove-Expense .btn-DialogApprove-Navbar {
     flex-direction: column;
     align-items: stretch;
+    padding: 16px;
   }
-
   .container-DialogApprove-Expense .btn-DialogApprove-Navbar button,
   .container-DialogApprove-Expense .btn-DialogApprove-Navbar a {
     width: 100%;
     text-align: center;
   }
 
-  .btn-DialogDelete-Navbar {
+  .btn-DialogDelete-Navbar,
+  .btn-DialogCancel-Navbar {
     flex-direction: column;
   }
-
-  .btn-DialogDelete-Navbar button {
+  .btn-DialogDelete-Navbar button,
+  .btn-DialogCancel-Navbar button {
+    max-width: 100%;
     width: 100%;
   }
 }
 
-/* Misc helpers */
+/* ─── Misc helpers ───────────────────────────────────── */
 .width-40 {
   width: 40px;
 }
-
 .width-100 {
   width: 100px;
 }
