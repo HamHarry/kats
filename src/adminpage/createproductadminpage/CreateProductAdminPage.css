@@ -1,251 +1,414 @@
+@import url("https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Sarabun:wght@300;400;500;600&display=swap");
+
+/* ─── Root Variables (shared with CreateBookingAdminPage) ─── */
+:root {
+  --bg-base: #f2f6f4;
+  --bg-surface: #e8eeeb;
+  --bg-card: #ffffff;
+  --bg-card-hover: #f5fdf8;
+  --border: rgba(0, 150, 100, 0.18);
+  --border-active: rgba(0, 180, 120, 0.45);
+
+  --accent-gun: #043929;
+  --accent-gun-light: #05593d;
+
+  --text-primary: #1a2e22;
+  --text-secondary: #4a7a5e;
+  --text-muted: #8ab5a0;
+
+  --shadow-card: 0 2px 12px rgba(0, 120, 80, 0.08), 0 0 0 1px var(--border);
+  --shadow-hover:
+    0 6px 28px rgba(0, 150, 100, 0.15), 0 0 0 1px var(--border-active);
+
+  --radius-card: 16px;
+  --radius-input: 10px;
+  --radius-btn: 10px;
+}
+
+/* ─── Page Container ──────────────────────────────────── */
 .container-createproductAdmin {
   display: flex;
-  align-items: center;
   flex-direction: column;
-  padding: 20px 20px 0px 20px;
-  padding-left: 320px;
-  gap: 20px;
-
-  input {
-    padding: 5px;
-    min-width: 265px;
-    height: 45px;
-    border-radius: 20px;
-    border: 2px solid #043929;
-    font-size: 14px;
-  }
-
-  button {
-    width: 100px;
-    height: 45px;
-    border: none;
-    border-radius: 20px;
-    background-color: #043929;
-    color: white;
-    font-size: 20px;
-    cursor: pointer;
-    transition: all 0.5s;
-  }
-  button:hover {
-    background-color: #05593d;
-  }
+  padding: 28px 32px 48px;
+  padding-left: 332px;
+  font-family: "Sarabun", sans-serif;
+  color: var(--text-primary);
+  min-height: 100vh;
+  background: var(--bg-base);
+  gap: 0;
+  align-items: unset;
 }
 
+/* ─── Header ──────────────────────────────────────────── */
 .header-createproductAdmin {
   display: flex;
-  justify-content: center;
-  height: 80px;
-  max-width: 1200px;
-  width: 100%;
-  border-radius: 20px;
-  background-color: #043929;
-  h1 {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 42px;
-    font-weight: bolder;
-    color: white;
-  }
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 28px;
+  position: relative;
+  z-index: 1;
+  background: none;
+  height: auto;
+  max-width: unset;
+  border-radius: 0;
+  justify-content: unset;
 }
 
+.header-createproductAdmin h1 {
+  font-family: "Rajdhani", sans-serif;
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text-primary);
+  margin: 0;
+  line-height: 1;
+}
+
+.header-createproductAdmin::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(0, 0, 0, 0.12), transparent);
+  margin-left: 24px;
+}
+
+/* ─── Action Buttons Row ─────────────────────────────── */
 .btn-createproductAdmin {
   display: flex;
   justify-content: space-between;
-  padding-bottom: 20px;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 24px;
+  padding-bottom: 0;
 }
 
+.btn-createproductAdmin button {
+  padding: 10px 28px;
+  border-radius: var(--radius-btn);
+  font-family: "Sarabun", sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  letter-spacing: 0.04em;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  width: auto;
+  height: auto;
+}
+
+/* ย้อนกลับ — outlined */
+.btn-createproductAdmin button:first-child {
+  background: transparent;
+  color: var(--text-secondary);
+  border: 1px solid var(--border-active);
+}
+
+.btn-createproductAdmin button:first-child:hover {
+  background: var(--bg-card-hover);
+  color: var(--text-primary);
+  border-color: var(--accent-gun);
+}
+
+/* ยืนยัน — filled */
+.btn-createproductAdmin button:last-child {
+  background: linear-gradient(135deg, #043929, #032520);
+  color: #fff;
+  border: none;
+  box-shadow: 0 4px 16px rgba(4, 57, 41, 0.25);
+  font-size: 0.9rem;
+}
+
+.btn-createproductAdmin button:last-child:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 22px rgba(4, 57, 41, 0.4);
+}
+
+.btn-createproductAdmin button:last-child:active {
+  transform: translateY(0);
+}
+
+/* ─── Main Form Card ──────────────────────────────────── */
 .wrap-container-createproductAdmin {
   display: flex;
   flex-direction: column;
-  border: 5px solid #043929;
-  border-radius: 20px;
-  padding: 0px 20px 0px 20px;
-  height: 700px;
-  width: 900px;
-  h2 {
-    font-size: 1.5em;
-    font-weight: bolder;
-  }
-  .inputNameProduct {
-    display: flex;
-    align-items: center;
-    gap: 114px;
-    margin-left: 20px;
-    margin-top: 20px;
-  }
-  .inputCatagory {
-    display: flex;
-    align-items: center;
-    gap: 69px;
-    margin-left: 20px;
-    margin-top: 20px;
-  }
-  .inputTypeProduct {
-    display: flex;
-    align-items: center;
-    gap: 69px;
-    margin-left: 20px;
-    margin-top: 20px;
-  }
-  .inputPriceProduct {
-    display: flex;
-    align-items: center;
-    gap: 105px;
-    margin-left: 20px;
-    margin-top: 20px;
-  }
-  .inputDetailProduct {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    border: 2px dashed #043929;
-    border-radius: 10px;
-    padding: 24px;
-    max-width: 700px;
-    margin-left: 70px;
-    margin-top: 20px;
-    .inputDetailProduct-inside {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 16px;
-    }
-  }
-  .inputProductType {
-    display: flex;
-    align-items: center;
-    gap: 80px;
-    margin-left: 20px;
-    margin-top: 20px;
-  }
+  gap: 0;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+  padding: 32px;
+  animation: fadeSlideUp 0.4s ease both;
+  height: auto;
+  width: auto;
+}
 
-  .select-product {
-    width: 265px;
-    height: 45px;
-    border-radius: 20px;
+@keyframes fadeSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
   }
-
-  .ant-select-single .ant-select-selector {
-    border-radius: 20px !important;
-    border: 2px solid #043929;
-  }
-
-  .input-prices {
-    text-align: end;
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
+/* ─── Section Label ───────────────────────────────────── */
+.form-section-label {
+  font-family: "Rajdhani", sans-serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  padding: 18px 0 10px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 4px;
+}
+
+.form-section-label:first-child {
+  padding-top: 0;
+}
+
+/* ─── Fields Grid ─────────────────────────────────────── */
+.product-fields {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 28px;
+  align-content: start;
+}
+
+/* ─── Individual field wrappers ───────────────────────── */
+.inputNameProduct,
+.inputCatagory,
+.inputTypeProduct,
+.inputPriceProduct,
+.inputProductType {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 16px;
+}
+
+/* Labels */
+.inputNameProduct h2,
+.inputCatagory h2,
+.inputTypeProduct h2,
+.inputPriceProduct h2,
+.inputProductType h2 {
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+/* ─── Text Inputs ─────────────────────────────────────── */
+.wrap-container-createproductAdmin input[type="text"] {
+  width: 100%;
+  height: 42px;
+  padding: 0 14px;
+  background: #fff;
+  border: 1px solid var(--border-active);
+  border-radius: var(--radius-input);
+  font-family: "Sarabun", sans-serif;
+  font-size: 0.9rem;
+  color: var(--text-primary);
+  outline: none;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
+  box-sizing: border-box;
+  min-width: unset;
+}
+
+.wrap-container-createproductAdmin input[type="text"]:focus {
+  border-color: var(--accent-gun);
+  box-shadow: 0 0 0 3px rgba(4, 57, 41, 0.1);
+}
+
+.wrap-container-createproductAdmin input::placeholder {
+  color: #9ab5a8;
+}
+
+/* ─── Ant Design Select ───────────────────────────────── */
+.select-product {
+  width: 100% !important;
+}
+
+.select-product .ant-select-selector {
+  height: 42px !important;
+  padding: 0 14px !important;
+  border-radius: var(--radius-input) !important;
+  border: 1px solid var(--border-active) !important;
+  display: flex;
+  align-items: center;
+  font-family: "Sarabun", sans-serif !important;
+  font-size: 0.9rem !important;
+  color: var(--text-primary) !important;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s !important;
+}
+
+.select-product.ant-select-focused .ant-select-selector,
+.select-product .ant-select-selector:hover {
+  border-color: var(--accent-gun) !important;
+  box-shadow: 0 0 0 3px rgba(4, 57, 41, 0.1) !important;
+}
+
+.select-product .ant-select-selection-item {
+  line-height: 40px !important;
+}
+
+/* ─── Price Details Section ───────────────────────────── */
+.inputDetailProduct {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  border: 1.5px dashed var(--border-active);
+  border-radius: var(--radius-card);
+  padding: 20px 24px;
+  margin-top: 8px;
+  background: var(--bg-base);
+  max-width: unset;
+  margin-left: unset;
+}
+
+.inputDetailProduct > div:first-child {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 4px;
+}
+
+.inputDetailProduct > div:first-child::before {
+  content: "รายการราคา";
+  font-family: "Rajdhani", sans-serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+/* Add price button inside detail section */
+.inputDetailProduct > div:first-child button {
+  padding: 8px 20px;
+  height: auto;
+  width: auto;
+  font-size: 0.82rem;
+  font-weight: 600;
+  background: linear-gradient(135deg, #043929, #032520);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-btn);
+  cursor: pointer;
+  letter-spacing: 0.04em;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 8px rgba(4, 57, 41, 0.2);
+  font-family: "Sarabun", sans-serif;
+}
+
+.inputDetailProduct > div:first-child button:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(4, 57, 41, 0.35);
+}
+
+/* ─── Price Row ───────────────────────────────────────── */
+.inputDetailProduct-inside {
+  display: grid;
+  grid-template-columns: 1fr 1fr auto;
+  align-items: center;
+  gap: 16px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-input);
+  padding: 12px 16px;
+  transition:
+    box-shadow 0.2s,
+    border-color 0.2s;
+}
+
+.inputDetailProduct-inside:hover {
+  border-color: var(--border-active);
+  box-shadow: var(--shadow-card);
+}
+
+.inputDetailProduct-inside .input-prices {
+  text-align: end;
+  width: 100%;
+}
+
+/* Delete button inside row */
+.inputDetailProduct-inside button {
+  padding: 6px 14px;
+  height: auto;
+  width: auto;
+  font-size: 0.78rem;
+  font-weight: 600;
+  background: transparent;
+  color: #e05555;
+  border: 1px solid rgba(220, 60, 60, 0.35);
+  border-radius: var(--radius-btn);
+  cursor: pointer;
+  letter-spacing: 0.04em;
+  transition: all 0.2s ease;
+  font-family: "Sarabun", sans-serif;
+}
+
+.inputDetailProduct-inside button:hover {
+  background: #fff0f0;
+  border-color: #e05555;
+  color: #c03030;
+}
+
+/* ─── Responsive ──────────────────────────────────────── */
 @media (max-width: 1280px) {
   .container-createproductAdmin {
-    padding-left: 270px;
-  }
-
-  .wrap-container-createproductAdmin {
-    height: 600px;
-    width: 700px;
-    h2 {
-      font-size: 20px;
-    }
-    .inputNameProduct {
-      gap: 108px;
-    }
-    .inputCatagory {
-      gap: 69px;
-    }
-    .inputTypeProduct {
-      font-size: 20px;
-      gap: 69px;
-    }
-    .inputPriceProduct {
-      gap: 105px;
-    }
-    .inputDetailProduct {
-      margin-left: 0px;
-      overflow-y: auto;
-      margin-bottom: 20px;
-      button {
-        width: 100px;
-        height: 45px;
-        border: none;
-        border-radius: 20px;
-        background-color: #043929;
-        color: white;
-        font-size: 20px;
-        cursor: pointer;
-        transition: all 0.5s;
-      }
-      button:hover {
-        background-color: #05593d;
-      }
-    }
+    padding-left: 282px;
   }
 }
 
 @media (max-width: 1080px) {
   .container-createproductAdmin {
-    padding-left: 220px;
+    padding-left: 232px;
+  }
+
+  .wrap-container-createproductAdmin {
+    padding: 24px;
+  }
+}
+
+@media (max-width: 860px) {
+  .product-fields {
+    grid-template-columns: 1fr;
   }
 }
 
 @media (max-width: 600px) {
   .container-createproductAdmin {
-    padding-left: 20px;
-    input {
-      min-width: 146px;
-    }
+    padding: 16px 12px 32px;
+  }
+
+  .header-createproductAdmin {
+    padding-left: 60px;
+  }
+
+  .header-createproductAdmin h1 {
+    font-size: 1.6rem;
   }
 
   .wrap-container-createproductAdmin {
-    height: 900px;
-    width: 350px;
-    margin-bottom: 10px;
-    .inputNameProduct {
-      h2 {
-        font-size: 14px;
-      }
-      gap: 45px;
-    }
-    .inputCatagory {
-      h2 {
-        font-size: 14px;
-      }
-      gap: 40px;
-    }
-    .inputTypeProduct {
-      h2 {
-        font-size: 14px;
-      }
-      gap: 40px;
-    }
-    .inputDetailProduct {
-      max-width: 300px;
-      .inputDetailProduct-inside {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        align-items: center;
-        gap: 16px;
-      }
-    }
-    .inputProductType {
-      display: flex;
-      align-items: center;
-      gap: 80px;
-      margin-left: 20px;
-      margin-top: 20px;
-    }
+    padding: 16px;
+  }
 
-    .select-product {
-      width: 100%;
-      height: 45px;
-      border-radius: 20px;
-    }
-
-    .input-prices {
-      width: 100%;
-      margin-left: -2px;
-      text-align: end;
-    }
+  .inputDetailProduct-inside {
+    grid-template-columns: 1fr;
   }
 }

@@ -81,7 +81,7 @@ const CreateCatagoryAdminPage = () => {
         <h1>สร้างหมวดหมู่สินค้า</h1>
       </div>
 
-      <form className="content-CatagoryAdmin" onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <div className="btn-createcategoryAdmin">
           <button
             type="button"
@@ -95,27 +95,40 @@ const CreateCatagoryAdminPage = () => {
         </div>
 
         <div className="wrap-container-createcategoryAdmin">
-          <div className="inputNameCategory">
-            <h2>ชื่อหมวดหมู่</h2>
-            <Controller
-              control={control}
-              name="name"
-              render={({ field }) => {
-                return <input {...field} type="text" />;
-              }}
-            />
-          </div>
+          <div className="category-fields">
+            <div className="inputNameCategory">
+              <h2>ชื่อหมวดหมู่</h2>
+              <Controller
+                control={control}
+                name="name"
+                render={({ field }) => {
+                  return (
+                    <input
+                      {...field}
+                      type="text"
+                      placeholder="กรอกชื่อหมวดหมู่"
+                    />
+                  );
+                }}
+              />
+            </div>
 
-          <div className="inputCodeCatagory">
-            <h2>Code หมวดหมู่</h2>
-
-            <Controller
-              control={control}
-              name="code"
-              render={({ field }) => {
-                return <input {...field} type="text" />;
-              }}
-            />
+            <div className="inputCodeCatagory">
+              <h2>Code หมวดหมู่</h2>
+              <Controller
+                control={control}
+                name="code"
+                render={({ field }) => {
+                  return (
+                    <input
+                      {...field}
+                      type="text"
+                      placeholder="กรอก code หมวดหมู่"
+                    />
+                  );
+                }}
+              />
+            </div>
           </div>
         </div>
       </form>

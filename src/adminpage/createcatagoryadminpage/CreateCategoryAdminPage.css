@@ -1,149 +1,255 @@
+@import url("https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Sarabun:wght@300;400;500;600&display=swap");
+
+/* ─── Root Variables (shared with CreateProductAdminPage) ─── */
+:root {
+  --bg-base: #f2f6f4;
+  --bg-surface: #e8eeeb;
+  --bg-card: #ffffff;
+  --bg-card-hover: #f5fdf8;
+  --border: rgba(0, 150, 100, 0.18);
+  --border-active: rgba(0, 180, 120, 0.45);
+
+  --accent-gun: #043929;
+  --accent-gun-light: #05593d;
+
+  --text-primary: #1a2e22;
+  --text-secondary: #4a7a5e;
+  --text-muted: #8ab5a0;
+
+  --shadow-card: 0 2px 12px rgba(0, 120, 80, 0.08), 0 0 0 1px var(--border);
+  --shadow-hover:
+    0 6px 28px rgba(0, 150, 100, 0.15), 0 0 0 1px var(--border-active);
+
+  --radius-card: 16px;
+  --radius-input: 10px;
+  --radius-btn: 10px;
+}
+
+/* ─── Page Container ──────────────────────────────────── */
 .container-createcategoryAdmin {
   display: flex;
-  align-items: center;
   flex-direction: column;
-  padding: 20px 20px 0px 20px;
-  padding-left: 320px;
-  gap: 20px;
-
-  input {
-    padding: 5px;
-    min-width: 265px;
-    margin-left: -10px;
-    height: 45px;
-    border-radius: 20px;
-    border: 2px solid #043929;
-  }
-
-  button {
-    width: 100px;
-    height: 45px;
-    border: none;
-    border-radius: 20px;
-    background-color: #043929;
-    color: white;
-    font-size: 20px;
-    cursor: pointer;
-    transition: all 0.5s;
-  }
-  button:hover {
-    background-color: #05593d;
-  }
+  padding: 28px 32px 48px;
+  padding-left: 332px;
+  font-family: "Sarabun", sans-serif;
+  color: var(--text-primary);
+  min-height: 100vh;
+  background: var(--bg-base);
+  gap: 0;
+  align-items: unset;
 }
 
+/* ─── Header ──────────────────────────────────────────── */
 .header-createcategoryAdmin {
   display: flex;
-  justify-content: center;
-  height: 80px;
-  max-width: 1200px;
-  width: 100%;
-  border-radius: 20px;
-  background-color: #043929;
-  h1 {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 42px;
-    font-weight: bolder;
-    color: white;
-  }
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 28px;
+  position: relative;
+  z-index: 1;
+  background: none;
+  height: auto;
+  max-width: unset;
+  border-radius: 0;
+  justify-content: unset;
 }
 
+.header-createcategoryAdmin h1 {
+  font-family: "Rajdhani", sans-serif;
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text-primary);
+  margin: 0;
+  line-height: 1;
+}
+
+.header-createcategoryAdmin::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(0, 0, 0, 0.12), transparent);
+  margin-left: 24px;
+}
+
+/* ─── Action Buttons Row ─────────────────────────────── */
 .btn-createcategoryAdmin {
   display: flex;
   justify-content: space-between;
-  padding-bottom: 20px;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 24px;
+  padding-bottom: 0;
 }
 
+.btn-createcategoryAdmin button {
+  padding: 10px 28px;
+  border-radius: var(--radius-btn);
+  font-family: "Sarabun", sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  letter-spacing: 0.04em;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  width: auto;
+  height: auto;
+}
+
+/* ย้อนกลับ — outlined */
+.btn-createcategoryAdmin button:first-child {
+  background: transparent;
+  color: var(--text-secondary);
+  border: 1px solid var(--border-active);
+}
+
+.btn-createcategoryAdmin button:first-child:hover {
+  background: var(--bg-card-hover);
+  color: var(--text-primary);
+  border-color: var(--accent-gun);
+}
+
+/* ยืนยัน — filled */
+.btn-createcategoryAdmin button:last-child {
+  background: linear-gradient(135deg, #043929, #032520);
+  color: #fff;
+  border: none;
+  box-shadow: 0 4px 16px rgba(4, 57, 41, 0.25);
+  font-size: 0.9rem;
+}
+
+.btn-createcategoryAdmin button:last-child:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 22px rgba(4, 57, 41, 0.4);
+}
+
+.btn-createcategoryAdmin button:last-child:active {
+  transform: translateY(0);
+}
+
+/* ─── Main Form Card ──────────────────────────────────── */
 .wrap-container-createcategoryAdmin {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  border: 5px solid #043929;
-  border-radius: 20px;
-  padding: 0px 20px 0px 20px;
-  height: 250px;
-  min-width: 900px;
-  .inputNameCategory {
-    display: flex;
-    align-items: center;
-    gap: 107px;
-    margin-left: 20px;
-    margin-top: 20px;
-    h2 {
-      font-weight: bolder;
-      font-size: 1.5em;
-    }
+  gap: 0;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+  padding: 32px;
+  animation: fadeSlideUp 0.4s ease both;
+  height: auto;
+  width: auto;
+  min-width: unset;
+}
+
+@keyframes fadeSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
   }
-  .inputCodeCatagory {
-    display: flex;
-    align-items: center;
-    gap: 70px;
-    margin-left: 20px;
-    margin-top: 20px;
-    h2 {
-      font-weight: bolder;
-      font-size: 1.5em;
-    }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
+/* ─── Fields Grid ─────────────────────────────────────── */
+.category-fields {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 28px;
+  align-content: start;
+}
+
+/* ─── Individual field wrappers ───────────────────────── */
+.inputNameCategory,
+.inputCodeCatagory {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 16px;
+}
+
+/* Labels */
+.inputNameCategory h2,
+.inputCodeCatagory h2 {
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+/* ─── Text Inputs ─────────────────────────────────────── */
+.wrap-container-createcategoryAdmin input[type="text"] {
+  width: 100%;
+  height: 42px;
+  padding: 0 14px;
+  background: #fff;
+  border: 1px solid var(--border-active);
+  border-radius: var(--radius-input);
+  font-family: "Sarabun", sans-serif;
+  font-size: 0.9rem;
+  color: var(--text-primary);
+  outline: none;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
+  box-sizing: border-box;
+  min-width: unset;
+  margin-left: 0;
+}
+
+.wrap-container-createcategoryAdmin input[type="text"]:focus {
+  border-color: var(--accent-gun);
+  box-shadow: 0 0 0 3px rgba(4, 57, 41, 0.1);
+}
+
+.wrap-container-createcategoryAdmin input::placeholder {
+  color: #9ab5a8;
+}
+
+/* ─── Responsive ──────────────────────────────────────── */
 @media (max-width: 1280px) {
   .container-createcategoryAdmin {
-    padding-left: 270px;
-
-    input {
-      min-width: 100px;
-    }
-  }
-
-  .wrap-container-createcategoryAdmin {
-    min-width: 500px;
-    .inputNameCategory {
-      margin-right: 20px;
-    }
-    .inputCodeCatagory {
-      margin-right: 20px;
-    }
+    padding-left: 282px;
   }
 }
 
 @media (max-width: 1080px) {
   .container-createcategoryAdmin {
-    padding-left: 220px;
+    padding-left: 232px;
+  }
+
+  .wrap-container-createcategoryAdmin {
+    padding: 24px;
+  }
+}
+
+@media (max-width: 860px) {
+  .category-fields {
+    grid-template-columns: 1fr;
   }
 }
 
 @media (max-width: 600px) {
   .container-createcategoryAdmin {
-    padding-left: 20px;
+    padding: 16px 12px 32px;
   }
 
   .header-createcategoryAdmin {
-    h1 {
-      font-size: 32px;
-    }
+    padding-left: 60px;
   }
 
-  .content-CatagoryAdmin {
-    width: 100%;
-  }
-
-  .btn-createcategoryAdmin {
-    display: flex;
-    justify-content: space-between;
-    padding-bottom: 20px;
+  .header-createcategoryAdmin h1 {
+    font-size: 1.6rem;
   }
 
   .wrap-container-createcategoryAdmin {
-    min-width: 300px;
-    .inputNameCategory {
-      gap: 50px;
-      font-size: 9px;
-    }
-    .inputCodeCatagory {
-      gap: 30px;
-      font-size: 9px;
-    }
+    padding: 16px;
   }
 }

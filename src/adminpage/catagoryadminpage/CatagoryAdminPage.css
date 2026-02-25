@@ -1,69 +1,254 @@
+@import url("https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Sarabun:wght@300;400;500;600&display=swap");
+
+/* ─── Root Variables (shared with ProductAdminPage) ──── */
+:root {
+  --bg-base: #f2f6f4;
+  --bg-surface: #e8eeeb;
+  --bg-card: #ffffff;
+  --bg-card-hover: #f5fdf8;
+  --border: rgba(0, 150, 100, 0.18);
+  --border-active: rgba(0, 180, 120, 0.45);
+
+  --accent-primary: #043929;
+  --accent-secondary: #3b82f6;
+
+  --text-primary: #1a2e22;
+  --text-secondary: #4a7a5e;
+  --text-muted: #8ab5a0;
+
+  --shadow-card: 0 2px 12px rgba(0, 120, 80, 0.08), 0 0 0 1px var(--border);
+  --shadow-hover:
+    0 6px 28px rgba(0, 150, 100, 0.15), 0 0 0 1px var(--border-active);
+
+  --radius-card: 16px;
+}
+
+/* ─── Page Container ─────────────────────────────────── */
 .container-catagoryAdmin {
   display: flex;
   align-items: center;
   flex-direction: column;
-  padding: 20px 20px 0px 20px;
-  padding-left: 320px;
-  gap: 20px;
+  padding: 28px 32px 48px;
+  padding-left: 332px;
+  gap: 24px;
+  font-family: "Sarabun", sans-serif;
+  color: var(--text-primary);
+  min-height: 100vh;
+  background: var(--bg-base);
 }
 
+/* ─── Header ─────────────────────────────────────────── */
 .header-catagoryAdmin {
   display: flex;
-  justify-content: center;
-  height: 80px;
-  max-width: 1200px;
+  align-items: center;
+  gap: 16px;
   width: 100%;
-  border-radius: 20px;
-  background-color: #043929;
-  h1 {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 42px;
-    font-weight: bolder;
-    color: white;
-  }
+  position: relative;
+  z-index: 1;
 }
 
+.header-catagoryAdmin h1 {
+  font-family: "Rajdhani", sans-serif;
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #1a3d28;
+  margin: 0;
+  line-height: 1;
+}
+
+.header-catagoryAdmin::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(0, 0, 0, 0.12), transparent);
+  margin-left: 24px;
+}
+
+/* ─── Action Bar ─────────────────────────────────────── */
 .create-catagory {
   display: flex;
   flex-direction: column;
   width: 100%;
+}
 
-  .btn-create-catagory {
-    display: flex;
-    justify-content: space-between;
-    gap: 20px;
-    button {
-      padding: 5px;
-      height: 40px;
-      border-radius: 5px;
-      background-color: #043929;
-      color: white;
-      font-size: 16px;
-      border: none;
-      cursor: pointer;
-    }
-    button:hover {
-      background-color: #05593d;
-    }
+.btn-create-catagory {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.btn-create-catagory button {
+  padding: 10px 24px;
+  background: linear-gradient(135deg, #043929, #032520);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-family: "Sarabun", sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  letter-spacing: 0.04em;
+  transition:
+    opacity 0.2s,
+    transform 0.15s,
+    box-shadow 0.2s;
+  white-space: nowrap;
+  box-shadow: 0 4px 16px rgba(4, 57, 41, 0.25);
+}
+
+.btn-create-catagory button:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 22px rgba(4, 57, 41, 0.4);
+}
+
+.btn-create-catagory button:active {
+  transform: translateY(0);
+}
+
+/* ─── Table Wrapper ──────────────────────────────────── */
+.product-content {
+  width: 100%;
+  animation: fadeSlideUp 0.4s ease both;
+}
+
+@keyframes fadeSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
+/* ─── Ant Design Table Overrides ─────────────────────── */
+.product-content .ant-table-wrapper {
+  border: 1px solid var(--border-active);
+  border-radius: var(--radius-card);
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+}
+
+.product-content .ant-table {
+  font-family: "Sarabun", sans-serif;
+  background: var(--bg-card);
+}
+
+.product-content .ant-table-thead > tr > th {
+  background: linear-gradient(135deg, #043929, #032520) !important;
+  color: #ffffff !important;
+  font-family: "Rajdhani", sans-serif !important;
+  font-size: 0.85rem !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.06em !important;
+  text-transform: uppercase !important;
+  border-bottom: none !important;
+  padding: 14px 16px !important;
+}
+
+.product-content .ant-table-thead > tr > th::before {
+  display: none !important;
+}
+
+.product-content .ant-table-tbody > tr > td {
+  font-family: "Sarabun", sans-serif;
+  font-size: 0.9rem;
+  color: var(--text-primary);
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--border);
+  transition: background 0.18s ease;
+}
+
+.product-content .ant-table-tbody > tr:hover > td {
+  background: var(--bg-card-hover) !important;
+  cursor: pointer;
+}
+
+.product-content .ant-table-tbody > tr:last-child > td {
+  border-bottom: none;
+}
+
+/* Pagination */
+.product-content .ant-pagination {
+  padding: 12px 16px !important;
+  margin: 0 !important;
+  background: var(--bg-surface);
+  border-top: 1px solid var(--border);
+}
+
+.product-content .ant-pagination-item-active {
+  background: var(--accent-primary) !important;
+  border-color: var(--accent-primary) !important;
+}
+
+.product-content .ant-pagination-item-active a {
+  color: #fff !important;
+}
+
+/* ─── Delete Link ────────────────────────────────────── */
+.product-content .ant-space-item a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  border: 1px solid rgba(239, 68, 68, 0.25);
+  background: rgba(239, 68, 68, 0.06);
+  color: #ef4444;
+  font-size: 0.82rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.18s ease;
+}
+
+.product-content .ant-space-item a:hover {
+  background: #ef4444;
+  color: #fff;
+  border-color: #ef4444;
+  box-shadow: 0 4px 14px rgba(239, 68, 68, 0.3);
+}
+
+/* ─── Responsive ─────────────────────────────────────── */
 @media (max-width: 1280px) {
   .container-catagoryAdmin {
-    padding-left: 270px;
+    padding-left: 282px;
   }
 }
 
 @media (max-width: 1080px) {
   .container-catagoryAdmin {
-    padding-left: 220px;
+    padding-left: 232px;
   }
 }
 
 @media (max-width: 600px) {
   .container-catagoryAdmin {
-    padding-left: 20px;
+    padding: 16px 12px 32px;
+  }
+
+  .header-catagoryAdmin {
+    padding-left: 60px;
+  }
+
+  .header-catagoryAdmin h1 {
+    font-size: 1.6rem;
+  }
+
+  .btn-create-catagory {
+    flex-wrap: wrap;
+  }
+
+  .btn-create-catagory button {
+    width: 100%;
+    text-align: center;
+  }
+
+  .product-content .ant-table {
+    font-size: 0.78rem;
   }
 }
