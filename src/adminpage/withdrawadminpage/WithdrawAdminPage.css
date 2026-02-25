@@ -1,1067 +1,845 @@
+@import url("https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Sarabun:wght@300;400;500;600&display=swap");
+
+/* ─── Root Variables (shared with ProductAdminPage) ──── */
+:root {
+  --bg-base: #f2f6f4;
+  --bg-surface: #e8eeeb;
+  --bg-card: #ffffff;
+  --bg-card-hover: #f5fdf8;
+  --border: rgba(0, 150, 100, 0.18);
+  --border-active: rgba(0, 180, 120, 0.45);
+
+  --accent-primary: #043929;
+  --accent-secondary: #3b82f6;
+
+  --text-primary: #1a2e22;
+  --text-secondary: #4a7a5e;
+  --text-muted: #8ab5a0;
+
+  --shadow-card: 0 2px 12px rgba(0, 120, 80, 0.08), 0 0 0 1px var(--border);
+  --shadow-hover:
+    0 6px 28px rgba(0, 150, 100, 0.15), 0 0 0 1px var(--border-active);
+
+  --radius-card: 16px;
+}
+
+/* ─── Page Container ─────────────────────────────────── */
 .container-WithdrawAdminPage {
   display: flex;
   align-items: center;
   flex-direction: column;
-  padding: 20px 20px 0px 20px;
-  padding-left: 320px;
-  gap: 20px;
+  padding: 28px 32px 48px;
+  padding-left: 332px;
+  gap: 24px;
+  font-family: "Sarabun", sans-serif;
+  color: var(--text-primary);
+  min-height: 100vh;
+  background: var(--bg-base);
 }
 
+/* ─── Header ─────────────────────────────────────────── */
 .header-WithdrawAdminPage {
   display: flex;
-  justify-content: center;
-  height: 80px;
-  max-width: 1200px;
+  align-items: center;
+  gap: 16px;
   width: 100%;
-  border-radius: 20px;
-  background-color: #043929;
-  h1 {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 42px;
-    font-weight: bolder;
-    color: white;
+  position: relative;
+  z-index: 1;
+}
+
+.header-WithdrawAdminPage h1 {
+  font-family: "Rajdhani", sans-serif;
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #1a3d28;
+  margin: 0;
+  line-height: 1;
+}
+
+.header-WithdrawAdminPage::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(0, 0, 0, 0.12), transparent);
+  margin-left: 24px;
+}
+
+/* ─── Action Bar ─────────────────────────────────────── */
+.create-withdraw {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.btn-create-withdraw {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.btn-create-withdraw button,
+.btn-create-withdraw .ant-btn {
+  padding: 10px 24px !important;
+  height: auto !important;
+  background: linear-gradient(135deg, #043929, #032520) !important;
+  color: #fff !important;
+  border: none !important;
+  border-radius: 10px !important;
+  font-family: "Sarabun", sans-serif !important;
+  font-size: 0.9rem !important;
+  font-weight: 600 !important;
+  cursor: pointer !important;
+  letter-spacing: 0.04em !important;
+  transition:
+    opacity 0.2s,
+    transform 0.15s,
+    box-shadow 0.2s !important;
+  white-space: nowrap !important;
+  box-shadow: 0 4px 16px rgba(4, 57, 41, 0.25) !important;
+}
+
+.btn-create-withdraw button:hover,
+.btn-create-withdraw .ant-btn:hover {
+  opacity: 0.9 !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 6px 22px rgba(4, 57, 41, 0.4) !important;
+  background: linear-gradient(135deg, #043929, #032520) !important;
+  color: #fff !important;
+}
+
+.btn-create-withdraw button:active,
+.btn-create-withdraw .ant-btn:active {
+  transform: translateY(0) !important;
+}
+
+/* ─── Table Wrapper ──────────────────────────────────── */
+.withdraw-content {
+  width: 100%;
+  animation: fadeSlideUp 0.4s ease both;
+}
+
+@keyframes fadeSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
+/* ─── Ant Design Table Overrides ─────────────────────── */
+.withdraw-content .ant-table-wrapper,
+div[style*="width: 100%"] > .ant-table-wrapper {
+  border: 1px solid var(--border-active);
+  border-radius: var(--radius-card);
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+}
+
+/* Target the table wrapper that sits outside .withdraw-content too */
+.container-WithdrawAdminPage > div[style] .ant-table-wrapper {
+  border: 1px solid var(--border-active);
+  border-radius: var(--radius-card);
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+}
+
+.container-WithdrawAdminPage .ant-table {
+  font-family: "Sarabun", sans-serif;
+  background: var(--bg-card);
+}
+
+.container-WithdrawAdminPage .ant-table-thead > tr > th {
+  background: linear-gradient(135deg, #043929, #032520) !important;
+  color: #ffffff !important;
+  font-family: "Rajdhani", sans-serif !important;
+  font-size: 0.85rem !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.06em !important;
+  text-transform: uppercase !important;
+  border-bottom: none !important;
+  padding: 14px 16px !important;
+}
+
+.container-WithdrawAdminPage .ant-table-thead > tr > th::before {
+  display: none !important;
+}
+
+.container-WithdrawAdminPage .ant-table-tbody > tr > td {
+  font-family: "Sarabun", sans-serif;
+  font-size: 0.9rem;
+  color: var(--text-primary);
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--border);
+  transition: background 0.18s ease;
+}
+
+.container-WithdrawAdminPage .ant-table-tbody > tr:hover > td {
+  background: var(--bg-card-hover) !important;
+  cursor: pointer;
+}
+
+.container-WithdrawAdminPage .ant-table-tbody > tr:last-child > td {
+  border-bottom: none;
+}
+
+/* Sorter icons */
+.container-WithdrawAdminPage .ant-table-column-sorter {
+  color: rgba(255, 255, 255, 0.6) !important;
+}
+
+.container-WithdrawAdminPage .ant-table-column-sorter-up.active,
+.container-WithdrawAdminPage .ant-table-column-sorter-down.active {
+  color: #ffffff !important;
+}
+
+/* Pagination */
+.container-WithdrawAdminPage .ant-pagination {
+  padding: 12px 16px !important;
+  margin: 0 !important;
+  background: var(--bg-surface);
+  border-top: 1px solid var(--border);
+}
+
+.container-WithdrawAdminPage .ant-pagination-item-active {
+  background: var(--accent-primary) !important;
+  border-color: var(--accent-primary) !important;
+}
+
+.container-WithdrawAdminPage .ant-pagination-item-active a {
+  color: #fff !important;
+}
+
+/* ─── Status Badges ──────────────────────────────────── */
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-family: "Rajdhani", sans-serif;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.status-badge.pending {
+  background: rgba(255, 215, 0, 0.18);
+  color: #b8860b;
+  border: 1px solid rgba(255, 215, 0, 0.4);
+}
+
+.status-badge.approved {
+  background: rgba(0, 139, 0, 0.12);
+  color: #006400;
+  border: 1px solid rgba(0, 139, 0, 0.3);
+}
+
+.status-badge.cancelled {
+  background: rgba(239, 68, 68, 0.1);
+  color: #dc2626;
+  border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+/* ─── Action Links ───────────────────────────────────── */
+.container-WithdrawAdminPage .ant-space-item a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 32px;
+  height: 32px;
+  padding: 0 8px;
+  border-radius: 8px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.18s ease;
+}
+
+/* Edit button */
+.container-WithdrawAdminPage .ant-space-item a:first-child {
+  border: 1px solid rgba(4, 57, 41, 0.25);
+  background: rgba(4, 57, 41, 0.06);
+  color: #043929;
+}
+
+.container-WithdrawAdminPage .ant-space-item a:first-child:hover {
+  background: #043929;
+  color: #fff;
+  border-color: #043929;
+  box-shadow: 0 4px 14px rgba(4, 57, 41, 0.3);
+}
+
+/* Delete button */
+.container-WithdrawAdminPage .ant-space-item a:last-child {
+  border: 1px solid rgba(239, 68, 68, 0.25);
+  background: rgba(239, 68, 68, 0.06);
+  color: #ef4444;
+}
+
+.container-WithdrawAdminPage .ant-space-item a:last-child:hover {
+  background: #ef4444;
+  color: #fff;
+  border-color: #ef4444;
+  box-shadow: 0 4px 14px rgba(239, 68, 68, 0.3);
+}
+
+/* Hidden link (linkIsNone) */
+.linkIsNone {
+  display: none !important;
+}
+
+/* ─── Approve Dialog ─────────────────────────────────── */
+.container-DialogApprove-Expense .ant-modal-content {
+  background-color: #fff;
+  border: 2px solid var(--border-active);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-hover);
+  min-width: 960px;
+}
+
+.container-DialogApprove-Expense h1 {
+  font-family: "Rajdhani", sans-serif;
+  font-size: 1.8rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--accent-primary);
+  margin: 0;
+}
+
+.container-DialogApprove-Expense .container-Expense-navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border);
+}
+
+.container-DialogApprove-Expense .container-Expense-navbar .fa-circle-xmark {
+  font-size: 24px;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition:
+    color 0.18s ease,
+    transform 0.2s ease;
+}
+
+.container-DialogApprove-Expense
+  .container-Expense-navbar
+  .fa-circle-xmark:hover {
+  color: var(--accent-primary);
+  transform: rotate(90deg);
+}
+
+.container-DialogApprove-Expense .container-Expense {
+  display: flex;
+  align-items: flex-start;
+  gap: 48px;
+}
+
+/* Left column */
+.container-DialogApprove-Expense .container-Expense-left {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Employee Info */
+.container-DialogApprove-Expense .container-ExpenseUser {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  padding: 16px;
+  background: var(--bg-surface);
+  border-radius: 12px;
+  border: 1px solid var(--border);
+}
+
+.container-DialogApprove-Expense .container-ExpenseUser-left img {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--border-active);
+}
+
+.container-DialogApprove-Expense .container-ExpenseUser-right h4 {
+  font-family: "Rajdhani", sans-serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--accent-primary);
+  margin: 0 0 6px 0;
+  letter-spacing: 0.02em;
+}
+
+.container-DialogApprove-Expense .previewTel,
+.container-DialogApprove-Expense .previewRol {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 4px;
+}
+
+.container-DialogApprove-Expense .previewTel .fa-phone,
+.container-DialogApprove-Expense .previewRol .fa-user {
+  font-size: 14px;
+  color: var(--text-secondary);
+  width: 16px;
+}
+
+.container-DialogApprove-Expense .previewTel p,
+.container-DialogApprove-Expense .previewRol p {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+/* Data sections */
+.container-DialogApprove-Expense .wrap-container-ExpenseData,
+.container-DialogApprove-Expense .wrap-container-ExpenseList {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 16px;
+}
+
+.container-DialogApprove-Expense .wrap-container-ExpenseData h4,
+.container-DialogApprove-Expense .wrap-container-ExpenseList h4 {
+  font-family: "Rajdhani", sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  margin: 0 0 12px 0;
+}
+
+.container-DialogApprove-Expense .previewOnerName,
+.container-DialogApprove-Expense .previewDetel,
+.container-DialogApprove-Expense .previewDate,
+.container-DialogApprove-Expense .previewCatagory,
+.container-DialogApprove-Expense .previewTotal,
+.container-DialogApprove-Expense .previewStatus,
+.container-DialogApprove-Expense .previewPriceDate {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.container-DialogApprove-Expense .previewOnerName:last-child,
+.container-DialogApprove-Expense .previewDetel:last-child,
+.container-DialogApprove-Expense .previewDate:last-child,
+.container-DialogApprove-Expense .previewCatagory:last-child,
+.container-DialogApprove-Expense .previewTotal:last-child,
+.container-DialogApprove-Expense .previewStatus:last-child,
+.container-DialogApprove-Expense .previewPriceDate:last-child {
+  border-bottom: none;
+}
+
+.container-DialogApprove-Expense .width-100 p {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin: 0;
+  font-weight: 500;
+}
+
+.container-DialogApprove-Expense .previewOnerName > p,
+.container-DialogApprove-Expense .previewDetel > p,
+.container-DialogApprove-Expense .previewDate > p,
+.container-DialogApprove-Expense .previewCatagory > p,
+.container-DialogApprove-Expense .previewTotal > p,
+.container-DialogApprove-Expense .previewStatus > p,
+.container-DialogApprove-Expense .previewPriceDate > p {
+  font-size: 0.9rem;
+  color: var(--text-primary);
+  font-weight: 600;
+  margin: 0;
+  text-align: right;
+}
+
+/* Upload image */
+.container-DialogApprove-Expense .wrap-inputImage {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 16px;
+}
+
+.container-DialogApprove-Expense .wrap-inputImage h4 {
+  font-family: "Rajdhani", sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  margin: 0 0 12px 0;
+}
+
+.container-DialogApprove-Expense .inputImage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.container-DialogApprove-Expense .text-image {
+  width: 100%;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: 2px dashed var(--border-active);
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  font-family: "Sarabun", sans-serif;
+  font-weight: 500;
+  transition:
+    background 0.18s ease,
+    border-color 0.18s ease;
+}
+
+.container-DialogApprove-Expense .text-image:hover {
+  background: var(--bg-surface);
+  border-color: var(--accent-primary);
+  color: var(--accent-primary);
+}
+
+.container-DialogApprove-Expense .icon-file {
+  font-size: 18px;
+  color: inherit;
+}
+
+.container-DialogApprove-Expense input[type="file"] {
+  display: none;
+}
+
+/* Right column – slip image */
+.container-DialogApprove-Expense .container-Expense-right .PreviewImage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: var(--bg-surface);
+  padding: 20px;
+  border-radius: var(--radius-card);
+  border: 1px solid var(--border);
+  width: 320px;
+}
+
+.container-DialogApprove-Expense .container-Expense-right .PreviewImage h2 {
+  font-family: "Rajdhani", sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--accent-primary);
+  margin: 0 0 16px 0;
+}
+
+.container-DialogApprove-Expense .container-Expense-right .PreviewImage img {
+  width: 100%;
+  max-width: 280px;
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  object-fit: cover;
+}
+
+/* Footer buttons */
+.container-DialogApprove-Expense .btn-DialogApprove-Navbar {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 16px;
+  margin-top: 24px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+}
+
+.container-DialogApprove-Expense .btn-DialogApprove-Navbar button {
+  padding: 10px 28px;
+  background: linear-gradient(135deg, #043929, #032520);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-family: "Sarabun", sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  letter-spacing: 0.04em;
+  transition:
+    opacity 0.2s,
+    transform 0.15s,
+    box-shadow 0.2s;
+  box-shadow: 0 4px 16px rgba(4, 57, 41, 0.25);
+}
+
+.container-DialogApprove-Expense .btn-DialogApprove-Navbar button:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 22px rgba(4, 57, 41, 0.4);
+}
+
+.container-DialogApprove-Expense .btn-DialogApprove-Navbar a {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: #dc2626;
+  text-decoration: none;
+  padding: 10px 20px;
+  border-radius: 10px;
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  background: rgba(239, 68, 68, 0.06);
+  transition: all 0.18s ease;
+}
+
+.container-DialogApprove-Expense .btn-DialogApprove-Navbar a:hover {
+  background: #ef4444;
+  color: #fff;
+  border-color: #ef4444;
+  box-shadow: 0 4px 14px rgba(239, 68, 68, 0.3);
+}
+
+/* ─── Delete / Cancel Confirm Dialog ────────────────────── */
+.wrap-container-DialogDelete .ant-modal-content {
+  background: #fff;
+  border: 2px solid var(--border-active);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-hover);
+}
+
+.wrap-container-DialogDelete h1 {
+  font-family: "Rajdhani", sans-serif;
+  font-size: 1.6rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-align: center;
+  color: var(--accent-primary);
+  margin-bottom: 24px;
+}
+
+.btn-DialogDelete-Navbar {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}
+
+.btn-DialogDelete-Navbar button {
+  padding: 10px 28px;
+  border-radius: 10px;
+  font-family: "Sarabun", sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition:
+    opacity 0.2s,
+    transform 0.15s,
+    box-shadow 0.2s;
+}
+
+.btn-DialogDelete-Navbar button:first-child {
+  background: linear-gradient(135deg, #043929, #032520);
+  color: #fff;
+  box-shadow: 0 4px 16px rgba(4, 57, 41, 0.25);
+}
+
+.btn-DialogDelete-Navbar button:first-child:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 22px rgba(4, 57, 41, 0.4);
+}
+
+.btn-DialogDelete-Navbar button:last-child {
+  background: rgba(239, 68, 68, 0.06);
+  color: #ef4444;
+  border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.btn-DialogDelete-Navbar button:last-child:hover {
+  background: #ef4444;
+  color: #fff;
+  box-shadow: 0 4px 14px rgba(239, 68, 68, 0.3);
+}
+
+/* ─── Mobile Card View ───────────────────────────────── */
+.withdraw-mobile-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+}
+
+.withdraw-mobile-card {
+  background: var(--bg-card);
+  border-radius: var(--radius-card);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-card);
+  padding: 16px;
+  cursor: pointer;
+  transition:
+    box-shadow 0.2s ease,
+    transform 0.15s ease;
+}
+
+.withdraw-mobile-card:hover {
+  box-shadow: var(--shadow-hover);
+  transform: translateY(-2px);
+}
+
+/* Mobile pagination */
+.withdraw-mobile-pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  margin-top: 16px;
+  padding-top: 12px;
+}
+
+.withdraw-mobile-pagination button {
+  width: 100px;
+  height: 36px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  border-radius: 8px;
+  font-family: "Sarabun", sans-serif;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.withdraw-mobile-pagination button:not(:disabled) {
+  border: 1px solid var(--accent-primary);
+  background: linear-gradient(135deg, #043929, #032520);
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(4, 57, 41, 0.2);
+}
+
+.withdraw-mobile-pagination button:disabled {
+  border: 1px solid var(--border-active);
+  background: var(--bg-surface);
+  color: var(--text-secondary);
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.withdraw-mobile-pagination span {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--accent-primary);
+  min-width: 80px;
+  text-align: center;
+  font-family: "Sarabun", sans-serif;
+}
+
+/* ─── Responsive ─────────────────────────────────────── */
+@media (max-width: 1280px) {
+  .container-WithdrawAdminPage {
+    padding-left: 282px;
+  }
+
+  .container-DialogApprove-Expense .ant-modal-content {
+    min-width: 800px;
+  }
+}
+
+@media (max-width: 1080px) {
+  .container-WithdrawAdminPage {
+    padding-left: 232px;
+  }
+
+  .container-DialogApprove-Expense .ant-modal-content {
+    min-width: 90vw;
+  }
+
+  .container-DialogApprove-Expense .container-Expense {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .container-DialogApprove-Expense .container-Expense-right .PreviewImage {
+    width: 100%;
+  }
+}
+
+@media (max-width: 600px) {
+  .container-WithdrawAdminPage {
+    padding: 16px 12px 32px;
+  }
+
+  .header-WithdrawAdminPage {
+    padding-left: 60px;
+  }
+
+  .header-WithdrawAdminPage h1 {
+    font-size: 1.4rem;
+  }
+
+  .btn-create-withdraw {
+    flex-wrap: wrap;
+  }
+
+  .btn-create-withdraw button,
+  .btn-create-withdraw .ant-btn {
+    width: 100% !important;
+    text-align: center !important;
+  }
+
+  .container-DialogApprove-Expense .ant-modal-content {
+    min-width: 95vw !important;
+    max-width: 95vw !important;
+    border-radius: 12px;
+    max-height: 90vh;
+    overflow-y: auto;
+    padding: 16px !important;
+  }
+
+  .container-DialogApprove-Expense h1 {
+    font-size: 1.3rem;
+  }
+
+  .container-DialogApprove-Expense .container-Expense {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .container-DialogApprove-Expense .container-Expense-right .PreviewImage {
+    width: 100%;
+  }
+
+  .container-DialogApprove-Expense .btn-DialogApprove-Navbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .container-DialogApprove-Expense .btn-DialogApprove-Navbar button,
+  .container-DialogApprove-Expense .btn-DialogApprove-Navbar a {
+    width: 100%;
+    text-align: center;
+  }
+
+  .btn-DialogDelete-Navbar {
+    flex-direction: column;
+  }
+
+  .btn-DialogDelete-Navbar button {
+    width: 100%;
+  }
+}
+
+/* Misc helpers */
 .width-40 {
   width: 40px;
 }
 
 .width-100 {
   width: 100px;
-}
-
-.create-withdraw {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-
-  .btn-create-withdraw {
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-self: end;
-    gap: 20px;
-    button {
-      padding: 5px;
-      height: 40px;
-      min-width: 80px;
-      border-radius: 5px;
-      background-color: #043929;
-      color: white;
-      font-size: 16px;
-      border: none;
-      cursor: pointer;
-    }
-    button:hover {
-      background-color: #05593d !important;
-      color: white !important;
-    }
-  }
-}
-
-.withdraw-content {
-  .ant-table {
-    height: 600px;
-  }
-}
-
-.linkIsNone {
-  display: none;
-}
-
-.container-DialogApprove-Expense {
-  .ant-modal-content {
-    background-color: white;
-    border: 5px solid #043929;
-    border-radius: 20px;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -0%);
-    min-width: 1000px;
-  }
-  h1 {
-    text-align: center;
-    font-size: 50px;
-    color: #043929;
-  }
-  .btn-DialogApprove-Navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 30px;
-    gap: 20px;
-    button {
-      padding: 10px 20px;
-      border-radius: 20px;
-      background-color: #043929;
-      color: white;
-      font-size: 20px;
-      border: none;
-      cursor: pointer;
-    }
-    button:hover {
-      background-color: #05593d;
-      text-shadow:
-        0 0 10px rgba(255, 255, 255, 0.8),
-        0 0 20px rgba(255, 255, 255, 0.6),
-        0 0 30px rgba(255, 255, 255, 0.4);
-      transition: all 0.5s;
-    }
-    a {
-      font-size: 16px;
-      color: rgb(220, 20, 60);
-      text-decoration: none;
-      transition: color 0.3s ease;
-    }
-
-    a:hover {
-      color: rgb(255, 80, 100);
-      text-shadow: 0 0 8px rgba(255, 80, 100, 0.6);
-    }
-  }
-  .container-Expense-navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    .fa-circle-xmark {
-      font-size: 30px;
-      color: #043929;
-      cursor: pointer;
-    }
-    .fa-circle-xmark:hover {
-      color: #05593d;
-      text-shadow:
-        0 0 10px rgba(255, 255, 255, 0.8),
-        0 0 20px rgba(255, 255, 255, 0.6),
-        0 0 30px rgba(255, 255, 255, 0.4);
-      transition: all 0.5s;
-    }
-  }
-  .container-Expense {
-    display: flex;
-    /* justify-content: space-evenly; */
-    align-items: center;
-    gap: 150px;
-    .container-Expense-left {
-      display: flex;
-      flex-direction: column;
-      padding-left: 40px;
-      .container-ExpenseUser {
-        display: flex;
-        gap: 20px;
-        padding-bottom: 20px;
-        .container-ExpenseUser-left {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          img {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-          }
-        }
-        .container-ExpenseUser-right {
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          h4 {
-            font-size: 20px;
-            color: #043929;
-          }
-          .previewTel {
-            display: flex;
-            justify-content: start;
-            align-items: center;
-            .fa-phone {
-              font-size: 20px;
-              color: #043929;
-            }
-            p {
-              font-size: 18px;
-            }
-          }
-          .previewRol {
-            display: flex;
-            justify-content: start;
-            align-items: center;
-            .fa-user {
-              font-size: 20px;
-              color: #043929;
-            }
-            p {
-              font-size: 18px;
-            }
-          }
-        }
-      }
-      .wrap-container-ExpenseData {
-        display: flex;
-        flex-direction: column;
-        h4 {
-          font-size: 20px;
-          color: #043929;
-        }
-        .container-ExpenseData {
-          display: flex;
-          flex-direction: column;
-          .previewOnerName {
-            display: flex;
-            p {
-              font-size: 16px;
-            }
-          }
-          .previewDetel {
-            display: flex;
-            p {
-              font-size: 16px;
-            }
-          }
-          .previewDate {
-            display: flex;
-            p {
-              font-size: 16px;
-            }
-          }
-        }
-      }
-      .wrap-container-ExpenseList {
-        display: flex;
-        flex-direction: column;
-        h4 {
-          font-size: 20px;
-          color: #043929;
-        }
-        .container-ExpenseList {
-          display: flex;
-          flex-direction: column;
-          .previewCatagory {
-            display: flex;
-            font-size: 16px;
-          }
-          .previewTotal {
-            display: flex;
-            font-size: 16px;
-          }
-          .previewStatus {
-            display: flex;
-            font-size: 16px;
-          }
-          .previewPriceDate {
-            display: flex;
-            font-size: 16px;
-          }
-        }
-      }
-      .wrap-inputImage {
-        display: flex;
-        flex-direction: column;
-        h4 {
-          font-size: 20px;
-          color: #043929;
-        }
-        .inputImage {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          margin-top: 20px;
-          .text-image {
-            width: 265px;
-            height: 45px;
-            display: flex;
-            flex-direction: column;
-            align-items: space-between;
-            gap: 5px;
-            cursor: pointer;
-            align-items: center;
-            justify-content: center;
-            border: 2px dashed #043929;
-            padding: 1.5rem;
-            border-radius: 10px;
-          }
-          .icon-file {
-            font-size: 20px;
-            color: #043929;
-          }
-          input {
-            display: none;
-          }
-        }
-      }
-    }
-    .container-Expense-right {
-      .PreviewImage {
-        display: flex;
-        flex-direction: column;
-        width: 100%;
-        max-width: 350px;
-        align-items: center;
-        background-color: #f9f9f9;
-        padding: 20px;
-        border-radius: 12px;
-        border: 1px solid #e8e8e8;
-        h2 {
-          margin-top: 20px;
-          margin-bottom: 15px;
-          font-size: 22px;
-          color: #043929;
-          font-weight: 600;
-        }
-        img {
-          width: 100%;
-          max-width: 280px;
-          height: auto;
-          border-radius: 10px;
-          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-          object-fit: cover;
-        }
-      }
-    }
-  }
-}
-
-@media (max-width: 1280px) {
-  .container-WithdrawAdminPage {
-    padding-left: 270px;
-  }
-
-  .withdraw-content {
-    .ant-table {
-      height: 500px;
-      font-size: 12px;
-      .ant-typography {
-        font-size: 12px;
-      }
-      a {
-        font-size: 12px;
-      }
-    }
-  }
-}
-
-@media (max-width: 1080px) {
-  .container-WithdrawAdminPage {
-    padding-left: 220px;
-
-    .ant-table-content {
-      height: 500px !important;
-    }
-  }
-}
-
-@media (max-width: 1024px) {
-  .container-DialogApprove-Expense {
-    .ant-modal-content {
-      min-width: 90vw;
-      max-width: 900px;
-      border-radius: 15px;
-      max-height: 90vh;
-      overflow-y: auto;
-    }
-
-    h1 {
-      font-size: 36px;
-      margin-bottom: 20px;
-    }
-
-    .container-Expense-navbar {
-      padding: 0 0 15px 0;
-      border-bottom: 2px solid #f0f0f0;
-      margin-bottom: 15px;
-
-      .fa-circle-xmark {
-        font-size: 28px;
-        transition: all 0.3s ease;
-      }
-
-      .fa-circle-xmark:hover {
-        color: #05593d;
-        transform: rotate(90deg);
-      }
-    }
-
-    .btn-DialogApprove-Navbar {
-      flex-direction: row;
-      justify-content: center;
-      gap: 20px !important;
-      margin-top: 20px;
-      padding-top: 15px;
-      border-top: 1px solid #f0f0f0;
-
-      button {
-        flex: 0 1 auto;
-        font-size: 16px;
-        padding: 10px 30px;
-        transition: all 0.3s ease;
-      }
-
-      button:hover {
-        transform: translateY(-2px);
-      }
-
-      a {
-        text-align: center;
-        padding: 10px;
-        transition: all 0.3s ease;
-      }
-
-      a:hover {
-        transform: translateY(-2px);
-      }
-    }
-
-    .container-Expense {
-      gap: 30px;
-      flex-direction: column;
-      align-items: stretch;
-
-      .container-Expense-left {
-        padding-left: 20px;
-        padding-right: 20px;
-
-        .container-ExpenseUser {
-          display: flex;
-          gap: 20px;
-          padding-bottom: 15px;
-          border-bottom: 2px solid #f0f0f0;
-          margin-bottom: 20px;
-
-          .container-ExpenseUser-left {
-            flex-shrink: 0;
-
-            img {
-              width: 90px;
-              height: 90px;
-              object-fit: cover;
-              box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-            }
-          }
-
-          .container-ExpenseUser-right {
-            justify-content: center;
-
-            h4 {
-              font-size: 18px;
-              margin-bottom: 10px;
-              color: #043929;
-            }
-
-            .previewTel,
-            .previewRol {
-              display: flex;
-              align-items: center;
-              gap: 12px;
-              margin-bottom: 6px;
-
-              i {
-                font-size: 16px;
-                color: #043929;
-              }
-
-              p {
-                font-size: 14px;
-                margin: 0;
-              }
-            }
-          }
-        }
-
-        .wrap-container-ExpenseData,
-        .wrap-container-ExpenseList {
-          margin-bottom: 20px;
-          padding-bottom: 15px;
-          border-bottom: 1px solid #f0f0f0;
-
-          h4 {
-            font-size: 17px;
-            margin: 0 0 12px 0;
-            color: #043929;
-            font-weight: 600;
-          }
-
-          .container-ExpenseData,
-          .container-ExpenseList {
-            display: flex;
-            flex-direction: column;
-            gap: 0;
-
-            .previewOnerName,
-            .previewDetel,
-            .previewDate,
-            .previewCatagory,
-            .previewTotal,
-            .previewStatus,
-            .previewPriceDate {
-              display: flex;
-              justify-content: space-between;
-              align-items: center;
-              padding: 10px 0;
-
-              .width-100 {
-                width: auto;
-                font-size: 14px;
-                font-weight: 500;
-                color: #666;
-              }
-
-              p {
-                font-size: 14px;
-                margin: 0;
-                color: #043929;
-                font-weight: 500;
-              }
-            }
-          }
-        }
-
-        .wrap-inputImage {
-          margin-bottom: 20px;
-          padding-bottom: 15px;
-          border-bottom: 1px solid #f0f0f0;
-
-          h4 {
-            font-size: 17px;
-            margin: 0 0 12px 0;
-            color: #043929;
-            font-weight: 600;
-          }
-
-          .inputImage {
-            margin-top: 12px;
-
-            .text-image {
-              width: 100%;
-              height: auto;
-              padding: 1.2rem;
-              font-size: 14px;
-              border: 2px dashed #043929;
-              border-radius: 10px;
-              display: flex;
-              flex-direction: column;
-              align-items: center;
-              gap: 10px;
-              cursor: pointer;
-              transition: all 0.3s ease;
-              background-color: #fafafa;
-            }
-
-            .text-image:hover {
-              background-color: #f5f5f5;
-              border-color: #05593d;
-            }
-
-            .icon-file {
-              font-size: 22px;
-              color: #043929;
-            }
-
-            span {
-              color: #043929;
-            }
-          }
-        }
-      }
-
-      .container-Expense-right {
-        .PreviewImage {
-          max-width: 100%;
-          padding: 18px;
-          background-color: #f9f9f9;
-          border-radius: 12px;
-          border: 1px solid #e8e8e8;
-          box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
-
-          h2 {
-            font-size: 18px;
-            margin: 0 0 15px 0;
-            text-align: center;
-            color: #043929;
-            font-weight: 600;
-          }
-
-          img {
-            width: 100%;
-            max-width: 300px;
-            height: auto;
-            border-radius: 10px;
-            display: block;
-            margin: 0 auto;
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.12);
-            object-fit: cover;
-          }
-        }
-      }
-    }
-  }
-}
-
-@media (max-width: 768px) {
-  .container-DialogApprove-Expense {
-    .ant-modal-content {
-      min-width: 95vw;
-      max-width: 95vw;
-      border-radius: 12px;
-      max-height: 90vh;
-      overflow-y: auto;
-    }
-
-    h1 {
-      font-size: 28px;
-      margin-bottom: 20px;
-    }
-
-    .container-Expense-navbar {
-      padding: 0 15px;
-      margin-bottom: 15px;
-
-      .fa-circle-xmark {
-        font-size: 26px;
-      }
-    }
-
-    .btn-DialogApprove-Navbar {
-      flex-direction: row;
-      justify-content: center;
-      gap: 15px !important;
-      margin-top: 20px;
-      padding: 0 15px;
-
-      button {
-        flex: 1;
-        max-width: 150px;
-        font-size: 15px;
-        padding: 10px 20px;
-      }
-
-      a {
-        max-width: 150px;
-        text-align: center;
-        padding: 10px;
-      }
-    }
-
-    .container-Expense {
-      gap: 30px;
-      flex-direction: column;
-      padding: 0 15px;
-      align-items: stretch;
-
-      .container-Expense-left {
-        padding-left: 0;
-        padding-right: 0;
-
-        .container-ExpenseUser {
-          gap: 15px;
-          margin-bottom: 20px;
-
-          .container-ExpenseUser-left {
-            img {
-              width: 90px;
-              height: 90px;
-            }
-          }
-
-          .container-ExpenseUser-right {
-            justify-content: flex-start;
-
-            h4 {
-              font-size: 18px;
-              margin-bottom: 8px;
-            }
-
-            .previewTel,
-            .previewRol {
-              gap: 10px;
-
-              p {
-                font-size: 14px;
-              }
-
-              i {
-                font-size: 16px;
-              }
-            }
-          }
-        }
-
-        .wrap-container-ExpenseData,
-        .wrap-container-ExpenseList {
-          margin-bottom: 20px;
-
-          h4 {
-            font-size: 16px;
-            margin-bottom: 12px;
-            color: #043929;
-          }
-
-          .container-ExpenseData,
-          .container-ExpenseList {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-
-            .previewOnerName,
-            .previewDetel,
-            .previewDate,
-            .previewCatagory,
-            .previewTotal,
-            .previewStatus,
-            .previewPriceDate {
-              display: flex;
-              justify-content: space-between;
-              padding: 8px 0;
-              border-bottom: 1px solid #f0f0f0;
-
-              .width-100 {
-                width: auto;
-                font-weight: 500;
-                color: #666;
-              }
-
-              p {
-                font-size: 14px;
-                text-align: right;
-              }
-            }
-          }
-        }
-
-        .wrap-inputImage {
-          margin-top: 20px;
-
-          h4 {
-            font-size: 16px;
-            margin-bottom: 12px;
-          }
-
-          .inputImage {
-            margin-top: 10px;
-
-            .text-image {
-              width: 100%;
-              height: auto;
-              padding: 1.2rem;
-              font-size: 13px;
-              border: 2px dashed #043929;
-              transition: all 0.3s ease;
-            }
-
-            .text-image:hover {
-              background-color: #f5f5f5;
-              border-color: #05593d;
-            }
-
-            .icon-file {
-              font-size: 20px;
-            }
-          }
-        }
-      }
-
-      .container-Expense-right {
-        .PreviewImage {
-          max-width: 100%;
-          padding: 15px;
-          background-color: #f9f9f9;
-          border-radius: 10px;
-          border: 1px solid #e8e8e8;
-          box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
-
-          h2 {
-            font-size: 16px;
-            margin: 0 0 12px 0;
-            text-align: center;
-            color: #043929;
-            font-weight: 600;
-          }
-
-          img {
-            width: 100%;
-            max-width: 260px;
-            height: auto;
-            border-radius: 8px;
-            margin: 0 auto;
-            display: block;
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.12);
-            object-fit: cover;
-          }
-        }
-      }
-    }
-  }
-}
-
-@media (max-width: 600px) {
-  .container-WithdrawAdminPage {
-    padding-left: 20px;
-  }
-
-  .header-WithdrawAdminPage {
-    h1 {
-      font-size: 32px;
-    }
-  }
-
-  .container-DialogApprove-Expense {
-    .ant-modal-content {
-      min-width: 95vw !important;
-      max-width: 95vw !important;
-      border-radius: 12px;
-      max-height: 85vh;
-      overflow-y: auto;
-      padding: 15px !important;
-    }
-
-    h1 {
-      font-size: 24px;
-      margin-bottom: 15px;
-      text-align: center;
-    }
-
-    .container-Expense-navbar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 0 0 15px 0;
-      border-bottom: 2px solid #f0f0f0;
-      margin-bottom: 15px;
-
-      h1 {
-        margin: 0;
-      }
-
-      .fa-circle-xmark {
-        font-size: 24px;
-        cursor: pointer;
-        transition: all 0.3s ease;
-      }
-
-      .fa-circle-xmark:hover {
-        color: #05593d;
-        transform: rotate(90deg);
-      }
-    }
-
-    .btn-DialogApprove-Navbar {
-      display: flex;
-      flex-direction: column;
-      gap: 10px !important;
-      margin-top: 15px;
-      padding-top: 15px;
-      border-top: 1px solid #f0f0f0;
-
-      button {
-        width: 100%;
-        font-size: 14px;
-        padding: 12px;
-        border-radius: 8px;
-        transition: all 0.3s ease;
-      }
-
-      button:active {
-        transform: scale(0.98);
-      }
-
-      a {
-        width: 100%;
-        text-align: center;
-        padding: 12px;
-        border-radius: 8px;
-        display: block;
-        transition: all 0.3s ease;
-      }
-
-      a:active {
-        opacity: 0.8;
-      }
-    }
-
-    .container-Expense {
-      gap: 15px;
-      flex-direction: column;
-      align-items: stretch;
-
-      .container-Expense-left {
-        padding-left: 0;
-        padding-right: 0;
-
-        .container-ExpenseUser {
-          display: flex;
-          gap: 12px;
-          padding-bottom: 15px;
-          border-bottom: 2px solid #f0f0f0;
-          margin-bottom: 15px;
-
-          .container-ExpenseUser-left {
-            flex-shrink: 0;
-
-            img {
-              width: 75px;
-              height: 75px;
-              object-fit: cover;
-            }
-          }
-
-          .container-ExpenseUser-right {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            flex: 1;
-
-            h4 {
-              font-size: 16px;
-              margin-bottom: 8px;
-              color: #043929;
-            }
-
-            .previewTel,
-            .previewRol {
-              display: flex;
-              align-items: center;
-              gap: 10px;
-              margin-bottom: 4px;
-
-              i {
-                font-size: 14px;
-                color: #043929;
-                min-width: 18px;
-              }
-
-              p {
-                font-size: 13px;
-                margin: 0;
-              }
-            }
-          }
-        }
-
-        .wrap-container-ExpenseData,
-        .wrap-container-ExpenseList {
-          margin-bottom: 15px;
-          padding-bottom: 15px;
-          border-bottom: 1px solid #f0f0f0;
-
-          h4 {
-            font-size: 15px;
-            margin: 0 0 10px 0;
-            color: #043929;
-            font-weight: 600;
-          }
-
-          .container-ExpenseData,
-          .container-ExpenseList {
-            display: flex;
-            flex-direction: column;
-            gap: 0;
-
-            .previewOnerName,
-            .previewDetel,
-            .previewDate,
-            .previewCatagory,
-            .previewTotal,
-            .previewStatus,
-            .previewPriceDate {
-              display: flex;
-              justify-content: space-between;
-              align-items: center;
-              padding: 8px 0;
-
-              .width-100 {
-                width: auto;
-                font-size: 13px;
-                font-weight: 500;
-                color: #666;
-              }
-
-              p {
-                font-size: 13px;
-                margin: 0;
-                color: #043929;
-                font-weight: 500;
-              }
-            }
-          }
-        }
-
-        .wrap-inputImage {
-          margin-top: 15px;
-          padding-top: 15px;
-          border-top: 1px solid #f0f0f0;
-
-          h4 {
-            font-size: 15px;
-            margin: 0 0 10px 0;
-            color: #043929;
-            font-weight: 600;
-          }
-
-          .inputImage {
-            margin-top: 10px;
-
-            .text-image {
-              width: 100%;
-              height: auto;
-              padding: 1rem;
-              font-size: 12px;
-              border: 2px dashed #043929;
-              border-radius: 8px;
-              display: flex;
-              flex-direction: column;
-              align-items: center;
-              gap: 8px;
-              cursor: pointer;
-              transition: all 0.3s ease;
-              background-color: #fafafa;
-            }
-
-            .text-image:active {
-              background-color: #f0f0f0;
-            }
-
-            .icon-file {
-              font-size: 18px;
-              color: #043929;
-            }
-
-            span {
-              text-align: center;
-              color: #043929;
-            }
-          }
-        }
-      }
-
-      .container-Expense-right {
-        .PreviewImage {
-          max-width: 100%;
-          padding: 12px;
-          background-color: #f9f9f9;
-          border-radius: 8px;
-          border: 1px solid #e8e8e8;
-          box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
-
-          h2 {
-            font-size: 14px;
-            margin: 0 0 12px 0;
-            text-align: center;
-            color: #043929;
-            font-weight: 600;
-          }
-
-          img {
-            width: 100%;
-            max-width: 240px;
-            height: auto;
-            border-radius: 6px;
-            display: block;
-            margin: 0 auto;
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.12);
-            object-fit: cover;
-          }
-        }
-      }
-    }
-  }
 }

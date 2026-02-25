@@ -1,230 +1,535 @@
+@import url("https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Sarabun:wght@300;400;500;600&display=swap");
+
+/* ─── Root Variables (shared with CreateBookingAdminPage) ─── */
+:root {
+  --bg-base: #f2f6f4;
+  --bg-surface: #e8eeeb;
+  --bg-card: #ffffff;
+  --bg-card-hover: #f5fdf8;
+  --border: rgba(0, 150, 100, 0.18);
+  --border-active: rgba(0, 180, 120, 0.45);
+
+  --accent-gun: #043929;
+  --accent-gun-light: #05593d;
+  --accent-coat: #3b82f6;
+
+  --text-primary: #1a2e22;
+  --text-secondary: #4a7a5e;
+  --text-muted: #8ab5a0;
+
+  --shadow-card: 0 2px 12px rgba(0, 120, 80, 0.08), 0 0 0 1px var(--border);
+  --shadow-hover:
+    0 6px 28px rgba(0, 150, 100, 0.15), 0 0 0 1px var(--border-active);
+
+  --radius-card: 16px;
+  --radius-input: 10px;
+  --radius-btn: 10px;
+}
+
+/* ─── Page Container ──────────────────────────────────── */
 .container-CreateWithdrawAdminPage {
   display: flex;
-  align-items: center;
   flex-direction: column;
-  padding: 20px 20px 0px 20px;
-  padding-left: 320px;
-  gap: 20px;
-
-  input {
-    padding: 5px;
-    min-width: 250px;
-    margin-left: -10px;
-    height: 45px;
-    border-radius: 20px;
-    border: 2px solid #043929;
-  }
-
-  button {
-    width: 100px;
-    height: 45px;
-    border: none;
-    border-radius: 20px;
-    background-color: #043929;
-    color: white;
-    font-size: 20px;
-    cursor: pointer;
-    transition: all 0.5s;
-  }
-  button:hover {
-    background-color: #05593d;
-  }
+  padding: 28px 32px 48px;
+  padding-left: 332px;
+  font-family: "Sarabun", sans-serif;
+  color: var(--text-primary);
+  min-height: 100vh;
+  background: var(--bg-base);
+  gap: 0;
 }
 
+/* ─── Header ──────────────────────────────────────────── */
 .header-CreateWithdrawAdminPage {
   display: flex;
-  justify-content: center;
-  height: 80px;
-  max-width: 1200px;
-  width: 100%;
-  border-radius: 20px;
-  background-color: #043929;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 28px;
+  position: relative;
+  z-index: 1;
+  background: none;
+  height: auto;
+  max-width: unset;
+  border-radius: 0;
+
   h1 {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 42px;
-    font-weight: bolder;
-    color: white;
+    font-family: "Rajdhani", sans-serif;
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--text-primary);
+    margin: 0;
+    line-height: 1;
+  }
+
+  &::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, rgba(0, 0, 0, 0.12), transparent);
+    margin-left: 24px;
   }
 }
 
+/* ─── Form wrapper ────────────────────────────────────── */
+.content-CreateAdmin {
+  width: 100%;
+}
+
+/* ─── Action Buttons Row ─────────────────────────────── */
 .btn-CreateWithdrawAdminPage {
   display: flex;
   justify-content: space-between;
-  padding-bottom: 20px;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 24px;
+  padding-bottom: 0;
+
+  button {
+    padding: 10px 28px;
+    border-radius: var(--radius-btn);
+    font-family: "Sarabun", sans-serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    letter-spacing: 0.04em;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+    height: auto;
+    width: auto;
+    min-width: unset;
+  }
+
+  /* ย้อนกลับ — outlined */
+  button:first-child {
+    background: transparent;
+    color: var(--text-secondary);
+    border: 1px solid var(--border-active);
+  }
+
+  button:first-child:hover {
+    background: var(--bg-card-hover);
+    color: var(--text-primary);
+    border-color: var(--accent-gun);
+  }
+
+  /* ยืนยัน — filled */
+  button:last-child {
+    background: linear-gradient(135deg, #043929, #032520);
+    color: #fff;
+    border: none;
+    box-shadow: 0 4px 16px rgba(4, 57, 41, 0.25);
+    font-size: 0.9rem;
+  }
+
+  button:last-child:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 22px rgba(4, 57, 41, 0.4);
+  }
+
+  button:last-child:active {
+    transform: translateY(0);
+  }
 }
 
+/* ─── Main Form Card ──────────────────────────────────── */
 .wrap-container-CreateWithdrawAdminPage {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 28px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+  padding: 32px;
+  height: auto;
+  animation: fadeSlideUp 0.4s ease both;
+
+  /* remove old border-only style */
+  border-top: 1px solid var(--border);
+}
+
+@keyframes fadeSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ─── Section divider label ───────────────────────────── */
+.form-section-label {
+  grid-column: 1 / -1;
+  font-family: "Rajdhani", sans-serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  padding: 18px 0 8px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 4px;
+}
+
+.form-section-label:first-child {
+  padding-top: 0;
+}
+
+/* ─── Field Groups ────────────────────────────────────── */
+.inputEmployee,
+.inputDetel,
+.inputDate {
   display: flex;
   flex-direction: column;
-  border: 5px solid #043929;
-  border-radius: 20px;
-  padding: 20px;
-  height: 700px;
+  gap: 6px;
+  margin-bottom: 16px;
+
   h2 {
-    font-size: 1.5em;
-    font-weight: bolder;
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-muted);
+    margin: 0;
   }
-  .inputEmployee {
+}
+
+/* Employee spans full width */
+.inputEmployee {
+  grid-column: 1 / -1;
+}
+
+Date takes left column only .inputDate {
+  grid-column: unset;
+}
+
+/* Detail spans full width */
+.inputDetel {
+  grid-column: 1 / -1;
+
+  .input-owner-detel {
     display: flex;
     flex-direction: column;
-    h2 {
-      font-size: 24px;
-      font-weight: bolder;
-    }
-    .select-employee {
-      height: 45px;
-    }
-    .ant-select-single .ant-select-selector {
-      border-radius: 20px !important;
-      border: 2px solid #043929;
-    }
+    gap: 10px;
   }
-  .inputDetel {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 5px;
-    h2 {
-      font-size: 24px;
-      font-weight: bolder;
-    }
-    .input-owner-detel {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      input {
-        padding: 5px;
-        border: 2px solid #043929;
-        margin-left: 0px;
+}
+
+/* ─── Text Inputs ─────────────────────────────────────── */
+.wrap-container-CreateWithdrawAdminPage input[type="text"],
+.wrap-container-CreateWithdrawAdminPage input:not([type="file"]) {
+  width: 100%;
+  height: 42px;
+  padding: 0 14px;
+  background: #fff;
+  border: 1px solid var(--border-active);
+  border-radius: var(--radius-input);
+  font-family: "Sarabun", sans-serif;
+  font-size: 0.9rem;
+  color: var(--text-primary);
+  outline: none;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
+  box-sizing: border-box;
+  min-width: unset;
+  margin-left: 0;
+}
+
+.wrap-container-CreateWithdrawAdminPage input[type="text"]:focus,
+.wrap-container-CreateWithdrawAdminPage input:not([type="file"]):focus {
+  border-color: var(--accent-gun);
+  box-shadow: 0 0 0 3px rgba(4, 57, 41, 0.1);
+}
+
+.ant-picker ant-picker-outlined css-dev-only-do-not-override-9mumk4 {
+  color: red !important;
+}
+
+.wrap-container-CreateWithdrawAdminPage input::placeholder {
+  color: #9ab5a8;
+}
+
+/* Textarea */
+.wrap-container-CreateWithdrawAdminPage textarea {
+  width: 100%;
+  padding: 10px 14px;
+  background: #fff;
+  border: 1px solid var(--border-active);
+  border-radius: var(--radius-input);
+  font-family: "Sarabun", sans-serif;
+  font-size: 0.9rem;
+  color: var(--text-primary);
+  outline: none;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
+  box-sizing: border-box;
+  resize: vertical;
+  min-height: 80px;
+  max-height: 160px;
+}
+
+.wrap-container-CreateWithdrawAdminPage textarea:focus {
+  border-color: var(--accent-gun);
+  box-shadow: 0 0 0 3px rgba(4, 57, 41, 0.1);
+}
+
+/* ─── Ant Design DatePicker ───────────────────────────── */
+.wrap-container-CreateWithdrawAdminPage .ant-picker-outlined,
+.wrap-container-CreateWithdrawAdminPage .ant-picker {
+  width: 100% !important;
+  height: 42px !important;
+  border-radius: var(--radius-input) !important;
+  /* border: 1px solid var(--border-active) !important; */
+  font-family: "Sarabun", sans-serif !important;
+  font-size: 0.9rem !important;
+  padding-left: 0px !important;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s !important;
+}
+
+.wrap-container-CreateWithdrawAdminPage .ant-picker:hover,
+.wrap-container-CreateWithdrawAdminPage .ant-picker-focused {
+  border-color: var(--accent-gun) !important;
+  box-shadow: 0 0 0 3px rgba(4, 57, 41, 0.1) !important;
+}
+
+/* ─── Ant Design Select ───────────────────────────────── */
+.select-employee,
+.select-category {
+  width: 100% !important;
+}
+
+.select-employee .ant-select-selector,
+.select-category .ant-select-selector {
+  height: 42px !important;
+  padding: 0 14px !important;
+  border-radius: var(--radius-input) !important;
+  border: 1px solid var(--border-active) !important;
+  display: flex;
+  align-items: center;
+  font-family: "Sarabun", sans-serif !important;
+  font-size: 0.9rem !important;
+  color: var(--text-primary) !important;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s !important;
+}
+
+.select-employee.ant-select-focused .ant-select-selector,
+.select-employee .ant-select-selector:hover,
+.select-category.ant-select-focused .ant-select-selector,
+.select-category .ant-select-selector:hover {
+  border-color: var(--accent-gun) !important;
+  box-shadow: 0 0 0 3px rgba(4, 57, 41, 0.1) !important;
+}
+
+.select-employee .ant-select-selection-item,
+.select-category .ant-select-selection-item {
+  line-height: 40px !important;
+}
+
+/* ─── Date + List Row (side by side) ─────────────────── */
+.date-and-list-row {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 28px;
+  align-items: start;
+}
+
+/* ─── Item List Section ───────────────────────────────── */
+.wrap-inputList {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  height: auto;
+  min-height: unset;
+
+  > h2 {
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-muted);
+    margin: 0;
+    padding: 0 0 8px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .inputList {
+    border: 1.5px dashed var(--border-active);
+    border-radius: var(--radius-input);
+    padding: 16px;
+    overflow-y: auto;
+    max-height: 320px;
+    background: var(--bg-base);
+
+    .btn-append {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 12px;
+      padding: 8px 20px;
+      width: auto;
+      height: auto;
+      background: transparent;
+      border: 1px solid var(--border-active) !important;
+      border-radius: var(--radius-btn) !important;
+      color: var(--text-secondary);
+      font-family: "Sarabun", sans-serif;
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      cursor: pointer;
+      transition: all 0.2s ease;
+
+      &:hover {
+        background: var(--bg-card-hover) !important;
+        color: var(--text-primary);
+        border-color: var(--accent-gun) !important;
       }
-      textarea {
-        padding: 5px;
-        border: 2px solid #043929;
-        border-radius: 20px;
-        max-height: 100px;
-        resize: vertical;
-      }
     }
   }
-  .inputDate {
+
+  .list-category {
     display: flex;
-    flex-direction: column;
-    h2 {
-      font-size: 24px;
-      font-weight: bolder;
-    }
-    .ant-picker-outlined {
-      padding: 20px;
-      height: 45px;
-      border-radius: 20px;
-      border: 2px solid #043929;
-    }
-  }
-  .wrap-inputList {
-    display: flex;
-    flex-direction: column;
-    height: 300px;
-    h2 {
-      font-size: 24px;
+    gap: 12px;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border);
+
+    &:last-child {
+      border-bottom: none;
     }
 
-    .inputList {
-      border: 2px dashed #043929;
-      border-radius: 10px;
-      padding: 15px;
-      overflow-y: auto;
-      .btn-append {
-        width: 150px;
-        margin-bottom: 5px;
+    .select-category {
+      flex: 1;
+      min-width: 0;
+      max-width: 260px;
+    }
+
+    /* InputNumber styling */
+    .ant-input-number {
+      border-top-left-radius: var(--radius-input);
+      border-bottom-left-radius: var(--radius-input);
+      border: 1px solid var(--border-active);
+      height: 42px;
+      font-family: "Sarabun", sans-serif;
+      font-size: 0.9rem;
+
+      .ant-input-number-input {
+        height: 40px;
+        padding: 0 14px;
       }
-      .list-category {
-        display: flex;
-        gap: 20px;
-        padding-bottom: 5px;
-        .select-category {
-          width: 220px;
-          height: 48px;
-        }
-        .ant-select-single .ant-select-selector {
-          border-radius: 20px !important;
-          border: 2px solid #043929;
-        }
-        .ant-input-number {
-          border-top-left-radius: 20px;
-          border-bottom-left-radius: 20px;
-          border: 2px solid #043929;
-        }
-        .ant-input-number-group-addon {
-          border-top-right-radius: 20px;
-          border-bottom-right-radius: 20px;
-          border-top: 2px solid #043929;
-          border-right: 2px solid #043929;
-          border-bottom: 2px solid #043929;
-          font-size: 20px;
-        }
+    }
+
+    .ant-input-number-group-addon {
+      border-top-right-radius: var(--radius-input);
+      border-bottom-right-radius: var(--radius-input);
+      border: 1px solid var(--border-active);
+      border-left: none;
+      font-size: 0.9rem;
+      font-family: "Sarabun", sans-serif;
+      background: var(--bg-surface);
+      color: var(--text-secondary);
+      padding: 0 12px;
+    }
+
+    .ant-input-number:hover,
+    .ant-input-number-focused {
+      border-color: var(--accent-gun);
+    }
+
+    /* Delete button inside list */
+    button:not(.btn-append) {
+      flex-shrink: 0;
+      padding: 6px 16px;
+      height: auto;
+      width: auto;
+      background: transparent;
+      color: #e53e3e;
+      border: 1px solid rgba(229, 62, 62, 0.4) !important;
+      border-radius: var(--radius-btn) !important;
+      font-family: "Sarabun", sans-serif;
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+
+      &:hover {
+        background: #fff5f5;
+        border-color: #e53e3e !important;
       }
     }
   }
 }
 
+/* ─── Responsive ──────────────────────────────────────── */
 @media (max-width: 1280px) {
   .container-CreateWithdrawAdminPage {
-    padding-left: 270px;
-  }
-
-  .wrap-container-CreateWithdrawAdminPage {
-    height: 700px;
-    .wrap-inputList {
-      overflow-y: auto;
-
-      display: flex;
-      flex-direction: column;
-      h2 {
-        font-size: 24px;
-      }
-      .inputList {
-        border: 2px dashed #043929;
-        border-radius: 10px;
-        padding: 15px;
-        .btn-append {
-          width: 150px;
-          margin-bottom: 5px;
-        }
-      }
-    }
+    padding-left: 282px;
   }
 }
 
 @media (max-width: 1080px) {
   .container-CreateWithdrawAdminPage {
-    padding-left: 220px;
+    padding-left: 232px;
+  }
 
-    input {
-      min-width: 60px;
-    }
+  .wrap-container-CreateWithdrawAdminPage {
+    gap: 0 20px;
+    padding: 24px;
+  }
+}
+
+@media (max-width: 860px) {
+  .wrap-container-CreateWithdrawAdminPage {
+    grid-template-columns: 1fr;
+  }
+
+  .inputEmployee {
+    grid-column: 1;
+  }
+
+  .date-and-list-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .wrap-container-CreateWithdrawAdminPage {
+    grid-template-columns: 1fr;
   }
 }
 
 @media (max-width: 600px) {
   .container-CreateWithdrawAdminPage {
-    padding-left: 20px;
+    padding: 16px 12px 32px;
+  }
+
+  .header-CreateWithdrawAdminPage {
+    padding-left: 60px;
+
+    h1 {
+      font-size: 1.6rem;
+    }
   }
 
   .wrap-container-CreateWithdrawAdminPage {
-    height: 700px;
-    margin-bottom: 20px;
-    .wrap-inputList {
-      .inputList {
-        overflow-y: auto;
-        .list-category {
-          padding-bottom: 5px;
-          display: flex;
-          .select-category {
-            width: 100px;
-          }
-        }
-      }
+    padding: 16px;
+  }
+
+  .wrap-inputList .list-category {
+    flex-wrap: wrap;
+
+    .select-category {
+      max-width: 100%;
     }
   }
 }

@@ -53,8 +53,6 @@ const CreateWithdrawAdminPage = () => {
     useState<boolean>(false);
   const [employeeData, setEmployeeData] = useState<EmployeeData[]>([]);
 
-  console.log(employeeData);
-
   const { control, handleSubmit, reset } = useForm({
     defaultValues: initFinanceForm,
   });
@@ -122,7 +120,6 @@ const CreateWithdrawAdminPage = () => {
         date: value.date ? dayjs(value.date).toISOString() : "",
       };
 
-      // Check if any category is SALARY_ADVANCE, if so set section to SALARY
       if (
         item.categorys.some((cat) => cat.type === CategoryType.SALARY_ADVANCE)
       ) {
@@ -130,18 +127,11 @@ const CreateWithdrawAdminPage = () => {
       }
 
       if (expenseId) {
-        const body = {
-          // แก้ไข
-          data: item,
-          expenseId,
-        };
+        const body = { data: item, expenseId };
         await dispath(updateExpenseById(body)).unwrap();
-
         navigate("/admin/withdraw");
       } else {
-        // สร้าง
         await dispath(createExpense(item)).unwrap();
-
         navigate("/admin/withdraw");
       }
     } catch (error) {
@@ -153,7 +143,6 @@ const CreateWithdrawAdminPage = () => {
     (index: number) => {
       if (!categoryDetailFields?.fields?.length) return;
       if (categoryDetailFields.fields.length === 1) return;
-
       categoryDetailFields.remove(Number(index));
     },
     [categoryDetailFields],
@@ -161,172 +150,159 @@ const CreateWithdrawAdminPage = () => {
 
   return (
     <div className="container-CreateWithdrawAdminPage">
+      {/* ── Header ── */}
       <div className="header-CreateWithdrawAdminPage">
         <h1>สร้างค่าใช้จ่าย</h1>
       </div>
 
       <form className="content-CreateAdmin" onSubmit={handleSubmit(onSubmit)}>
+        {/* ── Action Buttons ── */}
         <div className="btn-CreateWithdrawAdminPage">
-          <button
-            type="button"
-            onClick={() => {
-              navigate("/admin/withdraw");
-            }}
-          >
+          <button type="button" onClick={() => navigate("/admin/withdraw")}>
             ย้อนกลับ
           </button>
           <button type="submit">ยืนยัน</button>
         </div>
 
+        {/* ── Main Card ── */}
         <div className="wrap-container-CreateWithdrawAdminPage">
+          {/* Section: พนักงาน */}
+          <div className="form-section-label">ข้อมูลพนักงาน</div>
+
           <div className="inputEmployee">
             <h2>พนักงาน</h2>
             <Controller
               control={control}
               name="employeeId"
-              render={({ field }) => {
-                return (
-                  <Select
-                    {...field}
-                    placeholder="เลือกพนักงาน"
-                    className="select-employee"
-                    value={field.value || undefined}
-                  >
-                    {employeeData.map((item) => (
-                      <Select.Option key={item._id} value={item._id}>
-                        {item.firstName} {item.lastName} (
-                        {item.employmentInfo?.role?.name || ""})
-                      </Select.Option>
-                    ))}
-                  </Select>
-                );
-              }}
+              render={({ field }) => (
+                <Select
+                  {...field}
+                  placeholder="เลือกพนักงาน"
+                  className="select-employee"
+                  value={field.value || undefined}
+                >
+                  {employeeData.map((item) => (
+                    <Select.Option key={item._id} value={item._id}>
+                      {item.firstName} {item.lastName} (
+                      {item.employmentInfo?.role?.name || ""})
+                    </Select.Option>
+                  ))}
+                </Select>
+              )}
             />
           </div>
 
+          {/* Section: รายละเอียด */}
+          <div className="form-section-label">รายละเอียด</div>
+
           <div className="inputDetel">
-            <h2>รายละเอียด</h2>
+            <h2>หัวข้อ</h2>
             <div className="input-owner-detel">
               <Controller
                 control={control}
                 name="ownerName"
-                render={({ field }) => {
-                  return (
-                    <input {...field} type="text" placeholder="หัวข้อ..." />
-                  );
-                }}
+                render={({ field }) => (
+                  <input {...field} type="text" placeholder="หัวข้อ..." />
+                )}
               />
-
               <Controller
                 control={control}
                 name="detel"
-                render={({ field }) => {
-                  return (
-                    <textarea
-                      autoComplete="off"
-                      autoCorrect="off"
-                      autoCapitalize="off"
-                      spellCheck="false"
-                      {...field}
-                      placeholder="รายละเอียด..."
-                    />
-                  );
-                }}
+                render={({ field }) => (
+                  <textarea
+                    autoComplete="off"
+                    autoCorrect="off"
+                    autoCapitalize="off"
+                    spellCheck={false}
+                    {...field}
+                    placeholder="รายละเอียดเพิ่มเติม..."
+                  />
+                )}
               />
             </div>
           </div>
 
-          <div className="inputDate">
-            <h2>วันที่สร้าง</h2>
-            <Controller
-              control={control}
-              name="date"
-              render={({ field }) => {
-                return <DatePicker {...field} />;
-              }}
-            />
-          </div>
+          <div className="date-and-list-row">
+            <div className="inputDate">
+              <h2>วันที่สร้าง</h2>
+              <Controller
+                control={control}
+                name="date"
+                render={({ field }) => <DatePicker {...field} />}
+              />
+            </div>
 
-          <h2>รายการ</h2>
-
-          <div className="wrap-inputList">
-            <div className="inputList">
-              <div>
+            <div className="wrap-inputList">
+              <h2>รายการค่าใช้จ่าย</h2>
+              <div className="inputList">
                 <button
                   className="btn-append"
                   type="button"
                   onClick={() => {
                     if (categoryDetailFields?.fields.length === 9) return;
-
                     categoryDetailFields.append(initCategoryDetail);
                   }}
                 >
-                  เพิ่มหมวดหมู่
+                  + เพิ่มหมวดหมู่
                 </button>
-              </div>
 
-              {categoryDetailFields.fields.map((detail, index) => {
-                return (
+                {categoryDetailFields.fields.map((detail, index) => (
                   <div key={`${detail.id}_${index}`} className="list-category">
                     <Controller
                       control={control}
                       name={`categorys.${index}.type`}
-                      render={({ field }) => {
-                        return (
-                          <Select
-                            {...field}
-                            placeholder="เลือกหมวดหมู่"
-                            className="select-category"
-                            value={field.value ?? undefined}
-                          >
-                            <Select.Option value={CategoryType.FUEL}>
-                              ค่าน้ำมัน
-                            </Select.Option>
-                            <Select.Option value={CategoryType.TRAVEL}>
-                              ค่าเดินทาง
-                            </Select.Option>
-                            <Select.Option value={CategoryType.ACCOMMODATION}>
-                              ค่าที่พัก
-                            </Select.Option>
-                            <Select.Option value={CategoryType.ALLOWANCE}>
-                              ค่าเบี้ยเลี้ยง
-                            </Select.Option>
-                            <Select.Option value={CategoryType.TRANSPORT}>
-                              ค่าขนส่ง
-                            </Select.Option>
-                            <Select.Option value={CategoryType.TOOL}>
-                              ค่าอุปกรณ์
-                            </Select.Option>
-                            <Select.Option value={CategoryType.MEDICAL}>
-                              ค่ารักษา
-                            </Select.Option>
-                            <Select.Option value={CategoryType.SALARY_ADVANCE}>
-                              เบิกเงินเดือน
-                            </Select.Option>
-                            <Select.Option value={CategoryType.PAYROLL}>
-                              เงินเดือนพนักงาน
-                            </Select.Option>
-                            <Select.Option value={CategoryType.OTHER}>
-                              ค่าอื่นๆ
-                            </Select.Option>
-                          </Select>
-                        );
-                      }}
+                      render={({ field }) => (
+                        <Select
+                          {...field}
+                          placeholder="เลือกหมวดหมู่"
+                          className="select-category"
+                          value={field.value ?? undefined}
+                        >
+                          <Select.Option value={CategoryType.FUEL}>
+                            ค่าน้ำมัน
+                          </Select.Option>
+                          <Select.Option value={CategoryType.TRAVEL}>
+                            ค่าเดินทาง
+                          </Select.Option>
+                          <Select.Option value={CategoryType.ACCOMMODATION}>
+                            ค่าที่พัก
+                          </Select.Option>
+                          <Select.Option value={CategoryType.ALLOWANCE}>
+                            ค่าเบี้ยเลี้ยง
+                          </Select.Option>
+                          <Select.Option value={CategoryType.TRANSPORT}>
+                            ค่าขนส่ง
+                          </Select.Option>
+                          <Select.Option value={CategoryType.TOOL}>
+                            ค่าอุปกรณ์
+                          </Select.Option>
+                          <Select.Option value={CategoryType.MEDICAL}>
+                            ค่ารักษา
+                          </Select.Option>
+                          <Select.Option value={CategoryType.SALARY_ADVANCE}>
+                            เบิกเงินเดือน
+                          </Select.Option>
+                          <Select.Option value={CategoryType.PAYROLL}>
+                            เงินเดือนพนักงาน
+                          </Select.Option>
+                          <Select.Option value={CategoryType.OTHER}>
+                            ค่าอื่นๆ
+                          </Select.Option>
+                        </Select>
+                      )}
                     />
 
                     <Controller
                       control={control}
                       name={`categorys.${index}.amount`}
-                      render={({ field }) => {
-                        return (
-                          <InputNumber
-                            className="input-number"
-                            {...field}
-                            addonAfter="฿"
-                            placeholder="กรอกจำนวนเงิน"
-                          />
-                        );
-                      }}
+                      render={({ field }) => (
+                        <InputNumber
+                          className="input-number"
+                          {...field}
+                          addonAfter="฿"
+                          placeholder="กรอกจำนวนเงิน"
+                        />
+                      )}
                     />
 
                     {index !== 0 && (
@@ -338,12 +314,14 @@ const CreateWithdrawAdminPage = () => {
                       </button>
                     )}
                   </div>
-                );
-              })}
+                ))}
+              </div>
             </div>
           </div>
+          {/* end date-and-list-row */}
         </div>
       </form>
+
       <CircleLoading open={isCreateWithDrawLoading} />
     </div>
   );
