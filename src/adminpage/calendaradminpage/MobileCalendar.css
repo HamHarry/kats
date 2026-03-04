@@ -1,0 +1,195 @@
+@import url("https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Sarabun:wght@300;400;500;600&display=swap");
+
+.mobile-calendar {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+/* ─── Header with Navigation ─────────────────────────── */
+.mobile-calendar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.mobile-calendar-header .month-year {
+  flex: 1;
+  text-align: center;
+}
+
+.mobile-calendar-header h2 {
+  font-family: "Rajdhani", sans-serif;
+  font-size: 1.2rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #1a3d28;
+  margin: 0;
+}
+
+.month-picker-dropdown.ant-picker-dropdown {
+  position: fixed !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  inset: auto !important;
+}
+
+.mobile-calendar-header .nav-btn {
+  background: var(--bg-card, #fff);
+  border: 1px solid var(--border, rgba(0, 150, 100, 0.18));
+  color: #1a3d28;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  font-size: 1.2rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.18s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mobile-calendar-header .nav-btn:active {
+  background: rgba(4, 57, 41, 0.1);
+  border-color: rgba(4, 57, 41, 0.35);
+  transform: scale(0.95);
+}
+
+/* ─── Calendar Grid ──────────────────────────────────── */
+.mobile-calendar-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  width: 100%;
+}
+
+.calendar-day-card {
+  background: var(--bg-card, #fff);
+  border: 1px solid var(--border, rgba(0, 150, 100, 0.18));
+  border-radius: 10px;
+  padding: 12px;
+  min-height: 160px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  transition: all 0.18s;
+  box-shadow: 0 1px 3px rgba(0, 120, 80, 0.04);
+}
+
+.calendar-day-card.is-today {
+  background: #04392903;
+  border: 2px solid #043929;
+  box-shadow: 0 2px 8px rgba(0, 120, 80, 0.12);
+}
+
+/* ─── Day Header ─────────────────────────────────────── */
+.calendar-day-card .day-header {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  border-bottom: 1px solid var(--border, rgba(0, 150, 100, 0.18));
+  padding-bottom: 6px;
+}
+
+.calendar-day-card .day-number {
+  font-family: "Rajdhani", sans-serif;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #1a3d28;
+}
+
+.calendar-day-card .day-name {
+  font-family: "Rajdhani", sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text-muted, #8ab5a0);
+}
+
+/* ─── Bookings List ──────────────────────────────────── */
+.calendar-day-card .bookings-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  overflow-y: auto;
+  flex: 1;
+  padding-right: 2px;
+}
+
+.calendar-day-card .bookings-list::-webkit-scrollbar {
+  width: 3px;
+}
+
+.calendar-day-card .bookings-list::-webkit-scrollbar-thumb {
+  background: var(--border-active, rgba(0, 180, 120, 0.45));
+  border-radius: 10px;
+}
+
+.booking-item-mobile {
+  display: flex;
+  gap: 6px;
+  align-items: flex-start;
+  padding: 6px;
+  border-radius: 6px;
+  transition: all 0.12s;
+}
+
+.booking-item-mobile:hover {
+  background: rgba(0, 150, 100, 0.08);
+}
+
+.booking-item-mobile .booking-text {
+  font-size: 0.78rem;
+  font-family: "Sarabun", sans-serif;
+  color: var(--text-primary, #1a2e22);
+  line-height: 1.3;
+  word-break: break-word;
+  margin: 0;
+  flex: 1;
+}
+
+/* ─── No Bookings ────────────────────────────────────── */
+.calendar-day-card .no-bookings {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  color: var(--text-muted, #8ab5a0);
+}
+
+.calendar-day-card .no-bookings p {
+  font-family: "Sarabun", sans-serif;
+  font-size: 0.82rem;
+  margin: 0;
+  text-align: center;
+}
+
+/* ─── Responsive adjustments ─────────────────────────── */
+@media (max-width: 480px) {
+  .mobile-calendar-header h2 {
+    font-size: 1rem;
+  }
+
+  .mobile-calendar-header .nav-btn {
+    width: 32px;
+    height: 32px;
+    font-size: 1rem;
+  }
+
+  .calendar-day-card {
+    min-height: 140px;
+    padding: 10px;
+  }
+
+  .calendar-day-card .day-number {
+    font-size: 1.2rem;
+  }
+
+  .booking-item-mobile .booking-text {
+    font-size: 0.75rem;
+  }
+}

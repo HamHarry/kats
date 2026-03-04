@@ -360,7 +360,8 @@ const BookingAdminPage = () => {
                 <div className="footer-actions">
                   <Tooltip title="รูปภาพการชำระเงิน">
                     <button
-                      className="icon-btn pay"
+                      className={`icon-btn pay ${!item.slip && 'bg-gray-100! hover:bg-gray-100! cursor-default! border-gray-400! hover:border-gray-400! text-gray-400! hover:text-gray-400!'}`}
+                      disabled={!item.slip}
                       onClick={() => {
                         setSelectImagePay(item.slip);
                         setOpenDialogPay(true);

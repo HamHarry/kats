@@ -45,7 +45,6 @@
   display: flex;
   align-items: center;
   gap: 6px;
-  margin-bottom: 24px;
   background: var(--bg-card, #fff);
   border: 1px solid var(--border, rgba(0, 150, 100, 0.18));
   border-radius: 12px;
@@ -134,13 +133,19 @@
   box-shadow:
     0 2px 12px rgba(0, 120, 80, 0.08),
     0 0 0 1px var(--border, rgba(0, 150, 100, 0.18));
-  overflow: hidden;
+  overflow: visible; /* ← เปลี่ยนจาก hidden เพื่อให้ cell ที่ scale ไม่ถูกตัด */
+}
+
+/* Mobile Calendar Wrapper */
+.wrap-calendarAdmin-mobile {
+  padding: 0;
 }
 
 /* ─── Ant Design Calendar Overrides ─────────────────── */
 .wrap-calendarAdmin .ant-picker-calendar {
   background: transparent;
   font-family: "Sarabun", sans-serif;
+  width: 100%;
 }
 
 .wrap-calendarAdmin .ant-picker-calendar-header {
@@ -179,9 +184,7 @@
 }
 
 .wrap-calendarAdmin .ant-picker-cell-selected .ant-picker-cell-inner,
-.wrap-calendarAdmin
-  .ant-picker-cell-in-view.ant-picker-cell-selected
-  .ant-picker-cell-inner {
+.wrap-calendarAdmin .ant-picker-cell-in-view.ant-picker-cell-selected .ant-picker-cell-inner {
   background: rgba(4, 57, 41, 0.07) !important;
   border-color: rgba(4, 57, 41, 0.35) !important;
   color: #1a3d28 !important;
@@ -202,12 +205,9 @@
 /* ─── Booking Items in Cells ─────────────────────────── */
 .wrap-calendarAdmin .ant-picker-calendar-date-content {
   height: 62px !important;
-  overflow-y: hidden;
-  transition: overflow 0.15s;
-}
-
-.wrap-calendarAdmin .ant-picker-calendar-date-content:hover {
-  overflow-y: auto;
+  overflow: hidden;
+  transition: all 0.2s ease;
+  position: relative;
 }
 
 .wrap-calendarAdmin .ant-picker-calendar-date-content::-webkit-scrollbar {
@@ -226,6 +226,14 @@
   overflow: hidden;
 }
 
+.booking-item {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  flex-wrap: nowrap;
+}
+
+/* ── ปกติ: truncate ด้วย ... ── */
 .booking .text-c {
   font-size: 0.85rem;
   font-family: "Sarabun", sans-serif;
@@ -235,6 +243,8 @@
   overflow: hidden;
   text-overflow: ellipsis;
   max-width: 120px;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
 }
 
 /* ─── Responsive ─────────────────────────────────────── */
@@ -263,28 +273,22 @@
     padding-left: 232px;
   }
 
-  /* Cell สูงลดลง แสดงแค่ dot ไม่มี label */
+  /* Show full content without expansion on tablet */
   .wrap-calendarAdmin .ant-picker-cell-inner {
-    height: 54px !important;
+    height: 110px !important;
   }
 
   .wrap-calendarAdmin .ant-picker-calendar-date-content {
-    height: 24px !important;
-    overflow: hidden;
+    height: 90px !important;
+    overflow-y: auto;
   }
 
-  /* ซ่อน label ข้อความ เหลือแต่ Badge dot */
   .booking .text-c {
-    display: none;
-  }
-
-  /* จัด dot ให้อยู่แนวนอน */
-  .booking {
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: 3px;
-    align-items: center;
-    padding: 2px 2px 0;
+    max-width: 115px;
+    font-size: 0.78rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .wrap-calendarAdmin .ant-picker-calendar-date-value {
@@ -303,7 +307,7 @@
 
 @media (max-width: 600px) {
   .container-calendarAdmin {
-    padding: 16px 12px 32px;
+    padding: 0px 12px 32px;
   }
 
   .header-calendarAdmin {
@@ -314,11 +318,11 @@
     font-size: 1.6rem;
   }
 
-  /* Legend: 2x2 grid แทน row */
+  /* Legend: 2 column grid */
   .guid {
     display: grid;
-    grid-template-columns: 1fr;
-    gap: 4px;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
     padding: 10px 12px;
     justify-items: center;
   }
@@ -343,28 +347,8 @@
     padding: 4px 8px;
   }
 
-  /* จัด dot ให้อยู่แนวนอน */
-  .booking {
-    height: 15px;
-    padding: 0;
-  }
-
-  /* Cell เล็กสุด แสดงแค่ dot */
-  .wrap-calendarAdmin .ant-picker-cell-inner {
-    height: 44px !important;
-  }
-
-  .wrap-calendarAdmin .ant-picker-calendar-date-content {
-    height: 16px !important;
-    overflow: hidden;
-  }
-
-  .wrap-calendarAdmin .ant-picker-calendar-date-value {
-    font-size: 0.75rem;
-  }
-
+  /* Hide Ant Design Calendar on mobile - using custom mobile calendar */
   .wrap-calendarAdmin {
-    padding: 12px 8px;
-    border-radius: 14px;
+    display: none;
   }
 }

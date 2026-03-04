@@ -2,25 +2,14 @@ import { Controller, useForm } from "react-hook-form";
 import "./CreateBookingAdminPage.css";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { DatePicker, Modal, Select } from "antd";
-import {
-  PRICE_TYPE,
-  ProductData,
-  ProductDetail,
-  ProductSnapshotData,
-} from "../../model/product.type";
+import { PRICE_TYPE, ProductData, ProductDetail, ProductSnapshotData } from "../../model/product.type";
 import { BookingStatus, BookingData } from "../../model/booking.type";
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { CloseCircleOutlined, FileAddFilled } from "@ant-design/icons";
 import { useAppDispatch } from "../../stores/store";
 import { getAllProducts } from "../../stores/slices/productSlice";
 import dayjs from "dayjs";
-import {
-  createBooking,
-  getBookingById,
-  getLastBookingNumber,
-  setBookingUpdateImg,
-  updateBookingById,
-} from "../../stores/slices/bookingSlice";
+import { createBooking, getBookingById, getLastBookingNumber, setBookingUpdateImg, updateBookingById } from "../../stores/slices/bookingSlice";
 import CircleLoading from "../../shared/circleLoading";
 import { DeleteStatus } from "../../model/delete.type";
 import { useTranslation } from "react-i18next";
@@ -29,10 +18,7 @@ import { getImagePath } from "../../shared/utils/common";
 import { useSelector } from "react-redux";
 import { userInfoSelector } from "../../stores/slices/authSlice";
 
-export interface BookingForm extends Omit<
-  BookingData,
-  "product" | "price" | "bookDate"
-> {
+export interface BookingForm extends Omit<BookingData, "product" | "price" | "bookDate"> {
   productId: string;
   price: number;
   bookDate: dayjs.Dayjs;
@@ -92,7 +78,13 @@ const CreateBookingAdminPage = () => {
   const [imageUrl, setImageUrl] = useState<string>();
   const [bookingData, setBookingData] = useState<BookingData>();
 
-  const { handleSubmit, control, reset, setValue } = useForm<BookingForm>({
+  const {
+    handleSubmit,
+    control,
+    reset,
+    setValue,
+    formState: { isDirty },
+  } = useForm<BookingForm>({
     defaultValues,
   });
 
@@ -166,8 +158,7 @@ const CreateBookingAdminPage = () => {
   const fetchAllProduct = useCallback(async () => {
     try {
       setIsBookingLoading(true);
-      const { data: productsRes = [] } =
-        await dispath(getAllProducts()).unwrap();
+      const { data: productsRes = [] } = await dispath(getAllProducts()).unwrap();
 
       setProductDatas(productsRes);
     } catch (error) {
@@ -194,9 +185,7 @@ const CreateBookingAdminPage = () => {
     try {
       setOpenDialogConfirm(false);
 
-      const findedProduct = productDatas?.find(
-        (item) => String(item._id) === String(value.productId),
-      );
+      const findedProduct = productDatas?.find((item) => String(item._id) === String(value.productId));
 
       if (!findedProduct) return;
 
@@ -216,8 +205,6 @@ const CreateBookingAdminPage = () => {
         slipImageName = await uploadFile(imageFile);
         dispath(setBookingUpdateImg({ imageName: slipImageName }));
       }
-
-      console.log(slipImageName, value.slip);
 
       const item = {
         ...value,
@@ -259,18 +246,11 @@ const CreateBookingAdminPage = () => {
 
   const rederDialogConfirm = () => {
     return (
-      <Modal
-        centered
-        className="wrap-container-DialogConfirm"
-        open={openDialogConfirm}
-        onCancel={() => setOpenDialogConfirm(false)}
-      >
+      <Modal centered className="wrap-container-DialogConfirm" open={openDialogConfirm} onCancel={() => setOpenDialogConfirm(false)}>
         <h1>{t("ยืนยันการจอง")}</h1>
 
         <div className="btn-DialogConfirm-Navbar">
-          <button onClick={() => formRef.current?.requestSubmit()}>
-            {t("ยืนยัน")}
-          </button>
+          <button onClick={() => formRef.current?.requestSubmit()}>{t("ยืนยัน")}</button>
           <button
             className="btn-edit-dialogConfirm"
             onClick={() => {
@@ -289,11 +269,7 @@ const CreateBookingAdminPage = () => {
       <div className="header-CreateAdmin">
         <h1>{bookingId ? "แก้ไขการจอง" : "สร้างการจอง"}</h1>
       </div>
-      <form
-        className="content-CreateAdmin"
-        onSubmit={handleSubmit(submit)}
-        ref={formRef}
-      >
+      <form className="content-CreateAdmin" onSubmit={handleSubmit(submit)} ref={formRef}>
         <div className="btn-back">
           <button
             type="button"
@@ -305,6 +281,7 @@ const CreateBookingAdminPage = () => {
           </button>
           <button
             type="button"
+            disabled={!isDirty}
             onClick={() => {
               setOpenDialogConfirm(true);
             }}
@@ -509,9 +486,7 @@ const CreateBookingAdminPage = () => {
                         onSelect={(value) => {
                           field.onChange(value);
 
-                          const findedProduct = productDatas?.find(
-                            (item) => String(item._id) === String(value),
-                          );
+                          const findedProduct = productDatas?.find((item) => String(item._id) === String(value));
 
                           if (findedProduct) {
                             setPriceData(findedProduct?.productDetails as any);
@@ -559,7 +534,7 @@ const CreateBookingAdminPage = () => {
             <Controller
               name="slip"
               control={control}
-              render={({ field }) => {
+              render={({ field: { ref } }) => {
                 return (
                   <div className="inputImage">
                     <label htmlFor="file" className="text-image">
@@ -567,7 +542,7 @@ const CreateBookingAdminPage = () => {
                       <span>{t("อัพโหลดภาพสลิปมัดจำ 500 บาท")}</span>
                     </label>
                     <input
-                      {...field}
+                      ref={ref}
                       type="file"
                       id="file"
                       onChange={(e) => {
@@ -605,6 +580,7 @@ const CreateBookingAdminPage = () => {
                       if (!prev) return;
                       return { ...prev, slip: "" };
                     });
+                    setValue("slip", "", { shouldDirty: true });
                   }}
                 />
               </div>

@@ -18,8 +18,7 @@
   --text-muted: #8ab5a0;
 
   --shadow-card: 0 2px 12px rgba(0, 120, 80, 0.08), 0 0 0 1px var(--border);
-  --shadow-hover:
-    0 6px 28px rgba(0, 150, 100, 0.15), 0 0 0 1px var(--border-active);
+  --shadow-hover: 0 6px 28px rgba(0, 150, 100, 0.15), 0 0 0 1px var(--border-active);
 
   --radius-card: 16px;
   --radius-input: 10px;
@@ -127,6 +126,22 @@
 
 .btn-back button:last-child:active {
   transform: translateY(0);
+}
+
+/* Disabled state */
+.btn-back button:last-child:disabled {
+  background: #b8d5cc;
+  color: #8ab5a0;
+  opacity: 0.65;
+  cursor: default;
+  box-shadow: none;
+  transform: none;
+}
+
+.btn-back button:last-child:disabled:hover {
+  opacity: 0.65;
+  transform: none;
+  box-shadow: none;
 }
 
 /* ─── Main Form Card ──────────────────────────────────── */
