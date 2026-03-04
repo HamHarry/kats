@@ -1,7 +1,6 @@
 import { Link } from "react-scroll";
 import "./HomePageGun.css";
 import CoatingPageGun from "../productpageguncoating/CoatingPageGun";
-// import GunGuardPage from "../productpagegunguard/GunGuardPage";
 import BookingPageGun from "../bookingpagegun/BookingPageGun";
 
 const HomePageGun = () => {
@@ -18,7 +17,6 @@ const HomePageGun = () => {
         <div className="center-left">
           <h3>
             <span>GUN PROTECTION</span>
-            <br />
             สถานบริการเฉพาะทางด้านการป้องกันและชะลอการเกิดสนิมใต้ท้องรถยนต์
             <br />
             โดยเน้นการดูแลบริเวณใต้ท้องรถ โครงสร้างแชสซี ซอกมุม
@@ -46,11 +44,6 @@ const HomePageGun = () => {
                 </Link>
               </button>
             </div>
-            {/* <button className="btn-booking">
-              <Link to="bookingGun" smooth={true} duration={200}>
-                ตรวจสอบคิว
-              </Link>
-            </button> */}
           </div>
         </div>
 
@@ -71,8 +64,6 @@ const HomePageGun = () => {
       <BookingPageGun />
 
       <CoatingPageGun />
-
-      {/* <GunGuardPage /> */}
     </div>
   );
 };

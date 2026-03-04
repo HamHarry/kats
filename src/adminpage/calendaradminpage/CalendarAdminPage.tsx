@@ -20,7 +20,9 @@ const CalendarAdminPage = () => {
   const fetchAllBooking = useCallback(async () => {
     try {
       setIsCalendarLoading(true);
-      const { data: bookingsRes = [] } = await dispath(getAllBookings(DeleteStatus.ISNOTDELETE)).unwrap();
+      const { data: bookingsRes = [] } = await dispath(
+        getAllBookings(DeleteStatus.ISNOTDELETE),
+      ).unwrap();
 
       const sorted = [...bookingsRes].sort((a, b) => {
         const [ah, am] = a.bookTime.split(":").map(Number);
@@ -61,7 +63,11 @@ const CalendarAdminPage = () => {
     }
   };
 
-  const renderBookedCalendar = (payload: { status: BookingStatus; label: string; isBG?: boolean }) => {
+  const renderBookedCalendar = (payload: {
+    status: BookingStatus;
+    label: string;
+    isBG?: boolean;
+  }) => {
     const { status, label, isBG = false } = payload;
 
     const getBackgroundColor = (status: BookingStatus): string => {
@@ -81,7 +87,9 @@ const CalendarAdminPage = () => {
     };
 
     return (
-      <div className={`flex gap-1 rounded-md ${isBG ? `${getBackgroundColor(status)}  px-2 py-1` : ""}`}>
+      <div
+        className={`flex gap-1 rounded-md ${isBG ? `${getBackgroundColor(status)}  px-2 py-1` : ""}`}
+      >
         <Badge status={getStatus(status)} />
         <Typography className="truncate" title={label}>
           {label}
@@ -135,7 +143,11 @@ const CalendarAdminPage = () => {
           return (
             <div className="flex flex-col gap-2 p-3 bg-white rounded-md shadow-lg -m-3">
               {cellDict.map((data, index) => {
-                return <div key={index}>{renderBookedCalendar({ ...data, isBG: true })}</div>;
+                return (
+                  <div key={index}>
+                    {renderBookedCalendar({ ...data, isBG: true })}
+                  </div>
+                );
               })}
             </div>
           );
@@ -143,7 +155,8 @@ const CalendarAdminPage = () => {
         overlayStyle={{
           backgroundColor: "white !important",
           borderRadius: "0.375rem",
-          boxShadow: "0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)",
+          boxShadow:
+            "0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)",
         }}
       >
         <div className="booking">

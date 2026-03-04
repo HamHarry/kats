@@ -1,334 +1,330 @@
+@import url("https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Sarabun:wght@300;400;500;600&display=swap");
+
+/* ─── Root Variables ─────────────────────────────────── */
+:root {
+  --gun-page-bg: #f2f6f4;
+  --gun-surface: #e8eeeb;
+  --gun-card: #ffffff;
+  --gun-deep: #032d1f;
+  --gun-mid: #043929;
+  --gun-accent: #f3cd68;
+  --gun-accent-dim: rgba(243, 205, 104, 0.12);
+  --gun-accent-glow: rgba(243, 205, 104, 0.35);
+  --gun-border: rgba(0, 150, 100, 0.18);
+  --gun-border-active: rgba(0, 180, 120, 0.45);
+  --gun-shadow: 0 2px 12px rgba(0, 120, 80, 0.08), 0 0 0 1px var(--gun-border);
+  --gun-shadow-hover:
+    0 8px 32px rgba(0, 150, 100, 0.18), 0 0 0 1px var(--gun-border-active);
+  --gun-radius: 18px;
+  --gun-text-primary: #1a2e22;
+  --gun-text-secondary: #4a7a5e;
+  --gun-text-muted: #8ab5a0;
+}
+
+/* ─── Page Container ─────────────────────────────────── */
 .container-HomePageGun {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 16px;
-  padding: 24px;
-  padding-top: 104px;
-  background-color: #1e4d3f;
+  gap: 32px;
+  padding: 96px 32px 64px;
+  background: var(--gun-page-bg);
+  font-family: "Sarabun", sans-serif;
+  min-height: 100vh;
 }
 
+/* ─── Section Header ─────────────────────────────────── */
 .header-HomePageGun {
   display: flex;
   justify-content: center;
-  position: relative;
   align-items: center;
-  background-color: #103026;
-  border-radius: 30px;
-  padding: 24px;
-  padding-left: 80px;
-  padding-right: 80px;
-  h1 {
-    text-align: center;
-    font-size: 42px;
-    font-weight: bold;
-    color: #f3cd68;
-  }
+  background: linear-gradient(135deg, var(--gun-deep) 0%, var(--gun-mid) 100%);
+  border-radius: var(--gun-radius);
+  padding: 24px 64px;
+  border: 1px solid rgba(243, 205, 104, 0.25);
+  box-shadow:
+    0 4px 24px rgba(0, 0, 0, 0.2),
+    0 0 0 1px rgba(243, 205, 104, 0.1);
+  position: relative;
+  overflow: hidden;
 }
 
+.header-HomePageGun::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--gun-accent),
+    transparent
+  );
+}
+
+.header-HomePageGun h1 {
+  font-family: "Rajdhani", sans-serif;
+  text-align: center;
+  font-size: 2.2rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--gun-accent);
+  margin: 0;
+  line-height: 1.3;
+}
+
+/* ─── Center Layout ──────────────────────────────────── */
 .centerGun {
   display: flex;
   flex-direction: row;
-  flex-wrap: wrap;
+  /* flex-wrap: wrap; */
   justify-content: center;
-  gap: 40px;
-  .center-left {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 16px;
-    h3 {
-      text-align: center;
-      font-size: 22px;
-      font-weight: bolder;
-      color: #f3cd68;
-    }
-    span {
-      text-align: center;
-      font-size: 42px;
-      color: #f3cd68;
-    }
-    .btn-content {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-      justify-content: center;
-      align-items: center;
-      .btn-group-top {
-        display: flex;
-        gap: 16px;
-      }
-      .btn {
-        color: #f3cd68;
-        font-size: 28px;
-        font-weight: bold;
-        min-width: 200px;
-        border: none;
-        border-radius: 20px;
-        background-color: #103026;
-        cursor: pointer;
-        transition: all 0.5s;
-        padding: 10px;
-      }
-      .btn:hover {
-        text-shadow:
-          0 0 10px #ffcc66,
-          0 0 20px #ffcc66,
-          0 0 30px #ffcc66;
-        transition: all 0.5s;
-      }
-      .btn-booking {
-        color: #f3cd68;
-        font-size: 28px;
-        font-weight: bold;
-        min-width: 200px;
-        border: none;
-        border-radius: 20px;
-        background-color: #103026;
-        cursor: pointer;
-        transition: all 0.5s;
-        padding: 10px;
-      }
-      .btn-booking:hover {
-        text-shadow:
-          0 0 10px #ffcc66,
-          0 0 20px #ffcc66,
-          0 0 30px #ffcc66;
-        transition: all 0.5s;
-      }
-    }
-  }
-  .center-mid {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 16px;
-    .compare {
-      display: flex;
-      justify-content: center;
-      text-align: center;
-      img {
-        height: 240px;
-        border-radius: 20px;
-        border: 5px solid #f3cd68;
-      }
-      h3 {
-        font-family: "Noto Sans Thai", serif;
-        text-align: center;
-        font-size: 25px;
-        color: #396cad;
-      }
-    }
-  }
-  .center-right {
-    display: flex;
-    gap: 20px;
-    video {
-      max-width: 700px;
-    }
+  gap: 32px;
+  width: 100%;
+  max-width: 1400px;
+}
+
+/* ─── Left Panel ─────────────────────────────────────── */
+.centerGun .center-left {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 20px;
+  min-width: 500px;
+  max-width: 360px;
+}
+
+.centerGun .center-left h3 {
+  background: var(--gun-card);
+  border: 1px solid var(--gun-border);
+  border-radius: var(--gun-radius);
+  padding: 24px;
+  box-shadow: var(--gun-shadow);
+  font-family: "Sarabun", sans-serif;
+  font-size: 0.92rem;
+  font-weight: 400;
+  color: var(--gun-text-secondary);
+  line-height: 1.8;
+  margin: 0;
+  text-align: center;
+}
+
+.centerGun .center-left h3 span {
+  display: block;
+  font-family: "Rajdhani", sans-serif;
+  font-size: 1.6rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--gun-mid);
+  margin-bottom: 8px;
+  text-align: center;
+}
+
+/* ─── Buttons ────────────────────────────────────────── */
+.btn-content {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: stretch;
+}
+
+.btn-group-top {
+  display: flex;
+  gap: 12px;
+}
+
+.btn,
+.btn-booking {
+  flex: 1;
+  font-family: "Rajdhani", sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--gun-accent);
+  background: linear-gradient(135deg, var(--gun-deep), var(--gun-mid));
+  border: 1px solid rgba(243, 205, 104, 0.3);
+  border-radius: 12px;
+  cursor: pointer;
+  padding: 12px 16px;
+  transition: all 0.22s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn::before,
+.btn-booking::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--gun-accent);
+  opacity: 0;
+  transition: opacity 0.22s ease;
+}
+
+.btn:hover,
+.btn-booking:hover {
+  border-color: var(--gun-accent);
+  box-shadow: 0 4px 20px rgba(243, 205, 104, 0.3);
+  transform: translateY(-2px);
+  color: var(--gun-deep);
+}
+
+.btn:hover::before,
+.btn-booking:hover::before {
+  opacity: 1;
+}
+
+.btn span,
+.btn-booking span,
+.btn > *,
+.btn-booking > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* ─── Mid Panel (Images) ─────────────────────────────── */
+.centerGun .center-mid {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 16px;
+}
+
+.centerGun .center-mid .compare {
+  display: flex;
+  justify-content: center;
+}
+
+.centerGun .center-mid .compare img {
+  height: 220px;
+  border-radius: 16px;
+  border: 2px solid var(--gun-border-active);
+  box-shadow: var(--gun-shadow);
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+  object-fit: cover;
+}
+
+.centerGun .center-mid .compare img:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--gun-shadow-hover);
+}
+
+/* ─── Right Panel (Video) ────────────────────────────── */
+.centerGun .center-right {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.centerGun .center-right video {
+  max-width: 680px;
+  border-radius: 16px;
+  border: 2px solid var(--gun-border-active);
+  box-shadow: var(--gun-shadow);
+}
+
+/* ─── Responsive ─────────────────────────────────────── */
+@media (max-width: 1490px) {
+  .centerGun {
+    flex-wrap: wrap;
   }
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 1200px) {
   .header-HomePageGun h1 {
-    font-size: 32px;
+    font-size: 1.8rem;
   }
 }
 
 @media (max-width: 983px) {
-  .centerGun {
-    .center-mid {
-      .compare {
-        img {
-          height: 450px;
-        }
-      }
-    }
+  .centerGun .center-mid .compare img {
+    height: 420px;
   }
 }
 
 @media (max-width: 795px) {
   .header-HomePageGun h1 {
-    font-size: 24px;
+    font-size: 1.5rem;
   }
-  .center-right {
-    .image-top img {
-      width: 100%;
-    }
-    .image-botton {
-      flex-direction: column !important;
-      img {
-        width: 100% !important;
-        height: auto !important;
-      }
-    }
-  }
-  .center-right {
-    video {
-      max-width: 600px !important;
-    }
-  }
-}
 
-@media (max-width: 700px) {
-  .centerGun {
-    .center-left {
-      h3 {
-        font-size: 18px;
-        span {
-          font-size: 32px;
-        }
-      }
-    }
+  .centerGun .center-right video {
+    max-width: 560px;
   }
 }
 
 @media (max-width: 640px) {
   .container-HomePageGun {
-    .header-HomePageGun {
-      padding: 16px;
-      h1 {
-        font-size: 20px;
-      }
-    }
+    padding: 80px 16px 48px;
+    gap: 20px;
+  }
 
-    .centerGun {
-      .center-left {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        h3 {
-          font-size: 18px;
-          span {
-            font-size: 28px;
-          }
-        }
-      }
-      .center-mid {
-        .compare {
-          img {
-            height: 300px;
-          }
-        }
-      }
-      .center-right {
-        display: flex;
-        gap: 20px;
-        video {
-          max-width: 500px !important;
-        }
-      }
-      .btn-content {
-        width: 100%;
-        .btn-group-top {
-          width: 100%;
-        }
-        .btn {
-          width: 100%;
-          min-width: 0px;
-        }
-      }
-    }
+  .header-HomePageGun {
+    padding: 18px 24px;
+  }
+
+  .header-HomePageGun h1 {
+    font-size: 1.25rem;
+  }
+
+  .centerGun .center-left {
+    min-width: 300px;
+  }
+
+  .centerGun .center-left h3 {
+    font-size: 0.8rem;
+  }
+
+  .centerGun .center-mid .compare img {
+    height: 280px;
+  }
+
+  .centerGun .center-right video {
+    max-width: 480px;
+  }
+
+  .btn-group-top {
+    flex-direction: row;
   }
 }
 
 @media (max-width: 600px) {
-  .container-HomePageGun {
-    .header-HomePageGun {
-      padding: 16px;
-      h1 {
-        font-size: 18px;
-      }
-    }
+  .header-HomePageGun h1 {
+    font-size: 1.1rem;
+  }
 
-    .centerGun {
-      .center-left {
-        h3 {
-          font-size: 16px;
-          span {
-            font-size: 28px;
-          }
-        }
-      }
-      .center-mid {
-        .compare {
-          img {
-            height: 300px;
-          }
-        }
-      }
-      .center-right {
-        display: flex;
-        gap: 20px;
-        video {
-          max-width: 400px !important;
-        }
-      }
-    }
+  .centerGun .center-right video {
+    max-width: 380px;
   }
 }
 
 @media (max-width: 480px) {
-  .container-HomePageGun {
-    .centerGun {
-      .center-left {
-        h3 {
-          font-size: 14px;
-          span {
-            font-size: 22px;
-          }
-        }
-      }
-    }
+  .centerGun .center-left h3 {
+    font-size: 0.82rem;
+  }
+
+  .centerGun .center-left h3 span {
+    font-size: 1.3rem;
+  }
+
+  .centerGun .center-right video {
+    max-width: 320px;
   }
 }
 
 @media (max-width: 425px) {
-  .container-HomePageGun {
-    .centerGun {
-      .center-left {
-        h3 {
-          font-size: 12px;
-          span {
-            font-size: 20px;
-          }
-        }
-      }
-    }
-    .centerGun {
-      .center-right {
-        display: flex;
-        gap: 20px;
-        video {
-          max-width: 300px !important;
-        }
-      }
-    }
+  .centerGun .center-right video {
+    max-width: 280px;
   }
-}
 
-@media (max-width: 400px) {
-  .container-HomePageGun {
-    .centerGun {
-      .center-left {
-        h3 {
-          font-size: 10px;
-          span {
-            font-size: 18px;
-          }
-        }
-        .btn-content {
-          .btn-group-top {
-            .btn {
-              font-size: 18px;
-            }
-          }
-        }
-        .btn-booking {
-          font-size: 18px;
-          width: 100%;
-        }
-      }
-    }
+  .btn,
+  .btn-booking {
+    font-size: 0.85rem;
   }
 }

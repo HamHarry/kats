@@ -1,6 +1,7 @@
 import { Link } from "react-scroll";
 import "./Navbargun.css";
 import { useNavigate } from "react-router-dom";
+
 const NavbarGun = () => {
   const navigate = useNavigate();
 
@@ -11,9 +12,7 @@ const NavbarGun = () => {
           to="Home"
           smooth={true}
           duration={200}
-          onClick={() => {
-            navigate("/");
-          }}
+          onClick={() => navigate("/")}
         >
           <img src="/assets/logoG.png" alt="logo" />
         </Link>
@@ -25,9 +24,7 @@ const NavbarGun = () => {
               to="Home"
               smooth={true}
               duration={200}
-              onClick={() => {
-                navigate("/");
-              }}
+              onClick={() => navigate("/")}
             >
               หน้าหลัก
             </Link>
@@ -45,19 +42,7 @@ const NavbarGun = () => {
             </Link>
           </li>
 
-          {/* <li>
-            <Link to="GunGuard" smooth={true} duration={200}>
-              Guard
-            </Link>
-          </li> */}
-
-          <li
-            onClick={() => {
-              navigate("login");
-            }}
-          >
-            เข้าสู่ระบบ
-          </li>
+          <li onClick={() => navigate("login")}>เข้าสู่ระบบ</li>
         </ul>
       </div>
     </div>

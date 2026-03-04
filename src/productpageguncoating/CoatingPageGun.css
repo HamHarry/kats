@@ -1,168 +1,129 @@
+@import url("https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Sarabun:wght@300;400;500;600&display=swap");
+
+/* ─── Page Container ─────────────────────────────────── */
 .container-CoatingPageGun {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 16px;
-  padding: 24px;
-  padding-top: 104px;
-  padding-bottom: 60px;
-  background-color: #1e4d3f;
+  gap: 32px;
+  padding: 96px 32px 80px;
+  background: var(--gun-page-bg, #f2f6f4);
   width: 100%;
+  font-family: "Sarabun", sans-serif;
 }
 
+/* ─── Section Headers ────────────────────────────────── */
 .header-CoatingPageGun {
   display: flex;
   justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #032d1f 0%, #043929 100%);
+  border-radius: 18px;
+  padding: 20px 64px;
+  border: 1px solid rgba(243, 205, 104, 0.25);
+  box-shadow:
+    0 4px 24px rgba(0, 0, 0, 0.2),
+    0 0 0 1px rgba(243, 205, 104, 0.1);
   position: relative;
-  align-items: center;
-  background-color: #103026;
-  border-radius: 30px;
-  padding: 24px;
-  padding-left: 80px;
-  padding-right: 80px;
-  h1 {
-    text-align: center;
-    font-size: 42px;
-    font-weight: bold;
-    color: #f3cd68;
-  }
+  overflow: hidden;
 }
 
-.content-preview-damp {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 40px;
-  video {
-    height: 650px;
-  }
-  .container-preview-damp {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    .header-preview-damp {
-      display: flex;
-      justify-content: center;
-      position: relative;
-      align-items: center;
-      background-color: #103026;
-      border-radius: 30px;
-      padding: 24px;
-      padding-left: 80px;
-      padding-right: 80px;
-      h1 {
-        text-align: center;
-        font-size: 42px;
-        font-weight: bold;
-        color: #f3cd68;
-      }
-    }
-    img {
-      max-width: 600px;
-    }
-    .content-slide-Damp {
-      display: grid;
-      place-items: center;
-      height: 250px;
-      margin: auto;
-      margin-top: -10px;
-      max-width: 850px;
-      overflow: hidden;
-      position: relative;
-    }
-
-    @keyframes scroll {
-      0% {
-        transform: translateX(0);
-      }
-      100% {
-        transform: translateX(calc(-250px * 6));
-      }
-    }
-
-    .slide-Damp {
-      display: flex;
-      width: calc(250px * 12);
-      animation: scroll 40s linear infinite;
-    }
-
-    .slide-Damp:hover {
-      animation-play-state: paused;
-    }
-
-    .slide {
-      display: flex;
-      align-items: center;
-      height: 200px;
-      min-width: 250px;
-      padding: 15px;
-      perspective: 150px;
-      img {
-        width: 100%;
-        border: 2px solid #f3cd68;
-        border-radius: 25px;
-      }
-      img:hover {
-        transform: translateZ(20px);
-      }
-    }
-  }
+.header-CoatingPageGun::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #f3cd68, transparent);
 }
 
-.poster-row {
-  display: flex;
-  gap: 20px;
-  padding-bottom: 40px;
-  img {
-    height: 300px;
-    border: 5px solid #f3cd68;
-    border-radius: 25px;
-  }
+.header-CoatingPageGun h1 {
+  font-family: "Rajdhani", sans-serif;
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #f3cd68;
+  margin: 0;
+  line-height: 1;
 }
 
+/* ─── Series Content ─────────────────────────────────── */
 .content-series {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 50px;
-  .text-box {
-    padding: 10px;
-    background-color: #103026;
-    border: 3px solid #f3cd68;
-    border-radius: 25px;
-    p {
-      color: #f3cd68;
-      font-size: 16px;
-      span {
-        display: flex;
-        justify-content: center;
-        font-size: 24px;
-        margin-bottom: -20px;
-      }
-    }
-  }
-  .tanks {
-    width: 350px;
-    padding-bottom: 20px;
-    img {
-      height: 350px;
-    }
-  }
-  img {
-    height: 350px;
-  }
+  gap: 40px;
+  width: 100%;
+  max-width: 1200px;
+  flex-wrap: wrap;
 }
 
+.content-series .text-box {
+  background: #fff;
+  border: 1px solid rgba(0, 150, 100, 0.18);
+  border-radius: 18px;
+  padding: 28px 32px;
+  box-shadow: 0 2px 12px rgba(0, 120, 80, 0.08);
+  max-width: 520px;
+  transition: box-shadow 0.22s ease;
+}
+
+.content-series .text-box:hover {
+  box-shadow: 0 6px 28px rgba(0, 150, 100, 0.15);
+}
+
+.content-series .text-box p {
+  font-family: "Sarabun", sans-serif;
+  font-size: 0.92rem;
+  color: #4a7a5e;
+  line-height: 1.9;
+  margin: 0;
+}
+
+.content-series .text-box p span {
+  display: block;
+  font-family: "Rajdhani", sans-serif;
+  font-size: 1.4rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: #032d1f;
+}
+
+.content-series .tanks {
+  width: 320px;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 2px solid rgba(0, 180, 120, 0.35);
+  box-shadow: 0 2px 12px rgba(0, 120, 80, 0.08);
+}
+
+.content-series .tanks img {
+  height: 320px;
+  width: 100%;
+  object-fit: contain;
+}
+
+.content-series > img {
+  height: 320px;
+  border-radius: 16px;
+  border: 2px solid rgba(0, 180, 120, 0.35);
+  box-shadow: 0 2px 12px rgba(0, 120, 80, 0.08);
+  object-fit: contain;
+}
+
+/* ─── Preview Slider ─────────────────────────────────── */
 .content-preview {
   display: grid;
   place-items: center;
   height: 250px;
-  margin: auto;
   width: 90%;
+  max-width: 1200px;
   overflow: hidden;
   position: relative;
+  border-radius: 16px;
 }
 
 @keyframes scroll {
@@ -191,445 +152,471 @@
   min-width: 250px;
   padding: 15px;
   perspective: 150px;
-  img {
-    width: 100%;
-    border: 2px solid #f3cd68;
-    border-radius: 25px;
+}
+
+.slide img {
+  width: 100%;
+  border: 2px solid rgba(0, 180, 120, 0.35);
+  border-radius: 14px;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.slide img:hover {
+  transform: translateZ(20px);
+  box-shadow: 0 8px 24px rgba(0, 120, 80, 0.18);
+}
+
+/* ─── Damp Preview Section ───────────────────────────── */
+.content-preview-damp {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 40px;
+  width: 100%;
+  max-width: 1400px;
+}
+
+.content-preview-damp video {
+  height: 600px;
+  border-radius: 16px;
+  border: 2px solid rgba(0, 180, 120, 0.35);
+  box-shadow: 0 2px 12px rgba(0, 120, 80, 0.08);
+}
+
+.container-preview-damp {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.container-preview-damp .header-preview-damp {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #032d1f 0%, #043929 100%);
+  border-radius: 16px;
+  padding: 16px 48px;
+  border: 1px solid rgba(243, 205, 104, 0.25);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.18);
+  position: relative;
+  overflow: hidden;
+}
+
+.container-preview-damp .header-preview-damp::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #f3cd68, transparent);
+}
+
+.container-preview-damp .header-preview-damp h1 {
+  font-family: "Rajdhani", sans-serif;
+  font-size: 1.6rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: #f3cd68;
+  margin: 0;
+}
+
+.container-preview-damp > img {
+  max-width: 560px;
+  border-radius: 14px;
+  border: 2px solid rgba(0, 180, 120, 0.35);
+  box-shadow: 0 2px 12px rgba(0, 120, 80, 0.08);
+}
+
+/* Damp slider */
+.content-slide-Damp {
+  display: grid;
+  place-items: center;
+  height: 250px;
+  width: 100%;
+  max-width: 820px;
+  overflow: hidden;
+  position: relative;
+}
+
+@keyframes scrollDamp {
+  0% {
+    transform: translateX(0);
   }
-  img:hover {
-    transform: translateZ(20px);
+  100% {
+    transform: translateX(calc(-250px * 6));
   }
 }
 
+.slide-Damp {
+  display: flex;
+  width: calc(250px * 12);
+  animation: scrollDamp 40s linear infinite;
+}
+
+.slide-Damp:hover {
+  animation-play-state: paused;
+}
+
+/* ─── Poster Row ─────────────────────────────────────── */
+.poster-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: center;
+  width: 100%;
+  max-width: 1200px;
+}
+
+.poster-row img {
+  height: 280px;
+  border-radius: 16px;
+  border: 2px solid rgba(0, 180, 120, 0.35);
+  box-shadow: 0 2px 12px rgba(0, 120, 80, 0.08);
+  object-fit: cover;
+  transition:
+    transform 0.22s ease,
+    box-shadow 0.22s ease;
+}
+
+.poster-row img:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 28px rgba(0, 150, 100, 0.18);
+}
+
+/* ─── Branch Section ─────────────────────────────────── */
+.branch-theparak {
+  display: flex;
+  gap: 32px;
+  justify-content: center;
+  width: 100%;
+  max-width: 1200px;
+}
+
+.branch-theparak .text-box-theparak {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  background: #fff;
+  border: 1px solid rgba(0, 150, 100, 0.18);
+  border-radius: 18px;
+  padding: 28px 24px;
+  box-shadow: 0 2px 12px rgba(0, 120, 80, 0.08);
+  min-width: 220px;
+}
+
+.branch-theparak .text-box-theparak p {
+  font-family: "Rajdhani", sans-serif;
+  font-size: 1.3rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: #032d1f;
+  text-align: center;
+  margin: 0;
+}
+
+.branch-theparak .text-box-theparak img {
+  height: 300px;
+  border-radius: 14px;
+  border: 2px solid rgba(0, 180, 120, 0.35);
+  box-shadow: 0 2px 8px rgba(0, 120, 80, 0.08);
+  object-fit: cover;
+}
+
+.branch-theparak .text-box-theparak button {
+  font-family: "Rajdhani", sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #f3cd68;
+  background: linear-gradient(135deg, #032d1f, #043929);
+  border: 1px solid rgba(243, 205, 104, 0.3);
+  border-radius: 12px;
+  padding: 10px 28px;
+  cursor: pointer;
+  transition: all 0.22s ease;
+  min-width: 160px;
+}
+
+.branch-theparak .text-box-theparak button:hover {
+  background: #f3cd68;
+  color: #032d1f;
+  border-color: #f3cd68;
+  box-shadow: 0 4px 16px rgba(243, 205, 104, 0.3);
+  transform: translateY(-2px);
+}
+
+/* Image preview side */
+.image-preview-theparak {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+}
+
+.image-preview-theparak > img {
+  max-height: 120px;
+  border-radius: 12px;
+  border: 2px solid rgba(0, 180, 120, 0.35);
+  box-shadow: 0 2px 8px rgba(0, 120, 80, 0.08);
+  cursor: pointer;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.image-preview-theparak > img:hover {
+  transform: scale(1.02);
+  box-shadow: 0 6px 20px rgba(0, 150, 100, 0.15);
+}
+
+.content-preview-theparak {
+  display: grid;
+  place-items: center;
+  height: 250px;
+  max-width: 760px;
+  overflow: hidden;
+  position: relative;
+}
+
+@keyframes scrollTheparak {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(calc(-250px * 6));
+  }
+}
+
+.slide-track-theparak {
+  display: flex;
+  width: calc(250px * 12);
+  animation: scrollTheparak 40s linear infinite;
+}
+
+.slide-track-theparak:hover {
+  animation-play-state: paused;
+}
+
+/* ─── Divider ────────────────────────────────────────── */
 .line-hr {
   width: 100%;
-  padding: 2px;
-  background-color: #f3cd68;
+  max-width: 1200px;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(0, 150, 100, 0.3),
+    transparent
+  );
   border: none;
-  border-radius: 10px;
 }
 
+/* ─── KATS Section ───────────────────────────────────── */
 .content-kats {
   display: flex;
   flex-direction: column;
-  justify-self: center;
   align-items: center;
-  .header-CoatingPageKats {
-    display: flex;
-    justify-content: center;
-    position: relative;
-    align-items: center;
-    background-color: #2656a2;
-    border-radius: 30px;
-    padding: 24px;
-    padding-left: 80px;
-    padding-right: 80px;
-    h3 {
-      text-align: center;
-      font-size: 42px;
-      font-weight: bold;
-      color: white;
-    }
-  }
-
-  .btn-kats {
-    margin-top: 20px;
-    color: white;
-    font-size: 28px;
-    font-weight: bold;
-    max-width: 200px;
-    border: none;
-    border-radius: 20px;
-    background-color: #2656a2;
-    cursor: pointer;
-    transition: all 0.5s;
-    padding: 10px;
-  }
-  .btn-kats:hover {
-    text-shadow:
-      0 0 10px rgba(255, 255, 255, 0.8),
-      0 0 20px rgba(255, 255, 255, 0.6),
-      0 0 30px rgba(255, 255, 255, 0.4);
-    transition: all 0.5s;
-  }
+  gap: 16px;
 }
 
-.branch-theparak {
+.content-kats .header-CoatingPageKats {
   display: flex;
-  gap: 20px;
-  padding-bottom: 20px;
-  .text-box-theparak {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    p {
-      font-weight: bold;
-      color: #f3cd68;
-      font-size: 32px;
-      text-align: center;
-    }
-    img {
-      height: 350px;
-      border: 5px solid #f3cd68;
-      border-radius: 25px;
-    }
-    button {
-      margin-top: 20px;
-      color: #f3cd68;
-      font-size: 28px;
-      font-weight: bold;
-      min-width: 200px;
-      border: none;
-      border-radius: 20px;
-      background-color: #103026;
-      cursor: pointer;
-      transition: all 0.5s;
-      padding: 10px;
-    }
-    button:hover {
-      text-shadow:
-        0 0 10px #ffcc66,
-        0 0 20px #ffcc66,
-        0 0 30px #ffcc66;
-      transition: all 0.5s;
-    }
-  }
-  .image-preview-theparak {
-    display: flex;
-    flex-direction: column;
-    img {
-      max-height: 150px;
-      border: 5px solid #f3cd68;
-      border-radius: 25px;
-      margin-top: 40px;
-      cursor: pointer;
-    }
-    .content-preview-theparak {
-      display: grid;
-      place-items: center;
-      height: 250px;
-      margin: auto;
-      margin-top: -10px;
-      max-width: 850px;
-      overflow: hidden;
-      position: relative;
-    }
-
-    @keyframes scroll {
-      0% {
-        transform: translateX(0);
-      }
-      100% {
-        transform: translateX(calc(-250px * 6));
-      }
-    }
-
-    .slide-track-theparak {
-      display: flex;
-      width: calc(250px * 12);
-      animation: scroll 40s linear infinite;
-    }
-
-    .slide-track-theparak:hover {
-      animation-play-state: paused;
-    }
-
-    .slide {
-      display: flex;
-      align-items: center;
-      height: 200px;
-      min-width: 250px;
-      padding: 15px;
-      perspective: 150px;
-      img {
-        width: 100%;
-        border: 2px solid #f3cd68;
-        border-radius: 25px;
-      }
-      img:hover {
-        transform: translateZ(20px);
-      }
-    }
-  }
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #1a3a7a 0%, #2656a2 100%);
+  border-radius: 18px;
+  padding: 20px 64px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 4px 20px rgba(26, 58, 122, 0.25);
 }
 
-@media (max-width: 1550px) {
-  .poster-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-  }
-  .branch-theparak {
-    .text-box-theparak {
-      p {
-        font-size: 24px;
-      }
-    }
-    .image-preview-theparak {
-      img {
-        max-height: 150px;
-      }
-      .content-preview-theparak {
-        max-width: 750px;
-      }
-    }
-  }
+.content-kats .header-CoatingPageKats h3 {
+  font-family: "Rajdhani", sans-serif;
+  font-size: 1.8rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: white;
+  margin: 0;
 }
 
-@media (max-width: 1380px) {
-  .branch-theparak {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+.content-kats .btn-kats {
+  font-family: "Rajdhani", sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: white;
+  background: linear-gradient(135deg, #1a3a7a, #2656a2);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  padding: 10px 28px;
+  cursor: pointer;
+  transition: all 0.22s ease;
+}
 
-    .text-box-theparak {
-      p {
-        font-size: 20px;
-      }
-    }
-    .image-preview-theparak {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      img {
-        max-width: 800px;
-      }
-    }
+.content-kats .btn-kats:hover {
+  background: white;
+  color: #2656a2;
+  border-color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(38, 86, 162, 0.3);
+}
+
+/* ─── Responsive ─────────────────────────────────────── */
+@media (max-width: 1040px) {
+  .content-preview-theparak {
+    max-width: 600px;
   }
 }
 
 @media (max-width: 1024px) {
   .header-CoatingPageGun h1 {
-    font-size: 32px;
+    font-size: 1.6rem;
   }
-  .container-CoatingPageGun {
-    .container-preview-damp {
-      .header-preview-damp {
-        h1 {
-          font-size: 32px;
-        }
-      }
-      img {
-        max-width: 600px;
-      }
-      .content-slide-Damp {
-        max-width: 650px;
-      }
-    }
+
+  .container-preview-damp .header-preview-damp h1 {
+    font-size: 1.4rem;
+  }
+
+  .container-preview-damp > img {
+    max-width: 520px;
+  }
+
+  .content-slide-Damp {
+    max-width: 620px;
+  }
+  .content-preview-theparak {
+    max-width: 400px;
   }
 }
 
 @media (max-width: 880px) {
-  .content-series {
-    .text-box {
-      p {
-        font-size: 14px;
-        span {
-          font-size: 20px;
-        }
-      }
-    }
+  .content-series .text-box p {
+    font-size: 0.85rem;
   }
-}
-
-@media (max-width: 840px) {
-  .branch-theparak {
-    .image-preview-theparak {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      img {
-        max-width: 600px;
-      }
-      .content-preview-theparak {
-        max-width: 550px;
-      }
-    }
-  }
-}
-
-@media (max-width: 815px) {
-  .content-series {
-    .text-box {
-      p {
-        font-size: 12px;
-        span {
-          font-size: 18px;
-        }
-      }
-    }
+  .content-series .text-box p span {
+    font-size: 1.2rem;
   }
 }
 
 @media (max-width: 795px) {
   .header-CoatingPageGun h1 {
-    font-size: 24px;
+    font-size: 1.4rem;
   }
-  .content-series {
-    .text-box {
-      p {
-        font-size: 10px;
-        span {
-          font-size: 16px;
-        }
-      }
-    }
-  }
-  .container-CoatingPageGun {
-    .container-preview-damp {
-      .header-preview-damp {
-        h1 {
-          font-size: 24px;
-        }
-      }
-      img {
-        max-width: 500px;
-      }
-      .content-slide-Damp {
-        max-width: 550px;
-      }
-    }
-  }
-  .poster-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    img {
-      max-width: 300px;
-    }
-  }
-}
 
-@media (max-width: 670px) {
-  .poster-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    img {
-      height: 250px;
-      max-width: 250px;
-    }
+  .branch-theparak {
+    flex-wrap: wrap;
+  }
+
+  .poster-row img {
+    height: 200px;
+    max-width: 280px;
+  }
+
+  .content-preview-theparak {
+    max-width: 600px;
+  }
+
+  .content-preview-damp video {
+    height: 480px;
   }
 }
 
 @media (max-width: 640px) {
-  .header-CoatingPageGun {
-    padding: 16px;
-    h1 {
-      font-size: 20px;
-    }
-  }
-  .content-series {
-    display: flex;
-    flex-direction: column;
-  }
   .container-CoatingPageGun {
-    .container-preview-damp {
-      .header-preview-damp {
-        h1 {
-          font-size: 20px;
-        }
-      }
-      img {
-        max-width: 400px;
-      }
-      .content-slide-Damp {
-        max-width: 450px;
-      }
-    }
+    padding: 80px 16px 60px;
+    gap: 24px;
   }
-  .branch-theparak {
-    .image-preview-theparak {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      img {
-        max-width: 500px;
-      }
-      .content-preview-theparak {
-        max-width: 450px;
-      }
-    }
+
+  .header-CoatingPageGun {
+    padding: 16px 28px;
+  }
+  .header-CoatingPageGun h1 {
+    font-size: 1.2rem;
+  }
+
+  .content-series {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .content-series .tanks {
+    width: 260px;
+  }
+  .content-series .tanks img {
+    height: 260px;
+  }
+  .content-series > img {
+    height: 260px;
+  }
+
+  .content-preview-theparak {
+    max-width: 400px;
+  }
+
+  .container-preview-damp > img {
+    max-width: 380px;
+  }
+  .content-slide-Damp {
+    max-width: 420px;
+  }
+
+  .content-preview-damp video {
+    height: auto;
+    max-width: 100%;
   }
 }
 
 @media (max-width: 600px) {
-  .header-CoatingPageGun {
-    padding: 16px;
-    h1 {
-      font-size: 18px;
-    }
+  .content-preview {
+    max-width: 340px;
   }
-  .container-CoatingPageGun {
-    .content-series {
-      .tanks {
-        width: 250px;
-        img {
-          height: 250px;
-        }
-      }
-    }
-    .content-preview {
-      max-width: 350px;
-      .slide-track {
-        .slide {
-          img {
-            width: 250px;
-          }
-        }
-      }
-    }
-    .content-series {
-      gap: 20px;
-      img {
-        height: 260px;
-      }
-    }
-    .container-preview-damp {
-      .header-preview-damp {
-        h1 {
-          font-size: 18px;
-        }
-      }
-      .content-slide-Damp {
-        max-width: 350px;
-      }
-    }
-    .poster-row {
-      img {
-        height: 150px;
-        max-width: 150px;
-      }
-    }
-    .branch-theparak {
-      .text-box-theparak {
-        gap: 10px;
-        p {
-          font-size: 16px;
-        }
-        img {
-          height: 250px;
-          max-width: 350px;
-        }
-      }
-      .image-preview-theparak {
-        img {
-          max-width: 350px;
-          border: 2px solid #f3cd68;
-          border-radius: 15px;
-        }
-        .content-preview-theparak {
-          max-width: 350px;
-        }
-      }
-    }
+
+  .poster-row img {
+    height: 140px;
+    max-width: 140px;
+  }
+
+  .branch-theparak .text-box-theparak img {
+    height: 220px;
+    max-width: 320px;
+  }
+  .branch-theparak .text-box-theparak p {
+    font-size: 1.1rem;
+  }
+
+  .image-preview-theparak > img {
+    max-width: 320px;
+  }
+  .content-preview-theparak {
+    max-width: 320px;
+  }
+}
+
+@media (max-width: 460px) {
+  .content-slide-Damp {
+    max-width: 300px;
+  }
+
+  .content-series .text-box p span {
+    font-size: 1rem;
+  }
+  .content-series .text-box p {
+    font-size: 0.7rem;
   }
 }
 
 @media (max-width: 425px) {
-  .container-CoatingPageGun {
-    .container-preview-damp {
-      img {
-        max-width: 300px;
-      }
-    }
+  .container-preview-damp > img {
+    max-width: 280px;
   }
 }

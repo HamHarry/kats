@@ -1,101 +1,293 @@
+@import url("https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Sarabun:wght@300;400;500;600&display=swap");
+
+/* ─── Page Container ─────────────────────────────────── */
 .container-orderpage-Gun {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 16px;
-  padding: 24px;
-  padding-top: 104px;
-  background-color: #1e4d3f;
+  gap: 20px;
+  padding: 96px 32px 64px;
+  background: var(--gun-page-bg, #f2f6f4);
   width: 100%;
+  font-family: "Sarabun", sans-serif;
 }
 
+/* ─── Section Header ─────────────────────────────────── */
 .header-orderpage-Gun {
   display: flex;
   justify-content: center;
-  position: relative;
   align-items: center;
-  background-color: #103026;
-  border-radius: 30px;
-  padding: 24px;
-  padding-left: 80px;
-  padding-right: 80px;
-
-  .text-header {
-    font-size: 32px;
-    font-weight: bold;
-    color: #f3cd68;
-  }
+  background: linear-gradient(135deg, #032d1f 0%, #043929 100%);
+  border-radius: 18px;
+  padding: 20px 60px;
+  border: 1px solid rgba(243, 205, 104, 0.25);
+  box-shadow:
+    0 4px 24px rgba(0, 0, 0, 0.2),
+    0 0 0 1px rgba(243, 205, 104, 0.1);
+  position: relative;
+  overflow: hidden;
+  align-self: center;
 }
 
-.wrap-calendar-Gun {
-  background-color: white;
-  border: 5px solid #f3cd68;
-  border-radius: 20px;
-  padding: 20px;
+.header-orderpage-Gun::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #f3cd68, transparent);
+}
+
+.header-orderpage-Gun .text-header {
+  font-family: "Rajdhani", sans-serif;
+  font-size: 1.8rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #f3cd68;
+  margin: 0;
+  line-height: 1;
+}
+
+/* ─── Legend / Guide (shared style from CalendarAdminPage) ── */
+.guid {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--bg-card, #fff);
+  border: 1px solid var(--border, rgba(0, 150, 100, 0.18));
+  border-radius: 12px;
+  padding: 10px 20px;
+  width: 100%;
   max-width: 1200px;
-  .ant-picker-calendar {
-    background-color: white;
-  }
-  .ant-picker-body {
-    background-color: white;
-  }
+  justify-content: center;
+  box-shadow: 0 1px 6px rgba(0, 120, 80, 0.06);
+  flex-wrap: wrap;
+}
 
+.guid-yellow,
+.guid-blue,
+.guid-green,
+.guid-red {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 4px 12px;
+  border-radius: 20px;
+  transition: background 0.18s;
+}
+
+.guid-yellow:hover {
+  background: rgba(250, 173, 20, 0.1);
+}
+.guid-blue:hover {
+  background: rgba(22, 119, 255, 0.1);
+}
+.guid-green:hover {
+  background: rgba(82, 196, 26, 0.1);
+}
+.guid-red:hover {
+  background: rgba(255, 77, 79, 0.1);
+}
+
+.guid-yellow p,
+.guid-blue p,
+.guid-green p,
+.guid-red p {
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--text-secondary, #4a7a5e);
+  margin: 0;
+  white-space: nowrap;
+}
+
+.box-yellow,
+.box-blue,
+.box-green,
+.box-red {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.box-yellow {
+  background-color: #faad14;
+  box-shadow: 0 0 0 3px rgba(250, 173, 20, 0.2);
+}
+.box-blue {
+  background-color: #1677ff;
+  box-shadow: 0 0 0 3px rgba(22, 119, 255, 0.2);
+}
+.box-green {
+  background-color: #52c41a;
+  box-shadow: 0 0 0 3px rgba(82, 196, 26, 0.2);
+}
+.box-red {
+  background-color: #ff4d4f;
+  box-shadow: 0 0 0 3px rgba(255, 77, 79, 0.2);
+}
+
+.guid > *:not(:last-child) {
+  border-right: 1px solid var(--border, rgba(0, 150, 100, 0.18));
+}
+
+/* ─── Calendar Wrapper ───────────────────────────────── */
+.wrap-calendar-Gun {
+  background: #fff;
+  border: 1px solid rgba(0, 150, 100, 0.18);
+  border-radius: 20px;
+  padding: 24px;
+  max-width: 1200px;
+  width: 100%;
+  box-shadow:
+    0 2px 12px rgba(0, 120, 80, 0.08),
+    0 0 0 1px rgba(0, 150, 100, 0.18);
+}
+
+/* ─── Ant Design Calendar Overrides ─────────────────── */
+.wrap-calendar-Gun .ant-picker-calendar {
+  background: transparent;
+  font-family: "Sarabun", sans-serif;
+}
+
+.wrap-calendar-Gun .ant-picker-calendar-header {
+  padding: 0 0 16px;
+  border-bottom: 1px solid rgba(0, 150, 100, 0.18);
+  margin-bottom: 8px;
+}
+
+.wrap-calendar-Gun .ant-picker-content th {
+  font-family: "Rajdhani", sans-serif;
+  font-weight: 600;
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #8ab5a0;
+  padding: 8px 0;
+}
+
+.wrap-calendar-Gun .ant-picker-cell-inner {
+  height: 95px !important;
+  border-radius: 10px !important;
+  transition:
+    background 0.18s,
+    box-shadow 0.18s !important;
+  border: 1px solid transparent !important;
+}
+
+.wrap-calendar-Gun .ant-picker-cell-inner:hover {
+  background: #f5fdf8 !important;
+  border-color: rgba(0, 180, 120, 0.45) !important;
+}
+
+.wrap-calendar-Gun .ant-picker-cell-selected .ant-picker-cell-inner,
+.wrap-calendar-Gun
+  .ant-picker-cell-in-view.ant-picker-cell-selected
   .ant-picker-cell-inner {
-    height: 77px !important;
-    .ant-picker-calendar-date-content {
-      height: 40px !important;
-      overflow-y: hidden;
-    }
-    .booking {
-      overflow: hidden;
-    }
-    .ant-picker-calendar-date-content:hover {
-      overflow-y: auto;
-    }
-  }
+  background: rgba(4, 57, 41, 0.07) !important;
+  border-color: rgba(4, 57, 41, 0.35) !important;
+  color: #1a3d28 !important;
 }
 
-@media (max-width: 1181px) {
-  .header-orderpage {
-    padding: 12px 20px 12px 35px;
-    border-radius: 20px;
-    .text-header {
-      font-size: 28px;
-    }
-    img {
-      width: 90px;
-      left: -50px;
-    }
-  }
-  .wrap-calendar {
-    padding: 12px;
-    .ant-picker-cell-inner {
-      height: 84px !important;
-    }
-  }
+.wrap-calendar-Gun .ant-picker-cell-today .ant-picker-cell-inner::before {
+  border-color: #043929 !important;
+  border-radius: 10px !important;
 }
 
-@media (max-width: 642px) {
-  .header-orderpage {
-    padding: 12px 12px 12px 12px;
-  }
+.wrap-calendar-Gun .ant-picker-calendar-date-value {
+  font-family: "Rajdhani", sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #1a2e22;
 }
 
-@media (max-width: 530px) {
-  .header-orderpage {
-    padding: 12px 0px 12px 0px;
+.wrap-calendar-Gun .ant-picker-calendar-date-content {
+  height: 62px !important;
+  overflow: hidden;
+}
+
+.wrap-calendar-Gun .ant-picker-calendar-date-content:hover {
+  overflow-y: auto;
+}
+
+.wrap-calendar-Gun .ant-picker-calendar-date-content::-webkit-scrollbar {
+  width: 3px;
+}
+
+.wrap-calendar-Gun .ant-picker-calendar-date-content::-webkit-scrollbar-thumb {
+  background: rgba(0, 180, 120, 0.45);
+  border-radius: 10px;
+}
+
+/* ─── Booking Items ──────────────────────────────────── */
+.booking {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  overflow: hidden;
+}
+
+.booking .text-c {
+  font-size: 0.82rem;
+  font-family: "Sarabun", sans-serif;
+  color: #1a2e22;
+  line-height: 1.3;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ─── Mobile Calendar Wrapper ────────────────────────── */
+.wrap-calendarAdmin-mobile {
+  width: 100%;
+  padding: 0;
+}
+
+/* ─── Responsive ─────────────────────────────────────── */
+@media (max-width: 768px) {
+  .container-orderpage-Gun {
+    padding: 80px 16px 48px;
+    gap: 16px;
+  }
+
+  .header-orderpage-Gun {
+    padding: 16px 32px;
+  }
+
+  .header-orderpage-Gun .text-header {
+    font-size: 1.4rem;
   }
 }
 
 @media (max-width: 450px) {
   .header-orderpage-Gun {
-    padding: 14px 24px 14px 24px;
-    max-width: 250px;
-    .text-header {
-      font-size: 20px;
-    }
-    img {
-      left: -30px;
-    }
+    padding: 14px 24px;
+  }
+
+  .header-orderpage-Gun .text-header {
+    font-size: 1.2rem;
+  }
+
+  /* Legend: 2 column grid on small screens */
+  .guid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+    padding: 10px 12px;
+    justify-items: center;
+  }
+
+  .guid > *:not(:last-child) {
+    border-right: none;
+  }
+
+  .guid-yellow p,
+  .guid-blue p,
+  .guid-green p,
+  .guid-red p {
+    font-size: 0.7rem;
+    white-space: normal;
   }
 }

@@ -1,84 +1,145 @@
+@import url("https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Sarabun:wght@300;400;500;600&display=swap");
+
+/* ─── Root Variables (shared with admin) ─────────────── */
+:root {
+  --gun-bg-nav: #032d1f;
+  --gun-bg-nav-surface: #043929;
+  --gun-accent: #f3cd68;
+  --gun-accent-dim: rgba(243, 205, 104, 0.15);
+  --gun-accent-hover: rgba(243, 205, 104, 0.08);
+  --gun-border: rgba(243, 205, 104, 0.15);
+  --gun-border-active: rgba(243, 205, 104, 0.4);
+  --gun-text: rgba(255, 255, 255, 0.85);
+  --gun-text-dim: rgba(255, 255, 255, 0.45);
+}
+
+/* ─── Navbar Shell ───────────────────────────────────── */
 .NavbarGun {
   position: fixed;
   top: 0;
+  left: 0;
+  right: 0;
   display: flex;
-  width: 100%;
-  justify-content: space-between;
   align-items: center;
-  height: 80px;
-  background-color: #103026;
+  justify-content: space-between;
+  height: 72px;
+  background: linear-gradient(180deg, #032d1f 0%, #043929 100%);
+  border-bottom: 1px solid var(--gun-border);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.35);
   z-index: 100;
-  .logo img {
-    width: 140px;
-    height: 70px;
-    margin-left: 10px;
-    cursor: pointer;
+  padding: 0 32px;
+  font-family: "Sarabun", sans-serif;
+}
+
+/* ─── Logo ───────────────────────────────────────────── */
+.NavbarGun .logo img {
+  width: 130px;
+  height: 64px;
+  object-fit: contain;
+  cursor: pointer;
+  filter: brightness(1.05);
+  transition:
+    transform 0.3s ease,
+    filter 0.3s ease;
+}
+
+.NavbarGun .logo img:hover {
+  transform: scale(1.04);
+  filter: brightness(1.15);
+}
+
+/* ─── Nav List ───────────────────────────────────────── */
+.NavbarGun .list-menu ul {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.NavbarGun .list-menu li {
+  position: relative;
+  font-family: "Rajdhani", sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--gun-text);
+  cursor: pointer;
+  padding: 8px 16px;
+  border-radius: 10px;
+  border: 1px solid transparent;
+  transition: all 0.2s ease;
+}
+
+.NavbarGun .list-menu li:hover {
+  background: var(--gun-accent-hover);
+  border-color: var(--gun-border-active);
+  color: var(--gun-accent);
+}
+
+/* Login button — accent style */
+.NavbarGun .list-menu li:last-child {
+  background: var(--gun-accent-dim);
+  border: 1px solid var(--gun-border-active);
+  color: var(--gun-accent);
+  padding: 8px 20px;
+}
+
+.NavbarGun .list-menu li:last-child:hover {
+  background: var(--gun-accent);
+  color: #032d1f;
+  border-color: var(--gun-accent);
+}
+
+/* ─── Responsive ─────────────────────────────────────── */
+@media (max-width: 768px) {
+  .NavbarGun {
+    padding: 0 20px;
+    height: 64px;
   }
-  .list-menu {
-    ul {
-      display: flex;
-      gap: 25px;
-      margin-right: 10px;
-      list-style: none;
-    }
-    li {
-      font-size: 20px;
-      font-weight: bold;
-      cursor: pointer;
-      color: #f3cd68;
-      transition: all 0.5s;
-    }
-    li:hover {
-      text-shadow:
-        0 0 10px #ffcc66,
-        0 0 20px #ffcc66,
-        0 0 30px #ffcc66;
-      transition: all 0.5s;
-    }
+
+  .NavbarGun .logo img {
+    width: 110px;
+    height: 54px;
+  }
+
+  .NavbarGun .list-menu li {
+    font-size: 0.88rem;
+    padding: 6px 10px;
   }
 }
 
-@media (max-width: 656px) {
+@media (max-width: 560px) {
   .NavbarGun {
-    .logo img {
-      width: 100px;
-      height: 50px;
-    }
-    .list-menu {
-      ul {
-        gap: 10px;
-      }
-      li {
-        font-size: 16px;
-      }
-    }
+    padding: 0 12px;
+    height: 60px;
+  }
+
+  .NavbarGun .logo img {
+    width: 90px;
+    height: 44px;
+  }
+
+  .NavbarGun .list-menu ul {
+    gap: 2px;
+  }
+
+  .NavbarGun .list-menu li {
+    font-size: 0.78rem;
+    padding: 5px 8px;
+    letter-spacing: 0.03em;
+  }
+
+  .NavbarGun .list-menu li:last-child {
+    padding: 5px 10px;
   }
 }
 
-@media (max-width: 495px) {
-  .NavbarGun {
-    .logo img {
-      margin-left: -10px;
-      width: 100px;
-      height: 50px;
-    }
-    .list-menu {
-      ul {
-        gap: 10px;
-      }
-      li {
-        font-size: 12px;
-      }
-    }
-  }
-}
-
-@media (max-width: 470px) {
-  .NavbarGun {
-    .logo img {
-      margin-left: -10px;
-      width: 100px;
-      height: 50px;
-    }
+@media (max-width: 450px) {
+  .NavbarGun .list-menu li {
+    font-size: 0.7rem;
+    padding: 4px 6px;
   }
 }

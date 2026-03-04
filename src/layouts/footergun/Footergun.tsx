@@ -7,11 +7,11 @@ const FooterGun = () => {
         className="contact"
         onClick={() =>
           window.open(
-            "https://www.facebook.com/profile.php?id=100063764464833#"
+            "https://www.facebook.com/profile.php?id=100063764464833#",
           )
         }
       >
-        <p>: เพจ Facebook ศูนย์พ่นกันสนิมรถยนต์ Gun Protection ลาดกระบัง</p>
+        <p>: เพจ Facebook Gun Protection ลาดกระบัง</p>
       </div>
     </div>
   );
