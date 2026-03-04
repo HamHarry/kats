@@ -1,172 +1,245 @@
+@import url("https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Sarabun:wght@300;400;500;600&display=swap");
+
+/* ─── Root Variables (mirrors HomePageGun) ───────────── */
+:root {
+  --gun-page-bg: #f2f6f4;
+  --gun-surface: #e8eeeb;
+  --gun-card: #ffffff;
+  --gun-deep: #032d1f;
+  --gun-mid: #043929;
+  --gun-accent: #f3cd68;
+  --gun-accent-dim: rgba(243, 205, 104, 0.12);
+  --gun-accent-glow: rgba(243, 205, 104, 0.35);
+  --gun-border: rgba(0, 150, 100, 0.18);
+  --gun-border-active: rgba(0, 180, 120, 0.45);
+  --gun-shadow: 0 2px 12px rgba(0, 120, 80, 0.08), 0 0 0 1px var(--gun-border);
+  --gun-shadow-hover:
+    0 8px 32px rgba(0, 150, 100, 0.18), 0 0 0 1px var(--gun-border-active);
+  --gun-radius: 18px;
+  --gun-text-primary: #1a2e22;
+  --gun-text-secondary: #4a7a5e;
+  --gun-text-muted: #8ab5a0;
+}
+
+/* ─── Page Wrapper ───────────────────────────────────── */
+.page-login-gun {
+  min-height: 100vh;
+  background: var(--gun-page-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Sarabun", sans-serif;
+  padding: 32px 16px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Subtle background pattern */
+.page-login-gun::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(
+      circle at 20% 20%,
+      rgba(3, 45, 31, 0.06) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      circle at 80% 80%,
+      rgba(243, 205, 104, 0.06) 0%,
+      transparent 50%
+    );
+  pointer-events: none;
+}
+
+/* ─── Card Container ─────────────────────────────────── */
 .container-login-gun {
-  position: fixed;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  height: 600px;
-  width: 600px;
-  background-color: #103026;
-  border-radius: 20px;
-  .wrap-login-gun {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    height: 400px;
-    width: 590px;
-    background-color: #1e4d3f;
-    margin-top: 100px;
-    margin-left: 5px;
-    border-radius: 10px;
-
-    h1 {
-      font-size: 64px;
-      color: #f3cd68;
-      margin-bottom: 20px;
-      text-align: center;
-      width: 300px;
-      margin-top: -99px;
-      margin-bottom: 50px;
-      font-weight: bolder;
-    }
-    h2 {
-      display: flex;
-      font-size: 32px;
-      color: #f3cd68;
-      width: 500px;
-      font-weight: bolder;
-      margin-top: 20px;
-    }
-    input {
-      width: 500px;
-      padding: 13px;
-      border-radius: 5px;
-      border: 1px solid #f3cd68;
-      background-color: #103026;
-      color: #ffffff;
-    }
-    p {
-      color: red;
-    }
-    .btn-gun {
-      position: fixed;
-      bottom: 20px;
-      left: 34%;
-      margin-top: 200px;
-      .btn-login-gun {
-        background-color: #1e4d3f;
-        font-size: 32px;
-        font-weight: bold;
-        color: #f3cd68;
-        height: 60px;
-        width: 200px;
-        border-radius: 20px;
-        border: none;
-        cursor: pointer;
-        transition: all 0.5s;
-      }
-      .btn-login-gun:hover {
-        text-shadow:
-          0 0 10px rgba(243, 205, 104, 0.8),
-          0 0 20px rgba(243, 205, 104, 0.6),
-          0 0 30px rgba(243, 205, 104, 0.4);
-        transition: all 0.5s;
-      }
-    }
-  }
+  width: 100%;
+  max-width: 480px;
+  position: relative;
+  z-index: 1;
 }
 
-@media (max-width: 674px) {
-  .container-login-gun {
-    height: 500px;
-    width: 500px;
-    .wrap-login-gun {
-      height: 300px;
-      width: 490px;
-      h1 {
-        font-size: 48px;
-        width: 250px;
-        margin-top: -79px;
-        margin-bottom: 40px;
-      }
-      h2 {
-        font-size: 28px;
-        width: 450px;
-      }
-      input {
-        width: 450px;
-      }
-      .btn-gun {
-        left: 30%;
-        .btn-login-gun {
-          font-size: 24px;
-          height: 50px;
-          width: 200px;
-        }
-      }
-    }
-  }
+/* ─── Brand Header ───────────────────────────────────── */
+.login-brand {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, var(--gun-deep) 0%, var(--gun-mid) 100%);
+  border-radius: var(--gun-radius) var(--gun-radius) 0 0;
+  padding: 28px 48px 24px;
+  border: 1px solid rgba(243, 205, 104, 0.25);
+  border-bottom: none;
+  position: relative;
+  overflow: hidden;
 }
 
+.login-brand::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--gun-accent),
+    transparent
+  );
+}
+
+.login-brand h1 {
+  font-family: "Rajdhani", sans-serif;
+  font-size: 1.75rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--gun-accent);
+  margin: 0;
+  text-align: center;
+  line-height: 1.3;
+  text-transform: uppercase;
+}
+
+/* ─── Form Card ──────────────────────────────────────── */
+.wrap-login-gun {
+  background: var(--gun-card);
+  border: 1px solid var(--gun-border);
+  border-top: none;
+  border-radius: 0 0 var(--gun-radius) var(--gun-radius);
+  padding: 36px 40px 40px;
+  box-shadow: var(--gun-shadow);
+}
+
+/* ─── Field Labels ───────────────────────────────────── */
+.wrap-login-gun .field-label {
+  display: block;
+  font-family: "Rajdhani", sans-serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--gun-text-secondary);
+  margin-bottom: 8px;
+  margin-top: 20px;
+}
+
+.wrap-login-gun .field-label:first-of-type {
+  margin-top: 0;
+}
+
+/* ─── Inputs ─────────────────────────────────────────── */
+.wrap-login-gun input {
+  width: 100%;
+  padding: 13px 16px;
+  border-radius: 10px;
+  border: 1px solid var(--gun-border);
+  background: var(--gun-surface);
+  color: var(--gun-text-primary);
+  font-family: "Sarabun", sans-serif;
+  font-size: 0.95rem;
+  box-sizing: border-box;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
+  outline: none;
+}
+
+.wrap-login-gun input::placeholder {
+  color: var(--gun-text-muted);
+}
+
+.wrap-login-gun input:focus {
+  border-color: var(--gun-border-active);
+  background: #ffffff;
+  box-shadow: 0 0 0 3px var(--gun-accent-dim);
+}
+
+/* ─── Error Messages ─────────────────────────────────── */
+.wrap-login-gun p.error {
+  color: #c0392b;
+  font-size: 0.78rem;
+  margin: 5px 0 0;
+  font-family: "Sarabun", sans-serif;
+  min-height: 16px;
+}
+
+/* ─── Submit Button ──────────────────────────────────── */
+.btn-gun {
+  margin-top: 28px;
+}
+
+.btn-login-gun {
+  width: 100%;
+  font-family: "Rajdhani", sans-serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gun-accent);
+  background: linear-gradient(135deg, var(--gun-deep), var(--gun-mid));
+  border: 1px solid rgba(243, 205, 104, 0.3);
+  border-radius: 12px;
+  cursor: pointer;
+  padding: 14px 24px;
+  transition: all 0.22s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-login-gun::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--gun-accent);
+  opacity: 0;
+  transition: opacity 0.22s ease;
+}
+
+.btn-login-gun span {
+  position: relative;
+  z-index: 1;
+}
+
+.btn-login-gun:hover {
+  border-color: var(--gun-accent);
+  box-shadow: 0 4px 20px rgba(243, 205, 104, 0.3);
+  transform: translateY(-2px);
+  color: var(--gun-deep);
+}
+
+.btn-login-gun:hover::before {
+  opacity: 1;
+}
+
+.btn-login-gun:active {
+  transform: translateY(0);
+}
+
+/* ─── Responsive ─────────────────────────────────────── */
 @media (max-width: 540px) {
-  .container-login-gun {
-    width: 400px;
-    height: 500px;
-    .wrap-login-gun {
-      height: 300px;
-      width: 390px;
-      h1 {
-        font-size: 36px;
-        width: 250px;
-        margin-top: -79px;
-        margin-bottom: 40px;
-      }
-      h2 {
-        font-size: 22px;
-        width: 300px;
-      }
-      input {
-        width: 320px;
-      }
-      .btn-gun {
-        left: 25%;
-        .btn-login-gun {
-          font-size: 20px;
-          height: 50px;
-          width: 200px;
-        }
-      }
-    }
+  .login-brand {
+    padding: 22px 28px 18px;
+  }
+
+  .login-brand h1 {
+    font-size: 1.4rem;
+  }
+
+  .wrap-login-gun {
+    padding: 28px 24px 32px;
   }
 }
 
-@media (max-width: 600px) {
-  .container-login-gun {
-    height: 500px;
-    width: 300px;
-    .wrap-login-gun {
-      height: 300px;
-      width: 290px;
-      h1 {
-        font-size: 36px;
-        width: 250px;
-        margin-top: -79px;
-        margin-bottom: 40px;
-      }
-      h2 {
-        font-size: 20px;
-        width: 200px;
-      }
-      input {
-        width: 240px;
-      }
-      .btn-gun {
-        left: 17%;
-        .btn-login-gun {
-          font-size: 20px;
-          height: 50px;
-          width: 200px;
-        }
-      }
-    }
+@media (max-width: 380px) {
+  .login-brand h1 {
+    font-size: 1.2rem;
+  }
+
+  .wrap-login-gun {
+    padding: 24px 18px 28px;
   }
 }

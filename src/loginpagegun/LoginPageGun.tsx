@@ -1,6 +1,4 @@
 import { useNavigate } from "react-router-dom";
-// import { jwtDecode } from "jwt-decode";
-// import Cookies from "universal-cookie";
 import { Controller, useForm } from "react-hook-form";
 import { useState } from "react";
 import * as yup from "yup";
@@ -11,14 +9,15 @@ import { login, restoreProfile } from "../stores/slices/authSlice";
 import CircleLoading from "../shared/circleLoading";
 
 const schema = yup.object({
-  email: yup.string().required("email or Email is required"),
-  password: yup.string().required("Password is required"),
+  email: yup.string().required("กรุณากรอก Email"),
+  password: yup.string().required("กรุณากรอกรหัสผ่าน"),
 });
 
 export interface LoginForm {
   email: string;
   password: string;
 }
+
 const defaultValues: LoginForm = {
   email: "",
   password: "",
@@ -39,20 +38,14 @@ const LoginPageGun = () => {
 
   const [isLoginLoading, setIsLoginLoading] = useState<boolean>(false);
 
-  //เมื่อกดปุ่ม login จะพาเข้าไปสู้หน้า Admin ===================================================================
   const submit = async (value: LoginForm) => {
     try {
-      const item = {
-        ...value,
-      };
       setIsLoginLoading(true);
-
-      await dispatch(login(item)).unwrap();
+      await dispatch(login({ ...value })).unwrap();
       await dispatch(restoreProfile());
-
       navigate("/admin/dashboard");
     } catch (error) {
-      alert("email and password is wrong");
+      alert("Email หรือรหัสผ่านไม่ถูกต้อง");
       console.log(error);
     } finally {
       setIsLoginLoading(false);
@@ -60,49 +53,53 @@ const LoginPageGun = () => {
   };
 
   return (
-    <div style={{ backgroundColor: "#1e4d3f", height: "100vh" }}>
+    <div className="page-login-gun">
       <div className="container-login-gun">
+        {/* Brand Header */}
+        <div className="login-brand">
+          <h1>Gun Protection</h1>
+        </div>
+
+        {/* Form Card */}
         <div className="wrap-login-gun">
-          <h1>เข้าสู่ระบบ</h1>
           <form onSubmit={handleSubmit(submit)}>
             <Controller
               name="email"
               control={control}
-              render={({ field }) => {
-                return (
-                  <>
-                    <h2>Email</h2>
-                    <input {...field} type="text" placeholder="Email..." />
-                    <p className="error">{errors.email?.message}</p>
-                  </>
-                );
-              }}
+              render={({ field }) => (
+                <>
+                  <label className="field-label">Email</label>
+                  <input {...field} type="text" placeholder="กรอก Email..." />
+                  <p className="error">{errors.email?.message}</p>
+                </>
+              )}
             />
+
             <Controller
               name="password"
               control={control}
-              render={({ field }) => {
-                return (
-                  <>
-                    <h2>Password</h2>
-                    <input
-                      {...field}
-                      type="password"
-                      placeholder="Password..."
-                    />
-                    <p className="error">{errors.password?.message}</p>
-                  </>
-                );
-              }}
+              render={({ field }) => (
+                <>
+                  <label className="field-label">Password</label>
+                  <input
+                    {...field}
+                    type="password"
+                    placeholder="กรอกรหัสผ่าน..."
+                  />
+                  <p className="error">{errors.password?.message}</p>
+                </>
+              )}
             />
+
             <div className="btn-gun">
               <button type="submit" className="btn-login-gun">
-                เข้าสู่ระบบ
+                <span>เข้าสู่ระบบ</span>
               </button>
             </div>
           </form>
         </div>
       </div>
+
       <CircleLoading open={isLoginLoading} />
     </div>
   );
