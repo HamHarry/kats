@@ -74,50 +74,25 @@ const BinAdminPage = () => {
   const [selectedPermissionData, setSelectedPermissionData] =
     useState<RoleData>();
 
-  const [openDialogConfirmApproveBooking, setOpenDialogConfirmApproveBooking] =
-    useState<boolean>(false);
   const [openDialogConfirmDeleteBooking, setOpenDialogConfirmDeleteBooking] =
     useState<boolean>(false);
 
   const [openDialogConfirmDeleteProduct, setOpenDialogConfirmDeleteProduct] =
     useState<boolean>(false);
-  const [openDialogConfirmApproveProduct, setOpenDialogConfirmApproveProduct] =
-    useState<boolean>(false);
   const [openDialogConfirmDeleteCatagory, setOpenDialogConfirmDeleteCatagory] =
     useState<boolean>(false);
-  const [
-    openDialogConfirmApproveCatagory,
-    setOpenDialogConfirmApproveCatagory,
-  ] = useState<boolean>(false);
   const [
     openDialogConfirmDeleteTypeProduct,
     setOpenDialogConfirmDeleteTypeProduct,
   ] = useState<boolean>(false);
-  const [
-    openDialogConfirmApproveTypeProduct,
-    setOpenDialogConfirmApproveTypeProduct,
-  ] = useState<boolean>(false);
-
   const [openDialogConfirmDeleteExpense, setOpenDialogConfirmDeleteExpense] =
     useState<boolean>(false);
-  const [openDialogConfirmApproveExpense, setOpenDialogConfirmApproveExpense] =
-    useState<boolean>(false);
-
   const [
     openDialogConfirmDeletePermission,
     setOpenDialogConfirmDeletePermission,
   ] = useState<boolean>(false);
-  const [
-    openDialogConfirmApprovePermission,
-    setOpenDialogConfirmApprovePermission,
-  ] = useState<boolean>(false);
-
   const [openDialogConfirmDeleteEmployee, setOpenDialogConfirmDeleteEmployee] =
     useState<boolean>(false);
-  const [
-    openDialogConfirmApproveEmployee,
-    setOpenDialogConfirmApproveEmployee,
-  ] = useState<boolean>(false);
 
   const [isBinLoading, setIsBinLoading] = useState<boolean>(false);
 
@@ -260,14 +235,15 @@ const BinAdminPage = () => {
   }, [fetchRoleData]);
 
   // Recover All
-  const recoverBooking = async () => {
+  const recoverBooking = async (item?: BookingData) => {
     try {
       setIsBinLoading(true);
 
-      if (!selectedBookingData?._id) return;
+      const target = item ?? selectedBookingData;
+      if (!target?._id) return;
 
       const data = {
-        ...selectedBookingData,
+        ...target,
         delete: DeleteStatus.ISNOTDELETE,
       };
 
@@ -280,14 +256,15 @@ const BinAdminPage = () => {
     }
   };
 
-  const recoverProduct = async () => {
+  const recoverProduct = async (item?: ProductData) => {
     try {
       setIsBinLoading(true);
 
-      if (!selectedProductData?._id) return;
+      const target = item ?? selectedProductData;
+      if (!target?._id) return;
 
       const data = {
-        ...selectedProductData,
+        ...target,
         delete: DeleteStatus.ISNOTDELETE,
       };
 
@@ -300,14 +277,15 @@ const BinAdminPage = () => {
     }
   };
 
-  const recoverCatagory = async () => {
+  const recoverCatagory = async (item?: CatagoryData) => {
     try {
       setIsBinLoading(true);
 
-      if (!selectedCatagoryData?._id) return;
+      const target = item ?? selectedCatagoryData;
+      if (!target?._id) return;
 
       const data = {
-        ...selectedCatagoryData,
+        ...target,
         delete: DeleteStatus.ISNOTDELETE,
       };
 
@@ -320,14 +298,15 @@ const BinAdminPage = () => {
     }
   };
 
-  const recoverTypeProduct = async () => {
+  const recoverTypeProduct = async (item?: TypeProductData) => {
     try {
       setIsBinLoading(true);
 
-      if (!selectedTypeProductData?._id) return;
+      const target = item ?? selectedTypeProductData;
+      if (!target?._id) return;
 
       const data = {
-        ...selectedTypeProductData,
+        ...target,
         delete: DeleteStatus.ISNOTDELETE,
       };
 
@@ -340,14 +319,15 @@ const BinAdminPage = () => {
     }
   };
 
-  const recoverExpense = async () => {
+  const recoverExpense = async (item?: FinanceData) => {
     try {
       setIsBinLoading(true);
 
-      if (!selectedExpenseData?._id) return;
+      const target = item ?? selectedExpenseData;
+      if (!target?._id) return;
 
       const data = {
-        ...selectedExpenseData,
+        ...target,
         delete: DeleteStatus.ISNOTDELETE,
       };
 
@@ -360,14 +340,15 @@ const BinAdminPage = () => {
     }
   };
 
-  const recoverPermission = async () => {
+  const recoverPermission = async (item?: RoleData) => {
     try {
       setIsBinLoading(true);
 
-      if (!selectedPermissionData?._id) return;
+      const target = item ?? selectedPermissionData;
+      if (!target?._id) return;
 
       const data = {
-        ...selectedPermissionData,
+        ...target,
         delete: DeleteStatus.ISNOTDELETE,
       };
 
@@ -380,14 +361,15 @@ const BinAdminPage = () => {
     }
   };
 
-  const recoverEmployee = async () => {
+  const recoverEmployee = async (item?: EmployeeData) => {
     try {
       setIsBinLoading(true);
 
-      if (!selectedEmployeeData?._id) return;
+      const target = item ?? selectedEmployeeData;
+      if (!target?._id) return;
 
       const data = {
-        ...selectedEmployeeData,
+        ...target,
         delete: DeleteStatus.ISNOTDELETE,
       };
 
@@ -760,6 +742,14 @@ const BinAdminPage = () => {
           <a
             onClick={(e) => {
               e.stopPropagation();
+              recoverBooking(item);
+            }}
+          >
+            กู้คืน
+          </a>
+          <a
+            onClick={(e) => {
+              e.stopPropagation();
               setSelectedBookingData(item);
               setOpenDialogConfirmDeleteBooking(true);
             }}
@@ -833,8 +823,7 @@ const BinAdminPage = () => {
           <a
             onClick={(e) => {
               e.stopPropagation();
-              setSelectedProductData(item);
-              setOpenDialogConfirmApproveProduct(true);
+              recoverProduct(item);
             }}
           >
             กู้คืน
@@ -871,8 +860,7 @@ const BinAdminPage = () => {
           <a
             onClick={(e) => {
               e.stopPropagation();
-              setSelectedCatagoryData(item);
-              setOpenDialogConfirmApproveCatagory(true);
+              recoverCatagory(item);
             }}
           >
             กู้คืน
@@ -909,8 +897,7 @@ const BinAdminPage = () => {
           <a
             onClick={(e) => {
               e.stopPropagation();
-              setSelectedTypeProductData(item);
-              setOpenDialogConfirmApproveTypeProduct(true);
+              recoverTypeProduct(item);
             }}
           >
             กู้คืน
@@ -1020,8 +1007,7 @@ const BinAdminPage = () => {
           <a
             onClick={(e) => {
               e.stopPropagation();
-              setSelectedExpenseData(item);
-              setOpenDialogConfirmApproveExpense(true);
+              recoverExpense(item);
             }}
           >
             กู้คืน
@@ -1074,8 +1060,7 @@ const BinAdminPage = () => {
           <a
             onClick={(e) => {
               e.stopPropagation();
-              setSelectedEmployeeData(item);
-              setOpenDialogConfirmApproveEmployee(true);
+              recoverEmployee(item);
             }}
           >
             กู้คืน
@@ -1112,8 +1097,7 @@ const BinAdminPage = () => {
           <a
             onClick={(e) => {
               e.stopPropagation();
-              setSelectedPermissionData(item);
-              setOpenDialogConfirmApprovePermission(true);
+              recoverPermission(item);
             }}
           >
             กู้คืน
@@ -1145,14 +1129,6 @@ const BinAdminPage = () => {
             columns={columnBookings}
             pagination={{
               pageSize: 5,
-            }}
-            onRow={(record) => {
-              return {
-                onClick: () => {
-                  setSelectedBookingData(record);
-                  setOpenDialogConfirmApproveBooking(true);
-                },
-              };
             }}
           />
         </div>
@@ -1262,352 +1238,6 @@ const BinAdminPage = () => {
     },
   ];
 
-  // RederDialogConfirmApprove All
-  const rederDialogConfirmApproveBooking = () => {
-    const formattedDate = selectedBookingData
-      ? dayjs(selectedBookingData.bookDate).format("DD/MM/YYYY")
-      : "";
-
-    return (
-      <Modal
-        centered
-        className="container-DialogApprove"
-        open={openDialogConfirmApproveBooking}
-        onCancel={() => setOpenDialogConfirmApproveBooking(false)}
-        footer={
-          <div className="btn-DialogApprove-Navbar">
-            <button
-              type="button"
-              onClick={() => {
-                recoverBooking();
-                setOpenDialogConfirmApproveBooking(false);
-              }}
-            >
-              กู้คืน
-            </button>
-          </div>
-        }
-      >
-        <div className="container-DialogApprove-navbar">
-          <h1>ข้อมูลการจอง</h1>
-
-          <i
-            className="fa-solid fa-circle-xmark"
-            onClick={() => {
-              setOpenDialogConfirmApproveBooking(false);
-            }}
-          ></i>
-        </div>
-
-        <div className="container-DialogApprove-content">
-          <div className="text-all">
-            <div style={{ display: "flex", gap: "20px" }}>
-              <div style={{ width: "150px" }}>
-                <p>วันที่จอง: {formattedDate}</p>
-              </div>
-
-              <p>เวลา: {selectedBookingData?.bookTime} น.</p>
-            </div>
-
-            <div style={{ display: "flex", gap: "20px" }}>
-              <div style={{ width: "150px" }}>
-                <p>เลขที่: {selectedBookingData?.number}</p>
-              </div>
-
-              <p>เล่มที่: {selectedBookingData?.receiptBookNo}</p>
-            </div>
-
-            <div style={{ display: "flex", gap: "20px" }}>
-              <div style={{ width: "150px" }}>
-                <p>ชื่อ: {selectedBookingData?.name}</p>
-              </div>
-
-              <p>โทรศัพท์: {selectedBookingData?.tel}</p>
-            </div>
-
-            <div style={{ display: "flex", gap: "20px" }}>
-              <div style={{ width: "150px" }}>
-                <p>
-                  รถ: {selectedBookingData?.carType}{" "}
-                  {selectedBookingData?.carModel}
-                </p>
-              </div>
-
-              <p>
-                สินค้า: {selectedBookingData?.product.name}{" "}
-                {selectedBookingData?.price.amount} บาท
-              </p>
-            </div>
-          </div>
-        </div>
-      </Modal>
-    );
-  };
-
-  const rederDialogConfirmApproveProduct = () => {
-    return (
-      <Modal
-        centered
-        className="container-DialogApprove"
-        open={openDialogConfirmApproveProduct}
-        onCancel={() => setOpenDialogConfirmApproveProduct(false)}
-        footer={
-          <div className="btn-DialogApprove-Navbar">
-            <button
-              type="button"
-              onClick={() => {
-                recoverProduct();
-                setOpenDialogConfirmApproveProduct(false);
-              }}
-            >
-              กู้คืน
-            </button>
-
-            <button
-              type="button"
-              onClick={() => {
-                setOpenDialogConfirmApproveProduct(false);
-              }}
-            >
-              ยกเลิก
-            </button>
-          </div>
-        }
-      >
-        <div className="container-DialogApprove-navbar">
-          <h1>ยืนยันการกู้สินค้า</h1>
-
-          <i
-            className="fa-solid fa-circle-xmark"
-            onClick={() => {
-              setOpenDialogConfirmApproveProduct(false);
-            }}
-          ></i>
-        </div>
-      </Modal>
-    );
-  };
-
-  const rederDialogConfirmApproveCatagory = () => {
-    return (
-      <Modal
-        centered
-        className="container-DialogApprove"
-        open={openDialogConfirmApproveCatagory}
-        onCancel={() => setOpenDialogConfirmApproveCatagory(false)}
-        footer={
-          <div className="btn-DialogApprove-Navbar">
-            <button
-              type="button"
-              onClick={() => {
-                recoverCatagory();
-                setOpenDialogConfirmApproveCatagory(false);
-              }}
-            >
-              กู้คืน
-            </button>
-
-            <button
-              type="button"
-              onClick={() => {
-                setOpenDialogConfirmApproveCatagory(false);
-              }}
-            >
-              ยกเลิก
-            </button>
-          </div>
-        }
-      >
-        <div className="container-DialogApprove-navbar">
-          <h1>ยืนยันการกู้หมวดหมู่สินค้า</h1>
-
-          <i
-            className="fa-solid fa-circle-xmark"
-            onClick={() => {
-              setOpenDialogConfirmApproveCatagory(false);
-            }}
-          ></i>
-        </div>
-      </Modal>
-    );
-  };
-
-  const rederDialogConfirmApproveTypeProduct = () => {
-    return (
-      <Modal
-        centered
-        className="container-DialogApprove"
-        open={openDialogConfirmApproveTypeProduct}
-        onCancel={() => setOpenDialogConfirmApproveTypeProduct(false)}
-        footer={
-          <div className="btn-DialogApprove-Navbar">
-            <button
-              type="button"
-              onClick={() => {
-                recoverTypeProduct();
-                setOpenDialogConfirmApproveTypeProduct(false);
-              }}
-            >
-              กู้คืน
-            </button>
-
-            <button
-              type="button"
-              onClick={() => {
-                setOpenDialogConfirmApproveTypeProduct(false);
-              }}
-            >
-              ยกเลิก
-            </button>
-          </div>
-        }
-      >
-        <div className="container-DialogApprove-navbar">
-          <h1>ยืนยันการกู้แบรนด์สินค้า</h1>
-
-          <i
-            className="fa-solid fa-circle-xmark"
-            onClick={() => {
-              setOpenDialogConfirmApproveTypeProduct(false);
-            }}
-          ></i>
-        </div>
-      </Modal>
-    );
-  };
-
-  const rederDialogConfirmApproveExpense = () => {
-    return (
-      <Modal
-        centered
-        className="container-DialogApprove"
-        open={openDialogConfirmApproveExpense}
-        onCancel={() => setOpenDialogConfirmApproveExpense(false)}
-        footer={
-          <div className="btn-DialogApprove-Navbar">
-            <button
-              type="button"
-              onClick={() => {
-                recoverExpense();
-                setOpenDialogConfirmApproveExpense(false);
-              }}
-            >
-              กู้คืน
-            </button>
-
-            <button
-              type="button"
-              onClick={() => {
-                setOpenDialogConfirmApproveExpense(false);
-              }}
-            >
-              ยกเลิก
-            </button>
-          </div>
-        }
-      >
-        <div className="container-DialogApprove-navbar">
-          <h1>ยืนยันการกู้แบรนด์สินค้า</h1>
-
-          <i
-            className="fa-solid fa-circle-xmark"
-            onClick={() => {
-              setOpenDialogConfirmApproveExpense(false);
-            }}
-          ></i>
-        </div>
-      </Modal>
-    );
-  };
-
-  const rederDialogConfirmApprovePermission = () => {
-    return (
-      <Modal
-        centered
-        className="container-DialogApprove"
-        open={openDialogConfirmApprovePermission}
-        onCancel={() => setOpenDialogConfirmApprovePermission(false)}
-        footer={
-          <div className="btn-DialogApprove-Navbar">
-            <button
-              type="button"
-              onClick={() => {
-                recoverPermission();
-                setOpenDialogConfirmApprovePermission(false);
-              }}
-            >
-              กู้คืน
-            </button>
-
-            <button
-              type="button"
-              onClick={() => {
-                setOpenDialogConfirmApprovePermission(false);
-              }}
-            >
-              ยกเลิก
-            </button>
-          </div>
-        }
-      >
-        <div className="container-DialogApprove-navbar">
-          <h1>ยืนยันการกู้แบรนด์สินค้า</h1>
-
-          <i
-            className="fa-solid fa-circle-xmark"
-            onClick={() => {
-              setOpenDialogConfirmApproveExpense(false);
-            }}
-          ></i>
-        </div>
-      </Modal>
-    );
-  };
-
-  const rederDialogConfirmApproveEmployee = () => {
-    return (
-      <Modal
-        centered
-        className="container-DialogApprove"
-        open={openDialogConfirmApproveEmployee}
-        onCancel={() => setOpenDialogConfirmApproveEmployee(false)}
-        footer={
-          <div className="btn-DialogApprove-Navbar">
-            <button
-              type="button"
-              onClick={() => {
-                recoverEmployee();
-                setOpenDialogConfirmApproveEmployee(false);
-              }}
-            >
-              กู้คืน
-            </button>
-
-            <button
-              type="button"
-              onClick={() => {
-                setOpenDialogConfirmApproveEmployee(false);
-              }}
-            >
-              ยกเลิก
-            </button>
-          </div>
-        }
-      >
-        <div className="container-DialogApprove-navbar">
-          <h1>ยืนยันการกู้คืนข้อมูลพนักงาน</h1>
-
-          <i
-            className="fa-solid fa-circle-xmark"
-            onClick={() => {
-              setOpenDialogConfirmApproveEmployee(false);
-            }}
-          ></i>
-        </div>
-      </Modal>
-    );
-  };
-
   return (
     <div className="container-binAdmin">
       <div className="header-binAdmin">
@@ -1632,25 +1262,18 @@ const BinAdminPage = () => {
 
       {/* renderAllPermission */}
       {rederDialogConfirmDeletePermission()}
-      {rederDialogConfirmApprovePermission()}
 
       {/* renderAllEmployee */}
       {rederDialogConfirmDeleteEmployee()}
-      {rederDialogConfirmApproveEmployee()}
 
       {/* renderAllExpense */}
       {rederDialogConfirmDeleteExpense()}
-      {rederDialogConfirmApproveExpense()}
 
       {/* renderAllProduct */}
-      {rederDialogConfirmApproveTypeProduct()}
       {rederDialogConfirmDeleteTypeProduct()}
-      {rederDialogConfirmApproveCatagory()}
       {rederDialogConfirmDeleteCatagory()}
-      {rederDialogConfirmApproveProduct()}
       {rederDialogConfirmDeleteProduct()}
       {/* renderBooking */}
-      {rederDialogConfirmApproveBooking()}
       {rederDialogConfirmDeleteBooking()}
       <CircleLoading open={isBinLoading} />
     </div>
