@@ -4,6 +4,8 @@
 .container-calendarAdmin {
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
   padding: 28px 32px 48px;
   padding-left: 332px;
   font-family: "Sarabun", sans-serif;
@@ -53,6 +55,7 @@
   justify-content: center;
   box-shadow: 0 1px 6px rgba(0, 120, 80, 0.06);
   flex-wrap: wrap;
+  margin-bottom: 20px;
 }
 
 .guid-yellow,
@@ -184,7 +187,9 @@
 }
 
 .wrap-calendarAdmin .ant-picker-cell-selected .ant-picker-cell-inner,
-.wrap-calendarAdmin .ant-picker-cell-in-view.ant-picker-cell-selected .ant-picker-cell-inner {
+.wrap-calendarAdmin
+  .ant-picker-cell-in-view.ant-picker-cell-selected
+  .ant-picker-cell-inner {
   background: rgba(4, 57, 41, 0.07) !important;
   border-color: rgba(4, 57, 41, 0.35) !important;
   color: #1a3d28 !important;
@@ -257,10 +262,6 @@
 @media (max-width: 1280px) {
   .container-calendarAdmin {
     padding-left: 282px;
-  }
-
-  .wrap-calendarAdmin .ant-picker-cell-inner {
-    height: 80px !important;
   }
 
   .wrap-calendarAdmin .ant-picker-calendar-date-content {

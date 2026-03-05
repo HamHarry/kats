@@ -171,7 +171,7 @@ const CalendarAdminPage = () => {
   return (
     <div className="container-calendarAdmin">
       {/* Header */}
-      <div className="sticky pt-4 top-0 -mx-3 px-3 z-50 w-[107%] bg-[#f2f6f4]">
+      <div className="sticky pt-4 top-0 -mx-3 px-3 z-50 w-full bg-[#f2f6f4]">
         <div className="header-calendarAdmin">
           <h1>ปฏิทินการจอง</h1>
         </div>
@@ -181,7 +181,7 @@ const CalendarAdminPage = () => {
       {isMobile ? (
         <>
           {/* Legend */}
-          <div className="sticky top-[57px] -mx-3 px-3 z-50 w-[107%] bg-[#f2f6f4]">
+          <div className="sticky top-[57px] -mx-3 px-3 z-50 w-full bg-[#f2f6f4]">
             <div className="guid">
               <div className="guid-yellow">
                 <div className="box-yellow" />
