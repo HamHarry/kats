@@ -1,200 +1,333 @@
-.container-DocumentCountPage {
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  padding: 20px 20px 0px 20px;
-  padding-left: 320px;
+@import url("https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Sarabun:wght@300;400;500;600&display=swap");
 
-  button {
-    width: 100px;
-    height: 45px;
-    border: none;
-    border-radius: 20px;
-    background-color: #043929;
-    color: white;
-    font-size: 20px;
-    cursor: pointer;
-    transition: all 0.5s;
-  }
-  button:hover {
-    background-color: #05593d;
-  }
+/* ─── Root Variables ─────────────────────────────────── */
+:root {
+  --bg-base: #f2f6f4;
+  --bg-surface: #e8eeeb;
+  --bg-card: #ffffff;
+  --bg-card-hover: #f5fdf8;
+  --border: rgba(0, 150, 100, 0.18);
+  --border-active: rgba(0, 180, 120, 0.45);
 
-  .ant-select-single .ant-select-selector {
-    border: 2px solid #043929;
-    height: 45px;
-    width: 100%;
-    min-width: 150px;
-  }
+  --accent-primary: #043929;
+  --accent-secondary: #3b82f6;
+
+  --text-primary: #1a2e22;
+  --text-secondary: #4a7a5e;
+  --text-muted: #8ab5a0;
+
+  --shadow-card: 0 2px 12px rgba(0, 120, 80, 0.08), 0 0 0 1px var(--border);
+  --shadow-hover:
+    0 6px 28px rgba(0, 150, 100, 0.15), 0 0 0 1px var(--border-active);
+
+  --radius-card: 16px;
 }
 
+/* ─── Page Container ─────────────────────────────────── */
+.container-DocumentCountPage {
+  padding: 28px 32px 48px;
+  padding-left: 332px;
+  font-family: "Sarabun", sans-serif;
+  color: var(--text-primary);
+  height: 100vh;
+  overflow: hidden;
+  background: var(--bg-base);
+  display: flex;
+  flex-direction: column;
+  align-items: unset;
+  gap: 0;
+}
+
+/* ─── Header ─────────────────────────────────────────── */
 .header-DocumentCountPage {
   display: flex;
-  justify-content: center;
-  height: 80px;
-  max-width: 1200px;
-  width: 100%;
-  border-radius: 20px;
-  background-color: #043929;
-  margin-bottom: 20px;
-  h1 {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 42px;
-    font-weight: bolder;
-    color: white;
-  }
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 32px;
+  position: relative;
+  z-index: 1;
+  height: auto;
+  max-width: unset;
+  background-color: transparent;
+  border-radius: 0;
+  justify-content: flex-start;
 }
 
+.header-DocumentCountPage h1 {
+  font-family: "Rajdhani", sans-serif;
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #1a3d28;
+  margin: 0;
+  line-height: 1;
+  display: block;
+}
+
+.header-DocumentCountPage::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(0, 0, 0, 0.12), transparent);
+  margin-left: 24px;
+}
+
+/* ─── Navbar ─────────────────────────────────────────── */
 .navbar-DocumentCountPage {
   display: flex;
   width: 100%;
-  justify-content: start;
+  justify-content: flex-start;
+  margin-bottom: 32px;
 }
 
+/* ─── Back Button ────────────────────────────────────── */
+.container-DocumentCountPage button {
+  padding: 10px 24px;
+  height: auto;
+  width: auto;
+  min-width: 90px;
+  background: linear-gradient(135deg, #043929, #032520);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-family: "Sarabun", sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  letter-spacing: 0.04em;
+  transition:
+    opacity 0.2s,
+    transform 0.15s,
+    box-shadow 0.2s;
+  white-space: nowrap;
+  box-shadow: 0 4px 16px rgba(4, 57, 41, 0.25);
+}
+
+.container-DocumentCountPage button:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 22px rgba(4, 57, 41, 0.4);
+}
+
+.container-DocumentCountPage button:active {
+  transform: translateY(0);
+}
+
+/* ─── Cards Row ──────────────────────────────────────── */
 .wrap-container-DocumentCountPage {
   display: flex;
   width: 100%;
-  height: 350px;
-  padding-top: 20px;
-  gap: 20px;
-  .bookingCount-content {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 20px;
-    width: 50%;
-    gap: 20px;
-    padding: 25px;
-    border-radius: 10px;
-    background-color: #043929;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  height: auto;
+  padding-top: 0;
+  gap: 24px;
+}
 
-    h2 {
-      color: white;
-      font-size: 24px;
-      font-weight: bolder;
-    }
+/* ─── Card ───────────────────────────────────────────── */
+.bookingCount-content {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  gap: 0;
+  padding: 0;
+  border-radius: var(--radius-card);
+  background: var(--bg-card);
+  border: 1px solid var(--border-active);
+  box-shadow: var(--shadow-card);
+  overflow: hidden;
+  animation: fadeSlideUp 0.4s ease both;
+  transition: box-shadow 0.2s ease;
+}
 
-    .header-bookingCount {
-      display: flex;
-      justify-content: space-between;
-      width: 100%;
-      gap: 20px;
-    }
+.bookingCount-content:hover {
+  box-shadow: var(--shadow-hover);
+}
+
+@keyframes fadeSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
   }
-
-  .content-bookingCount {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    p {
-      color: white;
-      font-size: 22px;
-      font-weight: bold;
-    }
-    input {
-      max-width: 200px;
-      padding: 10px;
-      border-radius: 10px;
-      border: 2px solid white;
-      background-color: white;
-      font-size: 18px;
-      text-align: end;
-    }
-
-    .btn-submit {
-      width: 100px;
-      height: 45px;
-      border: none;
-      border-radius: 20px;
-      background-color: white;
-      color: #043929;
-      font-size: 20px;
-      font-weight: bold;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-    .btn-submit:hover {
-      background-color: #05593d;
-    }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
+/* Card header strip */
+.header-bookingCount {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  gap: 12px;
+  padding: 20px 24px;
+  background: linear-gradient(135deg, #043929, #032520);
+  border-radius: 0;
+}
+
+.header-bookingCount h2 {
+  font-family: "Rajdhani", sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #ffffff;
+  margin: 0;
+}
+
+/* Current number badge */
+.header-bookingCount h2:last-child {
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 8px;
+  padding: 4px 14px;
+  font-size: 1rem;
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+}
+
+/* Card body */
+.content-bookingCount {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  padding: 28px 24px 24px;
+  flex: 1;
+}
+
+.content-bookingCount > div:first-child {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 24px;
+}
+
+.content-bookingCount p {
+  font-family: "Sarabun", sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+.content-bookingCount input {
+  max-width: 160px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: 1px solid var(--border-active);
+  background: var(--bg-base);
+  font-family: "Sarabun", sans-serif;
+  font-size: 0.95rem;
+  color: var(--text-primary);
+  text-align: right;
+  outline: none;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
+}
+
+.content-bookingCount input:focus {
+  border-color: var(--accent-secondary);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.12);
+  background: #fff;
+}
+
+/* Save button — overrides the generic page button */
+.content-bookingCount .btn-submit {
+  align-self: flex-end;
+  padding: 10px 28px;
+  height: auto;
+  width: auto;
+  min-width: 90px;
+  background: linear-gradient(135deg, #043929, #032520) !important;
+  color: #fff !important;
+  border: none;
+  border-radius: 10px;
+  font-family: "Sarabun", sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  letter-spacing: 0.04em;
+  transition:
+    opacity 0.2s,
+    transform 0.15s,
+    box-shadow 0.2s;
+  box-shadow: 0 4px 16px rgba(4, 57, 41, 0.25);
+  margin-top: auto;
+}
+
+.content-bookingCount .btn-submit:hover {
+  opacity: 0.9 !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 6px 22px rgba(4, 57, 41, 0.4) !important;
+  background: linear-gradient(135deg, #043929, #032520) !important;
+}
+
+.content-bookingCount .btn-submit:active {
+  transform: translateY(0) !important;
+}
+
+/* ─── Responsive ─────────────────────────────────────── */
 @media (max-width: 1280px) {
   .container-DocumentCountPage {
-    padding-left: 270px;
+    padding-left: 282px;
   }
 }
 
 @media (max-width: 1080px) {
   .container-DocumentCountPage {
-    padding-left: 220px;
+    padding-left: 232px;
   }
 
   .wrap-container-DocumentCountPage {
-    display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 5px;
-    .bookingCount-content {
-      width: 100%;
-      max-width: 320px;
-      .header-bookingCount {
-        display: flex;
-        justify-content: space-between;
-        width: 100%;
-        gap: 20px;
-      }
+    gap: 16px;
+  }
 
-      h2 {
-        font-size: 18px;
-      }
-    }
-
-    .content-bookingCount {
-      p {
-        font-size: 18px;
-      }
-      input {
-        max-width: 100px;
-      }
-    }
+  .bookingCount-content {
+    width: 100%;
+    max-width: 480px;
   }
 }
 
 @media (max-width: 600px) {
   .container-DocumentCountPage {
-    padding-left: 20px;
+    padding: 16px 12px 32px;
+  }
+
+  .header-DocumentCountPage {
+    padding-left: 60px;
+    margin-bottom: 24px;
+  }
+
+  .header-DocumentCountPage h1 {
+    font-size: 1.6rem;
+  }
+
+  .navbar-DocumentCountPage {
+    margin-bottom: 20px;
   }
 
   .wrap-container-DocumentCountPage {
-    display: flex;
     flex-direction: column;
-    align-items: center;
-    gap: 5px;
-    .bookingCount-content {
-      width: 100%;
-      max-width: 320px;
-      .header-bookingCount {
-        display: flex;
-        justify-content: space-between;
-        width: 100%;
-        gap: 20px;
-      }
+    align-items: stretch;
+    gap: 16px;
+  }
 
-      h2 {
-        font-size: 18px;
-      }
-    }
+  .bookingCount-content {
+    width: 100%;
+    max-width: unset;
+  }
 
-    .content-bookingCount {
-      p {
-        font-size: 18px;
-      }
-      input {
-        max-width: 100px;
-      }
-    }
+  .header-bookingCount h2 {
+    font-size: 0.85rem;
+  }
+
+  .content-bookingCount input {
+    max-width: 120px;
   }
 }

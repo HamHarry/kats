@@ -1,157 +1,341 @@
-.container-PermissionPage {
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  padding: 20px 20px 0px 20px;
-  padding-left: 320px;
+@import url("https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Sarabun:wght@300;400;500;600&display=swap");
 
-  button {
-    width: 100px;
-    height: 45px;
-    border: none;
-    border-radius: 20px;
-    background-color: #043929;
-    color: white;
-    font-size: 20px;
-    cursor: pointer;
-    transition: all 0.5s;
-  }
-  button:hover {
-    background-color: #05593d;
-  }
+/* ─── Root Variables ─────────────────────────────────── */
+:root {
+  --bg-base: #f2f6f4;
+  --bg-surface: #e8eeeb;
+  --bg-card: #ffffff;
+  --bg-card-hover: #f5fdf8;
+  --border: rgba(0, 150, 100, 0.18);
+  --border-active: rgba(0, 180, 120, 0.45);
 
-  .ant-select-single .ant-select-selector {
-    border: 2px solid #043929;
-    height: 45px;
-    width: 100%;
-    min-width: 150px;
-  }
+  --accent-primary: #043929;
+  --accent-secondary: #3b82f6;
+
+  --text-primary: #1a2e22;
+  --text-secondary: #4a7a5e;
+  --text-muted: #8ab5a0;
+
+  --shadow-card: 0 2px 12px rgba(0, 120, 80, 0.08), 0 0 0 1px var(--border);
+  --shadow-hover:
+    0 6px 28px rgba(0, 150, 100, 0.15), 0 0 0 1px var(--border-active);
+
+  --radius-card: 16px;
+  --radius-badge: 20px;
 }
 
+/* ─── Page Container ─────────────────────────────────── */
+.container-PermissionPage {
+  padding: 28px 32px 48px;
+  padding-left: 332px;
+  font-family: "Sarabun", sans-serif;
+  color: var(--text-primary);
+  height: 100vh;
+  overflow: hidden;
+  background: var(--bg-base);
+  display: flex;
+  flex-direction: column;
+  align-items: unset;
+  gap: 0;
+}
+
+/* ─── Header ─────────────────────────────────────────── */
 .header-PermissionPage {
   display: flex;
-  justify-content: center;
-  height: 80px;
-  max-width: 1200px;
-  width: 100%;
-  border-radius: 20px;
-  background-color: #043929;
-  margin-bottom: 20px;
-  h1 {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 42px;
-    font-weight: bolder;
-    color: white;
-  }
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 32px;
+  position: relative;
+  z-index: 1;
+  height: auto;
+  max-width: unset;
+  background-color: transparent;
+  border-radius: 0;
+  justify-content: flex-start;
 }
 
+.header-PermissionPage h1 {
+  font-family: "Rajdhani", sans-serif;
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #1a3d28;
+  margin: 0;
+  line-height: 1;
+  display: block;
+}
+
+.header-PermissionPage::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(0, 0, 0, 0.12), transparent);
+  margin-left: 24px;
+}
+
+/* ─── Content Wrapper ────────────────────────────────── */
 .container-content-PermissionPage {
   width: 100%;
-  .navbar-PermissionPage {
-    display: flex;
-    justify-content: space-between;
-    padding: 0px 20px 20px 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ─── Navbar / Toolbar ───────────────────────────────── */
+.navbar-PermissionPage {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 32px;
+  padding: 0;
+  gap: 12px;
+}
+
+/* ─── Buttons ────────────────────────────────────────── */
+.navbar-PermissionPage button {
+  padding: 10px 24px;
+  height: auto;
+  width: auto;
+  background: linear-gradient(135deg, #043929, #032520);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-family: "Sarabun", sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  letter-spacing: 0.04em;
+  transition:
+    opacity 0.2s,
+    transform 0.15s,
+    box-shadow 0.2s;
+  white-space: nowrap;
+  box-shadow: 0 4px 16px rgba(4, 57, 41, 0.25);
+}
+
+.container-PermissionPage button:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 22px rgba(4, 57, 41, 0.4);
+  background: linear-gradient(135deg, #043929, #032520);
+}
+
+.container-PermissionPage button:active {
+  transform: translateY(0);
+}
+
+/* ─── Select Dropdown ────────────────────────────────── */
+.container-PermissionPage .ant-select-single .ant-select-selector {
+  border: 1px solid var(--border-active) !important;
+  border-radius: 10px !important;
+  height: 42px !important;
+  width: 100%;
+  min-width: 180px;
+  font-family: "Sarabun", sans-serif;
+  font-size: 0.9rem;
+  color: var(--text-primary);
+  background: var(--bg-card);
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
+  display: flex;
+  align-items: center;
+}
+
+.container-PermissionPage .ant-select-focused .ant-select-selector,
+.container-PermissionPage .ant-select-single:hover .ant-select-selector {
+  border-color: var(--accent-secondary) !important;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.12) !important;
+}
+
+.container-PermissionPage .ant-select-selection-placeholder {
+  font-family: "Sarabun", sans-serif;
+  color: var(--text-muted);
+}
+
+.select-employee {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 0;
+}
+
+/* ─── Table Wrapper ──────────────────────────────────── */
+.container-content-PermissionPage .ant-table-wrapper {
+  border: 1px solid var(--border-active);
+  border-radius: var(--radius-card);
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+  animation: fadeSlideUp 0.4s ease both;
+}
+
+@keyframes fadeSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
   }
-  .select-employee {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 5px;
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
+/* ─── Ant Design Table Overrides ─────────────────────── */
+.container-content-PermissionPage .ant-table {
+  font-family: "Sarabun", sans-serif;
+  background: var(--bg-card);
+  height: auto;
+}
+
+.container-content-PermissionPage .ant-table-thead > tr > th {
+  background: linear-gradient(135deg, #043929, #032520) !important;
+  color: #ffffff !important;
+  font-family: "Rajdhani", sans-serif !important;
+  font-size: 0.85rem !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.06em !important;
+  text-transform: uppercase !important;
+  border-bottom: none !important;
+  padding: 14px 16px !important;
+}
+
+.container-content-PermissionPage .ant-table-thead > tr > th::before {
+  display: none !important;
+}
+
+.container-content-PermissionPage .ant-table-tbody > tr > td {
+  font-family: "Sarabun", sans-serif;
+  font-size: 0.9rem;
+  color: var(--text-primary);
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--border);
+  transition: background 0.18s ease;
+}
+
+.container-content-PermissionPage .ant-table-tbody > tr:hover > td {
+  background: var(--bg-card-hover) !important;
+}
+
+.container-content-PermissionPage .ant-table-tbody > tr:last-child > td {
+  border-bottom: none;
+}
+
+.container-content-PermissionPage .ant-pagination {
+  padding: 12px 16px !important;
+  margin: 0 !important;
+  background: var(--bg-surface);
+  border-top: 1px solid var(--border);
+}
+
+.container-content-PermissionPage .ant-pagination-item-active {
+  background: var(--accent-primary) !important;
+  border-color: var(--accent-primary) !important;
+}
+
+.container-content-PermissionPage .ant-pagination-item-active a {
+  color: #fff !important;
+}
+
+/* ─── Checkbox Permission ────────────────────────────── */
 .checkbox-permission {
   appearance: none;
-  width: 25px;
+  width: 22px;
   aspect-ratio: 1;
-  border-radius: 8px;
-  border: 2px solid #043929;
+  border-radius: 7px;
+  border: 2px solid var(--border-active);
+  background: var(--bg-base);
   position: relative;
-  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+  transition:
+    border-color 0.2s ease,
+    background 0.2s ease,
+    box-shadow 0.2s ease;
 }
+
+.checkbox-permission:hover {
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 0 3px rgba(4, 57, 41, 0.1);
+}
+
 .checkbox-permission::before {
-  font-family: "Quicksand", sans-serif;
+  font-family: "Sarabun", sans-serif;
   position: absolute;
   bottom: -4px;
   left: 1px;
   content: "✔";
-  font-size: 30px;
-  color: rgb(255, 153, 0);
+  font-size: 28px;
+  color: var(--accent-primary);
   transform: scale(0);
   transition: all 0.2s ease-in-out;
 }
+
+.checkbox-permission:checked {
+  border-color: var(--accent-primary);
+  background: rgba(4, 57, 41, 0.05);
+}
+
 .checkbox-permission:checked::before {
-  animation: zoom 0.5s ease-in-out;
+  animation: zoom 0.4s ease-in-out;
   transform: scale(1);
 }
+
 @keyframes zoom {
   0% {
     transform: scale(0);
   }
   20% {
-    transform: scale(1.5);
-  }
-  40% {
-    transform: scale(0.5);
+    transform: scale(1.4);
   }
   50% {
-    transform: scale(1);
+    transform: scale(0.9);
   }
   70% {
-    transform: scale(1.2);
-  }
-  90% {
-    transform: scale(0.8);
+    transform: scale(1.1);
   }
   100% {
     transform: scale(1);
   }
 }
 
+/* ─── Responsive ─────────────────────────────────────── */
 @media (max-width: 1280px) {
   .container-PermissionPage {
-    padding-left: 270px;
+    padding-left: 282px;
+  }
+}
+
+@media (max-width: 1080px) {
+  .container-PermissionPage {
+    padding-left: 232px;
   }
 }
 
 @media (max-width: 600px) {
   .container-PermissionPage {
-    padding-left: 20px;
-
-    button {
-      width: 70px;
-      height: 35px;
-      border: none;
-      border-radius: 20px;
-      background-color: #043929;
-      color: white;
-      font-size: 14px;
-      cursor: pointer;
-      transition: all 0.5s;
-    }
-
-    .ant-select-single .ant-select-selector {
-      height: 35px;
-      min-width: 100px;
-      margin-bottom: 5px;
-    }
+    padding: 16px 12px 32px;
   }
 
   .header-PermissionPage {
-    h1 {
-      font-size: 32px;
-    }
+    padding-left: 60px;
+    margin-bottom: 24px;
   }
 
-  .container-content-PermissionPage {
-    width: 100%;
-    .navbar-PermissionPage {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      justify-content: space-between;
-    }
+  .header-PermissionPage h1 {
+    font-size: 1.4rem;
+  }
+
+  .navbar-PermissionPage {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .container-PermissionPage button {
+    padding: 8px 14px;
+    font-size: 0.85rem;
+  }
+
+  .container-PermissionPage .ant-select-single .ant-select-selector {
+    min-width: 130px;
+    height: 38px !important;
   }
 }
