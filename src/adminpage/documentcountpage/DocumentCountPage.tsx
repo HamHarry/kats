@@ -17,7 +17,8 @@ const DocumentCountPage = () => {
   const navigate = useNavigate();
   const [isCountLoading, setIsCountLoading] = useState<boolean>(false);
 
-  const [documentCountData, setDocumentCountData] = useState<DocumentCountNumber>();
+  const [documentCountData, setDocumentCountData] =
+    useState<DocumentCountNumber>();
 
   const { control, handleSubmit } = useForm({
     defaultValues: initDocumentCountNumberForm,
@@ -69,7 +70,10 @@ const DocumentCountPage = () => {
         </div>
       </div>
 
-      <form onSubmit={handleSubmit(onSubmit)} className="wrap-container-DocumentCountPage">
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="wrap-container-DocumentCountPage"
+      >
         <div className="bookingCount-content">
           <div className="header-bookingCount">
             <h2>เลขที่เอกสารการจอง</h2>
@@ -95,7 +99,10 @@ const DocumentCountPage = () => {
                       {...field}
                       type="text"
                       onChange={(event) => {
-                        const value = event.target.value.replace(/[^0-9.]/g, "");
+                        const value = event.target.value.replace(
+                          /[^0-9.]/g,
+                          "",
+                        );
                         const validated = value.match(/^(\d*\.{0,1}\d{0,2}$)/);
                         if (validated) {
                           field.onChange(Number(value));
@@ -140,7 +147,10 @@ const DocumentCountPage = () => {
                       {...field}
                       type="text"
                       onChange={(event) => {
-                        const value = event.target.value.replace(/[^0-9.]/g, "");
+                        const value = event.target.value.replace(
+                          /[^0-9.]/g,
+                          "",
+                        );
                         const validated = value.match(/^(\d*\.{0,1}\d{0,2}$)/);
                         if (validated) {
                           field.onChange(Number(value));
