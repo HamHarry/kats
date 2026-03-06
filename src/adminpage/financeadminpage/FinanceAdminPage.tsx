@@ -22,7 +22,13 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-import { Calendar, DollarSign, TrendingDown, TrendingUp } from "lucide-react";
+import {
+  Calendar,
+  TrendingDown,
+  TrendingUp,
+  Wallet,
+  Percent,
+} from "lucide-react";
 
 const expenseCategoryLabels: { [key: string]: string } = {
   FUEL: "เชื้อเพลิง",
@@ -38,15 +44,15 @@ const expenseCategoryLabels: { [key: string]: string } = {
 };
 
 const COLORS = [
-  "#0088FE",
-  "#00C49F",
-  "#FFBB28",
-  "#FF8042",
-  "#8884D8",
-  "#82CA9D",
-  "#FFC658",
-  "#FF6B6B",
-  "#4ECDC4",
+  "#10b981",
+  "#3b82f6",
+  "#f59e0b",
+  "#ef4444",
+  "#8b5cf6",
+  "#06b6d4",
+  "#f97316",
+  "#ec4899",
+  "#84cc16",
 ];
 
 const monthlyChartDataMock = [
@@ -63,6 +69,7 @@ const monthlyChartDataMock = [
   { month: "พ.ย." },
   { month: "ธ.ค." },
 ];
+
 const FinanceAdminPage = () => {
   const dispatch = useAppDispatch();
 
@@ -85,13 +92,8 @@ const FinanceAdminPage = () => {
       try {
         setIsLoading(true);
         const { data: SummaryDataRes } = await dispatch(
-          getDashboardSummary({
-            startDate: start,
-            endDate: end,
-            period: period,
-          }),
+          getDashboardSummary({ startDate: start, endDate: end, period }),
         ).unwrap();
-
         setSummaryData(SummaryDataRes);
         generateExpenseDetails(SummaryDataRes, period);
       } catch (error) {
@@ -109,7 +111,6 @@ const FinanceAdminPage = () => {
   ) => {
     const periodData = selectedPeriod === "month" ? data?.month : data?.year;
     if (!periodData?.expensesByCategory) return;
-
     const expenses = periodData.expensesByCategory;
     const details = Object.entries(expenseCategoryLabels).map(
       ([key, label]) => {
@@ -125,18 +126,13 @@ const FinanceAdminPage = () => {
         };
       },
     );
-
     setExpenseDetails(details.filter((item) => item.amount > 0));
   };
 
-  // Handle month date range changes
   useEffect(() => {
-    if (period === "month") {
-      fetchSummaryData(startDate, endDate);
-    }
+    if (period === "month") fetchSummaryData(startDate, endDate);
   }, [startDate, endDate, period, fetchSummaryData]);
 
-  // Handle year selection - fetch only once when year changes
   useEffect(() => {
     if (period === "year" && selectedYear) {
       const start = dayjs(`${selectedYear}-01-01`).format("YYYY-MM-DD");
@@ -147,13 +143,7 @@ const FinanceAdminPage = () => {
 
   const handlePeriodChange = (newPeriod: "month" | "year") => {
     setPeriod(newPeriod);
-    if (summaryData) {
-      generateExpenseDetails(summaryData, newPeriod);
-    }
-  };
-
-  const handleYearChange = (year: string) => {
-    setSelectedYear(year);
+    if (summaryData) generateExpenseDetails(summaryData, newPeriod);
   };
 
   const currentData =
@@ -165,431 +155,446 @@ const FinanceAdminPage = () => {
   const profitMargin =
     totalRevenue > 0 ? ((netProfit / totalRevenue) * 100).toFixed(2) : "0.00";
 
-  // Data for Bar Chart
   const overviewData = [
-    {
-      name: "รายรับ",
-      จำนวน: totalRevenue,
-      fill: "#10b981",
-    },
-    {
-      name: "รายจ่าย",
-      จำนวน: totalExpenses,
-      fill: "#ef4444",
-    },
-    {
-      name: "กำไรสุทธิ",
-      จำนวน: netProfit,
-      fill: "#3b82f6",
-    },
+    { name: "รายรับ", จำนวน: totalRevenue, fill: "#10b981" },
+    { name: "รายจ่าย", จำนวน: totalExpenses, fill: "#ef4444" },
+    { name: "กำไรสุทธิ", จำนวน: netProfit, fill: "#3b82f6" },
   ];
 
-  // Data for Pie Chart
   const expensesData = Object.entries(currentData?.expensesByCategory || {})
     .filter(([key, value]) => key !== "total" && value > 0)
     .map(([key, value]) => ({
       name: expenseCategoryLabels[key],
-      value: value,
+      value,
     }));
 
+  const tooltipStyle = {
+    background: "#fff",
+    border: "1px solid rgba(0,150,100,0.2)",
+    borderRadius: "10px",
+    fontFamily: "'Sarabun', sans-serif",
+    fontSize: "0.85rem",
+    color: "#1a2e22",
+    boxShadow: "0 4px 16px rgba(0,120,80,0.1)",
+  };
+
   return (
-    <div
-      className="min-h-screen bg-gray-50 p-8"
-      style={{ paddingLeft: "calc(320px + 32px)" }}
-    >
-      <div className="max-w-7xl mx-auto space-y-8">
-        {/* Header */}
-        <div className="flex justify-between items-center pb-6 flex-wrap gap-4 border-b border-gray-200">
-          <h1 className="text-4xl font-bold text-gray-800">📊 การเงิน</h1>
-          <div className="flex gap-4 flex-wrap">
-            <div className="flex gap-2 flex-wrap items-center">
-              <button
-                onClick={() => handlePeriodChange("month")}
-                className={`px-4 py-2 rounded-lg font-medium transition-colors cursor-pointer ${period === "month" ? "bg-[#043929] text-white shadow-md" : "bg-white text-gray-700 hover:bg-gray-100"}`}
-              >
-                รายเดือน
-              </button>
-              <button
-                onClick={() => handlePeriodChange("year")}
-                className={`px-4 py-2 rounded-lg font-medium transition-colors cursor-pointer ${period === "year" ? "bg-[#043929] text-white shadow-md" : "bg-white text-gray-700 hover:bg-gray-100"}`}
-              >
-                รายปี
-              </button>
-              {period === "year" && (
-                <select
-                  value={selectedYear}
-                  onChange={(e) => handleYearChange(e.target.value)}
-                  className="px-4 py-2 rounded-lg font-medium border border-gray-300 bg-white text-gray-700 hover:bg-gray-50 cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#043929]"
-                >
-                  {Array.from(
-                    { length: dayjs().year() - 2025 + 1 },
-                    (_, i) => 2025 + i,
-                  ).map((year) => (
-                    <option key={year} value={year}>
-                      {year}
-                    </option>
-                  ))}
-                </select>
-              )}
-            </div>
-            <div className="flex items-center gap-2 bg-white px-4 py-2 rounded-lg shadow">
-              <Calendar className="w-4 h-4 text-gray-500" />
-              <input
-                type="date"
-                value={startDate}
-                onChange={(e) => setStartDate(e.target.value)}
-                className="border-0 focus:outline-none text-sm"
-              />
-              <span className="text-gray-500">-</span>
-              <input
-                type="date"
-                value={endDate}
-                onChange={(e) => setEndDate(e.target.value)}
-                className="border-0 focus:outline-none text-sm"
-              />
-            </div>
+    <div className="container-financeAdminPage">
+      {/* ── Header ──────────────────────────────────────── */}
+      <div className="header-financeAdminPage">
+        <h1>การเงิน</h1>
+
+        <div className="finance-controls">
+          {/* Period toggle */}
+          <div className="finance-period-group">
+            <button
+              className={`finance-period-btn${period === "month" ? " active" : ""}`}
+              onClick={() => handlePeriodChange("month")}
+            >
+              รายเดือน
+            </button>
+            <button
+              className={`finance-period-btn${period === "year" ? " active" : ""}`}
+              onClick={() => handlePeriodChange("year")}
+            >
+              รายปี
+            </button>
+          </div>
+
+          {/* Year selector */}
+          {period === "year" && (
+            <select
+              value={selectedYear}
+              onChange={(e) => setSelectedYear(e.target.value)}
+              className="finance-year-select"
+            >
+              {Array.from(
+                { length: dayjs().year() - 2025 + 1 },
+                (_, i) => 2025 + i,
+              ).map((year) => (
+                <option key={year} value={year}>
+                  {year}
+                </option>
+              ))}
+            </select>
+          )}
+
+          {/* Date range */}
+          <div className="finance-date-range">
+            <Calendar size={16} />
+            <input
+              type="date"
+              value={startDate}
+              onChange={(e) => setStartDate(e.target.value)}
+            />
+            <span className="date-sep">–</span>
+            <input
+              type="date"
+              value={endDate}
+              onChange={(e) => setEndDate(e.target.value)}
+            />
           </div>
         </div>
+      </div>
 
-        {/* Summary Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-          <div className="bg-white rounded-lg shadow-md p-6">
-            <div className="flex items-center justify-between mb-2">
-              <span className="text-gray-600 text-sm font-medium">
-                รายรับทั้งหมด
-              </span>
-              <TrendingUp className="w-5 h-5 text-green-500" />
-            </div>
-            <div className="text-3xl font-bold text-green-500 mb-1">
-              {formatNumberWithComma(totalRevenue)}
-              <span className="text-lg ml-1">฿</span>
-            </div>
-            <div className="text-xs text-gray-500">
-              จำนวน {currentData?.bookingsRevenue.bookingCount} รายการ
-            </div>
-          </div>
-
-          <div className="bg-white rounded-lg shadow-md p-6">
-            <div className="flex items-center justify-between mb-2">
-              <span className="text-gray-600 text-sm font-medium">
-                รายจ่ายทั้งหมด
-              </span>
-              <TrendingDown className="w-5 h-5 text-red-500" />
-            </div>
-            <div className="text-3xl font-bold text-red-500 mb-1">
-              {formatNumberWithComma(totalExpenses)}
-              <span className="text-lg ml-1">฿</span>
-            </div>
-          </div>
-
-          <div className="bg-white rounded-lg shadow-md p-6">
-            <div className="flex items-center justify-between mb-2">
-              <span className="text-gray-600 text-sm font-medium">
-                กำไรสุทธิ
-              </span>
-              <DollarSign className="w-5 h-5 text-blue-500" />
-            </div>
-            <div className="text-3xl font-bold text-blue-500 mb-1">
-              {formatNumberWithComma(netProfit)}
-              <span className="text-lg ml-1">฿</span>
-            </div>
-            <div className="text-xs text-gray-500">
-              รอดำเนินการ: {formatNumberWithComma(pendingRevenue)} ฿
-            </div>
-          </div>
-
-          <div className="bg-white rounded-lg shadow-md p-6">
-            <div className="flex items-center justify-between mb-2">
-              <span className="text-gray-600 text-sm font-medium">% กำไร</span>
-              <div
-                className={`text-sm font-bold ${Number(profitMargin) >= 0 ? "text-green-500" : "text-red-500"}`}
-              >
-                {Number(profitMargin) >= 0 ? "▲" : "▼"}
+      <div className="wrap-container-financeAdminPage">
+        {/* ── Summary Cards ────────────────────────────── */}
+        <div className="finance-summary-cards">
+          {/* Revenue */}
+          <div className="finance-card">
+            <div className="finance-card-header">
+              <p className="finance-card-label">รายรับทั้งหมด</p>
+              <div className="finance-card-icon green">
+                <TrendingUp size={16} />
               </div>
             </div>
-            <div
-              className={`text-3xl font-bold mb-1 ${Number(profitMargin) >= 0 ? "text-green-500" : "text-red-500"}`}
+            <p className="finance-card-value green">
+              {formatNumberWithComma(totalRevenue)}{" "}
+              <span style={{ fontSize: "1.2rem" }}>฿</span>
+            </p>
+            <p className="finance-card-sub">
+              จำนวน {currentData?.bookingsRevenue.bookingCount || 0} รายการ
+            </p>
+          </div>
+
+          {/* Expenses */}
+          <div className="finance-card">
+            <div className="finance-card-header">
+              <p className="finance-card-label">รายจ่ายทั้งหมด</p>
+              <div className="finance-card-icon red">
+                <TrendingDown size={16} />
+              </div>
+            </div>
+            <p className="finance-card-value red">
+              {formatNumberWithComma(totalExpenses)}{" "}
+              <span style={{ fontSize: "1.2rem" }}>฿</span>
+            </p>
+            <p className="finance-card-sub">รายจ่ายรวมทุกหมวด</p>
+          </div>
+
+          {/* Net Profit */}
+          <div className="finance-card">
+            <div className="finance-card-header">
+              <p className="finance-card-label">กำไรสุทธิ</p>
+              <div className="finance-card-icon blue">
+                <Wallet size={16} />
+              </div>
+            </div>
+            <p className="finance-card-value blue">
+              {formatNumberWithComma(netProfit)}{" "}
+              <span style={{ fontSize: "1.2rem" }}>฿</span>
+            </p>
+            <p className="finance-card-sub">
+              รอดำเนินการ: {formatNumberWithComma(pendingRevenue)} ฿
+            </p>
+          </div>
+
+          {/* Profit Margin */}
+          <div className="finance-card">
+            <div className="finance-card-header">
+              <p className="finance-card-label">% กำไร</p>
+              <div
+                className={`finance-card-icon ${Number(profitMargin) >= 0 ? "green" : "red"}`}
+              >
+                <Percent size={16} />
+              </div>
+            </div>
+            <p
+              className={`finance-card-value ${Number(profitMargin) >= 0 ? "green" : "red"}`}
             >
               {profitMargin}
-              <span className="text-lg ml-1">%</span>
-            </div>
+              <span style={{ fontSize: "1.2rem" }}> %</span>
+            </p>
+            <p className="finance-card-sub">
+              {Number(profitMargin) >= 0 ? "▲ กำไร" : "▼ ขาดทุน"}
+            </p>
           </div>
         </div>
 
-        {/* Charts */}
-        <div className="grid grid-cols-1 min-[1181px]:grid-cols-2 gap-6 mb-8">
-          <div className="bg-white rounded-lg shadow-md p-8">
-            <h2 className="text-xl font-bold text-gray-800 mb-6">
-              📈{" "}
-              {period === "year"
-                ? "รายรับ-รายจ่ายรายเดือน"
-                : "ภาพรวมรายรับ-รายจ่าย"}
-            </h2>
-            <ResponsiveContainer width="100%" height={450}>
-              {period === "year" ? (
-                <LineChart
-                  data={
-                    summaryData?.year?.monthlyChartData || monthlyChartDataMock
-                  }
-                >
-                  <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="month" />
-                  <YAxis />
-                  <Tooltip
-                    formatter={(value) => value.toLocaleString("th-TH") + " ฿"}
-                  />
-                  <Legend
-                    formatter={(value) =>
-                      value === "Revenue"
-                        ? "รายรับ"
-                        : value === "Expenses"
-                          ? "รายจ่าย"
-                          : "กำไรสุทธิ"
+        {/* ── Charts Row ───────────────────────────────── */}
+        <div className="finance-charts-row">
+          {/* Chart 1 – Overview / Monthly line */}
+          <div className="finance-panel">
+            <div className="finance-panel-header">
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                style={{ color: "#043929" }}
+              >
+                <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
+              </svg>
+              <h2>
+                {period === "year"
+                  ? "รายรับ-รายจ่ายรายเดือน"
+                  : "ภาพรวมรายรับ-รายจ่าย"}
+              </h2>
+            </div>
+            <div className="finance-panel-body">
+              <ResponsiveContainer width="100%" height={360}>
+                {period === "year" ? (
+                  <LineChart
+                    data={
+                      summaryData?.year?.monthlyChartData ||
+                      monthlyChartDataMock
                     }
-                  />
-                  <Line
-                    type="monotone"
-                    dataKey="revenue"
-                    stroke="#10b981"
-                    strokeWidth={2}
-                    name="รายรับ"
-                  />
-                  <Line
-                    type="monotone"
-                    dataKey="expenses"
-                    stroke="#ef4444"
-                    strokeWidth={2}
-                    name="รายจ่าย"
-                  />
-                  <Line
-                    type="monotone"
-                    dataKey="netProfit"
-                    stroke="#3b82f6"
-                    strokeWidth={2}
-                    name="กำไรสุทธิ"
-                  />
-                </LineChart>
-              ) : (
-                <BarChart
-                  data={overviewData}
-                  margin={{
-                    top: 10,
-                    right: 30,
-                    bottom: 20,
-                    left: 20,
-                  }}
-                >
-                  <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="name" />
-                  <Tooltip
-                    formatter={(value) => value.toLocaleString("th-TH") + " ฿"}
-                  />
-                  <Bar
-                    dataKey="จำนวน"
-                    radius={[8, 8, 0, 0]}
-                    label={({ x, y, width, value }: any) => {
-                      const val = value || 0;
-                      const xPos =
-                        typeof x === "number" && typeof width === "number"
-                          ? x + width / 2
-                          : 0;
-                      const yPos = typeof y === "number" ? y - 10 : 0;
-                      return (
+                    margin={{ top: 10, right: 20, bottom: 10, left: 10 }}
+                  >
+                    <CartesianGrid
+                      strokeDasharray="3 3"
+                      stroke="rgba(0,150,100,0.1)"
+                    />
+                    <XAxis
+                      dataKey="month"
+                      tick={{
+                        fontFamily: "Sarabun",
+                        fontSize: 12,
+                        fill: "#4a7a5e",
+                      }}
+                    />
+                    <YAxis
+                      tick={{
+                        fontFamily: "Sarabun",
+                        fontSize: 11,
+                        fill: "#8ab5a0",
+                      }}
+                    />
+                    <Tooltip
+                      contentStyle={tooltipStyle}
+                      formatter={(v: any) => v.toLocaleString("th-TH") + " ฿"}
+                    />
+                    <Legend
+                      formatter={(v) =>
+                        v === "revenue"
+                          ? "รายรับ"
+                          : v === "expenses"
+                            ? "รายจ่าย"
+                            : "กำไรสุทธิ"
+                      }
+                      wrapperStyle={{ fontFamily: "Sarabun", fontSize: 13 }}
+                    />
+                    <Line
+                      type="monotone"
+                      dataKey="revenue"
+                      stroke="#10b981"
+                      strokeWidth={2.5}
+                      dot={{ r: 3 }}
+                      name="revenue"
+                    />
+                    <Line
+                      type="monotone"
+                      dataKey="expenses"
+                      stroke="#ef4444"
+                      strokeWidth={2.5}
+                      dot={{ r: 3 }}
+                      name="expenses"
+                    />
+                    <Line
+                      type="monotone"
+                      dataKey="netProfit"
+                      stroke="#3b82f6"
+                      strokeWidth={2.5}
+                      dot={{ r: 3 }}
+                      name="netProfit"
+                    />
+                  </LineChart>
+                ) : (
+                  <BarChart
+                    data={overviewData}
+                    margin={{ top: 20, right: 20, bottom: 10, left: 10 }}
+                  >
+                    <CartesianGrid
+                      strokeDasharray="3 3"
+                      stroke="rgba(0,150,100,0.1)"
+                    />
+                    <XAxis
+                      dataKey="name"
+                      tick={{
+                        fontFamily: "Sarabun",
+                        fontSize: 13,
+                        fill: "#4a7a5e",
+                      }}
+                    />
+                    <Tooltip
+                      contentStyle={tooltipStyle}
+                      formatter={(v: any) => v.toLocaleString("th-TH") + " ฿"}
+                    />
+                    <Bar
+                      dataKey="จำนวน"
+                      radius={[8, 8, 0, 0]}
+                      label={({ x, y, width, value }: any) => (
                         <text
-                          x={xPos}
-                          y={yPos}
-                          fill="#333"
+                          x={(x ?? 0) + (width ?? 0) / 2}
+                          y={(y ?? 0) - 8}
+                          fill="#4a7a5e"
                           textAnchor="middle"
                           fontSize="12"
-                          fontWeight="bold"
+                          fontFamily="Sarabun"
+                          fontWeight="600"
                         >
-                          {val?.toLocaleString("th-TH") ?? 0} ฿
+                          {(value ?? 0).toLocaleString("th-TH")} ฿
                         </text>
+                      )}
+                    >
+                      {overviewData.map((entry, index) => (
+                        <Cell key={`cell-${index}`} fill={entry.fill} />
+                      ))}
+                    </Bar>
+                  </BarChart>
+                )}
+              </ResponsiveContainer>
+            </div>
+          </div>
+
+          {/* Chart 2 – Expense breakdown */}
+          <div className="finance-panel">
+            <div className="finance-panel-header">
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                style={{ color: "#043929" }}
+              >
+                <rect x="2" y="3" width="20" height="14" rx="2" />
+                <line x1="8" y1="21" x2="16" y2="21" />
+                <line x1="12" y1="17" x2="12" y2="21" />
+              </svg>
+              <h2>สัดส่วนค่าใช้จ่าย</h2>
+            </div>
+            <div className="finance-panel-body">
+              <ResponsiveContainer width="100%" height={360}>
+                <BarChart
+                  data={expensesData}
+                  margin={{ top: 20, right: 20, bottom: 10, left: 10 }}
+                >
+                  <CartesianGrid
+                    strokeDasharray="3 3"
+                    stroke="rgba(0,150,100,0.1)"
+                  />
+                  <XAxis
+                    dataKey="name"
+                    tick={{
+                      fontFamily: "Sarabun",
+                      fontSize: 11,
+                      fill: "#4a7a5e",
+                    }}
+                  />
+                  <Tooltip
+                    contentStyle={tooltipStyle}
+                    formatter={(v: any) => v.toLocaleString("th-TH") + " ฿"}
+                  />
+                  <Bar
+                    dataKey="value"
+                    radius={[8, 8, 0, 0]}
+                    label={({ x, y, width, value }: any) => {
+                      const pct =
+                        totalExpenses > 0
+                          ? (((value ?? 0) / totalExpenses) * 100).toFixed(1)
+                          : "0.0";
+                      return (
+                        <g>
+                          <text
+                            x={(x ?? 0) + (width ?? 0) / 2}
+                            y={(y ?? 0) - 18}
+                            fill="#4a7a5e"
+                            textAnchor="middle"
+                            fontSize="11"
+                            fontFamily="Sarabun"
+                            fontWeight="600"
+                          >
+                            {(value ?? 0).toLocaleString("th-TH")} ฿
+                          </text>
+                          <text
+                            x={(x ?? 0) + (width ?? 0) / 2}
+                            y={(y ?? 0) - 5}
+                            fill="#8ab5a0"
+                            textAnchor="middle"
+                            fontSize="10"
+                            fontFamily="Sarabun"
+                          >
+                            {pct}%
+                          </text>
+                        </g>
                       );
                     }}
                   >
-                    {overviewData.map((entry, index) => (
-                      <Cell key={`cell-${index}`} fill={entry.fill} />
+                    {expensesData.map((_, index) => (
+                      <Cell
+                        key={`cell-${index}`}
+                        fill={COLORS[index % COLORS.length]}
+                      />
                     ))}
                   </Bar>
                 </BarChart>
-              )}
-            </ResponsiveContainer>
-          </div>
-
-          <div className="bg-white rounded-lg shadow-md p-8">
-            <h2 className="text-xl font-bold text-gray-800 mb-6">
-              🥧 สัดส่วนค่าใช้จ่าย
-            </h2>
-            <ResponsiveContainer width="100%" height={450}>
-              <BarChart
-                data={expensesData}
-                margin={{
-                  top: 20,
-                  right: 30,
-                  bottom: 20,
-                  left: 20,
-                }}
-              >
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="name" />
-                <Tooltip
-                  formatter={(value) => value.toLocaleString("th-TH") + " ฿"}
-                />
-                <Bar
-                  dataKey="value"
-                  fill="#8884d8"
-                  radius={[8, 8, 0, 0]}
-                  label={({ x, y, width, value }: any) => {
-                    const totalVal = totalExpenses || 1;
-                    const val = value || 0;
-                    const percentage =
-                      totalVal > 0
-                        ? ((val / totalVal) * 100).toFixed(2)
-                        : "0.00";
-                    const xPos =
-                      typeof x === "number" && typeof width === "number"
-                        ? x + width / 2
-                        : 0;
-                    const yPos = typeof y === "number" ? y - 25 : 0;
-                    const yPos2 = typeof y === "number" ? y - 10 : 0;
-                    return (
-                      <g>
-                        <text
-                          x={xPos}
-                          y={yPos}
-                          fill="#333"
-                          textAnchor="middle"
-                          fontSize="12"
-                          fontWeight="bold"
-                        >
-                          {val?.toLocaleString("th-TH") ?? 0} ฿
-                        </text>
-                        <text
-                          x={xPos}
-                          y={yPos2}
-                          fill="#666"
-                          textAnchor="middle"
-                          fontSize="11"
-                        >
-                          {percentage}%
-                        </text>
-                      </g>
-                    );
-                  }}
-                >
-                  {expensesData.map((_, index) => (
-                    <Cell
-                      key={`cell-${index}`}
-                      fill={COLORS[index % COLORS.length]}
-                    />
-                  ))}
-                </Bar>
-              </BarChart>
-            </ResponsiveContainer>
+              </ResponsiveContainer>
+            </div>
           </div>
         </div>
 
-        {/* Implicit Costs */}
-        {/* <div className="bg-white rounded-lg shadow-md p-8 mb-8">
-          <h2 className="text-xl font-bold text-gray-800 mb-6">
-            💰 ต้นทุนแฝง (Implicit Costs)
-          </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-            <div className="bg-yellow-50 rounded-lg p-6 border border-yellow-200 hover:shadow-md transition-shadow">
-              <div className="text-sm text-gray-600 mb-2">
-                ต้นทุนค่าเสียโอกาส
-              </div>
-              <div className="text-2xl font-bold text-gray-800">
-                {formatNumberWithComma(Math.round(netProfit * 0.05))}
-                <span className="text-lg ml-1">฿</span>
-              </div>
-              <div className="text-xs text-gray-500 mt-1">
-                (5% ของกำไรสุทธิ)
-              </div>
-            </div>
-
-            <div className="bg-yellow-50 rounded-lg p-6 border border-yellow-200 hover:shadow-md transition-shadow">
-              <div className="text-sm text-gray-600 mb-2">
-                ค่าเสื่อมราคาเครื่องมือ
-              </div>
-              <div className="text-2xl font-bold text-gray-800">
-                {formatNumberWithComma(
-                  Math.round((currentData?.expensesByCategory.TOOL || 0) * 0.1)
-                )}
-                <span className="text-lg ml-1">฿</span>
-              </div>
-              <div className="text-xs text-gray-500 mt-1">
-                (10% ของค่าเครื่องมือ)
-              </div>
-            </div>
-
-            <div className="bg-yellow-50 rounded-lg p-6 border border-yellow-200 hover:shadow-md transition-shadow">
-              <div className="text-sm text-gray-600 mb-2">
-                ค่าใช้จ่ายดำเนินงาน
-              </div>
-              <div className="text-2xl font-bold text-gray-800">
-                {formatNumberWithComma(Math.round(totalRevenue * 0.03))}
-                <span className="text-lg ml-1">฿</span>
-              </div>
-              <div className="text-xs text-gray-500 mt-1">(3% ของรายรับ)</div>
-            </div>
+        {/* ── Expense Table ─────────────────────────────── */}
+        <div className="finance-table-panel">
+          <div className="finance-panel-header">
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              style={{ color: "#043929" }}
+            >
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+              <polyline points="14 2 14 8 20 8" />
+              <line x1="16" y1="13" x2="8" y2="13" />
+              <line x1="16" y1="17" x2="8" y2="17" />
+              <polyline points="10 9 9 9 8 9" />
+            </svg>
+            <h2>รายละเอียดค่าใช้จ่ายแยกตามหมวด</h2>
           </div>
-        </div> */}
 
-        {/* Table */}
-        <div className="bg-white rounded-lg shadow-md p-8">
-          <h2 className="text-xl font-bold text-gray-800 mb-6">
-            📋 รายละเอียดค่าใช้จ่ายแยกตามหมวด
-          </h2>
-          <div className="overflow-x-auto">
-            <table className="w-full">
+          <div style={{ overflowX: "auto" }}>
+            <table className="finance-table">
               <thead>
-                <tr className="border-b-2 border-gray-200">
-                  <th className="text-left py-3 px-4 font-semibold text-gray-700">
-                    หมวดหมู่
-                  </th>
-                  <th className="text-right py-3 px-4 font-semibold text-gray-700">
-                    จำนวนเงิน (บาท)
-                  </th>
-                  <th className="text-center py-3 px-4 font-semibold text-gray-700">
-                    สัดส่วน (%)
-                  </th>
+                <tr>
+                  <th>หมวดหมู่</th>
+                  <th>จำนวนเงิน (บาท)</th>
+                  <th>สัดส่วน (%)</th>
                 </tr>
               </thead>
               <tbody>
                 {expenseDetails.map((row, index) => (
-                  <tr
-                    key={index}
-                    className="border-b border-gray-100 hover:bg-gray-50"
-                  >
-                    <td className="py-3 px-4 font-medium text-gray-800">
-                      {row.category}
-                    </td>
-                    <td className="py-3 px-4 text-right text-gray-700">
-                      {row.amount.toLocaleString("th-TH")}
-                    </td>
-                    <td className="py-3 px-4 text-center">
-                      <span className="inline-block bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-sm font-medium">
+                  <tr key={index}>
+                    <td>{row.category}</td>
+                    <td>{row.amount.toLocaleString("th-TH")}</td>
+                    <td>
+                      <span className="finance-badge blue">
                         {row.percentage}%
                       </span>
                     </td>
                   </tr>
                 ))}
-                <tr className="bg-blue-50 border-t-2 border-blue-200">
-                  <td className="py-4 px-4 font-bold text-gray-800 text-lg">
-                    รวมทั้งหมด
-                  </td>
-                  <td className="py-4 px-4 text-right font-bold text-gray-800 text-lg">
-                    {totalExpenses.toLocaleString("th-TH")} ฿
-                  </td>
-                  <td className="py-4 px-4 text-center">
-                    <span className="inline-block bg-blue-500 text-white px-3 py-1 rounded-full text-sm font-bold">
-                      100.00%
-                    </span>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <td>รวมทั้งหมด</td>
+                  <td>{totalExpenses.toLocaleString("th-TH")} ฿</td>
+                  <td>
+                    <span className="finance-badge gun">100.00%</span>
                   </td>
                 </tr>
-              </tbody>
+              </tfoot>
             </table>
           </div>
         </div>
