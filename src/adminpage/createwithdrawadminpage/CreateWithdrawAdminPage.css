@@ -399,7 +399,8 @@ Date takes left column only .inputDate {
   }
 
   .list-category {
-    display: flex;
+    display: grid;
+    grid-template-columns: 140px 400px;
     gap: 12px;
     padding: 8px 0;
     border-bottom: 1px solid var(--border);
@@ -488,6 +489,16 @@ Date takes left column only .inputDate {
   }
 }
 
+@media (max-width: 900px) {
+  .wrap-inputList {
+    .inputList {
+      .list-category {
+        grid-template-columns: 140px 250px;
+      }
+    }
+  }
+}
+
 @media (max-width: 860px) {
   .wrap-container-CreateWithdrawAdminPage {
     grid-template-columns: 1fr;
@@ -499,6 +510,24 @@ Date takes left column only .inputDate {
 
   .date-and-list-row {
     grid-template-columns: 1fr;
+  }
+
+  .wrap-inputList {
+    .inputList {
+      .list-category {
+        grid-template-columns: 140px 200px;
+      }
+    }
+  }
+}
+
+@media (max-width: 700px) {
+  .wrap-inputList {
+    .inputList {
+      .list-category {
+        grid-template-columns: 140px 150px;
+      }
+    }
   }
 }
 
