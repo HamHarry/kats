@@ -400,7 +400,7 @@ Date takes left column only .inputDate {
 
   .list-category {
     display: grid;
-    grid-template-columns: 140px 400px;
+    grid-template-columns: 140px 400px 100px;
     gap: 12px;
     padding: 8px 0;
     border-bottom: 1px solid var(--border);
@@ -478,6 +478,16 @@ Date takes left column only .inputDate {
   }
 }
 
+@media (max-width: 1130px) {
+  .wrap-inputList {
+    .inputList {
+      .list-category {
+        grid-template-columns: 140px 250px 50px;
+      }
+    }
+  }
+}
+
 @media (max-width: 1080px) {
   .container-CreateWithdrawAdminPage {
     padding-left: 232px;
@@ -493,7 +503,7 @@ Date takes left column only .inputDate {
   .wrap-inputList {
     .inputList {
       .list-category {
-        grid-template-columns: 140px 250px;
+        grid-template-columns: 140px 250px 50px;
       }
     }
   }
@@ -515,7 +525,27 @@ Date takes left column only .inputDate {
   .wrap-inputList {
     .inputList {
       .list-category {
-        grid-template-columns: 140px 200px;
+        grid-template-columns: 140px 200px 50px;
+      }
+    }
+  }
+}
+
+@media (max-width: 800px) {
+  .wrap-inputList {
+    .inputList {
+      .list-category {
+        grid-template-columns: 140px 150px 50px;
+      }
+    }
+  }
+}
+
+@media (max-width: 750px) {
+  .wrap-inputList {
+    .inputList {
+      .list-category {
+        grid-template-columns: 140px 120px 50px;
       }
     }
   }
@@ -525,7 +555,7 @@ Date takes left column only .inputDate {
   .wrap-inputList {
     .inputList {
       .list-category {
-        grid-template-columns: 140px 150px;
+        grid-template-columns: 100px 100px 50px;
       }
     }
   }
@@ -540,6 +570,14 @@ Date takes left column only .inputDate {
 @media (max-width: 600px) {
   .container-CreateWithdrawAdminPage {
     padding: 16px 12px 32px;
+  }
+
+  .wrap-inputList {
+    .inputList {
+      .list-category {
+        grid-template-columns: 140px 150px 50px;
+      }
+    }
   }
 
   .header-CreateWithdrawAdminPage {
@@ -559,6 +597,16 @@ Date takes left column only .inputDate {
 
     .select-category {
       max-width: 100%;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .wrap-inputList {
+    .inputList {
+      .list-category {
+        grid-template-columns: 90px 100px 50px;
+      }
     }
   }
 }
