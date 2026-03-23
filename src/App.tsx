@@ -1,7 +1,7 @@
 import { Navigate, Route, Routes } from "react-router-dom";
 import { Suspense, useCallback, useEffect } from "react";
 import "./App.css";
-import HomePageGun from "./homepagegun/HomePageGun";
+// import HomePageGun from "./homepagegun/HomePageGun";
 import EmployeeAdminPage from "./adminpage/employeeadminpage/EmployeeAdminPage";
 import CreateEmployeeAdminPage from "./adminpage/createemployeeadminpage/CreateEmployeeAdminPage";
 import BookingAdminPage from "./adminpage/bookingadminpage/BookingAdminPage";
@@ -59,8 +59,8 @@ function App() {
     <Suspense fallback={<CircleLoading open={!checkedAuthenticated} />}>
       <Routes>
         <Route path="/" element={<Layout />}>
-          <Route path="" element={<HomePageGun />} />
-          <Route path="login" element={<LoginPageGun />} />
+          {/* <Route path="" element={<HomePageGun />} /> */}
+          <Route path="" element={<LoginPageGun />} />
         </Route>
 
         <Route

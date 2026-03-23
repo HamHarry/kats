@@ -359,7 +359,7 @@ const WithdrawAdminPage = () => {
       <>
         <div
           className="withdraw-mobile-list"
-          style={{ maxHeight: "600px", overflowY: "auto" }}
+          style={{ maxHeight: "500px", overflowY: "auto" }}
         >
           {paginatedData.map((item: FinanceData, index: number) => {
             const total = item.categorys.reduce((p, c) => p + c.amount, 0);

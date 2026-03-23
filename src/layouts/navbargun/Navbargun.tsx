@@ -19,7 +19,7 @@ const NavbarGun = () => {
       </div>
       <div className="list-menu">
         <ul>
-          <li>
+          {/* <li>
             <Link
               to="Home"
               smooth={true}
@@ -40,9 +40,9 @@ const NavbarGun = () => {
             <Link to="coatingGun" smooth={true} duration={200}>
               Coating
             </Link>
-          </li>
+          </li> */}
 
-          <li onClick={() => navigate("login")}>เข้าสู่ระบบ</li>
+          <li onClick={() => navigate("/")}>เข้าสู่ระบบ</li>
         </ul>
       </div>
     </div>
