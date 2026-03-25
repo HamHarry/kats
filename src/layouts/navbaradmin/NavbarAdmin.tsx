@@ -37,7 +37,7 @@ const NavbarAdmin = () => {
     <>
       <div className="navbarAdmin">
         <div className="logo-admin">
-          <img src={"/assets/logoGun.jpg"} alt="logo" />
+          <img src={"/assets/Final.png"} alt="logo" />
         </div>
 
         <hr />

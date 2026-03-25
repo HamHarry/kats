@@ -33,8 +33,8 @@
 
 /* ─── Logo ───────────────────────────────────────────── */
 .NavbarGun .logo img {
-  width: 130px;
-  height: 64px;
+  width: 120px;
+  height: 50px;
   object-fit: contain;
   cursor: pointer;
   filter: brightness(1.05);
@@ -102,7 +102,7 @@
 
   .NavbarGun .logo img {
     width: 110px;
-    height: 54px;
+    height: 50px;
   }
 
   .NavbarGun .list-menu li {
@@ -119,7 +119,7 @@
 
   .NavbarGun .logo img {
     width: 90px;
-    height: 44px;
+    height: 40px;
   }
 
   .NavbarGun .list-menu ul {
