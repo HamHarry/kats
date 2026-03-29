@@ -15,7 +15,7 @@ const NavbarGun = () => {
           onClick={() => navigate("/")}
         >
           {/* <img src="/assets/Final.png" alt="logo" /> */}
-          <img src="/assets/LogoG.png" alt="logo" />
+          <img src="/assets/logoG.png" alt="logo" />
         </Link>
       </div>
       <div className="list-menu">
