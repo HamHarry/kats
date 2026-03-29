@@ -14,7 +14,8 @@ const NavbarGun = () => {
           duration={200}
           onClick={() => navigate("/")}
         >
-          <img src="/assets/Final.png" alt="logo" />
+          {/* <img src="/assets/Final.png" alt="logo" /> */}
+          <img src="/assets/LogoG.png" alt="logo" />
         </Link>
       </div>
       <div className="list-menu">
