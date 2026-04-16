@@ -394,7 +394,7 @@
   }
 
   .btn-DialogApprove-Navbar {
-    flex-direction: column;
+    /* flex-direction: column; */
     padding: 16px;
   }
 
