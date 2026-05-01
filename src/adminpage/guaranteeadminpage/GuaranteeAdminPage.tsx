@@ -494,7 +494,7 @@ const GuaranteeAdminPage = () => {
         <div className="search-input-wrap">
           <input
             type="text"
-            placeholder="Search… (Name, Phone, Number)"
+            placeholder="ค้นหา… (ชื่อ, โทรศัพท์, หมายเลข, ทะเบียน)"
             onChange={(e) => handleSetSearchTerm(e.target.value)}
           />
         </div>

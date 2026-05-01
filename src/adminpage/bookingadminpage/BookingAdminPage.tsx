@@ -179,7 +179,7 @@ const BookingAdminPage = () => {
         <div className="search-content-right">
           <input
             type="text"
-            placeholder="Search… (Name, Phone, Number)"
+            placeholder="ค้นหา… (ชื่อ, โทรศัพท์, หมายเลข, ทะเบียน)"
             onChange={(e) => handleSetSearchTerm(e.target.value)}
           />
           <button
@@ -360,7 +360,7 @@ const BookingAdminPage = () => {
                 <div className="footer-actions">
                   <Tooltip title="รูปภาพการชำระเงิน">
                     <button
-                      className={`icon-btn pay ${!item.slip && 'bg-gray-100! hover:bg-gray-100! cursor-default! border-gray-400! hover:border-gray-400! text-gray-400! hover:text-gray-400!'}`}
+                      className={`icon-btn pay ${!item.slip && "bg-gray-100! hover:bg-gray-100! cursor-default! border-gray-400! hover:border-gray-400! text-gray-400! hover:text-gray-400!"}`}
                       disabled={!item.slip}
                       onClick={() => {
                         setSelectImagePay(item.slip);

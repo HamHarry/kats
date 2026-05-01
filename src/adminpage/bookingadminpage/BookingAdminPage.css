@@ -566,7 +566,7 @@
 .btn-DialogDelete-Navbar button,
 .btn-DialogApprove-Navbar button {
   flex: 1;
-  max-width: 140px;
+  /* max-width: 140px; */
   padding: 10px 0;
   border-radius: 10px;
   font-family: "Sarabun", sans-serif;
