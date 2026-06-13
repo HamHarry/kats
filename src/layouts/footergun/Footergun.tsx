@@ -11,7 +11,7 @@ const FooterGun = () => {
           )
         }
       >
-        <p>: เพจ Facebook Gun Protection ลาดกระบัง</p>
+        <p>: เพจ Facebook SP Rust Protection ลาดกระบัง</p>
       </div>
     </div>
   );
