@@ -50,16 +50,29 @@ const CalendarAdminPage = () => {
     switch (status) {
       case BookingStatus.PENDING:
         return "warning";
-      case BookingStatus.CHECKING:
-        return "warning";
       case BookingStatus.PAID:
         return "processing";
       case BookingStatus.COMPLETED:
         return "success";
-      case BookingStatus.CANCELED:
+      case BookingStatus.CHECKING:
         return "error";
       default:
         return "default";
+    }
+  };
+
+  const getBackgroundColor = (status: BookingStatus): string => {
+    switch (status) {
+      case BookingStatus.PENDING:
+        return "bg-amber-50";
+      case BookingStatus.PAID:
+        return "bg-blue-50";
+      case BookingStatus.COMPLETED:
+        return "bg-green-50";
+      case BookingStatus.CHECKING:
+        return "bg-red-50";
+      default:
+        return "bg-red-50";
     }
   };
 
@@ -70,27 +83,14 @@ const CalendarAdminPage = () => {
   }) => {
     const { status, label, isBG = false } = payload;
 
-    const getBackgroundColor = (status: BookingStatus): string => {
-      switch (status) {
-        case BookingStatus.PENDING:
-        case BookingStatus.CHECKING:
-          return "bg-amber-50"; // yellow
-        case BookingStatus.PAID:
-          return "bg-blue-50"; // blue
-        case BookingStatus.COMPLETED:
-          return "bg-green-50"; // green
-        case BookingStatus.CANCELED:
-          return "bg-red-50"; // red
-        default:
-          return "bg-[#fff]";
-      }
-    };
-
     return (
       <div
-        className={`flex gap-1 rounded-md ${isBG ? `${getBackgroundColor(status)}  px-2 py-1` : ""}`}
+        className={`flex gap-1 rounded-md ${
+          isBG ? `${getBackgroundColor(status)} px-2 py-1` : ""
+        }`}
       >
         <Badge status={getStatus(status)} />
+
         <Typography className="truncate" title={label}>
           {label}
         </Typography>
@@ -185,7 +185,11 @@ const CalendarAdminPage = () => {
             <div className="guid">
               <div className="guid-yellow">
                 <div className="box-yellow" />
-                <p>กำลังรอการชำระ & ตรวจสภาพรถ</p>
+                <p>กำลังรอการชำระ</p>
+              </div>
+              <div className="guid-grey">
+                <div className="box-grey" />
+                <p>ตรวจสภาพรถ</p>
               </div>
               <div className="guid-blue">
                 <div className="box-blue" />
@@ -213,7 +217,11 @@ const CalendarAdminPage = () => {
           <div className="guid">
             <div className="guid-yellow">
               <div className="box-yellow" />
-              <p>กำลังรอการชำระ & ตรวจสภาพรถ</p>
+              <p>กำลังรอการชำระ</p>
+            </div>
+            <div className="guid-grey">
+              <div className="box-grey" />
+              <p>ตรวจสภาพรถ</p>
             </div>
             <div className="guid-blue">
               <div className="box-blue" />

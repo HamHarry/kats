@@ -59,6 +59,7 @@
 }
 
 .guid-yellow,
+.guid-grey,
 .guid-blue,
 .guid-green,
 .guid-red {
@@ -73,6 +74,9 @@
 .guid-yellow:hover {
   background: rgba(250, 173, 20, 0.1);
 }
+.guid-grey:hover {
+  background: rgba(136, 136, 136, 0.1);
+}
 .guid-blue:hover {
   background: rgba(22, 119, 255, 0.1);
 }
@@ -84,6 +88,7 @@
 }
 
 .guid-yellow p,
+.guid-grey p,
 .guid-blue p,
 .guid-green p,
 .guid-red p {
@@ -96,6 +101,7 @@
 
 /* Dot indicators */
 .box-yellow,
+.box-grey,
 .box-blue,
 .box-green,
 .box-red {
@@ -108,6 +114,10 @@
 .box-yellow {
   background-color: #faad14;
   box-shadow: 0 0 0 3px rgba(250, 173, 20, 0.2);
+}
+.box-grey {
+  background-color: #888;
+  box-shadow: 0 0 0 3px rgba(136, 136, 136, 0.2);
 }
 .box-blue {
   background-color: #1677ff;
@@ -321,8 +331,6 @@
 
   /* Legend: 2 column grid */
   .guid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
     gap: 6px;
     padding: 10px 12px;
     justify-items: center;
