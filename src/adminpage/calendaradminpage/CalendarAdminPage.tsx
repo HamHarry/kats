@@ -56,6 +56,8 @@ const CalendarAdminPage = () => {
         return "success";
       case BookingStatus.CANCELED:
         return "error";
+      case BookingStatus.CHECKING:
+        return "default";
       default:
         return "default";
     }
@@ -71,8 +73,10 @@ const CalendarAdminPage = () => {
         return "bg-green-50";
       case BookingStatus.CANCELED:
         return "bg-red-50";
-      default:
+      case BookingStatus.CHECKING:
         return "bg-gray-50";
+      default:
+        return "bg-[#fff]";
     }
   };
 
@@ -82,6 +86,8 @@ const CalendarAdminPage = () => {
     isBG?: boolean;
   }) => {
     const { status, label, isBG = false } = payload;
+
+    console.log(status, label);
 
     return (
       <div
