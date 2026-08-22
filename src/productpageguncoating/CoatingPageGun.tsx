@@ -21,7 +21,7 @@ const CoatingPageGun = () => {
       <div className="content-series">
         <div className="text-box">
           <p>
-            <span>GUN Protection Series 1 & Series 2</span>
+            <span>SP Rust Protection Series 1 & Series 2</span>
             <br />
             น้ำยาพ่นกันสนิมสีดำเงา สูตรน้ำ 100% ราคาและคุณภาพดีที่สุดในประเทศไทย
             <br />
@@ -69,7 +69,7 @@ const CoatingPageGun = () => {
         <img src="/assets/gun/tanks/tankDamp.png" alt="tank-Damp" />
         <div className="text-box">
           <p>
-            <span>GUN Protection Series 3</span>
+            <span>SP Rust Protection Series 3</span>
             <br />
             น้ำยาพ่นกันสนิมแบบเก็บเสียงพร้อมกันกระแทก
             <br />
@@ -77,8 +77,7 @@ const CoatingPageGun = () => {
             <br />- กันกระแทก กันเสียง กันสนิมในตัวเดียวกัน 3in1
             <br />- ไม่ลอกล่อน สูตรน้ำ100%
             <br />- ไม่กัดซีลยาง ไม่ติดไฟ ไม่มีสารระเหย ไม่มีสารก่อมะเร็ง
-            <br />- ยืดหยุ่นได้ตามการเคลื่อนไหวต่อตัวรถเพิ่มน้ำหนักเบาไม่เกิน
-            2Kg./คัน
+            <br />- ยืดหยุ่นได้ตามการเคลื่อนไหวต่อตัวรถเพิ่มน้ำหนักเบาไม่เกิน 2Kg./คัน
             <br />- ลดเสียงรบกวนจากพื้นห้องโดยสารได้ 50-60%
             <br />- ไม่ต้องรื้อห้องโดยสาร
             <br />- ติดทนถาวร 10 ปี
@@ -132,7 +131,7 @@ const CoatingPageGun = () => {
       <div className="branch-theparak">
         <div className="text-box-theparak">
           <p>
-            ศูนย์พ่นกันสนิม GUN Protection
+            ศูนย์พ่นกันสนิม SP Rust Protection
             <br />
             สาขาลาดกระบัง
           </p>
@@ -153,9 +152,7 @@ const CoatingPageGun = () => {
             src="/assets/gun/latkrabang/gunlatkrabangpage.jpg"
             alt="page"
             onClick={() => {
-              window.open(
-                "https://www.facebook.com/profile.php?id=100063764464833",
-              );
+              window.open("https://www.facebook.com/profile.php?id=100063764464833");
             }}
           />
           <div className="content-preview-theparak">
@@ -183,7 +180,7 @@ const CoatingPageGun = () => {
       <div className="branch-theparak">
         <div className="text-box-theparak">
           <p>
-            ศูนย์พ่นกันสนิม GUN Protection
+            ศูนย์พ่นกันสนิม SP Rust Protection
             <br />
             สาขาเทพารักษ์
           </p>
@@ -206,9 +203,7 @@ const CoatingPageGun = () => {
             src="/assets/gun/gunpage.jpg"
             alt="page"
             onClick={() => {
-              window.open(
-                "https://www.facebook.com/profile.php?id=100088532146856",
-              );
+              window.open("https://www.facebook.com/profile.php?id=100088532146856");
             }}
           />
           <div className="content-preview-theparak">

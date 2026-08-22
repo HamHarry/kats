@@ -58,7 +58,7 @@ const LoginPageGun = () => {
         {/* Brand Header */}
         <div className="login-brand">
           <h1>SP Rust Protection</h1>
-          {/* <h1>GUN Protection</h1> */}
+          {/* <h1>SP Rust Protection</h1> */}
         </div>
 
         {/* Form Card */}
@@ -82,11 +82,7 @@ const LoginPageGun = () => {
               render={({ field }) => (
                 <>
                   <label className="field-label">Password</label>
-                  <input
-                    {...field}
-                    type="password"
-                    placeholder="กรอกรหัสผ่าน..."
-                  />
+                  <input {...field} type="password" placeholder="กรอกรหัสผ่าน..." />
                   <p className="error">{errors.password?.message}</p>
                 </>
               )}

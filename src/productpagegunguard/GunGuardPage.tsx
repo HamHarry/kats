@@ -14,22 +14,20 @@ const GunGuardPage = () => {
       <div className="content-guard">
         <div className="content-guard-inside">
           <div className="header-GuardPage">
-            <h1>Gun Guard</h1>
+            <h1>SP Rust Guard</h1>
           </div>
 
           <div className="text-box">
             <p>
-              <span>GUN PROTECTION GUARD</span>
+              <span>SP Rust PROTECTION GUARD</span>
               <br />
               ฉนวนชนิดหนึ่งเป็นวัสดุ Geo Polymer Microsphere ซึ่งมีความแตกต่าง
               <br />
-              กับฉนวนที่มีอยู่ในท้องตลอดปัจจุบัน
-              และพัฒนาขึ้นมาด้วยแนวคิดเพื่อเป็นสินค้า
+              กับฉนวนที่มีอยู่ในท้องตลอดปัจจุบัน และพัฒนาขึ้นมาด้วยแนวคิดเพื่อเป็นสินค้า
               <br />
               ในรูปแบบ Green Technology โดยมีตัวทำละลายเป็น Water Base
               <br />
-              Gun Guard ถูกคิดค้น วิจัย
-              และพัฒนาโดยทีมงานผู้เชี่ยวชาญด้านเคมีภัณฑ์
+              Gun Guard ถูกคิดค้น วิจัย และพัฒนาโดยทีมงานผู้เชี่ยวชาญด้านเคมีภัณฑ์
               <br />
               ที่มีประสบการณ์มากกว่า 30 ปี ในอุตสหกรรมด้านเคมีอุตสาหกรรม
             </p>
@@ -41,13 +39,7 @@ const GunGuardPage = () => {
           <img src="/assets/gun/gun3.jpg" alt="image" />
         </div>
 
-        <video
-          src="/assets/gun/roof/gunguard.mov"
-          autoPlay
-          loop
-          muted
-          controls
-        />
+        <video src="/assets/gun/roof/gunguard.mov" autoPlay loop muted controls />
       </div>
 
       <div className="header-GuardPage">

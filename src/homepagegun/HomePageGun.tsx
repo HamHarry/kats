@@ -9,14 +9,14 @@ const HomePageGun = () => {
       <div className="header-HomePageGun">
         <h1>
           ยินดีต้อนรับ <br />
-          ศูนย์พ่นกันสนิม Gun Protection สาขาลาดกระบัง
+          ศูนย์พ่นกันสนิม SP Rust Protection สาขาลาดกระบัง
         </h1>
       </div>
 
       <div className="centerGun">
         <div className="center-left">
           <h3>
-            <span>GUN PROTECTION</span>
+            <span>SP Rust PROTECTION</span>
             สถานบริการเฉพาะทางด้านการป้องกันและชะลอการเกิดสนิมใต้ท้องรถยนต์
             <br />
             โดยเน้นการดูแลบริเวณใต้ท้องรถ โครงสร้างแชสซี ซอกมุม
