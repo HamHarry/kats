@@ -136,7 +136,8 @@ const WithdrawAdminPage = () => {
           ...selectedExpenseData,
           datePrice: dayjs().toISOString(),
           status: ExpenseStatus.APPROVE,
-          slip: slipImageName.trim(),
+          // ถ้าไม่ได้แนบสลิปใหม่ ให้คงของเดิมไว้ ไม่งั้น server จะลบไฟล์เดิมทิ้ง
+          slip: slipImageName.trim() || selectedExpenseData.slip,
         }),
       ).unwrap();
     } catch (error) {

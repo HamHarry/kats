@@ -87,8 +87,6 @@ const CalendarAdminPage = () => {
   }) => {
     const { status, label, isBG = false } = payload;
 
-    console.log(status, label);
-
     return (
       <div
         className={`flex gap-1 rounded-md ${
@@ -114,13 +112,14 @@ const CalendarAdminPage = () => {
         item: BookingData,
       ) => {
         if (item.guarantees?.length) {
-          item.guarantees?.map((guarantee) => {
-            const { status, serviceDate, serviceTime } = guarantee;
+          item.guarantees?.forEach((guarantee) => {
+            const { serviceDate, serviceTime } = guarantee;
 
             const label = `${serviceTime} ${item.carType} ${item.carModel}`;
 
             if (dayjs(serviceDate).isSame(current, "date")) {
-              prev.push({ status, label });
+              // ใช้สถานะของ booking ไม่ใช่ของ guarantee แต่ละครั้ง
+              prev.push({ status: item.status, label });
             }
           });
         } else {

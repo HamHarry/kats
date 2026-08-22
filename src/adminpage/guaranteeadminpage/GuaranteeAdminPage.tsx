@@ -11,7 +11,6 @@ import {
   getAllBookingPaginations,
   getBookingById,
   isDeleteBookingById,
-  setBookingUpdateImg,
   updateGuaranteeByBookingId,
 } from "../../stores/slices/bookingSlice";
 import dayjs from "dayjs";
@@ -175,12 +174,16 @@ const GuaranteeAdminPage = () => {
       let imageName = "";
       if (imageFile) {
         imageName = await uploadFile(imageFile);
-        dispath(setBookingUpdateImg({ imageName }));
       }
       await dispath(
         updateGuaranteeByBookingId({
           bookingId: booking._id,
-          data: { ...booking, guarantees: filterGuarantees, image: imageName },
+          data: {
+            ...booking,
+            guarantees: filterGuarantees,
+            // ถ้าไม่ได้เลือกรูปใหม่ ให้คงรูปเดิมไว้ ไม่งั้น server จะลบไฟล์เดิมทิ้ง
+            image: imageName || booking.image,
+          },
         }),
       ).unwrap();
       setOpenDialogProfile(false);

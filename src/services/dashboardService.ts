@@ -1,3 +1,9 @@
+import { ApiResponse } from "../model/api.type";
+import {
+  BookingsRevenue,
+  DashboardSummary,
+  ExpensesByCategory,
+} from "../model/dashboard.type";
 import { HttpClient } from "../shared/utils/HttpClient";
 import { DashboardDateParams } from "../stores/slices/dashboardSlice";
 
@@ -18,19 +24,19 @@ const buildQueryParams = (params: DashboardDateParams): string => {
   return queryString ? `?${queryString}` : "";
 };
 
-export const getDashboardSummary = async (params: DashboardDateParams): Promise<any> => {
+export const getDashboardSummary = async (params: DashboardDateParams): ApiResponse<DashboardSummary> => {
   const queryString = buildQueryParams(params);
   const response = await HttpClient.get(`/dashboard/summary${queryString}`);
   return response;
 };
 
-export const getDashboardBookingsRevenue = async (params: DashboardDateParams): Promise<any> => {
+export const getDashboardBookingsRevenue = async (params: DashboardDateParams): ApiResponse<BookingsRevenue> => {
   const queryString = buildQueryParams(params);
   const response = await HttpClient.get(`/dashboard/bookings-revenue${queryString}`);
   return response;
 };
 
-export const getDashboardExpensesByCategory = async (params: DashboardDateParams): Promise<any> => {
+export const getDashboardExpensesByCategory = async (params: DashboardDateParams): ApiResponse<ExpensesByCategory> => {
   const queryString = buildQueryParams(params);
   const response = await HttpClient.get(`/dashboard/expenses-by-category${queryString}`);
   return response;

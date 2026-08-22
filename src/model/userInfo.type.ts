@@ -1,3 +1,23 @@
+import { EmployeeData } from "./employee.type";
+
+export interface LoginRequestData {
+  email: string;
+  password: string;
+}
+
+export interface LoginResponseData {
+  user: UserData;
+  accessToken: string;
+  expiresIn: number;
+  refreshToken: string;
+  refreshExpiresIn: number;
+}
+
+export interface UserProfileData {
+  userInfo?: UserData;
+  employee?: EmployeeData;
+}
+
 export interface UserData {
   _id: string;
   firstName: string;

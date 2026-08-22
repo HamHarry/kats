@@ -1,14 +1,12 @@
-import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import * as bookingServices from "../../services/bookingService";
 import { BookingData } from "../../model/booking.type";
 import { DeleteStatus } from "../../model/delete.type";
 
-export interface BookingImageUpdateForm {
-  imageName?: string;
-}
-
+// NOTE: slice นี้ยังไม่ได้ register ใน store.ts จึงมีแต่ thunk ที่ถูกใช้จริง
+// ถ้าจะเก็บ state ของ booking ต้องเพิ่ม bookingReducer เข้า store ก่อน
 export interface BookingState {
-  bookingUpdateImg?: BookingImageUpdateForm;
+  [key: string]: never;
 }
 
 const initialState: BookingState = {};
@@ -16,11 +14,7 @@ const initialState: BookingState = {};
 const bookingSlice = createSlice({
   name: "documentInfoSlice",
   initialState,
-  reducers: {
-    setBookingUpdateImg: (state, action: PayloadAction<BookingImageUpdateForm | undefined>) => {
-      state.bookingUpdateImg = action.payload;
-    },
-  },
+  reducers: {},
   extraReducers() {},
 });
 
@@ -83,7 +77,5 @@ export const getLastBookingNumber = createAsyncThunk("booking/getLastBookingNumb
   const response = await bookingServices.getLastBookingNumber();
   return response;
 });
-
-export const { setBookingUpdateImg } = bookingSlice.actions;
 
 export default bookingSlice.reducer;

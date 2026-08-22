@@ -3,6 +3,7 @@ import dayjs from "dayjs";
 import Cookies from "js-cookie";
 import join from "url-join";
 import { cookieConstants } from "../../constants";
+import { AuthTokens, setAuthCookies } from "./authCookie";
 
 const isAbsoluteURLRegex = /^(?:\w+:)\/\//;
 const axiosApiInstance = axios.create();
@@ -33,19 +34,17 @@ axiosApiInstance.interceptors.request.use(async (config) => {
       if (isExpired) {
         try {
           const refreshTokenCookie = Cookies.get(cookieConstants.REFRESH_TOKEN_KEY);
+          if (!refreshTokenCookie) throw new Error("ไม่พบ refresh token");
+
           const refreshUrl = `${import.meta.env.VITE_BASE_SERVER_URL}/auth/refresh-token`;
-          const { data: response } = await axiosRefreshInstance.post(refreshUrl, {
+          // server คืน token ชุดใหม่มาตรง ๆ ไม่ได้ห่อใน { data }
+          const { data: tokens } = await axiosRefreshInstance.post<AuthTokens>(refreshUrl, {
             refreshToken: refreshTokenCookie,
           });
-          
-          const { accessToken, expiresIn, refreshToken, refreshExpiresIn } = response.data;
-          
-          if (accessToken) {
-            config.headers['Authorization'] = `Bearer ${accessToken}`;
-            Cookies.set(cookieConstants.TOKEN_KEY, accessToken);
-            Cookies.set(cookieConstants.TOKEN_EXPIRES_IN, expiresIn);
-            Cookies.set(cookieConstants.REFRESH_TOKEN_KEY, refreshToken);
-            Cookies.set(cookieConstants.REFRESH_TOKEN_EXPIRES_IN, refreshExpiresIn);
+
+          if (tokens?.accessToken) {
+            config.headers['Authorization'] = `Bearer ${tokens.accessToken}`;
+            setAuthCookies(tokens);
           }
         } catch (error) {
           return Promise.reject(error);

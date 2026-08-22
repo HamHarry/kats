@@ -15,7 +15,6 @@ import { getAllProducts } from "../../stores/slices/productSlice";
 import dayjs from "dayjs";
 import {
   getBookingById,
-  setBookingUpdateImg,
   updateBookingById,
 } from "../../stores/slices/bookingSlice";
 import CircleLoading from "../../shared/circleLoading";
@@ -176,7 +175,6 @@ const EditGuaranteeAdminPage = () => {
 
       if (imageFile) {
         imageName = await uploadFile(imageFile);
-        dispath(setBookingUpdateImg({ imageName: imageName }));
       }
 
       const item = {
