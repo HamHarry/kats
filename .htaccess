@@ -1,0 +1,16 @@
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+
+# ถ้าเป็นไฟล์จริง (เช่น .js, .css, รูปภาพ) ให้ใช้ไฟล์นั้น
+
+RewriteCond %{REQUEST_FILENAME} !-f
+
+# ถ้าเป็นโฟลเดอร์จริง ให้ใช้โฟลเดอร์นั้น
+
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# นอกนั้นส่งไปที่ index.html
+
+RewriteRule ^ index.html [L]
+</IfModule>
