@@ -17,7 +17,7 @@ const MobileCalendar = ({ bookingData }: MobileCalendarProps) => {
       case BookingStatus.PENDING:
         return "warning";
       case BookingStatus.CHECKING:
-        return "warning";
+        return "default";
       case BookingStatus.PAID:
         return "processing";
       case BookingStatus.COMPLETED:
@@ -99,12 +99,26 @@ const MobileCalendar = ({ bookingData }: MobileCalendarProps) => {
           ←
         </button>
         <div className="relative">
-          <h2 className="cursor-pointer select-none" onClick={() => setIsPickerOpen(true)}>
+          <h2
+            className="cursor-pointer select-none"
+            onClick={() => setIsPickerOpen(true)}
+          >
             {currentDate.format("MMMM YYYY")}
           </h2>
 
-          <div className="absolute top-0 left-0" style={{ visibility: "hidden", width: 0, height: 0 }}>
-            <DatePicker picker="month" value={currentDate} onChange={handleDateChange} format="MMMM YYYY" open={isPickerOpen} onOpenChange={setIsPickerOpen} getPopupContainer={() => document.body} />
+          <div
+            className="absolute top-0 left-0"
+            style={{ visibility: "hidden", width: 0, height: 0 }}
+          >
+            <DatePicker
+              picker="month"
+              value={currentDate}
+              onChange={handleDateChange}
+              format="MMMM YYYY"
+              open={isPickerOpen}
+              onOpenChange={setIsPickerOpen}
+              getPopupContainer={() => document.body}
+            />
           </div>
         </div>
         <button onClick={handleNextMonth} className="nav-btn">
@@ -119,18 +133,30 @@ const MobileCalendar = ({ bookingData }: MobileCalendarProps) => {
           const isToday = day.isSame(dayjs(), "date");
 
           return (
-            <div key={day.format("YYYY-MM-DD")} className={`calendar-day-card ${isToday ? "is-today" : ""}`}>
+            <div
+              key={day.format("YYYY-MM-DD")}
+              className={`calendar-day-card ${isToday ? "is-today" : ""}`}
+            >
               <div className="day-header">
                 <span className="day-number">{day.date()}</span>
-                <span className={`day-name ${isToday ? "text-[#043929]!" : ""}`}>{day.format("ddd")}</span>
+                <span
+                  className={`day-name ${isToday ? "text-[#043929]!" : ""}`}
+                >
+                  {day.format("ddd")}
+                </span>
               </div>
 
               {bookings.length > 0 ? (
                 <div className={`bookings-list`}>
                   {bookings.map((booking, idx) => (
-                    <div key={idx} className={`booking-item-mobile ${isToday ? "bg-[#def1eb]" : "bg-[#00966408]"}`}>
+                    <div
+                      key={idx}
+                      className={`booking-item-mobile ${isToday ? "bg-[#def1eb]" : "bg-[#00966408]"}`}
+                    >
                       <Badge status={getStatus(booking.status)} />
-                      <Typography className="booking-text">{booking.label}</Typography>
+                      <Typography className="booking-text">
+                        {booking.label}
+                      </Typography>
                     </div>
                   ))}
                 </div>

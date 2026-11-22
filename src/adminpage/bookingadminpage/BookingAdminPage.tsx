@@ -56,6 +56,7 @@ const BookingAdminPage = () => {
   const [openDialogPay, setOpenDialogPay] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedReceiptBookNo, setSelectedReceiptBookNo] = useState("all");
+  const [selectedReceiptStatus, setSelectedReceiptStatus] = useState("all");
 
   /* ── data fetching ──────────────────────────────────── */
   const fetchAllBooking = useCallback(async () => {
@@ -65,6 +66,8 @@ const BookingAdminPage = () => {
         getAllBookingPaginations({
           term: searchTerm,
           receiptBookNo: selectedReceiptBookNo,
+          status: selectedReceiptStatus,
+          //todo เพิ่ม filter status ด้วย
         }),
       ).unwrap();
       setBookingDatas(
@@ -77,7 +80,7 @@ const BookingAdminPage = () => {
     } finally {
       setIsBookingLoading(false);
     }
-  }, [dispath, searchTerm, selectedReceiptBookNo]);
+  }, [dispath, searchTerm, selectedReceiptBookNo, selectedReceiptStatus]);
 
   useEffect(() => {
     fetchAllBooking();
@@ -155,6 +158,10 @@ const BookingAdminPage = () => {
     .map((b) => b.receiptBookNo)
     .filter((v, i, s) => s.indexOf(v) === i);
 
+  const receiptStatus = bookingDataLites
+    .map((b) => b.status)
+    .filter((v, i, s) => s.indexOf(v) === i);
+
   /* ── render ─────────────────────────────────────────── */
   return (
     <div className="container-BookingAdmin">
@@ -171,6 +178,25 @@ const BookingAdminPage = () => {
             {receiptBookNoList.map((item, i) => (
               <option key={i} value={item}>
                 {item}
+              </option>
+            ))}
+          </select>
+
+          <select onChange={(e) => setSelectedReceiptStatus(e.target.value)}>
+            <option value="all">{t("ทั้งหมด")}</option>
+            {receiptStatus.map((item, i) => (
+              <option key={i} value={item}>
+                {item === BookingStatus.PENDING
+                  ? "รอดำเนินการ"
+                  : item === BookingStatus.PAID
+                    ? "ชำระแล้ว"
+                    : item === BookingStatus.COMPLETED
+                      ? "เสร็จสิ้น"
+                      : item === BookingStatus.CANCELED
+                        ? "ยกเลิก"
+                        : item === BookingStatus.CHECKING
+                          ? "ตรวจสอบ"
+                          : "ไม่ทราบ"}
               </option>
             ))}
           </select>

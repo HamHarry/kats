@@ -78,6 +78,12 @@
   flex-wrap: wrap;
 }
 
+.btn-menu {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
 .btn-menu select {
   appearance: none;
   background: #ffffff;
