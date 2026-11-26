@@ -132,10 +132,11 @@ const CreateWithdrawAdminPage = () => {
         navigate("/admin/withdraw");
       } else {
         await dispath(createExpense(item)).unwrap();
-        navigate("/admin/withdraw");
       }
     } catch (error) {
       console.log(error);
+    } finally {
+      navigate("/admin/withdraw");
     }
   };
 

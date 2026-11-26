@@ -1,6 +1,6 @@
 import { Controller, useForm } from "react-hook-form";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { DatePicker, Modal, Select } from "antd";
+import { AutoComplete, DatePicker, Modal, Select } from "antd";
 import {
   PRICE_TYPE,
   ProductData,
@@ -24,6 +24,7 @@ import { getImagePath } from "../../shared/utils/common";
 import { useSelector } from "react-redux";
 import { userInfoSelector } from "../../stores/slices/authSlice";
 import { uploadFile } from "../../services/coreService";
+import { ProvinceData } from "../../data/Province";
 
 export interface BookingForm extends Omit<
   BookingData,
@@ -74,6 +75,7 @@ const EditGuaranteeAdminPage = () => {
   const [priceData, setPriceData] = useState<ProductDetail[]>([]);
   const [productDatas, setProductDatas] = useState<ProductData[]>([]);
   const [timeData] = useState(bookingTimeList);
+  const [provinceData] = useState(ProvinceData);
   const [openDialogConfirm, setOpenDialogConfirm] = useState<boolean>(false);
   const [isBookingLoading, setIsBookingLoading] = useState<boolean>(false);
   const [imageFile, setImageFile] = useState<File | null>();
@@ -432,10 +434,26 @@ const EditGuaranteeAdminPage = () => {
                 return (
                   <div className="inputProvince">
                     <div style={{ width: "120px" }}>
-                      <h2>จังหวัด</h2>
+                      <h2>{"จังหวัด"}</h2>
                     </div>
 
-                    <input {...field} type="text" />
+                    <AutoComplete
+                      className="select-product"
+                      placeholder="ค้นหาจังหวัด"
+                      allowClear
+                      value={field.value || undefined}
+                      onChange={(value) => field.onChange(value)}
+                      onBlur={field.onBlur}
+                      options={provinceData.map((item) => ({
+                        label: item.name,
+                        value: item.name,
+                      }))}
+                      filterOption={(inputValue, option) =>
+                        (option?.value as string)
+                          .toLowerCase()
+                          .includes(inputValue.toLowerCase())
+                      }
+                    />
                   </div>
                 );
               }}

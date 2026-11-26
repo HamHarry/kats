@@ -1,15 +1,25 @@
 import { Controller, useForm } from "react-hook-form";
 import "./CreateBookingAdminPage.css";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { DatePicker, Modal, Select } from "antd";
-import { PRICE_TYPE, ProductData, ProductDetail, ProductSnapshotData } from "../../model/product.type";
+import { AutoComplete, DatePicker, Modal, Select } from "antd";
+import {
+  PRICE_TYPE,
+  ProductData,
+  ProductDetail,
+  ProductSnapshotData,
+} from "../../model/product.type";
 import { BookingStatus, BookingData } from "../../model/booking.type";
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { CloseCircleOutlined, FileAddFilled } from "@ant-design/icons";
 import { useAppDispatch } from "../../stores/store";
 import { getAllProducts } from "../../stores/slices/productSlice";
 import dayjs from "dayjs";
-import { createBooking, getBookingById, getLastBookingNumber, updateBookingById } from "../../stores/slices/bookingSlice";
+import {
+  createBooking,
+  getBookingById,
+  getLastBookingNumber,
+  updateBookingById,
+} from "../../stores/slices/bookingSlice";
 import CircleLoading from "../../shared/circleLoading";
 import { DeleteStatus } from "../../model/delete.type";
 import { useTranslation } from "react-i18next";
@@ -17,8 +27,12 @@ import { uploadFile } from "../../services/coreService";
 import { getImagePath } from "../../shared/utils/common";
 import { useSelector } from "react-redux";
 import { userInfoSelector } from "../../stores/slices/authSlice";
+import { ProvinceData } from "../../data/Province";
 
-export interface BookingForm extends Omit<BookingData, "product" | "price" | "bookDate"> {
+export interface BookingForm extends Omit<
+  BookingData,
+  "product" | "price" | "bookDate"
+> {
   productId: string;
   price: number;
   bookDate: dayjs.Dayjs;
@@ -72,6 +86,7 @@ const CreateBookingAdminPage = () => {
   const [priceData, setPriceData] = useState<ProductDetail[]>([]);
   const [productDatas, setProductDatas] = useState<ProductData[]>([]);
   const [timeData] = useState(bookingTimeList);
+  const [provinceData] = useState(ProvinceData);
   const [openDialogConfirm, setOpenDialogConfirm] = useState<boolean>(false);
   const [isBookingLoading, setIsBookingLoading] = useState<boolean>(false);
   const [imageFile, setImageFile] = useState<File | null>();
@@ -158,7 +173,8 @@ const CreateBookingAdminPage = () => {
   const fetchAllProduct = useCallback(async () => {
     try {
       setIsBookingLoading(true);
-      const { data: productsRes = [] } = await dispath(getAllProducts()).unwrap();
+      const { data: productsRes = [] } =
+        await dispath(getAllProducts()).unwrap();
 
       setProductDatas(productsRes);
     } catch (error) {
@@ -185,7 +201,9 @@ const CreateBookingAdminPage = () => {
     try {
       setOpenDialogConfirm(false);
 
-      const findedProduct = productDatas?.find((item) => String(item._id) === String(value.productId));
+      const findedProduct = productDatas?.find(
+        (item) => String(item._id) === String(value.productId),
+      );
 
       if (!findedProduct) return;
 
@@ -245,11 +263,18 @@ const CreateBookingAdminPage = () => {
 
   const rederDialogConfirm = () => {
     return (
-      <Modal centered className="wrap-container-DialogConfirm" open={openDialogConfirm} onCancel={() => setOpenDialogConfirm(false)}>
+      <Modal
+        centered
+        className="wrap-container-DialogConfirm"
+        open={openDialogConfirm}
+        onCancel={() => setOpenDialogConfirm(false)}
+      >
         <h1>{t("ยืนยันการจอง")}</h1>
 
         <div className="btn-DialogConfirm-Navbar">
-          <button onClick={() => formRef.current?.requestSubmit()}>{t("ยืนยัน")}</button>
+          <button onClick={() => formRef.current?.requestSubmit()}>
+            {t("ยืนยัน")}
+          </button>
           <button
             className="btn-edit-dialogConfirm"
             onClick={() => {
@@ -268,7 +293,11 @@ const CreateBookingAdminPage = () => {
       <div className="header-CreateAdmin">
         <h1>{bookingId ? "แก้ไขการจอง" : "สร้างการจอง"}</h1>
       </div>
-      <form className="content-CreateAdmin" onSubmit={handleSubmit(submit)} ref={formRef}>
+      <form
+        className="content-CreateAdmin"
+        onSubmit={handleSubmit(submit)}
+        ref={formRef}
+      >
         <div className="btn-back">
           <button
             type="button"
@@ -456,10 +485,26 @@ const CreateBookingAdminPage = () => {
                   return (
                     <div className="inputProvince">
                       <div style={{ width: "120px" }}>
-                        <h2>{t("จังหวัด")}</h2>
+                        <h2>{"จังหวัด"}</h2>
                       </div>
 
-                      <input {...field} type="text" />
+                      <AutoComplete
+                        className="select-product"
+                        placeholder="ค้นหาจังหวัด"
+                        allowClear
+                        value={field.value || undefined}
+                        onChange={(value) => field.onChange(value)}
+                        onBlur={field.onBlur}
+                        options={provinceData.map((item) => ({
+                          label: item.name,
+                          value: item.name,
+                        }))}
+                        filterOption={(inputValue, option) =>
+                          (option?.value as string)
+                            .toLowerCase()
+                            .includes(inputValue.toLowerCase())
+                        }
+                      />
                     </div>
                   );
                 }}
@@ -485,7 +530,9 @@ const CreateBookingAdminPage = () => {
                         onSelect={(value) => {
                           field.onChange(value);
 
-                          const findedProduct = productDatas?.find((item) => String(item._id) === String(value));
+                          const findedProduct = productDatas?.find(
+                            (item) => String(item._id) === String(value),
+                          );
 
                           if (findedProduct) {
                             setPriceData(findedProduct?.productDetails as any);

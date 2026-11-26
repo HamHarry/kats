@@ -1,11 +1,8 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import dayjs from "dayjs";
 import { useAppDispatch } from "../../stores/store";
 import { getDashboardSummary } from "../../stores/slices/dashboardSlice";
-import {
-  DashboardSummary,
-  ExpensesByCategory,
-} from "../../model/dashboard.type";
+import { DashboardSummary } from "../../model/dashboard.type";
 import CircleLoading from "../../shared/circleLoading";
 import { formatNumberWithComma } from "../../shared/utils/common";
 import "./FinanceAdminPage.css";
@@ -55,6 +52,108 @@ const COLORS = [
   "#84cc16",
 ];
 
+const thaiMonthsShort = [
+  "ม.ค.",
+  "ก.พ.",
+  "มี.ค.",
+  "เม.ย.",
+  "พ.ค.",
+  "มิ.ย.",
+  "ก.ค.",
+  "ส.ค.",
+  "ก.ย.",
+  "ต.ค.",
+  "พ.ย.",
+  "ธ.ค.",
+];
+
+// จำกัดจำนวนเดือนสูงสุดที่เลือกได้ (1 เดือน = 1 request)
+const MAX_RANGE_MONTHS = 36;
+
+type PeriodType = "month" | "year" | "range";
+
+interface RangeSummary {
+  bookingsRevenue: { totalRevenue: number; bookingCount: number };
+  bookingsRevenuePending: { totalRevenue: number; bookingCount: number };
+  expensesByCategory: Record<string, number>;
+  netProfit: number;
+  monthlyChartData: {
+    month: string;
+    revenue: number;
+    expenses: number;
+    netProfit: number;
+  }[];
+  yearlyChartData: {
+    year: string;
+    revenue: number;
+    expenses: number;
+    netProfit: number;
+  }[];
+}
+
+// รวมข้อมูลรายเดือนหลายเดือนให้เป็นสรุปเดียว
+const buildRangeSummary = (
+  months: { label: string; year: string; data: any }[],
+): RangeSummary => {
+  const expensesByCategory: Record<string, number> = { total: 0 };
+  Object.keys(expenseCategoryLabels).forEach((k) => {
+    expensesByCategory[k] = 0;
+  });
+
+  const summary: RangeSummary = {
+    bookingsRevenue: { totalRevenue: 0, bookingCount: 0 },
+    bookingsRevenuePending: { totalRevenue: 0, bookingCount: 0 },
+    expensesByCategory,
+    netProfit: 0,
+    monthlyChartData: [],
+    yearlyChartData: [],
+  };
+  const yearMap: Record<
+    string,
+    { year: string; revenue: number; expenses: number; netProfit: number }
+  > = {};
+
+  months.forEach(({ label, year, data }) => {
+    const revenue = data?.bookingsRevenue?.totalRevenue || 0;
+    const expenses = data?.expensesByCategory?.total || 0;
+    const netProfit = data?.netProfit ?? revenue - expenses;
+
+    summary.bookingsRevenue.totalRevenue += revenue;
+    summary.bookingsRevenue.bookingCount +=
+      data?.bookingsRevenue?.bookingCount || 0;
+    summary.bookingsRevenuePending.totalRevenue +=
+      data?.bookingsRevenuePending?.totalRevenue || 0;
+    summary.bookingsRevenuePending.bookingCount +=
+      data?.bookingsRevenuePending?.bookingCount || 0;
+    summary.netProfit += netProfit;
+
+    Object.keys(expensesByCategory).forEach((k) => {
+      expensesByCategory[k] += data?.expensesByCategory?.[k] || 0;
+    });
+
+    summary.monthlyChartData.push({
+      month: label,
+      revenue,
+      expenses,
+      netProfit,
+    });
+
+    // รวมยอดรายปีสำหรับกราฟ
+    if (!yearMap[year]) {
+      yearMap[year] = { year, revenue: 0, expenses: 0, netProfit: 0 };
+    }
+    yearMap[year].revenue += revenue;
+    yearMap[year].expenses += expenses;
+    yearMap[year].netProfit += netProfit;
+  });
+
+  summary.yearlyChartData = Object.values(yearMap).sort((a, b) =>
+    a.year.localeCompare(b.year),
+  );
+
+  return summary;
+};
+
 const monthlyChartDataMock = [
   { month: "ม.ค." },
   { month: "ก.พ." },
@@ -75,14 +174,21 @@ const FinanceAdminPage = () => {
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [summaryData, setSummaryData] = useState<DashboardSummary>();
-  const [period, setPeriod] = useState<"month" | "year">("month");
+  const [period, setPeriod] = useState<PeriodType>("month");
   const [startDate, setStartDate] = useState<string>(
     dayjs().startOf("month").format("YYYY-MM-DD"),
   );
   const [endDate, setEndDate] = useState<string>(
     dayjs().endOf("month").format("YYYY-MM-DD"),
   );
-  const [expenseDetails, setExpenseDetails] = useState<any[]>([]);
+  // ── โหมดช่วงเวลาแบบกำหนดเอง (เช่น ม.ค. 2025 – มี.ค. 2026) ──
+  const [rangeStart, setRangeStart] = useState<string>(
+    dayjs().subtract(1, "year").startOf("year").format("YYYY-MM"),
+  );
+  const [rangeEnd, setRangeEnd] = useState<string>(dayjs().format("YYYY-MM"));
+  const [rangeSummary, setRangeSummary] = useState<RangeSummary>();
+  const [rangeError, setRangeError] = useState<string>("");
+  const rangeRequestId = useRef(0);
   const [selectedYear, setSelectedYear] = useState<string>(
     dayjs().format("YYYY"),
   );
@@ -95,7 +201,6 @@ const FinanceAdminPage = () => {
           getDashboardSummary({ startDate: start, endDate: end, period }),
         ).unwrap();
         setSummaryData(SummaryDataRes);
-        generateExpenseDetails(SummaryDataRes, period);
       } catch (error) {
         console.log(error);
       } finally {
@@ -105,29 +210,66 @@ const FinanceAdminPage = () => {
     [dispatch, period],
   );
 
-  const generateExpenseDetails = (
-    data: DashboardSummary,
-    selectedPeriod: "month" | "year",
-  ) => {
-    const periodData = selectedPeriod === "month" ? data?.month : data?.year;
-    if (!periodData?.expensesByCategory) return;
-    const expenses = periodData.expensesByCategory;
-    const details = Object.entries(expenseCategoryLabels).map(
-      ([key, label]) => {
-        const amount = expenses[key as keyof ExpensesByCategory] as number;
-        return {
-          key,
-          category: label,
-          amount: amount || 0,
-          percentage:
-            expenses.total > 0
-              ? (((amount || 0) / expenses.total) * 100).toFixed(2)
-              : "0.00",
-        };
-      },
-    );
-    setExpenseDetails(details.filter((item) => item.amount > 0));
-  };
+  // ดึงข้อมูลทีละเดือนในช่วงที่เลือก แล้วรวมเป็นสรุปเดียว
+  const fetchRangeSummary = useCallback(
+    async (from: string, to: string) => {
+      const start = dayjs(`${from}-01`);
+      const end = dayjs(`${to}-01`);
+
+      // ยกเลิกผลของ request เก่าที่ยังค้างอยู่
+      const requestId = ++rangeRequestId.current;
+
+      if (!from || !to || !start.isValid() || !end.isValid()) {
+        setRangeSummary(undefined);
+        setRangeError("กรุณาเลือกเดือนเริ่มต้นและเดือนสิ้นสุด");
+        setIsLoading(false);
+        return;
+      }
+      if (end.isBefore(start)) {
+        setRangeSummary(undefined);
+        setRangeError("เดือนสิ้นสุดต้องไม่อยู่ก่อนเดือนเริ่มต้น");
+        setIsLoading(false);
+        return;
+      }
+      const monthCount = end.diff(start, "month") + 1;
+      if (monthCount > MAX_RANGE_MONTHS) {
+        setRangeSummary(undefined);
+        setRangeError(`เลือกช่วงเวลาได้สูงสุด ${MAX_RANGE_MONTHS} เดือน`);
+        setIsLoading(false);
+        return;
+      }
+
+      setRangeError("");
+      try {
+        setIsLoading(true);
+        const results = await Promise.all(
+          Array.from({ length: monthCount }, (_, i) => {
+            const m = start.add(i, "month");
+            return dispatch(
+              getDashboardSummary({
+                startDate: m.startOf("month").format("YYYY-MM-DD"),
+                endDate: m.endOf("month").format("YYYY-MM-DD"),
+                period: "month",
+              }),
+            )
+              .unwrap()
+              .then((res) => ({
+                label: `${thaiMonthsShort[m.month()]} ${m.year()}`,
+                year: String(m.year()),
+                data: res.data?.month,
+              }));
+          }),
+        );
+        if (requestId !== rangeRequestId.current) return;
+        setRangeSummary(buildRangeSummary(results));
+      } catch (error) {
+        console.log(error);
+      } finally {
+        if (requestId === rangeRequestId.current) setIsLoading(false);
+      }
+    },
+    [dispatch],
+  );
 
   useEffect(() => {
     if (period === "month") fetchSummaryData(startDate, endDate);
@@ -141,13 +283,39 @@ const FinanceAdminPage = () => {
     }
   }, [selectedYear, period, fetchSummaryData]);
 
-  const handlePeriodChange = (newPeriod: "month" | "year") => {
+  useEffect(() => {
+    if (period === "range") fetchRangeSummary(rangeStart, rangeEnd);
+  }, [period, rangeStart, rangeEnd, fetchRangeSummary]);
+
+  const handlePeriodChange = (newPeriod: PeriodType) => {
     setPeriod(newPeriod);
-    if (summaryData) generateExpenseDetails(summaryData, newPeriod);
   };
 
-  const currentData =
-    period === "month" ? summaryData?.month : summaryData?.year;
+  const currentData = (period === "range"
+    ? rangeSummary
+    : period === "month"
+      ? summaryData?.month
+      : summaryData?.year) as unknown as RangeSummary | undefined;
+
+  const rangeMonthCount = rangeSummary?.monthlyChartData.length || 0;
+  const rangeLabel = `${thaiMonthsShort[dayjs(`${rangeStart}-01`).month()]} ${dayjs(`${rangeStart}-01`).year()} – ${thaiMonthsShort[dayjs(`${rangeEnd}-01`).month()]} ${dayjs(`${rangeEnd}-01`).year()}`;
+
+  const expenseDetails = useMemo(() => {
+    const expenses = currentData?.expensesByCategory;
+    if (!expenses) return [];
+    const total = expenses.total || 0;
+    return Object.entries(expenseCategoryLabels)
+      .map(([key, label]) => {
+        const amount = expenses[key] || 0;
+        return {
+          key,
+          category: label,
+          amount,
+          percentage: total > 0 ? ((amount / total) * 100).toFixed(2) : "0.00",
+        };
+      })
+      .filter((item) => item.amount > 0);
+  }, [currentData]);
   const totalRevenue = currentData?.bookingsRevenue.totalRevenue || 0;
   const pendingRevenue = currentData?.bookingsRevenuePending.totalRevenue || 0;
   const totalExpenses = currentData?.expensesByCategory.total || 0;
@@ -199,6 +367,12 @@ const FinanceAdminPage = () => {
             >
               รายปี
             </button>
+            <button
+              className={`finance-period-btn${period === "range" ? " active" : ""}`}
+              onClick={() => handlePeriodChange("range")}
+            >
+              สรุปทั้งหมด
+            </button>
           </div>
 
           {/* Year selector */}
@@ -219,25 +393,54 @@ const FinanceAdminPage = () => {
             </select>
           )}
 
-          {/* Date range */}
-          <div className="finance-date-range">
-            <Calendar size={16} />
-            <input
-              type="date"
-              value={startDate}
-              onChange={(e) => setStartDate(e.target.value)}
-            />
-            <span className="date-sep">–</span>
-            <input
-              type="date"
-              value={endDate}
-              onChange={(e) => setEndDate(e.target.value)}
-            />
-          </div>
+          {/* Date range (รายเดือน) */}
+          {period === "month" && (
+            <div className="finance-date-range">
+              <Calendar size={16} />
+              <input
+                type="date"
+                value={startDate}
+                onChange={(e) => setStartDate(e.target.value)}
+              />
+              <span className="date-sep">–</span>
+              <input
+                type="date"
+                value={endDate}
+                onChange={(e) => setEndDate(e.target.value)}
+              />
+            </div>
+          )}
+
+          {/* Month range (ช่วงเวลา เช่น 2025-2026) */}
+          {period === "range" && (
+            <div className="finance-date-range">
+              <Calendar size={16} />
+              <input
+                type="month"
+                value={rangeStart}
+                max={rangeEnd}
+                onChange={(e) => setRangeStart(e.target.value)}
+              />
+              <span className="date-sep">–</span>
+              <input
+                type="month"
+                value={rangeEnd}
+                min={rangeStart}
+                onChange={(e) => setRangeEnd(e.target.value)}
+              />
+            </div>
+          )}
         </div>
       </div>
 
       <div className="wrap-container-financeAdminPage">
+        {period === "range" && (
+          <p className={`finance-range-note${rangeError ? " error" : ""}`}>
+            {rangeError ||
+              `สรุปยอดรวม ${rangeLabel} (${rangeMonthCount} เดือน)`}
+          </p>
+        )}
+
         {/* ── Summary Cards ────────────────────────────── */}
         <div className="finance-summary-cards">
           {/* Revenue */}
@@ -330,14 +533,73 @@ const FinanceAdminPage = () => {
                 <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
               </svg>
               <h2>
-                {period === "year"
-                  ? "รายรับ-รายจ่ายรายเดือน"
-                  : "ภาพรวมรายรับ-รายจ่าย"}
+                {period === "month"
+                  ? "ภาพรวมรายรับ-รายจ่าย"
+                  : period === "range"
+                    ? "รายรับ-รายจ่ายรายปี"
+                    : "รายรับ-รายจ่ายรายเดือน"}
               </h2>
             </div>
             <div className="finance-panel-body">
               <ResponsiveContainer width="100%" height={360}>
-                {period === "year" ? (
+                {period === "range" ? (
+                  <BarChart
+                    data={rangeSummary?.yearlyChartData || []}
+                    margin={{ top: 10, right: 20, bottom: 10, left: 10 }}
+                  >
+                    <CartesianGrid
+                      strokeDasharray="3 3"
+                      stroke="rgba(0,150,100,0.1)"
+                    />
+                    <XAxis
+                      dataKey="year"
+                      tick={{
+                        fontFamily: "Sarabun",
+                        fontSize: 13,
+                        fill: "#4a7a5e",
+                      }}
+                    />
+                    <YAxis
+                      tick={{
+                        fontFamily: "Sarabun",
+                        fontSize: 11,
+                        fill: "#8ab5a0",
+                      }}
+                    />
+                    <Tooltip
+                      contentStyle={tooltipStyle}
+                      formatter={(v: any) => v.toLocaleString("th-TH") + " ฿"}
+                    />
+                    <Legend
+                      formatter={(v) =>
+                        v === "revenue"
+                          ? "รายรับ"
+                          : v === "expenses"
+                            ? "รายจ่าย"
+                            : "กำไรสุทธิ"
+                      }
+                      wrapperStyle={{ fontFamily: "Sarabun", fontSize: 13 }}
+                    />
+                    <Bar
+                      dataKey="revenue"
+                      fill="#10b981"
+                      radius={[6, 6, 0, 0]}
+                      name="revenue"
+                    />
+                    <Bar
+                      dataKey="expenses"
+                      fill="#ef4444"
+                      radius={[6, 6, 0, 0]}
+                      name="expenses"
+                    />
+                    <Bar
+                      dataKey="netProfit"
+                      fill="#3b82f6"
+                      radius={[6, 6, 0, 0]}
+                      name="netProfit"
+                    />
+                  </BarChart>
+                ) : period === "year" ? (
                   <LineChart
                     data={
                       summaryData?.year?.monthlyChartData ||

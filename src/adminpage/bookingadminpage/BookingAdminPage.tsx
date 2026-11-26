@@ -67,7 +67,6 @@ const BookingAdminPage = () => {
           term: searchTerm,
           receiptBookNo: selectedReceiptBookNo,
           status: selectedReceiptStatus,
-          //todo เพิ่ม filter status ด้วย
         }),
       ).unwrap();
       setBookingDatas(
@@ -187,7 +186,7 @@ const BookingAdminPage = () => {
             {receiptStatus.map((item, i) => (
               <option key={i} value={item}>
                 {item === BookingStatus.PENDING
-                  ? "รอดำเนินการ"
+                  ? "รอชำระ"
                   : item === BookingStatus.PAID
                     ? "ชำระแล้ว"
                     : item === BookingStatus.COMPLETED

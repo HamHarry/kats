@@ -46,7 +46,10 @@ export interface EmploymentInfo {
   salaryInfo?: SalaryInfoData;
 }
 
-export interface EmployeeDataForm extends Omit<EmployeeData, "employmentInfo" | "delete"> {
+export interface EmployeeDataForm extends Omit<
+  EmployeeData,
+  "employmentInfo" | "delete"
+> {
   employmentInfo: EmploymentInfoForm;
 }
 
