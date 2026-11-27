@@ -125,6 +125,7 @@ const DashBoardPage = () => {
     name: b.name,
     phone: b.tel,
     car: `${b.carType} ${b.carModel}`.trim(),
+    province: `${b.licensePlate} ${b.province}`.trim(),
     product: b.product?.name,
     price: b.price?.amount,
     status: b.status,
@@ -297,6 +298,9 @@ const DashBoardPage = () => {
                               </p>
                               <p>
                                 <strong>รถ:</strong> {item.car || "-"}
+                              </p>
+                              <p>
+                                <strong>ทะเบียน:</strong> {item.province || "-"}
                               </p>
                               <p>
                                 <strong>สินค้า:</strong> {item.product || "-"}
