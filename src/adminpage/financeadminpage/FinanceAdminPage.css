@@ -506,6 +506,11 @@
   .header-financeAdminPage h1 {
     margin-left: 50px;
   }
+
+  .finance-range-note {
+    display: flex;
+    justify-content: center;
+  }
   .finance-controls {
     width: 100%;
     flex-direction: column;

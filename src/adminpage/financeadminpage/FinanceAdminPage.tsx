@@ -19,13 +19,7 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-import {
-  Calendar,
-  TrendingDown,
-  TrendingUp,
-  Wallet,
-  Percent,
-} from "lucide-react";
+import { TrendingDown, TrendingUp, Wallet, Percent } from "lucide-react";
 
 const expenseCategoryLabels: { [key: string]: string } = {
   FUEL: "เชื้อเพลิง",
@@ -396,7 +390,7 @@ const FinanceAdminPage = () => {
           {/* Date range (รายเดือน) */}
           {period === "month" && (
             <div className="finance-date-range">
-              <Calendar size={16} />
+              {/* <Calendar size={16} /> */}
               <input
                 type="date"
                 value={startDate}
@@ -414,7 +408,6 @@ const FinanceAdminPage = () => {
           {/* Month range (ช่วงเวลา เช่น 2025-2026) */}
           {period === "range" && (
             <div className="finance-date-range">
-              <Calendar size={16} />
               <input
                 type="month"
                 value={rangeStart}

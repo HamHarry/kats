@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import CircleLoading from "../../shared/circleLoading";
 import "./DashBoardPage.css";
 import { EmployeeData } from "../../model/employee.type";
@@ -12,6 +12,8 @@ import { DashboardSummary } from "../../model/dashboard.type";
 import dayjs from "dayjs";
 import { DeleteStatus } from "../../model/delete.type";
 import { useNavigate } from "react-router-dom";
+import { getAllBookings } from "../../stores/slices/bookingSlice";
+import { BookingData } from "../../model/booking.type";
 
 const thaiMonths = [
   "มกราคม",
@@ -41,15 +43,41 @@ const DashBoardPage = () => {
   const navigate = useNavigate();
 
   const [isDashBoardLoading, setIsDashBoardLoading] = useState<boolean>(false);
+  const [bookingDatas, setBookingDatas] = useState<BookingData[]>([]);
   const [employeeData, setEmployeeData] = useState<EmployeeData[]>([]);
   const [currentTime, setCurrentTime] = useState(new Date());
   const [attendMap, setAttendMap] = useState<AttendMap>({});
   const [summaryData, setSummaryData] = useState<DashboardSummary>();
+  const [slideIndex, setSlideIndex] = useState<number>(0);
+  const [isSlidePaused, setIsSlidePaused] = useState<boolean>(false);
+  const [touchStartX, setTouchStartX] = useState<number | null>(null);
 
   const dayName = thaiDays[currentTime.getDay()];
   const date = currentTime.getDate();
   const month = thaiMonths[currentTime.getMonth()];
   const year = currentTime.getFullYear() + 543;
+
+  /* ── data booking fetching ──────────────────────────────────── */
+  const fetchAllBooking = useCallback(async () => {
+    try {
+      setIsDashBoardLoading(true);
+      const { data: bookingsRes = [] } =
+        await dispath(getAllBookings()).unwrap();
+      setBookingDatas(
+        bookingsRes.filter(
+          (item: BookingData) => item.delete === DeleteStatus.ISNOTDELETE,
+        ),
+      );
+    } catch (err) {
+      console.log(err);
+    } finally {
+      setIsDashBoardLoading(false);
+    }
+  }, [dispath]);
+
+  useEffect(() => {
+    fetchAllBooking();
+  }, [fetchAllBooking]);
 
   /* ── fetch employees ──────────────────────────────── */
   const fetchAllEmployee = useCallback(async () => {
@@ -90,6 +118,52 @@ const DashBoardPage = () => {
     fetchSummaryData();
   }, [fetchSummaryData]);
 
+  /* ── today's booking helper ───────────────────────────── */
+  const mapBooking = (b: BookingData) => ({
+    date: b.bookDate,
+    time: b.bookTime,
+    name: b.name,
+    phone: b.tel,
+    car: `${b.carType} ${b.carModel}`.trim(),
+    product: b.product?.name,
+    price: b.price?.amount,
+    status: b.status,
+  });
+
+  const getBookingDateTime = (
+    date: string,
+    time: string,
+  ): dayjs.Dayjs | null => {
+    if (!date) return null;
+    const day = dayjs(date).format("YYYY-MM-DD");
+    const dt = dayjs(`${day} ${time || "00:00"}`, "YYYY-MM-DD HH:mm");
+    return dt.isValid() ? dt : null;
+  };
+
+  /** คิวทั้งหมดของวันปัจจุบัน โดยรองรับตารางรับประกัน */
+  const getTodayBookings = (bookings: BookingData[], today: dayjs.Dayjs) => {
+    return bookings
+      .flatMap((b) => {
+        const mapped = mapBooking(b);
+        const schedules = b.guarantees?.length
+          ? b.guarantees.map((guarantee) => ({
+              date: guarantee.serviceDate,
+              time: guarantee.serviceTime,
+            }))
+          : [{ date: mapped.date, time: mapped.time }];
+
+        return schedules.map((schedule) => ({
+          booking: b,
+          dt: getBookingDateTime(schedule.date, schedule.time),
+        }));
+      })
+      .filter(
+        (x): x is { booking: BookingData; dt: dayjs.Dayjs } =>
+          x.dt !== null && x.dt.isSame(today, "day"),
+      )
+      .sort((a, b) => a.dt.valueOf() - b.dt.valueOf());
+  };
+
   /* ── clock ────────────────────────────────────────── */
   useEffect(() => {
     const id = setInterval(() => setCurrentTime(new Date()), 1000);
@@ -101,6 +175,42 @@ const DashBoardPage = () => {
     minute: "2-digit",
     hour12: false,
   });
+
+  /* ── today's bookings ───────────────────────────────── */
+  const todayMinute = dayjs(currentTime).format("YYYY-MM-DD HH:mm");
+
+  const todayBookings = useMemo(
+    () => getTodayBookings(bookingDatas, dayjs(todayMinute)),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [bookingDatas, todayMinute],
+  );
+
+  /* ── slider: keep index in range when list changes ── */
+  useEffect(() => {
+    if (slideIndex >= todayBookings.length) setSlideIndex(0);
+  }, [todayBookings.length, slideIndex]);
+
+  /* ── slider: auto play every 5s (pause on hover/touch) ── */
+  useEffect(() => {
+    if (todayBookings.length <= 1 || isSlidePaused) return;
+    const id = setInterval(() => {
+      setSlideIndex((prev) => (prev + 1) % todayBookings.length);
+    }, 5000);
+    return () => clearInterval(id);
+  }, [todayBookings.length, isSlidePaused, slideIndex]);
+
+  const goToSlide = (index: number) => {
+    const total = todayBookings.length;
+    if (!total) return;
+    setSlideIndex((index + total) % total);
+  };
+
+  const handleTouchEnd = (endX: number) => {
+    if (touchStartX === null) return;
+    const diff = touchStartX - endX;
+    if (Math.abs(diff) > 40) goToSlide(slideIndex + (diff > 0 ? 1 : -1));
+    setTouchStartX(null);
+  };
 
   /* ── attendance toggle per employee ──────────────── */
   const setEmployeeAttend = (id: string, status: AttendStatus) => {
@@ -143,32 +253,82 @@ const DashBoardPage = () => {
       <div className="wrap-container-dashBoradAdminPage">
         {/* ── Summary Cards ─────────────────────────────── */}
         <div className="navbar-dashboard">
-          {/* Card 1 – Next booking */}
+          {/* Card 1 – Today's bookings */}
           <div className="grid-dashboard">
-            <h2>คันต่อไปที่จะดำเนินการ</h2>
+            <h2>คิวของวันปัจจุบันทั้งหมด</h2>
             <div className="wrap-grid-showBooking">
-              <div className="grid-showBooking-left">
-                <img src="/assets/LOGOWEB.jpg" alt="logo" />
-              </div>
               <div className="grid-showBooking-right">
-                <p>
-                  <strong>วันที่:</strong> 08/10/2025
-                </p>
-                <p>
-                  <strong>เวลา:</strong> 12:00
-                </p>
-                <p>
-                  <strong>ชื่อ:</strong> คุณ ณัฐวุติ
-                </p>
-                <p>
-                  <strong>เบอร์:</strong> 0812345678
-                </p>
-                <p>
-                  <strong>รถ:</strong> Toyota Fortuner
-                </p>
-                <p>
-                  <strong>สินค้า:</strong> GUN Premium 4,900 บาท
-                </p>
+                {todayBookings.length ? (
+                  <>
+                    <div
+                      className="booking-slider"
+                      onMouseEnter={() => setIsSlidePaused(true)}
+                      onMouseLeave={() => setIsSlidePaused(false)}
+                      onTouchStart={(e) => {
+                        setIsSlidePaused(true);
+                        setTouchStartX(e.touches[0].clientX);
+                      }}
+                      onTouchEnd={(e) => {
+                        handleTouchEnd(e.changedTouches[0].clientX);
+                        setIsSlidePaused(false);
+                      }}
+                    >
+                      <div
+                        className="booking-slider-track"
+                        style={{
+                          transform: `translateX(-${slideIndex * 100}%)`,
+                        }}
+                      >
+                        {todayBookings.map(({ booking, dt }) => {
+                          const item = mapBooking(booking);
+                          return (
+                            <div
+                              className="today-booking-slide"
+                              key={`${booking._id ?? booking.number}-${dt.valueOf()}`}
+                            >
+                              <span className="slide-time">
+                                {dt.format("HH:mm")} น.
+                              </span>
+                              <p>
+                                <strong>ชื่อ:</strong> {item.name || "-"}
+                              </p>
+                              <p>
+                                <strong>เบอร์:</strong> {item.phone || "-"}
+                              </p>
+                              <p>
+                                <strong>รถ:</strong> {item.car || "-"}
+                              </p>
+                              <p>
+                                <strong>สินค้า:</strong> {item.product || "-"}
+                                {item.price != null &&
+                                  ` ${formatNumberWithComma(item.price)} บาท`}
+                              </p>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </div>
+
+                    <div className="slider-footer">
+                      <div className="slider-dots">
+                        {todayBookings.map(({ booking, dt }, i) => (
+                          <button
+                            type="button"
+                            key={`dot-${booking._id ?? booking.number}-${dt.valueOf()}`}
+                            className={`slider-dot${i === slideIndex ? " active" : ""}`}
+                            aria-label={`คิวที่ ${i + 1}`}
+                            onClick={() => goToSlide(i)}
+                          />
+                        ))}
+                      </div>
+                      {/* <span className="slider-counter">
+                        {slideIndex + 1}/{todayBookings.length}
+                      </span> */}
+                    </div>
+                  </>
+                ) : (
+                  <p className="no-booking-text">ไม่มีคิวในวันปัจจุบัน</p>
+                )}
               </div>
             </div>
           </div>

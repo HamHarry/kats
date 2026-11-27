@@ -174,7 +174,7 @@
 /* ─── Next Booking Card Content ──────────────────────── */
 .wrap-grid-showBooking {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 14px;
   padding-top: 4px;
 }
@@ -190,12 +190,13 @@
 .grid-showBooking-right {
   display: flex;
   flex-direction: column;
-  padding-left: 6px;
-  gap: 3px;
+  flex: 1;
+  min-width: 0;
+  gap: 10px;
 }
 
 .grid-showBooking-right p {
-  font-size: 0.82rem;
+  font-size: 0.85rem;
   color: var(--text-secondary);
   margin: 0;
 }
@@ -203,6 +204,109 @@
 .grid-showBooking-right p strong {
   color: var(--text-primary);
   font-weight: 600;
+}
+
+.no-booking-text {
+  padding-top: 6px;
+}
+
+/* ─── Today Booking Slider ───────────────────────────── */
+.booking-slider {
+  overflow: hidden;
+  border-radius: 12px;
+  background: linear-gradient(
+    135deg,
+    rgba(4, 57, 41, 0.05),
+    rgba(16, 185, 129, 0.05)
+  );
+  border: 1px solid var(--border);
+}
+
+.booking-slider-track {
+  display: flex;
+  transition: transform 0.5s cubic-bezier(0.22, 0.8, 0.3, 1);
+  will-change: transform;
+}
+
+.today-booking-slide {
+  flex: 0 0 100%;
+  min-width: 0;
+  box-sizing: border-box;
+  padding: 10px 14px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.today-booking-slide p {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.slide-time {
+  align-self: flex-start;
+  font-family: "Rajdhani", sans-serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: #fff;
+  background: linear-gradient(135deg, var(--accent-gun), #0a6644);
+  padding: 2px 16px;
+  border-radius: var(--radius-badge);
+  margin-bottom: 4px;
+}
+
+.slider-footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  min-height: 14px;
+}
+
+.slider-dots {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  max-width: 100%;
+  overflow: hidden;
+}
+
+.slider-dot {
+  width: 8px;
+  height: 8px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: var(--text-muted);
+  opacity: 0.55;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition:
+    width 0.3s ease,
+    background 0.3s ease,
+    opacity 0.3s ease;
+}
+
+.slider-dot:hover {
+  opacity: 1;
+}
+
+.slider-dot.active {
+  width: 22px;
+  border-radius: 8px;
+  background: var(--accent-gun);
+  opacity: 1;
+}
+
+.slider-counter {
+  position: absolute;
+  right: 0;
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  letter-spacing: 0.04em;
 }
 
 /* ─── Total Booking Card Content ─────────────────────── */
