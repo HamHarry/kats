@@ -244,6 +244,29 @@
   white-space: nowrap;
 }
 
+.slide-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 12px;
+}
+
+.slide-col {
+  min-width: 0;
+  padding: 2px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.slide-row-bottom {
+  grid-column: 1 / -1;
+  min-width: 0;
+  padding: 2px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
 .slide-time {
   align-self: flex-start;
   font-family: "Rajdhani", sans-serif;

@@ -291,26 +291,37 @@ const DashBoardPage = () => {
                               <span className="slide-time">
                                 {dt.format("HH:mm")} น.
                               </span>
-                              <p>
-                                <strong>เลขที่:</strong> {item.number || "-"}
-                              </p>
-                              <p>
-                                <strong>ชื่อ:</strong> {item.name || "-"}
-                              </p>
-                              <p>
-                                <strong>เบอร์:</strong> {item.phone || "-"}
-                              </p>
-                              <p>
-                                <strong>รถ:</strong> {item.car || "-"}
-                              </p>
-                              <p>
-                                <strong>ทะเบียน:</strong> {item.province || "-"}
-                              </p>
-                              <p>
-                                <strong>สินค้า:</strong> {item.product || "-"}
-                                {item.price != null &&
-                                  ` ${formatNumberWithComma(item.price)} บาท`}
-                              </p>
+                              <div className="slide-grid">
+                                <div className="slide-col slide-col-left">
+                                  <p>
+                                    <strong>ชื่อ:</strong> {item.name || "-"}
+                                  </p>
+                                  <p>
+                                    <strong>เบอร์:</strong> {item.phone || "-"}
+                                  </p>
+                                </div>
+                                <div className="slide-col slide-col-right">
+                                  <p>
+                                    <strong>เลขที่:</strong>{" "}
+                                    {item.number || "-"}
+                                  </p>
+                                  <p>
+                                    <strong>รถ:</strong> {item.car || "-"}
+                                  </p>
+                                </div>
+                                <div className="slide-row-bottom">
+                                  <p>
+                                    <strong>ทะเบียน:</strong>{" "}
+                                    {item.province || "-"}
+                                  </p>
+                                  <p>
+                                    <strong>สินค้า:</strong>{" "}
+                                    {item.product || "-"}
+                                    {item.price != null &&
+                                      ` ${formatNumberWithComma(item.price)} บาท`}
+                                  </p>
+                                </div>
+                              </div>
                             </div>
                           );
                         })}
