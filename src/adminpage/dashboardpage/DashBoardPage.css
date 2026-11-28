@@ -196,7 +196,7 @@
 }
 
 .grid-showBooking-right p {
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   color: var(--text-secondary);
   margin: 0;
 }
@@ -247,7 +247,7 @@
 .slide-time {
   align-self: flex-start;
   font-family: "Rajdhani", sans-serif;
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   font-weight: 700;
   letter-spacing: 0.05em;
   color: #fff;

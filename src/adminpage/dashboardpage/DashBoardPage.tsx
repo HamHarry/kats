@@ -122,6 +122,7 @@ const DashBoardPage = () => {
   const mapBooking = (b: BookingData) => ({
     date: b.bookDate,
     time: b.bookTime,
+    number: b.number,
     name: b.name,
     phone: b.tel,
     car: `${b.carType} ${b.carModel}`.trim(),
@@ -290,6 +291,9 @@ const DashBoardPage = () => {
                               <span className="slide-time">
                                 {dt.format("HH:mm")} น.
                               </span>
+                              <p>
+                                <strong>เลขที่:</strong> {item.number || "-"}
+                              </p>
                               <p>
                                 <strong>ชื่อ:</strong> {item.name || "-"}
                               </p>
